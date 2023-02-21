@@ -1,0 +1,12 @@
+*{
+   margin: 0;
+   padding: 0
+   
+}
+
+
+
+@import "./Components/assets/css/bootstrap-datepicker.min.css";
+@import "./Components/assets/css/custom.css";
+@import "./Components/assets/css/material.css";
+@import "./Components/assets/css/media.css";

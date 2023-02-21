@@ -1,0 +1,22 @@
+#bannerservices{
+    position: relative;
+    left: 110vh;
+    width: 80%;
+}
+
+
+
+
+
+
+@media (max-width:992px) {
+    #bannerservices{
+        position: relative;
+        left: 0vh;
+        width: 80%;
+    }
+    #bannerservices{
+        display: block;
+    }
+
+}

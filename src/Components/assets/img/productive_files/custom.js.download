@@ -1,0 +1,157 @@
+$(document).ready(function () {
+  $(".smooth_scroll").on('click', function (event) {
+    if (this.hash !== "") {
+      event.preventDefault();
+      var hash = this.hash;
+      $('html, body').animate({
+        scrollTop: $(hash).offset().top
+      }, 800, function () { });
+    } // End if
+  });
+});
+
+
+
+var service_carousel = $('#service_carousel').owlCarousel({
+  loop: true,
+  margin: 10,
+  nav: false,
+  responsive: {
+    0: {
+      items: 1
+    },
+    600: {
+      items: 2
+    },
+    1000: {
+      items: 3
+    }
+  }
+});
+
+$('#service_carousel_next').click(function () {
+  service_carousel.trigger('next.owl.carousel');
+});
+$('#service_carousel_prev').click(function () {
+  service_carousel.trigger('prev.owl.carousel');
+});
+
+var service_carousel1 = $('#service_carousel1').owlCarousel({
+  loop: true,
+  margin: 10,
+  nav: false,
+  responsive: {
+    0: {
+      items: 1
+    },
+    600: {
+      items: 2
+    },
+    1000: {
+      items: 3
+    }
+  }
+});
+
+$('#service_carousel1_next').click(function () {
+  service_carousel1.trigger('next.owl.carousel');
+});
+$('#service_carousel1_prev').click(function () {
+  service_carousel1.trigger('prev.owl.carousel');
+});
+
+
+var service_carousel1 = $('#profile_wizard_carousel').owlCarousel({
+  loop: true,
+  margin: 10,
+  nav: false,
+  autoplay: true,
+  autoplayTimeout: 1500,
+  autoplayHoverPause: true,
+  responsive: {
+    0: {
+      items: 1
+    },
+    600: {
+      items: 1
+    },
+    1000: {
+      items: 1
+    }
+  }
+});
+
+
+var select_service_carousel = $('#select_service_carousel').owlCarousel({
+  loop: true,
+  margin: 1,
+  nav: false,
+  responsive: {
+    0: {
+      items: 1
+    },
+    600: {
+      items: 3
+    },
+    1000: {
+      items: 3
+    }
+  }
+});
+
+
+var addons_carousel = $('#addons_carousel').owlCarousel({
+  loop: true,
+  margin: 1,
+  nav: false,
+  autoplay: true,
+  autoplayTimeout: 1500,
+  autoplayHoverPause: true,
+  responsive: {
+    0: {
+      items: 1
+    },
+    600: {
+      items: 3
+    },
+    1000: {
+      items: 3
+    }
+  }
+});
+
+
+function toggle_navigation() {
+  var target = document.getElementById('navigation');
+
+  if (target.getAttribute('active') == null) {
+    target.setAttribute('active', '');
+  }
+  else {
+    target.removeAttribute('active');
+  }
+}
+
+function toggle_sidebar() {
+  var target = document.getElementById('sidebar');
+
+  if (target.getAttribute('active') == null) {
+    target.setAttribute('active', '');
+  }
+  else {
+    target.removeAttribute('active');
+  }
+}
+
+
+function service_drpdwn() {
+  event.preventDefault();
+
+  var target = document.getElementById('service_drpdwn');
+  if (target.getAttribute('active') == null) {
+    target.setAttribute('active', '');
+  }
+  else {
+    target.removeAttribute('active');
+  }
+}
