@@ -27,7 +27,7 @@ function App() {
             <Route path="/services/massage_on_demand" element={<MessageDemand />} />
             <Route path="/services/corporate_events" element={<CorporateEvents />} />
             <Route path="/services/private_events" element={<PrivateEvents />} />
-            <Route path="/about" element={<About />} />
+            <Route path="/about" element={<About />} /> 
           </Routes>
           <Footer/>
         </BrowserRouter>
