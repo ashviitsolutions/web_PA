@@ -39,22 +39,22 @@ function Banner() {
             return res.json();
         }).then((data) => {
             console.log("data", data)
-            setImages(data.attachments[0])
+            setImages(data.attachments)
             setuser(data)
            
         })
     }, [id])
   
-    const fetchImage = async () => {
-        const res = await fetch(`http://45.13.132.197:4000/api/file/${images}`);
-        const imageBlob = await res.blob();
-        const imageObjectURL = URL.createObjectURL(imageBlob);
-        setImg(imageObjectURL);
-      };
-    
-      useEffect(() => {
+  
+    useEffect(() => {
+        const fetchImage = async () => {
+          const res = await fetch(`http://45.13.132.197:4000/api/file/${images}`);
+          const imageBlob = await res.blob();
+          const imageObjectURL = URL.createObjectURL(imageBlob);
+          setImg(imageObjectURL);
+        };
         fetchImage();
-      },[images]);
+      }, [images]);
   
   
     return (

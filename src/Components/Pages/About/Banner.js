@@ -1,7 +1,7 @@
 import React, {useState ,useEffect} from 'react'
 
 function Banner() {
-  const id="63f4c0f81e627c34fc1b7a2d"
+  const id="63f49c8a1e627c34fc1b74f4"
 
   
   const [ images, setImages]=useState([])
@@ -16,22 +16,22 @@ function Banner() {
           return res.json();
       }).then((data) => {
           console.log("data", data)
-          setImages(data.attachments[0])
+          setImages(data.attachments);
           setuser(data)
          
       })
   }, [id])
 
-  const fetchImage = async () => {
+
+  useEffect(() => {
+    const fetchImage = async () => {
       const res = await fetch(`http://45.13.132.197:4000/api/file/${images}`);
       const imageBlob = await res.blob();
       const imageObjectURL = URL.createObjectURL(imageBlob);
       setImg(imageObjectURL);
     };
-  
-    useEffect(() => {
-      fetchImage();
-    },[images]);
+    fetchImage();
+  }, [images]);
 
   return (
     <>

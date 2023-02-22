@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 // import { fetchProducts, fetchImage } from '../Redux/productSlice';
 
 function Banner() {
-  const id = '63f49f9c1e627c34fc1b7607';
+  const id = '63f0cad81e627c34fc1b58e9';
   // const [img, setImg] = useState('');
 
 
@@ -39,22 +39,24 @@ function Banner() {
           return res.json();
       }).then((data) => {
           console.log("data", data)
-          setImages(data.attachments[0])
+          setImages(data.attachments)
           setuser(data)
          
       })
   }, [id])
 
-  const fetchImage = async () => {
+
+  
+  useEffect(() => {
+    const fetchImage = async () => {
       const res = await fetch(`http://45.13.132.197:4000/api/file/${images}`);
       const imageBlob = await res.blob();
       const imageObjectURL = URL.createObjectURL(imageBlob);
       setImg(imageObjectURL);
     };
-  
-    useEffect(() => {
-      fetchImage();
-    },[images]);
+    fetchImage();
+  }, [images]);
+
 
 
 
@@ -69,8 +71,8 @@ function Banner() {
         <div className="container">
           <div className="row">
             <div className="head">
-              <h1>{user && user.title}</h1>
-              <h3 dangerouslySetInnerHTML={{ __html: user && user.description }} />
+              <h1>{user && user.title} <span>{user && user.excerpt}</span></h1>
+              <h3 dangerouslySetInnerHTML={{ __html: user && user.description }} style={{fontWeight:"500", fontSize:"15px"}}/>
               <button className="primary button small" type="button">
                 get started
               </button>

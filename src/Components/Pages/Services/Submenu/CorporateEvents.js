@@ -12,7 +12,7 @@ import Image9 from "../../../assets/img/works/move.svg"
 // import { fetchProducts, fetchImage } from '../../Redux/productSlice';
 function Corporate_Events() {
 
-  const id='63f48db11e627c34fc1b73e9'
+  const id='63f48daf1e627c34fc1b73e1'
   // const [img, setImg] = useState('');
 
   // const dispatch = useDispatch();
@@ -44,23 +44,22 @@ function Corporate_Events() {
           return res.json();
       }).then((data) => {
           console.log("data", data)
-          setImages(data.attachments[0])
+          setImages(data.attachments)
           setuser(data)
          
       })
   }, [id])
 
-  const fetchImage = async () => {
+
+  useEffect(() => {
+    const fetchImage = async () => {
       const res = await fetch(`http://45.13.132.197:4000/api/file/${images}`);
       const imageBlob = await res.blob();
       const imageObjectURL = URL.createObjectURL(imageBlob);
       setImg(imageObjectURL);
     };
-  
-    useEffect(() => {
-      fetchImage();
-    },[images]);
-
+    fetchImage();
+  }, [images]);
 
 
 
