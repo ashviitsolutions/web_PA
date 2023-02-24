@@ -12,14 +12,14 @@ function Teams() {
       <div className="row">
         <div className="gutter">
           <div className="heading">
-            <h3>Our Team</h3>
+            <h3 >Our Team</h3>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
           </div>
         </div>
       </div>
-      <div className="row">
+      <div className="row justify-content-center" >
         <div className="col-sm-4">
-          <div className="item_wrapper">
+          <div className="item_wrapper" >
             <div className="className_brief item card layer1">
               <div className="bg" style={{ backgroundImage: `url(${Image1})` ,borderRadius:"7px"}}>
               </div>

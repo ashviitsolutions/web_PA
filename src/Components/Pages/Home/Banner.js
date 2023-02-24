@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 // import { fetchProducts, fetchImage } from '../Redux/productSlice';
 
 function Banner() {
-  const id = '63f0cad81e627c34fc1b58e9';
+  // const id = '63f0cad81e627c34fc1b58e9';
   // const [img, setImg] = useState('');
 
 
@@ -26,38 +26,71 @@ function Banner() {
 
 
 
-  const [ images, setImages]=useState([])
-  const [img, setImg] = useState();
+  // const [ images, setImages]=useState([])
+  // const [img, setImg] = useState();
 
-  const [user , setuser]=useState([])
-
-
+  // const [user , setuser]=useState([])
 
 
-  useEffect(() => {
-      fetch(`http://45.13.132.197:4000/api/post/fetch/${id}`).then((res) => {
-          return res.json();
-      }).then((data) => {
-          console.log("data", data)
-          setImages(data.attachments)
-          setuser(data)
+
+
+  // useEffect(() => {
+  //     fetch(`http://45.13.132.197:4000/api/post/fetch/${id}`).then((res) => {
+  //         return res.json();
+  //     }).then((data) => {
+  //         console.log("data", data)
+  //         setImages(data.attachments)
+  //         setuser(data)
          
-      })
-  }, [id])
+  //     })
+  // }, [id])
 
 
   
+  // useEffect(() => {
+  //   const fetchImage = async () => {
+  //     const res = await fetch(`http://45.13.132.197:4000/api/file/${images}`);
+  //     const imageBlob = await res.blob();
+  //     const imageObjectURL = URL.createObjectURL(imageBlob);
+  //     setImg(imageObjectURL);
+  //   };
+  //   fetchImage();
+  // }, [images]);
+
+  const postIds = ['63f0cad81e627c34fc1b58e9'];
+  const [users, setUsers] = useState([]);
+  const [images, setImages] = useState([]);
+  const [img, setImg] = useState('');
+  
   useEffect(() => {
-    const fetchImage = async () => {
-      const res = await fetch(`http://45.13.132.197:4000/api/file/${images}`);
-      const imageBlob = await res.blob();
-      const imageObjectURL = URL.createObjectURL(imageBlob);
-      setImg(imageObjectURL);
-    };
-    fetchImage();
+      async function fetchData() {
+          const responses = await Promise.all(
+              postIds.map(async id => {
+                  const res = await fetch(`http://45.13.132.197:4000/api/post/fetch/${id}`);
+                  return res.json();
+              })
+          );
+          setUsers(responses[0]);
+          setImages(responses.flatMap(response => response.attachments));
+      }
+      fetchData();
+  }, []);
+  
+  useEffect(() => {
+      async function fetchImages() {
+          const imageObjects = await Promise.all(
+              images.map(async image => {
+                  const res = await fetch(`http://45.13.132.197:4000/api/file/${image}`);
+                  const imageBlob = await res.blob();
+                  return URL.createObjectURL(imageBlob);
+              })
+          );
+          setImg(imageObjects); // Set the first image URL as the state value
+      }
+      if (images.length > 0) {
+          fetchImages();
+      }
   }, [images]);
-
-
 
 
 
@@ -71,8 +104,8 @@ function Banner() {
         <div className="container">
           <div className="row">
             <div className="head">
-              <h1>{user && user.title} <span>{user && user.excerpt}</span></h1>
-              <h3 dangerouslySetInnerHTML={{ __html: user && user.description }} style={{fontWeight:"500", fontSize:"15px"}}/>
+              <h1>{users.title} <span>{users.excerpt}</span></h1>
+              <h3 dangerouslySetInnerHTML={{ __html: users.description }} style={{fontWeight:"500", fontSize:"15px"}}/>
               <button className="primary button small" type="button">
                 get started
               </button>

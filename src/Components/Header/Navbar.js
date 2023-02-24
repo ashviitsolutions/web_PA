@@ -42,24 +42,24 @@ function Navbar() {
                                 <Link to="/about">about us</Link>
                             </li>
                             <li>
-                                <Link to="giftcard.php">gift card</Link>
+                                <Link to="/giftcard">gift card</Link>
                             </li>
                             <li>
-                                <Link to="contact.php">contact us</Link>
+                                <Link to="/contact">contact us</Link>
                             </li>
                             <li>
-                                <Link to="become_member.php">membership</Link>
+                                <Link to="/become_member">membership</Link>
                             </li>
                             <li>
-                                <Link to="provider.php">become provider</Link>
+                                <Link to="/provider">become provider</Link>
                             </li>
                             <li className="withicon">
                                 <span className="icon" ></span>
-                                <Link to="select_location.php">Book now</Link>
+                                <Link to="/select_location">Book now</Link>
                             </li>
                             <li className="withicon">
                                 <span className="icon" ></span>
-                                <Link to="login.php">login</Link>     
+                                <Link to="/login">login</Link>     
                             </li>
                             <div className="app_buttons">
                             <Link to="https://play.google.com/store/apps" target="_blank"><img style={{maxWidth:"180px"}} src={Images1} alt=""/></Link>

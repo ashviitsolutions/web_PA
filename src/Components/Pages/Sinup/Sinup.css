@@ -1,0 +1,13 @@
+.heading h3 {
+    font-size: 22px;
+    text-transform: capitalize;
+    font-weight: 800;
+    color: #0f1538;
+    text-align: center;
+    justify-content: center;
+    padding-left: 20vh;
+}
+
+.sign_in_form{
+    height: 70%;
+}
