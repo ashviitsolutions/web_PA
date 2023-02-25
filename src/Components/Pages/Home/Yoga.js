@@ -7,39 +7,30 @@ function Yoga() {
     const postIds = ['63f898655a71849662bd1755', '63f89bb15a71849662bd1a8b', '63f89c1e5a71849662bd1ac2'];
 
     const [users, setUsers] = useState([]);
-    const [images, setImages] = useState([]);
     const [img, setImg] = useState('');
     
     useEffect(() => {
         async function fetchData() {
-            const responses = await Promise.all(
-                postIds.map(async id => {
-                    const res = await fetch(`http://45.13.132.197:4000/api/post/fetch/${id}`);
-                    return res.json();
-                })
-            );
-            setUsers(responses);
-            setImages(responses.flatMap(response => response.attachments));
+          const responses = await Promise.all(
+            postIds.map(async id => {
+              const res = await fetch(`http://45.13.132.197:4000/api/post/fetch/${id}`);
+              return res.json();
+              
+            })
+          );
+          setUsers(responses);
+          setImg(
+            await Promise.all(
+              responses.flatMap(response => response.attachments).map(async image => {
+                const res = await fetch(`http://45.13.132.197:4000/api/file/${image}`);
+                const imageBlob = await res.blob();
+                return URL.createObjectURL(imageBlob);
+              })
+            )
+          );
         }
         fetchData();
-    }, []);
-    
-    useEffect(() => {
-        async function fetchImages() {
-            const imageObjects = await Promise.all(
-                images.map(async image => {
-                    const res = await fetch(`http://45.13.132.197:4000/api/file/${image}`);
-                    const imageBlob = await res.blob();
-                    return URL.createObjectURL(imageBlob);
-                })
-            );
-            setImg(imageObjects); // Set the first image URL as the state value
-        }
-        if (images.length > 0) {
-            fetchImages();
-        }
-    }, [images]);
-
+      }, [])
 
 
     return (

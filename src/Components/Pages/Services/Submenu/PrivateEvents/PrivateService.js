@@ -1,12 +1,22 @@
 import React, { useState, useEffect } from 'react'
-import Image1 from "../../assets/img/pexels-cottonbro-3997983.jpg"
+import { Link } from 'react-router-dom'
+// import Corporate from '../../Home/Corporate'
+import PrivateEvents from './PrivateEvents'
+import Faq from '../../../Home/Faq'
+import Worklist from '../Coroporate/Worklist'
 
-function Ourpage() {
-  const postIds = ['63fa02a506e32e14932327bb', '63fa02df06e32e14932327d1'];
+function Private_Events() {
+
+
+  const postIds = ['63f9f69006e32e1493232416', '63f9f6e806e32e149323242a'];
   const [users1, setUsers1] = useState([]);
   const [img, setImg] = useState('');
 
   const [users2, setUsers2] = useState([]);
+
+
+
+
 
   useEffect(() => {
     async function fetchData() {
@@ -31,53 +41,55 @@ function Ourpage() {
     }
     fetchData();
   }, []);
+
+
   return (
     <>
-      <div id="alternate_post">
+      <div id="small_banner" style={{
+        backgroundImage: `url(${img[0]})`,
+        borderRadius: '7px',
+      }}>
         <div className="container">
           <div className="row">
             <div className="col-sm-6">
-            <div className="bg" style={{
-              backgroundImage: `url(${img[0]})`,
-              borderRadius: '7px',
-          }}>
-          </div>
-            </div>
-            <div className="col-sm-6" >
-              <div className="heading" >
-                <h3>{users1.title}</h3>
-                <p id='storypara'  dangerouslySetInnerHTML={{ __html: users1.description }} />
+              <div className="head">
+
+                <h1>{users1.title}</h1>
+                <h3 dangerouslySetInnerHTML={{ __html: users1.description }} style={{ paddingLeft: "66px" }}  />
               </div>
-            </div>
-          </div>
-
-
-          <div className="row">
-            <div className="col-sm-6">
-              <div className="heading">
-                <h3>{users2.title}</h3>
-                <p  id='storypara' dangerouslySetInnerHTML={{ __html: users2.description }} style={{ paddingLeft: "66px" }} />
-                <ul className="true">
-                  <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit, </li>
-                  <li>sed do eiusmod tempor incididunt ut labore</li>
-                  <li>ea commodo consequat. Duis aute irure dolor in reprehenderit </li>
-                </ul>
-
-              </div>
-            </div>
-            <div className="col-sm-6">
-            <div className="bg" style={{
-              backgroundImage: `url(${img[1]})`,
-              borderRadius: '7px',
-          }}>
-          </div>
             </div>
           </div>
         </div>
       </div>
 
+      <div id="alternate_post">
+        <div className="container">
+          <div className="row">
+            <div className="col-sm-6">
+              <div className="bg" style={{
+                backgroundImage: `url(${img[1]})`,
+                borderRadius: '7px',
+            }}>
+              </div>
+            </div>
+            <div className="col-sm-6">
+              <div className="heading">
+                <h3>{users2.title}</h3>
+                <p dangerouslySetInnerHTML={{ __html: users2.description }} style={{ paddingLeft: "66px" }} />
+
+
+                <button className="button" type="button" name="button">book now</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+   <PrivateEvents/>
+   <Worklist/>
+      <Faq />
     </>
   )
 }
 
-export default Ourpage
+export default Private_Events

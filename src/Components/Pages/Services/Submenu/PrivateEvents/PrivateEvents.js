@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 // import Imge4 from "../../assets/img/pexels-andrea-piacquadio-3764568.jpg"
 
 
-function Corporate() {
+function PrivateEvents() {
 
-const postIds = ['63f89ed75a71849662bd1bb7', '63f89f065a71849662bd1bdd', '63f8a05e5a71849662bd1c05'];
+const postIds = ['63f9f7c006e32e149323247e', '63f9f7c406e32e149323248b', '63f9f7c706e32e1493232499'];
 
 const [users, setUsers] = useState([]);
 const [img, setImg] = useState('');
@@ -42,7 +42,7 @@ useEffect(() => {
                     <div className="row">
                         <div className="gutter">
                             <div className="heading">
-                                <h3 >corporate event services</h3>
+                                <h3 >Private Event Services</h3>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                             </div>
                         </div>
@@ -91,4 +91,4 @@ useEffect(() => {
     )
 }
 
-export default Corporate
+export default PrivateEvents

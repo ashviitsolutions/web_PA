@@ -1,37 +1,35 @@
 import React, {useState ,useEffect} from 'react'
 
 function Banner() {
-  const id="63f49c8a1e627c34fc1b74f4"
-
-  
-  const [ images, setImages]=useState([])
-  const [img, setImg] = useState();
-
-  const [user , setuser]=useState([])
 
 
+  const postIds = ['63fa025b06e32e1493232788'];
+  const [users, setUsers] = useState([]);
+const [img, setImg] = useState('');
 
-  useEffect(() => {
-      fetch(`http://45.13.132.197:4000/api/post/fetch/${id}`).then((res) => {
+useEffect(() => {
+    async function fetchData() {
+      const responses = await Promise.all(
+        postIds.map(async id => {
+          const res = await fetch(`http://45.13.132.197:4000/api/post/fetch/${id}`);
           return res.json();
-      }).then((data) => {
-          console.log("data", data)
-          setImages(data.attachments);
-          setuser(data)
-         
-      })
-  }, [id])
+          
+        })
+      );
+      setUsers(responses[0]);
+      setImg(
+        await Promise.all(
+          responses.flatMap(response => response.attachments).map(async image => {
+            const res = await fetch(`http://45.13.132.197:4000/api/file/${image}`);
+            const imageBlob = await res.blob();
+            return URL.createObjectURL(imageBlob);
+          })
+        )
+      );
+    }
+    fetchData();
+  }, [])
 
-
-  useEffect(() => {
-    const fetchImage = async () => {
-      const res = await fetch(`http://45.13.132.197:4000/api/file/${images}`);
-      const imageBlob = await res.blob();
-      const imageObjectURL = URL.createObjectURL(imageBlob);
-      setImg(imageObjectURL);
-    };
-    fetchImage();
-  }, [images]);
 
   return (
     <>
@@ -40,8 +38,8 @@ function Banner() {
       <div className="row">
         <div className="col-sm-6">
           <div className="head" id="bannerservices">
-          <h1>{user && user.title}</h1>
-          <h3 dangerouslySetInnerHTML={{ __html: user && user.description }} />
+          <h1>{users.title} <span>{users.excerpt}</span></h1>
+          <h3 dangerouslySetInnerHTML={{ __html: users.description }} style={{fontWeight:"500", fontSize:"15px"}}/>
           </div>
         </div>
       </div>

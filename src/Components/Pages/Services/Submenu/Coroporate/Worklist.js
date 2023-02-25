@@ -1,107 +1,12 @@
-import React, {useState,useEffect} from 'react'
-import Corporate from '../../Home/Corporate'
-import Faq from '../../Home/Faq'
+import React from 'react'
 import { Link } from 'react-router-dom'
-// import Image1 from "../../../assets/img/Ronin+PT25.jpg"
-import Image2 from "../../../assets/img/pexels-cottonbro-3997983.jpg"
-import Image7 from "../../../assets/img/works/test.svg"
-import Image8 from "../../../assets/img/works/agreement.svg"
-import Image9 from "../../../assets/img/works/move.svg"
-
-// import { useDispatch, useSelector } from 'react-redux';
-// import { fetchProducts, fetchImage } from '../../Redux/productSlice';
-function Corporate_Events() {
-
-  const id='63f48daf1e627c34fc1b73e1'
-  // const [img, setImg] = useState('');
-
-  // const dispatch = useDispatch();
-
-  // const user = useSelector((state) => state.product.data);
-
-  // useEffect(() => {
-  //   dispatch(fetchProducts(id));
-  // }, [dispatch, id]);
-
-  // useEffect(() => {
-  //   if (img === '' && user && user.attachments) {
-  //     dispatch(fetchImage(user.attachments[0])).then((result) => {
-  //       setImg(result.payload);
-  //     });
-  //   }
-  // }, [dispatch, user, img]);
-
-  const [ images, setImages]=useState([])
-  const [img, setImg] = useState();
-
-  const [user , setuser]=useState([])
-
-
-
-
-  useEffect(() => {
-      fetch(`http://45.13.132.197:4000/api/post/fetch/${id}`).then((res) => {
-          return res.json();
-      }).then((data) => {
-          console.log("data", data)
-          setImages(data.attachments)
-          setuser(data)
-         
-      })
-  }, [id])
-
-
-  useEffect(() => {
-    const fetchImage = async () => {
-      const res = await fetch(`http://45.13.132.197:4000/api/file/${images}`);
-      const imageBlob = await res.blob();
-      const imageObjectURL = URL.createObjectURL(imageBlob);
-      setImg(imageObjectURL);
-    };
-    fetchImage();
-  }, [images]);
-
-
-
+import Image7 from "../../../../assets/img/works/test.svg"
+import Image8 from "../../../../assets/img/works/agreement.svg"
+import Image9 from "../../../../assets/img/works/move.svg"
+function Worklist() {
   return (
     <>
-    <div id="small_banner" style={{ backgroundImage: `url(${img})` ,borderRadius:"7px"}}>
-    <div className="container">
-      <div className="row">
-        <div className="col-sm-6">
-          <div className="head">
-        
-          <h1>{user && user.title}</h1>
-          <h3 dangerouslySetInnerHTML={{ __html: user && user.description }} />
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div id="alternate_post">
-    <div className="container">
-      <div className="row">
-        <div className="col-sm-6">
-          <div className="bg" style={{ backgroundImage: `url(${Image2})` ,borderRadius:"7px"}}>
-          </div>
-        </div>
-        <div className="col-sm-6">
-          <div className="heading">
-            <h3>Employee Wellness</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.</p>
-
-            <button className="button" type="button" name="button">book now</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <Corporate/>
-
-
-  <div id="talent">
+    <div id="talent">
     <div className="container">
       <div className="row">
         <div className="col-sm-7">
@@ -185,10 +90,8 @@ function Corporate_Events() {
       </div>
     </div>
   </div>
-
-  <Faq/>
     </>
   )
 }
 
-export default Corporate_Events
+export default Worklist

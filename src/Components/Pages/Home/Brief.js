@@ -11,7 +11,7 @@ function Brief() {
                     <div className="row">
                         <div className="col-sm-offset-1 col-sm-10">
                             <div className="container-fluid" id='videofile'>
-                                <div className="col-sm-6">
+                                <div className="col-sm-6" >
                                     <div className="content heading">
                                         <h3>Become <span>a member</span>.</h3>
                                         <h5>Consult now to know how you can improve your lifestyle.</h5>
