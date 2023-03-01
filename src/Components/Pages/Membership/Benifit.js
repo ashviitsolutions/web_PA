@@ -45,7 +45,7 @@ function Benifit() {
             </div>
 
 
-            <div id="brief" className="members">
+            <div id="brief" className="members" style={{marginTop:"-2rem"}}>
                 <div className="container">
                     <div className="row">
                         <div className="heading content">
@@ -113,9 +113,9 @@ function Benifit() {
                 </div>
             </div>
 
-            <div style={{textAlign:"center", marginTop:"-10vh" , marginBottom:"10vh"}}>
+            <div  >
                 <Link to="book">
-                    <button class="button">get started</button>
+                    <button id="memershipbutton" class="button">get started</button>
                 </Link>
             </div>
         </>

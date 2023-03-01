@@ -55,7 +55,7 @@ function Private_Events() {
               <div className="head">
 
                 <h1>{users1.title}</h1>
-                <h3 dangerouslySetInnerHTML={{ __html: users1.description }} style={{ paddingLeft: "66px" }}  />
+                <h3 dangerouslySetInnerHTML={{ __html: users1.description }}   />
               </div>
             </div>
           </div>

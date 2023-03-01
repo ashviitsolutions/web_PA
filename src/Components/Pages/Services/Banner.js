@@ -1,28 +1,10 @@
 import React,{useState,useEffect} from 'react'
-// import { useDispatch, useSelector } from 'react-redux';
-// import { fetchProducts, fetchImage } from '../Redux/productSlice';
-// import Image1 from "../../assets/img/treatment-finger-keep-hand-161477.jpeg"
+
 
 
 function Banner() {
     const id="63f4861c1e627c34fc1b7389"
-    // const [img, setImg] = useState('');
-
-    // const dispatch = useDispatch();
-  
-    // const user = useSelector((state) => state.product.data);
-  
-    // useEffect(() => {
-    //   dispatch(fetchProducts(id));
-    // }, [dispatch, id]);
-  
-    // useEffect(() => {
-    //   if (img === '' && user && user.attachments) {
-    //     dispatch(fetchImage(user.attachments[0])).then((result) => {
-    //       setImg(result.payload);
-    //     });
-    //   }
-    // }, [dispatch, user, img]);
+ 
 
 
 
