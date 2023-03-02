@@ -4,7 +4,7 @@ export const fetchImage = createAsyncThunk('products/fetchImage', async (image) 
   const res = await fetch(`http://45.13.132.197:4000/api/file/${image}`);
   const imageBlob = await res.blob();
   const imageurl = URL.createObjectURL(imageBlob);
-  return imageurl;
+  return { id: image, url: imageurl };
 });
 
 export const fetchProducts = createAsyncThunk('products/fetchProducts', async (id) => {
@@ -17,6 +17,7 @@ const productSlice = createSlice({
   name: 'product',
   initialState: {
     data: [],
+    images: {},
     isLoading: false,
     isError: false
   },
@@ -33,11 +34,15 @@ const productSlice = createSlice({
       .addCase(fetchProducts.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
+      })
+      .addCase(fetchImage.fulfilled, (state, action) => {
+        state.images[action.payload.id] = action.payload.url;
       });
   },
 });
 
 export const selectData = (state) => state.product.data;
+export const selectImage = (state, id) => state.product.images[id];
 export const selectIsLoading = (state) => state.product.isLoading;
 export const selectIsError = (state) => state.product.isError;
 

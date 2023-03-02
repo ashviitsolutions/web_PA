@@ -1,11 +1,37 @@
-import React from 'react'
+import React,{useState , useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from 'axios';
 
 function Contact() {
-
+    const postIds = ['64007afb61c43a17d60e95b4'];
+    const [users, setUsers] = useState([]);
+  const [img, setImg] = useState('');
+  
+  useEffect(() => {
+      async function fetchData() {
+        const responses = await Promise.all(
+          postIds.map(async id => {
+            const res = await fetch(`http://45.13.132.197:4000/api/post/fetch/${id}`);
+            return res.json();
+            
+          })
+        );
+        setUsers(responses[0]);
+        setImg(
+          await Promise.all(
+            responses.flatMap(response => response.attachments).map(async image => {
+              const res = await fetch(`http://45.13.132.197:4000/api/file/${image}`);
+              const imageBlob = await res.blob();
+              return URL.createObjectURL(imageBlob);
+            })
+          )
+        );
+      }
+      fetchData();
+    }, [])
+  
     const initialValues = {
         name: "",
         contact_number: "",
@@ -40,7 +66,7 @@ function Contact() {
     return (
         <>
 
-            <div id="contact_us">
+            <div id="contact_us"  style={{ backgroundImage: `url(${img})` }}>
                 <div className="container" style={{marginTop:"70px"}}>
                     <div className="row">
                         <div className="col-sm-6">
@@ -52,11 +78,11 @@ function Contact() {
                                 <div className="content">
                                     <div className="">
                                         <p>you can call us on </p>
-                                        <Link to="tel: 9876543210"><span className="phone">9876543210</span></Link>
+                                        <Link to="tel: 9876543210"><span className="phone">{users.title}</span></Link>
                                     </div>
                                     <div className="">
                                         <p>or write to us on </p>
-                                        <Link to="mailto:info@productivealliance.com"><span className="phone">info@productivealliance.com</span></Link>
+                                        <Link to="mailto:info@productivealliance.com"><span className="phone">{users.excerpt}</span></Link>
                                     </div>
                                 </div>
                             </div>

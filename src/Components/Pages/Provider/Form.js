@@ -1,10 +1,37 @@
-import React from 'react'
+import React,{useState , useEffect} from 'react'
 // import { Link } from 'react-router-dom'
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from 'axios';
 
 function FormPage() {
+    const postIds = ['64007d3561c43a17d60e9662'];
+    const [users, setUsers] = useState([]);
+  const [img, setImg] = useState('');
+  
+  useEffect(() => {
+      async function fetchData() {
+        const responses = await Promise.all(
+          postIds.map(async id => {
+            const res = await fetch(`http://45.13.132.197:4000/api/post/fetch/${id}`);
+            return res.json();
+            
+          })
+        );
+        setUsers(responses[0]);
+        setImg(
+          await Promise.all(
+            responses.flatMap(response => response.attachments).map(async image => {
+              const res = await fetch(`http://45.13.132.197:4000/api/file/${image}`);
+              const imageBlob = await res.blob();
+              return URL.createObjectURL(imageBlob);
+            })
+          )
+        );
+      }
+      fetchData();
+    }, [])
+  
     const initialValues = {
         first_name: "",
         last_name: "",
@@ -212,8 +239,8 @@ function FormPage() {
                     </div>
 
                     <div className="col-sm-6">
-                        <div className="gutter">
-                            <div className="member_form_wrap_bg">
+                        <div className="gutter" style={{ backgroundImage: `url(${img})` }}>
+                            <div className="member_form_wrap_bg" style={{ backgroundImage: `url(${img})` }}>
                             </div>
                         </div>
                     </div>

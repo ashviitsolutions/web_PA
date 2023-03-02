@@ -1,104 +1,154 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
 import "./Login.css"
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import axios from 'axios';
-function Login() {
-    const initialValues = {
+// import axios from 'axios';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
+function Login() {
+    const [toggle, setToggle] = useState(false)
+    const loginguser = localStorage.getItem("token")
+    const nav = useNavigate()
+
+    useEffect(() => {
+        const auth = localStorage.getItem("token")
+        if (auth) {
+            nav('/')
+        }
+    })
+    // const nav=useNavigate()
+    const initialValues = {
         email: "",
         password: "",
 
     };
     const SignupSchema = Yup.object().shape({
         email: Yup.string().required("Required"),
-        password: Yup.string().required("Required"),
+        password: Yup.string().required("required")
+        // .required("required")
+        // .min(6, "atlist 8 character password is required")
+        // .matches(
+        //   /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+        //   "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and one special case Character"
+        // ),
 
 
     });
-    const onSubmit = async (values, { setValues, resetForm }) => {
-        console.log(values);
-        alert("hii")
+    const onSubmit = async (values, { resetForm }) => {
+        console.log(values)
+ 
+        resetForm({ values: "" });
+        let data = { "email": values.email, "password": values.password }
         try {
-            const bodyFormData = new FormData();
-            bodyFormData.append("email", values.email);
-            bodyFormData.append("password", values.password);
+            const resp = await fetch("http://45.13.132.197:4000/login", {
+                method: "POST",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data)
+            });
+            console.log(resp)
+            const token = resp.headers.get('Authorization');
+            const result = await resp.json();
+            console.log(result)
 
-            const res = await axios.post("http://45.13.132.197:4000/login", bodyFormData);
-            console.log(res);
+
+
+            if (resp.status === 200) {
+                localStorage.setItem("users", JSON.stringify(result));
+                localStorage.setItem("token", token);
+                nav("/")
+            } else {
+                setToggle(true)
+            }
 
         } catch (error) {
-            console.error(error);
+            console.log("Error show", error)
+
         }
+
+
+
     };
 
     return (
-        <>
+        <div id="login_page">
+            <div className="container">
+                <div className="row" style={{ textAlign: "center" }}>
+                    <Formik
+                        initialValues={initialValues}
+                        validationSchema={SignupSchema}
+                        onSubmit={onSubmit}
+                    >
+                        {({ errors, touched, }) => (
+                            <Form className="sign_in_form">
+                                <div className="heading">
+                                    <h3 id='signtexxt'>Sign In</h3>
+                                </div>
 
-            <div id="login_page">
-                <div className="container">
-                    <div className="row" style={{ textAlign: "center" }}>
-
-
-                        <Formik
-                            initialValues={initialValues}
-                            validationSchema={SignupSchema}
-                            onSubmit={onSubmit}
-                        >
-
-                            {({ errors, touched, setFieldValue, values }) => (
-
-                                <Form className="sign_in_form">
-                                    <div className="heading">
-                                        <h3 id='signtexxt'>Sign In</h3>
-                                    </div>
-                                    <div className="input_group">
-                                        <Field
-                                            className="input"
-                                            name="email"
-                                            type="text"
-                                            placeholder=""
-                                        />
-                                        {errors.email && touched.email ? (
-                                            <div>{errors.email}</div>
-                                        ) : null}
-                                        <label htmlFor="">E-mail</label>
-                                        <span className="highlight"></span>
-                                    </div>
-                                    <div style={{ height: "5px" }}>
-                                    </div>
-                                    <div className="input_group">
-                                        <Field
-                                            className="input"
-                                            name="password"
-                                            type="text"
-                                            placeholder=""
-                                        />
-                                        {errors.password && touched.password ? (
-                                            <div>{errors.password}</div>
-                                        ) : null}
-                                        <label htmlFor="">password</label>
-                                        <span className="highlight"></span>
-                                    </div>
-                                    <Link to="#" style={{ background: 0, color: "#707070" }}>forget password ?</Link>
-                       
-                                        <div className="input_group">
-                                            <button type="submit" className="button">sign in</button>
-                                        </div>
+                                <div className="input_group">
+                                    <Field
+                                        className="input"
+                                        name="email"
+                                        type="text"
+                                        placeholder=""
+                                    />
+                                    {errors.email && touched.email ? (
+                                        <div>{errors.email}</div>
+                                    ) : null}
+                                    <label htmlFor="">E-mail</label>
+                                    <span className="highlight"></span>
+                                </div>
+                                <div style={{ height: "5px" }}>
+                                </div>
+                                <div className="input_group">
+                                    <Field
+                                        className="input"
+                                        name="password"
+                                        type="text"
+                                        placeholder=""
+                                    />
+                                    {errors.password && touched.password ? (
+                                        <div>{errors.password}</div>
+                                    ) : null}
+                                    <label htmlFor="">password</label>
                 
-                                    <span>Don't have an account? <Link to="/sign_up" className="anchor" style={{ textDecoration: "none" }}>Sign Up</Link> </span>
+                                </div>
+                                <Link to="#" style={{ background: 0, color: "#707070" }}>forget password ?</Link>
+
+                                <div className="input_group" style={{ textDecoration: "none" , paddingTop:"1px" }}>
+                                    <button className="button" type="submit"
+
+                                    >sign in</button>
+                                    <span >Don't have an account? <Link to="/sign_up" className="anchor" >Sign Up</Link> </span>
 
                                     <button className="button gmail_login" > <span className="ico"></span> Sign In with Gmail</button>
-                                </Form>
-                            )}
+                                    {
+                                        toggle ? (
+                                            <div id="notification_holder">
+                                                {!loginguser ? (
+                                                    <div className='notificatioerror'>
+                                                        <h3 id='errorshow'>Invalid credentials</h3>
+                                                    </div>
+                                                ) : (<h3>Success</h3>)
+                                                }
+                                            </div>
+                                        ) : null
+                                    }
+                                </div>
 
-                        </Formik>
 
-                    </div>
+
+                            </Form>
+                        )}
+                    </Formik>
+
+
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

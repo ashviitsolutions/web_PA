@@ -2095,7 +2095,7 @@ ul.true li::after {
   width: 100%;
   min-height: 100vh;
   margin-top: 60px;
-  background: url('../img/pexels-sergey-torbik-7365442.jpg');
+  /* background: url('../img/pexels-sergey-torbik-7365442.jpg'); */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -2310,7 +2310,7 @@ ul.true li::after {
   display: block;
   width: 100%;
   height: 560px;
-  background-image: url('../img/43547063_s.jpg');
+  /* background-image: url('../img/43547063_s.jpg') */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -2328,6 +2328,7 @@ ul.true li::after {
   padding: 50px 25px;
   border-radius: 8px;
   box-shadow: 4px 10px 20px 1px #00000059;
+  margin-bottom: 20px;
 }
 
 .sign_in_form .button {
@@ -2346,15 +2347,17 @@ ul.true li::after {
 
 #login_page {
   position: relative;
+  overflow: auto;
   display: block;
   width: 100%;
   min-height: 100vh;
-  padding-top: 150px;
+  padding-top:90px;
   background: url('../img/pexels-sergey-torbik-7365442.jpg');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   padding-bottom: 100px;
+  overflow: hidden;
 }
 
 #login_page::before {
@@ -2404,7 +2407,7 @@ ul.true li::after {
   left: 0;
   width: 100%;
   height: 50%;
-  background: url('../img/pexels-andrea-piacquadio-3764568.jpg');
+  /* background: url('../img/pexels-andrea-piacquadio-3764568.jpg'); */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
