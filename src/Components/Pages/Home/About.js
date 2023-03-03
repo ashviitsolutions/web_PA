@@ -56,7 +56,7 @@ function About() {
           <div className="row">
             <div className="col-sm-6">
               <div className="left_half">
-                <img className="img-responsive" src={img} alt="..." style={{borderRadius:"12px" , height:"50vh",paddingLeft:"10vh"}}/>
+                <img className="img-responsive" src={img} alt="..." />
               </div>
             </div>
             <div className="col-sm-6">

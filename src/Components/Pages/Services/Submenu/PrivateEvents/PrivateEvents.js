@@ -5,7 +5,11 @@ import { Link } from 'react-router-dom';
 
 
 function PrivateEvents() {
+  const [activeCardIndex, setActiveCardIndex] = useState(null);
 
+  const handleReadMoreClick = (index) => {
+    setActiveCardIndex(index);
+  };
 const postIds = ['63f9f7c006e32e149323247e', '63f9f7c406e32e149323248b', '63f9f7c706e32e1493232499'];
 
 const [users, setUsers] = useState([]);
@@ -64,9 +68,21 @@ useEffect(() => {
                                             }}
                                           ></div>
                                           <div className="text content">
-                                            <h3>{user.title}</h3>
-                                            <p dangerouslySetInnerHTML={{ __html: user.description }} />
+                                          <p dangerouslySetInnerHTML={{ __html: index === activeCardIndex
+                                            ? user.description
+                                            : user.description.slice(0, 138) + (user.description.length > 138 ? "...." : "") }} />
+            
+            
                                             <div className="text">
+                                            {index === activeCardIndex ? (
+                                              <button onClick={() => handleReadMoreClick(null)}  className="Read_More">
+                                                Show less
+                                              </button>
+                                            ) : (
+                                              <button onClick={() => handleReadMoreClick(index)} className="Read_More">
+                                                Read more
+                                              </button>
+                                            )}
                                               <Link to="#" className="anchor" id="anchors">
                                                 book now
                                               </Link>

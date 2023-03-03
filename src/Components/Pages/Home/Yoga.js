@@ -3,7 +3,7 @@ import React , {useState , useEffect} from 'react'
 
 
 function Yoga() {
-
+  const [activeCardIndex, setActiveCardIndex] = useState(null);
     const postIds = ['63f898655a71849662bd1755', '63f89bb15a71849662bd1a8b', '63f89c1e5a71849662bd1ac2'];
 
     const [users, setUsers] = useState([]);
@@ -31,7 +31,9 @@ function Yoga() {
         }
         fetchData();
       }, [])
-
+      const handleReadMoreClick = (index) => {
+        setActiveCardIndex(index);
+      };
 
     return (
         <>
@@ -54,8 +56,20 @@ function Yoga() {
                                             }}
                                           ></div>
                                           <div className="content">
-                                            <h3>{user.title}</h3>
-                                            <p dangerouslySetInnerHTML={{ __html: user.description }} />
+                                          <h3>{user.title}</h3>
+                                          <p dangerouslySetInnerHTML={{ __html: index === activeCardIndex
+                                            ? user.description
+                                            : user.description.slice(0, 138) + (user.description.length > 138 ? "...." : "") }} />
+          
+                                            {index === activeCardIndex ? (
+                                              <button onClick={() => handleReadMoreClick(null)}  className="Read_More">
+                                                Show less
+                                              </button>
+                                            ) : (
+                                              <button onClick={() => handleReadMoreClick(index)} className="Read_More">
+                                                Read more
+                                              </button>
+                                            )}
                                             <button className="button small" type="button">book now</button>
                                           </div>
                                         </div>

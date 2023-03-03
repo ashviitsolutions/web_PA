@@ -3,6 +3,11 @@ import { Link } from 'react-router-dom'
 
 
 function EventService() {
+  const [activeCardIndex, setActiveCardIndex] = useState(null);
+
+  const handleReadMoreClick = (index) => {
+    setActiveCardIndex(index);
+  };
     const postIds = ['63f8dce775a30d0813b95d50', '63f8dd0775a30d0813b95d64','63f8dd2975a30d0813b95d7e'];
     
       const [users, setUsers] = useState([]);
@@ -73,9 +78,21 @@ function EventService() {
                                             }}
                                           ></div>
                                           <div className="text content">
-                                            <h3>{user.title}</h3>
-                                            <p dangerouslySetInnerHTML={{ __html: user.description }} />
+                                          <p dangerouslySetInnerHTML={{ __html: index === activeCardIndex
+                                            ? user.description
+                                            : user.description.slice(0, 138) + (user.description.length > 138 ? "...." : "") }} />
+            
+            
                                             <div className="text">
+                                            {index === activeCardIndex ? (
+                                              <button onClick={() => handleReadMoreClick(null)}  className="Read_More">
+                                                Show less
+                                              </button>
+                                            ) : (
+                                              <button onClick={() => handleReadMoreClick(index)} className="Read_More">
+                                                Read more
+                                              </button>
+                                            )}
                                               <Link to="#" className="anchor" id="anchors">
                                                 book now
                                               </Link>

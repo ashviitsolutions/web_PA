@@ -41,7 +41,7 @@ function Employee() {
                         <div className="col-sm-6">
                             <div className="heading">
                             <h3>{users.title}</h3>
-                            <p dangerouslySetInnerHTML={{ __html: users.description }} style={{ paddingLeft: "66px" }}/>
+                            <p dangerouslySetInnerHTML={{ __html: users.description }} />
 
                                 <button className="button" type="button" name="button">book now</button>
                             </div>

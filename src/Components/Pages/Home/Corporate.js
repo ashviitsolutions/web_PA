@@ -23,6 +23,11 @@ const responsive = {
 };
 
 function Corporate() {
+  const [activeCardIndex, setActiveCardIndex] = useState(null);
+
+  const handleReadMoreClick = (index) => {
+    setActiveCardIndex(index);
+  };
 
   const postIds = ['63f89ed75a71849662bd1bb7', '63f89f065a71849662bd1bdd', '63f8a05e5a71849662bd1c05'];
 
@@ -103,30 +108,42 @@ function Corporate() {
                   <div className="container-fluid" id='showcard'>
                       <div className="row">
                       {users.map((user, index) => (
-                          <div className="col-sm-4 col-xs-12" key={user._id}>
-                            <div className="item_wrapper">
-                              <div className="item">
-                                <div
-                                  className="bg"
-                                  style={{
-                                    backgroundImage: `url(${img[index]})`,
-                                    borderRadius: '7px',
-                                  }}
-                                ></div>
-                                <div className="text content">
-                                  <h3>{user.title}</h3>
-                                  <p dangerouslySetInnerHTML={{ __html: user.description }} />
-                                  <div className="text">
-                                    <Link to="#" className="anchor" id="anchors">
-                                      book now
-                                    </Link>
-                                  </div>
+                        <div className="col-sm-4 col-xs-12" key={user._id}>
+                          <div className="item_wrapper">
+                            <div className="item">
+                              <div
+                                className="bg"
+                                style={{
+                                  backgroundImage: `url(${img[index]})`,
+                                  borderRadius: '7px',
+                                }}
+                              ></div>
+                              <div className="text content">
+                                <h3>{user.title}</h3>
+                                <p dangerouslySetInnerHTML={{ __html: index === activeCardIndex
+                                  ? user.description
+                                  : user.description.slice(0, 138) + (user.description.length > 138 ? "...." : "") }} />
+
+
+                                <div className="text">
+                                  {index === activeCardIndex ? (
+                                    <button onClick={() => handleReadMoreClick(null)}  className="Read_More">
+                                      Show less
+                                    </button>
+                                  ) : (
+                                    <button onClick={() => handleReadMoreClick(index)} className="Read_More">
+                                      Read more
+                                    </button>
+                                  )}
+                                  <Link to="#" className="anchor" id="anchors">
+                                    book now
+                                  </Link>
                                 </div>
                               </div>
                             </div>
                           </div>
-                        ))}
-                          
+                        </div>
+                      ))}
                       </div>
                   </div>
               </div>

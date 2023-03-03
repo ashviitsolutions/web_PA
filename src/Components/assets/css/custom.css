@@ -53,7 +53,7 @@ a {
   color: initial;
 }
 
-a:hover,                                                  anchor
+a:hover,                                                 
 a:focus {
   color: initial;
   outline: none;
@@ -536,6 +536,9 @@ body {
 }
 
 #types .button {
+  position: relative;
+  float: right;
+  margin-right: 10px;
   text-transform: uppercase;
   padding-top: 11px;
   padding-bottom: 8px;
@@ -546,9 +549,9 @@ body {
   background: #fff;
   border: 1px dashed #afafaf;
   box-shadow: none;
-  position: absolute;
+  /* position: absolute; */
   bottom: 0;
-  left: 0;
+  /* left: 0; */
 }
 
 #types .button:hover {
@@ -1714,16 +1717,20 @@ body {
 }
 
 #provider .heading {
+  position: relative;
   padding-right: 100px;
   margin-top: 100px;
+  width: 41rem;
+  padding-left: 9rem;
 }
 
-#download_app {
+#download_app .heading  {
   position: relative;
   display: block;
-  width: 100%;
-  min-height: 400px;
-  padding: 100px 0px;
+  padding-right: 100px;
+  margin-top: 100px;
+  width: 41rem;
+  padding-left: 8rem;
 }
 
 #small_banner {
@@ -1774,7 +1781,12 @@ body {
 }
 
 #alternate_post .heading {
-  padding: 55px;
+  padding: 3px;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  padding-left: 6rem;
+  padding-top: 6rem;
 }
 
 #member_cta {
@@ -3730,6 +3742,7 @@ ul.true li::after {
 /* Home section changes */
 #anchors{
   position: relative;
+  float: right;
   display: inline-block;
   font-weight: 400;
   font-size: 11px;
@@ -3740,6 +3753,7 @@ ul.true li::after {
   border: 1px solid #a4b2b9;
   border-radius: 20px;
   padding: 5px 27px;
+  margin-right: 10px;
 }
 #anchors:hover{
   /* display: none !important; */
@@ -3810,6 +3824,14 @@ ul.true li::after {
   padding: 7px 0px;
   border-top: 1px solid #dedede;
 }
+
+img.img-responsive {
+  border-radius: 12px;
+  height: 50vh;
+  padding-left: 10vh;
+  width: 100%;
+}
+
 
 /* services */
 #servicecart:hover{
@@ -3896,6 +3918,10 @@ ul.true li::after {
 #memershipbutton{
   position: relative;
   top: -3rem;
-  left: 40rem !important;
+  left: 42rem !important;
 }
+
+
+
+
 

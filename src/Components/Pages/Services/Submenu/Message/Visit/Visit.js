@@ -52,7 +52,7 @@ function Visit() {
                     <div className="heading">
                         <h3>{users1.title}</h3>
                         <h4 >{users1.excerpt}</h4>
-                        <p dangerouslySetInnerHTML={{ __html: users1.description }} style={{ paddingLeft: "66px" }} />
+                        <p dangerouslySetInnerHTML={{ __html: users1.description }}  />
 
                         <button className="button" type="button" name="button">book now</button>
                     </div>
@@ -66,7 +66,7 @@ function Visit() {
                 <h3>{users2.title}</h3>
                 <h4 >{users2.excerpt}</h4>
 
-                <p dangerouslySetInnerHTML={{ __html: users2.description }} style={{ paddingLeft: "66px" }} />
+                <p dangerouslySetInnerHTML={{ __html: users2.description }}  />
 
                     <button className="button" type="button" name="button">book now</button>
                 </div>

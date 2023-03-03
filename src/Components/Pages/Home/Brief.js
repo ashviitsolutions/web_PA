@@ -39,7 +39,7 @@ function Brief() {
                             </div>
                         </div>
                         <div className="row">
-                            <div className="heading content">
+                            <div className="heading content" style={{marginTop:"10vh"}}>
                                 <h3 className="dancing">advantages</h3>
                                 <p>Lorem ipsum dolor sit amet</p>
                                 <span className="eff"></span>

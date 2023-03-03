@@ -49,7 +49,7 @@ function Faq() {
         <>
             <div className="container">
                 <div className="row">
-                    <div className="heading content mt-5">
+                    <div className="heading content mt-5 " id='faqtext'>
                         <h3>FAQ<small>(s)</small> </h3>
                         <p>Lorem ipsum dolor sit amet</p>
                     </div>

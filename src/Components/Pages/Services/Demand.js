@@ -4,6 +4,11 @@ import { Link } from 'react-router-dom'
 
 
 function Demand() {
+  const [activeCardIndex, setActiveCardIndex] = useState(null);
+
+  const handleReadMoreClick = (index) => {
+    setActiveCardIndex(index);
+  };
   const postIds = [
     '63f8db8075a30d0813b95cd8', '63f8dbc675a30d0813b95cec',
    '63f8dbf075a30d0813b95d00','63f8dc8475a30d0813b95d14', '63f8dca875a30d0813b95d28', '63f8dcc775a30d0813b95d3c'
@@ -75,9 +80,21 @@ function Demand() {
                                 }}
                               ></div>
                               <div className="text content">
-                                <h3>{user.title}</h3>
-                                <p dangerouslySetInnerHTML={{ __html: user.description }} />
+                              <p dangerouslySetInnerHTML={{ __html: index === activeCardIndex
+                                ? user.description
+                                : user.description.slice(0, 138) + (user.description.length > 138 ? "...." : "") }} />
+
+
                                 <div className="text">
+                                {index === activeCardIndex ? (
+                                  <button onClick={() => handleReadMoreClick(null)}  className="Read_More">
+                                    Show less
+                                  </button>
+                                ) : (
+                                  <button onClick={() => handleReadMoreClick(index)} className="Read_More">
+                                    Read more
+                                  </button>
+                                )}
                                   <Link to="#" className="anchor" id="anchors">
                                     book now
                                   </Link>

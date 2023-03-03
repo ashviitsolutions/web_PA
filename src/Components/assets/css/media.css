@@ -200,6 +200,29 @@
         font-size: 12px;
     }
 
+.img-responsive{
+    position: relative;
+    width: 100%;
+    left: -1.5rem;
+    width: 100%;
+
+}
+
+
+
+
+
+#faq_page {
+    position: relative;
+    display: block;
+    margin: 27px 0px;
+    width: 95%;
+    margin-left: .7rem;
+}
+
+
+
+
     #brief {
         margin-top: 12px;
         padding-bottom: 0px;
@@ -227,20 +250,41 @@
         padding: 0 !important;
         margin-top: 25px;
     }
+    #download_app .heading  {
+        margin-top: 30px;
+        text-align: center;
+        padding: 0px 10px;
+        width: 113%;
+        padding-left: 63px;
+      }
+      
 
     #provider .heading {
         margin-top: 30px;
         text-align: center;
         padding: 0px 10px;
-        margin-bottom: 25px;
+        width: 113%;
+        padding-left: 63px;
     }
 
     #provider .right_half {
         height: 300px;
         width: 90%;
-        left: 5%;
+        left: 4%;
         top: 25px;
         border-radius: 10px;
+    }
+
+    .right_half #right_half_image{
+        height: 15rem;
+        width: 100%;
+    }
+
+    #messagebannerdown {
+        text-align: center;
+        justify-content: space-around;
+        margin-top: 6.5rem !important;
+        margin-left: 3.2rem !important;
     }
 
     #footer {
@@ -259,12 +303,26 @@
         padding: 0px 15px;
         text-align: center;
         height: auto;
+        width: 100%;
         padding-bottom: 60px;
     }
 
     #alternate_post .heading {
-        padding: 15px;
+        padding: 3px;
+        justify-content: center;
+        text-align: center;
+        width: 100%;
+        padding-left: 6rem;
     }
+
+    #faqtext{
+        position: relative;
+        justify-content: center;
+        text-align: center;
+        padding-left: 80px;
+    }
+
+
 
     #member_cta {
         padding: 0px 14px;
@@ -291,6 +349,7 @@
 
     #contact_us .heading {
         margin-top: -150px;
+        padding-left: 4rem;
     }
 
     #contact_us .heading h3 {
@@ -299,6 +358,8 @@
 
     #contact_us .heading p {
         font-size: 13px;
+        margin-top: -150px;
+        padding-left: 4rem;
     }
 
     #membership_benifits .content ul li {
@@ -498,10 +559,19 @@
 
 #memershipbutton{
     position: relative;
-    left: 10rem;
+    top: -1rem;
+    left: 6rem;
  
   }
 
+  element.style {
+}
+
+.sign_in_form {
+    height: 70%;
+    position: relative;
+    left: -7rem;
+}
 /*extra small end*/
 /*small*/
 @media (min-width:768px) {}

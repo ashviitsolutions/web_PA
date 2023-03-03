@@ -75,7 +75,7 @@ function Private_Events() {
             <div className="col-sm-6">
               <div className="heading">
                 <h3>{users2.title}</h3>
-                <p dangerouslySetInnerHTML={{ __html: users2.description }} style={{ paddingLeft: "66px" }} />
+                <p dangerouslySetInnerHTML={{ __html: users2.description }}  />
 
 
                 <button className="button" type="button" name="button">book now</button>

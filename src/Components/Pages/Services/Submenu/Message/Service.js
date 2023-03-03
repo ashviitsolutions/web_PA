@@ -2,7 +2,11 @@ import React , {useEffect , useState} from 'react'
 import { Link } from 'react-router-dom'
 
 function Service() {
-    
+  const [activeCardIndex, setActiveCardIndex] = useState(null);
+
+  const handleReadMoreClick = (index) => {
+    setActiveCardIndex(index);
+  };
 const postIds = ['63f89ed75a71849662bd1bb7', '63f89f065a71849662bd1bdd', '63f8a05e5a71849662bd1c05'];
 
 const [users, setUsers] = useState([]);
@@ -59,9 +63,21 @@ useEffect(() => {
                                             }}
                                           ></div>
                                           <div className="text content">
-                                            <h3>{user.title}</h3>
-                                            <p dangerouslySetInnerHTML={{ __html: user.description }} />
+                                          <p dangerouslySetInnerHTML={{ __html: index === activeCardIndex
+                                            ? user.description
+                                            : user.description.slice(0, 138) + (user.description.length > 138 ? "...." : "") }} />
+            
+            
                                             <div className="text">
+                                            {index === activeCardIndex ? (
+                                              <button onClick={() => handleReadMoreClick(null)}  className="Read_More">
+                                                Show less
+                                              </button>
+                                            ) : (
+                                              <button onClick={() => handleReadMoreClick(index)} className="Read_More">
+                                                Read more
+                                              </button>
+                                            )}
                                               <Link to="#" className="anchor" id="anchors">
                                                 book now
                                               </Link>
