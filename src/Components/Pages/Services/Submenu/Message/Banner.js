@@ -1,7 +1,7 @@
 import React, {useState,useEffect} from 'react'
 
 function Banner() {
-    const postIds = ['64030969a87ac8b8817de6bc'];
+    const postIds = ['6405e34f20fe802e78bbb4cd'];
     const [users, setUsers] = useState([]);
     const [img, setImg] = useState('');
 

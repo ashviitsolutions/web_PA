@@ -159,8 +159,8 @@ function Getpost() {
                                     <tr>
                                         <th>Image</th>
                                         <th>Title/Description</th>
-                                        <th>Type</th>
                                         <th>Price</th>
+                                        <th>Type</th>
                                     </tr>
                                 </thead>
 
@@ -194,6 +194,7 @@ function Getpost() {
                                                     <p className="description" dangerouslySetInnerHTML={{ __html: cur.description }} />
                                                 </div>
                                             </td>
+                                            
                                             <td>
                                             <div className="content">
                                                 <span className="title " id='headingtitle'>{cur.price}</span>
