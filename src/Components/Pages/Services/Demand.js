@@ -80,6 +80,7 @@ function Demand() {
                                 }}
                               ></div>
                               <div className="text content">
+                              <h3>{user.title}</h3>
                               <p dangerouslySetInnerHTML={{ __html: index === activeCardIndex
                                 ? user.description
                                 : user.description.slice(0, 138) + (user.description.length > 138 ? "...." : "") }} />

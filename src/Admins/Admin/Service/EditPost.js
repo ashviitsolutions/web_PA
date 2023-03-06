@@ -56,7 +56,7 @@ function Editpost() {
             bodyFormData.append("price", values.price);
             bodyFormData.append("postImages", values.image);
             bodyFormData.append("description", values.description);
-            let token = localStorage.getItem("token");
+            let token = localStorage.getItem("tokenadmin");
             if (!token) {
                 throw new Error("Token not found in local storage");
             }
