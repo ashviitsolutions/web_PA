@@ -58,7 +58,7 @@ function Addpost() {
           if (res.status === 200) {
             setValues({});
             resetForm();
-            nav("/admin/service");
+            nav("/admin/post");
           }
         } catch (error) {
           console.error(error);
