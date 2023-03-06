@@ -14,3 +14,9 @@
 @import "./Components/assets/css/custom.css";
 @import "./Components/assets/css/material.css";
 @import "./Components/assets/css/media.css";
+
+
+@import "./Admins/CSS/custom.css"; 
+@import "./Admins/CSS/material.css"; 
+@import "./Admins/CSS/media.css"; 
+@import "./Admins/CSS/table.css"; 

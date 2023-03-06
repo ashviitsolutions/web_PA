@@ -2,7 +2,7 @@ import React , {useEffect , useState} from 'react'
 
 function Employee() {
 
-    const postIds = ['63f9b83206e32e14932309c3'];
+    const postIds = ['6405ec8f20fe802e78bbba60'];
     const [users, setUsers] = useState([]);
     const [img, setImg] = useState('');
 
@@ -10,7 +10,7 @@ function Employee() {
         async function fetchData() {
             const responses = await Promise.all(
                 postIds.map(async id => {
-                    const res = await fetch(`http://45.13.132.197:4000/api/post/fetch/${id}`);
+                    const res = await fetch(`http://45.13.132.197:4000/api/service/fetch/${id}`);
                     return res.json();
 
                 })

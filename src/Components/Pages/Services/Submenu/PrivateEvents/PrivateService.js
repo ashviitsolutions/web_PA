@@ -8,7 +8,7 @@ import Worklist from '../Coroporate/Worklist'
 function Private_Events() {
 
 
-  const postIds = ['63f9f69006e32e1493232416', '63f9f6e806e32e149323242a'];
+  const postIds = ['6405ed5320fe802e78bbbb1b', '6405ed7120fe802e78bbbb5f'];
   const [users1, setUsers1] = useState([]);
   const [img, setImg] = useState('');
 
@@ -22,7 +22,7 @@ function Private_Events() {
     async function fetchData() {
       const responses = await Promise.all(
         postIds.map(async id => {
-          const res = await fetch(`http://45.13.132.197:4000/api/post/fetch/${id}`);
+          const res = await fetch(`http://45.13.132.197:4000/api/service/fetch/${id}`);
           return res.json();
 
         })

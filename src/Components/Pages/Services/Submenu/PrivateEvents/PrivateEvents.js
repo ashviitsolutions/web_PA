@@ -10,7 +10,7 @@ function PrivateEvents() {
   const handleReadMoreClick = (index) => {
     setActiveCardIndex(index);
   };
-const postIds = ['63f9f7c006e32e149323247e', '63f9f7c406e32e149323248b', '63f9f7c706e32e1493232499'];
+const postIds = ['6405ee9220fe802e78bbbcb7', '6405eeb720fe802e78bbbcfb', '6405eece20fe802e78bbbd3f'];
 
 const [users, setUsers] = useState([]);
 const [img, setImg] = useState('');
@@ -19,7 +19,7 @@ useEffect(() => {
     async function fetchData() {
       const responses = await Promise.all(
         postIds.map(async id => {
-          const res = await fetch(`http://45.13.132.197:4000/api/post/fetch/${id}`);
+          const res = await fetch(`http://45.13.132.197:4000/api/service/fetch/${id}`);
           return res.json();
           
         })
@@ -68,6 +68,7 @@ useEffect(() => {
                                             }}
                                           ></div>
                                           <div className="text content">
+                                          <h3>{user.title}</h3>
                                           <p dangerouslySetInnerHTML={{ __html: index === activeCardIndex
                                             ? user.description
                                             : user.description.slice(0, 138) + (user.description.length > 138 ? "...." : "") }} />

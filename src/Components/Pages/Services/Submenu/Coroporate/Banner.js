@@ -1,7 +1,7 @@
 import React, {useState,useEffect} from 'react'
 
 function Banner() {
-    const postIds = ['63f48daf1e627c34fc1b73e1'];
+    const postIds = ['6405ec3920fe802e78bbba1c'];
     const [users, setUsers] = useState([]);
     const [img, setImg] = useState('');
 
@@ -13,7 +13,7 @@ function Banner() {
         async function fetchData() {
             const responses = await Promise.all(
                 postIds.map(async id => {
-                    const res = await fetch(`http://45.13.132.197:4000/api/post/fetch/${id}`);
+                    const res = await fetch(`http://45.13.132.197:4000/api/service/fetch/${id}`);
                     return res.json();
 
                 })

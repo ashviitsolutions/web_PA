@@ -59,7 +59,7 @@ function Yoga() {
                                           <h3>{user.title}</h3>
                                           <p dangerouslySetInnerHTML={{ __html: index === activeCardIndex
                                             ? user.description
-                                            : user.description.slice(0, 138) + (user.description.length > 138 ? "...." : "") }} />
+                                            : user.description.slice(0, 160) + (user.description.length > 160 ? "...." : "") }} />
           
                                             {index === activeCardIndex ? (
                                               <button onClick={() => handleReadMoreClick(null)}  className="Read_More">

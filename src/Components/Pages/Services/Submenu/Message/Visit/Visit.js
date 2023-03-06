@@ -1,7 +1,7 @@
 import React , {useEffect , useState} from 'react'
 
 function Visit() {
-    const postIds = ['63f9c8ce06e32e1493231487', '63f9c8dd06e32e149323149e'];
+    const postIds = ['6405e49320fe802e78bbb56d', '6405e4e520fe802e78bbb5b1'];
     const [users1, setUsers1] = useState([]);
     const [img, setImg] = useState('');
 
@@ -15,7 +15,7 @@ function Visit() {
         async function fetchData() {
             const responses = await Promise.all(
                 postIds.map(async id => {
-                    const res = await fetch(`http://45.13.132.197:4000/api/post/fetch/${id}`);
+                    const res = await fetch(`http://45.13.132.197:4000/api/service/fetch/${id}`);
                     return res.json();
 
                 })

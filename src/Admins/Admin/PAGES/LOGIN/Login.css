@@ -1,0 +1,223 @@
+@import "../../../CSS/custom.css"; 
+@import "../../../CSS/material.css"; 
+@import "../../../CSS/media.css"; 
+@import "../../../CSS/table.css"; 
+
+
+/* .button.primary {
+    padding: 12px 25px 13px 25px;
+    border-radius: 25px;
+    box-shadow: 0px 5px 10px rgb(0 0 0 / 25%);
+    font-size: 11px;
+    letter-spacing: 2px;
+    word-spacing: 3px;
+    background: linear-gradient(45deg, #2196f3, #00bcd4);
+    border: none;
+    color: #fff;
+}
+
+.card.padded {
+    padding: 15px;                       
+    overflow: visible;
+}
+
+.card.padded .input_group {
+    margin: 30px 0px;
+}
+
+#login {
+    position: relative;
+    display: block;
+    width: 100%;                
+}
+
+#login .background {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 450px;
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    overflow: hidden;
+}
+
+#login .background::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(0deg, #0a3c62 0%, #2196f3 100%);
+}
+
+#login .background .head {
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    position: relative;
+    left: 70vh;
+    display: block;
+    margin-top: 175px;
+}
+
+#login .background .head h3 {
+    color: #fff;
+    text-align: center;
+    font-size: 30px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-weight: 700;
+}
+
+#login .background .head p {
+    text-align: center;
+    display: inline;
+    color: #fff;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+}
+
+#login #login_form {
+    margin-top: -100px;
+    position: relative;
+    left: 60vh;
+}
+
+#login .heading {
+    padding-left: 0;
+}
+
+
+
+
+
+#footer {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding-top: 80px;
+    padding-bottom: 20px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.15) -50%, #f9f9f9 100%);
+}
+
+#footer span.title {
+    float: right;
+    padding-right: 25px;
+    font-size: 11px;
+    letter-spacing: 1px;
+    word-spacing: 3px;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: #444444;
+}
+
+#footer span.title a {
+    color: #8e8e8e;
+    text-transform: uppercase;
+    font-weight: 400;
+}
+
+
+ */
+
+ #login .background .head {
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    position: relative;
+    left: 70vh;
+    display: block;
+    margin-top: 175px;
+}
+
+ #login .background .head h3 {
+    color: #fff;
+    text-align: center;
+    font-size: 30px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-weight: 700;
+}
+
+#login .background .head p {
+    text-align: center;
+    display: inline;
+    color: #fff;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+}
+ #login #login_form {
+    width: 100%;
+    margin-top: -100px;
+    position: relative;
+    left: 60vh;
+}
+
+
+
+/* //error notification */
+
+
+.notificatioerror{
+    width: 100%;
+    height: 4vh;
+    z-index: 1000 !important;
+    /* background-color:#00bcd4; */
+    border: 2px solid #0000;
+    justify-content: center;
+    align-items: center;
+    padding-left: 90px;
+    margin-top: 10px;
+}
+#errorshow{
+    font-size: 20px;
+    color: red;
+}
+
+
+@media only screen and (min-width:770px) and (max-width:960px){
+    #login #login_form {
+        width: 179% !important;
+        margin-top: -47px !important;
+        position: relative;
+        left: 25vh !important;
+    }
+    #login .background .head {
+        justify-content: center;
+        align-items: center;
+        z-index: 1;
+        position: relative;
+        left: 35vh;
+        display: block;
+        margin-top: 175px;
+    }
+    
+
+
+}
+
+@media only screen and (min-width:320px) and (max-width:770px){
+    #login #login_form {
+        width: 100%;
+        margin-top: -100px;
+        position: relative;
+        left: 0vh;
+    }
+    
+    #login .background .head {
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        z-index: 1;
+        position: relative;
+        left: 0vh;
+        display: block;
+        margin-top: 45px;
+    }
+}
+

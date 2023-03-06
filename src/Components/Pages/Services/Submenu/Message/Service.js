@@ -7,7 +7,7 @@ function Service() {
   const handleReadMoreClick = (index) => {
     setActiveCardIndex(index);
   };
-const postIds = ['63f89ed75a71849662bd1bb7', '63f89f065a71849662bd1bdd', '63f8a05e5a71849662bd1c05'];
+const postIds = ['6405e81c20fe802e78bbb6ef', '6405e85f20fe802e78bbb733', '6405e88a20fe802e78bbb777'];
 
 const [users, setUsers] = useState([]);
 const [img, setImg] = useState('');
@@ -16,7 +16,7 @@ useEffect(() => {
     async function fetchData() {
       const responses = await Promise.all(
         postIds.map(async id => {
-          const res = await fetch(`http://45.13.132.197:4000/api/post/fetch/${id}`);
+          const res = await fetch(`http://45.13.132.197:4000/api/service/fetch/${id}`);
           return res.json();
           
         })
@@ -63,6 +63,7 @@ useEffect(() => {
                                             }}
                                           ></div>
                                           <div className="text content">
+                                          <h3>{user.title}</h3>
                                           <p dangerouslySetInnerHTML={{ __html: index === activeCardIndex
                                             ? user.description
                                             : user.description.slice(0, 138) + (user.description.length > 138 ? "...." : "") }} />

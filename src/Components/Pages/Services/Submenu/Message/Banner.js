@@ -1,19 +1,18 @@
 import React, {useState,useEffect} from 'react'
 
 function Banner() {
-    const postIds = ['63f9c7b206e32e1493231421'];
+    const postIds = ['64030969a87ac8b8817de6bc'];
     const [users, setUsers] = useState([]);
     const [img, setImg] = useState('');
 
-    console.log("users", users)
-    console.log("image value of coroport iamge", img)
+
 
 
     useEffect(() => {
         async function fetchData() {
             const responses = await Promise.all(
                 postIds.map(async id => {
-                    const res = await fetch(`http://45.13.132.197:4000/api/post/fetch/${id}`);
+                    const res = await fetch(`http://45.13.132.197:4000/api/service/fetch/${id}`);
                     return res.json();
 
                 })
