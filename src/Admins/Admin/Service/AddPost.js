@@ -53,7 +53,7 @@ function Addpost() {
         throw new Error("Token not found in local storage");
       }
       console.log(token);
-      const res = await axios.post("${IP}/service/add", bodyFormData, {
+      const res = await axios.post(`${IP}/service/add`, bodyFormData, {
         headers: {
           //   Authorization: `${token}`
           Authorization: token
