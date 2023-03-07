@@ -32,7 +32,7 @@ import getService from './Admins/Admin/Service/GetPost';
 import AddPostService from "./Admins/Admin/Service/AddPost"
 import EditPostService from './Admins/Admin/Service/EditPost';
 
-
+import Config from './Config';
 
 function App() {
 

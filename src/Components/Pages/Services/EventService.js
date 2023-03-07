@@ -1,5 +1,6 @@
 import React, {useState , useEffect} from 'react'
 import { Link } from 'react-router-dom'
+import { IP } from '../../../Constant';
 
 
 function EventService() {
@@ -8,7 +9,7 @@ function EventService() {
   const handleReadMoreClick = (index) => {
     setActiveCardIndex(index);
   };
-    const postIds = ['63f8dce775a30d0813b95d50', '63f8dd0775a30d0813b95d64','63f8dd2975a30d0813b95d7e'];
+    const postIds = ['6406cfb020fe802e78bbda43', '6406cfe020fe802e78bbda5f','6406cff820fe802e78bbda67'];
     
       const [users, setUsers] = useState([]);
       const [images, setImages] = useState([]);
@@ -22,7 +23,7 @@ function EventService() {
         async function fetchData() {
           const responses = await Promise.all(
             postIds.map(async id => {
-              const res = await fetch(`http://45.13.132.197:4000/api/post/fetch/${id}`);
+              const res = await fetch(`${IP}/service/fetch/${id}`);
               return res.json();
             })
           );
@@ -36,12 +37,12 @@ function EventService() {
         async function fetchImages() {
           const imageObjects = await Promise.all(
             images.map(async image => {
-              const res = await fetch(`http://45.13.132.197:4000/api/file/${image}`);
+              const res = await fetch(`${IP}/file/${image}`);
               const imageBlob = await res.blob();
               return URL.createObjectURL(imageBlob);
             })
           );
-          setImg(imageObjects); // Set the first image URL as the state value
+          setImg(imageObjects); 
         }
         if (images.length > 0) {
           fetchImages();

@@ -1,9 +1,41 @@
-import React from 'react'
-import image1 from "../../assets/img/pexels-cottonbro-3997993.jpg"
-import image2 from "../../assets/img/tender-african-woman-smiling-enjoying-massage-with-closed-eyes-spa-resort.jpg"
-import image3 from "../../assets/img/tender-african-woman-relaxing-enjoying-healthy-spa-massage-with-oil.jpg"
+import React , {useState , useEffect} from 'react'
+import "./Home.css"
+import { IP } from '../../../Constant'; 
+
 
 function Blog() {
+    const [activeCardIndex, setActiveCardIndex] = useState(null);
+    const postIds = ['6406e884ad080eddce51de80', '6406e8a8ad080eddce51de96', '6406e8c8ad080eddce51deac'];
+
+    const [users, setUsers] = useState([]);
+    const [img, setImg] = useState('');
+    
+    useEffect(() => {
+        async function fetchData() {
+          const responses = await Promise.all(
+            postIds.map(async id => {
+              const res = await fetch(`${IP}/post/fetch/${id}`);
+              return res.json();
+              
+            })
+          );
+          setUsers(responses);
+          setImg(
+            await Promise.all(
+              responses.flatMap(response => response.attachments).map(async image => {
+                const res = await fetch(`${IP}/file/${image}`);
+                const imageBlob = await res.blob();
+                return URL.createObjectURL(imageBlob);
+              })
+            )
+          );
+        }
+        fetchData();
+      }, [])
+      const handleReadMoreClick = (index) => {
+        setActiveCardIndex(index);
+      };
+
   return (
     <>                     
     <div id="blog">
@@ -22,45 +54,41 @@ function Blog() {
                         <div className="col-sm-10 col-sm-offset-1">
                             <div className="container-fluid">
                                 <div className="row">
-                                    <div className="col-sm-4">
-                                        <div className="item_wrapper">
-                                            <div className="item">
-                                                <div className="bg" style={{ backgroundImage: `url(${image1})` ,borderRadius:"7px"}}>
-                                                </div>
-                                                <div className="content">
-                                                    <h3>some blog title here</h3>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...</p>
-                                                    <button className="button small" type="button">read more</button>
-                                                </div>
-                                            </div>
+
+
+                                {users.map((user, index) => (
+                                    <div className="col-sm-4" key={user._id}>
+                                      <div className="item_wrapper">
+                                        <div className="item">
+                                          <div
+                                            className="bg"
+                                            style={{
+                                              backgroundImage: `url(${img[index]})`,
+                                              borderRadius: '7px',
+                                            }}
+                                          ></div>
+                                          <div className="content">
+                                          <h3>{user.title}</h3>
+                                          <p dangerouslySetInnerHTML={{ __html: index === activeCardIndex
+                                            ? user.description
+                                            : user.description.slice(0, 160) + (user.description.length > 160 ? "...." : "") }} />
+          
+                                            {index === activeCardIndex ? (
+                                              <button onClick={() => handleReadMoreClick(null)}  className="Read_More">
+                                                Show less
+                                              </button>
+                                            ) : (
+                                              <button onClick={() => handleReadMoreClick(index)} className="Read_More">
+                                                Read more
+                                              </button>
+                                            )}
+                                            <button className="button small" type="button">book now</button>
+                                          </div>
                                         </div>
+                                      </div>
                                     </div>
-                                    <div className="col-sm-4">
-                                        <div className="item_wrapper">
-                                            <div className="item">
-                                                <div className="bg" style={{ backgroundImage: `url(${image2})` ,borderRadius:"7px"}}>
-                                                </div>
-                                                <div className="content">
-                                                    <h3>Got Sprain ? 5 types of remedies for you.</h3>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...</p>
-                                                    <button className="button small" type="button">read more</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-sm-4">
-                                        <div className="item_wrapper">
-                                            <div className="item">
-                                                <div className="bg" style={{ backgroundImage: `url(${image3})` ,borderRadius:"7px"}}>
-                                                </div>
-                                                <div className="content">
-                                                    <h3>7 ways to feel lighter when you wake up.</h3>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua...</p>
-                                                    <button className="button small" type="button" >read more</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                  ))}
+
                                 </div>
                             </div>
                         </div>

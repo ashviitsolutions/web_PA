@@ -1,16 +1,16 @@
 import React from 'react'
 import Banner from './Banner'
 import Employee from './Employee'
-import Corporate from '../../../Home/Corporate'
 import Worklins from './Worklist'
 import Faq from '../../../Home/Faq'
+import Event_services from './Event_services'
 
 function Corporate_Events() {
   return (
     <>
     <Banner/>
     <Employee/>
-    <Corporate/>
+    <Event_services/>
     <Worklins/>
     <Faq/>
     </>

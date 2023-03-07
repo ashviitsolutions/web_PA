@@ -1,5 +1,6 @@
 import React,{useEffect , useState} from 'react'
 import { Link } from 'react-router-dom'
+import { IP } from '../../../Constant';
 // import Image1 from "../../assets/img/treatment-finger-keep-hand-161477.jpeg"
 
 
@@ -10,8 +11,8 @@ function Demand() {
     setActiveCardIndex(index);
   };
   const postIds = [
-    '63f8db8075a30d0813b95cd8', '63f8dbc675a30d0813b95cec',
-   '63f8dbf075a30d0813b95d00','63f8dc8475a30d0813b95d14', '63f8dca875a30d0813b95d28', '63f8dcc775a30d0813b95d3c'
+    '6406cafa20fe802e78bbd7b6', '6406cb2220fe802e78bbd7be',
+   '6406cc0020fe802e78bbd7c6','6406cc1f20fe802e78bbd7ce', '6406cc4320fe802e78bbd7d6', '6406cc6320fe802e78bbd7de'
   ];
 
   const [users, setUsers] = useState([]);
@@ -26,7 +27,7 @@ function Demand() {
     async function fetchData() {
       const responses = await Promise.all(
         postIds.map(async id => {
-          const res = await fetch(`http://45.13.132.197:4000/api/post/fetch/${id}`);
+          const res = await fetch(`${IP}/service/fetch/${id}`);
           return res.json();
         })
       );
@@ -40,7 +41,7 @@ function Demand() {
     async function fetchImages() {
       const imageObjects = await Promise.all(
         images.map(async image => {
-          const res = await fetch(`http://45.13.132.197:4000/api/file/${image}`);
+          const res = await fetch(`${IP}/file/${image}`);
           const imageBlob = await res.blob();
           return URL.createObjectURL(imageBlob);
         })

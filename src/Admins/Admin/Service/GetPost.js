@@ -81,8 +81,8 @@ function Getpost() {
     }, []);
 
     //   const handleDelete = (id) => {
-    //     let token = localStorage.getItem("token");
-    //     fetch(`http://45.13.132.197:4000/api/post/${id}/remove_post`, {
+    //     let token = localStorage.getItem("tokenadmin");
+    //     fetch(`http://45.13.132.197:4000/api/service/delete/${id}`, {
     //       method: "DELETE",
     //       headers: {
     //         Authorization: token,
@@ -93,6 +93,7 @@ function Getpost() {
     //       .then((data) => {
     //         setDelete(data);
     //         console.log(data);
+            
     //       })
     //       .catch((error) => {
     //         console.log(error);
@@ -159,8 +160,7 @@ function Getpost() {
                                     <tr>
                                         <th>Image</th>
                                         <th>Title/Description</th>
-                                        <th>Price</th>
-                                        <th>Type</th>
+                                        <th>Price/Type</th>
                                     </tr>
                                 </thead>
 
@@ -195,19 +195,18 @@ function Getpost() {
                                                 </div>
                                             </td>
                                             
-                                            <td>
-                                            <div className="content">
-                                                <span className="title " id='headingtitle'>{cur.price}</span>
-
-                                            </div>
-                                        </td>
+                                         
                                             <td>
                                                 <div className='typefield' >
                                                     <span style={{ display: "block" }}> {cur.category}</span>
+                                                    <div className="content">
+                                                    <span className="title " id='headingtitle'>{cur.price}</span>
+    
+                                                </div>
                                                     <Link to={`/admin/services/edit_post/${cur._id}`} >
                                                         <span className="Edit mt-3">Edit Page</span>
-
                                                     </Link>
+
                                                 </div>
                                             </td>
                                           

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import Sidebar from "../../Sidebar/Sidebar"
 import ReactPaginate from 'react-paginate';
 import "./style.css"
+import { useNavigate } from 'react-router-dom';
 
 const PreviewImage = ({ attachments }) => {
   const [imageObjectURL, setImageObjectURL] = useState(null);
@@ -30,6 +31,7 @@ const PreviewImage = ({ attachments }) => {
 
 
 function Getpost() {
+  const nav=useNavigate()
   const [search, setSearch] = useState("")
   // const [Delete, setDelete] = useState([])
 
@@ -80,7 +82,7 @@ function Getpost() {
   }, []);
 
   // const handleDelete = (id) => {
-  //   let token = localStorage.getItem("token");
+  //   let token = localStorage.getItem("tokenadmin");
   //   fetch(`http://45.13.132.197:4000/api/post/${id}/remove_post`, {
   //     method: "DELETE",
   //     headers: {
@@ -91,11 +93,17 @@ function Getpost() {
   //     .then((res) => res.json())
   //     .then((data) => {
   //       setDelete(data);
-  //       console.log(data);
+  //       if (data.status === 200) {
+        
+  //         nav("/admin/post");
+  //       }
+      
   //     })
+      
   //     .catch((error) => {
   //       console.log(error);
   //     });
+     
   // };
   
   return (
@@ -198,8 +206,8 @@ function Getpost() {
                           <span style={{ display: "block" }}> {cur.type.name}</span>
                           <Link to={`/admin/post/editpage/${cur._id}`} >
                             <span className="Edit mt-3">Edit Page</span>
-
                           </Link>
+
                         </div>
 
 
