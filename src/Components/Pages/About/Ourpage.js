@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import Image1 from "../../assets/img/pexels-cottonbro-3997983.jpg"
+// import Image1 from "../../assets/img/pexels-cottonbro-3997983.jpg"
+import { IP } from '../../../Constant';
 
 function Ourpage() {
   const postIds = ['63fa02a506e32e14932327bb', '63fa02df06e32e14932327d1'];
@@ -12,7 +13,7 @@ function Ourpage() {
     async function fetchData() {
       const responses = await Promise.all(
         postIds.map(async id => {
-          const res = await fetch(`http://45.13.132.197:4000/api/post/fetch/${id}`);
+          const res = await fetch(`${IP}/post/fetch/${id}`);
           return res.json();
 
         })
@@ -22,7 +23,7 @@ function Ourpage() {
       setImg(
         await Promise.all(
           responses.flatMap(response => response.attachments).map(async image => {
-            const res = await fetch(`http://45.13.132.197:4000/api/file/${image}`);
+            const res = await fetch(`${IP}/file/${image}`);
             const imageBlob = await res.blob();
             return URL.createObjectURL(imageBlob);
           })

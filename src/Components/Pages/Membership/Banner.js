@@ -1,6 +1,7 @@
 import React,{useState , useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import image1 from "../../assets/img/treatment-finger-keep-hand-161477.jpeg"
+import { IP } from '../../../Constant';
 
 function Banner() {
   const postIds = ['64007bf761c43a17d60e95e8'];
@@ -11,7 +12,7 @@ function Banner() {
       async function fetchData() {
         const responses = await Promise.all(
           postIds.map(async id => {
-            const res = await fetch(`http://45.13.132.197:4000/api/post/fetch/${id}`);
+            const res = await fetch(`${IP}/post/fetch/${id}`);
             return res.json();
             
           })
@@ -20,7 +21,7 @@ function Banner() {
         setImg(
           await Promise.all(
             responses.flatMap(response => response.attachments).map(async image => {
-              const res = await fetch(`http://45.13.132.197:4000/api/file/${image}`);
+              const res = await fetch(`${IP}/file/${image}`);
               const imageBlob = await res.blob();
               return URL.createObjectURL(imageBlob);
             })

@@ -7,6 +7,8 @@ import JoditEditor from 'jodit-react';
 import "./style.css"
 import { useNavigate } from 'react-router-dom';
 import Sidebar from "../../Sidebar/Sidebar"
+import { IP } from '../../../Constant';
+
 
 const PreviewImage = ({ imagePreviewUrl }) => {
     return (
@@ -48,7 +50,7 @@ function Addpost() {
             throw new Error("Token not found in local storage");
           }
           console.log(token);
-          const res = await axios.post("http://45.13.132.197:4000/api/post/create", bodyFormData, {
+          const res = await axios.post(`${IP}/post/create`, bodyFormData, {
             headers: {
             //   Authorization: `${token}`
               Authorization:token
@@ -74,7 +76,7 @@ function Addpost() {
 
 
     useEffect(() => {
-        fetch(`http://45.13.132.197:4000/api/terms/fetch`).then((res) => {
+        fetch(`${IP}/terms/fetch`).then((res) => {
             return res.json();
         }).then((data) => {
             setType(data)

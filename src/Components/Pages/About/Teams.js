@@ -1,5 +1,6 @@
 import React,{useEffect,useState} from 'react'
 import Member from '../Services/Submenu/Member'
+import { IP } from '../../../Constant';
 
 function Teams() {
   const postIds = ['63fa03a606e32e1493232825', '63fa03dc06e32e1493232839', '63fa03e106e32e1493232845'];
@@ -11,7 +12,7 @@ function Teams() {
     async function fetchData() {
       const responses = await Promise.all(
         postIds.map(async id => {
-          const res = await fetch(`http://45.13.132.197:4000/api/post/fetch/${id}`);
+          const res = await fetch(`${IP}/post/fetch/${id}`);
           return res.json();
 
         })
@@ -20,7 +21,7 @@ function Teams() {
       setImg(
         await Promise.all(
           responses.flatMap(response => response.attachments).map(async image => {
-            const res = await fetch(`http://45.13.132.197:4000/api/file/${image}`);
+            const res = await fetch(`${IP}/file/${image}`);
             const imageBlob = await res.blob();
             return URL.createObjectURL(imageBlob);
           })

@@ -1,4 +1,5 @@
 import React, {useState,useEffect} from 'react'
+import { IP } from '../../../../../Constant';
 
 function Banner() {
     const postIds = ['6405e34f20fe802e78bbb4cd'];
@@ -12,7 +13,7 @@ function Banner() {
         async function fetchData() {
             const responses = await Promise.all(
                 postIds.map(async id => {
-                    const res = await fetch(`http://45.13.132.197:4000/api/service/fetch/${id}`);
+                    const res = await fetch(`${IP}/service/fetch/${id}`);
                     return res.json();
 
                 })
@@ -21,7 +22,7 @@ function Banner() {
             setImg(
                 await Promise.all(
                     responses.flatMap(response => response.attachments).map(async image => {
-                        const res = await fetch(`http://45.13.132.197:4000/api/file/${image}`);
+                        const res = await fetch(`${IP}/file/${image}`);
                         const imageBlob = await res.blob();
                         return URL.createObjectURL(imageBlob);
                     })

@@ -7,6 +7,7 @@ import JoditEditor from 'jodit-react';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from "../../Sidebar/Sidebar"
 import { useParams } from 'react-router-dom';
+import { IP } from '../../../Constant';
 
 const PreviewImage = ({ imagePreviewUrl }) => {
     return (
@@ -61,7 +62,7 @@ function Editpost() {
                 throw new Error("Token not found in local storage");
             }
             console.log(token);
-            let res = await axios.put(`http://45.13.132.197:4000/api/service/${id}/update`, bodyFormData, {
+            let res = await axios.put(`${IP}/service/${id}/update`, bodyFormData, {
                 headers: {
                     Authorization: token,
                     // 'Content-Type': 'application/json',
@@ -86,7 +87,7 @@ function Editpost() {
     }
 
     useEffect(() => {
-        fetch(`http://45.13.132.197:4000/api/service/fetch/${id}`).then((res) => {
+        fetch(`${IP}/service/fetch/${id}`).then((res) => {
             return res.json();
         }).then((data) => {
             console.log(data)                                                
@@ -108,7 +109,7 @@ function Editpost() {
 
     useEffect(() => {
         const fetchImage = async () => {
-            const res = await fetch(`http://45.13.132.197:4000/api/file/${images}`);
+            const res = await fetch(`${IP}/file/${images}`);
             const imageBlob = await res.blob();
             const imageObjectURL = URL.createObjectURL(imageBlob);
             setImg(imageObjectURL);
@@ -120,7 +121,7 @@ function Editpost() {
 
 
     useEffect(() => {
-        fetch(`http://45.13.132.197:4000/api/service/market_place`).then((res) => {
+        fetch(`${IP}/service/market_place`).then((res) => {
             return res.json();
         }).then((data) => {
             setType(data)

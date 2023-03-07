@@ -3,13 +3,14 @@ import React, { useEffect, useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import Sidebar from "../../Sidebar/Sidebar"
 import ReactPaginate from 'react-paginate';
+import { IP } from '../../../Constant';
 
 const PreviewImage = ({ attachments }) => {
     const [imageObjectURL, setImageObjectURL] = useState(null);
 
     useEffect(() => {
         const fetchImage = async () => {
-            const res = await fetch(`http://45.13.132.197:4000/api/file/${attachments}`);
+            const res = await fetch(`${IP}/file/${attachments}`);
             const imageBlob = await res.blob();
             const objectURL = URL.createObjectURL(imageBlob);
             setImageObjectURL(objectURL);
@@ -46,11 +47,11 @@ function Getpost() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await fetch(`http://45.13.132.197:4000/api/service/view-services`);
+                const res = await fetch(`${IP}/service/view-services`);
                 const data = await res.json();
                 setUser(data);
                 setCount(data.length);
-                console.log("get data" , data)
+                console.log("get data", data)
             } catch (error) {
             }
         };
@@ -70,7 +71,7 @@ function Getpost() {
 
 
     useEffect(() => {
-        fetch(`http://45.13.132.197:4000/api/service/market_place`)
+        fetch(`${IP}/service/market_place`)
             .then((res) => res.json())
             .then((data) => {
                 setType(data);
@@ -93,7 +94,7 @@ function Getpost() {
     //       .then((data) => {
     //         setDelete(data);
     //         console.log(data);
-            
+
     //       })
     //       .catch((error) => {
     //         console.log(error);
@@ -191,25 +192,25 @@ function Getpost() {
                                             <td>
                                                 <div className="content">
                                                     <span className="title " id='headingtitle'>{cur.title}</span>
-                                                    <p className="description" dangerouslySetInnerHTML={{ __html: cur.description }} />
+                                                    <p className="description" dangerouslySetInnerHTML={{ __html: cur.description.slice(0, 250) }} />
                                                 </div>
                                             </td>
-                                            
-                                         
+
+
                                             <td>
-                                                <div className='typefield' >
+                                                <div className='typefield ' >
                                                     <span style={{ display: "block" }}> {cur.category}</span>
-                                                    <div className="content">
-                                                    <span className="title " id='headingtitle'>{cur.price}</span>
-    
-                                                </div>
+                                                    <div className="content mt-3" >
+                                                        <span className="title " id='headingtitle'>{cur.price}</span>
+
+                                                    </div>
                                                     <Link to={`/admin/services/edit_post/${cur._id}`} >
                                                         <span className="Edit mt-3">Edit Page</span>
                                                     </Link>
 
                                                 </div>
                                             </td>
-                                          
+
                                         </tr>
                                     )
                                 })}

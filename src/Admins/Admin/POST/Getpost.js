@@ -5,13 +5,14 @@ import Sidebar from "../../Sidebar/Sidebar"
 import ReactPaginate from 'react-paginate';
 import "./style.css"
 import { useNavigate } from 'react-router-dom';
+import { IP } from '../../../Constant';
 
 const PreviewImage = ({ attachments }) => {
   const [imageObjectURL, setImageObjectURL] = useState(null);
 
   useEffect(() => {
     const fetchImage = async () => {
-      const res = await fetch(`http://45.13.132.197:4000/api/file/${attachments}`);
+      const res = await fetch(`${IP}/file/${attachments}`);
       const imageBlob = await res.blob();
       const objectURL = URL.createObjectURL(imageBlob);
       setImageObjectURL(objectURL);
@@ -49,7 +50,7 @@ function Getpost() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`http://45.13.132.197:4000/api/post/fetch?type=${selectedType || search}`);
+        const res = await fetch(`${IP}/post/fetch?type=${selectedType || search}`);
         const data = await res.json();
         setUser(data);
         setCount(data.length);
@@ -72,7 +73,7 @@ function Getpost() {
 
 
   useEffect(() => {
-    fetch(`http://45.13.132.197:4000/api/terms/fetch`)
+    fetch(`${IP}/terms/fetch`)
       .then((res) => res.json())
       .then((data) => {
         setType(data);
@@ -91,7 +92,7 @@ function Getpost() {
   //     }
   //   })
   //     .then((res) => res.json())
-  //     .then((data) => {
+  //     .then((data) => {                    
   //       setDelete(data);
   //       if (data.status === 200) {
         
@@ -157,7 +158,7 @@ function Getpost() {
                   <span className="highlight"></span>
                 </div>
               </div>
-            </div>
+            </div>                                                              
           </div>
           <div className="row">
             <div className="gutter">
@@ -197,7 +198,7 @@ function Getpost() {
                       <td>
                         <div className="content">
                           <span className="title " id='headingtitle'>{cur.title}</span>
-                          <p className="description" dangerouslySetInnerHTML={{ __html: cur.description }} />
+                          <p className="description" dangerouslySetInnerHTML={{ __html: cur.description.slice(0, 260) }} />
                         </div>
                       </td>
 

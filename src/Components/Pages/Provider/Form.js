@@ -3,6 +3,7 @@ import React,{useState , useEffect} from 'react'
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from 'axios';
+import { IP } from '../../../Constant';
 
 function FormPage() {
     const postIds = ['64007d3561c43a17d60e9662'];
@@ -13,7 +14,7 @@ function FormPage() {
       async function fetchData() {
         const responses = await Promise.all(
           postIds.map(async id => {
-            const res = await fetch(`http://45.13.132.197:4000/api/post/fetch/${id}`);
+            const res = await fetch(`${IP}/post/fetch/${id}`);
             return res.json();
             
           })
@@ -22,7 +23,7 @@ function FormPage() {
         setImg(
           await Promise.all(
             responses.flatMap(response => response.attachments).map(async image => {
-              const res = await fetch(`http://45.13.132.197:4000/api/file/${image}`);
+              const res = await fetch(`${IP}/file/${image}`);
               const imageBlob = await res.blob();
               return URL.createObjectURL(imageBlob);
             })

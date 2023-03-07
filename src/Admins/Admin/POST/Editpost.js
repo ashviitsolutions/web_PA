@@ -7,6 +7,7 @@ import "./style.css"
 import { useNavigate } from 'react-router-dom';
 import Sidebar from "../../Sidebar/Sidebar"
 import { useParams } from 'react-router-dom';
+import { IP } from '../../../Constant';
 
 const PreviewImage = ({ imagePreviewUrl }) => {
     return (
@@ -57,7 +58,7 @@ function Editpost() {
                 throw new Error("Token not found in local storage");
             }
             console.log(token);
-            let res = await axios.post(`http://45.13.132.197:4000/api/post/update-post/${id}`, bodyFormData, {
+            let res = await axios.post(`${IP}/post/update-post/${id}`, bodyFormData, {
                 headers: {
                     Authorization: token,
                     // 'Content-Type': 'application/json',
@@ -82,7 +83,7 @@ function Editpost() {
     }
 
     useEffect(() => {
-        fetch(`http://45.13.132.197:4000/api/post/fetch/${id}`).then((res) => {
+        fetch(`${IP}/post/fetch/${id}`).then((res) => {
             return res.json();
         }).then((data) => {
             setUser(data)
@@ -102,7 +103,7 @@ function Editpost() {
 
     useEffect(() => {
         const fetchImage = async () => {
-          const res = await fetch(`http://45.13.132.197:4000/api/file/${images}`);
+          const res = await fetch(`${IP}/file/${images}`);
           const imageBlob = await res.blob();
           const imageObjectURL = URL.createObjectURL(imageBlob);
           setImg(imageObjectURL);
@@ -112,7 +113,7 @@ function Editpost() {
       
       
     useEffect(() => {
-        fetch(`http://45.13.132.197:4000/api/terms/fetch`).then((res) => {
+        fetch(`${IP}/terms/fetch`).then((res) => {
             return res.json();
         }).then((data) => {
             setType(data)
