@@ -1,10 +1,9 @@
 import React,{useState , useEffect} from 'react'
 import { Link } from 'react-router-dom'
-import image1 from "../../assets/img/treatment-finger-keep-hand-161477.jpeg"
 import { IP } from '../../../Constant';
 
 function Banner() {
-  const postIds = ['64007bf761c43a17d60e95e8'];
+  const postIds = ['64073ef5ad080eddce51fae5'];
     const [users, setUsers] = useState([]);
   const [img, setImg] = useState('');
   
@@ -33,7 +32,7 @@ function Banner() {
   
   return (
     <>
-    <div id="small_banner" style={{ backgroundImage: `url(${image1})` }}>
+    <div id="small_banner" style={{ backgroundImage: `url(${img})` }}>
     <div className="container">
       <div className="row">
         <div className="col-sm-6 col-sm-offset-3">

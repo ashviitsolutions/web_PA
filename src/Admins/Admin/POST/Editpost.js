@@ -228,9 +228,9 @@ function Editpost() {
                                                     <label className="card_label" htmlFor="">Select Type</label>
                                                     <div className="input_group">
                                                     <Field name="type" as="select" className="input" >
-                                                    <option value="" disabled>Select Type</option>
+                                                    <option value="" >Select Type</option>
                                                     {type.map((cur) => (
-                                                        <option key={cur._id} value={cur._id} disabled>
+                                                        <option key={cur._id} value={cur._id} >
                                                             {cur.name}
                                                         </option>
                                                     ))}

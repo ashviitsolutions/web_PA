@@ -4,7 +4,7 @@ import { IP } from '../../../Constant';
 // import Image1 from "../../assets/img/treatment-finger-keep-hand-161477.jpeg"
 
 function Banner() {
-  const postIds = ['64007c8661c43a17d60e961b'];
+  const postIds = ['6407358aad080eddce51f5ae'];
     const [users, setUsers] = useState([]);
   const [img, setImg] = useState('');
   

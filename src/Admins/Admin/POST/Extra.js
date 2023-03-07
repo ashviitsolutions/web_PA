@@ -732,7 +732,6 @@ function Getpost() {
                           <span style={{ display: "block" }}> {cur.type.name}</span>
                           <Link to={`/editpage/${cur._id}`} >
                             <span className="Edit mt-3">Edit Page</span>
-                            <button onClick={() => handleDelete(cur._id)}  className="Edit mt-3">Delete</button>
 
                           </Link>
                         </div>

@@ -9,7 +9,7 @@ import Provider from './Provider'
 import Testimonials from './Testimonials'
 import Blog from './Blog'
 import Faq from './Faq'
-import Event_services from '../Services/Submenu/Coroporate/Event_services'
+// import Event_services from '../Services/Submenu/Coroporate/Event_services'
 
 
 function Home() {
@@ -17,7 +17,6 @@ function Home() {
         <>
            <Banner/>
            <Yoga/>
-           <Event_services/>
            <About/>
            <Brief/>
            <Download/>

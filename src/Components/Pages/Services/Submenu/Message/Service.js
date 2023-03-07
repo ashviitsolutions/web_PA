@@ -42,7 +42,7 @@ useEffect(() => {
         <div className="row">
             <div className="gutter">
                 <div className="heading">
-                    <h3>services</h3>
+                    <h3>Massage services</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
                 </div>
             </div>

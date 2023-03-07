@@ -71,7 +71,7 @@ function Blog() {
                                           <h3>{user.title}</h3>
                                           <p dangerouslySetInnerHTML={{ __html: index === activeCardIndex
                                             ? user.description
-                                            : user.description.slice(0, 160) + (user.description.length > 160 ? "...." : "") }} />
+                                            : user.description.slice(0, 100) + (user.description.length > 100 ? "...." : "") }} />
           
                                             {index === activeCardIndex ? (
                                               <button onClick={() => handleReadMoreClick(null)}  className="Read_More">

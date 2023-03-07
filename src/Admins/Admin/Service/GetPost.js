@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import Sidebar from "../../Sidebar/Sidebar"
 import ReactPaginate from 'react-paginate';
 import { IP } from '../../../Constant';
+import "./style.css"
 
 const PreviewImage = ({ attachments }) => {
     const [imageObjectURL, setImageObjectURL] = useState(null);
@@ -192,7 +193,7 @@ function Getpost() {
                                             <td>
                                                 <div className="content">
                                                     <span className="title " id='headingtitle'>{cur.title}</span>
-                                                    <p className="description" dangerouslySetInnerHTML={{ __html: cur.description.slice(0, 250) }} />
+                                                    <small> <p className="description" dangerouslySetInnerHTML={{ __html: cur.description.slice(0, 250) }} /></small>
                                                 </div>
                                             </td>
 
@@ -201,13 +202,13 @@ function Getpost() {
                                                 <div className='typefield ' >
                                                     <span style={{ display: "block" }}> {cur.category}</span>
                                                     <div className="content mt-3" >
-                                                        <span className="title " id='headingtitle'>{cur.price}</span>
+                                                        <span className="title " id='headingtitle'><span id='pricevalue'>Price: </span>{cur.price}<span id='pricevalue'> USD</span></span>
 
                                                     </div>
                                                     <Link to={`/admin/services/edit_post/${cur._id}`} >
                                                         <span className="Edit mt-3">Edit Page</span>
                                                     </Link>
-
+                                               
                                                 </div>
                                             </td>
 
