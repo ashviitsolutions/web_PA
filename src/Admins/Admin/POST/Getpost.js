@@ -34,7 +34,7 @@ const PreviewImage = ({ attachments }) => {
 function Getpost() {
   const nav=useNavigate()
   const [search, setSearch] = useState("")
-  const [Delete, setDelete] = useState([])
+  // const [Delete, setDelete] = useState([])
 
 
 
@@ -82,30 +82,30 @@ function Getpost() {
       });
   }, []);
 
-  const handleDelete = (id) => {
-    let token = localStorage.getItem("tokenadmin");
-    fetch(`http://45.13.132.197:4000/api/post/${id}/remove_post`, {
-      method: "DELETE",
-      headers: {
-        Authorization: token,
-        'Content-Type': 'multipart/form-data'
-      }
-    })
-      .then((res) => res.json())
-      .then((data) => {                    
-        setDelete(data);
-        if (data.status === 200) {
+  // const handleDelete = (id) => {
+  //   let token = localStorage.getItem("tokenadmin");
+  //   fetch(`http://45.13.132.197:4000/api/post/${id}/remove_post`, {
+  //     method: "DELETE",
+  //     headers: {
+  //       Authorization: token,
+  //       'Content-Type': 'multipart/form-data'
+  //     }
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {                    
+  //       setDelete(data);
+  //       if (data.status === 200) {
         
-          nav("/admin/post");
-        }
+  //         nav("/admin/post");
+  //       }
       
-      })
+  //     })
       
-      .catch((error) => {
-        console.log(error);
-      });
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
      
-  };
+  // };
   
   return (
     <>
@@ -208,7 +208,6 @@ function Getpost() {
                           <Link to={`/admin/post/editpage/${cur._id}`} >
                             <span className="Edit mt-3">Edit Page</span>
                           </Link>
-                          <button onClick={() => handleDelete(cur._id)}  className="Edit mt-3">Delete</button>
                         </div>
 
 

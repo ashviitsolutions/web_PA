@@ -230,7 +230,7 @@ function Editpost() {
                                                     <Field name="type" as="select" className="input" >
                                                     <option value="" >Select Type</option>
                                                     {type.map((cur) => (
-                                                        <option key={cur._id} value={cur._id} >
+                                                        <option key={cur._id} value={cur._id} disabled>
                                                             {cur.name}
                                                         </option>
                                                     ))}
