@@ -48,7 +48,7 @@ function Getpost() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await fetch(`${IP}/service/view-services`);
+                const res = await fetch(`${IP}/service/view-services/${search}`);
                 const data = await res.json();
                 setUser(data);
                 setCount(data.length);
@@ -174,7 +174,7 @@ function Getpost() {
                                 {memoizedUser.filter((values) => {
                                     if (search === "") {
                                         return values;
-                                    } else if (values.type.name.toLowerCase().includes(search.toLocaleLowerCase())) {
+                                    } else if (values.title.toLowerCase().includes(search.toLocaleLowerCase())) {
                                         return values
                                     }
                                 }).map((cur, index) => {
