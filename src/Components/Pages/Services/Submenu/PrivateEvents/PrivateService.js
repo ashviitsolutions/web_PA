@@ -9,7 +9,7 @@ import { IP } from '../../../../../Constant'
 function Private_Events() {
 
 
-  const postIds = ['6405ed5320fe802e78bbbb1b', '6405ed7120fe802e78bbbb5f'];
+  const postIds = ['640abb35ad080eddce521a04', '640abc38ad080eddce521ad7'];
   const [users1, setUsers1] = useState([]);
   const [img, setImg] = useState('');
 
@@ -23,7 +23,7 @@ function Private_Events() {
     async function fetchData() {
       const responses = await Promise.all(
         postIds.map(async id => {
-          const res = await fetch(`${IP}/service/fetch/${id}`);
+          const res = await fetch(`${IP}/post/fetch/${id}`);
           return res.json();
 
         })

@@ -5,7 +5,7 @@ import { IP } from '../../../Constant';
 
 function Banner() {
  
-    const postIds = ['6406ca0b20fe802e78bbd764'];
+    const postIds = ['640ab764ad080eddce5217dd'];
     const [users, setUsers] = useState([]);
     const [img, setImg] = useState('');
   
@@ -13,7 +13,7 @@ function Banner() {
       async function fetchData() {
         const responses = await Promise.all(
           postIds.map(async id => {
-            const res = await fetch(`${IP}/service/fetch/${id}`);
+            const res = await fetch(`${IP}/post/fetch/${id}`);
             return res.json();
             
           })

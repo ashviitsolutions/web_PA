@@ -32,7 +32,7 @@ const PreviewImage = ({ attachments }) => {
 
 function Getpost() {
     const [search, setSearch] = useState("")
-    //   const [Delete, setDelete] = useState([])
+      const [Delete, setDelete] = useState([])
 
 
 
@@ -44,6 +44,7 @@ function Getpost() {
     const [count, setCount] = useState(0);
 
     // alert(selectedType)
+    console.log("selectedType",selectedType)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -82,25 +83,25 @@ function Getpost() {
             });
     }, []);
 
-    //   const handleDelete = (id) => {
-    //     let token = localStorage.getItem("tokenadmin");
-    //     fetch(`http://45.13.132.197:4000/api/service/delete/${id}`, {
-    //       method: "DELETE",
-    //       headers: {
-    //         Authorization: token,
-    //         'Content-Type': 'multipart/form-data'
-    //       }
-    //     })
-    //       .then((res) => res.json())
-    //       .then((data) => {
-    //         setDelete(data);
-    //         console.log(data);
+      const handleDelete = (id) => {
+        let token = localStorage.getItem("tokenadmin");
+        fetch(`http://45.13.132.197:4000/api/service/delete/${id}`, {
+          method: "DELETE",
+          headers: {
+            Authorization: token,
+            'Content-Type': 'multipart/form-data'
+          }
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            setDelete(data);
+            console.log(data);
 
-    //       })
-    //       .catch((error) => {
-    //         console.log(error);
-    //       });
-    //   };
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      };
 
     return (
         <>
@@ -208,7 +209,7 @@ function Getpost() {
                                                     <Link to={`/admin/services/edit_post/${cur._id}`} >
                                                         <span className="Edit mt-3">Edit Page</span>
                                                     </Link>
-                                               
+                                                    <button onClick={() => handleDelete(cur._id)}>Delete</button>
                                                 </div>
                                             </td>
 

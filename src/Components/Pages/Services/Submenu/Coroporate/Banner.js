@@ -2,7 +2,7 @@ import React, {useState,useEffect} from 'react'
 import { IP } from '../../../../../Constant';
 
 function Banner() {
-    const postIds = ['6405ec3920fe802e78bbba1c'];
+    const postIds = ['640aba03ad080eddce52195a'];
     const [users, setUsers] = useState([]);
     const [img, setImg] = useState('');
 
@@ -14,7 +14,7 @@ function Banner() {
         async function fetchData() {
             const responses = await Promise.all(
                 postIds.map(async id => {
-                    const res = await fetch(`${IP}/service/fetch/${id}`);
+                    const res = await fetch(`${IP}/post/fetch/${id}`);
                     return res.json();
 
                 })

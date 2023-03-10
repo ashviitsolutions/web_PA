@@ -355,3 +355,4 @@ function GetPost() {
 }
 
 export default GetPost
+// <button onClick={() => handleDelete(cur._id)}>Delete</button>

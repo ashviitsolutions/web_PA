@@ -3,7 +3,7 @@ import { IP } from '../../../../../Constant';
 
 function Employee() {
 
-    const postIds = ['6405ec8f20fe802e78bbba60'];
+    const postIds = ['640aba5dad080eddce521992'];
     const [users, setUsers] = useState([]);
     const [img, setImg] = useState('');
 
@@ -11,7 +11,7 @@ function Employee() {
         async function fetchData() {
             const responses = await Promise.all(
                 postIds.map(async id => {
-                    const res = await fetch(`${IP}/service/fetch/${id}`);
+                    const res = await fetch(`${IP}/post/fetch/${id}`);
                     return res.json();
 
                 })
