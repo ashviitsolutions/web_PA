@@ -32,7 +32,7 @@ const PreviewImage = ({ attachments }) => {
 
 
 function Getpost() {
-  const nav=useNavigate()
+  // const nav=useNavigate()
   const [search, setSearch] = useState("")
   // const [Delete, setDelete] = useState([])
 
