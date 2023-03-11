@@ -205,105 +205,100 @@
 
 
 
-import React,{useEffect,useState} from 'react'
-import { Link } from 'react-router-dom';
+// import React,{useEffect,useState} from 'react'
+// import { Link } from 'react-router-dom';
 
-// import Imge4 from "../../assets/img/pexels-andrea-piacquadio-3764568.jpg"
+// // import Imge4 from "../../assets/img/pexels-andrea-piacquadio-3764568.jpg"
 
 
-function Corporate() {
+// function Corporate() {
 
-const postIds = ['63f89ed75a71849662bd1bb7', '63f89f065a71849662bd1bdd', '63f8a05e5a71849662bd1c05'];
+// const postIds = ['63f89ed75a71849662bd1bb7', '63f89f065a71849662bd1bdd', '63f8a05e5a71849662bd1c05'];
 
-const [users, setUsers] = useState([]);
-const [img, setImg] = useState('');
+// const [users, setUsers] = useState([]);
+// const [img, setImg] = useState('');
 
-useEffect(() => {
-    async function fetchData() {
-      const responses = await Promise.all(
-        postIds.map(async id => {
-          const res = await fetch(`http://45.13.132.197:4000/api/post/fetch/${id}`);
-          return res.json();
+// useEffect(() => {
+//     async function fetchData() {
+//       const responses = await Promise.all(
+//         postIds.map(async id => {
+//           const res = await fetch(`http://45.13.132.197:4000/api/post/fetch/${id}`);
+//           return res.json();
           
-        })
-      );
-      setUsers(responses);
-      setImg(
-        await Promise.all(
-          responses.flatMap(response => response.attachments).map(async image => {
-            const res = await fetch(`http://45.13.132.197:4000/api/file/${image}`);
-            const imageBlob = await res.blob();
-            return URL.createObjectURL(imageBlob);
-          })
-        )
-      );
-    }
-    fetchData();
-  }, [])
+//         })
+//       );
+//       setUsers(responses);
+//       setImg(
+//         await Promise.all(
+//           responses.flatMap(response => response.attachments).map(async image => {
+//             const res = await fetch(`http://45.13.132.197:4000/api/file/${image}`);
+//             const imageBlob = await res.blob();
+//             return URL.createObjectURL(imageBlob);
+//           })
+//         )
+//       );
+//     }
+//     fetchData();
+//   }, [])
     
 
-    return (
-        <>
-            <div id="types" >
-                <div className="container" >
-                    <div className="row">
-                        <div className="gutter">
-                            <div className="heading">
-                                <h3 >corporate event services</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                            </div>
-                        </div>
-                    </div>
+//     return (
+//         <>
+//             <div id="types" >
+//                 <div className="container" >
+//                     <div className="row">
+//                         <div className="gutter">
+//                             <div className="heading">
+//                                 <h3 >corporate event services</h3>
+//                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+//                             </div>
+//                         </div>
+//                     </div>
                    
-                    <div className="row">
-                        <div className="col-sm-10 col-sm-offset-1">
-                            <div className="container-fluid">
-                                <div className="row">
-                                {users.map((user, index) => (
-                                    <div className="col-sm-4 col-xs-12" key={user._id}>
-                                      <div className="item_wrapper">
-                                        <div className="item">
-                                          <div
-                                            className="bg"
-                                            style={{
-                                              backgroundImage: `url(${img[index]})`,
-                                              borderRadius: '7px',
-                                            }}
-                                          ></div>
-                                          <div className="text content">
-                                            <h3>{user.title}</h3>
-                                            <p dangerouslySetInnerHTML={{ __html: user.description }} />
-                                            <div className="text">
-                                              <Link to="#" className="anchor" id="anchors">
-                                                book now
-                                              </Link>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  ))}
+//                     <div className="row">
+//                         <div className="col-sm-10 col-sm-offset-1">
+//                             <div className="container-fluid">
+//                                 <div className="row">
+//                                 {users.map((user, index) => (
+//                                     <div className="col-sm-4 col-xs-12" key={user._id}>
+//                                       <div className="item_wrapper">
+//                                         <div className="item">
+//                                           <div
+//                                             className="bg"
+//                                             style={{
+//                                               backgroundImage: `url(${img[index]})`,
+//                                               borderRadius: '7px',
+//                                             }}
+//                                           ></div>
+//                                           <div className="text content">
+//                                             <h3>{user.title}</h3>
+//                                             <p dangerouslySetInnerHTML={{ __html: user.description }} />
+//                                             <div className="text">
+//                                               <Link to="#" className="anchor" id="anchors">
+//                                                 book now
+//                                               </Link>
+//                                             </div>
+//                                           </div>
+//                                         </div>
+//                                       </div>
+//                                     </div>
+//                                   ))}
                                     
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+//                                 </div>
+//                             </div>
+//                         </div>
+//                     </div>
+//                 </div>
+//             </div>
 
 
 
 
-        </>
-    )
-}
+//         </>
+//     )
+// }
 
-export default Corporate
-
-
-
-
-
+// export default Corporate
 
 
 
@@ -311,160 +306,286 @@ export default Corporate
 
 
 
-import React,{useEffect,useState , useRef} from 'react'
-import "./Home.css"
-import { Link } from 'react-router-dom';
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
-import { GrFormNextLink, GrFormPreviousLink } from 'react-icons/gr';
 
-// import Imge4 from "../../assets/img/pexels-andrea-piacquadio-3764568.jpg"
 
-const responsive = {
-  desktop: {
-    breakpoint: { max: 3000, min: 1024 },
-    items: 1,
-  },
-  tablet: {
-    breakpoint: { max: 1024, min: 464 },
-    items: 1,
-  },
-  mobile: {
-    breakpoint: { max: 464, min: 0 },
-    items: 1,
-  }
-};
 
-function Corporate() {
 
-  const postIds = ['63f89ed75a71849662bd1bb7', '63f89f065a71849662bd1bdd', '63f8a05e5a71849662bd1c05'];
 
-  const [users, setUsers] = useState([]);
-  const [img, setImg] = useState('');
-  const carouselRef = useRef(null);
+// import React,{useEffect,useState , useRef} from 'react'
+// import "./Home.css"
+// import { Link } from 'react-router-dom';
+// import Carousel from "react-multi-carousel";
+// import "react-multi-carousel/lib/styles.css";
+// import { GrFormNextLink, GrFormPreviousLink } from 'react-icons/gr';
 
-  useEffect(() => {
-    async function fetchData() {
-      const responses = await Promise.all(
-        postIds.map(async id => {
-          const res = await fetch(`http://45.13.132.197:4000/api/post/fetch/${id}`);
-          return res.json();
-        })
-      );
-      setUsers(responses);
-      setImg(
-        await Promise.all(
-          responses.flatMap(response => response.attachments).map(async image => {
-            const res = await fetch(`http://45.13.132.197:4000/api/file/${image}`);
-            const imageBlob = await res.blob();
-            return URL.createObjectURL(imageBlob);
-          })
-        )
-      );
-    }
-    fetchData();
-  }, [])
+// // import Imge4 from "../../assets/img/pexels-andrea-piacquadio-3764568.jpg"
 
-  const handleNext = () => {
-    carouselRef.current.next();
-  };
+// const responsive = {
+//   desktop: {
+//     breakpoint: { max: 3000, min: 1024 },
+//     items: 1,
+//   },
+//   tablet: {
+//     breakpoint: { max: 1024, min: 464 },
+//     items: 1,
+//   },
+//   mobile: {
+//     breakpoint: { max: 464, min: 0 },
+//     items: 1,
+//   }
+// };
 
-  const handlePrevious = () => {
-    carouselRef.current.previous();
-  };
+// function Corporate() {
 
-    return (
-        <>
+//   const postIds = ['63f89ed75a71849662bd1bb7', '63f89f065a71849662bd1bdd', '63f8a05e5a71849662bd1c05'];
 
-            <div id="types" >
-            <GrFormPreviousLink className='left-arrow' onClick={handlePrevious} />
-            <GrFormNextLink className='right-arrow' onClick={handleNext} />
-                <div className="container" >
-                    <div className="row">
-                        <div className="gutter">
-                            <div className="heading">
-                                <h3 >corporate event services</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                            </div>
-                        </div>
-                    </div>
+//   const [users, setUsers] = useState([]);
+//   const [img, setImg] = useState('');
+//   const carouselRef = useRef(null);
+
+//   useEffect(() => {
+//     async function fetchData() {
+//       const responses = await Promise.all(
+//         postIds.map(async id => {
+//           const res = await fetch(`http://45.13.132.197:4000/api/post/fetch/${id}`);
+//           return res.json();
+//         })
+//       );
+//       setUsers(responses);
+//       setImg(
+//         await Promise.all(
+//           responses.flatMap(response => response.attachments).map(async image => {
+//             const res = await fetch(`http://45.13.132.197:4000/api/file/${image}`);
+//             const imageBlob = await res.blob();
+//             return URL.createObjectURL(imageBlob);
+//           })
+//         )
+//       );
+//     }
+//     fetchData();
+//   }, [])
+
+//   const handleNext = () => {
+//     carouselRef.current.next();
+//   };
+
+//   const handlePrevious = () => {
+//     carouselRef.current.previous();
+//   };
+
+//     return (
+//         <>
+
+//             <div id="types" >
+//             <GrFormPreviousLink className='left-arrow' onClick={handlePrevious} />
+//             <GrFormNextLink className='right-arrow' onClick={handleNext} />
+//                 <div className="container" >
+//                     <div className="row">
+//                         <div className="gutter">
+//                             <div className="heading">
+//                                 <h3 >corporate event services</h3>
+//                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+//                             </div>
+//                         </div>
+//                     </div>
           
-                    <div className="row">
+//                     <div className="row">
                  
 
-                    <Carousel
-                    ref={carouselRef}
-                    swipeable={true}
-                    draggable={true}
-                    showDots={true}
-                    responsive={responsive}
-                    ssr={true} // means to render carousel on server-side.
-                    infinite={true}
-                    autoPlay={false}
-                    autoPlaySpeed={1500}
-                    keyBoardControl={true}
-                    customTransition="all .5"
-                    transitionDuration={100}
-                    containerClass="carousel-container"
-                    removeArrowOnDeviceType={["tablet", "mobile", "desktop"]}
-                    dotListClass="custom-dot-list-style"
-                    itemClass="carousel-item-padding-40-px"
-                    slidesToSlide={1} // set to 1 to slide only one image at a time
-                  >
+//                     <Carousel
+//                     ref={carouselRef}
+//                     swipeable={true}
+//                     draggable={true}
+//                     showDots={true}
+//                     responsive={responsive}
+//                     ssr={true} // means to render carousel on server-side.
+//                     infinite={true}
+//                     autoPlay={false}
+//                     autoPlaySpeed={1500}
+//                     keyBoardControl={true}
+//                     customTransition="all .5"
+//                     transitionDuration={100}
+//                     containerClass="carousel-container"
+//                     removeArrowOnDeviceType={["tablet", "mobile", "desktop"]}
+//                     dotListClass="custom-dot-list-style"
+//                     itemClass="carousel-item-padding-40-px"
+//                     slidesToSlide={1} // set to 1 to slide only one image at a time
+//                   >
              
-                  <div className="col-sm-10 col-sm-offset-1">
-                  <div className="container-fluid" id='showcard'>
-                      <div className="row">
-                      {users.map((user, index) => (
-                          <div className="col-sm-4 col-xs-12" key={user._id}>
-                            <div className="item_wrapper">
-                              <div className="item">
-                                <div
-                                  className="bg"
-                                  style={{
-                                    backgroundImage: `url(${img[index]})`,
-                                    borderRadius: '7px',
-                                  }}
-                                ></div>
-                                <div className="text content">
-                                  <h3>{user.title}</h3>
-                                  <p dangerouslySetInnerHTML={{ __html: user.description }} />
-                                  <div className="text">
-                                    <Link to="#" className="anchor" id="anchors">
-                                      book now
-                                    </Link>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        ))}
+//                   <div className="col-sm-10 col-sm-offset-1">
+//                   <div className="container-fluid" id='showcard'>
+//                       <div className="row">
+//                       {users.map((user, index) => (
+//                           <div className="col-sm-4 col-xs-12" key={user._id}>
+//                             <div className="item_wrapper">
+//                               <div className="item">
+//                                 <div
+//                                   className="bg"
+//                                   style={{
+//                                     backgroundImage: `url(${img[index]})`,
+//                                     borderRadius: '7px',
+//                                   }}
+//                                 ></div>
+//                                 <div className="text content">
+//                                   <h3>{user.title}</h3>
+//                                   <p dangerouslySetInnerHTML={{ __html: user.description }} />
+//                                   <div className="text">
+//                                     <Link to="#" className="anchor" id="anchors">
+//                                       book now
+//                                     </Link>
+//                                   </div>
+//                                 </div>
+//                               </div>
+//                             </div>
+//                           </div>
+//                         ))}
                           
+//                       </div>
+//                   </div>
+//               </div>
+//                   </Carousel>
+
+
+
+
+
+
+
+
+
+
+
+
+//                     </div>
+//                 </div>
+//             </div>
+
+
+
+
+//         </>
+//     )
+// }
+
+// export default Corporate
+
+
+
+
+
+  import React, { useState } from 'react'
+  const Data1 = [
+      {
+          id: 1,
+          title: "Title Goes Here. ...  1here?",
+          description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti assumenda facilis neque quae reiciendis aspernatur harum consectetur voluptatibus culpa officiis voluptas alias magnam totam cum magni nemo, cumque accusantium corrupti."
+      },
+      
+  ];
+
+  const Data = [
+    
+      {
+          id: 2,
+          title: "Title Goes Here. ...  2here?",
+          description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti assumenda facilis neque quae reiciendis aspernatur harum consectetur voluptatibus culpa officiis voluptas alias magnam totam cum magni nemo, cumque accusantium corrupti."
+      },
+      {
+          id: 3,
+          title: "Title Goes Here. ...  3here?",
+          description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti assumenda facilis neque quae reiciendis aspernatur harum consectetur voluptatibus culpa officiis voluptas alias magnam totam cum magni nemo, cumque accusantium corrupti."
+      },
+      {
+          id: 4,
+          title: "Title Goes Here. ...  3here?",
+          description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti assumenda facilis neque quae reiciendis aspernatur harum consectetur voluptatibus culpa officiis voluptas alias magnam totam cum magni nemo, cumque accusantium corrupti."
+      }
+  ];
+
+  function Faq() {
+      const [toggle, setToggle] = useState(Data.map(() => false));
+      const [toggle1, setToggle1] = useState(Data.map(() => false));
+
+      const handleToggle = (index) => {
+          setToggle((prev) => {
+              const newToggle = [...prev];
+              newToggle[index] = !newToggle[index];
+              return newToggle;
+          });
+      };
+      const handleToggle1 = (index) => {
+          setToggle1((prev) => {
+              const newToggle = [...prev];
+              newToggle[index] = !newToggle[index];
+              return newToggle;
+          });
+      };
+      return (
+          <>
+              <div className="container">
+                  <div className="row">
+                      <div className="heading content mt-5 " id='faqtext'>
+                          <h3>FAQ<small>(s)</small> </h3>
+                          <p>Lorem ipsum dolor sit amet</p>
+                      </div>
+                  </div>
+                  <div className="row">
+                      <div id="faq_page" className="card layer1" style={{ padding: 0 }}>
+
+                      {Data1.map((curElem, index) => (
+                          <div className="faq" key={curElem.id} style={{ marginLeft: "10px" }}  onClick={() => handleToggle1(index)}>
+                              <div style={{display:"flex"}} className="question">
+                                  <span className='buttonplus' >{!toggle1[index] ? '-' : '+'}</span>
+                                  <h6 id='faqitem'>{curElem.title}</h6>
+                              </div>
+
+                              <div id="ans" className="answer">
+                                  {!toggle1[index] && (
+                                      <div id="ans" className="answer">
+                                          <p>{curElem.description}</p>
+                                      </div>
+                                  )}
+                              </div>
+                          </div>
+
+                      ))}
+
+
+
+
+
+
+
+                          {Data.map((curElem, index) => (
+                              <div className="faq" key={curElem.id} style={{ marginLeft: "10px" }}  onClick={() => handleToggle(index)}>
+                                  <div style={{display:"flex"}} className="question">
+                                      <span className='buttonplus' >{toggle[index] ? '-' : '+'}</span>
+                                      <h6 id='faqitem'>{curElem.title}</h6>
+                                  </div>
+
+                                  <div id="ans" className="answer">
+                                      {toggle[index] && (
+                                          <div id="ans" className="answer">
+                                              <p>{curElem.description}</p>
+                                          </div>
+                                      )}
+                                  </div>
+                              </div>
+
+                          ))}
+
+
+
+
+
+
+
+
                       </div>
                   </div>
               </div>
-                  </Carousel>
+          </>
+      )
+  }
 
-
-
-
-
-
-
-
-
-
-
-
-                    </div>
-                </div>
-            </div>
-
-
-
-
-        </>
-    )
-}
-
-export default Corporate
+  export default Faq

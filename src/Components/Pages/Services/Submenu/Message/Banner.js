@@ -40,7 +40,7 @@ function Banner() {
             <div className="col-sm-6">
                 <div className="head">
                 <h1>{users.title} </h1>
-                <h3 dangerouslySetInnerHTML={{ __html: users.description }} style={{fontWeight:"500", fontSize:"15px"}}/>
+                <h3 dangerouslySetInnerHTML={{ __html: users.description }} style={{fontWeight:"500", fontSize:"15px", paddingLeft:"10px"}}/>
                     <button className="button" >get started</button>
                     <button className="button hollow" >services</button>
                 </div>

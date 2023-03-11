@@ -1,116 +1,82 @@
-import React, { useState } from 'react'
-const Data1 = [
-    {
-        id: 1,
-        title: "Title Goes Here. ...  1here?",
-        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti assumenda facilis neque quae reiciendis aspernatur harum consectetur voluptatibus culpa officiis voluptas alias magnam totam cum magni nemo, cumque accusantium corrupti."
-    },
-    
-];
-
-const Data = [
-  
-    {
-        id: 2,
-        title: "Title Goes Here. ...  2here?",
-        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti assumenda facilis neque quae reiciendis aspernatur harum consectetur voluptatibus culpa officiis voluptas alias magnam totam cum magni nemo, cumque accusantium corrupti."
-    },
-    {
-        id: 3,
-        title: "Title Goes Here. ...  3here?",
-        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti assumenda facilis neque quae reiciendis aspernatur harum consectetur voluptatibus culpa officiis voluptas alias magnam totam cum magni nemo, cumque accusantium corrupti."
-    },
-    {
-        id: 4,
-        title: "Title Goes Here. ...  3here?",
-        description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti assumenda facilis neque quae reiciendis aspernatur harum consectetur voluptatibus culpa officiis voluptas alias magnam totam cum magni nemo, cumque accusantium corrupti."
-    }
-];
+import React, { useState, useEffect } from 'react';
+import { IP } from '../../../Constant';
 
 function Faq() {
-    const [toggle, setToggle] = useState(Data.map(() => false));
-    const [toggle1, setToggle1] = useState(Data.map(() => false));
+  const postIds = [
+    '640c174fff3c39ffa38ee85c',
+    '640c176dff3c39ffa38ee870',
+    '640c17ddff3c39ffa38ee8ca',
+    '640c17e0ff3c39ffa38ee8d4',
+  ];
 
-    const handleToggle = (index) => {
-        setToggle((prev) => {
-            const newToggle = [...prev];
-            newToggle[index] = !newToggle[index];
-            return newToggle;
-        });
-    };
-    const handleToggle1 = (index) => {
-        setToggle1((prev) => {
-            const newToggle = [...prev];
-            newToggle[index] = !newToggle[index];
-            return newToggle;
-        });
-    };
-    return (
-        <>
-            <div className="container">
-                <div className="row">
-                    <div className="heading content mt-5 " id='faqtext'>
-                        <h3>FAQ<small>(s)</small> </h3>
-                        <p>Lorem ipsum dolor sit amet</p>
-                    </div>
+  const [users, setUsers] = useState([]);
+  const [toggle, setToggle] = useState([]);
+
+  useEffect(() => {
+    async function fetchusers() {
+      const responses = await Promise.all(
+        postIds.map(async (id) => {
+          const res = await fetch(`${IP}/post/fetch/${id}`);
+          return res.json();
+        })
+      );
+      setUsers(responses);
+      setToggle(
+        Array.from({ length: responses.length }, (_, i) => i === 0)
+      ); // Initialize toggle state array
+    }
+    fetchusers();
+  }, []);
+
+  const handleToggle = (index) => {
+    setToggle((prev) => {
+      const newToggle = [...prev];
+      newToggle[index] = !newToggle[index];
+      return newToggle;
+    });
+  };
+
+  return (
+    <>
+      <div className="container">
+        <div className="row">
+          <div className="heading content mt-5 " id="faqtext">
+            <h3>
+              FAQ<small>(s)</small>{' '}
+            </h3>
+            <p>Lorem ipsum dolor sit amet</p>
+          </div>
+        </div>
+        <div className="row">
+          <div id="faq_page" className="card layer1" style={{ padding: 0 }}>
+            {users.map((curElem, index) => (
+              <div
+                className="faq"
+                key={curElem.id}
+                style={{ marginLeft: '10px' }}
+                onClick={() => handleToggle(index)}
+              >
+                <div style={{ display: 'flex' }} className="question">
+                  <span className="buttonplus">
+                    {toggle[index] ? '-' : '+'}
+                  </span>
+                  <h6 id="faqitem">{curElem.title}</h6>
                 </div>
-                <div className="row">
-                    <div id="faq_page" className="card layer1" style={{ padding: 0 }}>
 
-                    {Data1.map((curElem, index) => (
-                        <div className="faq" key={curElem.id} style={{ marginLeft: "10px" }}  onClick={() => handleToggle1(index)}>
-                            <div style={{display:"flex"}} className="question">
-                                <span className='buttonplus' >{!toggle1[index] ? '-' : '+'}</span>
-                                <h6 id='faqitem'>{curElem.title}</h6>
-                            </div>
-
-                            <div id="ans" className="answer">
-                                {!toggle1[index] && (
-                                    <div id="ans" className="answer">
-                                        <p>{curElem.description}</p>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-
-                    ))}
-
-
-
-
-
-
-
-                        {Data.map((curElem, index) => (
-                            <div className="faq" key={curElem.id} style={{ marginLeft: "10px" }}  onClick={() => handleToggle(index)}>
-                                <div style={{display:"flex"}} className="question">
-                                    <span className='buttonplus' >{toggle[index] ? '-' : '+'}</span>
-                                    <h6 id='faqitem'>{curElem.title}</h6>
-                                </div>
-
-                                <div id="ans" className="answer">
-                                    {toggle[index] && (
-                                        <div id="ans" className="answer">
-                                            <p>{curElem.description}</p>
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
-
-                        ))}
-
-
-
-
-
-
-
-
+                <div id="ans" className="answer">
+                  {toggle[index] && (
+                    <div id="ans" className="answer">
+                    <p  dangerouslySetInnerHTML={{ __html:curElem.description }}    />
                     </div>
+                  )}
                 </div>
-            </div>
-        </>
-    )
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }
 
-export default Faq
+export default Faq;

@@ -46,25 +46,25 @@ function Sidebar() {
               </Link>
             </div>
             <div className="items">
-              <Link to="events.php">
+              <Link to="/admin/events">
                 <TodayIcon style={{ color: "#fff" }} />
                 <span className="title">Events</span>
               </Link>
             </div>
             <div className="items">
-              <Link to="bookings.php">
+              <Link to="/admin/bookings">
                 <BeenhereIcon style={{ color: "#fff" }} />
                 <span className="title">bookings</span>
               </Link>
             </div>
             <div className="items">
-              <Link to="messages.php">
+              <Link to="/admin/messages">
                 <MessageIcon style={{ color: "#fff" }} />
                 <span className="title">messages</span>
               </Link>
             </div>
             <div className="items">
-              <Link to="payments.php">
+              <Link to="/admin/payments">
                 <PaidIcon style={{ color: "#fff" }} />
                 <span className="title">payemtns</span>
               </Link>
@@ -82,13 +82,13 @@ function Sidebar() {
               </Link>
             </div>
             <div className="items">
-              <Link to="contractors.php">
+              <Link to="/admin/contractors">
                 <HailIcon style={{ color: "#fff" }} />
                 <span className="title">contractors</span>
               </Link>
             </div>
             <div className="items">
-              <Link to="clients.php">
+              <Link to="/admin/clients">
                 <Groups2Icon style={{ color: "#fff" }} />
                 <span className="title">clients</span>
               </Link>
