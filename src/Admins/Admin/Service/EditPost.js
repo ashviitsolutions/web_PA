@@ -5,7 +5,6 @@ import axios from 'axios';
 import JoditEditor from 'jodit-react';
 // import "./style.css"
 import { useNavigate } from 'react-router-dom';
-import Sidebar from "../../Sidebar/Sidebar"
 import { useParams } from 'react-router-dom';
 import { IP } from '../../../Constant';
 
@@ -135,7 +134,6 @@ function Editpost() {
 
     return (
         <>
-            <Sidebar />
             <div id="content">
                 <div className="container-fluid">
                     <div className="row">

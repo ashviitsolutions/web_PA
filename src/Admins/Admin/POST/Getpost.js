@@ -1,10 +1,9 @@
 
 import React, { useEffect, useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
-import Sidebar from "../../Sidebar/Sidebar"
 import ReactPaginate from 'react-paginate';
 import "./style.css"
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { IP } from '../../../Constant';
 
 const PreviewImage = ({ attachments }) => {
@@ -109,7 +108,6 @@ function Getpost() {
   
   return (
     <>
-      <Sidebar />
       <div id="content">
         <div className="container-fluid">
           <div className="row">

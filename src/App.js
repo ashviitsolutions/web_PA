@@ -22,17 +22,37 @@ import { Provider } from 'react-redux';
 
 //admin pannel
 import Sidebar from "./Admins/Sidebar/Sidebar"
+
+// 1.Post section
 import Addpost from './Admins/Admin/POST/Addpost';
 import Editpost from './Admins/Admin/POST/Editpost';
 import Getpost from './Admins/Admin/POST/Getpost';
+
+// 2.Login section
 import LoginPage from './Admins/Admin/PAGES/LOGIN/Login';
 import Protect from './Admins/Admin/PAGES/Protected/Protect';
 import Errorpage from './Admins/Admin/PAGES/Error404/Errorpage';
+
+// 3.service section
 import getService from './Admins/Admin/Service/GetPost';
 import AddPostService from "./Admins/Admin/Service/AddPost"
 import EditPostService from './Admins/Admin/Service/EditPost';
 
-import Config from './Config';
+//4.clients section
+import Clients from './Admins/Admin/Client/Clients';
+import AddClient from './Admins/Admin/Client/AddClient';
+import EditClient from './Admins/Admin/Client/EditClient';
+// contractors
+import Contractors from './Admins/Admin/CONTRACTORS/Contractors';
+import AddContractors from './Admins/Admin/CONTRACTORS/AddContractors';
+import ViewContractor from './Admins/Admin/CONTRACTORS/ViewContractor';
+
+//Pyments
+import Payments from './Admins/Admin/PAYMENT/Payments';
+import Booking from './Admins/Admin/BOOKING/Booking';
+import Event from './Admins/Admin/EVENT/Event';
+import Message from './Admins/Admin/MESSAGE/Message';
+
 
 function App() {
 
@@ -123,31 +143,40 @@ function App() {
 
 
           <Route path="/admin" element={<>
+            <Sidebar />
             <Protect Component={Sidebar} />
           </>} />
           <Route path="/admin/post" element={<>
+            <Sidebar />
             <Protect Component={Getpost} />
           </>} />
           <Route path="/admin/post/addpost" element={<>
+            <Sidebar />
             <Protect Component={Addpost} />
           </>} />
           <Route path="/admin/post/editpage/:id" element={<>
+            <Sidebar />
             <Protect Component={Editpost} />
           </>} />
           <Route path="/admin/login" element={<>
+            <Sidebar />
             <Protect Component={LoginPage} />
           </>} />
           <Route path="/admin/*" element={<>
+            <Sidebar />
             <Protect Component={Errorpage} />
           </>} />
 
           <Route path="/admin/services" element={<>
+            <Sidebar />
             <Protect Component={getService} />
           </>} />
           <Route path="/admin/services/add_service" element={<>
+            <Sidebar />
             <Protect Component={AddPostService} />
           </>} />
           <Route path="/admin/services/edit_post/:id" element={<>
+            <Sidebar />
             <Protect Component={EditPostService} />
           </>} />
 
@@ -156,7 +185,72 @@ function App() {
 
 
 
+          <Route path="/admin/clients" element={<>
+            <Sidebar />
+            <Protect Component={Clients} />
+          </>} />
 
+          <Route path="/admin/clients/add_client" element={<>
+            <Sidebar />
+            <Protect Component={AddClient} />
+          </>} />
+
+
+          <Route path="/admin/clients/edit_client" element={<>
+            <Sidebar />
+            <Protect Component={EditClient} />                             
+          </>} />
+
+
+        
+
+
+
+
+
+
+
+
+
+          <Route path="/admin/contractors" element={<>
+            <Sidebar />
+            <Protect Component={Contractors} />
+          </>} />
+
+          <Route path="/admin/contractors/add_contractor" element={<>
+            <Sidebar />
+            <Protect Component={AddContractors} />
+          </>} />
+
+
+          <Route path="/admin/contractors/view_contractor" element={<>
+            <Sidebar />
+            <Protect Component={ViewContractor} />
+          </>} />
+
+
+
+
+          <Route path="/admin/payments" element={<>
+            <Sidebar />
+            <Protect Component={Payments} />
+          </>} />
+
+
+          <Route path="/admin/bookings" element={<>
+            <Sidebar />
+            <Protect Component={Booking} />
+          </>} />
+
+          <Route path="/admin/events" element={<>
+            <Sidebar />
+            <Protect Component={Event} />
+          </>} />
+
+          <Route path="/admin/messages" element={<>
+            <Sidebar />
+            <Protect Component={Message} />
+          </>} />
 
 
 

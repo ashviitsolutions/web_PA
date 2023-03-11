@@ -1,7 +1,6 @@
 
 import React, { useEffect, useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
-import Sidebar from "../../Sidebar/Sidebar"
 import ReactPaginate from 'react-paginate';
 import { IP } from '../../../Constant';
 import "./style.css"
@@ -105,7 +104,6 @@ function Getpost() {
 
     return (
         <>
-            <Sidebar />
             <div id="content">
                 <div className="container-fluid">
                     <div className="row">
