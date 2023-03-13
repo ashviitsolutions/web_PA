@@ -74,11 +74,11 @@ function Blog() {
                                             : user.description.slice(0, 100) + (user.description.length > 100 ? "...." : "") }} />
           
                                             {index === activeCardIndex ? (
-                                              <button onClick={() => handleReadMoreClick(null)}  className="Read_More">
+                                              <button onClick={() => handleReadMoreClick(null)}  className="Read_Mores">
                                                 Show less
                                               </button>
                                             ) : (
-                                              <button onClick={() => handleReadMoreClick(index)} className="Read_More">
+                                              <button onClick={() => handleReadMoreClick(index)} className="Read_Mores">
                                                 Read more
                                               </button>
                                             )}

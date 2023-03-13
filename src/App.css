@@ -9,6 +9,10 @@
 
 }
 
+body{
+   background-color: #ffff;
+
+}
 
 @import "./Components/assets/css/bootstrap-datepicker.min.css";
 @import "./Components/assets/css/custom.css";

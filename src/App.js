@@ -53,6 +53,23 @@ import Booking from './Admins/Admin/BOOKING/Booking';
 import Event from './Admins/Admin/EVENT/Event';
 import Message from './Admins/Admin/MESSAGE/Message';
 
+//Dashboard
+import Dashboard from './Admins/Admin/DASHBOARD/Dashboard';
+
+
+//Provide pannel
+import NavBarProvide from './PROVIDER/components/navbar';
+import DashboardProvider from './PROVIDER/layouts/dashboard';
+// import './PROVIDER/custom.css';
+import ApplicationForm from './PROVIDER/layouts/ApplicationForm';
+import Earnings from './PROVIDER/layouts/Earnings';
+import Profile from './PROVIDER/layouts/Profile';
+import ScheduledRequests from './PROVIDER/layouts/ScheduledEvents';
+import PersonalSettings from './PROVIDER/layouts/PersonalSettings';
+import Events from './PROVIDER/layouts/Events';
+import Services from './PROVIDER/layouts/Services';
+import SideBarprovider from './PROVIDER/components/SideBar';
+
 
 function App() {
 
@@ -179,12 +196,6 @@ function App() {
             <Sidebar />
             <Protect Component={EditPostService} />
           </>} />
-
-
-
-
-
-
           <Route path="/admin/clients" element={<>
             <Sidebar />
             <Protect Component={Clients} />
@@ -194,24 +205,10 @@ function App() {
             <Sidebar />
             <Protect Component={AddClient} />
           </>} />
-
-
           <Route path="/admin/clients/edit_client" element={<>
             <Sidebar />
-            <Protect Component={EditClient} />                             
+            <Protect Component={EditClient} />
           </>} />
-
-
-        
-
-
-
-
-
-
-
-
-
           <Route path="/admin/contractors" element={<>
             <Sidebar />
             <Protect Component={Contractors} />
@@ -221,22 +218,14 @@ function App() {
             <Sidebar />
             <Protect Component={AddContractors} />
           </>} />
-
-
           <Route path="/admin/contractors/view_contractor" element={<>
             <Sidebar />
             <Protect Component={ViewContractor} />
           </>} />
-
-
-
-
           <Route path="/admin/payments" element={<>
             <Sidebar />
             <Protect Component={Payments} />
           </>} />
-
-
           <Route path="/admin/bookings" element={<>
             <Sidebar />
             <Protect Component={Booking} />
@@ -251,9 +240,91 @@ function App() {
             <Sidebar />
             <Protect Component={Message} />
           </>} />
+          <Route path="/admin/dashboard" element={<>
+            <Sidebar />
+            <Protect Component={Dashboard} />
+          </>} />
 
 
 
+
+
+
+
+
+
+
+
+
+
+          <Route path="/providers" element={<>
+            <NavBarProvide />
+            <SideBarprovider />
+            <Protect Component={DashboardProvider} />
+          </>} />
+          <Route path="/providers/scheduled-requests" element={<>
+            <NavBarProvide />
+            <SideBarprovider />
+            <Protect Component={ScheduledRequests} />
+          </>} />
+          <Route path="/providers/events" element={<>
+            <NavBarProvide />
+            <SideBarprovider />
+            <Protect Component={Events} />
+          </>} />
+
+          <Route path="/providers/services" element={<>
+            <NavBarProvide />
+            <SideBarprovider />
+            <Protect Component={Services} />
+          </>} />
+          <Route path="/providers/earnings" element={<>
+            <NavBarProvide />
+            <SideBarprovider />
+            <Protect Component={Earnings} />
+          </>} />
+          <Route path="/providers/application-form" element={<>
+            <NavBarProvide />
+            <SideBarprovider />
+            <Protect Component={ApplicationForm} />
+          </>} />
+
+
+          <Route path="/providers/bookings" element={<>
+            <NavBarProvide />
+            <SideBarprovider />
+            <Protect Component={Booking} />
+          </>} />
+
+          <Route path="/providers/events" element={<>
+            <NavBarProvide />
+            <SideBarprovider />
+            <Protect Component={Event} />
+          </>} />
+
+          <Route path="/providers/messages" element={<>
+            <NavBarProvide />
+            <SideBarprovider />
+            <Protect Component={Message} />
+          </>} />
+          <Route path="/providers/dashboard" element={<>
+            <NavBarProvide />
+            <SideBarprovider />
+            <Protect Component={DashboardProvider} />
+          </>} />
+
+
+          <Route path="/providers/profiles" element={<>
+            <NavBarProvide />
+            <SideBarprovider />
+            <Protect Component={Profile} />
+          </>} />
+
+          <Route path="/providers/personal-settings" element={<>
+            <NavBarProvide />
+            <SideBarprovider />
+            <Protect Component={PersonalSettings} />
+          </>} />
         </Routes>
 
       </Provider>

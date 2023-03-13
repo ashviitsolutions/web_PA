@@ -40,7 +40,7 @@ function Sidebar() {
           <div className="nav" style={{ marginTop: "10px" }}>
 
             <div className="items">
-              <Link to="events.php">
+              <Link to="/admin/dashboard">
                 <DashboardIcon style={{ color: "#fff" }} />
                 <span className="title">dashboard</span>
               </Link>
