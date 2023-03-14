@@ -46,9 +46,9 @@ function Provider() {
                 <div className="container">
                     <div className="row">
                         <div className="col-sm-6">
-                            <div className="heading">
+                            <div className="heading " id='headingprovider'>
                                 <h3>{users.title}</h3>
-                                <h2>{users.excerpt}</h2>
+                                <h5>{users.excerpt}</h5>
                                 <p  dangerouslySetInnerHTML={{ __html:users.description }}    />
                                 <button className="button" type="button">become provider</button>
                             </div>

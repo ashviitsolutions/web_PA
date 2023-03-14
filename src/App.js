@@ -60,7 +60,6 @@ import Dashboard from './Admins/Admin/DASHBOARD/Dashboard';
 //Provide pannel
 import NavBarProvide from './PROVIDER/components/navbar';
 import DashboardProvider from './PROVIDER/layouts/dashboard';
-// import './PROVIDER/custom.css';
 import ApplicationForm from './PROVIDER/layouts/ApplicationForm';
 import Earnings from './PROVIDER/layouts/Earnings';
 import Profile from './PROVIDER/layouts/Profile';
@@ -160,7 +159,7 @@ function App() {
 
 
           <Route path="/admin" element={<>
-            <Sidebar />
+       
             <Protect Component={Sidebar} />
           </>} />
           <Route path="/admin/post" element={<>
@@ -176,7 +175,6 @@ function App() {
             <Protect Component={Editpost} />
           </>} />
           <Route path="/admin/login" element={<>
-            <Sidebar />
             <Protect Component={LoginPage} />
           </>} />
           <Route path="/admin/*" element={<>

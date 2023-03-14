@@ -38,7 +38,7 @@ function GuestLogin() {
         <div className="container">
           <div className="row">
             <div className="col-sm-10 col-sm-offset-1">
-              <div className="card sign_in_form" style={{ zIndex: 9, maxWidth: "100%" }}>
+              <div className="card sign_in_forms" style={{ zIndex: 9, maxWidth: "100%" }}>
                 <div className="container-fluid">
                   <div className="row">
                     <div className="col-sm-6">

@@ -79,11 +79,11 @@ function Contact() {
                                 <div className="content">
                                     <div className="">
                                         <p>you can call us on </p>
-                                        <Link to="tel: 9876543210"><span className="phone">{users.title}</span></Link>
+                                        <Link to="tel: 9876543210"><span className="phones">{users.title}</span></Link>
                                     </div>
                                     <div className="">
                                         <p>or write to us on </p>
-                                        <Link to="mailto:info@productivealliance.com"><span className="phone">{users.excerpt}</span></Link>
+                                        <Link to="mailto:info@productivealliance.com"><span className="phones">{users.excerpt}</span></Link>
                                     </div>
                                 </div>
                             </div>

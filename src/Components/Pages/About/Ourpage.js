@@ -47,7 +47,7 @@ function Ourpage() {
             <div className="col-sm-6" >
               <div className="heading" >
                 <h3>{users1.title}</h3>
-                <p id='storypara'  dangerouslySetInnerHTML={{ __html: users1.description }} />
+                <p   dangerouslySetInnerHTML={{ __html: users1.description }} />
               </div>
             </div>
           </div>
@@ -57,7 +57,7 @@ function Ourpage() {
             <div className="col-sm-6">
               <div className="heading">
                 <h3>{users2.title}</h3>
-                <p  id='storypara' dangerouslySetInnerHTML={{ __html: users2.description }} style={{ paddingLeft: "66px" }} />
+                <p   dangerouslySetInnerHTML={{ __html: users2.description }} style={{ paddingLeft: "66px" }} />
                 <ul className="true">
                   <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit, </li>
                   <li>sed do eiusmod tempor incididunt ut labore</li>

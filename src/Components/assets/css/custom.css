@@ -790,7 +790,8 @@ body {
 
 .heading p {
   font-size: 12px;
-  text-transform: capitalize;
+  justify-content: center;
+  /* text-transform: capitalize; */
   font-weight: 400;
   letter-spacing: 0.5px;
   word-spacing: 3px;
@@ -987,6 +988,7 @@ body {
 #brief .content p {
   font-size: 13px;
   color: #232018;
+  margin-left: -2.5rem;
 }
 
 #brief .content .button {
@@ -998,7 +1000,7 @@ body {
 #brief .video_wrapper {
   position: relative;
   display: block;
-  width: 100%;
+  width: 118%;
   padding-left: 25px;
 }
 
@@ -1006,7 +1008,7 @@ body {
   border-radius: 8px;
   position: relative;
   display: block;
-  width: 100%;
+  width: 110%;
   box-shadow: 7px 11px 15px -7px rgb(0 0 0 / 35%);
 }
 
@@ -2351,6 +2353,25 @@ ul.true li::after {
   box-shadow: 4px 10px 20px 1px #00000059;
   margin-bottom: 20px;
 }
+
+.sign_in_forms {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  margin-top: 50px;
+  background: #fff;
+  margin-top: 100px;
+  margin-left: 100px;
+  padding: 50px 25px;
+  border-radius: 8px;
+  box-shadow: 4px 10px 20px 1px #00000059;
+  margin-bottom: 20px;
+}
+
+
+
 
 .sign_in_form .button {
   width: 100%;
@@ -3780,12 +3801,19 @@ ul.true li::after {
 
 .heading{
   position: relative;
-  left: -10vh;
+  left: -6rem;
   width: 100%;
   text-align: center;
   justify-content: center;
 }
 
+.headinghome{
+  position: relative;
+  /* left: -6rem; */
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+}
 .questions >h3{
   font-size: 15px;
   color: #2d323e;
@@ -3865,7 +3893,8 @@ img.img-responsive {
 
 .heading h3 {
   font-size: 22px;
-  text-transform: capitalize;
+  /* text-transform: capitalize;
+   */
   font-weight: 800;
   color: #0f1538;
   text-align: center;

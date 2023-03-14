@@ -11,7 +11,7 @@ function Download() {
                 <div className="container">
                     <div className="row">
                         <div className="col-sm-5">
-                            <div className="heading">
+                            <div className="headinghome">
                                 <h3>Try our app</h3>
                                 <h2 style={{fontSize:"18px"}}>Download our app from google play store and get a smooth booking experience</h2>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.</p>

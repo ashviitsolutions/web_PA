@@ -11,23 +11,26 @@ function Brief() {
                     <div className="row">
                         <div className="col-sm-offset-1 col-sm-10">
                             <div className="container-fluid" id='videofile'>
-                                <div className="col-sm-6" >
+                            <div className='row'>
+                            <div className="col-sm-6" >
                                     <div className="content heading">
                                         <h3>Become <span>a member</span>.</h3>
-                                        <h5>Consult now to know how you can improve your lifestyle.</h5>
+                                        <h5 >Consult now to know how you can improve your lifestyle.</h5>
                                     </div>
                                     <div className="content">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                                        <p id='videofiletext'>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
                                         <button className="button primary" type="button">register now</button>
                                     </div>
                                 </div>
-                                <div className="col-sm-7">
+                                <div className="col-sm-6">
                                     <div className="content">
                                         <div className="video_wrapper">
-                                            <video id="myVideo" src={video}  autoPlay muted loop  controls={true}/>
+                                            <video id="myVideos" src={video}  autoPlay muted loop  controls={true}/>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                                
                             </div>
                         </div>
                     </div>

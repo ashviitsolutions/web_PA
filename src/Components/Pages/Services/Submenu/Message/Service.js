@@ -75,11 +75,11 @@ function Service() {
 
                             <div className="text">
                               {index === activeCardIndex ? (
-                                <button onClick={() => handleReadMoreClick(null)} className="Read_Mores">
+                                <button onClick={() => handleReadMoreClick(null)} className="Read_More">
                                   Show less
                                 </button>
                               ) : (
-                                <button onClick={() => handleReadMoreClick(index)} className="Read_Mores">
+                                <button onClick={() => handleReadMoreClick(index)} className="Read_More">
                                   Read more
                                 </button>
                               )}

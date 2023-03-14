@@ -99,8 +99,8 @@ function Login() {
                                     <div className="card padded layer2">
                                         <div className="card_wrapper">
                                             <div className="input_group">
-                                                <div className="heading">
-                                                    <h3>Sign in</h3>
+                                                <div className="headinghome">
+                                                    <h3 style={{fontWeight:"700"}}>Sign in</h3>
                                                     <p>enter your credentials to enter</p>
                                                 </div>
                                             </div>
