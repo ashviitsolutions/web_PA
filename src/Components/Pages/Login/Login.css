@@ -1,0 +1,14 @@
+.sign_in_form{
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    margin-left: 45%;
+    height:auto;
+    margin-bottom: auto;
+
+}
+#signtexxt{
+    text-decoration: none;
+    justify-content: center;
+    text-align: center;
+}

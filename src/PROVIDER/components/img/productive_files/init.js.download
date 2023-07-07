@@ -1,0 +1,718 @@
+//variables
+ROOT_URL = '';
+
+THIS_URL = ROOT_URL + 'web/';
+var api_path = ROOT_URL + 'api/';
+var datawrappers;
+var pages;
+var ckeditor_toolbar_preset = [
+  'undo',
+  'redo',
+  'heading',
+  'bold',
+  'italic',
+  'bulletedList',
+  'numberedList',
+  'insertTable',
+  'blockQuote',
+  'link',
+];
+//button states
+function change_button_state(ele, state, repose = false, timeout = 1500) {
+  if (ele) {
+    ele.setAttribute('data-state', state);
+    if (repose !== false) {
+      setTimeout(function () {
+        ele.removeAttribute('data-state');
+      }, timeout);
+    }
+  }
+}
+// find ancestor element with a classname and element object.
+function findAncestor(el, cls) {
+  while ((el = el.parentElement) && !el.classList.contains(cls));
+  return el;
+}
+//finding get parameter
+function findUrlParameter(parameterName) {
+  var result = null,
+    tmp = [];
+  location.search
+    .substr(1)
+    .split("&")
+    .forEach(function (item) {
+      tmp = item.split("=");
+      if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+    });
+  return result;
+}
+// getting all inputs
+function form_inputs(form_id) {
+  var form = document.getElementById(form_id).getElementsByClassName('input');
+  var elements = '';
+  for (var i = 0; i < form.length; i++) {
+    var elementname = form[i].name;
+    var elementvalue = form[i].value;
+    if (i === form.length - 1) {
+      elements += elementname + '=' + elementvalue;
+    } else {
+      elements += elementname + '=' + elementvalue + '&';
+    }
+  }
+  return elements;
+}
+function form_inputs_arr(form_id, excludeClass) {
+  var form = document.getElementById(form_id).getElementsByClassName('input');
+  var arr = {};
+  var stripped_name;
+  for (var i = 0; i < form.length; i++) {
+    var input_value = form[i].value;
+    if (form[i].classList.contains(excludeClass)) {
+      continue;
+    }
+    // check if an input is select and multiple, use multiSelectValue.
+    if (form[i].tagName === 'SELECT' && form[i].getAttribute('multiple') !== null) {
+      input_value = multiSelectValue(form[i]);
+    }
+    stripped_name = form[i].name.split('[]');
+    //if input name contains [] in the end, create an array of it's repetition
+    if (stripped_name.length > 1) {
+      if (!arr[stripped_name[0]]) {
+        arr[stripped_name[0]] = [];
+      }
+      arr[stripped_name[0]].push(input_value);
+    } else { // or else simply add value against name
+      arr[form[i].name] = input_value;
+    }
+  }
+  return arr;
+}
+function multiSelectValue(select) {
+  var result = [];
+  var options = select && select.options;
+  var opt;
+  for (var i = 0, iLen = options.length; i < iLen; i++) {
+    opt = options[i];
+    if (opt.selected) {
+      result.push(opt.value);
+    }
+  }
+  return result;
+}
+//simple ajax request
+function ajax_req(type, url, tosend, callback,
+  button = null, progressHandler, content_type = 'application/x-www-form-urlencoded') {
+  if (button !== null) {
+    change_button_state(button, 'loading');
+  }
+  if (tosend !== null) {
+    //xhttp request to server
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+      if (xhttp.readyState == 4 && xhttp.status == 200) {
+        //callback function
+        if (typeof callback !== 'undefined') {
+          callback(xhttp);
+        }
+      }
+    };
+    xhttp.upload.addEventListener("progress", pre_progressHandler, false);
+    function pre_progressHandler(e) {
+      var progress = Math.round((e.loaded / e.total) * 100);
+      if (typeof progressHandler !== 'undefined') {
+        progressHandler(e, progress);
+      }
+    }
+    if (type == 'GET') {
+      if (tosend !== null && tosend !== undefined && tosend !== '') {
+        xhttp.open(type, url + '?' + tosend, true);
+      } else {
+        xhttp.open(type, url, true);
+      }
+    } else if (type == 'POST') {
+      xhttp.open(type, url, true);
+    }
+    if (content_type !== null) {
+      xhttp.setRequestHeader("Content-type", content_type);
+    }
+    if (type == 'GET') {
+      xhttp.send();
+    } else if (type == 'POST') {
+      xhttp.send(tosend);
+    }
+  } else {
+    if (button !== null) {
+      change_button_state(button, 'loading');
+    }
+  }
+  return xhttp;
+}
+//set GET parameter
+function insertUrlParam(key, value) {
+  key = encodeURI(key);
+  value = encodeURI(value);
+  var kvp = document.location.search.substr(1).split('&');
+  var i = kvp.length;
+  var x;
+  while (i--) {
+    x = kvp[i].split('=');
+    if (x[0] == key) {
+      x[1] = value;
+      kvp[i] = x.join('=');
+      break;
+    }
+  }
+  if (i < 0) {
+    kvp[kvp.length] = [key, value].join('=');
+  }
+  document.location.search = kvp.join('&');
+}
+//convert base64 to blob
+function base64ToBlob(base64, mime) {
+  mime = mime || '';
+  var sliceSize = 1024;
+  var byteChars = window.atob(base64);
+  var byteArrays = [];
+  for (var offset = 0, len = byteChars.length; offset < len; offset += sliceSize) {
+    var slice = byteChars.slice(offset, offset + sliceSize);
+    var byteNumbers = new Array(slice.length);
+    for (var i = 0; i < slice.length; i++) {
+      byteNumbers[i] = slice.charCodeAt(i);
+    }
+    var byteArray = new Uint8Array(byteNumbers);
+    byteArrays.push(byteArray);
+  }
+  return new Blob(byteArrays, {
+    type: mime
+  });
+}
+//change hash of url
+function change_url_hash(id) {
+  window.location.hash = id;
+}
+//convert miliseconds into minutes
+function milToMinutes(millis) {
+  var minutes = Math.floor(millis / 60000);
+  var seconds = ((millis % 60000) / 1000).toFixed(0);
+  return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+}
+function freez_body() {
+  document.getElementById('modal_shadow').setAttribute('active', '');
+  document.getElementsByTagName('BODY')[0].setAttribute('freeze', '');
+}
+//change section
+function change_view(target_id, groupname = null, parent_id = null) {
+  var target = document.getElementById(target_id);
+  var groupToDisable;
+  target.setAttribute('active', '');
+  function disable_group() {
+    if (groupname != null) {
+      if (parent_id != null) {
+        groupToDisable = document.getElementById(parent_id).getElementsByClassName(groupname);
+      } else {
+        groupToDisable = document.getElementsByClassName(groupname);
+      }
+      for (var i = 0; i < groupToDisable.length; i++) {
+        if (groupToDisable[i].id != target_id) {
+          groupToDisable[i].removeAttribute('active');
+        }
+      }
+    }
+  }
+  if (groupname !== 'section') {
+    setTimeout(disable_group, 200);
+  } else {
+    disable_group();
+  }
+}
+function deactivate_view(id) {
+  document.getElementById(id).removeAttribute('active');
+}
+// collecting all data wrapper elements
+function getDataWrappers() {
+  var pages = document.getElementsByClassName('page');
+  var obj = {};
+  for (var i = 0; i < pages.length; i++) {
+    var allwrappers = pages[i].getElementsByClassName('datawrapper');
+    var objwrappers = {};
+    for (var j = 0; j < allwrappers.length; j++) {
+      objwrappers[allwrappers[j].getAttribute('wrappername')] = allwrappers[j];
+    }
+    obj[pages[i].id] = objwrappers;
+  }
+  return obj;
+}
+
+function toggle_sidebar() {
+  var sidebar = document.getElementById('sidebar');
+  var content = document.getElementById('content');
+  var sidebar_status = sidebar.className;
+  if (sidebar_status == 'active') {
+    sidebar.className = '';
+    content.className = '';
+  } else {
+    sidebar.className = 'active';
+    content.className = 'active';
+  }
+}
+var header = document.getElementById('header');
+if (header !== null) {
+  var scrollPos = 0;
+  // adding scroll event
+  window.addEventListener('scroll', function () {
+    // detects new state and compares it with the new one
+    if ((document.body.getBoundingClientRect()).top > scrollPos)
+      document.getElementById('header').setAttribute('fixed', '');
+    else
+      document.getElementById('header').removeAttribute('fixed');
+    // saves the new position for iteration.
+    scrollPos = (document.body.getBoundingClientRect()).top;
+  });
+}
+// handling delete buttons
+function delete_btn() {
+  event.preventDefault();
+  function popup_template() {
+    var temp = createElement({
+      tag: 'div',
+      class: 'modal',
+      id: 'delete_popup',
+      content: `<div class="heading">
+          <h3>are you sure</h3>
+          <p>you want to delete this item ? you can not undo this.</p>
+        </div>
+        <div class="buttons_pane">
+          <button onclick="" class="button small" type="button" name="button">delete</button>
+          <button onclick="hide_delete_popup()" class="button small ghost" type="button" name="button">cancel</button>
+        </div>`
+    });
+    return temp;
+  }
+  var delete_popup = document.getElementById('delete_popup');
+  if (delete_popup === null) {
+    document.getElementsByTagName('BODY')[0].appendChild(popup_template());
+    delete_popup = document.getElementById('delete_popup');
+  }
+  function confirm_delete() {
+    var callback = event.target.getAttribute('callback');
+    delete_popup.getElementsByClassName('button')[0].setAttribute('onclick', callback);
+    change_button_state(delete_popup, 'active');
+  }
+  confirm_delete();
+}
+function hide_delete_popup() {
+  var delete_popup = document.getElementById('delete_popup');
+  change_button_state(delete_popup, 'hide', true, 150);
+}
+//handling api calls.
+function api(obj) {
+  if (obj.status_ele == undefined) {
+    obj.status_ele = null;
+  }
+  if (obj.progress_ele == undefined) {
+    obj.progress_ele = null;
+  }
+  var req_string = '';
+  if (obj.query != undefined) {
+    for (var key in obj.query) {
+      for (var i = 0; i < obj.query[key].args.length; i++) {
+        obj.query[key].args[i] = obj.query[key].args[i];
+      }
+    }
+    req_string = JSON.stringify(obj.query);
+  }
+  if (obj.files != undefined && obj.files.length > 0) {
+    var formdata = new FormData();
+    formdata.append('request', req_string);
+    for (var i = 0; i < obj.files.length; i++) {
+      formdata.append('files[]', obj.files[i]);
+    }
+    tosend = formdata;
+  } else {
+    tosend = 'request=' + req_string;
+  }
+  ajax_req(
+    'POST',
+    api_path,
+    tosend,
+    function (e) {
+      if (obj.result !== undefined && obj.result == 'json') {
+        obj.callback(JSON.parse(e.responseText));
+      } else {
+        obj.callback(e.responseText);
+      }
+      if (obj.status_ele != null && obj.status_handling !== true) {
+        change_button_state(obj.status_ele, 'done', true)
+      }
+    },
+    obj.status_ele,
+    function (e, progress) {
+      // console.log(progress);
+    },
+    // null
+  );
+}
+function lazy_load_imgs(parent_id = null) {
+  var targets;
+  if (parent_id != null) {
+    targets = document.getElementById(parent_id).getElementsByClassName('lazy_image');
+  } else {
+    targets = document.getElementsByClassName('lazy_image');
+  }
+  function do_lazy_load(img, target) {
+    img.onload = function () {
+      target.style.backgroundImage = "url('" + this.src + "')";
+      target.setAttribute('loaded', 'true');
+    }
+    var target_thumbnail = target.getAttribute('thumbnail');
+    if (target_thumbnail && target_thumbnail !== '') {
+      img.src = ROOT_URL + 'api/file/' + target_thumbnail + '/' + target.getAttribute('src');
+    } else {
+      img.src = ROOT_URL + 'api/file/' + target.getAttribute('src');
+    }
+  }
+  for (var i = 0; i < targets.length; i++) {
+    var target_src = targets[i].getAttribute('src');
+    if (target_src !== null) {
+      do_lazy_load(new Image, targets[i]);
+    }
+  }
+}
+var delayed_input_timer = null;
+function delayed_input(callback) {
+  var target = event.target;
+  if (delayed_input_timer != null) {
+    clearTimeout(delayed_input_timer);
+  }
+  delayed_input_timer = setTimeout(() => {
+    callback();
+  }, 500);
+}
+function get_form_eles(form_id) {
+  var form_eles = Array.from(document.getElementById(form_id).getElementsByClassName('input'));
+  var eles = [];
+  form_eles.map(
+    function (e) {
+      if (e.name.split('[]').length > 1) {
+        if (eles[e.name] === undefined) {
+          eles[e.name] = [];
+        }
+        eles[e.name].push(e);
+      } else {
+        eles[e.name] = e;
+      }
+    }
+  ).join('');
+  return eles;
+}
+function toggle_order(callback) {
+  var target = event.target;
+  var status = target.getAttribute('data-state');
+  if (status === 'dsc') {
+    target.setAttribute('data-state', 'asc');
+  } else {
+    target.setAttribute('data-state', 'dsc');
+  }
+  callback();
+}
+function selectBox_index(ele, index, multiple = false) {
+  var options_arr = [];
+  var options = Array.from(ele.options);
+  for (var i = 0; i < options.length; i++) {
+    if (multiple === true) {
+      if (options[i].value === index) {
+        options[i].setAttribute('selected', '');
+        return;
+      }
+    }
+    options_arr.push(options[i].value);
+  }
+  var select_index = options_arr.indexOf(index);
+  if (select_index > -1) {
+    ele.selectedIndex = select_index;
+  }
+}
+//create element node.
+function insertAfter(referenceNode, newNode) {
+  referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+}
+// array pagination
+function paginate_array(array, page_size, page_number) {
+  return array.slice((page_number - 1) * page_size, page_number * page_size);
+}
+// post pagination
+var PostPaginate = {
+  create: function () {
+    var new_obj = Object.create(this);
+    new_obj.reset();
+    return new_obj;
+  },
+  init: function (e) {
+    this.rows_limit = 10;
+    Object.assign(this, e)
+    if (!this.query) {
+      this.more_rows = false;
+    }
+    if (this.row_wrapper_node) {
+      this.row_wrapper_node = this.row_wrapper_node.split('.');
+    }
+    if (this.data) {
+      this.rows = this.data;
+    }
+    if (this.scrollWrap) {
+      if (!this.keepPages) {
+        this.keepPages = 2;
+      }
+      this.scrollWrap.addEventListener('scroll', this.scrollWatcher.bind(this));
+    }
+    this.render();
+  },
+  reset: function () {
+    this.rows = [];
+    this.curr_page = 1;
+    this.more_rows = true;
+    this.disable_next_page = false;
+    this.last_row_id = 0;
+    this.visibleRows = 0;
+    this.keepPages = 0;
+    if (this.container) {
+      this.clearDom();
+      this.render();
+    }
+  },
+  next: function () {
+    if (this.disable_next_page == false) {
+      this.curr_page++;
+      if (this.keepPages > 0) {
+        // this.purgeRows();
+      } else {
+        this.clearDom();
+      }
+      this.render();
+    }
+  },
+  prev: function () {
+    var where;
+    if (this.curr_page !== 1) {
+      this.more_rows = true;
+      this.curr_page--;
+      if (this.keepPages > 0) {
+        // this.purgeRows('bottom');
+        // where = 'pre';
+      } else {
+        this.clearDom();
+      }
+      this.render();
+    }
+  },
+  fetch: function () {
+    if (!this.query) {
+      return;
+    }
+    var query = this.query();
+    query.args.push(this.last_row_id);
+    query.args.push(this.rows_limit);
+    api({
+      result: 'json',
+      query: {
+        'q': query,
+      },
+      callback: (result) => {
+        //post processing result
+        if (this.post_process_result !== undefined && typeof this.post_process_result == 'function') {
+          result = this.post_process_result(result);
+        } else {
+          result = result.q;
+        }
+        //pushing rows in holder.
+        if (result !== undefined) {
+          result.map(function (e) {
+            this.rows.push(e);
+            this.last_row_id = e.id;
+          }.bind(this));
+        }
+        // marking there are no more rows to query.
+        if (result.length < this.rows_limit) {
+          this.more_rows = false;
+        }
+        //render.
+        this.render();
+      },
+      status_ele: this.loader,
+    });
+  },
+  render: function (where = 'ap') {
+    // finding gap between requested rows and rows object have.
+    var gap = (this.rows_limit * this.curr_page) - this.rows.length;
+    // fetching more if there is a gap and if there is more rows to fetch
+    if (gap > 0 && this.more_rows == true) {
+      this.fetch();
+    }
+    // paginating recorded rows.
+    var rows = paginate_array(this.rows, this.rows_limit, this.curr_page);
+    // disabling and enabling next page navigation.
+    if (rows.length < this.rows_limit && this.more_rows == false) {
+      this.disable_next_page = true;
+    } else {
+      this.disable_next_page = false;
+    }
+    var prependRows = [];
+    // aggregating element nodes to be rendered on dom.
+    for (var i = 0; i < rows.length; i++) {
+      var row_uid = rows[i][this.row_uid_index];
+      var node_id = this.node_id_prefix + row_uid;
+      if (document.getElementById(node_id) == null) {
+        // preparing row by callback.
+        if (this.render_row != undefined && typeof this.render_row == 'function') {
+          var this_row = this.render_row(rows[i], row_uid);
+        } else {
+          // preparing row by container.
+          var row_template = this.template(rows[i], row_uid);
+          // creating new node.
+          var this_row = document.createElement(this.row_wrapper_node[0]);
+          if (this.row_wrapper_node.length > 1) {
+            this_row.className = this.row_wrapper_node[1]
+          }
+          this_row.innerHTML = row_template;
+          this_row.id = node_id;
+        }
+        if (where == 'pre') {
+          prependRows.push(this_row);
+        } else {
+          this.container.appendChild(this_row);
+        }
+        this.visibleRows++;
+      }
+    }
+    if (prependRows.length > 0 && where == 'pre') {
+      prependRows.reverse();
+      prependRows.map((e) => {
+        this.container.prepend(e);
+      });
+    }
+    this.rendered();
+    lazy_load_imgs();
+  },
+  rendered: function () {
+    if (this.afterRender && typeof this.afterRender == 'function') {
+      this.afterRender(this);
+    }
+  },
+  delete: function (row_id, callback = null) {
+    $('#' + this.node_id_prefix + row_id).remove();
+    this.rows.map(function (e, i) {
+      if (e[this.row_uid_index] == row_id) {
+        this.rows.splice(i, 1);
+      }
+    }.bind(this));
+    this.render();
+    if (callback !== null && typeof callback == 'function') {
+      callback();
+    }
+  },
+  clearDom: function () {
+    this.container.innerHTML = '';
+  },
+  scrollWatcher: function () {
+    var element = event.target;
+    var scrollPos = (element.scrollHeight - element.scrollTop);
+    if (element.scrollTop == 0) {
+      this.prev();
+      return;
+    }
+    // console.clear();
+    // console.log('sp'+scrollPos);
+    // console.log('CH'+element.clientHeight);
+    if (scrollPos < (element.clientHeight + 60) && scrollPos > element.clientHeight) {
+      this.next();
+      return;
+    }
+  },
+};
+function createElement(e) {
+  var node = document.createElement(e.tag);
+  if (e.class !== undefined) {
+    node.className = e.class;
+  }
+  if (e.id !== undefined) {
+    node.id = e.id;
+  }
+  if (e.content !== undefined) {
+    node.innerHTML = e.content;
+  }
+  return node;
+}
+function mergeArray(arr, new_arr) {
+  if (arr.length > 0) {
+    return arr.concat(new_arr);
+  } else {
+    return new_arr;
+  }
+}
+function insertURLparameter(key, value) {
+  console.log('e');
+}
+function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+function navigation_menu() {
+  var nav = document.getElementById('nav');
+  var animation_wrapper = nav.getElementsByClassName('animation_wrapper')[0];
+  if (!nav.getAttribute('active')) {
+    nav.setAttribute('active', 'true');
+    animation_wrapper.setAttribute('active', 'true');
+  } else {
+    nav.removeAttribute('active');
+    animation_wrapper.removeAttribute('active');
+  }
+}
+
+
+function notify(type, msg, wrapperId, repose = false) {
+  var wrapper = document.getElementById(wrapperId);
+  var template = `<span class="notification ${type}">${msg}</span>`;
+  wrapper.innerHTML = '';
+
+  setTimeout(() => {
+    wrapper.innerHTML = template;
+  }, 300);
+}
+
+function empty_object(obj) {
+  if (obj && Object.keys(obj).length === 0 && Object.getPrototypeOf(obj) === Object.prototype) {
+    return true;
+  }
+
+  return false;
+}
+
+
+function login_token(token = null) {
+  if (token != null) {
+    localStorage.setItem('login_token', token);
+
+    const d = new Date();
+    d.setTime(d.getTime() + (365 * 24 * 60 * 60 * 1000));
+    let expires = d.toUTCString();
+
+    document.cookie = `login_token=${token}; expires=${expires}; path=/;`;
+  }
+
+  if (token == 'delete') {
+    localStorage.removeItem('login_token');
+    document.cookie = "login_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  }
+
+  return localStorage.getItem('login_token');
+}
+
+function view_password(id) {
+  var target = document.getElementById(id);
+
+  if (target.getAttribute('type') == 'password') {
+    target.setAttribute('type', 'text');
+  } else {
+    target.setAttribute('type', 'password');
+  }
+}

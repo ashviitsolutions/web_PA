@@ -1,0 +1,199 @@
+/*extra small*/
+@media (max-width:768px) {
+    #login .background .head {
+        margin-top: 60px;
+        padding: 0 15px;
+    }
+
+    #login .background {
+        height: 300px;
+    }
+
+    #login .background .head p {
+        font-size: 12px;
+    }
+
+    #login .background .head h3 {
+        font-size: 20px;
+    }
+
+    #login_form {
+        position: relative;
+        margin-bottom: 25px;
+        padding: 10px;
+    }
+     /* #sidebar {
+        top: 0;
+        width: 100%;
+        transform: translateX(-100%);
+    }  */
+
+
+    /* #sidebar {
+        top: 0;
+        width: 100%;
+        transform: translateX(-100%);
+    }
+
+    #content {
+        width: 100%;
+        left: 0;
+    }
+
+    #content .card {
+        margin-bottom: 12px;
+    } */
+
+    #content {
+        width: 100% !important;
+        left: 0 !important;
+    }
+
+    #content .card {
+        margin-bottom: 12px;
+    } 
+
+    .table>tbody>tr>td,
+    .table>tbody>tr>th,
+    .table>tfoot>tr>td,
+    .table>tfoot>tr>th,
+    .table>thead>tr>td,
+    .table>thead>tr>th {
+        font-size: 12px;
+    }
+
+    /* #sidebar .infobox_big .item,
+    #sidebar .infobox_big .item .title,
+    #sidebar .infobox_big .item .excerpt {
+        transform: none;
+    }
+
+    #sidebar .item {
+        margin-top: 5px;
+        position: relative !important;
+        left: 0 !important;
+        bottom: initial !important;
+    }
+
+    #sidebar .card {
+        box-shadow: 0px 0px 0px 0 rgb(0 0 0 / 25%);
+    }
+
+    #sidebar[active] {
+        transform: translateX(0%);
+    }
+
+    #content.fixed {
+        width: 100%;
+        left: 0;
+        position: relative;
+        overflow: auto;
+    } */
+
+    #modal_chat {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        bottom: 0;
+        display: none;
+    }
+
+    #modal_chat[active] {
+        display: block;
+    }
+
+    .top_bar.fixed .back_button {
+        position: absolute;
+        top: calc(50% - 16px);
+        left: 0px;
+        width: 32px;
+        height: 32px;
+        z-index: 9;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 50%;
+    }
+
+    .top_bar .title {
+        left: 45px;
+    }
+
+    #content .headings .button {
+        margin-left: -12px;
+        margin-top: 12px;
+    }
+
+    .toggle_sidebar {
+        position: absolute;
+        top: -8px;
+        right: 0;
+        width: 32px;
+        height: 32px;
+        display: block;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 60%;
+    }
+
+    .toggle_sidebar.close {
+        filter: invert(1);
+        opacity: 1;
+        background-size: 45%;
+        top: 0px;
+    }
+
+    .bookings .item_wrapper .item .first_half h3 {
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .bookings .item_wrapper .item {
+        padding: 10px;
+    }
+
+    .button.square {
+        padding: 6px 12px;
+    }
+
+    .bookings .item_wrapper .item .first_half .address,
+    .bookings .item_wrapper .item .first_half .time {
+        font-size: 12px;
+    }
+
+    .bookings .item_wrapper .item .second_half span {
+        font-size: 14px;
+    }
+
+    .button.ghost.square {
+        font-size: 11px;
+        text-align: right;
+    }
+
+    .button.primary.square {
+        font-size: 11px;
+        text-align: right;
+        letter-spacing: 0;
+    }
+
+    .card h3.pull-right {
+        margin-right: 0 !important;
+    }
+
+
+}
+
+/*extra small end*/
+/*small*/
+@media (min-width:768px) {}
+
+/*small end*/
+/*medium */
+@media (min-width:992px) {}
+
+/*medium end*/
+/*large*/
+@media (min-width:1200px) {}
+
+/*large end*/

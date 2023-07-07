@@ -1,0 +1,159 @@
+.slider {
+    position: relative;
+    width: 100%;
+    margin-top: 5px !important;
+
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: #fff;
+    font-size: 100px;
+    margin-top: 40px;
+    height: 89vh;
+}
+
+
+
+
+/* .image {
+      height: 80vh;
+      margin-top: -30px;
+      width: 100%;
+    } */
+
+
+.right-arrow {
+    position: absolute;
+    top: 18rem !important;
+    right: 191px;
+    font-size: 1.7rem;
+    color: #000;
+    z-index: 10;
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+    transform: translateY(-30px);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgb(0 0 0 / 13%);
+    border: 1px solid #ebebeb;
+}
+
+.left-arrow {
+    position: absolute;
+    top: 18rem !important;
+    left: 186px;
+    font-size: 1.7rem;
+    color: #000;
+    z-index: 10;
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+    transform: translateY(-30px);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgb(0 0 0 / 13%);
+    border: 1px solid #ebebeb;
+}
+
+.slide {
+    opacity: 0;
+    transition-duration: 1s ease;
+}
+
+.slide.active {
+    opacity: 1;
+    transition-duration: 1s;
+    transform: scale(1.08);
+}
+
+
+#slidercoursal {
+    display: flex;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+}
+
+.item_wrapper {
+    flex: 0 0 auto !important;
+    margin-right: 15px;
+}
+
+.item_wrapper:last-child {
+    margin-right: 0 !important;
+}
+
+.item {
+    position: relative;
+    width: 100%;
+    border-radius: 7px;
+}
+/* 
+.Read_More{
+  position: relative;
+  top: 0rem;
+  left: 0rem;
+  border: none;
+  background-color: white;
+} */
+
+/* 
+    .row {
+        display: flex;
+        flex-wrap: nowrap !important;
+        overflow-x: auto !important;
+      }
+      
+      .item_wrapper {
+        flex: 0 0 auto !important;
+        margin-right: 15px;
+      }
+      
+      .item_wrapper:last-child {
+        margin-right: 0 !important;
+      }
+      
+      .item {
+        position: relative;
+        width: 100%;
+        border-radius: 7px;
+      }
+      
+      .bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center center;
+        border-radius: 7px;
+      }
+      
+      .content {
+        position: relative;
+        z-index: 1;
+        padding: 30px;
+        background-color: #fff;
+        border-radius: 7px;
+      }
+ 
+ 
+       */
+
+       .showcard{
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+       }
+
+       .class_brief.card {
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 3px 6px 7px -7px rgb(0 0 0 / 20%);
+        border: 1px solid #f8f8f8;
+        padding-bottom: 15px;
+    }
+
+    
+    
