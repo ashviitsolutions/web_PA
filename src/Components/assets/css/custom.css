@@ -1037,7 +1037,7 @@ body {
 #brief .content p {
   font-size: 13px;
   color: #232018;
-  margin-left: -2.5rem;
+  /* margin-left: -2.5rem; */
 }
 
 #brief .content .button {
