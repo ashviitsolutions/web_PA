@@ -1640,6 +1640,7 @@ body {
   text-align: left;
   padding-right: 45px;
   text-transform: capitalize;
+  text-decoration: none;
 }
 
 #footer .nav ul li:hover a {
@@ -2104,6 +2105,20 @@ ul.true li::after {
 
 .section_group .section[active] {
   display: block;
+}
+
+#gift_card .section{
+
+    width: 93%;
+    margin: auto;
+    margin-top: 100px;
+    margin-bottom: 200px;
+    background-color: #fff;
+    padding: 80px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 15px -5px rgb(0 0 0 / 35%);
+
+
 }
 
 .gender_holder {

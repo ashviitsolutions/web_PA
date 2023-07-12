@@ -128,7 +128,7 @@ function Benifit() {
                             <li>
                                 <span class="icon" style={{ backgroundImage: `url(${Image11})` }}></span>
                                 
-                                <span id='becommembersyogatext2'>reflexology</span> 
+                                <span id='becommembersyogatext2' style={{marginLeft:"-10px"}}>reflexology</span> 
                             </li>
                             <li>
                                 <span class="icon" style={{ backgroundImage: `url(${Image12})` }}></span>

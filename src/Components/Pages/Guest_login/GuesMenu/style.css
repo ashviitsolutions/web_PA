@@ -41,6 +41,7 @@
     border-radius: 6px;
     color: #fff;
     border: 2px solid #88daff;
+    
 }
 
 .sidebar_tabs ul li .icon {
@@ -99,16 +100,19 @@
     padding: 0;
     margin: 0;
     list-style: none;
+    justify-content: center;
+    text-align: justify;
+ 
 }
 
 #employees .option li {
-    padding: 10px 50px;
+    /* padding: 10px 50px; */
     cursor: pointer;
     transition: all 0.2s ease-in;
     border: 1px solid #ccc;
     border-radius: 25px;
     margin-top: 20px;
-    margin-left: 15px;
+    /* margin-left: 15px; */
 }
 
 

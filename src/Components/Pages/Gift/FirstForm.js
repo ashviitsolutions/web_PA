@@ -17,16 +17,9 @@ function FirstForm() {
             <div id="gift_card">
                 <div className="container">
                     <div className="row">
-                        <div className="col-sm-4">
-                        </div>
-
-
                         <div className="col-sm-8">
-
-
                             <div id="section_group" className="section_group">
                                 <div id="sec_wiz_1" className="section" active="">
-
                                     <ul id="" className="gender_holder float_wrapper">
                                         <li className="item">
                                             <span className="icon" style={{ backgroundImage: `url(${Image4})` }}></span>
@@ -38,8 +31,6 @@ function FirstForm() {
                                         </li>
                                     </ul>
                                 </div>
-                       
-
                             </div>
                             <div id="sec_wiz_2" className="section">
                             <div className="heading">

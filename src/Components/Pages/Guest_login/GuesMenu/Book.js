@@ -5,6 +5,7 @@ import SecondForm from "./SeconForm";
 import ThirdForm from "./ThirdForm";
 import FourForm from "./FourForm";
 import FifthForm from "./FifthForm";
+import Conform from "./Conform";
 
 import "./style.css"
 import image1 from "../../../assets/img/profile/members.png"
@@ -57,7 +58,7 @@ const Book = () => {
       form = <FifthForm step={now} nextStep={nextStep} previousStep={previousStep} />;
       break;
     case 6:
-      form = <ThirdForm step={now} nextStep={nextStep} previousStep={previousStep} />;
+      form = <Conform step={now} nextStep={nextStep} previousStep={previousStep} />;
       break;
     default:
       break;

@@ -1,8 +1,6 @@
 import React from "react";
 import "./style.css"
-import image13 from "../../../assets/img/goodbye.png"
-import image14 from "../../../assets/img/laugh.png"
-import image15 from "../../../assets/img/thinking-of-someone.png"
+
 const FourForm = () => {
     return (
         <>

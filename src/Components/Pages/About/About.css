@@ -38,3 +38,14 @@
     padding: 55px !important;
     padding-top: 0px !important;
   }
+
+
+  .true-item{
+    margin-left: -15px;
+  }
+
+  @media (max-width:992px) {
+    .true-item{
+        margin-left: -10px;
+      }
+  }

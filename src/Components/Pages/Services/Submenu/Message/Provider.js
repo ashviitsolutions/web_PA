@@ -17,7 +17,7 @@ function Provider() {
                         </div>
                         <h3>professional service providers</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
-                        <Link className="anchor" to="#">read more</Link>
+                        <Link className="anchors" to="#">read more</Link>
                     </div>
                 </div>
             </div>
@@ -28,7 +28,7 @@ function Provider() {
                         </div>
                         <h3>rejuvenate your body</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
-                        <Link className="anchor" to="#">read more</Link>
+                        <Link className="anchors" to="#">read more</Link>
                     </div>
                 </div>
             </div>
@@ -39,7 +39,7 @@ function Provider() {
                         </div>
                         <h3>clean environments</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>
-                        <Link className="anchor" to="#">read more</Link>
+                        <Link className="anchors" to="#">read more</Link>
                     </div>
                 </div>
             </div>

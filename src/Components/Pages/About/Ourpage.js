@@ -38,16 +38,16 @@ function Ourpage() {
         <div className="container">
           <div className="row">
             <div className="col-sm-6">
-            <div className="bg" style={{
-              backgroundImage: `url(${img[0]})`,
-              borderRadius: '7px',
-          }}>
-          </div>
+              <div className="bg" style={{
+                backgroundImage: `url(${img[0]})`,
+                borderRadius: '7px',
+              }}>
+              </div>
             </div>
             <div className="col-sm-6" >
               <div className="heading" >
                 <h3>{users1.title}</h3>
-                <p   dangerouslySetInnerHTML={{ __html: users1.description }} />
+                <p dangerouslySetInnerHTML={{ __html: users1.description }} />
               </div>
             </div>
           </div>
@@ -57,21 +57,24 @@ function Ourpage() {
             <div className="col-sm-6">
               <div className="heading">
                 <h3>{users2.title}</h3>
-                <p   dangerouslySetInnerHTML={{ __html: users2.description }}  />
+                <p dangerouslySetInnerHTML={{ __html: users2.description }} />
                 <ul className="true">
-                  <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit, </li>
-                  <li>sed do eiusmod tempor incididunt ut labore</li>
-                  <li>ea commodo consequat. Duis aute irure dolor in reprehenderit </li>
+                  <div className='true-item'>
+                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit, </li>
+                    <li>sed do eiusmod tempor incididunt ut labore</li>
+                    <li>ea commodo consequat. Duis aute irure dolor in reprehenderit </li>
+                  </div>
+
                 </ul>
 
               </div>
             </div>
             <div className="col-sm-6">
-            <div className="bg" style={{
-              backgroundImage: `url(${img[1]})`,
-              borderRadius: '7px',
-          }}>
-          </div>
+              <div className="bg" style={{
+                backgroundImage: `url(${img[1]})`,
+                borderRadius: '7px',
+              }}>
+              </div>
             </div>
           </div>
         </div>
