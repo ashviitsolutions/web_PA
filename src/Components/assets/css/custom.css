@@ -394,6 +394,10 @@ body {
   transform: scale(1.15);
 }
 
+#video_section{
+  margin-left: 50px;
+}
+
 @media (min-aspect-ratio: 16/9) {
   .video-foreground {
     height: 300%;

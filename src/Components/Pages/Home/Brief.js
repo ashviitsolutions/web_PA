@@ -22,7 +22,7 @@ function Brief() {
                                         <button className="button primary" type="button">register now</button>
                                     </div>
                                 </div>
-                                <div className="col-sm-6">
+                                <div className="col-sm-5"  id='video_section'>
                                     <div className="content">
                                         <div className="video_wrapper">
                                             <video id="myVideos" src={video}  autoPlay muted loop  controls={true}/>
