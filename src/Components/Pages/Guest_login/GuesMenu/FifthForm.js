@@ -23,22 +23,22 @@ const FifthForm = () => {
               </div>
               <div className="col-sm-5">
                 <div className="inner">
-                  <h3>24000 EL Toro Road</h3>
-                  <p>Laguna Woods, CA 92653</p>
+                  <h3 style={{fontSize:"18px"}}>24000 EL Toro Road</h3>
+                  <p style={{fontSize:"18px"}}>Laguna Woods, CA 92653</p>
                 </div>
                 <div className="inner">
-                  <label htmlFor="">Apt / Suite / Hotel Name &amp; room</label>
+                  <label htmlFor="" style={{fontSize:"18px"}}>Apt / Suite / Hotel Name &amp; room</label>
                   <input className="input" type="text" name="" value="" />
                 </div>
                 <div className="inner">
-                  <label htmlFor="">Email</label>
+                  <label htmlFor="" style={{fontSize:"18px"}}>Email</label>
                   <input className="input" type="text" name="" value="" />
                 </div>
                 <div className="inner">
-                  <label htmlFor="">Arrival Instructions</label>
+                  <label htmlFor="" style={{fontSize:"18px"}}>Arrival Instructions</label>
                   <textarea className="input" name="name" rows="5"></textarea>
                 </div>
-                <div className="inner"></div>
+                <div className="inner" style={{fontSize:"18px"}}></div>
               </div>
               <button className="button" type="button" name="button">
                 review

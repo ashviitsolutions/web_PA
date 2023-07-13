@@ -1,13 +1,56 @@
-import React, { useState, useEffect } from 'react'
-import "./Home.css"
+import React, { useState, useEffect } from 'react';
 import { IP } from '../../../Constant';
-import { Link } from 'react-router-dom';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { fetchProducts, fetchImage } from '../Redux/productSlice';
+
+function Banner() {
+  // const postIds = ['63f0cad81e627c34fc1b58e9'];
+  // const [users, setUsers] = useState([]);
+  // const [img, setImg] = useState([]);
+
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const cachedData = sessionStorage.getItem('cachedData');
+
+  //     if (cachedData) {
+  //       const parsedData = JSON.parse(cachedData);
+  //       setUsers(parsedData.users);
+  //       setImg(parsedData.images);
+  //     } else {
+  //       const responses = await Promise.all(
+  //         postIds.map(async (id) => {
+  //           const res = await fetch(`${IP}/post/fetch/${id}`);
+  //           return res.json();
+  //         })
+  //       );
+
+  //       setUsers(responses[0]);
+  //       const images = await Promise.all(
+  //         responses.flatMap((response) => response.attachments).map(async (image) => {
+  //           const res = await fetch(`${IP}/file/${image}`);
+  //           const imageBlob = await res.blob();
+  //           const imageUrl = URL.createObjectURL(imageBlob);
+  //           return { url: imageUrl, blob: imageBlob };
+  //         })
+  //       );
+
+  //       setImg(images);
+
+  //       const cachedData = JSON.stringify({ users: responses[0], images });
+  //       sessionStorage.setItem('cachedData', cachedData);
+
+  //       // Clean up object URLs
+  //       images.forEach((image) => {
+  //         URL.revokeObjectURL(image.url);
+  //       });
+  //     }
+  //   }
+
+  //   fetchData();
+  // }, []);
 
 
-function Blog() {
-  const [activeCardIndex, setActiveCardIndex] = useState(null);
-  const postIds = ['6406e884ad080eddce51de80', '6406e8a8ad080eddce51de96', '6406e8c8ad080eddce51deac'];
-
+  const postIds = ['63f0cad81e627c34fc1b58e9'];
   const [users, setUsers] = useState([]);
   const [img, setImg] = useState('');
 
@@ -20,7 +63,7 @@ function Blog() {
 
         })
       );
-      setUsers(responses);
+      setUsers(responses[0]);
       setImg(
         await Promise.all(
           responses.flatMap(response => response.attachments).map(async image => {
@@ -33,82 +76,71 @@ function Blog() {
     }
     fetchData();
   }, [])
-  const handleReadMoreClick = (index) => {
-    setActiveCardIndex(index);
-  };
+
+  // const postIds = ['63f0cad81e627c34fc1b58e9'];
+  // const [users, setUsers] = useState([]);
+  // const [img, setImg] = useState('');
+
+  // useEffect(() => {
+  //   const cachedData = sessionStorage.getItem('cachedData');
+
+  //   if (cachedData) {
+  //     const parsedData = JSON.parse(cachedData);
+  //     setUsers(parsedData.users);
+  //     setImg(parsedData.images);
+  //   } else {
+  //     async function fetchData() {
+  //       const responses = await Promise.all(
+  //         postIds.map(async (id) => {
+  //           const res = await fetch(`${IP}/post/fetch/${id}`);
+  //           return res.json();
+  //         })
+  //       );
+
+  //       setUsers(responses[0]);
+
+  //       const images = await Promise.all(
+  //         responses.flatMap((response) => response.attachments).map(async (image) => {
+  //           const res = await fetch(`${IP}/file/${image}`);
+  //           const imageBlob = await res.blob();
+  //           return URL.createObjectURL(imageBlob);
+  //         })
+  //       );
+
+  //       setImg(images);
+
+  //       const cachedData = JSON.stringify({ users: responses[0], images });
+  //       sessionStorage.setItem('cachedData', cachedData);
+  //     }
+
+  //     fetchData();
+  //   }
+  // }, []);
+
+  // Rest of the code...
+
 
   return (
     <>
-    
-      <div id="blog">
+      <div id="banner" style={{ backgroundImage: `url(${img})` }}>
         <div className="container">
           <div className="row">
-            <div className="heading content">
-              <h3 className="dancing">Latest Blog</h3>
-              <p>Lorem ipsum dolor sit amet</p>
-              <span className="eff"></span>
-            
-
-            </div>
-          </div>
-          <div className="row">
-            <div id="types">
-              <div className="container">
-                <div className="row">
-                  <div className="col-sm-10 col-sm-offset-1">
-                    <div className="container-fluid">
-                      <div className="row">
-
-
-                        {users.map((user, index) => (
-                          <div className="col-sm-4" key={user._id}>
-                            <div className="item_wrapper">
-                              <div className="item">
-                                <Link to={`/detailblog/${user._id}`} >
-                                  <div
-                                    className="bg"
-                                    style={{
-                                      backgroundImage: `url(${img[index]})`,
-                                      borderRadius: '7px',
-                                    }}
-                                  ></div>
-                                  <div className="content">
-                                    <h3>{user.title}</h3>
-
-
-                                  </div>
-                                </Link>
-
-
-                              </div>
-                            </div>
-                          </div>
-                        ))}
-
-                      </div>
-
-                      <div className='blogbuttons'>
-                        <Link to="/blogpage">
-                          <button className="button" >View More</button>
-
-                        </Link>
-                      </div>
-
-
-
-
-
-
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div className="head">
+              <h1>{users.title} <span>{users.excerpt}</span></h1>
+              <h3 dangerouslySetInnerHTML={{ __html: users.description }} style={{ fontWeight: "500", fontSize: "15px" }} />
+              <button className="primary button small" type="button">
+                get started
+              </button>
+              <button className="hollow button small" type="button">
+                services
+              </button>
             </div>
           </div>
         </div>
+        <div className="arrow_down"></div>
       </div>
     </>
-  )
+  );
 }
 
-export default Blog
+export default Banner;
