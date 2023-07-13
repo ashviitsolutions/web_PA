@@ -4182,3 +4182,48 @@ img .img-responsive {
 
 
 
+/* //Become a member */
+
+#services_tab {
+  width: 100%;
+  background: #d6edff;
+  margin-bottom: 90px;
+}
+
+#services_tab .container-brief{
+  justify-content: space-around;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 90px;
+}
+
+#services_tab .container-brief .selects{
+  display: block;
+  flex-basis: 18%;
+
+  
+}
+
+.selects .item{
+  display: block;
+}
+
+.selects .item img {
+ width: 40px;
+ margin-top: 25px;
+ margin-bottom: 10px;
+}
+
+#services_tab .container-brief .selects:hover{
+  background-color: #03a9f4;
+  color: #ffff;
+  border-radius: 20px;
+  
+}
+
+
+.selects .item:hover .icons {
+  filter: brightness(0) invert(1); 
+}

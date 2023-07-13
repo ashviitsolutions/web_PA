@@ -1,5 +1,4 @@
 import React from 'react'
-// import "./style.css"
 import Image1 from "../../assets/img/warrior.svg"
 import Image2 from "../../assets/img/lotus.svg"
 import Image3 from "../../assets/img/meditation_.svg"
@@ -88,25 +87,25 @@ function Benifit() {
 
 
             <div id="application_process">
-                <ul>
-                    <li>
-                        <span className="count">01</span>
-                        <span className="content"><span style={{ backgroundImage: `url(${Image5})` }} className="icon"></span>fill out the form</span>
-                    </li>
-                    <li>
-                        <span className="count">02</span>
-                        <span className="content"><span style={{ backgroundImage: `url(${Image6})` }} className="icon"></span>phone interview</span>
-                    </li>
-                    <li>
-                        <span className="count">03</span>
-                        <span className="content"><span style={{ backgroundImage: `url(${Image7})` }} className="icon"></span>background check</span>
-                    </li>
-                    <li>
-                        <span className="count">04</span>
-                        <span className="content"><span style={{ backgroundImage: `url(${Image8})` }} className="icon"></span>sign the contract</span>
-                    </li>
-                </ul>
-            </div>
+            <ul>
+              <li>
+                <span className="count">01</span>
+                <span className="content"><span style={{ backgroundImage: `url(${Image5})` }} className="icon"></span>fill out the form</span>
+              </li>
+              <li>
+                <span className="count">02</span>
+                <span className="content"><span style={{ backgroundImage: `url(${Image6})` }} className="icon"></span>phone interview</span>
+              </li>
+              <li>
+                <span className="count">03</span>
+                <span className="content"><span style={{ backgroundImage: `url(${Image7})` }} className="icon"></span>background check</span>
+              </li>
+              <li>
+                <span className="count">04</span>
+                <span className="content"><span style={{ backgroundImage: `url(${Image8})` }} className="icon"></span>sign the contract</span>
+              </li>
+            </ul>
+          </div>
 
 
 
@@ -114,53 +113,36 @@ function Benifit() {
 
 
 
-            <div id="services_tab">
-                <div className="container-brief">
-                    <div className="selects">
-                        <div className='item'>
-                            <img className="icons" src={Image9} alt='...' />
-                            <p id='becommembersyogatexts'>yoga</p>
-                        </div>
-
+            <div id="services_tabs">
+                <div class="container">
+                    <div class="row">
+                        <ul>
+                            <li class="select">
+                                <span class="icon" style={{ backgroundImage: `url(${Image9})` }}></span>
+                               <span id='becommembersyogatext'>yoga</span> 
+                            </li>
+                            <li>
+                                <span class="icon" style={{ backgroundImage: `url(${Image10})` }}></span>
+                                <span id='becommembersyogatext2'>massage</span> 
+                            </li>
+                            <li>
+                                <span class="icon" style={{ backgroundImage: `url(${Image11})` }}></span>
+                                
+                                <span id='becommembersyogatext2' style={{marginLeft:"-10px"}}>reflexology</span> 
+                            </li>
+                            <li>
+                                <span class="icon" style={{ backgroundImage: `url(${Image12})` }}></span>
+                                
+                                <span id='becommembersyogatext3'>neutritionist</span> 
+                            </li>
+                            <li><span class="icon" style={{ backgroundImage: `url(${Image13})` }}></span>
+                               
+                                <span id='becommembersyogatext4'> biometric screening</span> 
+                            </li>
+                        </ul>
                     </div>
-
-                    <div className="selects">
-                        <div className='item'>
-                            <img className="icons" src={Image10} alt='...' />
-                            <p id='becommembersyogatexts2'>massage</p>
-                        </div>
-
-                    </div>
-
-                    <div className="selects">
-                        <div className='item'>
-                            <img className="icons" src={Image11} alt='...' />
-                            <p id='becommembersyogatexts2' style={{ marginLeft: "-10px" }}>reflexology</p>
-                        </div>
-
-                    </div>
-                    <div className="selects">
-                        <div className='item'>
-                            <img className="icons" src={Image12} alt='...' />
-                            <p id='becommembersyogatexts3'>neutritionist</p>
-                        </div>
-
-                    </div>
-
-                    <div className="selects">
-                        <div className='item'>
-                            <img className="icons" src={Image13} alt='...' />
-                            <p id='becommembersyogatexts4'> biometric screening</p>
-                        </div>
-
-                    </div>
-
-
-
-
-
                 </div>
-            </div >
+            </div>
         </>
     )
 }

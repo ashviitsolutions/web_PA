@@ -821,7 +821,6 @@
 
 
 
-
 }
 
 
@@ -875,7 +874,26 @@
 
 /*extra small end*/
 /*small*/
-@media (min-width:769px) {}
+/* @media (min-width:769px) { */
+    @media (max-width:769px) {
+        #services_tab .container-brief {
+        justify-content: space-around;
+        text-align: center;
+        display: block ;
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin: 0px;
+    }
+    #services_tab .container-brief .selects .item{
+        /* display: block; */
+        flex-basis: 145%;
+        margin: auto;
+        width: 40%;
+      
+        
+      }
+
+}
 
 /*small end*/
 /*medium */
