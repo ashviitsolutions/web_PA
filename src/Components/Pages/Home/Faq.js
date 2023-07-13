@@ -22,7 +22,7 @@ function Faq() {
       );
       setUsers(responses);
       setToggle(
-        Array.from({ length: responses.length }, (_, i) => i === 0)
+        Array.from({ length: responses.length }, (_, i) => i === 9)
       ); // Initialize toggle state array
     }
     fetchusers();
@@ -75,7 +75,7 @@ function Faq() {
           </div>
 
           <Link to="/faqpage">
-            <button id="memershipbutton" className="button" style={{ marginTop: "2rem" }}>View More</button>
+            <button id="memershipbutton" className="button" style={{ marginTop: "2rem", marginLeft:"3.5rem" }}>View More</button>
           </Link>
 
 

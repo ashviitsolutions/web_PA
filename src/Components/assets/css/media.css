@@ -440,6 +440,7 @@
         justify-content: space-around;
         margin-top: 6.5rem !important;
         margin-left: 0.2rem !important;
+
     }
 
     #footer {
@@ -541,6 +542,16 @@
         font-size: 13px;
         margin-top: -150px;
         padding-left: 4rem;
+    }
+
+    #membership_benifits .content ul {
+        position: relative;
+        display: block;
+        z-index: 1;
+        list-style: none;
+        padding: 25px;
+        text-align: left;
+        margin-top: 34px;
     }
 
     #membership_benifits .content ul li {
@@ -819,9 +830,9 @@
 
     }
 
-    #video_section{
+    #video_section {
         margin-left: 0px;
-      }
+    }
 
 }
 
@@ -877,24 +888,30 @@
 /*extra small end*/
 /*small*/
 /* @media (min-width:769px) { */
-    @media (max-width:769px) {
-        #services_tab .container-brief {
+@media (max-width:769px) {
+    #services_tab .container-brief {
         justify-content: space-around;
         text-align: center;
-        display: block ;
+        display: block;
         flex-direction: row;
         flex-wrap: wrap;
         margin: 0px;
     }
-    #services_tab .container-brief .selects .item{
+
+    #services_tab .container-brief .selects .item {
         /* display: block; */
         flex-basis: 145%;
         margin: auto;
         width: 40%;
-      
-        
-      }
 
+
+    }
+
+    #gmaillogin {
+        justify-content: center;
+        text-align: center;
+
+    }
 }
 
 /*small end*/
@@ -907,8 +924,6 @@
 
 /*medium end*/
 /*large*/
-@media (min-width:1200px) {
-    
-}
+@media (min-width:1200px) {}
 
 /*large end*/

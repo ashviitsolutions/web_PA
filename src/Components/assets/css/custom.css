@@ -327,6 +327,8 @@ body {
 
 #navigation .nav_bar li:hover a {
   text-shadow: 0px 0px 10px #cee5ff;
+  color: #03a9f4;
+
 }
 
 #navigation .nav_bar li::after {
@@ -1876,12 +1878,19 @@ body {
 }
 
 #alternate_post .heading {
-  padding: 3px;
+  /* padding: 3px;
   justify-content: center;
   text-align: center;
   width: 100%;
   padding-left: 6rem;
+  padding-top: 6rem; */
+
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  padding-left: 0rem;
   padding-top: 6rem;
+  padding: 81px;
 }
 
 #member_cta {
@@ -2273,6 +2282,7 @@ ul.true li::after {
   width: 100%;
   text-align: center;
   margin-bottom: 40px;
+  margin-top: 80px;
 }
 
 #application_process ul {
@@ -4118,6 +4128,11 @@ img .img-responsive {
   margin-left: 6.2rem ;
   top: 15px;
 }
+#member_cta .container-member .heading{
+  position: relative;
+  top: 100px;
+
+}
 
 #becommembersyogatext{
   position: relative;
@@ -4224,6 +4239,7 @@ img .img-responsive {
   background-color: #03a9f4;
   color: #ffff;
   border-radius: 20px;
+  transition: .3s ease-in;
   
 }
 
@@ -4231,3 +4247,22 @@ img .img-responsive {
 .selects .item:hover .icons {
   filter: brightness(0) invert(1); 
 }
+
+/* //Guest_login */
+
+#over_banner .sign_in_form {
+  margin-top: 100px;
+  margin-bottom: 50px;
+  margin-left: 10rem;
+  width: 65%;
+  height: 82%;
+}
+
+#gmaillogin{
+  justify-content: center;
+  text-align: center;
+  /* margin-left: 13.5rem; */
+  margin-top: 10px;
+  /* width: 40%; */
+  margin: auto;
+} 

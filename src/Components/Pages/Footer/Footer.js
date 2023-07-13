@@ -53,14 +53,14 @@ function Footer() {
                             </div>
                             <div className="nav">
                                 <ul>
-                                    <li><Link to="index">home</Link></li>
-                                    <li><Link to="giftcard">gift card</Link></li>
-                                    <li><Link to="become_member">membership</Link></li>
-                                    <li><Link to="about">about us</Link></li>
-                                    <li><Link to="contact">contact us</Link></li>
-                                    <li><Link to="login">login</Link></li>
-                                    <li><Link to="provider">become provider</Link></li>
-                                    <li><Link to="blog">blog</Link></li>
+                                    <li><Link to="/">home</Link></li>
+                                    <li><Link to="/giftcard">gift card</Link></li>
+                                    <li><Link to="/become_member">membership</Link></li>
+                                    <li><Link to="/about">about us</Link></li>
+                                    <li><Link to="/contact">contact us</Link></li>
+                                    <li><Link to="/login">login</Link></li>
+                                    <li><Link to="/become_provider">become provider</Link></li>
+                                    <li><Link to="/">blog</Link></li>
                                 </ul>
                             </div>
                         </div>
