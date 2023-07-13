@@ -28,7 +28,7 @@ function Select_location() {
                                         <span className="text">At convience of your home / your location</span>
                                     </li>
                                 </Link>
-                                <Link to="/become_provider">
+                                <Link to="/book">
                                     <li>
                                         <span
                                             className="bg"
