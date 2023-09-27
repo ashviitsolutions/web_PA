@@ -1,14 +1,12 @@
-import {configureStore} from '@reduxjs/toolkit'
-import extraReducers from './productSlice';
-
-
-
+// store.js
+import { configureStore } from '@reduxjs/toolkit';
+import counterReducer from './counterSlice'; // Import your slice reducer
 
 const store = configureStore({
-    reducer:{
-        product: extraReducers,
+  reducer: {
+    counter: counterReducer, // Add other slice reducers here if needed
+  },
+  // other store configuration options
+});
 
-    },
-
-})
-export default store
+export default store;

@@ -1,0 +1,49 @@
+#contact_us{
+   width: 100%;
+   margin: auto;
+}
+
+#contact_us .contact-container{
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    justify-content: space-between !important;
+}
+
+#contact_us .contact-container .contact-item{
+    flex-basis: 45%;
+}
+
+@media (max-width:992px) {
+    #contact_us .contact-container{
+        margin-top: 0;
+        width: 100% !important;
+    }
+    #contact_us .contact-container .contact-item{
+        flex-basis: 100% !important;
+        margin: auto !important;
+    }
+    #contact_us .contact-container .card_wrapper{
+        margin-bottom: 20px;
+
+    }
+    #contact_us .contact-container .card_wrapper .heading p{
+        display: block !important;
+    }
+    #contact_us .heading{
+        justify-content: center !important;
+        text-align: center !important;
+    }
+    #contact_us .heading p {
+        font-size: 13px;
+        display: block !important;
+    }
+    #contact_us .heading h3 {
+        font-size: 18px;
+    }
+    #contact_us .content {
+        position: relative;
+        display: block;
+        margin-top: 10px;
+    }
+}

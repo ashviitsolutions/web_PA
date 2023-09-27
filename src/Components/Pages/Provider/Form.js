@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import axios from 'axios';
 import { IP } from '../../../Constant';
 import { useNavigate } from 'react-router-dom';
+import "./style.css"
 
 
 const PreviewImage = ({ imagePreviewUrl }) => {
@@ -143,10 +144,11 @@ function FormPage(props) {
             });
     }, []);
     return (
+       
         <>
-            <div className="container" ref={props.servicesTabsRef}>
-                <div className="row">
-                    <div className="col-sm-6">
+            <div className="container" ref={props.servicesTabsRef} id='provideregister'>
+                <div className="contact-container" >
+                    <div className="contact-item">
 
                         <Formik
                             initialValues={initialValues}
@@ -156,17 +158,17 @@ function FormPage(props) {
 
                             {({ errors, touched, setFieldValue, values }) => (
 
-                                <Form className="card layer1"  onClick={()=>setToggle(false)}>
+                                <Form   onClick={()=>setToggle(false)}>
 
 
-                                    <div id="member_form" className="member_form_wrap">
+                                    <div >
                                         <div className="heading">
                                             <h3 style={{ fontSize: "20px" }}>Join Our Team</h3>
                                             <p>Nationwide Wellness Platform</p>
                                         </div>
 
 
-                                        <div className="container-fluid">
+                                        <div>
                                             <div className="row">
                                                 <div className="col-sm-6">
                                                     <div className="input_group">
@@ -382,7 +384,7 @@ function FormPage(props) {
 
                                             </div>
 
-                                            <div className="row">
+                                            <div className="faqbutton">
                                                 <button className="button lazy" type="submit">submit</button>
                                             </div>
 
@@ -399,7 +401,7 @@ function FormPage(props) {
                         </Formik>
                     </div>
 
-                    <div className="col-sm-6">
+                    <div className="contact-item">
                         <div className="gutter" >
                             <div className="member_form_wrap_bg" style={{ backgroundImage: `url(${img})` }}>
                             </div>

@@ -113,9 +113,9 @@ function Benifit() {
                 </div>
             </div>
 
-            <div  >
+            <div className='faqbutton' >
                 <Link to="book">
-                    <button id="memershipbutton" className="button" style={{marginTop:"-5rem"}}>get started</button>
+                    <button  className="button" >get started</button>
                 </Link>
             </div>
         </>

@@ -8,105 +8,97 @@ import FifthForm from "./FifthForm";
 import Conform from "./Conform";
 
 import "./style.css"
-// import image1 from "../../../assets/img/profile/members.png"
-// import image2 from "../../../assets/img/profile/members_white.png"
-// import image3 from "../../../assets/img/profile/service.png"
-// import image4 from "../../../assets/img/profile/service_white.png"
-// import image5 from "../../../assets/img/profile/invoice.png"
-// import image6 from "../../../assets/img/profile/invoice_white.png"
-// import image7 from "../../../assets/img/profile/calendar.png"
-// import image8 from "../../../assets/img/profile/calendar_white.png"
-// import image9 from "../../../assets/img/profile/map.png"
-// import image10 from "../../../assets/img/profile/map_white.png"
-// import image11 from "../../../assets/img/profile/check.png"
-// import image12 from "../../../assets/img/profile/check_white.png"
-
-// import image13 from "../../../assets/img/goodbye.png"
-// import image14 from "../../../assets/img/laugh.png"
-// import image15 from "../../../assets/img/thinking-of-someone.png"
 
 
 const Book = () => {
-    const [activeTab, setActiveTab] = useState(1);
+  const [activeTab, setActiveTab] = useState(1);
 
-  const [now, setNow] = useState(0); // Update initial now value to 0
+  const [now, setNow] = useState(0);
 
   const nextStep = () => {
-    setNow((prevStep) => (prevStep < 100 ? prevStep + 100 / 6 : prevStep)); // Update the increment value
-    setActiveTab(activeTab+1)
+    setNow((prevStep) => (prevStep < 100 ? prevStep + 100 / 6 : prevStep));
+    setActiveTab(activeTab + 1);
   };
 
   const previousStep = () => {
-    setNow((prevStep) => (prevStep > 0 ? prevStep - 100 / 6 : prevStep)); // Update the decrement value
+    setNow((prevStep) => (prevStep > 0 ? prevStep - 100 / 6 : prevStep));
   };
+
+  const navigateToNextForm = () => {
+    nextStep(); // Increment the step progress
+    // You can add any additional logic here before navigating
+  };
+
+
 
   let form;
   switch (activeTab) {
     case 1:
-      form = <FirstForm step={now} nextStep={nextStep} previousStep={previousStep} />;
+      form = <FirstForm step={now} previousStep={previousStep} nextStep={navigateToNextForm} />;
       break;
     case 2:
-      form = <SecondForm step={now} nextStep={nextStep} previousStep={previousStep} />;
+      form = <SecondForm step={now} nextStep={navigateToNextForm} previousStep={previousStep} />;
       break;
     case 3:
-      form = <ThirdForm step={now} nextStep={nextStep} previousStep={previousStep} />;
+      form = <ThirdForm step={now} nextStep={navigateToNextForm} previousStep={previousStep} />;
       break;
     case 4:
-      form = <FourForm step={now} nextStep={nextStep} previousStep={previousStep} />;
+      form = <FourForm step={now} nextStep={navigateToNextForm} previousStep={previousStep} />;
       break;
     case 5:
-      form = <FifthForm step={now} nextStep={nextStep} previousStep={previousStep} />;
+      form = <FifthForm step={now} nextStep={navigateToNextForm} previousStep={previousStep} />;
       break;
-    case 6:
-      form = <Conform step={now} nextStep={nextStep} previousStep={previousStep} />;
-      break;
+   {/* case 6:
+      form = <Conform step={now} nextStep={navigateToNextForm} previousStep={previousStep} />;
+  break;  */}
     default:
       break;
   }
 
-    return (
-        <>
-            <div className="sidebar_tabs">
-                <div className="container">
-                    <div className="row">
-                        <ul id="tabs_control">
-                            <li id="tab_1" className={activeTab === 1 ? 'active' : ''} onClick={() => setActiveTab(1)}>
-                               
-                                members
-                            </li>
-                            <li id="tab_2" className={activeTab === 2 ? 'active' : ''} onClick={() => setActiveTab(2)}>
-                              
-                                service
-                            </li>
-                            <li id="tab_3" className={activeTab === 3 ? 'active' : ''} onClick={() => setActiveTab(3)}>
-                             
-                                customize
-                            </li>
-                            <li id="tab_4" className={activeTab === 4 ? 'active' : ''} onClick={() => setActiveTab(4)}>
-                              
-                                schedule
-                            </li>
-                            <li id="tab_5" className={activeTab === 5 ? 'active' : ''} onClick={() => setActiveTab(5)}>
-                               
-                                address
-                            </li>
-                            <li id="tab_6" className={activeTab === 6 ? 'active' : ''} onClick={() => setActiveTab(6)}>
-                               
-                                confirm
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+  return (
+    <>
+      <div className="sidebar_tabs">
+        <div className="container">
+          <div className="row">
+            <ul id="tabs_control">
+              <li id="tab_1" className={activeTab === 1 ? 'active' : ''} onClick={() => setActiveTab(1)}>
+
+                members
+              </li>
+              <li id="tab_2" className={activeTab === 2 ? 'active' : ''} onClick={() => setActiveTab(2)}>
+
+                service
+              </li>
+              <li id="tab_3" className={activeTab === 3 ? 'active' : ''} onClick={() => setActiveTab(3)}>
+
+                customize
+              </li>
+              <li id="tab_4" className={activeTab === 4 ? 'active' : ''} onClick={() => setActiveTab(4)}>
+
+                schedule
+              </li>
+              <li id="tab_5" className={activeTab === 5 ? 'active' : ''} onClick={() => setActiveTab(5)}>
+
+                address
+              </li>
+              
+              <li id="tab_6">
+                 
+                <span>confirm</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
 
 
-            <div className="progressbar_userpannel">
-                <ProgressBar className="progressbarproviders mt-4" now={(activeTab) * 16.6666667}  />
+      <div className="progressbar_userpannel">
+        <ProgressBar className="progressbarproviders mt-4" now={(activeTab) * 16.6666667} />
 
-                {form}
-            </div>
-        </>
-    )
+        {form}
+      </div>
+    </>
+  )
 }
 
 export default Book

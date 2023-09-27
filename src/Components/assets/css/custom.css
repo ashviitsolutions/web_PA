@@ -2591,6 +2591,7 @@ ul.true li::after {
   border: 1px solid #e3e3e3;
   padding: 30px 30px;
   background: #fff;
+  margin: auto;
   /* left: 10%; */
 }
 
@@ -2773,7 +2774,7 @@ ul.true li::after {
 }
 
 .selectable li::after {
-  content: '';
+  /* content: ''; */
   position: absolute;
   top: 0;
   left: 0;
@@ -3061,7 +3062,7 @@ ul.true li::after {
   margin-top: 0px;
   padding: 15px;
   box-shadow: 3px 7px 8px -2px rgb(0 0 0 / 15%);
-  height: 170px;
+  /* height: 170px; */
   transition: all 0.3s ease-in-out;
   border-radius: 12px;
   border: 1px solid #ebebeb;
@@ -4266,3 +4267,20 @@ img .img-responsive {
   /* width: 40%; */
   margin: auto;
 } 
+
+
+
+
+
+.sign_in_form .button {
+  margin-bottom: 12px;
+}
+
+.gmail_login {
+  margin-top: 10px;
+}
+
+.anchor {
+  border: none !important;
+  text-decoration: none;
+}

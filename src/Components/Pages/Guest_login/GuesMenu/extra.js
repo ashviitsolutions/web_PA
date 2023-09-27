@@ -1,118 +1,239 @@
+// import React from 'react'
+// import { useState } from 'react'
+// import { Link } from 'react-router-dom'
+// import "../../Book/style.css";
+// import postServices from '../Services/postServices';
+// import { useNavigate } from 'react-router-dom';
+
+
+// function Location() {
+//   const nav = useNavigate()
+//   const [Input, setinput] = useState("");
+
+
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     const config = {
+//       "location": {
+//         "type": "Point",
+//         "coordinates": [28.586445, 77.365726]
+//       }
+//     };
+//     const formData = new FormData();
+//     formData.append('location', JSON.stringify(config));
+//     const res = await postServices.createPost(formData);
+//     console.log("location", res);
+//     nav("/guest_login");
+//   };
+
+//   return (
+//     <>
+//       <div id="over_banner">
+//         <div class="container">
+//           <div class="row">
+//             <form class="location card layer1" >
+//               <h3>Where would you like our provider to  meet you.</h3>
+//               <div class="input_group">
+//                 <input class="input" type="text" onChange={(e) => setinput(e.target.value)} value={Input} placeholder="Search for an address here..." />
+//               </div>
+//               <div class="input_group">
+//                 <button class="button" style={{ paddingTop: "11px" }} type="button" onClick={handleSubmit}>continue</button>
+//               </div>
+//             </form>
+//           </div>
+//         </div>
+//       </div>
+//     </>
+//   )
+// }
+
+// export default Location
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import React from 'react';
+// import { useState } from 'react';
+// import { useDispatch } from 'react-redux';
+// import { updateInputData } from '../../Redux/counterSlice'; // Replace with the correct path
+// import { useNavigate } from 'react-router-dom';
+
+// function Location() {
+//   const dispatch = useDispatch();
+//   const nav = useNavigate();
+//   const [Input, setInput] = useState("");
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     const config = {
+//       "location": {
+//         "type": "Point",
+//         "coordinates": [28.586445, 77.365726]
+//       }
+//     };
+    
+//     // Dispatch the updateInputData action with the Input value
+//     dispatch(updateInputData({ formName: 'locationForm', inputData: config }));
+
+   
+//     nav("/guest_login");
+//   };
+
+
+//   return (
+//     <>
+//       <div id="over_banner">
+//         <div class="container">
+//           <div class="row">
+//             <form class="location card layer1" >
+//               <h3>Where would you like our provider to  meet you.</h3>
+//               <div class="input_group">
+//                 <input class="input" type="text" onChange={(e) => setInput(e.target.value)} value={Input} placeholder="Search for an address here..." />
+//               </div>
+//               <div class="input_group">
+//                 <button class="button" style={{ paddingTop: "11px" }} type="button" onClick={handleSubmit}>continue</button>
+//               </div>
+//             </form>
+//           </div>
+//         </div>
+//       </div>
+//     </>
+//   )
+// }
+
+// export default Location
+
 import React, { useState } from "react";
-import { ProgressBar } from "react-bootstrap";
-import FirstForm from "./FirstForm";
-import SecondForm from "./SeconForm";
-import ThirdForm from "./ThirdForm";
-import FourForm from "./FourForm";
-import FifthForm from "./FifthForm";
-import Conform from "./Conform";
+import "./style.css";
+import { useDispatch } from 'react-redux';
+import { updateInputData } from '../../Redux/counterSlice';
+import { useNavigate } from "react-router-dom";
 
-import "./style.css"
-import image1 from "../../../assets/img/profile/members.png"
-import image2 from "../../../assets/img/profile/members_white.png"
-import image3 from "../../../assets/img/profile/service.png"
-import image4 from "../../../assets/img/profile/service_white.png"
-import image5 from "../../../assets/img/profile/invoice.png"
-import image6 from "../../../assets/img/profile/invoice_white.png"
-import image7 from "../../../assets/img/profile/calendar.png"
-import image8 from "../../../assets/img/profile/calendar_white.png"
-import image9 from "../../../assets/img/profile/map.png"
-import image10 from "../../../assets/img/profile/map_white.png"
-import image11 from "../../../assets/img/profile/check.png"
-import image12 from "../../../assets/img/profile/check_white.png"
+const image1 =
+  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14009.804601388554!2d77.38583598519591!3d28.616237787899024!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cefbfc0af6e6f%3A0xf1bb1ef79e931eea!2sYusufpur%20Chak%20Saberi%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1661391086520!5m2!1sen!2sin";
 
-import image13 from "../../../assets/img/goodbye.png"
-import image14 from "../../../assets/img/laugh.png"
-import image15 from "../../../assets/img/thinking-of-someone.png"
+const FifthForm = ({ step, nextStep }) => {
+  const [id, setId] = useState("");
+  const nav = useNavigate();
+  const [address, setAddress] = useState("");
+  const [email, setEmail] = useState("");
+  const [arrivalInstructions, setArrivalInstructions] = useState("");
 
+  const dispatch = useDispatch();
 
-const Book = () => {
-    const [activeTab, setActiveTab] = useState(1);
+  const handleSubmit = () => {
+    const formData = {
+      address,
+      email,
+      arrival_instructions: arrivalInstructions,
+    };
 
-  const [now, setNow] = useState(0); // Update initial now value to 0
+    // Dispatch the form data to Redux
+    dispatch(updateInputData({ formName: 'fifthform', inputData: formData }));
 
-  const nextStep = () => {
-    setNow((prevStep) => (prevStep < 100 ? prevStep + 100 / 6 : prevStep)); // Update the increment value
-    setActiveTab(activeTab+1)
+    // Navigate to the review page
+    nav(`/review`); 
+
+    console.log("Form Data:", formData);
   };
 
-  const previousStep = () => {
-    setNow((prevStep) => (prevStep > 0 ? prevStep - 100 / 6 : prevStep)); // Update the decrement value
-  };
-
-  let form;
-  switch (activeTab) {
-    case 1:
-      form = <FirstForm step={now} nextStep={nextStep} previousStep={previousStep} />;
-      break;
-    case 2:
-      form = <SecondForm step={now} nextStep={nextStep} previousStep={previousStep} />;
-      break;
-    case 3:
-      form = <ThirdForm step={now} nextStep={nextStep} previousStep={previousStep} />;
-      break;
-    case 4:
-      form = <FourForm step={now} nextStep={nextStep} previousStep={previousStep} />;
-      break;
-    case 5:
-      form = <FifthForm step={now} nextStep={nextStep} previousStep={previousStep} />;
-      break;
-    case 6:
-      form = <Conform step={now} nextStep={nextStep} previousStep={previousStep} />;
-      break;
-    default:
-      break;
-  }
-
-    return (
-        <>
-            <div className="sidebar_tabs">
-                <div className="container">
-                    <div className="row">
-                        <ul id="tabs_control">
-                            <li id="tab_1" className={activeTab === 1 ? 'active' : ''} onClick={() => setActiveTab(1)}>
-                                <span className="icon" style={{ backgroundImage: `url(${image1})` }}></span>
-                                <span className="icon negative" style={{ backgroundImage: `url(${image2})` }}></span>
-                                members
-                            </li>
-                            <li id="tab_2" className={activeTab === 2 ? 'active' : ''} onClick={() => setActiveTab(2)}>
-                                <span className="icon" style={{ backgroundImage: `url(${image3})` }}></span>
-                                <span className="icon negative" style={{ backgroundImage: `url(${image4})` }}></span>
-                                service
-                            </li>
-                            <li id="tab_3" className={activeTab === 3 ? 'active' : ''} onClick={() => setActiveTab(3)}>
-                                <span className="icon" style={{ backgroundImage: `url(${image5})` }}></span>
-                                <span className="icon negative" style={{ backgroundImage: `url(${image6})` }}></span>
-                                customize
-                            </li>
-                            <li id="tab_4" className={activeTab === 4 ? 'active' : ''} onClick={() => setActiveTab(4)}>
-                                <span className="icon" style={{ backgroundImage: `url(${image7})` }}></span>
-                                <span className="icon negative" style={{ backgroundImage: `url(${image8})` }}></span>
-                                schedule
-                            </li>
-                            <li id="tab_5" className={activeTab === 5 ? 'active' : ''} onClick={() => setActiveTab(5)}>
-                                <span className="icon" style={{ backgroundImage: `url(${image9})` }}></span>
-                                <span className="icon negative" style={{ backgroundImage: `url(${image10})` }}></span>
-                                address
-                            </li>
-                            <li id="tab_6" className={activeTab === 6 ? 'active' : ''} onClick={() => setActiveTab(6)}>
-                                <span className="icon" style={{ backgroundImage: `url(${image11})` }}></span>
-                                <span className="icon negative" style={{ backgroundImage: `url(${image12})` }}></span>
-                                confirm
-                            </li>
-                        </ul>
-                    </div>
+  return (
+    <>
+      <div id="sec_wiz_5" className="section">
+        <div id="employees" style={{ textAlign: "center" }}>
+          <label
+            style={{ textAlign: "center", fontSize: "18px" }}
+            className="as_title"
+            htmlFor=""
+          >
+            Address Details
+          </label>
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col-sm-7">
+                <div className="inner">
+                  <div className="map">
+                    <iframe
+                      src={image1}
+                      style={{ border: 0, height: "360px" }}
+                      allowFullScreen=""
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                    ></iframe>
+                  </div>
                 </div>
+              </div>
+              <div className="col-sm-5">
+                <div className="inner">
+                  <h3 style={{ fontSize: "18px" }}>24000 EL Toro Road</h3>
+                  <p style={{ fontSize: "18px" }}>Laguna Woods, CA 92653</p>
+                </div>
+                <div className="inner">
+                  <label htmlFor="" style={{ fontSize: "18px" }}>
+                    Apt / Suite / Hotel Name &amp; room
+                  </label>
+                  <input
+                    className="input"
+                    type="text"
+                    name=""
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                  />
+                </div>
+                <div className="inner">
+                  <label htmlFor="" style={{ fontSize: "18px" }}>
+                    Email
+                  </label>
+                  <input
+                    className="input"
+                    type="email"
+                    name=""
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+                <div className="inner">
+                  <label htmlFor="" style={{ fontSize: "18px" }}>
+                    Arrival Instructions
+                  </label>
+                  <textarea
+                    className="input"
+                    name="name"
+                    rows="5"
+                    value={arrivalInstructions}
+                    onChange={(e) =>
+                      setArrivalInstructions(e.target.value)
+                    }
+                  ></textarea>
+                </div>
+                <div className="inner" style={{ fontSize: "18px" }}></div>
+              </div>
+              <button
+                className="button"
+                type="submit"
+                onClick={handleSubmit}
+              >
+                Review
+              </button>
             </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
 
-
-            <div className="progressbar_userpannel">
-                <ProgressBar className="progressbarproviders mt-4" now={(activeTab) * 16.6666667} label={`${(activeTab) * 16.6666667}%`} />
-
-                {form}
-            </div>
-        </>
-    )
-}
-
-export default Book
+export default FifthForm;

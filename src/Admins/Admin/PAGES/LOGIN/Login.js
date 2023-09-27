@@ -10,7 +10,7 @@ function Login() {
     const [toggle, setToggle] = useState(false)
     const loginguser = localStorage.getItem("tokenadmin")
     const nav = useNavigate()
-    
+
     useEffect(() => {
         const auth = localStorage.getItem("tokenadmin")
         if (auth) {
@@ -40,7 +40,7 @@ function Login() {
         resetForm({ values: "" });
         let data = { "email": values.email, "password": values.password }
         try {
-            const resp = await fetch("http://45.13.132.197:4000/api/admin/login", {
+            const resp = await fetch("http://45.13.132.197:5000/api/admin/login", {
                 method: "POST",
                 headers: {
                     'Accept': 'application/json',
@@ -52,14 +52,14 @@ function Login() {
             const token = resp.headers.get('Authorization');
             const result = await resp.json();
             console.log(result)
-           
 
 
-            if (resp.status===200) {
+
+            if (resp.status === 200) {
                 localStorage.setItem("usersadmin", JSON.stringify(result));
                 localStorage.setItem("tokenadmin", token);
                 nav("/admin")
-            }else{
+            } else {
                 setToggle(true)
             }
 
@@ -78,7 +78,7 @@ function Login() {
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-sm-4 col-sm-offset-4">
-                            <div className="head" style={{textAlign:"center"}}>
+                            <div className="head" style={{ textAlign: "center" }}>
                                 <h3>welcome !</h3>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.</p>
                             </div>
@@ -100,7 +100,7 @@ function Login() {
                                         <div className="card_wrapper">
                                             <div className="input_group">
                                                 <div className="headinghomes">
-                                                    <h3 style={{fontWeight:"700"}}>Sign in</h3>
+                                                    <h3 style={{ fontWeight: "700" }}>Sign in</h3>
                                                     <p>enter your credentials to enter</p>
                                                 </div>
                                             </div>
@@ -136,7 +136,7 @@ function Login() {
 
                                             <div className="input_group">
                                                 <button className="button lazy primary" type="submit"
-                                                 
+
                                                 >sign in</button>
                                                 {
                                                     toggle ? (
@@ -146,14 +146,14 @@ function Login() {
                                                                     <h3 id='errorshow'>Invalid credentials</h3>
                                                                 </div>
                                                             ) : (<h3>Success</h3>)
-                                                        }
+                                                            }
                                                         </div>
                                                     ) : null
                                                 }
                                             </div>
                                         </div>
                                     </div>
-                                  
+
 
                                 </Form>
                             )}

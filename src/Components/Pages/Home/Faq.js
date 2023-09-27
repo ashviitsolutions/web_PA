@@ -53,7 +53,7 @@ function Faq() {
               <div
                 className="faq"
                 key={curElem.id}
-               
+
                 onClick={() => handleToggle(index)}
               >
                 <div style={{ display: 'flex' }} className="question">
@@ -74,14 +74,18 @@ function Faq() {
             ))}
           </div>
 
-          <Link to="/faqpage">
-            <button id="memershipbutton" className="button" style={{ marginTop: "2rem", marginLeft:"3.5rem" }}>View More</button>
-          </Link>
 
 
 
 
         </div>
+      </div>
+
+      <div className='faqbutton'>
+        <Link to="/faqpage">
+          <button id="memershipbuttons" className="button">View More</button>
+        </Link>
+
       </div>
     </>
   );

@@ -15,13 +15,18 @@ import Login from './Components/Pages/Login/Login';
 import Sinup from './Components/Pages/Sinup/Sinup';
 import GuestLogin from './Components/Pages/Guest_login/GuestLogin';
 import Gift from './Components/Pages/Gift/Gift';
-import SelectLocation from './Components/Pages/Book/SelectLocation';
+import SelectLocation from './Components/Pages/Guest_login/GuesMenu/Location';
 import Membership from './Components/Pages/Membership/Membership';
 import Providers from "./Components/Pages/Provider/Provider"
 import store from "./Components/Pages/Redux/store"
 import { Provider } from 'react-redux';
 import Select_location from './Components/Pages/Guest_login/Guest/Select_location';
 import Book from './Components/Pages/Guest_login/GuesMenu/Book';
+import Conform from './Components/Pages/Guest_login/GuesMenu/Conform';
+import Profiles from "./Components/Pages/Profile/userProfile/Profile";
+
+//Payment
+import Successpayment from "./Components/Pages/Payment/Success"
 
 //admin pannel
 import Sidebar from "./Admins/Sidebar/Sidebar"
@@ -87,26 +92,26 @@ function App() {
     window.scrollTo(0, 0);
   }, [nav]);
 
-// Get the current time in milliseconds
-const currentTime = new Date().getTime();
+  // Get the current time in milliseconds
+  const currentTime = new Date().getTime();
 
-// Check if a time stamp already exists in localStorage
-const storedTime = localStorage.getItem('storedTime');
+  // Check if a time stamp already exists in localStorage
+  const storedTime = localStorage.getItem('storedTime');
 
-if (storedTime) {
-  // If a time stamp exists, check if it's been 20 hours
-  const timeDifference = currentTime - parseInt(storedTime);
-  const hoursDifference = timeDifference / (1000 * 60 * 60);
+  if (storedTime) {
+    // If a time stamp exists, check if it's been 20 hours
+    const timeDifference = currentTime - parseInt(storedTime);
+    const hoursDifference = timeDifference / (1000 * 60 * 60);
 
-  if (hoursDifference >= 20) {
-    // If 20 hours have passed, clear localStorage and set a new time stamp
-    localStorage.clear();
+    if (hoursDifference >= 20) {
+      // If 20 hours have passed, clear localStorage and set a new time stamp
+      localStorage.clear();
+      localStorage.setItem('storedTime', currentTime.toString());
+    }
+  } else {
+    // If no time stamp exists, set one
     localStorage.setItem('storedTime', currentTime.toString());
   }
-} else {
-  // If no time stamp exists, set one
-  localStorage.setItem('storedTime', currentTime.toString());
-}
 
 
 
@@ -120,6 +125,7 @@ if (storedTime) {
             <Home />
             <Footer />
           </>} />
+         
           <Route path="/services" element={<>
             <Navbar />
             <Service />
@@ -185,11 +191,21 @@ if (storedTime) {
             <Navbar />
             <Select_location />
             <Footer />
-          </>} />
+          </>} />         
 
+          <Route path="/userProfile" element={<>
+            <Navbar />
+            <Profiles />
+          </>} />
+          
           <Route path="/Book" element={<>
             <Navbar />
             <Book />
+            <Footer />
+          </>} />
+          <Route path="/Book/:userId" element={<>
+            <Navbar />
+            <Conform />
             <Footer />
           </>} />
 
@@ -198,8 +214,12 @@ if (storedTime) {
             <Gift />
             <Footer />
           </>} />
+
+          <Route path="/userProfile/payment/success" element={<>
           
-          
+            <Successpayment />
+     
+          </>} />
 
           <Route path="/blogpage" element={<>
             <Navbar />
@@ -213,7 +233,7 @@ if (storedTime) {
             <Footer />
           </>} />
 
-          
+
           <Route path="/faqpage" element={<>
             <Navbar />
             <Faq />
@@ -387,7 +407,7 @@ if (storedTime) {
             <SideBarprovider />
             <Protected Component={Profile} />
           </>} />
-          
+
           <Route path="/providers/personal-settings" element={<>
             <NavBarProvide />
             <SideBarprovider />
@@ -400,15 +420,15 @@ if (storedTime) {
             <Protected Component={Callstatus} />
           </>} />
           <Route path="/providers/login" element={<>
-            <Protected Component={Loginprovider}/>
+            <Protected Component={Loginprovider} />
           </>} />
 
-          
+
           <Route path="/providers/logout" element={<>
-            <Protected Component={Logout}/>
+            <Protected Component={Logout} />
           </>} />
 
-        
+
 
         </Routes>
 

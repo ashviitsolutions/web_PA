@@ -1,55 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { IP } from '../../../Constant';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { fetchProducts, fetchImage } from '../Redux/productSlice';
+
 
 function Banner() {
-  // const postIds = ['63f0cad81e627c34fc1b58e9'];
-  // const [users, setUsers] = useState([]);
-  // const [img, setImg] = useState([]);
-
-  // useEffect(() => {
-  //   async function fetchData() {
-  //     const cachedData = sessionStorage.getItem('cachedData');
-
-  //     if (cachedData) {
-  //       const parsedData = JSON.parse(cachedData);
-  //       setUsers(parsedData.users);
-  //       setImg(parsedData.images);
-  //     } else {
-  //       const responses = await Promise.all(
-  //         postIds.map(async (id) => {
-  //           const res = await fetch(`${IP}/post/fetch/${id}`);
-  //           return res.json();
-  //         })
-  //       );
-
-  //       setUsers(responses[0]);
-  //       const images = await Promise.all(
-  //         responses.flatMap((response) => response.attachments).map(async (image) => {
-  //           const res = await fetch(`${IP}/file/${image}`);
-  //           const imageBlob = await res.blob();
-  //           const imageUrl = URL.createObjectURL(imageBlob);
-  //           return { url: imageUrl, blob: imageBlob };
-  //         })
-  //       );
-
-  //       setImg(images);
-
-  //       const cachedData = JSON.stringify({ users: responses[0], images });
-  //       sessionStorage.setItem('cachedData', cachedData);
-
-  //       // Clean up object URLs
-  //       images.forEach((image) => {
-  //         URL.revokeObjectURL(image.url);
-  //       });
-  //     }
-  //   }
-
-  //   fetchData();
-  // }, []);
-
-
   const postIds = ['63f0cad81e627c34fc1b58e9'];
   const [users, setUsers] = useState([]);
   const [img, setImg] = useState('');

@@ -1,20 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
 import "./style.css"
 import image13 from "../../../assets/img/goodbye.png"
 import image14 from "../../../assets/img/laugh.png"
 import image15 from "../../../assets/img/thinking-of-someone.png"
-const FirstForm = () => {
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateInputData } from '../../Redux/counterSlice';
+
+
+
+const FirstForm = ({ step, nextStep }) => {
+    // Use useSelector with the correct selector to get the formData
+    const formData = useSelector((state) => state.counter.formData);
+    console.log("firstform", formData);
+
+    const dispatch = useDispatch();
+    // const handleSubmit = (input) => {
+    //     dispatch(updateInputData({ formName: 'firstForm', inputData: input }));
+
+
+    //     setTimeout(() => {
+    //         nextStep();
+
+    //       }, 2000)
+    //     nav("/guest_login")
+    // };
+
+    const handleSubmit = (input) => {
+        console.log('handleSubmit called with input:', input);
+        console.log('dispatch:', dispatch);
+        dispatch(updateInputData({ formName: 'firstForm', inputData: input }));
+        setTimeout(() => {
+            nextStep();
+
+        }, 2000)
+    };
+
+
     return (
         <>
-         
+
 
             <div id="sec_wiz_1" className="section">
                 <div id="employees" style={{ textAlign: "center" }}>
-                    <label  className="as_title" htmlFor="">
+                    <label className="as_title" htmlFor="" >
                         Who Is it For ?
                     </label>
                     <ul className="review option" style={{ display: "flex" }} id="review_option">
-                        <li>
+                        <li onClick={() => handleSubmit('just me')}>
                             <span
                                 className="icon"
                                 style={{
@@ -23,7 +56,7 @@ const FirstForm = () => {
                             ></span>
                             just me
                         </li>
-                        <li>
+                        <li onClick={() => handleSubmit('Duo')}>
                             <span
                                 className="icon"
                                 style={{
@@ -32,7 +65,7 @@ const FirstForm = () => {
                             ></span>
                             Duo
                         </li>
-                        <li>
+                        <li onClick={() => handleSubmit('Something Else')}>
                             <span
                                 className="icon"
                                 style={{
@@ -42,6 +75,7 @@ const FirstForm = () => {
                             Something Else
                         </li>
                     </ul>
+
                 </div>
             </div>
 

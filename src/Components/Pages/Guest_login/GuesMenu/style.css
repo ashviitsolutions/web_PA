@@ -54,9 +54,9 @@
     text-align: center;
     height: 40px;
     transition: .3s ease-in-out;
- 
- 
-    
+
+
+
 }
 
 .sidebar_tabs ul li .icon {
@@ -117,7 +117,7 @@
     list-style: none;
     justify-content: center;
     text-align: justify;
- 
+
 }
 
 #employees .option li {
@@ -131,7 +131,7 @@
 }
 
 
-#sec_wiz_2{
+#sec_wiz_2 {
 
     width: 70%;
     margin: auto;
@@ -143,14 +143,14 @@
 .products .item_wrapper {
     position: relative;
     display: inline-block;
-    width:33%;
+    width: 33%;
     margin: auto;
     white-space: normal;
     padding: 10px;
 }
 
 
-.progressbar_userpannel{
+.progressbar_userpannel {
     position: relative;
     top: 150px;
     width: 95%;
@@ -163,3 +163,28 @@
     left: 0px;
 }
 
+
+
+
+/* //Location */
+#over_banners {
+    width: 100%;
+    margin: auto;
+    margin-top: 140px;
+}
+
+#over_banners .location-container{
+    width: 40%;
+    margin: auto;
+}
+
+/* #over_banners .location-container .locations{
+    width: 40%;
+    margin: auto;
+} */
+
+.gender.selected,
+.time_option.selected {
+  background-color: blue; /* Set the background color to blue for selected items */
+  color: white; /* Set the text color to white for better visibility */
+}

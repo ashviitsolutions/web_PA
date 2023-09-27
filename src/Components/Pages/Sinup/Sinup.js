@@ -49,7 +49,7 @@ function Login() {
             bodyFormData.append("password", values.password);
             bodyFormData.append("confirm_password", values.Confirm_Password);
 
-            const res = await axios.post("http://45.13.132.197:4000/api/user/register", bodyFormData, {
+            const res = await axios.post("http://45.13.132.197:5000/api/user/register", bodyFormData, {
                 headers: {
                     'Content-Type': 'application/json',
                 },

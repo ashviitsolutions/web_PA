@@ -1,11 +1,14 @@
-import React, {  useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from "react-router-dom"
 import Images1 from "../assets/img/download-google-play.png"
 import Images2 from "../assets/img/download-app-store.png"
 // import { FaBars } from 'react-icons/fa';
 import menuimage from "../assets/img/close.png"
 import menucross from "../assets/img/menu.png"
+import { useNavigate } from 'react-router-dom'
 function Navbar() {
+
+    const nav = useNavigate()
     const [isActive, setIsActive] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
 
@@ -15,21 +18,36 @@ function Navbar() {
 
 
     const handleDropdown = () => {
-      setIsOpen(!isOpen);
+        setIsOpen(!isOpen);
     }
+    const loginguser = localStorage.getItem('token');
+    const showToggleButton = loginguser;
 
+    const dashboardpage = () => {
+        
+        nav("/userProfile");
+      };
+
+    // // useEffect(() => {
+
+    // //     if (!showToggleButton) {
+    // //         nav("/")
+    // //     }
+    // // }, [])
     return (
 
         <div id="navigation" {...(isActive ? { active: "" } : {})} >
 
 
-            <div className="toggle_button" onClick={toggleLinks}>
-                {isActive ? (
-                    <img src={menuimage} alt="Close" style={{ width: "50%" }} className="toggleimage" />
-                ) : (
-                    <img src={menucross} alt="Menu" style={{ width: "70%" }} className="toggleimage"/>
-                )}
-            </div>
+            {!showToggleButton && (
+                <div className="toggle_button" onClick={toggleLinks}>
+                    {isActive ? (
+                        <img src={menuimage} alt="Close" style={{ width: '50%' }} className="toggleimage" />
+                    ) : (
+                        <img src={menucross} alt="Menu" style={{ width: '70%' }} className="toggleimage" />
+                    )}
+                </div>
+            )}
             <div className="container">
                 <div className="row">
                     <div className="float_wrapper">
@@ -41,48 +59,70 @@ function Navbar() {
                         </Link>
                         <ul className="nav_bar">
                             <li>
-                                <Link to="/">home</Link>
+                                <Link to="/" onClick={toggleLinks}>home</Link>
                             </li>
                             <li id="service_drpdwn" className="drpdwn">
-                            <span className="text" >
-                              <Link to="/services">services</Link>
-                              <span className="ico" onClick={handleDropdown}></span>
-                            </span>
-                            <ul className={!isOpen ? 'drpdwn_menu open' : 'drpdwn'}>
-                              <li>
-                                <Link to="/services/massage_on_demand">massage on demand</Link>
-                              </li>
-                              <li>
-                                <Link to="/services/corporate_events">corporate events</Link>
-                              </li>
-                              <li>
-                                <Link to="/services/private_events">private events</Link>
-                              </li>
-                            </ul>
-                          </li>
-                            <li>
-                                <Link to="/about">about us</Link>
+                                <span className="text" >
+                                    <Link to="/services">services</Link>
+                                    <span className="ico" onClick={handleDropdown}></span>
+                                </span>
+                                <ul className={!isOpen ? 'drpdwn_menu open' : 'drpdwn'}>
+                                    <li>
+                                        <Link to="/services/massage_on_demand" onClick={toggleLinks}>massage on demand</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/services/corporate_events" onClick={toggleLinks}>corporate events</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/services/private_events" onClick={toggleLinks}>private events</Link>
+                                    </li>
+                                </ul>
                             </li>
                             <li>
-                                <Link to="/giftcard">gift card</Link>
+                                <Link to="/about" onClick={toggleLinks}>about us</Link>
                             </li>
                             <li>
-                                <Link to="/contact">contact us</Link>
+                                <Link to="/giftcard" onClick={toggleLinks}>gift card</Link>
                             </li>
                             <li>
-                                <Link to="/become_member">membership</Link>
+                                <Link to="/contact" onClick={toggleLinks}>contact us</Link>
                             </li>
                             <li>
-                                <Link to="/become_provider">become provider</Link>
+                                <Link to="/become_member" onClick={toggleLinks}>membership</Link>
+                            </li>
+                            <li>
+                                <Link to="/become_provider" onClick={toggleLinks}>become provider</Link>
                             </li>
                             <li className="withicon">
                                 <span className="icon" ></span>
-                                <Link to="/select_location">Book now</Link>
+                                <Link to="/select_location" onClick={toggleLinks}>Book now</Link>
                             </li>
-                            <li className="withicon">
-                                <span className="icon" ></span>
-                                <Link to="/login">login</Link>
-                            </li>
+                            {
+                                !showToggleButton ? (
+                                    <li className="withicon">
+                                        <span className="icon"></span>
+                                        <Link to="/login" onClick={toggleLinks}>
+                                            Login
+                                        </Link>
+                                    </li>
+                                ) : (
+                                    <li id="service_drpdwn" className="drpdwn" onClick={dashboardpage}>
+                                        <span className="text" >
+                                            <img
+                                                width={50}
+                                                height={50}
+                                                src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg"
+                                                alt=""
+                                                style={{ borderRadius: "100%" }}
+                                            />
+                                            <span className="ico" onClick={handleDropdown}></span>
+                                        </span>
+                                        
+                                    </li>
+                                )
+                            }
+
+
                             <div className="app_buttons">
                                 <Link to="https://play.google.com/store/apps" target="_blank"><img style={{ maxWidth: "180px" }} src={Images1} alt="" /></Link>
                                 <Link to="https://play.google.com/store/apps" target="_blank"><img style={{ maxWidth: "161px" }} src={Images2} alt="" /></Link>

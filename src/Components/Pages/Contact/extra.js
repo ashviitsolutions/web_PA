@@ -1,12 +1,74 @@
-import React from 'react'
+import React,{useState , useEffect} from 'react'
 import { Link } from 'react-router-dom'
+import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
+import axios from 'axios';
+import { IP } from '../../../Constant';
 
 function Contact() {
+    const postIds = ['64007afb61c43a17d60e95b4'];
+    const [users, setUsers] = useState([]);
+  const [img, setImg] = useState('');
+  
+  useEffect(() => {
+      async function fetchData() {
+        const responses = await Promise.all(
+          postIds.map(async id => {
+            const res = await fetch(`${IP}/post/fetch/${id}`);
+            return res.json();
+            
+          })
+        );
+        setUsers(responses[0]);
+        setImg(
+          await Promise.all(
+            responses.flatMap(response => response.attachments).map(async image => {
+              const res = await fetch(`${IP}/file/${image}`);
+              const imageBlob = await res.blob();
+              return URL.createObjectURL(imageBlob);
+            })
+          )
+        );
+      }
+      fetchData();
+    }, [])
+  
+    const initialValues = {
+        name: "",
+        contact_number: "",
+        email: "",
+        message: "",
+    };
+    const SignupSchema = Yup.object().shape({
+        title: Yup.string().required("Required"),
+        excerpt: Yup.string().required("Required"),
+        type: Yup.string().required("Required"),
+
+
+    });
+    const onSubmit = async (values, { setValues, resetForm }) => {
+        console.log(values);
+        try {
+            const bodyFormData = new FormData();
+            bodyFormData.append("title", values.name);
+            bodyFormData.append("excerpt", values.contact_number);
+            bodyFormData.append("type", values.email);
+            bodyFormData.append("postImages", values.image);
+            bodyFormData.append("description", values.message);
+            const res = await axios.post("http://45.13.132.197:4000/api/post/create", bodyFormData);
+            console.log(res);
+
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+
     return (
         <>
 
-            <div id="contact_us">
-                <div className="container">
+            <div id="contact_us"  style={{ backgroundImage: `url(${img})` }}>
+                <div className="container" style={{marginTop:"45px"}}>
                     <div className="row">
                         <div className="col-sm-6">
                             <div className="card_wrapper">
@@ -17,11 +79,11 @@ function Contact() {
                                 <div className="content">
                                     <div className="">
                                         <p>you can call us on </p>
-                                        <Link to="tel: 9876543210"><span className="phone">9876543210</span></Link>
+                                        <Link to="tel: 9876543210"><span className="phones">{users.title}</span></Link>
                                     </div>
                                     <div className="">
                                         <p>or write to us on </p>
-                                        <Link to="mailto:info@productivealliance.com"><span className="phone">info@productivealliance.com</span></Link>
+                                        <Link to="mailto:info@productivealliance.com"><span className="phones">{users.excerpt}</span></Link>
                                     </div>
                                 </div>
                             </div>
@@ -30,19 +92,28 @@ function Contact() {
 
                         <div className="col-sm-5 col-sm-offset-1">
                             <div className="card_wrapper">
-                                <form className="card layer1" action="sendemail" method="post">
-                                    <div className="container-fluid">
+                                <Formik
+                                    initialValues={initialValues}
+                                    validationSchema={SignupSchema}
+                                    onSubmit={onSubmit}
+                                >
+
+                                    {({ errors, touched, setFieldValue, values }) => (
+
+                                        <Form className="card layer1" >
+                                           
+                                        <div className="container-fluid">
                                         <div className="row">
                                             <div className="col-sm-12">
                                                 <div className="input_group">
                                                     <Field
                                                         className="input"
-                                                        name="title"
+                                                        name="name"
                                                         type="text"
-                                                        placeholder="Title"
+                                                        placeholder=""
                                                     />
-                                                    {errors.title && touched.title ? (
-                                                        <div>{errors.title}</div>
+                                                    {errors.name && touched.name ? (
+                                                        <div>{errors.name}</div>
                                                     ) : null}
                                                     <label for="">your name</label>
                                                     <span className="highlight"></span>
@@ -52,14 +123,30 @@ function Contact() {
                                         <div className="row">
                                             <div className="col-sm-12">
                                                 <div className="input_group">
-                                                    <input className="input" type="text" name="contact_number" value="" required="" placeholder="" />
+                                                    <Field
+                                                        className="input"
+                                                        name="contact_number"
+                                                        type="text"
+                                                        placeholder=""
+                                                    />
+                                                    {errors.contact_number && touched.contact_number ? (
+                                                        <div>{errors.contact_number}</div>
+                                                    ) : null}
                                                     <label for="">your contact number</label>
                                                     <span className="highlight"></span>
                                                 </div>
                                             </div>
                                             <div className="col-sm-12">
                                                 <div className="input_group">
-                                                    <input className="input" type="text" name="email" value="" required="" placeholder="" />
+                                                    <Field
+                                                        className="input"
+                                                        name="email"
+                                                        type="text"
+                                                        placeholder=""
+                                                    />
+                                                    {errors.email && touched.email ? (
+                                                        <div>{errors.email}</div>
+                                                    ) : null}
                                                     <label for="">your email</label>
                                                     <span className="highlight"></span>
                                                 </div>
@@ -67,7 +154,7 @@ function Contact() {
                                             <div className="col-sm-12">
                                                 <div className="input_group">
                                                     <label className="static" for="">your query</label>
-                                                    <textarea className="input" name="message" rows="3" cols="80"></textarea>
+                                                    <textarea id='textareacontactpage' className="input" name="message" rows="3" cols="80"></textarea>
                                                     <span className="highlight"></span>
                                                 </div>
                                             </div>
@@ -78,7 +165,25 @@ function Contact() {
                                             </div>
                                         </div>
                                     </div>
-                                </form>
+
+
+
+                                        </Form>
+                                    )}
+
+                                </Formik>
+
+
+
+
+
+
+
+
+
+
+
+
                             </div>
                         </div>
                     </div>

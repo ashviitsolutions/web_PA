@@ -1,73 +1,213 @@
-import React from "react";
-import "./style.css"
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import "./style.css";
+import { useDispatch, useSelector } from 'react-redux';
+import { updateInputData } from '../../Redux/counterSlice';
+
+const ThirdForm = ({ nextStep }) => {
+    const third = useSelector((state) => state.counter.formData);
+    console.log("third", third);
 
 
-const ThirdForm = () => {
+
+    const [areasOfConcern, setAreasOfConcern] = useState([]);
+    const [healthConditions, setHealthConditions] = useState([]);
+    const [specialConsideration, setSpecialConsideration] = useState("");
+    const [massageBodyPart, setMassageBodyPart] = useState("");
+    const [massagePressure, setMassagePressure] = useState("");
+
+    const dispatch = useDispatch();
+
+    // Handle form submission
+    const handleSubmit = () => {
+        // Create an object to hold the form data
+        const formData = {
+            areas_of_concern: areasOfConcern.join(','), // Join areasOfConcern if it's an array
+            health_conditions: healthConditions.join(','), // Join healthConditions if it's an array
+            special_considerations: specialConsideration,
+            massage_body_part: massageBodyPart,
+            massage_pressure: massagePressure,
+        };
+
+        try {
+            // Dispatch the form data to Redux if needed
+            dispatch(updateInputData({ formName: 'thirdform', inputData: formData }));
+
+            setTimeout(() => {
+                nextStep();
+
+            }, 2000)
+        } catch (error) {
+            console.error("Error submitting form:", error);
+        }
+    };
+
+    const areasOfConcernOptions = [
+        "pain",
+        "tension",
+        "relaxation",
+        "headaches/migraines",
+        "stress",
+        "muscle pain",
+        "injuries",
+        "inflammation",
+        "fatigue",
+        "anxiety",
+        "insomnia",
+    ];
+
+    const healthConditionsOptions = [
+        "arthritis",
+        "cancer",
+        "digestive disorder",
+        "fibromyalgia",
+        "plantar fasciitis",
+        "pregnancy",
+        "sciatica",
+    ];
+
+    const specialConsiderationOptions = [
+        "I prefer geriatric massage",
+        "I am a minor",
+    ];
+
+    const massageBodyPartsOptions = [
+        "arms & hands",
+        "back",
+        "feet",
+        "head",
+        "legs",
+        "neck",
+        "shoulders",
+        "gluteal region",
+    ];
+
+    const massagePressureOptions = ["light", "medium", "firm", "deep"];
+
+    const handleCheckboxChange = (selectedOptions, setSelectedOptions, option) => {
+        if (selectedOptions.includes(option)) {
+            setSelectedOptions(selectedOptions.filter((item) => item !== option));
+        } else {
+            setSelectedOptions([...selectedOptions, option]);
+        }
+    };
+
     return (
-        <>
+        <div id="sec_wiz_3 thirdform" className="section">
+            <label className="static" htmlFor="">
+                Areas of Concern
+            </label>
+            <ul className="selectable">
+                {areasOfConcernOptions.map((option) => (
+                    <li key={option}>
+                        <label>
+                            <input
+                                type="checkbox"
+                                value={option}
+                                checked={areasOfConcern.includes(option)}
+                                onChange={() =>
+                                    handleCheckboxChange(
+                                        areasOfConcern,
+                                        setAreasOfConcern,
+                                        option
+                                    )
+                                }
+                            />
+                            {option}
+                        </label>
+                    </li>
+                ))}
+            </ul>
 
-            <div id="sec_wiz_3 thirdform" className="section">
-                <label className="static" htmlFor="">Areas of Concern</label>
-                <ul className="selectable">
-                    <li >pain</li>
-                    <li >tension</li>
-                    <li >relaxation</li>
-                    <li >headaches/migraines</li>
-                    <li >stress</li>
-                    <li >muscle pain</li>
-                    <li >injuries</li>
-                    <li >inflation</li>
-                    <li >fatigue</li>
-                    <li >anxiety</li>
-                    <li >incomnia</li>
-                </ul>
+            <label className="static mt-5" htmlFor="">
+                Health Conditions
+            </label>
+            <ul className="selectable">
+                {healthConditionsOptions.map((option) => (
+                    <li key={option}>
+                        <label>
+                            <input
+                                type="checkbox"
+                                value={option}
+                                checked={healthConditions.includes(option)}
+                                onChange={() =>
+                                    handleCheckboxChange(
+                                        healthConditions,
+                                        setHealthConditions,
+                                        option
+                                    )
+                                }
+                            />
+                            {option}
+                        </label>
+                    </li>
+                ))}
+            </ul>
 
-                <label className="static mt-5" htmlFor="">Health Conditions</label>
-                <ul className="selectable">
-                    <li >arthritis</li>
-                    <li >cancer</li>
-                    <li >digestive disorder</li>
-                    <li >fibromyalgia</li>
-                    <li >plantar fascilitis</li>
-                    <li >pragnency</li>
-                    <li >sciatic</li>
-                </ul>
+            <label className="static mt-5" htmlFor="">
+                Special consideration
+            </label>
+            <ul className="selectable">
+                {specialConsiderationOptions.map((option) => (
+                    <li key={option}>
+                        <label>
+                            <input
+                                type="radio"
+                                name="specialConsideration"
+                                value={option}
+                                checked={specialConsideration === option}
+                                onChange={() => setSpecialConsideration(option)}
+                            />
+                            {option}
+                        </label>
+                    </li>
+                ))}
+            </ul>
 
-                <label className="static mt-5" htmlFor="">Special consideration</label>
-                <ul className="selectable">
-                    <li >i prefer griatric massage</li>
-                    <li >i am minor</li>
-                </ul>
+            <label className="static mt-5" htmlFor="">
+                Massage body part
+            </label>
+            <ul className="selectable">
+                {massageBodyPartsOptions.map((option) => (
+                    <li key={option}>
+                        <label>
+                            <input
+                                type="radio"
+                                name="massageBodyPart"
+                                value={option}
+                                checked={massageBodyPart === option}
+                                onChange={() => setMassageBodyPart(option)}
+                            />
+                            {option}
+                        </label>
+                    </li>
+                ))}
+            </ul>
 
-                <label className="static mt-5" htmlFor="">Massage body part</label>
-                <ul className="selectable">
-                    <li >arms & hands</li>
-                    <li >back</li>
-                    <li >feet</li>
-                    <li >head</li>
-                    <li >legs</li>
-                    <li >neck</li>
-                    <li >shoulders</li>
-                    <li >gluteal region</li>
-                </ul>
+            <label className="static mt-5" htmlFor="">
+                Massage pressure
+            </label>
+            <ul id="massage_pressure" className="selectable">
+                {massagePressureOptions.map((option) => (
+                    <li key={option}>
+                        <label>
+                            <input
+                                type="radio"
+                                name="massagePressure"
+                                value={option}
+                                checked={massagePressure === option}
+                                onChange={() => setMassagePressure(option)}
+                            />
+                            {option}
+                        </label>
+                    </li>
+                ))}
+            </ul>
 
-                <label className="static mt-5" htmlFor="">Massage pressure</label>
-                <ul id="massage_pressure" className="selectable">
-                    <li >light</li>
-                    <li >medium</li>
-                    <li >firm</li>
-                    <li >deep</li>
-                </ul>
+            <button className="button lazy mt-5" type="button" onClick={handleSubmit}>
+                Continue
+            </button>
+        </div>
+    );
+};
 
-
-                <Link to="#">
-                    <button className="button lazy mt-5" type="button" name="button">continue</button>
-                </Link>
-            </div>
-
-        </>
-    )
-}
-
-export default ThirdForm
+export default ThirdForm;

@@ -1,0 +1,25 @@
+#provideregister{
+    width: 100%;
+    margin: auto;
+ }
+ 
+ #provideregister .contact-container{
+     display: flex !important;
+     flex-direction: row !important;
+     flex-wrap: wrap !important;
+     justify-content: space-between !important;
+ }
+ 
+ #provideregister .contact-container .contact-item{
+     flex-basis: 50%;
+ }
+ 
+ @media (max-width:992px) {
+    
+     #provideregister .contact-container .contact-item{
+         flex-basis: 100% !important;
+         margin: auto !important;
+     }
+
+     
+ }

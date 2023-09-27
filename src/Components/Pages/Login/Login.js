@@ -14,7 +14,7 @@ function Login() {
     useEffect(() => {
         const auth = localStorage.getItem("token")
         if (auth) {
-            nav('/')
+            nav('/userProfile')
         }
     })
     // const nav=useNavigate()
@@ -37,11 +37,11 @@ function Login() {
     });
     const onSubmit = async (values, { resetForm }) => {
         console.log(values)
- 
+
         resetForm({ values: "" });
         let data = { "email": values.email, "password": values.password }
         try {
-            const resp = await fetch("http://45.13.132.197:4000/api/user/login", {
+            const resp = await fetch("http://45.13.132.197:5000/api/user/login", {
                 method: "POST",
                 headers: {
                     'Accept': 'application/json',
@@ -59,7 +59,7 @@ function Login() {
             if (resp.status === 200) {
                 localStorage.setItem("users", JSON.stringify(result));
                 localStorage.setItem("token", token);
-                nav("/")
+                nav("/userProfile")
             } else {
                 setToggle(true)
             }
@@ -114,11 +114,11 @@ function Login() {
                                         <div>{errors.password}</div>
                                     ) : null}
                                     <label htmlFor="">password</label>
-                
+
                                 </div>
                                 <Link to="#" style={{ background: 0, color: "#707070" }}>forget password ?</Link>
 
-                                <div className="input_group" style={{ textDecoration: "none" , paddingTop:"1px" }}>
+                                <div className="input_group" style={{ textDecoration: "none", paddingTop: "1px" }}>
                                     <button className="button" type="submit"
 
                                     >sign in</button>
