@@ -186,15 +186,16 @@ function App() {
           </>} />
           <Route path="/guest_login" element={<>
             <Navbar />
-            <Protectuser Component={GuestLogin} />
+            <GuestLogin/>
+          
 
             <Footer />
           </>} />
 
           <Route path="/select_location_type" element={<>
             <Navbar />
+            <Select_location/>
 
-            <Protectuser Component={Select_location} />
             <Footer />
           </>} />
 
@@ -206,7 +207,8 @@ function App() {
 
           <Route path="/Book" element={<>
             <Navbar />
-            <UserRoutes Component={Book} />
+            <Book/>
+
 
             <Footer />
           </>} />
