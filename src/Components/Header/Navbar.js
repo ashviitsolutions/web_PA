@@ -24,9 +24,9 @@ function Navbar() {
     const showToggleButton = loginguser;
 
     const dashboardpage = () => {
-        
+
         nav("/userProfile");
-      };
+    };
 
     // // useEffect(() => {
 
@@ -51,12 +51,21 @@ function Navbar() {
             <div className="container">
                 <div className="row">
                     <div className="float_wrapper">
-                        <Link to="/">
-                            <div className="logo">
-                                <span className="icon"></span>
-                                <span className="name">Productive Alliance <small>experience the difference</small> </span>
-                            </div>
-                        </Link>
+                        {!showToggleButton ? (
+                            <Link to="/">
+                                <div className="logo">
+                                    <span className="icon"></span>
+                                    <span className="name">Productive Alliance <small>experience the difference</small> </span>
+                                </div>
+                            </Link>
+                        ) : (
+                            <Link to="/userprofile">
+                                <div className="logo">
+                                    <span className="icon"></span>
+                                    <span className="name">Productive Alliance <small>experience the difference</small> </span>
+                                </div>
+                            </Link>
+                        )}
                         <ul className="nav_bar">
                             <li>
                                 <Link to="/" onClick={toggleLinks}>home</Link>
@@ -107,17 +116,19 @@ function Navbar() {
                                     </li>
                                 ) : (
                                     <li id="service_drpdwn" className="drpdwn" onClick={dashboardpage}>
-                                        <span className="text" >
+                                        <span className="text" id='profileiconimage' >
                                             <img
+                                              
                                                 width={50}
                                                 height={50}
                                                 src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg"
                                                 alt=""
-                                                style={{ borderRadius: "100%" }}
+                                                style={{ borderRadius: "100%"}}
+                                                className='profileiconimage'
                                             />
                                             <span className="ico" onClick={handleDropdown}></span>
                                         </span>
-                                        
+
                                     </li>
                                 )
                             }

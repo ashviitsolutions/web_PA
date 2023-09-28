@@ -28,7 +28,7 @@ function Login() {
             .required("First name is required"),
         password: Yup.string()
             .required("required password")
-            .min(8, "atlist 8 character password is required")
+            .min(8, "atleast 8 character password is required")
             .matches(
                 /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
                 "Must Contain 8 Characters, One Uppercase,Lowercase,Number and one special case Character"

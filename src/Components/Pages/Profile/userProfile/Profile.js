@@ -7,6 +7,7 @@ import FifthForm from "./Gift";
 import Conform from "./Setting";
 import Logout from "./Logout";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import "./Profile.css";
 import image1 from "../../../assets/img/profile/dashboard.png";
@@ -82,6 +83,9 @@ const Book = () => {
   // const toggleLinks = () => {
   //   setIsActive((prevState) => !prevState);
   // };
+  const handleBook=()=>{
+    nav("/select_location")
+  }
 
   return (
     <>
@@ -131,6 +135,23 @@ const Book = () => {
               Logout
             </div>
           </li>
+
+
+
+
+
+
+
+
+
+          <div className="userbooking">
+            <li id="tab_7" >
+              <div className="item" onClick={handleBook}>
+                <img src={image7} width={15} height={15} alt="..." />
+                Book now
+              </div>
+            </li>
+          </div>
 
         </ul>
         <div id="navigationuser" >

@@ -3,7 +3,7 @@ import "./Profile.css";
 import image1 from "../../../assets/img/gift-card-with-red-ribbon_23-2147510395 (1).webp"
 import image2 from "../../../assets/img/gift-card-with-red-ribbon_23-2147510395 (1).webp"
 function Gift() {
-  const username = localStorage.getItem("username")
+  const username = localStorage.getItem("user_name")
   return (
     <>
       <div id='gift'>

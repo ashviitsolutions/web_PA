@@ -24,6 +24,8 @@ import Select_location from './Components/Pages/Guest_login/Guest/Select_locatio
 import Book from './Components/Pages/Guest_login/GuesMenu/Book';
 import Conform from './Components/Pages/Guest_login/GuesMenu/Conform';
 import Profiles from "./Components/Pages/Profile/userProfile/Profile";
+import Protectuser from './Components/Pages/Protected/Protectuser';
+import UserRoutes from './Components/Pages/Protected/UserRoutes';
 
 //Payment
 import Successpayment from "./Components/Pages/Payment/Success"
@@ -125,7 +127,7 @@ function App() {
             <Home />
             <Footer />
           </>} />
-         
+
           <Route path="/services" element={<>
             <Navbar />
             <Service />
@@ -178,35 +180,45 @@ function App() {
           </>} />
           <Route path="/select_location" element={<>
             <Navbar />
-            <SelectLocation />
+            <Protectuser Component={SelectLocation} />
+
             <Footer />
           </>} />
           <Route path="/guest_login" element={<>
             <Navbar />
-            <GuestLogin />
+            <Protectuser Component={GuestLogin} />
+
             <Footer />
           </>} />
 
           <Route path="/select_location_type" element={<>
             <Navbar />
-            <Select_location />
+
+            <Protectuser Component={Select_location} />
             <Footer />
-          </>} />         
+          </>} />
 
           <Route path="/userProfile" element={<>
             <Navbar />
-            <Profiles />
+            <UserRoutes Component={Profiles} />
+
           </>} />
-          
+
           <Route path="/Book" element={<>
             <Navbar />
-            <Book />
+            <UserRoutes Component={Book} />
+
             <Footer />
           </>} />
           <Route path="/Book/:userId" element={<>
             <Navbar />
             <Conform />
             <Footer />
+          </>} />
+          <Route path="/userProfile/payment/success" element={<>
+            <Successpayment />
+
+
           </>} />
 
           <Route path="/giftcard" element={<>
@@ -215,11 +227,6 @@ function App() {
             <Footer />
           </>} />
 
-          <Route path="/userProfile/payment/success" element={<>
-          
-            <Successpayment />
-     
-          </>} />
 
           <Route path="/blogpage" element={<>
             <Navbar />

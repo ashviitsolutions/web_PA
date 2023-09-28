@@ -505,10 +505,19 @@ ul#tabs_control li.active {
     background-color: #ddd;
 }
 
+.userbooking{
+    display: none !important;
+}
 
 
-
-
+ul#tabs_control .userbooking  li.withicon a {
+    font-weight: 500;
+    background: #03a9f4;
+    border-radius: 25px;
+    padding: 5px 15px;
+    color: #fff;
+    top: 5px;
+}
 
 
 @media (max-width:992px) {
@@ -612,6 +621,10 @@ ul#tabs_control li.active {
     #navigationuser .toggle_buttons img {
         width: 25px;
 
+    }
+
+    .userbooking{
+        display: block !important;
     }
 
 }

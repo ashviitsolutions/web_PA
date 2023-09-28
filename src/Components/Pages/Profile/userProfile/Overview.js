@@ -4,7 +4,7 @@ import img1 from "../../../assets/img/tender-african-woman-smiling-enjoying-mass
 import Hook from "../Hook/Hook";
 
 function Overview() {
-  const username = localStorage.getItem("username");
+  const username = localStorage.getItem("user_name");
   const [posts, setPosts] = useState([]);
   const [eventStates, setEventStates] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -22,6 +22,8 @@ function Overview() {
     return eventStates[id] || false;
   }
 
+ 
+
   useEffect(() => {
     const fetchBooking = async () => {
       try {
@@ -33,7 +35,18 @@ function Overview() {
         console.error("Error fetching data:", error);
       }
     };
+
+    const fetchPosts = async () => {
+      try {
+        const response = await Hook.getProfile();
+        localStorage.setItem("user_name", `${response.data.first_name} ${response.data.last_name}`)
+        localStorage.setItem("user_email", response.data.email)
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
     fetchBooking();
+    fetchPosts();
   }, []);
 
   console.log("fetching overview data:", posts);
@@ -60,7 +73,7 @@ function Overview() {
 
         <div id="my_appointments">
           {isLoading ? (
-            <h1 style={{ color: "blue" }}>Loading...</h1>
+            <h1 style={{ color: "#162b3c" }}>Loading...</h1>
           ) : (
             <div className="container-fluid">
               <div className="row" id='overview_page_container'>

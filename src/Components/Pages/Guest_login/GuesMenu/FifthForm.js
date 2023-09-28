@@ -9,7 +9,7 @@ const image1 = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14009.8046
 const FifthForm = ({ step, nextStep }) => {
   const formData = useSelector((state) => state.counter.formData);
   console.log("all data", formData);
-  const useremail = localStorage.getItem("useremail")
+  const useremail = localStorage.getItem("user_email")
   // Check if the necessary form data exists before accessing its properties
   const location = formData.locationForm && formData.locationForm[0] ? formData.locationForm[0].location : "";
   const location_type = formData.location && formData.location[0] ? formData.location[0].location_type : "";

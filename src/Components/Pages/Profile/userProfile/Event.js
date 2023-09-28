@@ -4,7 +4,7 @@ import img1 from "../../../assets/img/tender-african-woman-smiling-enjoying-mass
 import Hook from "../Hook/Hook";
 
 function Overview() {
-  const username = localStorage.getItem("username");
+  const username = localStorage.getItem("user_name");
   const [posts, setPosts] = useState([]);
   const [eventStates, setEventStates] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -31,6 +31,7 @@ function Overview() {
         console.log("get response", response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
+        setIsLoading(false);
       }
     };
     fetchBooking();
@@ -60,8 +61,8 @@ function Overview() {
 
         <div id="my_appointments">
           {isLoading ? (
-            <h1 style={{ color: "blue" }}>Loading...</h1>
-          ) : (
+            <h1 style={{ color: "#162b3c" }}>Loading...</h1>
+          ) : currentData.length > 0 ? (
             <div className="container-fluid">
               <div className="row" id='overview_page_container'>
                 {currentData.map((post, index) => (
@@ -120,6 +121,8 @@ function Overview() {
                 ))}
               </div>
             </div>
+          ) : (
+            <p>No Data Found</p>
           )}
         </div>
       </div>

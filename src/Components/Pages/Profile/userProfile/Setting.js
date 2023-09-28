@@ -1,12 +1,14 @@
 import React ,{useState , useEffect} from 'react'
 import Hook from "../Hook/Hook"
+import { useNavigate } from 'react-router-dom';
 
 function Setting() {
+  const nav=useNavigate()
   const username = localStorage.getItem("username")
   const [posts, setPosts] = useState([]);
   const [name, setName] = useState("");
-  const [email, setEmail] = useState();
-  const [phone, setPhone] = useState();
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -16,7 +18,8 @@ function Setting() {
         setPhone(response.data.phone)
         setName(`${response.data.first_name} ${response.data.last_name}`)
         console.log("get setting", response.data);
-
+        localStorage.setItem("user_name" ,`${response.data.first_name} ${response.data.last_name}`)
+        localStorage.setItem("user_email" ,response.data.email)
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -24,15 +27,18 @@ function Setting() {
 
     fetchPosts();
   }, []);
-  localStorage.setItem("username" ,`${posts.first_name} ${posts.last_name}`)
-  localStorage.setItem("useremail" ,`${posts.email}`)
+  // useEffect(()=>{
+  //   localStorage.setItem("user_name" ,name)
+  //   localStorage.setItem("user_email" ,email)
+  // },[])
+
   // localStorage.setItem("username" ,`${posts.first_name} ${posts.last_name}`)
   console.log("get setting posts", posts.email);
   return (
     <div id='profile_page'>
       <div className='settings_form'>
         <div className='gutter'>
-          <h3 className='profile_heading'>{username}</h3>
+          <h3 className='profile_heading'>{name}</h3>
         </div>
         <div className='gutter'>
           <h3 className='small_heading'>Profile Setting</h3>
