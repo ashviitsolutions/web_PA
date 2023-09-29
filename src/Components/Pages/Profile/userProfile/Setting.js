@@ -4,9 +4,9 @@ import { useNavigate } from 'react-router-dom';
 
 function Setting() {
   const nav=useNavigate()
-  const username = localStorage.getItem("username")
+  const username = localStorage.getItem("user_name")
   const [posts, setPosts] = useState([]);
-  const [name, setName] = useState("");
+  const [name, setName] = useState(username);
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   useEffect(() => {
@@ -16,10 +16,9 @@ function Setting() {
         setPosts(response.data);
         setEmail(response.data.email)
         setPhone(response.data.phone)
-        setName(`${response.data.first_name} ${response.data.last_name}`)
+        setName(response.data.name)
         console.log("get setting", response.data);
-        localStorage.setItem("user_name" ,`${response.data.first_name} ${response.data.last_name}`)
-        localStorage.setItem("user_email" ,response.data.email)
+       
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -38,7 +37,7 @@ function Setting() {
     <div id='profile_page'>
       <div className='settings_form'>
         <div className='gutter'>
-          <h3 className='profile_heading'>{name}</h3>
+          <h3 className='profile_heading'>{username}</h3>
         </div>
         <div className='gutter'>
           <h3 className='small_heading'>Profile Setting</h3>

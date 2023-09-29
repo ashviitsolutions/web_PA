@@ -122,7 +122,7 @@ function Overview() {
               </div>
             </div>
           ) : (
-            <p>No Data Found</p>
+            <h3 style={{ color: "#162b3c" }}>No bookings yet.</h3>
           )}
         </div>
       </div>

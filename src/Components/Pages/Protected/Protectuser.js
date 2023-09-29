@@ -11,17 +11,17 @@ function Protectuser(props) {
 
 
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        if (!token) {
-            nav("/login");
-        } else {
+    //     if (!token) {
+    //         nav("/guest_login");
+    //     } else {
 
-            nav("/select_location");
+    //         nav("/select_location");
 
-        }
+    //     }
 
-    }, []);
+    // }, []);
 
     return (
         <div>

@@ -91,7 +91,7 @@ const Book = () => {
   return (
     <>
       <div
-        className={`sidebar_tab ${isSidebarOpen ? "mobile-view" : ""} `}
+        className="sidebar_tab"
       >
         <ul id="tabs_control" onClick={handleSidebarToggle}>
           <li id="tab_1" className={activeTab === 1 ? 'active' : ''} onClick={() => setActiveTab(1)}>
@@ -112,12 +112,12 @@ const Book = () => {
               Invoices
             </div>
           </li>
-          <li id="tab_4" className={activeTab === 4 ? 'active' : ''} onClick={() => setActiveTab(4)}>
+          {/*<li id="tab_4" className={activeTab === 4 ? 'active' : ''} onClick={() => setActiveTab(4)}>
             <div className="item">
               <img src={image4} width={15} height={15} alt="..." />
               Events
             </div>
-          </li>
+  </li> */}
           <li id="tab_5" className={activeTab === 5 ? 'active' : ''} onClick={() => setActiveTab(5)}>
             <div className="item">
               <img src={image5} width={15} height={15} alt="..." />
@@ -166,17 +166,17 @@ const Book = () => {
         </div>
       </div>
 
-     {/*Booking Image */}
+      {/*Booking Image */}
 
       <div id="imagebooking" >
         <img
-          width={80}
-          height={80}
+          width={40}
+          height={40}
           src={bookingimage}
           alt=""
-          style={{ borderRadius: "100%" , display:"block" }}
+          style={{ borderRadius: "100%", display: "block" }}
           className='profileiconimage'
-          onClick={()=>nav("/select_location")}
+          onClick={() => nav("/select_location")}
         />
       </div>
       {/* Toggle button for mobile view */}

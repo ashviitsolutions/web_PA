@@ -57,6 +57,9 @@ const FourForm = ({ nextStep }) => {
             <option value="8:00 am">8:00 am</option>
             <option value="9:00 am">9:00 am</option>
             <option value="10:00 am">10:00 am</option>
+            <option value="8:00 am">11:00 am</option>
+            <option value="9:00 am">12:00 pm</option>
+            <option value="10:00 am">1:00 pm</option>
             {/* Add more time options as needed */}
           </select>
 

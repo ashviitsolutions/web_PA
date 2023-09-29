@@ -1,10 +1,13 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState ,useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateInputData } from '../../Redux/counterSlice'; 
 import { useNavigate } from 'react-router-dom';
+import Hook from '../../Profile/Hook/Hook';
+
 
 function Location() {
+  const [name, setName] = useState("");
   // Use useSelector with the correct selector to get the formData
   const formData = useSelector((state) => state.counter.formData);
   console.log(formData);
@@ -27,10 +30,43 @@ function Location() {
 
 
     setTimeout(() => {
-      nav("/guest_login");
+      nav("/select_location_type");
 
     }, 2000)
   };
+
+
+
+  useEffect(() => {
+   
+
+    const fetchPosts = async () => {
+      try {
+        const response = await Hook.getProfile();
+        if (response.data.name) {
+          setName(response.data.name);
+          localStorage.setItem("user_name", response.data.name);
+        } else {
+          const fullName = `${response.data.first_name} ${response.data.last_name}`;
+          setName(fullName);
+          localStorage.setItem("user_name", fullName);
+        }
+        localStorage.setItem("user_email", response.data.email);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+
+
+    
+    fetchPosts();
+  }, []);
+
+
+
+
+
 
   return (
     <>
@@ -52,7 +88,7 @@ function Location() {
                 <button
                   className="button"
                   style={{ paddingTop: '11px' }}
-                  type="button"
+                  type="submit"
                   onClick={handleSubmit}
                 >
                   continue

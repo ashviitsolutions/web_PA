@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Hook from '../Hook/Hook';
 import './Profile.css';
-import image1 from '../../../img/uploads/8.-sad-girls-facebook-profile-pictures.jpg';
+import image1 from "../../../assets/img/tender-african-woman-smiling-enjoying-massage-with-closed-eyes-spa-resort.jpg";
 
 function Booking() {
   const [posts, setPosts] = useState([]);
@@ -58,7 +58,7 @@ function Booking() {
           ))
         ) : (
           // Display "No Data Found" message when there is no data
-          <h3 style={{ color: "#162b3c" }}>No Data Found</h3>
+          <h3 style={{ color: "#162b3c" }}>No bookings yet.</h3>
         )}
       </div>
     </div>

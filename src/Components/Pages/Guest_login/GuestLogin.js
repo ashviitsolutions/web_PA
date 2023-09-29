@@ -1,11 +1,16 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Image from "../../assets/img/sg.svg"
 import "./style.css"
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 function GuestLogin() {
+  const [name, setName] = useState("")
+  const nav = useNavigate()
+  const [toggle, setToggle] = useState(false)
+  const loginguser = localStorage.getItem("token")
   const initialValues = {
 
     email: "",
@@ -18,22 +23,46 @@ function GuestLogin() {
 
 
   });
-  const onSubmit = async (values, { setValues, resetForm }) => {
-    console.log(values);
+  const onSubmit = async (values, { resetForm }) => {
+    resetForm(initialValues); // Reset the form
+
+    const data = { email: values.email, password: values.password };
+
     try {
-      const bodyFormData = new FormData();
-      bodyFormData.append("email", values.email);
-      bodyFormData.append("password", values.password);
+      const response = await axios.post("http://45.13.132.197:5000/api/user/login", data);
 
-      const res = await axios.post("http://45.13.132.197:4000/login", bodyFormData);
-      console.log(res);
+      if (response.status === 200) {
+        const token = response.headers.authorization;
+        const user = response.data;
 
+        localStorage.setItem("users", JSON.stringify(user));
+        localStorage.setItem("token", token);
+        nav("/select_location");
+      } else {
+        setToggle(true); // Show error message
+      }
     } catch (error) {
-      console.error(error);
+      console.error("Error fetching data:", error);
+      setToggle(true); // Show error message
     }
   };
+
+    useEffect(() => {
+
+        if (!loginguser) {
+            nav("/guest_login");
+        } else {
+
+            nav("/select_location");
+
+        }
+
+    }, []);
+
+
   return (
     <>
+    
       <div id="over_banner">
         <div className="container">
           <div className="row">
@@ -47,7 +76,7 @@ function GuestLogin() {
                           <h3 style={{ fontSize: "18px" }}>Don't have an account ?</h3>
                           <img src={Image} alt="" />
                           <div className="input_group">
-                            <Link to="/select_location_type">
+                            <Link to="/select_location">
                               <button className="small button lazy" type="button" >continue as guest</button>
                             </Link>
                           </div>
@@ -86,7 +115,7 @@ function GuestLogin() {
                               <Field
                                 className="input"
                                 name="password"
-                                type="text"
+                                type="password"
                                 placeholder=""
                               />
                               {errors.password && touched.password ? (
@@ -97,13 +126,30 @@ function GuestLogin() {
                             </div>
                             <Link to="#" style={{ background: 0, color: "#707070" }}>forget password ?</Link>
                             <div className="input_group">
-                                <button className="button" type="button" >sign in</button>
+                              <button className="button" type="submit" >sign in</button>
                             </div>
-                            <span>Don't have an account? <Link to="/sign_up" className="anchor" style={{textDecoration:"none"}}>Sign Up</Link> </span>
+                            <span>Don't have an account? <Link to="/sign_up" className="anchor" style={{ textDecoration: "none" }}>Sign Up</Link> </span>
 
-                            <button className="button gmail_login d-block" type="button" id="gmaillogin"> <span className="ico"></span> Sign In with Gmail</button>
+                            <button className="button gmail_login d-block" type="submit" id="gmaillogin"> <span className="ico"></span> Sign In with Gmail</button>
+
+                            {
+                              toggle ? (
+                                <div id="notification_holder">
+                                  {!loginguser ? (
+                                    <div className='notificatioerror'>
+                                      <h3 id='errorshow'>Invalid credentials</h3>
+                                    </div>
+                                  ) : (<h3>Success</h3>)
+                                  }
+                                </div>
+                              ) : null
+                            }
+
+
                           </Form>
                         )}
+
+
 
                       </Formik>
 

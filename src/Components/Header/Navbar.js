@@ -105,7 +105,7 @@ function Navbar() {
                             </li>
                             <li className="withicon">
                                 <span className="icon" ></span>
-                                <Link to="/select_location" onClick={toggleLinks}>Book now</Link>
+                                <Link to="/guest_login" onClick={toggleLinks}>Book now</Link>
                             </li>
                             {
                                 !showToggleButton ? (

@@ -52,7 +52,7 @@ function Invoices() {
           {isLoading ? (
             <h1 style={{ color: "#162b3c" }}>Loading...</h1>
           ) : currentData.length === 0 ? (
-            <h3 style={{ color: "#162b3c" }}>No Data Found</h3>
+            <h3 style={{ color: "#162b3c" }}>No bookings yet.</h3>
           ) : (
             currentData.map((invoice, index) => (
               <div className='overview_input' key={index}>
