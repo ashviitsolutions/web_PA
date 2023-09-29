@@ -132,7 +132,7 @@ function Login() {
                                 <div className="input_group">
                                     <Field
                                         className="input"
-                                        name="password"
+                                        name="Confirm_Password"
                                         type="password"
                                         placeholder=""
                                     />
