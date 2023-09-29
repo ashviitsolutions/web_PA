@@ -39,7 +39,8 @@ function Overview() {
     const fetchPosts = async () => {
       try {
         const response = await Hook.getProfile();
-        localStorage.setItem("user_name", `${response.data.first_name} ${response.data.last_name}`)
+        console.log("profile data",response.data.name)
+        localStorage.setItem("user_name", response.data.name)
         localStorage.setItem("user_email", response.data.email)
       } catch (error) {
         console.error("Error fetching data:", error);
