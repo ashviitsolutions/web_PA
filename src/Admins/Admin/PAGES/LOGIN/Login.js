@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import "./Login.css"
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
+import { IP } from '../../../../Constant';
 // import axios from 'axios';
 // import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -40,7 +41,7 @@ function Login() {
         resetForm({ values: "" });
         let data = { "email": values.email, "password": values.password }
         try {
-            const resp = await fetch("http://45.13.132.197:5000/api/admin/login", {
+            const resp = await fetch(`${IP}/admin/login`, {
                 method: "POST",
                 headers: {
                     'Accept': 'application/json',
