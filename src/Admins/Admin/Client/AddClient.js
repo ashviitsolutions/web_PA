@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from 'axios';
+import { IP } from '../../../Constant';
 const PreviewImage = ({ imagePreviewUrl }) => {
     return (
       <div style={{ width: "20vh", heigh: "10vh" }} className="previwimage">
@@ -41,7 +42,7 @@ function AddClient() {
                 throw new Error("Token not found in local storage");
             }
             console.log(token);
-            const res = await axios.post(`/service/add`, bodyFormData, {
+            const res = await axios.post(`${IP}/service/add`, bodyFormData, {
                 headers: {
                     //   Authorization: `${token}`
                     Authorization: token
