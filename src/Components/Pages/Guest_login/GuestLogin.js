@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import Image from "../../assets/img/sg.svg"
+import Image from "../../assets/img/sg.svg";
+import { IP } from '../../../Constant';
 import "./style.css"
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
@@ -29,7 +30,7 @@ function GuestLogin() {
     const data = { email: values.email, password: values.password };
 
     try {
-      const response = await axios.post("http://45.13.132.197:5000/api/user/login", data);
+      const response = await axios.post(`${IP}/user/login`, data);
 
       if (response.status === 200) {
         const token = response.headers.authorization;
