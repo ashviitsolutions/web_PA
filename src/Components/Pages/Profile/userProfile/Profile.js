@@ -174,7 +174,11 @@ const Book = () => {
           height={40}
           src={bookingimage}
           alt=""
-          style={{ borderRadius: "100%", display: "block" }}
+          style={{
+            borderRadius: "100%",
+            display: "block",
+            boxShadow: "4px 4px 4px 0px lightgray", // Correct syntax
+          }}
           className='profileiconimage'
           onClick={() => nav("/select_location")}
         />
