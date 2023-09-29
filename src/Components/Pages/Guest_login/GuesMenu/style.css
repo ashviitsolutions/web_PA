@@ -188,3 +188,58 @@
   background-color: blue; /* Set the background color to blue for selected items */
   color: white; /* Set the text color to white for better visibility */
 }
+
+
+@media (max-width:768px) {
+    .sidebar_tabs{
+        display: none !important;
+    }
+    .section {
+        width: 97% !important;
+        margin: auto;
+        margin-top: -70px !important;
+        margin-bottom: 200px;
+        background-color: #fff;
+        padding: 80px;
+        border-radius: 10px;
+        box-shadow: 2px 2px 15px -5px rgb(0 0 0 / 35%);
+    }
+    #employees .option li {
+        padding: 10px 15px !important;
+        padding-left: 60px !important;
+        height: 42px;
+        display: inline-block;
+        width: auto;
+        font-size: 15px !important;
+        margin-right: 10px;
+        cursor: pointer;
+        transition: all 0.2s ease-in;
+        border: 1px solid #ccc;
+        border-radius: 25px;
+    }
+    #employees .option li .icon {
+        position: absolute;
+        top: 4px !;
+        left: 8px !important;
+        width: 21px !important;
+        height: 32px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+
+    .progressbar_userpannel .progressbarproviders {
+        position: relative;
+        left: 0px;
+        top: -101px !important;
+    }
+
+    .products .item_wrapper {
+        position: relative;
+        display: inline-block;
+        width: 100% !important;
+        margin: auto;
+        white-space: normal;
+        padding: 4px !important;
+    }
+}

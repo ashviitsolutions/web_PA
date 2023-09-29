@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from "react-router-dom"
 import Images1 from "../assets/img/download-google-play.png"
 import Images2 from "../assets/img/download-app-store.png"
+import profileimage from "../img/user.png"
 // import { FaBars } from 'react-icons/fa';
 import menuimage from "../assets/img/close.png"
 import menucross from "../assets/img/menu.png"
@@ -119,9 +120,9 @@ function Navbar() {
                                         <span className="text" id='profileiconimage' >
                                             <img
                                               
-                                                width={50}
-                                                height={50}
-                                                src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg"
+                                                width={40}
+                                                height={40}
+                                                src={profileimage}
                                                 alt=""
                                                 style={{ borderRadius: "100%"}}
                                                 className='profileiconimage'
@@ -143,6 +144,27 @@ function Navbar() {
                     </div>
                 </div>
             </div>
+
+          {/*  {
+                showToggleButton ? (
+                    <li id="service_drpdwn" className="drpdwn" onClick={dashboardpage}>
+                    <span className="text" id='profileiconimage' >
+                        <img
+                          
+                            width={40}
+                            height={40}
+                            src={profileimage}
+                            alt=""
+                            style={{ borderRadius: "100%"}}
+                            className='profileiconimage'
+                        />
+                        <span className="ico" onClick={handleDropdown}></span>
+                    </span>
+
+                </li>
+                ) :null
+            } */}
+
         </div>
     )
 }

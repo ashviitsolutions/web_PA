@@ -103,7 +103,7 @@ function Login() {
                                     <Field
                                         className="input"
                                         name="email"
-                                        type="text"
+                                        type="email"
                                         placeholder=""
                                     />
                                     {errors.email && touched.email ? (
@@ -132,8 +132,8 @@ function Login() {
                                 <div className="input_group">
                                     <Field
                                         className="input"
-                                        name="Confirm_Password"
-                                        type="Confirm_Password"
+                                        name="password"
+                                        type="password"
                                         placeholder=""
                                     />
                                     {errors.Confirm_Password && touched.Confirm_Password ? (

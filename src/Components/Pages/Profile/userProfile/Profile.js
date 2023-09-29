@@ -8,6 +8,7 @@ import Conform from "./Setting";
 import Logout from "./Logout";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import bookingimage from "../../../img/plus.png"
 
 import "./Profile.css";
 import image1 from "../../../assets/img/profile/dashboard.png";
@@ -83,7 +84,7 @@ const Book = () => {
   // const toggleLinks = () => {
   //   setIsActive((prevState) => !prevState);
   // };
-  const handleBook=()=>{
+  const handleBook = () => {
     nav("/select_location")
   }
 
@@ -165,6 +166,19 @@ const Book = () => {
         </div>
       </div>
 
+     {/*Booking Image */}
+
+      <div id="imagebooking" >
+        <img
+          width={80}
+          height={80}
+          src={bookingimage}
+          alt=""
+          style={{ borderRadius: "100%" , display:"block" }}
+          className='profileiconimage'
+          onClick={()=>nav("/select_location")}
+        />
+      </div>
       {/* Toggle button for mobile view */}
 
 

@@ -93,7 +93,7 @@ function Login() {
                                     <Field
                                         className="input"
                                         name="email"
-                                        type="text"
+                                        type="email"
                                         placeholder=""
                                     />
                                     {errors.email && touched.email ? (
@@ -108,7 +108,7 @@ function Login() {
                                     <Field
                                         className="input"
                                         name="password"
-                                        type="text"
+                                        type="password"
                                         placeholder=""
                                     />
                                     {errors.password && touched.password ? (
