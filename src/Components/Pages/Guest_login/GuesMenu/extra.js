@@ -1,239 +1,214 @@
-// import React from 'react'
-// import { useState } from 'react'
-// import { Link } from 'react-router-dom'
-// import "../../Book/style.css";
-// import postServices from '../Services/postServices';
-// import { useNavigate } from 'react-router-dom';
-
-
-// function Location() {
-//   const nav = useNavigate()
-//   const [Input, setinput] = useState("");
-
-
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     const config = {
-//       "location": {
-//         "type": "Point",
-//         "coordinates": [28.586445, 77.365726]
-//       }
-//     };
-//     const formData = new FormData();
-//     formData.append('location', JSON.stringify(config));
-//     const res = await postServices.createPost(formData);
-//     console.log("location", res);
-//     nav("/guest_login");
-//   };
-
-//   return (
-//     <>
-//       <div id="over_banner">
-//         <div class="container">
-//           <div class="row">
-//             <form class="location card layer1" >
-//               <h3>Where would you like our provider to  meet you.</h3>
-//               <div class="input_group">
-//                 <input class="input" type="text" onChange={(e) => setinput(e.target.value)} value={Input} placeholder="Search for an address here..." />
-//               </div>
-//               <div class="input_group">
-//                 <button class="button" style={{ paddingTop: "11px" }} type="button" onClick={handleSubmit}>continue</button>
-//               </div>
-//             </form>
-//           </div>
-//         </div>
-//       </div>
-//     </>
-//   )
-// }
-
-// export default Location
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import React from 'react';
-// import { useState } from 'react';
-// import { useDispatch } from 'react-redux';
-// import { updateInputData } from '../../Redux/counterSlice'; // Replace with the correct path
-// import { useNavigate } from 'react-router-dom';
-
-// function Location() {
-//   const dispatch = useDispatch();
-//   const nav = useNavigate();
-//   const [Input, setInput] = useState("");
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     const config = {
-//       "location": {
-//         "type": "Point",
-//         "coordinates": [28.586445, 77.365726]
-//       }
-//     };
-    
-//     // Dispatch the updateInputData action with the Input value
-//     dispatch(updateInputData({ formName: 'locationForm', inputData: config }));
-
-   
-//     nav("/guest_login");
-//   };
-
-
-//   return (
-//     <>
-//       <div id="over_banner">
-//         <div class="container">
-//           <div class="row">
-//             <form class="location card layer1" >
-//               <h3>Where would you like our provider to  meet you.</h3>
-//               <div class="input_group">
-//                 <input class="input" type="text" onChange={(e) => setInput(e.target.value)} value={Input} placeholder="Search for an address here..." />
-//               </div>
-//               <div class="input_group">
-//                 <button class="button" style={{ paddingTop: "11px" }} type="button" onClick={handleSubmit}>continue</button>
-//               </div>
-//             </form>
-//           </div>
-//         </div>
-//       </div>
-//     </>
-//   )
-// }
-
-// export default Location
-
-import React, { useState } from "react";
+import { useState } from "react";
 import "./style.css";
-import { useDispatch } from 'react-redux';
+import image1 from "../../../assets/img/tender-african-woman-smiling-enjoying-massage-with-closed-eyes-spa-resort.jpg"
+import image2 from "../../../assets/img/tender-african-woman-relaxing-enjoying-healthy-spa-massage-with-oil.jpg"
+import image3 from "../../../assets/img/pexels-andrea-piacquadio-3764568.jpg"
+import image4 from "../../../assets/img/masseur-doing-massage-backbone-man-body-spa-salon-beauty-treatment-concept.jpg"
+import image5 from "../../../assets/img/tender-african-woman-smiling-enjoying-massage-with-closed-eyes-spa-resort.jpg"
+import image6 from "../../../assets/img/masseur-doing-massage-backbone-man-body-spa-salon-beauty-treatment-concept.jpg"
+import image7 from "../../../assets/img/tender-african-woman-smiling-enjoying-massage-with-closed-eyes-spa-resort.jpg"
+// import postServices from '../Services/postServices';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateInputData } from '../../Redux/counterSlice';
-import { useNavigate } from "react-router-dom";
 
-const image1 =
-  "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14009.804601388554!2d77.38583598519591!3d28.616237787899024!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cefbfc0af6e6f%3A0xf1bb1ef79e931eea!2sYusufpur%20Chak%20Saberi%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1661391086520!5m2!1sen!2sin";
+const SeconForm = ({ step, nextStep }) => {
+    const dispatch = useDispatch();
+    const selector = useSelector((state) => state.counter.formData);
+    console.log("selector", selector);
+    // Define your form data as a JavaScript object
+    const [formData, setFormData] = useState({
+        service_id: "6405e81c20fe802e78bbb6ef",
+        gender: "",
+        service_time: "",
+    });
 
-const FifthForm = ({ step, nextStep }) => {
-  const [id, setId] = useState("");
-  const nav = useNavigate();
-  const [address, setAddress] = useState("");
-  const [email, setEmail] = useState("");
-  const [arrivalInstructions, setArrivalInstructions] = useState("");
+    // State to track the clicked gender and service time
+    const [selectedGender, setSelectedGender] = useState("");
+    const [selectedServiceTime, setSelectedServiceTime] = useState("");
 
-  const dispatch = useDispatch();
+    const handleSubmit = async () => {
+        // Dispatch the JavaScript object
+        dispatch(updateInputData({ formName: 'secondform', inputData: formData }));
+        setTimeout(() => {
+            nextStep();
 
-  const handleSubmit = () => {
-    const formData = {
-      address,
-      email,
-      arrival_instructions: arrivalInstructions,
+
+        }, 2000)
     };
 
-    // Dispatch the form data to Redux
-    dispatch(updateInputData({ formName: 'fifthform', inputData: formData }));
+    const handleGenderSelect = (selectedGenderValue) => {
+        setFormData({ ...formData, gender: selectedGenderValue });
+        setSelectedGender(selectedGenderValue); // Set the selected gender
+    };
 
-    // Navigate to the review page
-    nav(`/review`); 
+    const handleServiceTimeSelect = (selectedTime) => {
+        setFormData({ ...formData, service_time: selectedTime });
+        setSelectedServiceTime(selectedTime); // Set the selected service time
+    };
 
-    console.log("Form Data:", formData);
-  };
 
-  return (
-    <>
-      <div id="sec_wiz_5" className="section">
-        <div id="employees" style={{ textAlign: "center" }}>
-          <label
-            style={{ textAlign: "center", fontSize: "18px" }}
-            className="as_title"
-            htmlFor=""
-          >
-            Address Details
-          </label>
-          <div className="container-fluid">
-            <div className="row">
-              <div className="col-sm-7">
-                <div className="inner">
-                  <div className="map">
-                    <iframe
-                      src={image1}
-                      style={{ border: 0, height: "360px" }}
-                      allowFullScreen=""
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
-                    ></iframe>
-                  </div>
+    return (
+        <div id="sec_wiz_2" className="section">
+            <div id="page_service_select">
+                <span className="title">Select Service &amp; Addons</span>
+                <div className="content" style={{ padding: "0 25px" }}>
+                    <div id="service_collection" className="product_collector big">
+                        <div id="select_service_carousel" className="owl-carousel owl-theme products">
+
+
+                            <div className="item_wrapper">
+                                <div className="item">
+                                    <div className="bg" style={{ backgroundImage: `url(${image1})` }}>
+                                    </div>
+                                    <div className="content">
+                                        <span className="title">service name</span>
+
+                                        <p className="excerpt">Lorem ipsum dolor sit amet consectetur adipisicing elit, consectetur adipisicing elit</p>
+
+                                        <span className="rate"> <i>$99.39</i> <span className="colored">(20% off)</span> <b>$79.59</b>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="item_wrapper">
+                                <div className="item" >
+                                    <div className="bg" style={{ backgroundImage: `url(${image2})` }}>
+                                    </div>
+                                    <div className="content">
+                                        <span className="title">service name</span>
+                                        <p className="excerpt">Lorem ipsum dolor sit amet consectetur adipisicing elit, consectetur
+                                            adipisicing elit</p>
+                                        <span className="rate"> <i>$99.39</i> <span className="colored">(20% off)</span> <b>$79.59</b>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="item_wrapper">
+                                <div className="item" >
+                                    <div className="bg" style={{ backgroundImage: `url(${image3})` }}>
+                                    </div>
+                                    <div className="content">
+                                        <span className="title">service name</span>
+                                        <p className="excerpt">Lorem ipsum dolor sit amet consectetur adipisicing elit, consectetur
+                                            adipisicing elit</p>
+                                        <span className="rate"> <i>$99.39</i> <span className="colored">(20% off)</span> <b>$79.59</b>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <ul className="time_options">
+                        <li
+                            id="g_male"
+                            className={`gender time_option ${selectedGender === "Male" ? "selected" : ""}`}
+                            onClick={() => handleGenderSelect("Male")}
+                        >
+                            Male
+                        </li>
+                        <li
+                            id="g_female"
+                            className={`gender time_option ${selectedGender === "Female" ? "selected" : ""}`}
+                            onClick={() => handleGenderSelect("Female")}
+                        >
+                            Female
+                        </li>
+                        <li
+                            id="g_either"
+                            className={`gender time_option ${selectedGender === "Either" ? "selected" : ""}`}
+                            onClick={() => handleGenderSelect("Either")}
+                        >
+                            Either
+                        </li>
+                    </ul>
+                    <div className="gen_heading">
+                        <h3>Select Time</h3>
+                    </div>
+                    <ul className="time_options">
+                        <li
+                            id="min_45"
+                            className={`time_option ${selectedServiceTime === "60 min" ? "selected" : "#000"}`}
+                            onClick={() => handleServiceTimeSelect("60 min")}
+                        >
+                            60 min
+                        </li>
+                        <li
+                            id="min_60"
+                            className={`time_option ${selectedServiceTime === "80 min" ? "selected" : ""}`}
+                            onClick={() => handleServiceTimeSelect("80 min")}
+                        >
+                            80 min
+                        </li>
+                        <li
+                            id="min_90"
+                            className={`time_option ${selectedServiceTime === "90 min" ? "selected" : ""}`}
+                            onClick={() => handleServiceTimeSelect("90 min")}
+                        >
+                            90 min
+                        </li>
+                    </ul>
+                    <div className="gen_heading">
+                        <h3>Popular options to consider</h3>
+                    </div>
+
+                    <div className="product_collector">
+                        <div id="addons_carousel" className="owl-carousel owl-theme products">
+                            <div className="item_wrapper">
+                                <div className="item">
+                                    <div className="bg" style={{ backgroundImage: `url(${image4})` }}>
+                                    </div>
+                                    <div className="content">
+                                        <span className="title">addon name</span>
+                                        <span className="rate"> <i>$99.39</i> <span className="colored">(20% off)</span>
+                                            <b>$79.59</b>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="item_wrapper">
+                                <div className="item">
+                                    <div className="bg" style={{ backgroundImage: `url(${image5})` }}>
+                                    </div>
+                                    <div className="content">
+                                        <span className="title">addon name</span>
+                                        <span className="rate"> <i>$99.39</i> <span className="colored">(20% off)</span>
+                                            <b>$79.59</b>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="item_wrapper">
+                                <div className="item">
+                                    <div className="bg" style={{ backgroundImage: `url(${image6})` }}>
+                                    </div>
+                                    <div className="content">
+                                        <span className="title">addon name</span>
+                                        <span className="rate"> <i>$99.39</i> <span className="colored">(20% off)</span>
+                                            <b>$79.59</b>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="item_wrapper">
+                                <div className="item">
+                                    <div className="bg" style={{ backgroundImage: `url(${image7})` }}>
+                                    </div>
+                                    <div className="content">
+                                        <span className="title">addon name</span>
+                                        <span className="rate"> <i>$99.39</i> <span className="colored">(20% off)</span>
+                                            <b>$79.59</b>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button className="button lazy" type="submit" onClick={handleSubmit}>next</button>
                 </div>
-              </div>
-              <div className="col-sm-5">
-                <div className="inner">
-                  <h3 style={{ fontSize: "18px" }}>24000 EL Toro Road</h3>
-                  <p style={{ fontSize: "18px" }}>Laguna Woods, CA 92653</p>
-                </div>
-                <div className="inner">
-                  <label htmlFor="" style={{ fontSize: "18px" }}>
-                    Apt / Suite / Hotel Name &amp; room
-                  </label>
-                  <input
-                    className="input"
-                    type="text"
-                    name=""
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                  />
-                </div>
-                <div className="inner">
-                  <label htmlFor="" style={{ fontSize: "18px" }}>
-                    Email
-                  </label>
-                  <input
-                    className="input"
-                    type="email"
-                    name=""
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </div>
-                <div className="inner">
-                  <label htmlFor="" style={{ fontSize: "18px" }}>
-                    Arrival Instructions
-                  </label>
-                  <textarea
-                    className="input"
-                    name="name"
-                    rows="5"
-                    value={arrivalInstructions}
-                    onChange={(e) =>
-                      setArrivalInstructions(e.target.value)
-                    }
-                  ></textarea>
-                </div>
-                <div className="inner" style={{ fontSize: "18px" }}></div>
-              </div>
-              <button
-                className="button"
-                type="submit"
-                onClick={handleSubmit}
-              >
-                Review
-              </button>
             </div>
-          </div>
         </div>
-      </div>
-    </>
-  );
-};
+    );
+}
 
-export default FifthForm;
+export default SeconForm;

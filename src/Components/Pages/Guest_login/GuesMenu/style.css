@@ -185,10 +185,16 @@
 
 .gender.selected,
 .time_option.selected {
-  background-color: blue; /* Set the background color to blue for selected items */
+  background-color: #03a9f4; /* Set the background color to blue for selected items */
   color: white; /* Set the text color to white for better visibility */
 }
 
+.item.selected {
+    /* Styles for the selected card */
+    background-color: #03a9f4; /* Change to your desired background color */
+    color: #fff; /* Change to your desired text color */
+    border-color: #3498db; /* Change to match the background color or desired border color */
+}
 
 @media (max-width:768px) {
     .sidebar_tabs{

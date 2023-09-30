@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./style.css";
 import image1 from "../../../assets/img/tender-african-woman-smiling-enjoying-massage-with-closed-eyes-spa-resort.jpg"
 import image2 from "../../../assets/img/tender-african-woman-relaxing-enjoying-healthy-spa-massage-with-oil.jpg"
@@ -10,14 +10,97 @@ import image7 from "../../../assets/img/tender-african-woman-smiling-enjoying-ma
 // import postServices from '../Services/postServices';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateInputData } from '../../Redux/counterSlice';
+import { IP } from "../../../../Constant";
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import { useRef } from "react";
+
+
+
+const PreviewImage = ({ attachments }) => {
+    const [imageObjectURL, setImageObjectURL] = useState(null);
+
+    useEffect(() => {
+        const fetchImage = async () => {
+            const res = await fetch(`${IP}/file/${attachments}`);
+            const imageBlob = await res.blob();
+            const objectURL = URL.createObjectURL(imageBlob);
+            setImageObjectURL(objectURL);
+        };
+
+        fetchImage();
+    }, [attachments]);
+
+    return (
+        <div  >
+            {imageObjectURL && <img src={imageObjectURL} alt="Preview" className="previewimage" />}
+        </div>
+    );
+};
+
+
+
+
+
+
+
+
 
 const SeconForm = ({ step, nextStep }) => {
+    const [user, setUser] = useState([]);
+    const sliderRef = useRef(null);
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 3, // Number of cards to show at once
+        slidesToScroll: 1,
+    };
+    const handleDotClick = (index) => {
+        if (sliderRef.current) {
+            sliderRef.current.slickGoTo(index);
+        }
+    };
+    
+
+    useEffect(() => {
+        // Check if the sliderRef is available and set the initial slide
+        if (sliderRef.current) {
+            sliderRef.current.slickGoTo(0);
+        }
+    }, []);
+
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const res = await fetch(`${IP}/service/view-services`);
+                const data = await res.json();
+                setUser(data);
+
+                console.log("get data", data)
+            } catch (error) {
+            }
+        };
+
+        fetchData();
+    }, []);
+
+
+
+
+
+
+
     const dispatch = useDispatch();
     const selector = useSelector((state) => state.counter.formData);
     console.log("selector", selector);
     // Define your form data as a JavaScript object
+    const [service_id, setService_id] = useState()
     const [formData, setFormData] = useState({
-        service_id: "6405e81c20fe802e78bbb6ef",
+        service_id: service_id,
         gender: "",
         service_time: "",
     });
@@ -25,6 +108,7 @@ const SeconForm = ({ step, nextStep }) => {
     // State to track the clicked gender and service time
     const [selectedGender, setSelectedGender] = useState("");
     const [selectedServiceTime, setSelectedServiceTime] = useState("");
+
 
     const handleSubmit = async () => {
         // Dispatch the JavaScript object
@@ -35,6 +119,15 @@ const SeconForm = ({ step, nextStep }) => {
 
         }, 2000)
     };
+
+
+    const handleId = (id) => {
+        setService_id(id)
+    }
+
+
+    // alert(service_id)
+
 
     const handleGenderSelect = (selectedGenderValue) => {
         setFormData({ ...formData, gender: selectedGenderValue });
@@ -54,51 +147,39 @@ const SeconForm = ({ step, nextStep }) => {
                 <div className="content" style={{ padding: "0 25px" }}>
                     <div id="service_collection" className="product_collector big">
                         <div id="select_service_carousel" className="owl-carousel owl-theme products">
+                           {/* <Slider {...settings} ref={sliderRef}> */}
+                                {
+                                    user.slice(0 ,3).map((cur, index) => {
+                                        return (
+                                            <div className="item_wrapper" key={index} onClick={() => handleDotClick(index)}>
+                                                <div className={`item ${service_id === `${cur._id}` ? "selected" : ""}`} onClick={() => handleId(cur._id)}  >
+                                                    <div className="bg" style={{ width: "100%", height: "20vh", backgroundSize: "cover" }}>
+                                                        <PreviewImage attachments={cur.attachments} />
+                                                    </div>
+                                                    <div className="content">
+                                                        <span className="title">{cur.title}</span>
+                                                        <p className="excerpt" dangerouslySetInnerHTML={{ __html: cur.description.slice(0, 50) }} />
 
 
-                            <div className="item_wrapper">
-                                <div className="item">
-                                    <div className="bg" style={{ backgroundImage: `url(${image1})` }}>
-                                    </div>
-                                    <div className="content">
-                                        <span className="title">service name</span>
 
-                                        <p className="excerpt">Lorem ipsum dolor sit amet consectetur adipisicing elit, consectetur adipisicing elit</p>
 
-                                        <span className="rate"> <i>$99.39</i> <span className="colored">(20% off)</span> <b>$79.59</b>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="item_wrapper">
-                                <div className="item" >
-                                    <div className="bg" style={{ backgroundImage: `url(${image2})` }}>
-                                    </div>
-                                    <div className="content">
-                                        <span className="title">service name</span>
-                                        <p className="excerpt">Lorem ipsum dolor sit amet consectetur adipisicing elit, consectetur
-                                            adipisicing elit</p>
-                                        <span className="rate"> <i>$99.39</i> <span className="colored">(20% off)</span> <b>$79.59</b>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="item_wrapper">
-                                <div className="item" >
-                                    <div className="bg" style={{ backgroundImage: `url(${image3})` }}>
-                                    </div>
-                                    <div className="content">
-                                        <span className="title">service name</span>
-                                        <p className="excerpt">Lorem ipsum dolor sit amet consectetur adipisicing elit, consectetur
-                                            adipisicing elit</p>
-                                        <span className="rate"> <i>$99.39</i> <span className="colored">(20% off)</span> <b>$79.59</b>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
+                                                        <span className="rate">
+                                                            <i>$99.39</i> <span className="colored">(20% off)</span> <b>$79.59</b>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        );
+                                    })
+                                }
+                          {/* <Slider> */}
+                            <div className="gen_heading" style={{marginBottom:"20px"}}></div>
+                            
                         </div>
                     </div>
-
+                    <div className="gen_heading">
+                        <h3>Gender Preference</h3>
+                    </div>
                     <ul className="time_options">
                         <li
                             id="g_male"
