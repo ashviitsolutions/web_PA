@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "./style.css";
 import postServices from "../Services/postServices";
-import { useParams ,useNavigate } from "react-router-dom";
-
+import { useParams, useNavigate } from "react-router-dom";
+import StripeCheckout from 'react-stripe-checkout';
 
 const Conform = () => {
-    const {userId}=useParams()
+    const { userId } = useParams()
     const [posts, setPosts] = useState(null);
-   
-    const nav=useNavigate()
+
+    const nav = useNavigate()
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -28,8 +28,8 @@ const Conform = () => {
 
     console.log("get props id", userId);
 
-    const onSubmit=()=>{
-        nav("/userProfile/payment/success")
+    const onSubmit = () => {
+       
     }
     return (
         <>
@@ -58,9 +58,24 @@ const Conform = () => {
                         </li>
                     </ul>
 
-                    <div style={{ textAlign: "center" }}>
-                        <button className="button" type="button" name="button" onClick={onSubmit}>checkout</button>
-                    </div>
+
+
+                    <StripeCheckout
+                        amount='200'
+                        token={onSubmit}
+                        currency='INR'
+                        stripeKey="my_PUBLISHABLE_stripekey"
+                    >
+                        <div style={{ textAlign: "center" }}>
+                            <button className="button">checkout</button>
+                        </div>
+                    </StripeCheckout>
+
+
+
+
+
+
                 </div>
             </div>
 
