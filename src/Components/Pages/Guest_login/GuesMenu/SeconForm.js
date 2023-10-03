@@ -33,7 +33,7 @@ const PreviewImage = ({ attachments }) => {
     }, [attachments]);
 
     return (
-        <div  >
+        <div style={{ width: "18vw", height: "22vh", backgroundSize: "cover" }} >
             {imageObjectURL && <img src={imageObjectURL} alt="Preview" className="previewimage" />}
         </div>
     );
@@ -149,7 +149,7 @@ const SeconForm = ({ step, nextStep }) => {
                         <div id="select_service_carousel" className="owl-carousel owl-theme products">
                            {/* <Slider {...settings} ref={sliderRef}> */}
                                 {
-                                    user.slice(0 ,3).map((cur, index) => {
+                                    user.map((cur, index) => {
                                         return (
                                             <div className="item_wrapper" key={index} onClick={() => handleDotClick(index)}>
                                                 <div className={`item ${service_id === `${cur._id}` ? "selected" : ""}`} onClick={() => handleId(cur._id)}  >
@@ -163,8 +163,8 @@ const SeconForm = ({ step, nextStep }) => {
 
 
 
-                                                        <span className="rate">
-                                                            <i>$99.39</i> <span className="colored">(20% off)</span> <b>$79.59</b>
+                                                        <span className="rates">
+                                                            <i>$99.39</i> <span className="coloreds">(20% off)</span>  <b>${cur.price}</b>
                                                         </span>
                                                     </div>
                                                 </div>
@@ -235,54 +235,25 @@ const SeconForm = ({ step, nextStep }) => {
 
                     <div className="product_collector">
                         <div id="addons_carousel" className="owl-carousel owl-theme products">
-                            <div className="item_wrapper">
-                                <div className="item">
-                                    <div className="bg" style={{ backgroundImage: `url(${image4})` }}>
+                        {
+                            user.filter((filter) => filter.category ==="addons").map((cur, index) => {
+                                return (
+                                    <div className="item_wrapper" key={index} onClick={() => handleDotClick(index)}>
+                                        <div className={`item ${service_id === `${cur._id}` ? "selected" : ""}`} onClick={() => handleId(cur._id)}  >
+                                            <div className="bg" style={{ width: "100%", height: "22vh", backgroundSize: "cover" }}>
+                                                <PreviewImage attachments={cur.attachments} />
+                                            </div>
+                                            <div className="content">
+                                                <span className="title">{cur.title}</span>
+                                                <span className="rates">
+                                                    <i>$99.39</i> <span className="coloreds">(20% off)</span> <b>${cur.price}</b>
+                                                </span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div className="content">
-                                        <span className="title">addon name</span>
-                                        <span className="rate"> <i>$99.39</i> <span className="colored">(20% off)</span>
-                                            <b>$79.59</b>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="item_wrapper">
-                                <div className="item">
-                                    <div className="bg" style={{ backgroundImage: `url(${image5})` }}>
-                                    </div>
-                                    <div className="content">
-                                        <span className="title">addon name</span>
-                                        <span className="rate"> <i>$99.39</i> <span className="colored">(20% off)</span>
-                                            <b>$79.59</b>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="item_wrapper">
-                                <div className="item">
-                                    <div className="bg" style={{ backgroundImage: `url(${image6})` }}>
-                                    </div>
-                                    <div className="content">
-                                        <span className="title">addon name</span>
-                                        <span className="rate"> <i>$99.39</i> <span className="colored">(20% off)</span>
-                                            <b>$79.59</b>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="item_wrapper">
-                                <div className="item">
-                                    <div className="bg" style={{ backgroundImage: `url(${image7})` }}>
-                                    </div>
-                                    <div className="content">
-                                        <span className="title">addon name</span>
-                                        <span className="rate"> <i>$99.39</i> <span className="colored">(20% off)</span>
-                                            <b>$79.59</b>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
+                                );
+                            })
+                        }
                         </div>
                     </div>
                     <button className="button lazy" type="submit" onClick={handleSubmit}>next</button>

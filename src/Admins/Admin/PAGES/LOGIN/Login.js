@@ -25,7 +25,7 @@ function Login() {
 
     };
     const SignupSchema = Yup.object().shape({
-        email: Yup.string().required("Required"),
+        email: Yup.string().required("required"),
         password: Yup.string().required("required")
         // .required("required")
         // .min(6, "atlist 8 character password is required")
@@ -144,7 +144,7 @@ function Login() {
                                                         <div id="notification_holder">
                                                             {!loginguser ? (
                                                                 <div className='notificatioerror'>
-                                                                    <h3 id='errorshow'>Invalid credentials</h3>
+                                                                    <p id='errorshow'>Invalid credentials</p>
                                                                 </div>
                                                             ) : (<h3>Success</h3>)
                                                             }

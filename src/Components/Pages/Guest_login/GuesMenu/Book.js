@@ -61,23 +61,23 @@ const Book = () => {
         <div className="container">
           <div className="row">
             <ul id="tabs_control">
-              <li id="tab_1" className={activeTab === 1 ? 'active' : ''} onClick={() => setActiveTab(1)}>
+              <li id="tab_1" className={activeTab === 1 ? 'active' : ''} >
 
                 members
               </li>
-              <li id="tab_2" className={activeTab === 2 ? 'active' : ''} onClick={() => setActiveTab(2)}>
+              <li id="tab_2" className={activeTab === 2 ? 'active' : ''} >
 
                 service
               </li>
-              <li id="tab_3" className={activeTab === 3 ? 'active' : ''} onClick={() => setActiveTab(3)}>
+              <li id="tab_3" className={activeTab === 3 ? 'active' : ''}>
 
                 customize
               </li>
-              <li id="tab_4" className={activeTab === 4 ? 'active' : ''} onClick={() => setActiveTab(4)}>
+              <li id="tab_4" className={activeTab === 4 ? 'active' : ''} >
 
                 schedule
               </li>
-              <li id="tab_5" className={activeTab === 5 ? 'active' : ''} onClick={() => setActiveTab(5)}>
+              <li id="tab_5" className={activeTab === 5 ? 'active' : ''} >
 
                 address
               </li>
