@@ -31,7 +31,12 @@ import UserRoutes from './Components/Pages/Protected/UserRoutes';
 import Successpayment from "./Components/Pages/Payment/Success"
 
 //admin pannel
-import Sidebar from "./Admins/Sidebar/Sidebar"
+import Sidebar from "./Admins/Sidebar/Sidebar";
+import GetGidt from "./Admins/Admin/GIFT/GetGidt";
+import AddGift from "./Admins/Admin/GIFT/AddGift"
+import EditGift from "./Admins/Admin/GIFT/EditGift"
+
+
 
 // 1.Post section
 import Addpost from './Admins/Admin/POST/Addpost';
@@ -186,15 +191,15 @@ function App() {
           </>} />
           <Route path="/guest_login" element={<>
             <Navbar />
-            <GuestLogin/>
-          
+            <GuestLogin />
+
 
             <Footer />
           </>} />
 
           <Route path="/select_location_type" element={<>
             <Navbar />
-            <Select_location/>
+            <Select_location />
 
             <Footer />
           </>} />
@@ -207,7 +212,7 @@ function App() {
 
           <Route path="/Book" element={<>
             <Navbar />
-            <Book/>
+            <Book />
 
 
             <Footer />
@@ -251,15 +256,35 @@ function App() {
 
 
 
-
-
-
-
-
           <Route path="/admin" element={<>
 
             <Protect Component={Sidebar} />
           </>} />
+
+
+          <Route path="/admin/gift" element={<>
+            <Sidebar />
+            <Protect Component={GetGidt} />
+          </>} />
+          <Route path="/admin/post/addgift" element={<>
+            <Sidebar />
+            <Protect Component={AddGift} />
+          </>} />
+          <Route path="/admin/post/editgift/:id" element={<>
+            <Sidebar />
+            <Protect Component={EditGift} />
+          </>} />
+
+
+
+
+
+
+
+
+
+
+
           <Route path="/admin/post" element={<>
             <Sidebar />
             <Protect Component={Getpost} />

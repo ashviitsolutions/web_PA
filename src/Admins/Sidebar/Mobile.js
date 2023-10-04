@@ -80,7 +80,13 @@ function Mobile() {
                             <div className="items">
                                 <Link to="/admin/payments">
                                     <PaidIcon style={{ color: "#fff" }} />
-                                    <span className="title">payemtns</span>
+                                    <span className="title">payments</span>
+                                </Link>
+                            </div>
+                            <div className="items">
+                                <Link to="/admin/gift">
+                                    <PaidIcon style={{ color: "#fff" }} />
+                                    <span className="title">Gift Card</span>
                                 </Link>
                             </div>
                             <div className="items">

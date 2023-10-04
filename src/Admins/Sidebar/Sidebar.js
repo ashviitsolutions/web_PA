@@ -24,10 +24,10 @@ function Sidebar() {
   }
   return (
     <>
-      <Mobile/>
+      <Mobile />
       <div id="sidebar" className='active'>
         <div className="card layer">
-          
+
           <div className="infobox_big avatar" id='avtar'>
             <img src={images} alt="..." style={{ height: "50px", marginTop: "10px" }} />
             <div className="items" style={{ marginTop: "5px" }}>
@@ -66,7 +66,13 @@ function Sidebar() {
             <div className="items">
               <Link to="/admin/payments">
                 <PaidIcon style={{ color: "#fff" }} />
-                <span className="title">payemtns</span>
+                <span className="title">payments</span>
+              </Link>
+            </div>
+            <div className="items">
+              <Link to="/admin/gift">
+                <PaidIcon style={{ color: "#fff" }} />
+                <span className="title">Gift Card</span>
               </Link>
             </div>
             <div className="items">

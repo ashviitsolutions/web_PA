@@ -43,6 +43,7 @@ function Location() {
     const fetchPosts = async () => {
       try {
         const response = await Hook.getProfile();
+        console.log("profile view" ,response)
         if (response.data.name) {
           setName(response.data.name);
           localStorage.setItem("user_name", response.data.name);

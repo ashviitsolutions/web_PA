@@ -49,6 +49,14 @@ const PreviewImage = ({ attachments }) => {
 
 const SeconForm = ({ step, nextStep }) => {
     const [user, setUser] = useState([]);
+    const [priceservice , setPerice]=useState(0)
+
+
+    const handlePrice=(price)=>{
+        setPerice(price)
+    }
+
+
     const sliderRef = useRef(null);
     const settings = {
         dots: true,
@@ -92,12 +100,12 @@ const SeconForm = ({ step, nextStep }) => {
 
 
 
-
+    // Redux uses
 
     const dispatch = useDispatch();
     const selector = useSelector((state) => state.counter.formData);
     console.log("selector", selector);
-    // Define your form data as a JavaScript object
+
     const [service_id, setService_id] = useState()
     const [formData, setFormData] = useState({
         service_id: service_id,
@@ -126,7 +134,7 @@ const SeconForm = ({ step, nextStep }) => {
     }
 
 
-    // alert(service_id)
+
 
 
     const handleGenderSelect = (selectedGenderValue) => {
@@ -139,7 +147,32 @@ const SeconForm = ({ step, nextStep }) => {
         setSelectedServiceTime(selectedTime); // Set the selected service time
     };
 
-
+    const [selectedCards, setSelectedCards] = useState([]);
+    const [totalPrice, setTotalPrice] = useState(0);
+    
+    // ...
+  
+    // Function to handle card selection
+    const handleCardSelection = (card) => {
+      // Check if the card is already selected
+      const isSelected = selectedCards.includes(card);
+      
+      // Create a new array with selected cards
+      const newSelectedCards = isSelected
+        ? selectedCards.filter((selectedCard) => selectedCard !== card)
+        : [...selectedCards, card];
+      
+      // Calculate the total price based on selected cards
+      const newTotalPrice = newSelectedCards.reduce((acc, cur) => {
+        const selectedCard = user.find((filter) => filter._id === cur);
+        return acc + selectedCard.price;
+      }, 0);
+      
+      // Update the state
+      setSelectedCards(newSelectedCards);
+      setTotalPrice(newTotalPrice);
+    };
+  
     return (
         <div id="sec_wiz_2" className="section">
             <div id="page_service_select">
@@ -151,7 +184,7 @@ const SeconForm = ({ step, nextStep }) => {
                                 {
                                     user.map((cur, index) => {
                                         return (
-                                            <div className="item_wrapper" key={index} onClick={() => handleDotClick(index)}>
+                                            <div className="item_wrapper" key={index} onClick={() => handlePrice(cur.price)}>
                                                 <div className={`item ${service_id === `${cur._id}` ? "selected" : ""}`} onClick={() => handleId(cur._id)}  >
                                                     <div className="bg" style={{ width: "100%", height: "20vh", backgroundSize: "cover" }}>
                                                         <PreviewImage attachments={cur.attachments} />
@@ -164,7 +197,7 @@ const SeconForm = ({ step, nextStep }) => {
 
 
                                                         <span className="rates">
-                                                            <i>$99.39</i> <span className="coloreds">(20% off)</span>  <b>${cur.price}</b>
+                                                            <i></i> <span className="coloreds"></span>  <b>${cur.price}</b>
                                                         </span>
                                                     </div>
                                                 </div>
@@ -246,7 +279,7 @@ const SeconForm = ({ step, nextStep }) => {
                                             <div className="content">
                                                 <span className="title">{cur.title}</span>
                                                 <span className="rates">
-                                                    <i>$99.39</i> <span className="coloreds">(20% off)</span> <b>${cur.price}</b>
+                                                    <i></i> <span className="coloreds"></span> <b>${cur.price}</b>
                                                 </span>
                                             </div>
                                         </div>
@@ -256,6 +289,7 @@ const SeconForm = ({ step, nextStep }) => {
                         }
                         </div>
                     </div>
+                    <p>Total Price: ${priceservice}</p>
                     <button className="button lazy" type="submit" onClick={handleSubmit}>next</button>
                 </div>
             </div>
