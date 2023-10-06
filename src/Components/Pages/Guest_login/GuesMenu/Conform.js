@@ -61,9 +61,9 @@ const Conform = () => {
 
 
                     <StripeCheckout
-                        amount={posts?.amount_charged}
+                        amount={posts?.amount_charged *100}
                         token={onSubmit}
-                        currency='INR'
+                        currency='USD'
                         stripeKey="pk_test_51MXmewLnVrUYOeK2PN2SexCsPAi8lsw8dIt7Pw04DUCsoCsv7a0VReRlGhbUuDOKYqbp1PEDWRWklwSvEsUD0NZ400sa7PXdfg"
                     >
                         <div style={{ textAlign: "center" }}>

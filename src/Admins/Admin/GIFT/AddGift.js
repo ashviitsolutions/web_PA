@@ -170,7 +170,7 @@ function AddGift() {
 
                               </div>
 
-                             
+
                             </div>
                           </div>
                         </div>
@@ -191,6 +191,18 @@ function AddGift() {
                         <label htmlFor="">price in USD</label>
                         <span class="highlight"></span>
                       </div>
+                      <div class="input_group" style={{ marginTop: "3rem" }}>
+                      <Field
+                        className="input"
+                        name="price"
+                        type="number"
+                      />
+                      {errors.price && touched.price ? (
+                        <div>{errors.price}</div>
+                      ) : null}
+                      <label htmlFor="">price discount USD</label>
+                      <span class="highlight"></span>
+                    </div>
                     </div>
 
                     <div className="col-sm-4">
@@ -214,9 +226,9 @@ function AddGift() {
                                 <option value="">Select Type</option>
                                 {type.map((cur) => (
                                   <option key={cur._id} value={cur._id}>
-                                      {cur}
+                                    {cur}
                                   </option>
-                              ))}
+                                ))}
                               </Field>
                             </div>
                           </div>

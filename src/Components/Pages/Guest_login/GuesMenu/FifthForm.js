@@ -3,19 +3,21 @@ import "./style.css";
 import postServices from "../Services/postServices";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
+import axios from "axios";
 
-const image1 = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14009.804601388554!2d77.38583598519591!3d28.616237787899024!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cefbfc0af6e6f%3A0xf1bb1ef79e931eea!2sYusufpur%20Chak%20Saberi%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1661391086520!5m2!1sen!2sin";
 
 const FifthForm = ({ step, nextStep }) => {
   const formData = useSelector((state) => state.counter.formData);
   console.log("all data", formData);
   const useremail = localStorage.getItem("user_email")
+  const username = localStorage.getItem("user_name")
+  const token = localStorage.getItem("token")
   // Check if the necessary form data exists before accessing its properties
   const location = formData.locationForm && formData.locationForm[0] ? formData.locationForm[0].location : "";
   const location_type = formData.location && formData.location[0] ? formData.location[0].location_type : "";
   const massage_for = formData.firstForm && formData.firstForm[0] ? formData.firstForm[0].massage_for : "";
   const gender = formData.secondform && formData.secondform[0] ? formData.secondform[0].gender : "";
-  const service_id = formData.secondform && formData.secondform[0] ? formData.secondform[0].service_id : "";
+  const service_id = formData.secondform && formData.secondform[0] ? formData.secondform[0].service_ids : "";
   const service_time = formData.secondform && formData.secondform[0] ? formData.secondform[0].service_time : "";
   const areas_of_concern = formData.thirdform && formData.thirdform[0] ? formData.thirdform[0].areas_of_concern : "";
   const health_conditions = formData.thirdform && formData.thirdform[0] ? formData.thirdform[0].health_conditions : "";
@@ -29,12 +31,27 @@ const FifthForm = ({ step, nextStep }) => {
   const [address, setAddress] = useState("");
   const [email, setEmail] = useState(useremail);
   const [arrivalInstructions, setArrivalInstructions] = useState("");
+  const [name, setName] = useState(username)
+  const [password, setPassword] = useState("")
+  const [confirmpassword, setConfirmPassword] = useState("")
+  const [error, setError] = useState(false)
 
-  const handleSubmit = async () => {
+
+
+
+
+
+
+  const handleSubmit = async (e) => {
+    if (password !== confirmpassword) {
+      setError(true)
+    }
+    e.preventDefault(); // Corrected the typo
+
     try {
       // Create a new FormData object
       const formData = new FormData();
-      
+
       // Append data from the Redux state to the FormData object
       formData.append("location", location);
       formData.append("location_type", location_type);
@@ -49,14 +66,28 @@ const FifthForm = ({ step, nextStep }) => {
       formData.append("massage_pressure", massage_pressure);
       formData.append("scheduled_date", scheduled_date);
       formData.append("scheduled_timing", scheduled_timing);
-      
+
       // Append address, email, and arrival instructions to FormData
       formData.append("address", address);
       formData.append("email", email);
+      formData.append("name", name);
       formData.append("arrival_instructions", arrivalInstructions);
+      formData.append("password", password);
+      formData.append("confirmpassword", confirmpassword);
 
       // Make an API request to create a post with the form data
-      const res = await postServices.createPost(formData);
+      const token = localStorage.getItem("token");
+      const url = "http://45.13.132.197:5000/api/user/service_book";
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      };
+
+      const res = await axios.post(url, formData, config);
+      // console.log("submit:", "res");
+
       const userId = res.data.ref;
 
       // Navigate to the next page with the extracted ID
@@ -68,87 +99,94 @@ const FifthForm = ({ step, nextStep }) => {
     }
   };
 
+
+
+
+
   return (
     <>
-      <div id="sec_wiz_5" className="section">
-        <div id="employees" style={{ textAlign: "center" }}>
-          <label
-            style={{ textAlign: "center", fontSize: "18px" }}
-            className="as_title"
-            htmlFor=""
-          >
-            address details
-          </label>
-          <div className="container-fluid">
-            <div className="row">
-              <div className="col-sm-7">
-                <div className="inner">
-                  <div className="map">
-                    <iframe
-                      src={image1}
-                      style={{ border: 0, height: "360px" }}
-                      allowFullScreen=""
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
-                    ></iframe>
-                  </div>
-                </div>
-              </div>
-              <div className="col-sm-5">
-                <div className="inner">
-                  <h3 style={{ fontSize: "18px" }}>24000 EL Toro Road</h3>
-                  <p style={{ fontSize: "18px" }}>Laguna Woods, CA 92653</p>
-                </div>
-                <div className="inner">
-                  <label htmlFor="" style={{ fontSize: "18px" }}>
-                    Apt / Suite / Hotel Name &amp; room
-                  </label>
-                  <input
-                    className="input"
-                    type="text"
-                    name=""
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)} // Update address state
-                  />
-                </div>
-                <div className="inner">
-                  <label htmlFor="" style={{ fontSize: "18px" }}>
-                    Email
-                  </label>
-                  <input
-                    className="input"
-                    type="email"
-                    name=""
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)} // Update email state
-                  />
-                </div>
-                <div className="inner">
-                  <label htmlFor="" style={{ fontSize: "18px" }}>
-                    Arrival Instructions
-                  </label>
-                  <textarea
-                    className="input"
-                    name="name"
-                    rows="5"
-                    value={arrivalInstructions}
-                    onChange={(e) =>
-                      setArrivalInstructions(e.target.value) // Update arrivalInstructions state
-                    }
-                  ></textarea>
-                </div>
-                <div className="inner" style={{ fontSize: "18px" }}></div>
-              </div>
-              <button
-                className="button"
-                type="submit"
-                onClick={handleSubmit}
-              >
-                review
-              </button>
-            </div>
+      <div className="review_page">
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="name">Name:</label>
+            <input
+              type="text"
+              name="name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
           </div>
-        </div>
+          <div className="form-group">
+            <label htmlFor="email">Email:</label>
+            <input
+              type="email"
+              name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="address">Address:</label>
+            <input
+              type="text"
+              name="address"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="hotelName">  Apt / Suite / Hotel Name &amp; room:</label>
+            <input
+              type="text"
+              name="hotelName"
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="bio">Arrival Instructions:</label>
+            <textarea
+              name="bio"
+              rows="4"
+              value={arrivalInstructions}
+              onChange={(e) => setArrivalInstructions(e.target.value)}
+            />
+          </div>
+          {
+            token && (
+              <>
+                <div className="form-group">
+                  <label htmlFor="password">Password:</label>
+                  <input
+                    type="password"
+                    name="password"
+                    onChange={(e) => setPassword(e.target.value)}
+
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="confirmPassword">Confirm Password:</label>
+                  <input
+                    type="password"
+                    name="confirmPassword"
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    required
+                  />
+                </div>
+                {error && (
+                  <p style={{ color: "red" }}>Passwords do not match.</p>
+                )}
+              </>
+            )
+          }
+
+          <button type="submit"
+            className="button"
+          >review</button>
+        </form>
       </div>
     </>
   );

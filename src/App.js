@@ -26,6 +26,7 @@ import Conform from './Components/Pages/Guest_login/GuesMenu/Conform';
 import Profiles from "./Components/Pages/Profile/userProfile/Profile";
 import Protectuser from './Components/Pages/Protected/Protectuser';
 import UserRoutes from './Components/Pages/Protected/UserRoutes';
+import Corporatebooking from './Components/Pages/Services/Submenu/Coroporate/Corporatebooking';
 
 //Payment
 import Successpayment from "./Components/Pages/Payment/Success"
@@ -146,6 +147,11 @@ function App() {
           <Route path="/services/corporate_events" element={<>
             <Navbar />
             <CorporateEvents />
+            <Footer />
+          </>} />
+          <Route path="/services/corporate_events/booking/:service_id" element={<>
+            <Navbar />
+            <Corporatebooking />
             <Footer />
           </>} />
           <Route path="/services/private_events" element={<>

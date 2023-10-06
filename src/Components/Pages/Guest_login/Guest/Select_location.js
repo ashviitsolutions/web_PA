@@ -25,7 +25,7 @@ function Select_location() {
                         <form className="location">
                             <h3>Where would you like us to <b>Serve you</b> </h3>
                             <ul className="service">
-                                <Link to="/book" onClick={() => handleSubmit('Home')}>
+                                <Link to="/select_location" onClick={() => handleSubmit('Home')}>
                                     <li>
                                         <span
                                             className="bg"
@@ -34,7 +34,7 @@ function Select_location() {
                                             }}
                                         ></span>
 
-                                        <span className="title">Home</span>
+                                        <span className="title">My Location</span>
                                         <span className="text">At the convenience of your home / your location</span>
                                     </li>
                                 </Link>

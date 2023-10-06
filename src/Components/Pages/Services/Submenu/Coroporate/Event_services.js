@@ -59,18 +59,6 @@ function Event_services() {
 
 
 
-        // <GrFormPreviousLink className='left-arrow' onClick={handlePrevious} />
-        // <GrFormNextLink className='right-arrow' onClick={handleNext} />
-
-
-
-  // const handleNext = () => {
-  //   carouselRef.current.next();
-  // };
-
-  // const handlePrevious = () => {
-  //   carouselRef.current.previous();
-  // };
 
   return (
     <>
@@ -126,7 +114,7 @@ function Event_services() {
                                     Read more
                                   </button>
                                 )}
-                                <Link to="#" className="anchor" id="anchors">
+                                <Link to={`/services/corporate_events/booking/${user._id}`} className="anchor" id="anchors">
                                   book now
                                 </Link>
                               </div>

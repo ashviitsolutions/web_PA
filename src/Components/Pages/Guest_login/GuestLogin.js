@@ -54,7 +54,7 @@ function GuestLogin() {
             nav("/guest_login");
         } else {
 
-            nav("/select_location");
+            nav("/select_location_type");
 
         }
 
@@ -77,7 +77,7 @@ function GuestLogin() {
                           <h3 style={{ fontSize: "18px" }}>Don't have an account ?</h3>
                           <img src={Image} alt="" />
                           <div className="input_group">
-                            <Link to="/select_location">
+                            <Link to="/select_location_type">
                               <button className="small button lazy" type="button" >continue as guest</button>
                             </Link>
                           </div>

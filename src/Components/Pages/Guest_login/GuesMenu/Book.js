@@ -28,7 +28,12 @@ const Book = () => {
     nextStep(); // Increment the step progress
     // You can add any additional logic here before navigating
   };
-
+  const handleTabClick = (tabNumber) => {
+    // Only update the activeTab if the clicked tab is not ahead of the current step
+    if (tabNumber) {
+      setActiveTab(tabNumber);
+    }
+  };
 
 
   let form;
@@ -48,7 +53,7 @@ const Book = () => {
     case 5:
       form = <FifthForm step={now} nextStep={navigateToNextForm} previousStep={previousStep} />;
       break;
-   {/* case 6:
+      {/* case 6:
       form = <Conform step={now} nextStep={navigateToNextForm} previousStep={previousStep} />;
   break;  */}
     default:
@@ -61,30 +66,23 @@ const Book = () => {
         <div className="container">
           <div className="row">
             <ul id="tabs_control">
-              <li id="tab_1" className={activeTab === 1 ? 'active' : ''} >
-
-                members
+              <li id="tab_1" className={activeTab === 1 ? 'active' : ''} onClick={() => handleTabClick(1)}>
+                Members
               </li>
-              <li id="tab_2" className={activeTab === 2 ? 'active' : ''} >
-
-                service
+              <li id="tab_2" className={activeTab === 2 ? 'active' : ''} onClick={() => handleTabClick(2)}>
+                Service
               </li>
-              <li id="tab_3" className={activeTab === 3 ? 'active' : ''}>
-
-                customize
+              <li id="tab_3" className={activeTab === 3 ? 'active' : ''} onClick={() => handleTabClick(3)}>
+                Customize
               </li>
-              <li id="tab_4" className={activeTab === 4 ? 'active' : ''} >
-
-                schedule
+              <li id="tab_4" className={activeTab === 4 ? 'active' : ''} onClick={() => handleTabClick(4)}>
+                Schedule
               </li>
-              <li id="tab_5" className={activeTab === 5 ? 'active' : ''} >
-
-                address
+              <li id="tab_5" className={activeTab === 5 ? 'active' : ''} onClick={() => handleTabClick(5)}>
+                Address
               </li>
-              
-              <li id="tab_6">
-                 
-                <span>confirm</span>
+              <li id="tab_6" className={activeTab === 6 ? 'active' : ''} onClick={() => handleTabClick(6)}>
+                Confirm
               </li>
             </ul>
           </div>

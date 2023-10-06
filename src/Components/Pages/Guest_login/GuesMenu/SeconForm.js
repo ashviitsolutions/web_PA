@@ -49,35 +49,13 @@ const PreviewImage = ({ attachments }) => {
 
 const SeconForm = ({ step, nextStep }) => {
     const [user, setUser] = useState([]);
-    const [priceservice , setPerice]=useState(0)
+    const [priceservice, setPerice] = useState(0)
+    const [selectedItems, setSelectedItems] = useState([]);
 
 
-    const handlePrice=(price)=>{
+    const handlePrice = (price) => {
         setPerice(price)
     }
-
-
-    const sliderRef = useRef(null);
-    const settings = {
-        dots: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 3, // Number of cards to show at once
-        slidesToScroll: 1,
-    };
-    const handleDotClick = (index) => {
-        if (sliderRef.current) {
-            sliderRef.current.slickGoTo(index);
-        }
-    };
-    
-
-    useEffect(() => {
-        // Check if the sliderRef is available and set the initial slide
-        if (sliderRef.current) {
-            sliderRef.current.slickGoTo(0);
-        }
-    }, []);
 
 
 
@@ -106,13 +84,26 @@ const SeconForm = ({ step, nextStep }) => {
     const selector = useSelector((state) => state.counter.formData);
     console.log("selector", selector);
 
-    const [service_id, setService_id] = useState()
+    const [service_id, setService_id] = useState();
     const [formData, setFormData] = useState({
-        service_id: service_id,
+        service_ids: "", // Initialize service_ids with an empty string or a default value
         gender: "",
         service_time: "",
     });
 
+    // Use useEffect to update formData.service_ids whenever service_id changes
+    useEffect(() => {
+        setFormData({
+            ...formData,
+            service_ids: service_id !== undefined ? service_id : "", // Update service_ids with the current value of service_id
+        });
+    }, [service_id]);
+
+    const handleId = (id) => {
+        setService_id(id);
+    };
+
+    // alert(formData.service_ids)
     // State to track the clicked gender and service time
     const [selectedGender, setSelectedGender] = useState("");
     const [selectedServiceTime, setSelectedServiceTime] = useState("");
@@ -129,10 +120,6 @@ const SeconForm = ({ step, nextStep }) => {
     };
 
 
-    const handleId = (id) => {
-        setService_id(id)
-    }
-
 
 
 
@@ -147,68 +134,64 @@ const SeconForm = ({ step, nextStep }) => {
         setSelectedServiceTime(selectedTime); // Set the selected service time
     };
 
-    const [selectedCards, setSelectedCards] = useState([]);
-    const [totalPrice, setTotalPrice] = useState(0);
-    
-    // ...
-  
-    // Function to handle card selection
-    const handleCardSelection = (card) => {
-      // Check if the card is already selected
-      const isSelected = selectedCards.includes(card);
-      
-      // Create a new array with selected cards
-      const newSelectedCards = isSelected
-        ? selectedCards.filter((selectedCard) => selectedCard !== card)
-        : [...selectedCards, card];
-      
-      // Calculate the total price based on selected cards
-      const newTotalPrice = newSelectedCards.reduce((acc, cur) => {
-        const selectedCard = user.find((filter) => filter._id === cur);
-        return acc + selectedCard.price;
-      }, 0);
-      
-      // Update the state
-      setSelectedCards(newSelectedCards);
-      setTotalPrice(newTotalPrice);
+
+
+
+
+    const toggleSelection = (itemId) => {
+        if (selectedItems.includes(itemId)) {
+            // Item is already selected, so unselect it
+            setSelectedItems(selectedItems.filter((item) => item !== itemId));
+        } else {
+            // Item is not selected, so select it
+            setSelectedItems([...selectedItems, itemId]);
+        }
     };
-  
+
+
+
+
     return (
         <div id="sec_wiz_2" className="section">
             <div id="page_service_select">
-                <span className="title">Select Service &amp; Addons</span>
+                <span className="title">Select Service</span>
                 <div className="content" style={{ padding: "0 25px" }}>
                     <div id="service_collection" className="product_collector big">
                         <div id="select_service_carousel" className="owl-carousel owl-theme products">
-                           {/* <Slider {...settings} ref={sliderRef}> */}
-                                {
-                                    user.map((cur, index) => {
-                                        return (
-                                            <div className="item_wrapper" key={index} onClick={() => handlePrice(cur.price)}>
-                                                <div className={`item ${service_id === `${cur._id}` ? "selected" : ""}`} onClick={() => handleId(cur._id)}  >
-                                                    <div className="bg" style={{ width: "100%", height: "20vh", backgroundSize: "cover" }}>
-                                                        <PreviewImage attachments={cur.attachments} />
-                                                    </div>
-                                                    <div className="content">
-                                                        <span className="title">{cur.title}</span>
-                                                        <p className="excerpt" dangerouslySetInnerHTML={{ __html: cur.description.slice(0, 50) }} />
+
+                            {
+                                user.filter((filter) => filter.category === "on demand").map((cur, index) => {
+                                    return (
+                                        <div className="item_wrapper" key={index}  onClick={() => handlePrice(cur.price)}>
+                                            <div className={`item ${service_id === `${cur._id}` ? "selected" : ""}`} onClick={() => handleId(cur._id)}  >
+                                                <div className="bg" style={{ width: "100%", height: "20vh", backgroundSize: "cover" }}>
+                                                    <PreviewImage attachments={cur.attachments} />
+                                                </div>
+                                                <div className="content" >
+                                                    <span className="title">{cur.title}</span>
+                                                    <p className="excerpt" dangerouslySetInnerHTML={{ __html: cur.description.slice(0, 50) }} />
 
 
 
 
-                                                        <span className="rates">
-                                                            <i></i> <span className="coloreds"></span>  <b>${cur.price}</b>
-                                                        </span>
-                                                    </div>
+                                                    <span className="rates">
+                                                        <i></i> <span className="coloreds"></span>  <b>${cur.price}</b>
+                                                    </span>
                                                 </div>
                                             </div>
-                                        );
-                                    })
-                                }
-                          {/* <Slider> */}
-                            <div className="gen_heading" style={{marginBottom:"20px"}}></div>
-                            
+                                        </div>
+                                    );
+                                })
+                            }
+
+                            <div className="gen_heading" style={{ marginBottom: "20px" }}></div>
+
                         </div>
+
+
+
+
+
                     </div>
                     <div className="gen_heading">
                         <h3>Gender Preference</h3>
@@ -262,31 +245,36 @@ const SeconForm = ({ step, nextStep }) => {
                             90 min
                         </li>
                     </ul>
-                    <div className="gen_heading">
-                        <h3>Popular options to consider</h3>
-                    </div>
 
+
+
+
+
+
+                    <div className="gen_heading">
+                        <h3>Popular to consider</h3>
+                    </div>
                     <div className="product_collector">
                         <div id="addons_carousel" className="owl-carousel owl-theme products">
-                        {
-                            user.filter((filter) => filter.category ==="addons").map((cur, index) => {
-                                return (
-                                    <div className="item_wrapper" key={index} onClick={() => handleDotClick(index)}>
-                                        <div className={`item ${service_id === `${cur._id}` ? "selected" : ""}`} onClick={() => handleId(cur._id)}  >
-                                            <div className="bg" style={{ width: "100%", height: "22vh", backgroundSize: "cover" }}>
-                                                <PreviewImage attachments={cur.attachments} />
-                                            </div>
-                                            <div className="content">
-                                                <span className="title">{cur.title}</span>
-                                                <span className="rates">
-                                                    <i></i> <span className="coloreds"></span> <b>${cur.price}</b>
-                                                </span>
+                            {
+                                user.filter((filter) => filter.category === "addons").map((cur, index) => {
+                                    return (
+                                        <div className="item_wrapper" key={index} >
+                                            <div className={`item ${service_id === `${cur._id}` ? "selected" : ""}`} onClick={() => handlePrice(cur.price)}>
+                                                <div className="bg" style={{ width: "100%", height: "22vh", backgroundSize: "cover" }} onClick={() => toggleSelection(cur.id)}>
+                                                    <PreviewImage attachments={cur.attachments} />
+                                                </div>
+                                                <div className="content">
+                                                    <span className="title">{cur.title}</span>
+                                                    <span className="rates">
+                                                        <i></i> <span className="coloreds"></span> <b>${cur.price}</b>
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                );
-                            })
-                        }
+                                    );
+                                })
+                            }
                         </div>
                     </div>
                     <p>Total Price: ${priceservice}</p>

@@ -30,7 +30,7 @@ function Location() {
 
 
     setTimeout(() => {
-      nav("/select_location_type");
+      nav("/book");
 
     }, 2000)
   };

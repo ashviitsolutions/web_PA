@@ -3834,6 +3834,7 @@ ul.true li::after {
   position: relative;
   display: block;
   margin: 50px 0px;
+  padding: 0;
 }
 
 #faq_page .faq {}
