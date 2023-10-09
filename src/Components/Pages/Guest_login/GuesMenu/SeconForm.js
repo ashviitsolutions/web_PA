@@ -225,24 +225,24 @@ const SeconForm = ({ step, nextStep }) => {
                     <ul className="time_options">
                         <li
                             id="min_45"
-                            className={`time_option ${selectedServiceTime === "60 min" ? "selected" : "#000"}`}
-                            onClick={() => handleServiceTimeSelect("60 min")}
+                            className={`time_option ${selectedServiceTime === "60min" ? "selected" : "#000"}`}
+                            onClick={() => handleServiceTimeSelect("60min")}
                         >
                             60 min
                         </li>
                         <li
                             id="min_60"
-                            className={`time_option ${selectedServiceTime === "80 min" ? "selected" : ""}`}
-                            onClick={() => handleServiceTimeSelect("80 min")}
+                            className={`time_option ${selectedServiceTime === "90min" ? "selected" : ""}`}
+                            onClick={() => handleServiceTimeSelect("90min")}
                         >
-                            80 min
+                            90 min
                         </li>
                         <li
                             id="min_90"
-                            className={`time_option ${selectedServiceTime === "90 min" ? "selected" : ""}`}
-                            onClick={() => handleServiceTimeSelect("90 min")}
+                            className={`time_option ${selectedServiceTime === "120min" ? "selected" : ""}`}
+                            onClick={() => handleServiceTimeSelect("120min")}
                         >
-                            90 min
+                            120 min
                         </li>
                     </ul>
 

@@ -11,6 +11,7 @@ const FifthForm = ({ step, nextStep }) => {
   console.log("all data", formData);
   const useremail = localStorage.getItem("user_email")
   const username = localStorage.getItem("user_name")
+  const userid = localStorage.getItem("userid")
   const token = localStorage.getItem("token")
   // Check if the necessary form data exists before accessing its properties
   const location = formData.locationForm && formData.locationForm[0] ? formData.locationForm[0] : "";
@@ -39,13 +40,13 @@ const FifthForm = ({ step, nextStep }) => {
 
 
 
-console.log("massage_for" ,location)
+  console.log("massage_for", location)
 
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     if (password !== confirmpassword) {
       setError(true);
     } else {
@@ -53,6 +54,12 @@ console.log("massage_for" ,location)
         const formData = new FormData();
 
         // Append data from the Redux state to the FormData object
+        {
+          userid && (
+            formData.append("user", userid)
+
+          )
+        }
         formData.append("location", location);
         formData.append("location_type", location_type);
         formData.append("massage_for", massage_for);
@@ -66,7 +73,7 @@ console.log("massage_for" ,location)
         formData.append("massage_pressure", massage_pressure);
         formData.append("scheduled_date", scheduled_date);
         formData.append("scheduled_timing", scheduled_timing);
-  
+
         // Append address, email, and arrival instructions to FormData
         formData.append("address", address);
         formData.append("email", email);
@@ -82,13 +89,13 @@ console.log("massage_for" ,location)
             Authorization: token,
           },
         };
-  
+
         const res = await axios.post(url, formData, config);
 
-        console.log("api details redux" ,res)
-  
+        console.log("api details redux", res)
+
         const userId = res.data.ref;
-  
+
         // Navigate to the next page with the extracted ID
         nav(`/book/${userId}`);
         console.log("Response:", res);
@@ -98,7 +105,7 @@ console.log("massage_for" ,location)
       }
     }
   };
-  
+
 
 
 

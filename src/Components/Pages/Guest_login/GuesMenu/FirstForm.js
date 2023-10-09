@@ -47,7 +47,7 @@ const FirstForm = ({ step, nextStep }) => {
                         Who Is it For ?
                     </label>
                     <ul className="review option" style={{ display: "flex" }} id="review_option">
-                        <li onClick={() => handleSubmit('just me')}>
+                        <li onClick={() => handleSubmit('myself')}>
                             <span
                                 className="icon"
                                 style={{
@@ -56,7 +56,7 @@ const FirstForm = ({ step, nextStep }) => {
                             ></span>
                             just me
                         </li>
-                        <li onClick={() => handleSubmit('Duo')}>
+                        <li onClick={() => handleSubmit('guest')}>
                             <span
                                 className="icon"
                                 style={{
@@ -65,7 +65,7 @@ const FirstForm = ({ step, nextStep }) => {
                             ></span>
                             Duo
                         </li>
-                        <li onClick={() => handleSubmit('Something Else')}>
+                        <li onClick={() => handleSubmit('partners(couple)')}>
                             <span
                                 className="icon"
                                 style={{

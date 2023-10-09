@@ -52,12 +52,13 @@ function Login() {
             console.log(resp)
             const token = resp.headers.get('Authorization');
             const result = await resp.json();
-            console.log(result)
+            console.log("result" ,result)
 
 
 
             if (resp.status === 200) {
                 localStorage.setItem("users", JSON.stringify(result));
+                localStorage.setItem("userid", result?.user_info?._id);
                 localStorage.setItem("token", token);
                 nav("/userProfile")
             } else {
