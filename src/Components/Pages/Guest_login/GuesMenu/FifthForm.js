@@ -13,9 +13,9 @@ const FifthForm = ({ step, nextStep }) => {
   const username = localStorage.getItem("user_name")
   const token = localStorage.getItem("token")
   // Check if the necessary form data exists before accessing its properties
-  const location = formData.locationForm && formData.locationForm[0] ? formData.locationForm[0].location : "";
+  const location = formData.locationForm && formData.locationForm[0] ? formData.locationForm[0] : "";
   const location_type = formData.location && formData.location[0] ? formData.location[0].location_type : "";
-  const massage_for = formData.firstForm && formData.firstForm[0] ? formData.firstForm[0].massage_for : "";
+  // const massage_for = formData.firstForm && formData.firstForm[0] ? formData.firstForm[0].massage_for : "";
   const gender = formData.secondform && formData.secondform[0] ? formData.secondform[0].gender : "";
   const service_id = formData.secondform && formData.secondform[0] ? formData.secondform[0].service_ids : "";
   const service_time = formData.secondform && formData.secondform[0] ? formData.secondform[0].service_time : "";
@@ -27,6 +27,7 @@ const FifthForm = ({ step, nextStep }) => {
   const scheduled_date = formData.fourthform && formData.fourthform[0] ? formData.fourthform[0].date : "";
   const scheduled_timing = formData.fourthform && formData.fourthform[0] ? formData.fourthform[0].time : "";
 
+  const massage_for = formData?.firstForm[0]
   const nav = useNavigate();
   const [address, setAddress] = useState("");
   const [email, setEmail] = useState(useremail);
@@ -38,66 +39,74 @@ const FifthForm = ({ step, nextStep }) => {
 
 
 
-
+console.log("massage_for" ,location)
 
 
 
   const handleSubmit = async (e) => {
+    e.preventDefault();
+  
     if (password !== confirmpassword) {
-      setError(true)
-    }
-    e.preventDefault(); // Corrected the typo
+      setError(true);
+    } else {
+      try {
+        const formData = new FormData();
 
-    try {
-      // Create a new FormData object
-      const formData = new FormData();
+        // Append data from the Redux state to the FormData object
+        formData.append("location", location);
+        formData.append("location_type", location_type);
+        formData.append("massage_for", massage_for);
+        formData.append("service_id", service_id);
+        formData.append("gender", gender);
+        formData.append("service_time", service_time);
+        formData.append("areas_of_concern", areas_of_concern);
+        formData.append("special_considerations", special_considerations);
+        formData.append("health_conditions", health_conditions);
+        formData.append("massage_body_part", massage_body_part);
+        formData.append("massage_pressure", massage_pressure);
+        formData.append("scheduled_date", scheduled_date);
+        formData.append("scheduled_timing", scheduled_timing);
+  
+        // Append address, email, and arrival instructions to FormData
+        formData.append("address", address);
+        formData.append("email", email);
+        formData.append("name", name);
+        formData.append("arrival_instructions", arrivalInstructions);
+        formData.append("password", password);
+        formData.append("confirm_password", confirmpassword);
+        const token = localStorage.getItem("token");
+        const url = "http://45.13.132.197:5000/api/user/service_book";
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        };
+  
+        const res = await axios.post(url, formData, config);
 
-      // Append data from the Redux state to the FormData object
-      formData.append("location", location);
-      formData.append("location_type", location_type);
-      formData.append("massage_for", massage_for);
-      formData.append("service_id", service_id);
-      formData.append("gender", gender);
-      formData.append("service_time", service_time);
-      formData.append("areas_of_concern", areas_of_concern);
-      formData.append("special_considerations", special_considerations);
-      formData.append("health_conditions", health_conditions);
-      formData.append("massage_body_part", massage_body_part);
-      formData.append("massage_pressure", massage_pressure);
-      formData.append("scheduled_date", scheduled_date);
-      formData.append("scheduled_timing", scheduled_timing);
-
-      // Append address, email, and arrival instructions to FormData
-      formData.append("address", address);
-      formData.append("email", email);
-      formData.append("name", name);
-      formData.append("arrival_instructions", arrivalInstructions);
-      formData.append("password", password);
-      formData.append("confirmpassword", confirmpassword);
-
-      // Make an API request to create a post with the form data
-      const token = localStorage.getItem("token");
-      const url = "http://45.13.132.197:5000/api/user/service_book";
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token,
-        },
-      };
-
-      const res = await axios.post(url, formData, config);
-      // console.log("submit:", "res");
-
-      const userId = res.data.ref;
-
-      // Navigate to the next page with the extracted ID
-      nav(`/book/${userId}`);
-      console.log("Response:", res);
-    } catch (error) {
-      console.error("Error:", error);
-      // Handle the error, e.g., show an error message to the user
+        console.log("api details redux" ,res)
+  
+        const userId = res.data.ref;
+  
+        // Navigate to the next page with the extracted ID
+        nav(`/book/${userId}`);
+        console.log("Response:", res);
+      } catch (error) {
+        console.error("Error:", error);
+        // Handle the error, e.g., show an error message to the user
+      }
     }
   };
+  
+
+
+
+
+
+
+
+
 
 
 
@@ -155,7 +164,7 @@ const FifthForm = ({ step, nextStep }) => {
             />
           </div>
           {
-            token && (
+            !token && (
               <>
                 <div className="form-group">
                   <label htmlFor="password">Password:</label>
@@ -163,7 +172,6 @@ const FifthForm = ({ step, nextStep }) => {
                     type="password"
                     name="password"
                     onChange={(e) => setPassword(e.target.value)}
-
                     required
                   />
                 </div>

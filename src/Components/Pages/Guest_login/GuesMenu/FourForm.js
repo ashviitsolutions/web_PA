@@ -54,7 +54,7 @@ const FourForm = ({ nextStep }) => {
             onChange={(e) => setSelectedTime(e.target.value)}
           >
             <option value="">Select Time</option>
-            <option value="8:00 am">8:00 am</option>
+            <option value="8:00 pm">8:00 pm</option>
             <option value="9:00 am">9:00 am</option>
             <option value="10:00 am">10:00 am</option>
             <option value="8:00 am">11:00 am</option>

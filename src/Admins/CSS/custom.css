@@ -8,13 +8,16 @@
     background: linear-gradient(45deg, #2196f3, #00bcd4);
     border: none;
     color: #fff;
+    float: left;
 }
+
 .button.small {
     font-size: 10px;
     padding: 1.6em 2.5em;
 }
+
 .card.padded {
-    padding: 15px;                       
+    padding: 15px;
     overflow: visible;
 }
 
@@ -84,6 +87,7 @@
 #login .heading {
     padding-left: 0;
 }
+
 /* 
 #footer {
     position: relative;
@@ -257,7 +261,7 @@
 } */
 
 #content {
-    position: relative;                  
+    position: relative;
     display: block;
     padding: 0px 10px;
     left: 200px;
@@ -791,14 +795,15 @@ tbody .bg {
     font-weight: 400;
     letter-spacing: 1px;
     color: #6d6d6d;
-    padding-left: 10px;
-    padding-top: 10px;
+    /* padding-left: 10px; */
+    /* padding-top: 10px; */
     margin: 0;
-    padding-right: 40px;
+    /* padding-right: 40px; */
     white-space: nowrap;
     overflow: hidden;
     width: 100%;
     text-overflow: ellipsis;
+    text-align: start;
 }
 
 .ck.ck-editor__main>.ck-editor__editable {
@@ -993,7 +998,7 @@ tbody .bg {
     margin-bottom: 25px;
 }
 
-#header{
+#header {
     position: relative;
     display: block;
     width: 100%;
@@ -1001,7 +1006,6 @@ tbody .bg {
     background-color: #000;
 }
 
-.toggle_sidebar{
+.toggle_sidebar {
     display: none;
 }
-
