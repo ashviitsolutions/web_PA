@@ -49,13 +49,10 @@ const PreviewImage = ({ attachments }) => {
 
 const SeconForm = ({ step, nextStep }) => {
     const [user, setUser] = useState([]);
-    const [priceservice, setPerice] = useState(0)
+    // const [priceservice, setPerice] = useState(0)
+    // const [priceadon, setPriceadon] = useState(0)
     const [selectedItems, setSelectedItems] = useState([]);
 
-
-    const handlePrice = (price) => {
-        setPerice(price)
-    }
 
 
 
@@ -85,10 +82,17 @@ const SeconForm = ({ step, nextStep }) => {
     console.log("selector", selector);
 
     const [service_id, setService_id] = useState();
+    const [serviceid_adon, setServiceid_adon] = useState();
+    const [priceservice, setPerice] = useState(0);
+    const [priceadon, setPriceadon] = useState(0);
+    const [totalPrice, setTotalPrice] = useState(0);
     const [formData, setFormData] = useState({
         service_ids: "", // Initialize service_ids with an empty string or a default value
         gender: "",
         service_time: "",
+        serviceid_adon: "",
+        serviceid_adon: "",
+        totalPrice: ""
     });
 
     // Use useEffect to update formData.service_ids whenever service_id changes
@@ -102,6 +106,48 @@ const SeconForm = ({ step, nextStep }) => {
     const handleId = (id) => {
         setService_id(id);
     };
+
+
+
+    const handlePrice = (price) => {
+        setPerice(price);
+    }
+
+    const handleAdonPrice = (adonprice) => {
+        setPriceadon((prevPrice) => prevPrice + adonprice);
+    }
+
+    useEffect(() => {
+        // Calculate the total price by adding priceservice and priceadon
+        const total = priceservice + priceadon;
+
+        // Set the total price in the state
+        setTotalPrice(total);
+
+        // You can also format the total price as a string if needed
+        // setTotalPrice(`${total}`);
+    }, [priceservice, priceadon]);
+
+
+    //adon id
+    // Use useEffect to update formData.service_ids whenever service_id changes
+    useEffect(() => {
+        setFormData({
+            ...formData,
+            serviceid_adon: serviceid_adon !== undefined ? serviceid_adon : "", // Update service_ids with the current value of service_id
+        });
+    }, [serviceid_adon]);
+
+    const handleAdonId = (adonid) => {
+        setServiceid_adon(adonid);
+    };
+
+
+
+
+
+
+
 
     // alert(formData.service_ids)
     // State to track the clicked gender and service time
@@ -119,11 +165,6 @@ const SeconForm = ({ step, nextStep }) => {
         }, 2000)
     };
 
-
-
-
-
-
     const handleGenderSelect = (selectedGenderValue) => {
         setFormData({ ...formData, gender: selectedGenderValue });
         setSelectedGender(selectedGenderValue); // Set the selected gender
@@ -138,15 +179,7 @@ const SeconForm = ({ step, nextStep }) => {
 
 
 
-    const toggleSelection = (itemId) => {
-        if (selectedItems.includes(itemId)) {
-            // Item is already selected, so unselect it
-            setSelectedItems(selectedItems.filter((item) => item !== itemId));
-        } else {
-            // Item is not selected, so select it
-            setSelectedItems([...selectedItems, itemId]);
-        }
-    };
+
 
 
 
@@ -162,7 +195,7 @@ const SeconForm = ({ step, nextStep }) => {
                             {
                                 user.filter((filter) => filter.category === "on demand").map((cur, index) => {
                                     return (
-                                        <div className="item_wrapper" key={index}  onClick={() => handlePrice(cur.price)}>
+                                        <div className="item_wrapper" key={index} onClick={() => handlePrice(cur.price)}>
                                             <div className={`item ${service_id === `${cur._id}` ? "selected" : ""}`} onClick={() => handleId(cur._id)}  >
                                                 <div className="bg" style={{ width: "100%", height: "20vh", backgroundSize: "cover" }}>
                                                     <PreviewImage attachments={cur.attachments} />
@@ -260,8 +293,8 @@ const SeconForm = ({ step, nextStep }) => {
                                 user.filter((filter) => filter.category === "addons").map((cur, index) => {
                                     return (
                                         <div className="item_wrapper" key={index} >
-                                            <div className={`item ${service_id === `${cur._id}` ? "selected" : ""}`} onClick={() => handlePrice(cur.price)}>
-                                                <div className="bg" style={{ width: "100%", height: "22vh", backgroundSize: "cover" }} onClick={() => toggleSelection(cur.id)}>
+                                            <div className={`item ${serviceid_adon === `${cur._id}` ? "selected" : ""}`} onClick={() => handleAdonId(cur._id)}  >
+                                                <div className="bg" style={{ width: "100%", height: "22vh", backgroundSize: "cover" }} onClick={() => handleAdonPrice(cur.price)}>
                                                     <PreviewImage attachments={cur.attachments} />
                                                 </div>
                                                 <div className="content">
@@ -277,7 +310,7 @@ const SeconForm = ({ step, nextStep }) => {
                             }
                         </div>
                     </div>
-                    <p>Total Price: ${priceservice}</p>
+                    <p>Total Price: ${totalPrice}</p>
                     <button className="button lazy" type="submit" onClick={handleSubmit}>next</button>
                 </div>
             </div>

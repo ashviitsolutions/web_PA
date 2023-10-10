@@ -9,7 +9,7 @@ function Logout() {
     nav("/")
   }
   return (
-    <div>Logout</div>
+    <div onClick={handleLogout}>Logout</div>
   )
 }
 

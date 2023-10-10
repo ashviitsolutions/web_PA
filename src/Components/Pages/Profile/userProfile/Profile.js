@@ -180,7 +180,7 @@ const Book = () => {
             boxShadow: "4px 4px 4px 0px lightgray", // Correct syntax
           }}
           className='profileiconimage'
-          onClick={() => nav("/select_location")}
+          onClick={() => nav("/guest_login")}
         />
       </div>
       {/* Toggle button for mobile view */}
