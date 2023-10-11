@@ -1,162 +1,263 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import "./style.css";
-import postServices from "../Services/postServices";
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
+import { updateInputData } from '../../Redux/counterSlice';
+import { IP } from "../../../../Constant";
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import { useRef } from "react";
 
-const image1 = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14009.804601388554!2d77.38583598519591!3d28.616237787899024!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cefbfc0af6e6f%3A0xf1bb1ef79e931eea!2sYusufpur%20Chak%20Saberi%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1661391086520!5m2!1sen!2sin";
+const PreviewImage = ({ attachments }) => {
+    const [imageObjectURL, setImageObjectURL] = useState(null);
 
-const FifthForm = ({ step, nextStep }) => {
-  const formData = useSelector((state) => state.counter.formData);
-  console.log("all data", formData);
-  const useremail = localStorage.getItem("user_email")
-  // Check if the necessary form data exists before accessing its properties
-  const location = formData.locationForm && formData.locationForm[0] ? formData.locationForm[0].location : "";
-  const location_type = formData.location && formData.location[0] ? formData.location[0].location_type : "";
-  const massage_for = formData.firstForm && formData.firstForm[0] ? formData.firstForm[0].massage_for : "";
-  const gender = formData.secondform && formData.secondform[0] ? formData.secondform[0].gender : "";
-  const service_id = formData.secondform && formData.secondform[0] ? formData.secondform[0].service_id : "";
-  const service_time = formData.secondform && formData.secondform[0] ? formData.secondform[0].service_time : "";
-  const areas_of_concern = formData.thirdform && formData.thirdform[0] ? formData.thirdform[0].areas_of_concern : "";
-  const health_conditions = formData.thirdform && formData.thirdform[0] ? formData.thirdform[0].health_conditions : "";
-  const massage_body_part = formData.thirdform && formData.thirdform[0] ? formData.thirdform[0].massage_body_part : "";
-  const massage_pressure = formData.thirdform && formData.thirdform[0] ? formData.thirdform[0].massage_pressure : "";
-  const special_considerations = formData.thirdform && formData.thirdform[0] ? formData.thirdform[0].special_considerations : "";
-  const scheduled_date = formData.fourthform && formData.fourthform[0] ? formData.fourthform[0].date : "";
-  const scheduled_timing = formData.fourthform && formData.fourthform[0] ? formData.fourthform[0].time : "";
+    useEffect(() => {
+        const fetchImage = async () => {
+            const res = await fetch(`${IP}/file/${attachments}`);
+            const imageBlob = await res.blob();
+            const objectURL = URL.createObjectURL(imageBlob);
+            setImageObjectURL(objectURL);
+        };
 
-  const nav = useNavigate();
-  const [address, setAddress] = useState("");
-  const [email, setEmail] = useState(useremail);
-  const [arrivalInstructions, setArrivalInstructions] = useState("");
+        fetchImage();
+    }, [attachments]);
 
-  const totalPayment=formData
-
-  const handleSubmit = async () => {
-    try {
-      // Create a new FormData object
-      const formData = new FormData();
-      
-      // Append data from the Redux state to the FormData object
-      formData.append("location", location);
-      formData.append("location_type", location_type);
-      formData.append("massage_for", massage_for);
-      formData.append("service_id", service_id);
-      formData.append("gender", gender);
-      formData.append("service_time", service_time);
-      formData.append("areas_of_concern", areas_of_concern);
-      formData.append("special_considerations", special_considerations);
-      formData.append("health_conditions", health_conditions);
-      formData.append("massage_body_part", massage_body_part);
-      formData.append("massage_pressure", massage_pressure);
-      formData.append("scheduled_date", scheduled_date);
-      formData.append("scheduled_timing", scheduled_timing);
-      
-      // Append address, email, and arrival instructions to FormData
-      formData.append("address", address);
-      formData.append("email", email);
-      formData.append("arrival_instructions", arrivalInstructions);
-
-      // Make an API request to create a post with the form data
-      const res = await postServices.createPost(formData);
-      // console.log("submit:", "res");
-
-      const userId = res.data.ref;
-
-      // Navigate to the next page with the extracted ID
-      nav(`/book/${userId}`);
-      console.log("Response:", res);
-    } catch (error) {
-      console.error("Error:", error);
-      // Handle the error, e.g., show an error message to the user
-    }
-  };
-
-  return (
-    <>
-      <div id="sec_wiz_5" className="section">
-        <div id="employees" style={{ textAlign: "center" }}>
-          <label
-            style={{ textAlign: "center", fontSize: "18px" }}
-            className="as_title"
-            htmlFor=""
-          >
-            address details
-          </label>
-          <div className="container-fluid">
-            <div className="row">
-              <div className="col-sm-7">
-                <div className="inner">
-                  <div className="map">
-                    <iframe
-                      src={image1}
-                      style={{ border: 0, height: "360px" }}
-                      allowFullScreen=""
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
-                    ></iframe>
-                  </div>
-                </div>
-              </div>
-              <div className="col-sm-5">
-                <div className="inner">
-                  <h3 style={{ fontSize: "18px" }}>24000 EL Toro Road</h3>
-                  <p style={{ fontSize: "18px" }}>Laguna Woods, CA 92653</p>
-                </div>
-                <div className="inner">
-                  <label htmlFor="" style={{ fontSize: "18px" }}>
-                    Apt / Suite / Hotel Name &amp; room
-                  </label>
-                  <input
-                    className="input"
-                    type="text"
-                    name=""
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)} // Update address state
-                  />
-                </div>
-                <div className="inner">
-                  <label htmlFor="" style={{ fontSize: "18px" }}>
-                    Email
-                  </label>
-                  <input
-                    className="input"
-                    type="email"
-                    name=""
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)} // Update email state
-                  />
-                </div>
-                <div className="inner">
-                  <label htmlFor="" style={{ fontSize: "18px" }}>
-                    Arrival Instructions
-                  </label>
-                  <textarea
-                    className="input"
-                    name="name"
-                    rows="5"
-                    value={arrivalInstructions}
-                    onChange={(e) =>
-                      setArrivalInstructions(e.target.value) // Update arrivalInstructions state
-                    }
-                  ></textarea>
-                </div>
-                <div className="inner" style={{ fontSize: "18px" }}></div>
-              </div>
-              <p>Total Price: $100</p>
-              <button
-                className="button"
-                type="submit"
-                onClick={handleSubmit}
-              >
-                review
-              </button>
-            </div>
-          </div>
+    return (
+        <div style={{ width: "18vw", height: "22vh", backgroundSize: "cover" }} >
+            {imageObjectURL && <img src={imageObjectURL} alt="Preview" className="previewimage" />}
         </div>
-      </div>
-    </>
-  );
+    );
 };
 
-export default FifthForm;
+const SecondForm = ({ step, nextStep }) => {
+    const [user, setUser] = useState([]);
+    const [selectedItems, setSelectedItems] = useState([]);
+    const [priceservice, setPerice] = useState(0);
+    const [priceadon, setPriceadon] = useState(0);
+    const [totalPrice, setTotalPrice] = useState(0);
+    const [formData, setFormData] = useState({
+        service_ids: "", // Initialize service_ids with an empty string or a default value
+        gender: "",
+        service_time: "",
+        serviceid_adon: "",
+        totalPrice: ""
+    });
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const res = await fetch(`${IP}/service/view-services`);
+                const data = await res.json();
+                setUser(data);
+
+                console.log("get data", data)
+            } catch (error) {
+                console.error("Error fetching data", error);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    const dispatch = useDispatch();
+    const selector = useSelector((state) => state.counter.formData);
+    console.log("selector", selector);
+
+    const [service_id, setService_id] = useState();
+    const [serviceid_adon, setServiceid_adon] = useState();
+
+    const handleId = (id) => {
+        setService_id(id);
+    };
+
+    const handlePrice = (price) => {
+        setPerice(price);
+    };
+
+    const handleAdonPrice = (adonprice) => {
+        setPriceadon((prevPrice) => prevPrice + adonprice);
+    };
+
+    useEffect(() => {
+        // Calculate the total price by adding priceservice and priceadon
+        const total = priceservice + priceadon;
+
+        // Set the total price in the state
+        setTotalPrice(total);
+
+        // You can also format the total price as a string if needed
+        // setTotalPrice(`${total}`);
+    }, [priceservice, priceadon]);
+
+    useEffect(() => {
+        setFormData({
+            ...formData,
+            service_ids: service_id !== undefined ? service_id : "",
+        });
+    }, [service_id]);
+
+    const handleAdonId = (adonid) => {
+        setServiceid_adon(adonid);
+    };
+
+    const handleSubmit = async () => {
+        const selectedServiceIds = selectedItems.join(',');
+
+        setFormData({
+            ...formData,
+            service_ids: selectedServiceIds,
+            totalPrice: totalPrice
+        });
+        
+        dispatch(updateInputData({ formName: 'secondform', inputData: formData }));
+        dispatch(updateInputData({ formName: 'totalPrice', inputData: formData }));
+
+        setTimeout(() => {
+            nextStep();
+        }, 2000);
+    };
+
+    const handleGenderSelect = (selectedGenderValue) => {
+        setFormData({ ...formData, gender: selectedGenderValue });
+    };
+
+    const handleServiceTimeSelect = (selectedTime) => {
+        setFormData({ ...formData, service_time: selectedTime });
+    };
+
+    const handleSelectItem = (itemId) => {
+        const itemIndex = selectedItems.indexOf(itemId);
+
+        if (itemIndex === -1) {
+            setSelectedItems([...selectedItems, itemId]);
+            const selectedItem = user.find(item => item._id === itemId);
+            if (selectedItem) {
+                setPerice(prevPrice => prevPrice + selectedItem.price);
+            }
+        } else {
+            const updatedItems = selectedItems.filter(id => id !== itemId);
+            setSelectedItems(updatedItems);
+            const selectedItem = user.find(item => item._id === itemId);
+            if (selectedItem) {
+                setPerice(prevPrice => prevPrice - selectedItem.price);
+            }
+        }
+    };
+
+    return (
+        <div id="sec_wiz_2" className="section">
+            <div id="page_service_select">
+                <span className="title">Select Service</span>
+                <div className="content" style={{ padding: "0 25px" }}>
+                    <div id="service_collection" className="product_collector big">
+                        <div id="select_service_carousel" className="owl-carousel owl-theme products">
+                            {
+                                user.filter((filter) => filter.category === "on demand").map((cur, index) => {
+                                    return (
+                                        <div className="item_wrapper" key={index} onClick={() => handlePrice(cur.price)}>
+                                            <div className={`item ${service_id === `${cur._id}` ? "selected" : ""}`} onClick={() => handleId(cur._id)}  >
+                                                <div className="bg" style={{ width: "100%", height: "20vh", backgroundSize: "cover" }}>
+                                                    <PreviewImage attachments={cur.attachments} />
+                                                </div>
+                                                <div className="content" >
+                                                    <span className="title">{cur.title}</span>
+                                                    <p className="excerpt" dangerouslySetInnerHTML={{ __html: cur.description.slice(0, 50) }} />
+                                                    <span className="rates">
+                                                        <i></i> <span className="coloreds"></span>  <b>${cur.price}</b>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    );
+                                })
+                            }
+                            <div className="gen_heading" style={{ marginBottom: "20px" }}></div>
+                        </div>
+                    </div>
+                    <div className="gen_heading">
+                        <h3>Gender Preference</h3>
+                    </div>
+                    <ul className="time_options">
+                        <li
+                            id="g_male"
+                            className={`gender time_option ${formData.gender === "Male" ? "selected" : ""}`}
+                            onClick={() => handleGenderSelect("Male")}
+                        >
+                            Male
+                        </li>
+                        <li
+                            id="g_female"
+                            className={`gender time_option ${formData.gender === "Female" ? "selected" : ""}`}
+                            onClick={() => handleGenderSelect("Female")}
+                        >
+                            Female
+                        </li>
+                        <li
+                            id="g_either"
+                            className={`gender time_option ${formData.gender === "Either" ? "selected" : ""}`}
+                            onClick={() => handleGenderSelect("Either")}
+                        >
+                            Either
+                        </li>
+                    </ul>
+                    <div className="gen_heading">
+                        <h3>Select Time</h3>
+                    </div>
+                    <ul className="time_options">
+                        <li
+                            id="min_45"
+                            className={`time_option ${formData.service_time === "60min" ? "selected" : ""}`}
+                            onClick={() => handleServiceTimeSelect("60min")}
+                        >
+                            60 min
+                        </li>
+                        <li
+                            id="min_60"
+                            className={`time_option ${formData.service_time === "90min" ? "selected" : ""}`}
+                            onClick={() => handleServiceTimeSelect("90min")}
+                        >
+                            90 min
+                        </li>
+                        <li
+                            id="min_90"
+                            className={`time_option ${formData.service_time === "120min" ? "selected" : ""}`}
+                            onClick={() => handleServiceTimeSelect("120min")}
+                        >
+                            120 min
+                        </li>
+                    </ul>
+                    <div className="gen_heading">
+                        <h3>Popular to consider</h3>
+                    </div>
+                    <div className="product_collector">
+                        <div id="addons_carousel" className="owl-carousel owl-theme products">
+                            {
+                                user.filter((filter) => filter.category === "addons").map((cur, index) => {
+                                    return (
+                                        <div className="item_wrapper" key={index} >
+                                            <div className={`item ${selectedItems.includes(cur._id) ? "selected" : ""}`} onClick={() => handleSelectItem(cur._id)}  >
+                                                <div className="bg" style={{ width: "100%", height: "22vh", backgroundSize: "cover" }} onClick={() => handleAdonPrice(cur.price)}>
+                                                    <PreviewImage attachments={cur.attachments} />
+                                                </div>
+                                                <div className="content">
+                                                    <span className="title">{cur.title}</span>
+                                                    <span className="rates">
+                                                        <i></i> <span className="coloreds"></span> <b>${cur.price}</b>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    );
+                                })
+                            }
+                        </div>
+                    </div>
+                    <p>Total Price: ${totalPrice}</p>
+                    <button className="button lazy" type="submit" onClick={handleSubmit}>next</button>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+export default SecondForm;

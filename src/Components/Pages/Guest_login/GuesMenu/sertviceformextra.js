@@ -42,36 +42,122 @@ const PreviewImage = ({ attachments }) => {
 
 
 const SeconForm = ({ step, nextStep }) => {
-    //get value from Redux
+    const [selectedItems, setSelectedItems] = useState([]);
+    const [user, setUser] = useState([]);
+    // const [priceservice, setPerice] = useState(0)
+    // const [priceadon, setPriceadon] = useState(0)
+    // const [selectedItems, setSelectedItems] = useState([]);
+
+
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const res = await fetch(`${IP}/service/view-services`);
+                const data = await res.json();
+                setUser(data);
+
+                console.log("get data", data)
+            } catch (error) {
+            }
+        };
+
+        fetchData();
+    }, []);
+
+
+
+
+
+    // Redux uses
 
     const dispatch = useDispatch();
     const selector = useSelector((state) => state.counter.formData);
     console.log("selector", selector);
-    //End 
 
-    const [user, setUser] = useState([]);
-    const [selectedItems, setSelectedItems] = useState([]);
-    const [selectedGender, setSelectedGender] = useState("");
-    const [selectedServiceTime, setSelectedServiceTime] = useState("");
-    const [service_ids, setService_id] = useState();
-    // const [serviceid_adon, setServiceid_adon] = useState();
-    //price
+    const [service_id, setService_id] = useState();
+    const [serviceid_adon, setServiceid_adon] = useState();
     const [priceservice, setPerice] = useState(0);
     const [priceadon, setPriceadon] = useState(0);
     const [totalPrice, setTotalPrice] = useState(0);
-
     const [formData, setFormData] = useState({
         service_ids: "", // Initialize service_ids with an empty string or a default value
         gender: "",
         service_time: "",
-        selectedItems: "",
+        serviceid_adon: "",
+        serviceid_adon: "",
         totalPrice: ""
     });
 
+    // Use useEffect to update formData.service_ids whenever service_id changes
+    useEffect(() => {
+        setFormData({
+            ...formData,
+            service_ids: service_id !== undefined ? service_id : "", // Update service_ids with the current value of service_id
+        });
+    }, [service_id]);
+
+    const handleId = (id) => {
+        setService_id(id);
+    };
 
 
 
-    //gender slected
+    const handlePrice = (price) => {
+        setPerice(price);
+    }
+
+
+    useEffect(() => {
+        // Calculate the total price by adding priceservice and priceadon
+        const total = priceservice + priceadon;
+
+        // Set the total price in the state
+        setTotalPrice(total);
+
+        // You can also format the total price as a string if needed
+        // setTotalPrice(`${total}`);
+    }, [priceservice, priceadon]);
+
+
+    //adon id
+    // Use useEffect to update formData.service_ids whenever service_id changes
+    useEffect(() => {
+        setFormData({
+            ...formData,
+            serviceid_adon: serviceid_adon !== undefined ? serviceid_adon : "", // Update service_ids with the current value of service_id
+        });
+    }, [serviceid_adon]);
+
+    const handleAdonId = (adonid) => {
+        setServiceid_adon(adonid);
+    };
+
+
+
+
+
+
+
+
+    // alert(formData.service_ids)
+    // State to track the clicked gender and service time
+    const [selectedGender, setSelectedGender] = useState("");
+    const [selectedServiceTime, setSelectedServiceTime] = useState("");
+
+
+    const handleSubmit = async () => {
+        // Dispatch the JavaScript object  
+        dispatch(updateInputData({ formName: 'secondform', inputData: formData }));
+        // dispatch(updateInputData({ formName: 'totalPrice', inputData: formData }));
+        setTimeout(() => {
+            nextStep();
+
+
+        }, 2000)
+    };
+
     const handleGenderSelect = (selectedGenderValue) => {
         setFormData({ ...formData, gender: selectedGenderValue });
         setSelectedGender(selectedGenderValue); // Set the selected gender
@@ -83,23 +169,7 @@ const SeconForm = ({ step, nextStep }) => {
     };
 
 
-    //Get service id
-    // Inside the handleId function
-    const handleId = (id) => {
-        setService_id(id); // Update the service_id state with the selected ID
-        setFormData({ ...formData, service_ids: id }); // Also update the formData state if needed
-    };
 
-
-    //Sertvice price
-
-    const handlePrice = (price) => {
-        setPerice(price);
-    }
-
-
-
-    //Addon service id and prices
 
     const handleSelectItem = (itemId) => {
         const itemIndex = selectedItems.indexOf(itemId);
@@ -121,47 +191,7 @@ const SeconForm = ({ step, nextStep }) => {
     };
 
 
-   
 
-
-
-    //Total price calculate
-
-    useEffect(() => {
-        const total = priceservice + priceadon; // Calculate total price based on priceservice and priceadon
-        setTotalPrice(total); // Update the totalPrice state
-        setFormData({ ...formData, totalPrice: total }); // Update the formData state if needed
-    }, [priceservice, priceadon]);
-
-
-
-    //Dispatch the function or value
-
-    const handleSubmit = async () => {
-        dispatch(updateInputData({ formName: 'secondform', inputData: formData }));
-        setTimeout(() => {
-            nextStep();
-        }, 2000)
-    };
-
-
-
-    //Api calling
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const res = await fetch(`${IP}/service/view-services`);
-                const data = await res.json();
-                setUser(data);
-
-                console.log("get data", data)
-            } catch (error) {
-            }
-        };
-
-        fetchData();
-    }, []);
 
 
 
@@ -177,7 +207,7 @@ const SeconForm = ({ step, nextStep }) => {
                                 user.filter((filter) => filter.category === "on demand").map((cur, index) => {
                                     return (
                                         <div className="item_wrapper" key={index} onClick={() => handlePrice(cur.price)}>
-                                            <div className={`item ${service_ids === `${cur._id}` ? "selected" : ""}`} onClick={() => handleId(cur._id)}  >
+                                            <div className={`item ${service_id === `${cur._id}` ? "selected" : ""}`} onClick={() => handleId(cur._id)}  >
                                                 <div className="bg" style={{ width: "100%", height: "20vh", backgroundSize: "cover" }}>
                                                     <PreviewImage attachments={cur.attachments} />
                                                 </div>

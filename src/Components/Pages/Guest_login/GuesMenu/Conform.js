@@ -62,6 +62,7 @@ const Conform = () => {
 
                     <StripeCheckout
                         amount={posts?.amount_charged *100}
+                        userId={userId}
                         token={onSubmit}
                         currency='USD'
                         stripeKey="pk_test_51MXmewLnVrUYOeK2PN2SexCsPAi8lsw8dIt7Pw04DUCsoCsv7a0VReRlGhbUuDOKYqbp1PEDWRWklwSvEsUD0NZ400sa7PXdfg"

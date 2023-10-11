@@ -55,7 +55,7 @@ function Provider() {
                         </div>
                         <div className="col-sm-6">
                             <div className="right_half">
-                            <img src={img} alt="..." style={{borderRadius:"7px"}}  id="right_half_image"   />
+                            <img src={img} alt="..." style={{borderRadius:"7px"}} width={600} height={400}  id="right_half_image"   />
                             </div>
                         </div>
                     </div>

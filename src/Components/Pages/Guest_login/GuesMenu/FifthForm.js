@@ -8,16 +8,17 @@ import axios from "axios";
 
 const FifthForm = ({ step, nextStep }) => {
   const formData = useSelector((state) => state.counter.formData);
-  console.log("all data", formData);
+  console.log("all data dispatch", formData);
   const useremail = localStorage.getItem("user_email")
   const username = localStorage.getItem("user_name")
   const userid = localStorage.getItem("userid")
   const token = localStorage.getItem("token")
-  // Check if the necessary form data exists before accessing its properties
+  // Check if the necessary form data exists before accessing its properties                                 
   const location = formData.locationForm && formData.locationForm[0] ? formData.locationForm[0] : "";
   const location_type = formData.location && formData.location[0] ? formData.location[0].location_type : "";
   // const massage_for = formData.firstForm && formData.firstForm[0] ? formData.firstForm[0].massage_for : "";
   const gender = formData.secondform && formData.secondform[0] ? formData.secondform[0].gender : "";
+  const totalPrice = formData.secondform && formData.secondform[0] ? formData.secondform[0].totalPrice : "";
   const service_id = formData.secondform && formData.secondform[0] ? formData.secondform[0].service_ids : "";
   const service_time = formData.secondform && formData.secondform[0] ? formData.secondform[0].service_time : "";
   const areas_of_concern = formData.thirdform && formData.thirdform[0] ? formData.thirdform[0].areas_of_concern : "";
@@ -28,7 +29,11 @@ const FifthForm = ({ step, nextStep }) => {
   const scheduled_date = formData.fourthform && formData.fourthform[0] ? formData.fourthform[0].date : "";
   const scheduled_timing = formData.fourthform && formData.fourthform[0] ? formData.fourthform[0].time : "";
 
-  const massage_for = formData?.firstForm[0]
+  // Check if formData.firstForm is defined and not empty before accessing element at index 0
+  const massage_for = formData?.firstForm?.[0];
+  // Provide a default value (an empty string in this case) if firstForm is undefined or empty
+
+
   const nav = useNavigate();
   const [address, setAddress] = useState("");
   const [email, setEmail] = useState(useremail);
@@ -40,7 +45,7 @@ const FifthForm = ({ step, nextStep }) => {
 
 
 
-  console.log("massage_for", location)
+  console.log("totalPrice", totalPrice)
 
 
 
@@ -60,6 +65,7 @@ const FifthForm = ({ step, nextStep }) => {
 
           )
         }
+        formData.append("totalprice", totalPrice);
         formData.append("location", location);
         formData.append("location_type", location_type);
         formData.append("massage_for", massage_for);
@@ -97,7 +103,7 @@ const FifthForm = ({ step, nextStep }) => {
         const userId = res.data.ref;
 
         // Navigate to the next page with the extracted ID
-        nav(`/book/${userId}`);
+        nav(`/book/${userId}/${totalPrice}`);
         console.log("Response:", res);
       } catch (error) {
         console.error("Error:", error);
@@ -201,6 +207,7 @@ const FifthForm = ({ step, nextStep }) => {
           <button type="submit"
             className="button"
           >review</button>
+          <p style={{float:"right"}}>Total Price: ${totalPrice}</p>
         </form>
       </div>
     </>
