@@ -7,12 +7,27 @@ import { useDispatch, useSelector } from 'react-redux';
 
 
 const Conform = () => {
-    // const {totalPrice}=useParams()
-
+    const useremail = localStorage.getItem("user_email")
+    const username = localStorage.getItem("user_name")
+    const formData = useSelector((state) => state.counter.formData);
+    console.log("formData corm page",formData)
     const { userId, totalPrice } = useParams()
     const [posts, setPosts] = useState(null);
-
     const nav = useNavigate()
+
+
+
+    const service_time = formData.secondform && formData.secondform[0] ? formData.secondform[0].service_time : "";
+    const massage_pressure = formData.thirdform && formData.thirdform[0] ? formData.thirdform[0].massage_pressure : "";
+    const scheduled_date = formData.fourthform && formData.fourthform[0] ? formData.fourthform[0].date : "";
+    
+
+
+
+
+
+
+
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -30,7 +45,7 @@ const Conform = () => {
         }
     }, [userId]);
 
-    console.log("get props id", userId);
+    console.log("get userId id", userId);
     console.log("totalPrice", totalPrice);
 
     const onSubmit = () => {
@@ -47,19 +62,20 @@ const Conform = () => {
                     <ul className="review d-block">
                         <li>
                             <span className="title">Date</span>
-                            <span className="value">{posts?.scheduled_date}</span>
+                            <span className="value">{scheduled_date}</span>
                         </li>
                         <li>
                             <span className="title">Personal Details</span>
-                            <span className="value">{posts?.massage_pressure}</span>
+                            <span className="value">24000 EL Toro Road Laguna Woods, CA 92653</span>
+                            
                         </li>
                         <li>
                             <span className="title">Massage Pressure</span>
-                            <span className="value">{posts?.address}</span>
+                            <span className="value">{massage_pressure}</span>
                         </li>
                         <li>
                             <span className="title">Appointments</span>
-                            <span className="value">Sarah's Massage <small>{posts?.service_time} min swedish massage</small> </span>
+                            <span className="value">Sarah's Massage <small>{service_time} min swedish massage</small> </span>
                             <span className="price" style={{ fontSize: "20px" }}>${totalPrice}</span>
                         </li>
                     </ul>

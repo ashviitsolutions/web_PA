@@ -32,7 +32,7 @@ function Sidebar() {
             <img src={images} alt="..." style={{ height: "50px", marginTop: "10px" }} />
             <div className="items" style={{ marginTop: "5px" }}>
               <span className="title">admin</span>
-              <span className="excerpt">7654171126</span>
+              <span className="excerpt">999999999</span>
 
             </div>
             <span className="toggle_sidebar close" ></span>

@@ -11,8 +11,8 @@ const ThirdForm = ({ nextStep }) => {
 
     const [areasOfConcern, setAreasOfConcern] = useState([]);
     const [healthConditions, setHealthConditions] = useState([]);
-    const [specialConsideration, setSpecialConsideration] = useState("");
-    const [massageBodyPart, setMassageBodyPart] = useState("");
+    const [specialConsideration, setSpecialConsideration] = useState([]);
+    const [massageBodyPart, setMassageBodyPart] = useState([]);
     const [massagePressure, setMassagePressure] = useState("");
 
     const dispatch = useDispatch();
@@ -21,8 +21,8 @@ const ThirdForm = ({ nextStep }) => {
     const handleSubmit = () => {
         // Create an object to hold the form data
         const formData = {
-            areas_of_concern: areasOfConcern.join(','), // Join areasOfConcern if it's an array
-            health_conditions: healthConditions.join(','), // Join healthConditions if it's an array
+            areas_of_concern: areasOfConcern, // Join areasOfConcern if it's an array
+            health_conditions: healthConditions, // Join healthConditions if it's an array
             special_considerations: specialConsideration,
             massage_body_part: massageBodyPart,
             massage_pressure: massagePressure,
