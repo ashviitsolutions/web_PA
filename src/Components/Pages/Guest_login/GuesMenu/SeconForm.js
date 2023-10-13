@@ -60,15 +60,22 @@ const SeconForm = ({ step, nextStep }) => {
     const [priceadon, setPriceadon] = useState(0);
     const [totalPrice, setTotalPrice] = useState(0);
 
-    const [formData, setFormData] = useState({
-        service_ids: "", // Initialize service_ids with an empty string or a default value
-        gender: "",
-        service_time: "",
-        selectedItems: "",
-        totalPrice: ""
-    });
+    const [formData, setFormData] = useState();
 
+    useEffect(() => {
+        const formData = {
+            service_ids,
+            gender: selectedGender,
+            service_time: selectedServiceTime,
+            selectedItems: selectedItems,
+            // selectedItems: selectedItems.join(','), // Convert the array to a comma-separated string
+            totalPrice: priceservice + priceadon, // Calculate the total price based on selected items and addons
+        };
 
+        setFormData(formData);
+    }, [selectedItems, service_ids, selectedGender, selectedServiceTime, priceservice, priceadon]);
+
+    console.log("selectedItems", selectedItems)
 
 
     //gender slected
@@ -90,11 +97,18 @@ const SeconForm = ({ step, nextStep }) => {
         setFormData({ ...formData, service_ids: id }); // Also update the formData state if needed
     };
 
+    //Get service id
+    // Inside the handleId function
+    // const handleId = (id) => {
+    //     setService_id(id); // Update the service_id state with the selected ID
+    //     setFormData({ ...formData, service_ids: id }); // Also update the formData state if needed
+    // };
+
 
     //Sertvice price
 
     const handlePrice = (price) => {
-        setPerice(price);
+        setPriceadon(price);
     }
 
 
@@ -106,6 +120,7 @@ const SeconForm = ({ step, nextStep }) => {
 
         if (itemIndex === -1) {
             setSelectedItems([...selectedItems, itemId]);
+            setFormData({ ...formData, selectedItems: itemId });
             const selectedItem = user.find(item => item._id === itemId);
             if (selectedItem) {
                 setPerice(prevPrice => prevPrice + selectedItem.price);
@@ -121,7 +136,7 @@ const SeconForm = ({ step, nextStep }) => {
     };
 
 
-   
+
 
 
 
@@ -135,10 +150,11 @@ const SeconForm = ({ step, nextStep }) => {
 
 
 
-    //Dispatch the function or value
+    //Dispatch the function or value           
 
     const handleSubmit = async () => {
         dispatch(updateInputData({ formName: 'secondform', inputData: formData }));
+        dispatch(updateInputData({ formName: 'addon_id', inputData: selectedItems }));
         setTimeout(() => {
             nextStep();
         }, 2000)

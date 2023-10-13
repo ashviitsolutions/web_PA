@@ -3,9 +3,13 @@ import "./style.css";
 import postServices from "../Services/postServices";
 import { useParams, useNavigate } from "react-router-dom";
 import StripeCheckout from 'react-stripe-checkout';
+import { useDispatch, useSelector } from 'react-redux';
+
 
 const Conform = () => {
-    const { userId } = useParams()
+    // const {totalPrice}=useParams()
+
+    const { userId, totalPrice } = useParams()
     const [posts, setPosts] = useState(null);
 
     const nav = useNavigate()
@@ -27,9 +31,11 @@ const Conform = () => {
     }, [userId]);
 
     console.log("get props id", userId);
+    console.log("totalPrice", totalPrice);
 
     const onSubmit = () => {
-       
+        nav("/userProfile")
+
     }
     return (
         <>
@@ -54,14 +60,14 @@ const Conform = () => {
                         <li>
                             <span className="title">Appointments</span>
                             <span className="value">Sarah's Massage <small>{posts?.service_time} min swedish massage</small> </span>
-                            <span className="price" style={{ fontSize: "20px" }}>${posts?.amount_charged}</span>
+                            <span className="price" style={{ fontSize: "20px" }}>${totalPrice}</span>
                         </li>
                     </ul>
 
 
 
                     <StripeCheckout
-                        amount={posts?.amount_charged *100}
+                        amount={totalPrice * 100}
                         userId={userId}
                         token={onSubmit}
                         currency='USD'

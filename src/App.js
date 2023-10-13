@@ -223,7 +223,7 @@ function App() {
 
             <Footer />
           </>} />
-          <Route path="/Book/:userId" element={<>
+          <Route path="/Book/:userId/:totalPrice" element={<>
             <Navbar />
             <Conform />
             <Footer />

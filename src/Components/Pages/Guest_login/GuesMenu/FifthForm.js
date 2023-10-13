@@ -13,10 +13,11 @@ const FifthForm = ({ step, nextStep }) => {
   const username = localStorage.getItem("user_name")
   const userid = localStorage.getItem("userid")
   const token = localStorage.getItem("token")
-  // Check if the necessary form data exists before accessing its properties                                 
+
+  // Check if the necessary form data exists before accessing its properties    
+  const addon_id = formData.addon_id && formData.addon_id[0] ? formData.addon_id[0] : "";                             
   const location = formData.locationForm && formData.locationForm[0] ? formData.locationForm[0] : "";
   const location_type = formData.location && formData.location[0] ? formData.location[0].location_type : "";
-  // const massage_for = formData.firstForm && formData.firstForm[0] ? formData.firstForm[0].massage_for : "";
   const gender = formData.secondform && formData.secondform[0] ? formData.secondform[0].gender : "";
   const totalPrice = formData.secondform && formData.secondform[0] ? formData.secondform[0].totalPrice : "";
   const service_id = formData.secondform && formData.secondform[0] ? formData.secondform[0].service_ids : "";
@@ -28,10 +29,27 @@ const FifthForm = ({ step, nextStep }) => {
   const special_considerations = formData.thirdform && formData.thirdform[0] ? formData.thirdform[0].special_considerations : "";
   const scheduled_date = formData.fourthform && formData.fourthform[0] ? formData.fourthform[0].date : "";
   const scheduled_timing = formData.fourthform && formData.fourthform[0] ? formData.fourthform[0].time : "";
-
-  // Check if formData.firstForm is defined and not empty before accessing element at index 0
   const massage_for = formData?.firstForm?.[0];
-  // Provide a default value (an empty string in this case) if firstForm is undefined or empty
+
+
+  // const addon_id = formData.addon_id?.[0] || "";
+  // const location = formData.locationForm?.[0] || "";
+  // const location_type = formData.location?.[0]?.location_type || "";
+  // const secondform = formData.secondform?.[0] || {};
+  // const { gender, totalPrice, service_id, service_time } = secondform;
+  // const thirdform = formData.thirdform?.[0] || {};
+  // const {
+  //   areas_of_concern,
+  //   health_conditions,
+  //   massage_body_part,
+  //   massage_pressure,
+  //   special_considerations
+  // } = thirdform;
+  // const fourthform = formData.fourthform?.[0] || {};
+  // const { date: scheduled_date, time: scheduled_timing } = fourthform;
+  // const massage_for = formData?.firstForm?.[0];
+
+
 
 
   const nav = useNavigate();
@@ -45,7 +63,7 @@ const FifthForm = ({ step, nextStep }) => {
 
 
 
-  console.log("totalPrice", totalPrice)
+  console.log("addon_id", addon_id)
 
 
 
@@ -65,7 +83,8 @@ const FifthForm = ({ step, nextStep }) => {
 
           )
         }
-        formData.append("totalprice", totalPrice);
+        // formData.append("totalprice", totalPrice);
+        formData.append("add_ons", addon_id);
         formData.append("location", location);
         formData.append("location_type", location_type);
         formData.append("massage_for", massage_for);
@@ -207,7 +226,7 @@ const FifthForm = ({ step, nextStep }) => {
           <button type="submit"
             className="button"
           >review</button>
-          <p style={{float:"right"}}>Total Price: ${totalPrice}</p>
+          <p style={{ float: "right" }}>Total Price: ${totalPrice}</p>
         </form>
       </div>
     </>
