@@ -194,7 +194,7 @@ const SeconForm = ({ step, nextStep }) => {
                                     return (
                                         <div className="item_wrapper" key={index} onClick={() => handlePrice(cur.price)}>
                                             <div className={`item ${service_ids === `${cur._id}` ? "selected" : ""}`} onClick={() => handleId(cur._id)}  >
-                                                <div className="bg" style={{ width: "100%", height: "20vh", backgroundSize: "cover" }}>
+                                                <div className="bg" style={{ width: "100%", height: "19vh", backgroundSize: "cover" }}>
                                                     <PreviewImage attachments={cur.attachments} />
                                                 </div>
                                                 <div className="content" >
@@ -291,7 +291,7 @@ const SeconForm = ({ step, nextStep }) => {
                                     return (
                                         <div className="item_wrapper" key={index} >
                                             <div className={`item ${selectedItems.includes(cur._id) ? "selected" : ""}`} onClick={() => handleSelectItem(cur._id)}  >
-                                                <div className="bg" style={{ width: "100%", height: "22vh", backgroundSize: "cover" }} >
+                                                <div className="bg" style={{ width: "100%", height: "19vh", backgroundSize: "cover" }} >
                                                     <PreviewImage attachments={cur.attachments} />
                                                 </div>
                                                 <div className="content">
