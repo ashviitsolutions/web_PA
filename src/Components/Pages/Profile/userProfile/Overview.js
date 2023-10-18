@@ -122,7 +122,10 @@ function Overview() {
                               <hr />
                               <div className="host">
                                 <div className="avatar"></div>
-                                <p>Appointment with <b>{post.host}john</b></p>
+                                {
+                                  post.service_status==="pending" ?<p>Your booking is yet to be Accepted by one of Our Providers!</p>:<p>Appointment with <b>{post.host}</b></p>
+                                }
+                                
                               </div>
                               <div className="billing float_wrapper">
                                 <p className="pull-left">$ {post?.service_id?.price}</p>

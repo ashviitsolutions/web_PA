@@ -1,60 +1,30 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 function Corporatebooking() {
-    const user_id = useParams()
-    const useremail = localStorage.getItem("user_email")
-    const username = localStorage.getItem("user_name")
+    const user_id = useParams();
+    const useremail = localStorage.getItem("user_email");
+    const username = localStorage.getItem("user_name");
     const nav = useNavigate();
-    const [address, setAddress] = useState("");
-    const [email, setEmail] = useState(useremail);
-    const [arrivalInstructions, setArrivalInstructions] = useState("");
-    const [name, setName] = useState(username)
 
+    const [name, setName] = useState(username);
+    const [companyName, setCompanyName] = useState("");
+    const [service, setService] = useState("");
+    const [hours, setHours] = useState(0);
+    const [numPeople, setNumPeople] = useState(0);
+    const [email, setEmail] = useState(useremail);
+    const [contactNo, setContactNo] = useState("");
+    const [address, setAddress] = useState("");
+    const [arrivalInstructions, setArrivalInstructions] = useState("");
 
     const handleSubmit = async (e) => {
-
-        e.preventDefault(); // Corrected the typo
-        nav("/userProfile")
-
-        // try {
-        //     // Create a new FormData object
-        //     const formData = new FormData();
-
-        //     formData.append("address", address);
-        //     formData.append("email", email);
-        //     formData.append("name", name);
-        //     formData.append("arrival_instructions", arrivalInstructions);
-        //     formData.append("password", password);
-        //     formData.append("confirmpassword", confirmpassword);
-
-        //     // Make an API request to create a post with the form data
-        //     const token = localStorage.getItem("token");
-        //     const url = "http://45.13.132.197:5000/api/user/service_book";
-        //     const config = {
-        //         headers: {
-        //             "Content-Type": "application/json",
-        //             Authorization: token,
-        //         },
-        //     };
-
-        //     const res = await axios.post(url, formData, config);
-
-
-        //     const userId = res.data.ref;
-
-
-        //     nav(`/book/${userId}`);
-        //     console.log("Response:", res);
-        // } catch (error) {
-        //     console.error("Error:", error);
-
-        // }
+        e.preventDefault();
+        nav("/userProfile");
+        // Your form submission logic here
     };
 
-
     return (
-        <div className="review_page" id='corporate_form' style={{ marginTop: "300px" }}>
+        <div className="review_page" id="corporate_form" style={{ marginTop: "300px" }}>
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="name">Name:</label>
@@ -67,6 +37,50 @@ function Corporatebooking() {
                     />
                 </div>
                 <div className="form-group">
+                    <label htmlFor="name">Company Name:</label>
+                    <input
+                        type="text"
+                        name="companyName"
+                        value={companyName}
+                        onChange={(e) => setCompanyName(e.target.value)}
+                        required
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="name">Your Service:</label>
+                    <input
+                        type="text"
+                        name="service"
+                        value={service}
+                        onChange={(e) => setService(e.target.value)}
+                        required
+                    />
+                </div>
+
+                <div style={{ display: "flex", justifyContent: "space-between" }}>
+                    <div className="form-group">
+                        <label htmlFor="name">No. of hours:</label>
+                        <input
+                            type="number"
+                            name="hours"
+                            value={hours}
+                            onChange={(e) => setHours(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="name">No. of People :</label>
+                        <input
+                            type="number"
+                            name="numPeople"
+                            value={numPeople}
+                            onChange={(e) => setNumPeople(e.target.value)}
+                            required
+                        />
+                    </div>
+                </div>
+
+                <div className="form-group">
                     <label htmlFor="email">Email:</label>
                     <input
                         type="email"
@@ -76,6 +90,17 @@ function Corporatebooking() {
                         required
                     />
                 </div>
+                <div className="form-group">
+                    <label htmlFor="address">Contact No.:</label>
+                    <input
+                        type="text"
+                        name="contactNo"
+                        value={contactNo}
+                        onChange={(e) => setContactNo(e.target.value)}
+                        required
+                    />
+                </div>
+
                 <div className="form-group">
                     <label htmlFor="address">Address:</label>
                     <input
@@ -88,22 +113,21 @@ function Corporatebooking() {
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="bio">Bio:</label>
+                    <label htmlFor="bio">Any Additional Instruction:</label>
                     <textarea
-                        name="bio"
+                        name="arrivalInstructions"
                         rows="4"
                         value={arrivalInstructions}
                         onChange={(e) => setArrivalInstructions(e.target.value)}
                     />
                 </div>
 
-
-                <button type="submit"
-                    className="button"
-                >Book</button>
+                <button type="submit" className="button">
+                    Book
+                </button>
             </form>
         </div>
-    )
+    );
 }
 
-export default Corporatebooking
+export default Corporatebooking;

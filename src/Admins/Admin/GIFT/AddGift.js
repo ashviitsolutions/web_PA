@@ -7,6 +7,9 @@ import JoditEditor from 'jodit-react';
 // import "./style.css"
 import { useNavigate } from 'react-router-dom';
 import { IP } from '../../../Constant';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+
 
 const PreviewImage = ({ imagePreviewUrl }) => {
   return (
@@ -24,11 +27,12 @@ function AddGift() {
 
   const initialValues = {
     title: "",
-    excerpt: "",
-    category: "",
-    image: "",
+    type: "",
+    couponImage: "",
     description: "",
-    price: ""
+    amount_off: "",
+    percent_off: "",
+    is_active:""
   };
   const SignupSchema = Yup.object().shape({
     // title: Yup.string().required("Required"),
@@ -38,21 +42,24 @@ function AddGift() {
 
   });
   const onSubmit = async (values, { setValues, resetForm }) => {
-    console.log(values);
+    console.log(values);                                                          
     try {
       const bodyFormData = new FormData();
-      bodyFormData.append("title", values.title);
-      bodyFormData.append("excerpt", values.excerpt);
-      bodyFormData.append("category", values.category);
-      bodyFormData.append("price", values.price);
-      bodyFormData.append("postImages", values.image);
+      bodyFormData.append("title", values.title);                             
+      bodyFormData.append("type", values.type);
+      bodyFormData.append("is_active", values.is_active);
+      bodyFormData.append("max_redemptions", "23");
+      bodyFormData.append("amount_off", values.amount_off);
+      bodyFormData.append("percent_off", values.percent_off);
+      bodyFormData.append("percent_off", values.percent_off);
+      bodyFormData.append("couponImage ", values.couponImage);
       bodyFormData.append("description", values.description);
       let token = localStorage.getItem("tokenadmin");
       if (!token) {
         throw new Error("Token not found in local storage");
       }
       console.log(token);
-      const res = await axios.post(`${IP}/service/add`, bodyFormData, {
+      const res = await axios.post(`${IP}/coupon/create`, bodyFormData, {
         headers: {
           //   Authorization: `${token}`
           Authorization: token
@@ -62,7 +69,7 @@ function AddGift() {
       if (res.status === 200) {
         setValues({});
         resetForm();
-        nav("/admin/services");
+        nav("/admin/Gift");
       }
     } catch (error) {
       console.error(error);
@@ -74,18 +81,13 @@ function AddGift() {
     height: 400,
 
   }
+  const [selectedDate, setSelectedDate] = useState(null);
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
 
 
-
-  useEffect(() => {
-    fetch(`${IP}/service/market_place`).then((res) => {
-      return res.json();
-    }).then((data) => {
-      setType(data)
-      console.log("data type", data)
-
-    })
-  }, [])
 
 
 
@@ -113,7 +115,7 @@ function AddGift() {
                   <div className="">
                     <div className="headings float_wrapper">
                       <div className="gutter pull-left" >
-                        <h3>Add Service</h3>
+                        <h3>Add Gift Card</h3>
                       </div>
                       <span className="toggle_sidebar" ></span>
                     </div>
@@ -136,20 +138,7 @@ function AddGift() {
                               ) : null}
                               <span className="highlight"></span>
                             </div>
-                            <div className="input_group">
-                              <div className="input_group">
-                                <Field
-                                  className="input"
-                                  name="excerpt"
-                                  type="text"
-                                  placeholder="Excerpt"
-                                />
-                                {errors.excerpt && touched.excerpt ? (
-                                  <div>{errors.excerpt}</div>
-                                ) : null}
-                                <span className="highlight"></span>
-                              </div>
-                            </div>
+
                             <div className="input_group">
                               <label htmlFor="" className="static">Description</label>
                               <div className='editor' style={{ marginTop: "4vh", height: "40vh" }}>
@@ -177,67 +166,72 @@ function AddGift() {
                       </div>
 
 
+                      <div class="input_group" style={{ marginTop: "3rem" }}>
+                        <Field
+                          className="input"
+                          name="amount_off"
+                          type="number"
+                        />
+                        {errors.amount_off && touched.amount_off ? (
+                          <div>{errors.amount_off}</div>
+                        ) : null}
+                        <label htmlFor="">Price</label>
+                        <span class="highlight"></span>
+                      </div>
 
 
                       <div class="input_group" style={{ marginTop: "3rem" }}>
                         <Field
                           className="input"
-                          name="price"
+                          name="percent_off"
                           type="number"
                         />
-                        {errors.price && touched.price ? (
-                          <div>{errors.price}</div>
+                        {errors.percent_off && touched.percent_off ? (
+                          <div>{errors.percent_off}</div>
                         ) : null}
-                        <label htmlFor="">price in USD</label>
+                        <label htmlFor="">Value in USD</label>
                         <span class="highlight"></span>
                       </div>
-                      <div class="input_group" style={{ marginTop: "3rem" }}>
-                      <Field
-                        className="input"
-                        name="price"
-                        type="number"
-                      />
-                      {errors.price && touched.price ? (
-                        <div>{errors.price}</div>
-                      ) : null}
-                      <label htmlFor="">price discount USD</label>
-                      <span class="highlight"></span>
-                    </div>
+
                     </div>
 
                     <div className="col-sm-4">
                       <div className="gutter">
-                        <div className="card layer1">
-                          <div className="inner">
-                            <label className="card_label" htmlFor="">Post Actions</label>
-                            <div className="input_group">
-                              <button id="publish_btn"
-                                className="primary square button" type="submit"
-                                name="button">publish</button>
-                            </div>
-                          </div>
-                        </div>
+
 
                         <div className="card layer1">
                           <div className="inner">
-                            <label class="card_label" for="">Select Marketplace</label>
+                            <label class="card_label" htmlFor="">Select Marketplace</label>
                             <div className="input_group">
-                              <Field name="category" as="select" className="input">
-                                <option value="">Select Type</option>
-                                {type.map((cur) => (
-                                  <option key={cur._id} value={cur._id}>
-                                    {cur}
-                                  </option>
-                                ))}
+                              <Field name="type" as="select" className="input">
+                                <option value="" >Select Status</option>
+
+                                <option value="gift_card">gift_card </option>
+                                <option value="coupon">coupon </option>
+
                               </Field>
                             </div>
                           </div>
                         </div>
                         <div className="card layer1">
+                        <div className="inner">
+                          <label class="card_label" htmlFor="">Select Marketplace</label>
+                          <div className="input_group">
+                            <Field name="is_active" as="select" className="input">
+                              <option value="" >Select Status</option>
+
+                              <option value="true">true </option>
+                              <option value="false">false </option>
+
+                            </Field>
+                          </div>
+                        </div>
+                      </div>
+                        <div className="card layer1">
                           <div className="inner">
                             <label htmlFor="" className="card_label">Attachments</label>
                             <input
-                              name='image'
+                              name='couponImage'
                               type="file"
                               placeholder="Excerpt"
                               onChange={(e) => {
@@ -249,12 +243,12 @@ function AddGift() {
                                 };
 
                                 reader.readAsDataURL(file);
-                                setFieldValue('image', file)
+                                setFieldValue('couponImage', file)
                               }
                               }
                             />
-                            {errors.image && touched.image ? (
-                              <div>{errors.image}</div>
+                            {errors.couponImage && touched.couponImage ? (
+                              <div>{errors.couponImage}</div>
                             ) : null}
 
 
@@ -262,7 +256,33 @@ function AddGift() {
                           </div>
                           <div className='preview' >
                             <PreviewImage imagePreviewUrl={imagePreviewUrl} />
+                          </div>
+                        </div>
 
+                        <div className="card layer1">
+                          <div className="inner">
+                            <label className="card_label" htmlFor="">Select Date and Time</label>
+                            <div className="input_group">
+                              <DatePicker
+                                inline
+                                selected={selectedDate}
+                                onChange={handleDateChange}
+                                showTimeSelect
+                                dateFormat="MMMM d, yyyy h:mm aa"
+                              />
+
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="card layer1">
+                          <div className="inner" id=''>
+                            <label className="card_label" htmlFor="">Post Actions</label>
+                            <div className="input_group">
+                              <button id="publish_btn"
+                                className="primary square button" type="submit"
+                                name="button">publish</button>
+                            </div>
                           </div>
                         </div>
                       </div>

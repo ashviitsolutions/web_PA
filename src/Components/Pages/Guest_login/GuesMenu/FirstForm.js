@@ -65,7 +65,7 @@ const FirstForm = ({ step, nextStep }) => {
                             ></span>
                             Duo
                         </li>
-                        <li onClick={() => handleSubmit('partners(couple)')}>
+                     {/*   <li onClick={() => handleSubmit('partners(couple)')}>
                             <span
                                 className="icon"
                                 style={{
@@ -73,7 +73,7 @@ const FirstForm = ({ step, nextStep }) => {
                                 }}
                             ></span>
                             Something Else
-                        </li>
+                            </li> */}
                     </ul>
 
                 </div>

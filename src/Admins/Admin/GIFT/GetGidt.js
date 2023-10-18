@@ -116,7 +116,7 @@ function GetGidt() {
                                     <p>list of all add posts</p>
                                 </div>
                                 <div className="gutter pull-left">
-                                    <Link to="/admin/services/add_service">
+                                    <Link to="/admin/gift/addgift">
                                         <button className="button small primary"
                                             type="button" name="button">Add New</button>
                                     </Link>
@@ -206,7 +206,7 @@ function GetGidt() {
                                                         <span className="title " id='headingtitle'><span id='pricevalue'>Price: </span>{cur.price}<span id='pricevalue'> USD</span></span>
 
                                                     </div>
-                                                    <Link to={`/admin/services/edit_post/${cur._id}`} >
+                                                    <Link to={`/admin/gift/editgift/${cur._id}`} >
                                                         <span className="Edit mt-3">Edit Page</span>
                                                     </Link>
                                                 </div>

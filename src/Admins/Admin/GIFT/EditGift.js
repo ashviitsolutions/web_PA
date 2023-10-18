@@ -7,6 +7,8 @@ import JoditEditor from 'jodit-react';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { IP } from '../../../Constant';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const PreviewImage = ({ imagePreviewUrl }) => {
     return (
@@ -29,6 +31,11 @@ function EditGift() {
     const [img, setImg] = useState();
 
     console.log("img", type)
+    const [selectedDate, setSelectedDate] = useState(null);
+
+    const handleDateChange = (date) => {
+        setSelectedDate(date);
+    };
 
     const initialValues = {
         title: "",
@@ -151,7 +158,7 @@ function EditGift() {
                                     <div className="">
                                         <div className="headings float_wrapper">
                                             <div className="gutter pull-left" >
-                                                <h3>Edit post</h3>
+                                                <h3>Edit Gift</h3>
                                             </div>
                                             <span className="toggle_sidebar" ></span>
                                         </div>
@@ -177,22 +184,7 @@ function EditGift() {
                                                             ) : null}
                                                             <span className="highlight"></span>
                                                         </div>
-                                                        <div className="input_group">
-                                                            <div className="input_group">
-                                                                <Field
 
-                                                                    className="input"
-                                                                    name="excerpt"
-                                                                    type="text"
-                                                                    placeholder=" New Update  Excerpt"
-                                                                />
-
-                                                                {errors.excerpt && touched.excerpt ? (
-                                                                    <div>{errors.excerpt}</div>
-                                                                ) : null}
-                                                                <span className="highlight"></span>
-                                                            </div>
-                                                        </div>
                                                         <div className="input_group">
                                                             <label htmlFor="" className="static">Description</label>
                                                             <div className='editor' style={{ marginTop: "4vh", height: "40vh" }}>
@@ -220,40 +212,42 @@ function EditGift() {
                                                 <div class="input_group" style={{ marginTop: "3rem" }}>
                                                     <Field
                                                         className="input"
+                                                        name="prices"
+                                                        type="number"
+                                                    />
+                                                    {errors.price && touched.price ? (
+                                                        <div>{errors.price}</div>
+                                                    ) : null}
+                                                    <label htmlFor="">Price</label>
+                                                    <span class="highlight"></span>
+                                                </div>
+                                                <div class="input_group" style={{ marginTop: "3rem" }}>
+                                                    <Field
+                                                        className="input"
                                                         name="price"
                                                         type="number"
                                                     />
                                                     {errors.price && touched.price ? (
                                                         <div>{errors.price}</div>
                                                     ) : null}
-                                                    <label htmlFor="">price in USD</label>
+                                                    <label htmlFor="">Value in USD</label>
                                                     <span class="highlight"></span>
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="col-sm-4">
                                             <div className="gutter">
+
                                                 <div className="card layer1">
                                                     <div className="inner">
-                                                        <label className="card_label" htmlFor="">Post Actions</label>
-                                                        <div className="input_group">
-                                                            <button id="publish_btn"
-                                                                className="primary square button" type="submit"
-                                                                name="button">publish</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div className="card layer1">
-                                                    <div className="inner">
-                                                        <label className="card_label" htmlFor="">Select Type</label>
+                                                        <label class="card_label" for="">Select Marketplace</label>
                                                         <div className="input_group">
                                                             <Field name="category" as="select" className="input">
-                                                                <option value="">Select Type</option>
-                                                                {type.map((cur) => (
-                                                                    <option key={cur._id} value={cur._id}>
-                                                                        {cur}
-                                                                    </option>
-                                                                ))}
+                                                                <option value="">Select Status</option>
+
+                                                                <option value="Active">Active </option>
+                                                                <option value="Inactive">Inactive </option>
+
                                                             </Field>
                                                         </div>
                                                     </div>
@@ -289,7 +283,32 @@ function EditGift() {
                                                     </div>
 
                                                 </div>
+                                                <div className="card layer1">
+                                                    <div className="inner">
+                                                        <label className="card_label" htmlFor="">Select Date and Time</label>
+                                                        <div className="input_group">
+                                                            <DatePicker
+                                                                inline
+                                                                selected={selectedDate}
+                                                                onChange={handleDateChange}
+                                                                showTimeSelect
+                                                                dateFormat="MMMM d, yyyy h:mm aa"
+                                                            />
 
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div className="card layer1">
+                                                    <div className="inner">
+                                                        <label className="card_label" htmlFor="">Post Actions</label>
+                                                        <div className="input_group">
+                                                            <button id="publish_btn"
+                                                                className="primary square button" type="submit"
+                                                                name="button">publish</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

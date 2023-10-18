@@ -38,7 +38,7 @@ function GuestLogin() {
 
         localStorage.setItem("users", JSON.stringify(user));
         localStorage.setItem("token", token);
-        nav("/select_location");
+        nav("/select_location_type");
       } else {
         setToggle(true); // Show error message
       }

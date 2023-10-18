@@ -46,8 +46,10 @@ const SeconForm = ({ step, nextStep }) => {
 
     const dispatch = useDispatch();
     const selector = useSelector((state) => state.counter.formData);
-    console.log("selector", selector);
-    //End 
+
+    const gendercheck = selector.firstForm[0]
+    console.log("get gener preference", gendercheck);
+    //End myself
 
     const [user, setUser] = useState([]);
     const [selectedItems, setSelectedItems] = useState([]);
@@ -97,13 +99,6 @@ const SeconForm = ({ step, nextStep }) => {
         setFormData({ ...formData, service_ids: id }); // Also update the formData state if needed
     };
 
-    //Get service id
-    // Inside the handleId function
-    // const handleId = (id) => {
-    //     setService_id(id); // Update the service_id state with the selected ID
-    //     setFormData({ ...formData, service_ids: id }); // Also update the formData state if needed
-    // };
-
 
     //Sertvice price
 
@@ -143,10 +138,16 @@ const SeconForm = ({ step, nextStep }) => {
     //Total price calculate
 
     useEffect(() => {
-        const total = priceservice + priceadon; // Calculate total price based on priceservice and priceadon
+        let total = priceservice + priceadon; // Initialize total based on priceservice and priceadon
+    
+        if (gendercheck === "guest") {
+            total *= 2; // Double the total if gendercheck is "guest"
+        }
+    
         setTotalPrice(total); // Update the totalPrice state
         setFormData({ ...formData, totalPrice: total }); // Update the formData state if needed
-    }, [priceservice, priceadon]);
+    }, [priceservice, priceadon, gendercheck, formData]);
+    
 
 
 
@@ -217,38 +218,112 @@ const SeconForm = ({ step, nextStep }) => {
                             <div className="gen_heading" style={{ marginBottom: "20px" }}></div>
 
                         </div>
-
-
-
-
-
                     </div>
-                    <div className="gen_heading">
-                        <h3>Gender Preference</h3>
-                    </div>
-                    <ul className="time_options">
-                        <li
-                            id="g_male"
-                            className={`gender time_option ${selectedGender === "Male" ? "selected" : ""}`}
-                            onClick={() => handleGenderSelect("Male")}
-                        >
-                            Male
-                        </li>
-                        <li
-                            id="g_female"
-                            className={`gender time_option ${selectedGender === "Female" ? "selected" : ""}`}
-                            onClick={() => handleGenderSelect("Female")}
-                        >
-                            Female
-                        </li>
-                        <li
-                            id="g_either"
-                            className={`gender time_option ${selectedGender === "Either" ? "selected" : ""}`}
-                            onClick={() => handleGenderSelect("Either")}
-                        >
-                            Either
-                        </li>
-                    </ul>
+
+                    {
+                        gendercheck === "guest" ? (
+                            <>
+                                <div className="gen_heading">
+                                    <h3>Gender Preference 1</h3>
+                                </div>
+                                <ul className="time_options">
+                                    <li
+                                        id="g_male"
+                                        className={`gender time_option ${selectedGender === "Male1" ? "selected" : ""}`}
+                                        onClick={() => handleGenderSelect("Male1")}
+                                    >
+                                        Male
+                                    </li>
+                                    <li
+                                        id="g_female"
+                                        className={`gender time_option ${selectedGender === "Female1" ? "selected" : ""}`}
+                                        onClick={() => handleGenderSelect("Female1")}
+                                    >
+                                        Female
+                                    </li>
+                                    <li
+                                        id="g_either"
+                                        className={`gender time_option ${selectedGender === "Either1" ? "selected" : ""}`}
+                                        onClick={() => handleGenderSelect("Either1")}
+                                    >
+                                        Either
+                                    </li>
+                                </ul>
+
+
+
+                                <div className="gen_heading">
+                                    <h3>Gender Preference 2</h3>
+                                </div>
+                                <ul className="time_options">
+                                    <li
+                                        id="g_male"
+                                        className={`gender time_option ${selectedGender === "Male2" ? "selected" : ""}`}
+                                        onClick={() => handleGenderSelect("Male2")}
+                                    >
+                                        Male
+                                    </li>
+                                    <li
+                                        id="g_female"
+                                        className={`gender time_option ${selectedGender === "Female2" ? "selected" : ""}`}
+                                        onClick={() => handleGenderSelect("Female2")}
+                                    >
+                                        Female
+                                    </li>
+                                    <li
+                                        id="g_either"
+                                        className={`gender time_option ${selectedGender === "Either2" ? "selected" : ""}`}
+                                        onClick={() => handleGenderSelect("Either2")}
+                                    >
+                                        Either
+                                    </li>
+                                </ul>
+                            </>
+                        ) : (
+                            <>
+                                <div className="gen_heading">
+                                    <h3>Gender Preference</h3>
+                                </div>
+                                <ul className="time_options">
+                                    <li
+                                        id="g_male"
+                                        className={`gender time_option ${selectedGender === "Male" ? "selected" : ""}`}
+                                        onClick={() => handleGenderSelect("Male")}
+                                    >
+                                        Male
+                                    </li>
+                                    <li
+                                        id="g_female"
+                                        className={`gender time_option ${selectedGender === "Female" ? "selected" : ""}`}
+                                        onClick={() => handleGenderSelect("Female")}
+                                    >
+                                        Female
+                                    </li>
+                                    <li
+                                        id="g_either"
+                                        className={`gender time_option ${selectedGender === "Either" ? "selected" : ""}`}
+                                        onClick={() => handleGenderSelect("Either")}
+                                    >
+                                        Either
+                                    </li>
+                                </ul>
+
+
+                            </>
+                        )
+                    }
+
+
+
+
+
+
+
+
+
+
+
+
                     <div className="gen_heading">
                         <h3>Select Time</h3>
                     </div>
@@ -309,6 +384,7 @@ const SeconForm = ({ step, nextStep }) => {
                     </div>
                     <p>Total Price: ${totalPrice}</p>
                     <button className="button lazy" type="submit" onClick={handleSubmit}>next</button>
+                 
                 </div>
             </div>
         </div>

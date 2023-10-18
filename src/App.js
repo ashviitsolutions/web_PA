@@ -272,11 +272,11 @@ function App() {
             <Sidebar />
             <Protect Component={GetGidt} />
           </>} />
-          <Route path="/admin/post/addgift" element={<>
+          <Route path="/admin/gift/addgift" element={<>
             <Sidebar />
             <Protect Component={AddGift} />
           </>} />
-          <Route path="/admin/post/editgift/:id" element={<>
+          <Route path="/admin/gift/editgift/:id" element={<>
             <Sidebar />
             <Protect Component={EditGift} />
           </>} />

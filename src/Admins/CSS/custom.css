@@ -1005,3 +1005,7 @@ tbody .bg {
     display: none;
 }
 
+#content .inner {
+    justify-content: center;
+    text-align: start;
+}
