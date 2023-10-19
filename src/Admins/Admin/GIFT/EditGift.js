@@ -39,11 +39,12 @@ function EditGift() {
 
     const initialValues = {
         title: "",
-        excerpt: "",
-        category: "",
-        image: "",
+        type: "",
+        couponImage: "",
         description: "",
-        price: ""
+        amount_off: "",
+        percent_off: "",
+        is_active: ""
     };
 
     const SignupSchema = Yup.object().shape({
@@ -58,17 +59,20 @@ function EditGift() {
         try {
             const bodyFormData = new FormData();
             bodyFormData.append("title", values.title);
-            bodyFormData.append("excerpt", values.excerpt);
-            bodyFormData.append("category", values.category);
-            bodyFormData.append("price", values.price);
-            bodyFormData.append("postImages", values.image);
+            bodyFormData.append("type", values.type);
+            bodyFormData.append("is_active", values.is_active);
+            bodyFormData.append("max_redemptions", "23");
+            bodyFormData.append("amount_off", values.amount_off);
+            bodyFormData.append("percent_off", values.percent_off);
+            bodyFormData.append("expired_by", selectedDate);
+            bodyFormData.append("couponImages", values.couponImage);
             bodyFormData.append("description", values.description);
             let token = localStorage.getItem("tokenadmin");
             if (!token) {
                 throw new Error("Token not found in local storage");
             }
             console.log(token);
-            let res = await axios.put(`${IP}/service/${id}/update`, bodyFormData, {
+            let res = await axios.put(`${IP}/coupon/${id}/update`, bodyFormData, {
                 headers: {
                     Authorization: token,
                     // 'Content-Type': 'application/json',
@@ -79,7 +83,7 @@ function EditGift() {
             if (res.status === 200) {
                 setValues({});
                 resetForm("");
-                nav("/admin/services");
+                nav("/admin/gift");
             }
         } catch (error) {
             console.error(error);
@@ -152,13 +156,13 @@ function EditGift() {
 
                         >
 
-                            {({ errors, touched, setFieldValue }) => (
+                            {({ errors, touched, setFieldValue, values }) => (
 
                                 <Form>
                                     <div className="">
                                         <div className="headings float_wrapper">
                                             <div className="gutter pull-left" >
-                                                <h3>Edit Gift</h3>
+                                                <h3>Edit Gift Card</h3>
                                             </div>
                                             <span className="toggle_sidebar" ></span>
                                         </div>
@@ -171,14 +175,11 @@ function EditGift() {
                                                         <label className="card_label" htmlFor="">General InhtmlFormation</label>
                                                         <div className="input_group">
                                                             <Field
-
                                                                 className="input"
                                                                 name="title"
                                                                 type="text"
-                                                                placeholder=" New Update Title"
-
+                                                                placeholder="Title"
                                                             />
-
                                                             {errors.title && touched.title ? (
                                                                 <div>{errors.title}</div>
                                                             ) : null}
@@ -192,7 +193,7 @@ function EditGift() {
                                                                     <JoditEditor
                                                                         name="description"
                                                                         ref={editor}
-                                                                        value={user.description}
+                                                                        value={values.description}
                                                                         config={config}
                                                                         onBlur={(newContent) => {
                                                                             setFieldValue('description', newContent);
@@ -205,48 +206,69 @@ function EditGift() {
 
                                                             </div>
 
-                                                        </div>
 
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="input_group" style={{ marginTop: "3rem" }}>
-                                                    <Field
-                                                        className="input"
-                                                        name="prices"
-                                                        type="number"
-                                                    />
-                                                    {errors.price && touched.price ? (
-                                                        <div>{errors.price}</div>
-                                                    ) : null}
-                                                    <label htmlFor="">Price</label>
-                                                    <span class="highlight"></span>
-                                                </div>
-                                                <div class="input_group" style={{ marginTop: "3rem" }}>
-                                                    <Field
-                                                        className="input"
-                                                        name="price"
-                                                        type="number"
-                                                    />
-                                                    {errors.price && touched.price ? (
-                                                        <div>{errors.price}</div>
-                                                    ) : null}
-                                                    <label htmlFor="">Value in USD</label>
-                                                    <span class="highlight"></span>
-                                                </div>
                                             </div>
+
+
+                                            <div class="input_group" style={{ marginTop: "3rem" }}>
+                                                <Field
+                                                    className="input"
+                                                    name="amount_off"
+                                                    type="number"
+                                                />
+                                                {errors.amount_off && touched.amount_off ? (
+                                                    <div>{errors.amount_off}</div>
+                                                ) : null}
+                                                <label htmlFor="">Price</label>
+                                                <span class="highlight"></span>
+                                            </div>
+
+
+                                            <div class="input_group" style={{ marginTop: "3rem" }}>
+                                                <Field
+                                                    className="input"
+                                                    name="percent_off"
+                                                    type="number"
+                                                />
+                                                {errors.percent_off && touched.percent_off ? (
+                                                    <div>{errors.percent_off}</div>
+                                                ) : null}
+                                                <label htmlFor="">Value in USD</label>
+                                                <span class="highlight"></span>
+                                            </div>
+
                                         </div>
+
                                         <div className="col-sm-4">
                                             <div className="gutter">
 
+
                                                 <div className="card layer1">
                                                     <div className="inner">
-                                                        <label class="card_label" for="">Select Marketplace</label>
+                                                        <label class="card_label" htmlFor="">Select Marketplace</label>
                                                         <div className="input_group">
-                                                            <Field name="category" as="select" className="input">
-                                                                <option value="">Select Status</option>
+                                                            <Field name="type" as="select" className="input">
+                                                                <option value="" >Select Status</option>
 
-                                                                <option value="Active">Active </option>
-                                                                <option value="Inactive">Inactive </option>
+                                                                <option value="gift_card">gift_card </option>
+                                                                <option value="coupon">coupon </option>
+
+                                                            </Field>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="card layer1">
+                                                    <div className="inner">
+                                                        <label class="card_label" htmlFor="">Select Marketplace</label>
+                                                        <div className="input_group">
+                                                            <Field name="is_active" as="select" className="input">
+                                                                <option value="" >Select Status</option>
+
+                                                                <option value="true">true </option>
+                                                                <option value="false">false </option>
 
                                                             </Field>
                                                         </div>
@@ -256,7 +278,7 @@ function EditGift() {
                                                     <div className="inner">
                                                         <label htmlFor="" className="card_label">Attachments</label>
                                                         <input
-                                                            name='image'
+                                                            name='couponImages'
                                                             type="file"
                                                             placeholder="Excerpt"
                                                             onChange={(e) => {
@@ -268,21 +290,22 @@ function EditGift() {
                                                                 };
 
                                                                 reader.readAsDataURL(file);
-                                                                setFieldValue('image', file)
+                                                                setFieldValue('couponImages', file)
                                                             }
                                                             }
                                                         />
-                                                        {errors.image && touched.image ? (
-                                                            <div>{errors.image}</div>
+                                                        {errors.couponImage && touched.couponImage ? (
+                                                            <div>{errors.couponImage}</div>
                                                         ) : null}
 
-                                                    </div>
-                                                    <div className='preview' style={{ width: "100%" }}>
-                                                        <PreviewImage imagePreviewUrl={imagePreviewUrl || img} />
+
 
                                                     </div>
-
+                                                    <div className='preview' >
+                                                        <PreviewImage imagePreviewUrl={imagePreviewUrl} />
+                                                    </div>
                                                 </div>
+
                                                 <div className="card layer1">
                                                     <div className="inner">
                                                         <label className="card_label" htmlFor="">Select Date and Time</label>
@@ -300,7 +323,7 @@ function EditGift() {
                                                 </div>
 
                                                 <div className="card layer1">
-                                                    <div className="inner">
+                                                    <div className="inner" id=''>
                                                         <label className="card_label" htmlFor="">Post Actions</label>
                                                         <div className="input_group">
                                                             <button id="publish_btn"

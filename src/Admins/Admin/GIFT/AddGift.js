@@ -23,12 +23,18 @@ function AddGift() {
   const editor = useRef(null);
   const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
   const [type, setType] = useState([])
+  const [selectedDate, setSelectedDate] = useState(null);
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
+
   console.log(type)
 
   const initialValues = {
     title: "",
     type: "",
-    couponImage: "",
+    couponImages: "",
     description: "",
     amount_off: "",
     percent_off: "",
@@ -51,8 +57,8 @@ function AddGift() {
       bodyFormData.append("max_redemptions", "23");
       bodyFormData.append("amount_off", values.amount_off);
       bodyFormData.append("percent_off", values.percent_off);
-      bodyFormData.append("percent_off", values.percent_off);
-      bodyFormData.append("couponImage ", values.couponImage);
+      bodyFormData.append("expired_by", selectedDate);
+      bodyFormData.append("couponImages", values.couponImages);
       bodyFormData.append("description", values.description);
       let token = localStorage.getItem("tokenadmin");
       if (!token) {
@@ -81,11 +87,6 @@ function AddGift() {
     height: 400,
 
   }
-  const [selectedDate, setSelectedDate] = useState(null);
-
-  const handleDateChange = (date) => {
-    setSelectedDate(date);
-  };
 
 
 
@@ -227,37 +228,34 @@ function AddGift() {
                           </div>
                         </div>
                       </div>
-                        <div className="card layer1">
-                          <div className="inner">
-                            <label htmlFor="" className="card_label">Attachments</label>
-                            <input
-                              name='couponImage'
-                              type="file"
-                              placeholder="Excerpt"
-                              onChange={(e) => {
-                                let reader = new FileReader();
-                                let file = e.target.files[0];
-
-                                reader.onloadend = () => {
-                                  setImagePreviewUrl(reader.result);
-                                };
-
-                                reader.readAsDataURL(file);
-                                setFieldValue('couponImage', file)
-                              }
-                              }
-                            />
-                            {errors.couponImage && touched.couponImage ? (
-                              <div>{errors.couponImage}</div>
-                            ) : null}
-
-
-
-                          </div>
-                          <div className='preview' >
-                            <PreviewImage imagePreviewUrl={imagePreviewUrl} />
-                          </div>
-                        </div>
+                      <div className="card layer1">
+                      <div className="inner">
+                        <label className="card_label" htmlFor="couponImages">Attachments</label>
+                        <input
+                          name="couponImages"
+                          type="file"
+                          placeholder="Excerpt"
+                          onChange={(e) => {
+                            let reader = new FileReader();
+                            let file = e.target.files[0];
+                    
+                            reader.onloadend = () => {
+                              setImagePreviewUrl(reader.result);
+                            };
+                    
+                            reader.readAsDataURL(file);
+                            setFieldValue('couponImage', file); // Change this line to setFieldValue('couponImage', file)
+                          }}
+                        />
+                        {errors.couponImages && touched.couponImages ? (
+                          <div>{errors.couponImages}</div>
+                        ) : null}
+                      </div>
+                      <div className="preview">
+                        <PreviewImage imagePreviewUrl={imagePreviewUrl} />
+                      </div>
+                    </div>
+                    
 
                         <div className="card layer1">
                           <div className="inner">

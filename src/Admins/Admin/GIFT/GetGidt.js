@@ -48,7 +48,7 @@ function GetGidt() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await fetch(`${IP}/service/view-services/${search}`);
+                const res = await fetch(`${IP}/coupon/fetch`);
                 const data = await res.json();
                 setUser(data);
                 setCount(data.length);
@@ -112,7 +112,7 @@ function GetGidt() {
                         <div className="">
                             <div className="headings float_wrapper">
                                 <div className="gutter pull-left" >
-                                    <h3>All Service</h3>
+                                    <h3>All Gift Card</h3>
                                     <p>list of all add posts</p>
                                 </div>
                                 <div className="gutter pull-left">
@@ -194,7 +194,7 @@ function GetGidt() {
                                             <td>
                                                 <div className="content">
                                                     <span className="title " id='headingtitle'>{cur.title}</span>
-                                                    <small> <p className="description" dangerouslySetInnerHTML={{ __html: cur.description.slice(0, 250) }} /></small>
+                                                  <small> <p className="description" dangerouslySetInnerHTML={{ __html: cur.description }} /></small>
                                                 </div>
                                             </td>
 
@@ -203,9 +203,11 @@ function GetGidt() {
                                                 <div className='typefield ' >
                                                     <span style={{ display: "block" }}> {cur.category}</span>
                                                     <div className="content mt-3" >
-                                                        <span className="title " id='headingtitle'><span id='pricevalue'>Price: </span>{cur.price}<span id='pricevalue'> USD</span></span>
-
+                                                        <span className="title " id='headingtitle'><span id='pricevalue'>Price: </span>{cur.amount_off} <span id='pricevalue'> USD</span></span>
                                                     </div>
+                                                    <div className="content mt-3" >
+                                                    <span className="title " id='headingtitle'><span id='pricevalue'>Value of Price: </span>{cur.amount_off} <span id='pricevalue'> USD</span></span>
+                                                </div>
                                                     <Link to={`/admin/gift/editgift/${cur._id}`} >
                                                         <span className="Edit mt-3">Edit Page</span>
                                                     </Link>

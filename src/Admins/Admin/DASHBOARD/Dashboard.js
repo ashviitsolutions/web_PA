@@ -136,18 +136,7 @@ function Dashboard() {
                         </div>
                         <div className="col-sm-7">
                             <div className="container-fluid">
-                                <div className="row">
-                                    <div className="col-sm-6">
-                                        <div className="gutter">
-                                            <div className="card layer2"><canvas id="myChart"></canvas></div>
-                                        </div>
-                                    </div>
-                                    <div className="col-sm-6">
-                                        <div className="gutter">
-                                            <div className="card layer2"><canvas id="myChart2"></canvas></div>
-                                        </div>
-                                    </div>
-                                </div>
+                               
 
                                 <div className="summary_collections">
                                     <div className="container-fluid">
