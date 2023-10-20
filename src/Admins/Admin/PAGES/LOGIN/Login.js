@@ -59,7 +59,7 @@ function Login() {
             if (resp.status === 200) {
                 localStorage.setItem("usersadmin", JSON.stringify(result));
                 localStorage.setItem("tokenadmin", token);
-                nav("/admin")
+                nav("/admin/dashboard")
             } else {
                 setToggle(true)
             }

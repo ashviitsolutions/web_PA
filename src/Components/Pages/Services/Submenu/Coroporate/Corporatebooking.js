@@ -103,13 +103,20 @@ function Corporatebooking() {
 
                 <div className="form-group">
                     <label htmlFor="address">Address:</label>
-                    <input
-                        type="text"
-                        name="address"
-                        value={address}
-                        onChange={(e) => setAddress(e.target.value)}
-                        required
-                    />
+                    <div className='input_near_me'>
+                        <input
+                            type="text"
+                            name="address"
+                            value={address}
+                            placeholder='Enter Your Address'
+                            onChange={(e) => setAddress(e.target.value)}
+                            required
+                        />
+                        <div className='near_me_button'>
+                            <h3>Near me</h3>
+                        </div>
+                    </div>
+
                 </div>
 
                 <div className="form-group">

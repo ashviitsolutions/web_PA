@@ -4285,3 +4285,34 @@ img .img-responsive {
   border: none !important;
   text-decoration: none;
 }
+
+.input_near_me{
+  display: flex;
+  justify-content: space-between;
+}
+.near_me_button{
+  /* background-color: red; */
+  position: absolute;
+  font-size: 10px;
+  text-align: center;
+  justify-content: center;
+  padding: 2px 2px;
+  height: 10px;
+  cursor: pointer;
+}
+.near_me_button h3{
+
+  font-size: 16px;
+  padding-top: 12px;
+  padding-left: 10px;
+  color: blueviolet;
+  text-shadow: #000000;
+}
+
+.review_page .input_near_me input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  padding-left: 80px !important;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}

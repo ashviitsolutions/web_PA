@@ -106,12 +106,12 @@ const Book = () => {
               Bookings
             </div>
           </li>
-          <li id="tab_3" className={activeTab === 3 ? 'active' : ''} onClick={() => setActiveTab(3)}>
+          {/* <li id="tab_3" className={activeTab === 3 ? 'active' : ''} onClick={() => setActiveTab(3)}>
             <div className="item">
               <img src={image3} width={15} height={15} alt="..." />
               Invoices
             </div>
-          </li>
+  </li> */}
           {/*<li id="tab_4" className={activeTab === 4 ? 'active' : ''} onClick={() => setActiveTab(4)}>
             <div className="item">
               <img src={image4} width={15} height={15} alt="..." />
@@ -127,7 +127,7 @@ const Book = () => {
           <li id="tab_6" className={activeTab === 6 ? 'active' : ''} onClick={() => setActiveTab(6)}>
             <div className="item">
               <img src={image6} width={15} height={15} alt="..." />
-              Setting
+              Profile
             </div>
           </li>
           <li id="tab_7" className={activeTab === 7 ? 'active' : ''}>

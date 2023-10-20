@@ -103,9 +103,16 @@ ul#tabs_control li.active {
     border-radius: 20px;
 }
 
-
+#button_invoices .pull-right{
+    font-size: 10px;
+    background-color: red;
+}
 
 /* //Boking */
+#booking_twext_item{
+   position: relative;
+   top: -15px;
+}
 
 .overview {
     background-color: #ffff;
@@ -227,11 +234,12 @@ ul#tabs_control li.active {
 
 
 #invoices .time_date button {
-    padding: 4px 20px;
+    padding: 4px 10px;
     background-color: #03a9f4;
     color: #ffff;
     border-radius: 20px;
     border: none;
+    font-size: 12px;
 
 }
 
@@ -505,12 +513,12 @@ ul#tabs_control li.active {
     background-color: #ddd;
 }
 
-.userbooking{
+.userbooking {
     display: none !important;
 }
 
 
-ul#tabs_control .userbooking  li.withicon a {
+ul#tabs_control .userbooking li.withicon a {
     font-weight: 500;
     background: #03a9f4;
     border-radius: 25px;
@@ -519,37 +527,100 @@ ul#tabs_control .userbooking  li.withicon a {
     top: 5px;
 }
 
-#imagebooking{
+#imagebooking {
     position: fixed;
     top: 600px;
     right: 10px;
     z-index: 100;
 }
 
-#buycard{
+#buycard {
     padding-top: 60px;
 }
-#gift_vard_buy{
+
+#gift_vard_buy {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
 }
+
 /* #gift_card_buy_input{
     width: 22%;
 } */
-#buy_gift_card_input{
+#buy_gift_card_input {
     width: 25%;
     margin: auto;
 }
-#buy_gift_card_image img{
+
+#buy_gift_card_image img {
     width: 100%;
     background-size: cover;
     background-position: center;
 }
-.gift_button h3{
+
+.gift_button h3 {
     font-size: 15px;
     text-align: start;
 }
+
+.status_booking {
+    text-align: start;
+    font-size: 12px;
+}
+
+.status_booking h3 {
+    font-size: 15px;
+}
+
+
+.rating-feedback-section {
+    /* background-color: #f5f5f5; */
+    padding: 10px;
+    /* border: 1px solid #ccc; */
+    border-radius: 5px;
+    /* margin-top: 10px; */
+    width: 100%;
+    margin: auto;
+    box-shadow: -1px 1px 5px -3px rgba(0, 0, 0, 0.35);
+    /* position: relative;
+    top: -164px; */
+}
+
+.rating-feedback-section h3 {
+    font-size: 18px;
+    /* margin-bottom: 10px; */
+}
+
+.rating-feedback-section input[type="number"] {
+    width: 60px;
+    padding: 5px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.rating-feedback-section textarea {
+    width: 100%;
+    padding: 1px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    /* margin-bottom: 10px; */
+}
+
+.rating-feedback-section button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.rating-feedback-section button:hover {
+    background-color: #0056b3;
+}
+
 @media (max-width:992px) {
     .sidebar_tab {
 
@@ -653,23 +724,23 @@ ul#tabs_control .userbooking  li.withicon a {
 
     }
 
-    .userbooking{
+    .userbooking {
         display: block !important;
     }
 
-    #imagebooking{
+    #imagebooking {
         position: fixed;
         top: 500px;
         right: 10px;
         z-index: 100;
-       
+
 
     }
 
-    #imagebooking img{
+    #imagebooking img {
         width: 49px;
         height: 49px;
-       
+
     }
 
 }
