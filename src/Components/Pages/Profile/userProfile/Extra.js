@@ -1,69 +1,124 @@
-import React, { useEffect, useState } from 'react';
-import Hook from '../Hook/Hook';
-import './Profile.css';
-import image1 from "../../../assets/img/tender-african-woman-smiling-enjoying-massage-with-closed-eyes-spa-resort.jpg";
+import React, { useState, useEffect } from 'react';
+import "./Profile.css";
+import image1 from "../../../assets/img/gift-card-with-red-ribbon_23-2147510395 (1).webp"
 
-function Booking() {
-    const [posts, setPosts] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const username = localStorage.getItem('user_name');
+import { IP } from '../../../../Constant';
+function Gift() {
+  const username = localStorage.getItem("user_name")
+  const [user, setUser] = useState([]);
 
-    useEffect(() => {
-        const fetchPosts = async () => {
-            try {
-                const response = await Hook.getPost();
-                setPosts(response.data);
-                setIsLoading(false); // Set loading to false when data is fetched
-                console.log('get response', response.data);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-                setIsLoading(false); // Set loading to false on error as well
-            }
-        };
 
-        fetchPosts();
-    }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch(`${IP}/coupon/fetch`);
+        const data = await res.json();
+        setUser(data);
 
-    console.log('fetching data:', posts);
+        console.log("gift data data", data)
+      } catch (error) {
+      }
+    };
 
-    return (
-        <div className='overview'>
-            <div className='overview_container'>
-                <div className='heading'>
-                    <h3>{username}</h3>
+    fetchData();
+  }, []);
+  return (
+    <>
+      <div id='gift'>
+        <div className='overview_container'>
+          <div className='heading'>
+            <h3>{username}</h3>
+          </div>
+          <div className='title'>
+            <h3>Your GIFT CARDS</h3>
+          </div>
+
+          <div className='gift_container'>
+            <div className='gift_input'>
+              <div className='gift_image'>
+                <img src={image1} width={380} height={166} alt='...' />
+                <div className='gift_button'>
+                  <button className='Use_button'>Use</button>
+                  <button className='Send_button'>Send</button>
                 </div>
-                <div className='title'>
-                    <h3>BOOKING HISTORY</h3>
-                </div>
-                {isLoading ? ( // Display loading message while data is being fetched
-                    <h1 style={{ color: "#162b3c" }}>Loading...</h1>
-                ) : posts.length > 0 ? (
-                    posts.map((booking, index) => (
-                        <div className='overview_card' key={index}>
-                            <div className='overview_input'>
-                                <div className='image_text'>
-                                    <img src={image1} width={150} height={130} alt='...' />
-                                    <div className='text-item'>
-                                        <h3>Appointment With {username}</h3>
-                                        <p>{booking.service_status}</p>
-                                        <p>{booking.address}</p>
-                                    </div>
-                                </div>
-                                <div className='time_date'>
-                                    <p>{booking.scheduled_date}</p>
-                                    <h3>{booking.scheduled_timing}</h3>
-                                    <h3 style={{ color: "blue", cursor: "pointer" }}>Download Invoice</h3>
-                                </div>
-                            </div>
-                        </div>
-                    ))
-                ) : (
-                    // Display "No Data Found" message when there is no data
-                    <h3 style={{ color: "#162b3c" }}>No bookings yet.</h3>
-                )}
+              </div>
             </div>
+            <div className='gift_input'>
+              <div className='gift_image'>
+                <img src={image1} width={380} height={166} alt='...' />
+                <div className='gift_button'>
+                  <button className='Use_button'>Use</button>
+                  <button className='Send_button'>Send</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div className='title' id='buycard'>
+            <h3>Buy GIFT CARDS</h3>
+          </div>
+          <div className='gift_container' id="gift_vard_buy">
+            <div className='gift_input' id='buy_gift_card_input'>
+              <div className='gift_image' id='buy_gift_card_image'>
+                <img src={image1} alt='...' />
+                <div className='gift_button'>
+                  <h3 className='title'>Silver gift card</h3>
+                  <button className='Use_button'>Buy Now</button>
+                </div>
+              </div>
+            </div>
+            <div className='gift_input' id='buy_gift_card_input'>
+              <div className='gift_image' id='buy_gift_card_image'>
+                <img src={image1} alt='...' />
+                <div className='gift_button'>
+                  <h3 className='title'>Silver gift card</h3>
+                  <button className='Use_button'>Buy Now</button>
+                </div>
+              </div>
+            </div>
+            <div className='gift_input' id='buy_gift_card_input'>
+              <div className='gift_image' id='buy_gift_card_image'>
+                <img src={image1} alt='...' />
+                <div className='gift_button'>
+                  <h3 className='title'>Silver gift card</h3>
+                  <button className='Use_button'>Buy Now</button>
+                </div>
+              </div>
+            </div>
+            <div className='gift_input' id='buy_gift_card_input'>
+              <div className='gift_image' id='buy_gift_card_image'>
+                <img src={image1} alt='...' />
+                <div className='gift_button'>
+                  <h3 className='title'>Silver gift card</h3>
+                  <button className='Use_button'>Buy Now</button>
+                </div>
+              </div>
+            </div>
+            <div className='gift_input' id='buy_gift_card_input'>
+              <div className='gift_image' id='buy_gift_card_image'>
+                <img src={image1} alt='...' />
+                <div className='gift_button'>
+                  <h3 className='title'>Silver gift card</h3>
+                  <button className='Use_button'>Buy Now</button>
+                </div>
+              </div>
+            </div>
+            <div className='gift_input' id='buy_gift_card_input'>
+              <div className='gift_image' id='buy_gift_card_image'>
+                <img src={image1} alt='...' />
+                <div className='gift_button'>
+                  <h3 className='title'>Silver gift card</h3>
+                  <button className='Use_button'>Buy Now</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
-    );
+      </div>
+    </>
+  )
 }
 
-export default Booking;
+export default Gift
