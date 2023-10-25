@@ -280,7 +280,7 @@ function EditGift() {
                                                         <input
                                                             name='couponImages'
                                                             type="file"
-                                                            placeholder="Excerpt"
+                                                            placeholder="couponImages"
                                                             onChange={(e) => {
                                                                 let reader = new FileReader();
                                                                 let file = e.target.files[0];

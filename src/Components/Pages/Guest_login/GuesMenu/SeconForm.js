@@ -61,9 +61,27 @@ const SeconForm = ({ step, nextStep }) => {
         setFormData(formData);
     }, [selectedItems, service_ids, selectedGender, selectedServiceTime, priceservice, priceadon]);
 
+    // useEffect(() => {
+    //     let total = priceservice + priceadon;
+    //     setPrice(total)
+
+    //     if (gendercheck === "guest") {
+    //         total *= 2;
+    //     }
+
+    //     setTotalPrice(total);
+    //     setFormData({ ...formData, totalPrice: total });
+    // }, [priceservice, priceadon, gendercheck, formData]);
+
     useEffect(() => {
         let total = priceservice + priceadon;
-        setPrice(total)
+        const time_status = selectedServiceTime;
+
+        if (time_status === "90min") {
+            total += 40;
+        } else if (time_status === "120min") {
+            total += 80;
+        }
 
         if (gendercheck === "guest") {
             total *= 2;
@@ -71,7 +89,22 @@ const SeconForm = ({ step, nextStep }) => {
 
         setTotalPrice(total);
         setFormData({ ...formData, totalPrice: total });
-    }, [priceservice, priceadon, gendercheck, formData]);
+    }, [priceservice, priceadon, selectedServiceTime, gendercheck]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     const handleGenderSelect = (selectedGenderValue) => {
         setFormData({ ...formData, gender: selectedGenderValue });

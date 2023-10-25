@@ -10,17 +10,26 @@ const Conform = () => {
     const useremail = localStorage.getItem("user_email")
     const username = localStorage.getItem("user_name")
     const formData = useSelector((state) => state.counter.formData);
-    console.log("formData corm page",formData)
+    console.log("formData corm page", formData)
     const { userId, totalPrice } = useParams()
     const [posts, setPosts] = useState(null);
     const nav = useNavigate()
+
+    const [totalAmount, setTotalAmount] = useState()
 
 
 
     const service_time = formData.secondform && formData.secondform[0] ? formData.secondform[0].service_time : "";
     const massage_pressure = formData.thirdform && formData.thirdform[0] ? formData.thirdform[0].massage_pressure : "";
     const scheduled_date = formData.fourthform && formData.fourthform[0] ? formData.fourthform[0].date : "";
-    
+
+    useEffect(() => {
+        const taxRate = 0.18; // 18% tax rate
+        const totalPriceWithTax = (totalPrice * 100 + totalPrice * 100 * taxRate) / 100;
+        console.log("totalPriceWithTax", totalPriceWithTax);
+        setTotalAmount(totalPriceWithTax)
+    }, []);
+
 
 
 
@@ -67,7 +76,7 @@ const Conform = () => {
                         <li>
                             <span className="title">Personal Details</span>
                             <span className="value">24000 EL Toro Road Laguna Woods, CA 92653</span>
-                            
+
                         </li>
                         <li>
                             <span className="title">Massage Pressure</span>
@@ -76,14 +85,21 @@ const Conform = () => {
                         <li>
                             <span className="title">Appointments</span>
                             <span className="value">Sarah's Massage <small>{service_time} min swedish massage</small> </span>
-                            <span className="price" style={{ fontSize: "20px" }}>${totalPrice}</span>
+
+                            <div className="price" style={{ display: "block", lineHeight: "10px" }}>
+                                <p className="prices" style={{ fontSize: "17px" }}>amount: ${totalPrice}</p>
+                                <p className="prices" style={{ fontSize: "17px" }}>Taxes: 18%</p>
+                                <p className="prices" style={{ fontSize: "17px" }}>Total Pay: ${totalAmount} </p>
+
+                            </div>
                         </li>
+
                     </ul>
 
 
 
                     <StripeCheckout
-                        amount={totalPrice * 100}
+                        amount={totalAmount * 100}
                         userId={userId}
                         token={onSubmit}
                         currency='USD'

@@ -244,7 +244,7 @@ function AddGift() {
                             };
                     
                             reader.readAsDataURL(file);
-                            setFieldValue('couponImage', file); // Change this line to setFieldValue('couponImage', file)
+                            setFieldValue('couponImages', file); // Change this line to setFieldValue('couponImage', file)
                           }}
                         />
                         {errors.couponImages && touched.couponImages ? (
