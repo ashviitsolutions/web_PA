@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import "./Profile.css";
 import img1 from "../../../assets/img/tender-african-woman-smiling-enjoying-massage-with-closed-eyes-spa-resort.jpg"
 import Hook from "../Hook/Hook";
+import { FaMedal } from 'react-icons/fa';
 
 function Overview() {
   const username = localStorage.getItem("user_name");
-  const [name, setName] = useState("")
+  const [membershipLevel, setMembershipLevel] = useState("silver");
+  const [name, setName] = useState("");
   const [posts, setPosts] = useState([]);
   const [eventStates, setEventStates] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -52,8 +54,6 @@ function Overview() {
       }
     };
 
-
-
     fetchBooking();
     fetchPosts();
   }, []);
@@ -75,9 +75,15 @@ function Overview() {
 
   return (
     <>
-      <div className="inner" >
+      <div className="inner">
         <div className='gutter'>
           <h3 className='profile_heading'>{name || username}</h3>
+          <p className="profile_heading" style={{ color: "blue", fontSize: "15px" }}>
+            {`${membershipLevel}`}
+            {membershipLevel === 'silver' && <FaMedal style={{ color: 'silver' }} />}
+            {membershipLevel === 'gold' && <FaMedal style={{ color: 'gold' }} />}
+            {membershipLevel === 'platinum' && <FaMedal style={{ color: 'gray' }} />}
+          </p>
         </div>
         <div className='gutter'>
           <h3 className='small_heading'>UPCOMING BOOKINGS</h3>
@@ -127,15 +133,13 @@ function Overview() {
                                     {
                                       post.location_type === "provider" && <button className="button_direction">Get Directions</button>
                                     }
-
                                   </div>
                                   <hr />
                                   <div className="host">
                                     <div className="avatar"></div>
                                     {
-                                      post.service_status === "pending" ? <p>Your booking is yet to be Accepted by one of Our Providers!</p> : <p>Appointment with <b>{post.host}</b></p>
+                                      post.service_status === "pending" ? <p>Your booking is yet to be Accepted by one of Our Providers!</p> : <p>Appointment with <b>{post.host}</b></p>
                                     }
-
                                   </div>
                                   <div className="billing float_wrapper">
                                     <p className="pull-left">$ {post?.service_id?.price}</p>
@@ -148,7 +152,6 @@ function Overview() {
                         </div>
                       ))
                     )}
-
                   </div>
 
                   <div className="row mt-3" id='overview_page_container'>
@@ -186,15 +189,13 @@ function Overview() {
                                     {
                                       post.location_type === "provider" && <button className="button_direction">Get Directions</button>
                                     }
-
                                   </div>
                                   <hr />
                                   <div className="host">
                                     <div className="avatar"></div>
                                     {
-                                      post.service_status === "pending" ? <p>Your booking is yet to be Accepted by one of Our Providers!</p> : <p>Appointment with <b>{post.host}</b></p>
+                                      post.service_status === "pending" ? <p>Your booking is yet to be Accepted by one of Our Providers!</p> : <p>Appointment with <b>{post.host}</b></p>
                                     }
-
                                   </div>
                                   <div className="billing float_wrapper">
                                     <p className="pull-left">$ {post?.service_id?.price}</p>
@@ -207,27 +208,13 @@ function Overview() {
                         </div>
                       ))
                     )}
-
                   </div>
-
                 </>
               )}
-
             </div>
           )}
         </div>
       </div>
-
-
-
-
-
-
-
-
-
-
-
 
       {/* Pagination controls */}
       <div className="overview_user_page_pagination">

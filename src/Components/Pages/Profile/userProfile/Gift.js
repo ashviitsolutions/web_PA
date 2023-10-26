@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import "./Profile.css";
-import image1 from "../../../assets/img/gift-card-with-red-ribbon_23-2147510395 (1).webp"
-
 import { IP } from '../../../../Constant';
-
+import image1 from "../../../assets/img/gift-card-with-red-ribbon_23-2147510395 (1).webp"
 function Gift() {
   const username = localStorage.getItem("user_name");
   const [user, setUser] = useState([]);
+  const [images, setImageObjectURL] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,18 +22,37 @@ function Gift() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const fetchImages = async () => {
+      const imagePromises = user.map((card) => {
+        return fetch(`${IP}/file/${card.attachments}`)
+          .then((res) => res.blob())
+          .then((imageBlob) => URL.createObjectURL(imageBlob))
+          .catch((error) => {
+            console.error("Error loading image:", error);
+            return null; // Return null for images that couldn't be loaded
+          });
+      });
+
+      Promise.all(imagePromises).then((imageUrls) => {
+        setImageObjectURL(imageUrls);
+      });
+    };
+
+    fetchImages();
+  }, [user]);
+
   const giftCards = user.map((card, index) => (
-   
-      <div className='gift_input' id='buy_gift_card_input'>
-        <div className='gift_image' id='buy_gift_card_image'>
-          <img src={image1} alt='...' />
-          <div className='gift_button'>
-            <h3 className='title'>{card.title}</h3>
-            <button className='Use_button'>Buy Now</button>
-          </div>
+    <div className='gift_input' id='buy_gift_card_input' key={index}>
+      <div className='gift_image' id='buy_gift_card_image'>
+        {images[index] && <img src={images[index]} alt='...' />}
+        <div className='gift_button'>
+          <h3 className='title'>{card.title}</h3>
+          <h3 className='title'>{card.amount_off} $ off</h3>
+          <button className='Use_button'>Buy Now</button>
         </div>
       </div>
-   
+    </div>
   ));
 
   return (
@@ -78,7 +96,7 @@ function Gift() {
         </div>
       </div>
     </>
-  )
+  );
 }
 
 export default Gift;

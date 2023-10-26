@@ -1,263 +1,367 @@
-import { useState, useEffect } from "react";
-import "./style.css";
+// import React from 'react';
+// import { useState, useEffect } from 'react';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { updateInputData } from '../../Redux/counterSlice';
+// import { useNavigate } from 'react-router-dom';
+// import Hook from '../../Profile/Hook/Hook';
+
+
+// function Location() {
+//   const [name, setName] = useState("");
+//   const [latitude, setLatitude] = useState()
+//   const [longitude, setLongitude] = useState()
+//   // Use useSelector with the correct selector to get the formData
+//   const formData = useSelector((state) => state.counter.formData);
+//   console.log(formData);
+
+//   const dispatch = useDispatch();
+//   const nav = useNavigate();
+//   const [Input, setInput] = useState('');
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     const config = {
+//       location: {
+//         type: 'Point',
+//         coordinates: [latitude, longitude],
+//       },
+//     };
+
+//     // Dispatch the updateInputData action with the Input value
+//     dispatch(updateInputData({ formName: 'locationForm', inputData: config }));
+
+
+//     setTimeout(() => {
+//       nav("/book");
+
+//     }, 2000)
+//   };
+
+
+
+
+//   //Get lattituide
+//   useEffect(() => {
+//     navigator.geolocation.getCurrentPosition((position) => {
+//       setLatitude(position.coords.latitude)
+//       setLongitude(position.coords.longitude)
+//       console.log("latitide", position.coords.latitude)
+//       console.log("longitude", position.coords.longitude)
+//     })
+
+
+//   }, [])
+
+
+
+
+
+
+
+
+
+//   useEffect(() => {
+//     const fetchPosts = async () => {
+//       try {
+//         const response = await Hook.getProfile();
+//         console.log("profile view", response)
+//         if (response.data.name) {
+//           setName(response.data.name);
+//           localStorage.setItem("user_name", response.data.name);
+//         } else {
+//           const fullName = `${response.data.first_name} ${response.data.last_name}`;
+//           setName(fullName);
+//           localStorage.setItem("user_name", fullName);
+//         }
+//         localStorage.setItem("user_email", response.data.email);
+//       } catch (error) {
+//         console.error("Error fetching data:", error);
+//       }
+//     };
+
+
+
+
+//     fetchPosts();
+//   }, []);
+
+
+
+
+
+
+//   return (
+//     <>
+//       <div id="over_banner">
+//         <div className="container">
+//           <div className="row">
+//             <form className="location card layer1">
+
+//               <h3>Where would you like our provider to meet you.</h3>
+//               <div className="input_group">
+//                 <input
+//                   className="input"
+//                   type="text"
+//                   onChange={(e) => setInput(e.target.value)}
+//                   value={Input}
+//                   placeholder="Search for an address here..."
+//                 />
+//               </div>
+//               <div className="input_group">
+//                 <button
+//                   className="button"
+//                   style={{ paddingTop: '11px' }}
+//                   type="submit"
+//                   onClick={handleSubmit}
+//                 >
+//                   continue
+//                 </button>
+//               </div>
+//             </form>
+//           </div>
+//         </div>
+//       </div>
+//     </>
+//   );
+// }
+
+// export default Location;
+
+
+// import React, { useState, useEffect } from 'react';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { updateInputData } from '../../Redux/counterSlice';
+// import { useNavigate } from 'react-router-dom';
+// import Hook from '../../Profile/Hook/Hook';
+// import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
+
+// function Location() {
+//   const [name, setName] = useState("");
+//   const [latitude, setLatitude] = useState(null);
+//   const [longitude, setLongitude] = useState(null);
+//   const formData = useSelector((state) => state.counter.formData);
+//   const dispatch = useDispatch();
+//   const nav = useNavigate();
+//   const [Input, setInput] = useState('');
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     const config = {
+//       location: {
+//         type: 'Point',
+//         coordinates: [latitude, longitude],
+//       },
+//     };
+
+//     dispatch(updateInputData({ formName: 'locationForm', inputData: config }));
+
+//     setTimeout(() => {
+//       nav("/book");
+//     }, 2000);
+//   };
+
+//   useEffect(() => {
+//     navigator.geolocation.getCurrentPosition((position) => {
+//       setLatitude(position.coords.latitude);
+//       setLongitude(position.coords.longitude);
+//       console.log("latitude", position.coords.latitude);
+//       console.log("longitude", position.coords.longitude);
+//     }, (error) => {
+//       console.error("Error getting user's location:", error);
+//     });
+//   }, []);
+
+
+
+//   const handleSelect = async (value) => {
+//     console.log("value", value);
+//     try {
+//       navigator.geolocation.getCurrentPosition((position) => {
+//         setLatitude(position.coords.latitude);
+//         setLongitude(position.coords.longitude);
+//         console.log("latitude", position.coords.latitude);
+//         console.log("longitude", position.coords.longitude);
+//       }, (error) => {
+//         console.error("Error getting user's location:", error);
+//       });
+//     } catch (error) {
+//       console.error("Error geocoding the selected location:", error);
+//     }
+//   };
+
+//   return (
+//     <>
+//       <div id="over_banner">
+//         <div className="container">
+//           <div className="row">
+//             <form className="location card layer1">
+//               <h3>Where would you like our provider to meet you.</h3>
+//               <div className="input_group">
+//                 <PlacesAutocomplete
+//                   value={Input}
+//                   onChange={(e) => setInput(e)}
+//                   onSelect={handleSelect}
+//                 >
+//                   {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+//                     <div>
+//                       <input
+//                         className="input"
+//                         {...getInputProps()}
+//                         placeholder="Search for an address here..."
+//                       />
+//                       <div>
+//                         {loading ? <div>Loading...</div> : null}
+//                         {suggestions.map((suggestion) => {
+//                           const style = {
+//                             backgroundColor: suggestion.active ? '#41b6e6' : '#fff',
+//                           };
+//                           return (
+//                             <div {...getSuggestionItemProps(suggestion, { style })}>
+//                               {suggestion.description}
+//                             </div>
+//                           );
+//                         })}
+//                       </div>
+//                     </div>
+//                   )}
+//                 </PlacesAutocomplete>
+//               </div>
+//               <div className="input_group">
+//                 <button
+//                   className="button"
+//                   style={{ paddingTop: '11px' }}
+//                   type="submit"
+//                   onClick={handleSubmit}
+//                 >
+//                   continue
+//                 </button>
+//               </div>
+//             </form>
+//           </div>
+//         </div>
+//       </div>
+//     </>
+//   );
+// }
+
+// export default Location;
+
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateInputData } from '../../Redux/counterSlice';
-import { IP } from "../../../../Constant";
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import { useRef } from "react";
+import { useNavigate } from 'react-router-dom';
+import Hook from '../../Profile/Hook/Hook';
+import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
 
-const PreviewImage = ({ attachments }) => {
-    const [imageObjectURL, setImageObjectURL] = useState(null);
+function Location() {
+  const [name, setName] = useState("");
+  const [latitude, setLatitude] = useState(null);
+  const [longitude, setLongitude] = useState(null);
+  const formData = useSelector((state) => state.counter.formData);
+  const dispatch = useDispatch();
+  const nav = useNavigate();
+  const [Input, setInput] = useState('');
 
-    useEffect(() => {
-        const fetchImage = async () => {
-            const res = await fetch(`${IP}/file/${attachments}`);
-            const imageBlob = await res.blob();
-            const objectURL = URL.createObjectURL(imageBlob);
-            setImageObjectURL(objectURL);
-        };
 
-        fetchImage();
-    }, [attachments]);
 
-    return (
-        <div style={{ width: "18vw", height: "22vh", backgroundSize: "cover" }} >
-            {imageObjectURL && <img src={imageObjectURL} alt="Preview" className="previewimage" />}
-        </div>
-    );
-};
-
-const SecondForm = ({ step, nextStep }) => {
-    const [user, setUser] = useState([]);
-    const [selectedItems, setSelectedItems] = useState([]);
-    const [priceservice, setPerice] = useState(0);
-    const [priceadon, setPriceadon] = useState(0);
-    const [totalPrice, setTotalPrice] = useState(0);
-    const [formData, setFormData] = useState({
-        service_ids: "", // Initialize service_ids with an empty string or a default value
-        gender: "",
-        service_time: "",
-        serviceid_adon: "",
-        totalPrice: ""
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      setLatitude(position.coords.latitude);
+      setLongitude(position.coords.longitude);
+      console.log("latitude", position.coords.latitude);
+      console.log("longitude", position.coords.longitude);
+    }, (error) => {
+      console.error("Error getting user's location:", error);
     });
+  }, []);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const res = await fetch(`${IP}/service/view-services`);
-                const data = await res.json();
-                setUser(data);
 
-                console.log("get data", data)
-            } catch (error) {
-                console.error("Error fetching data", error);
-            }
-        };
 
-        fetchData();
-    }, []);
+  const handleSelect =() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      setLatitude(position.coords.latitude);
+      setLongitude(position.coords.longitude);
+      console.log("latitude", position.coords.latitude);
+      console.log("longitude", position.coords.longitude);
+    }, (error) => {
+      console.error("Error getting user's location:", error);
+    });
+  };
 
-    const dispatch = useDispatch();
-    const selector = useSelector((state) => state.counter.formData);
-    console.log("selector", selector);
 
-    const [service_id, setService_id] = useState();
-    const [serviceid_adon, setServiceid_adon] = useState();
-
-    const handleId = (id) => {
-        setService_id(id);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const config = {
+      location: {
+        type: 'Point',
+        coordinates: [latitude, longitude],
+      },
     };
 
-    const handlePrice = (price) => {
-        setPerice(price);
-    };
+    dispatch(updateInputData({ formName: 'locationForm', inputData: config }));
 
-    const handleAdonPrice = (adonprice) => {
-        setPriceadon((prevPrice) => prevPrice + adonprice);
-    };
+    setTimeout(() => {
+      nav("/book");
+    }, 2000);
+  };
 
-    useEffect(() => {
-        // Calculate the total price by adding priceservice and priceadon
-        const total = priceservice + priceadon;
 
-        // Set the total price in the state
-        setTotalPrice(total);
 
-        // You can also format the total price as a string if needed
-        // setTotalPrice(`${total}`);
-    }, [priceservice, priceadon]);
 
-    useEffect(() => {
-        setFormData({
-            ...formData,
-            service_ids: service_id !== undefined ? service_id : "",
-        });
-    }, [service_id]);
-
-    const handleAdonId = (adonid) => {
-        setServiceid_adon(adonid);
-    };
-
-    const handleSubmit = async () => {
-        const selectedServiceIds = selectedItems.join(',');
-
-        setFormData({
-            ...formData,
-            service_ids: selectedServiceIds,
-            totalPrice: totalPrice
-        });
-        
-        dispatch(updateInputData({ formName: 'secondform', inputData: formData }));
-        dispatch(updateInputData({ formName: 'totalPrice', inputData: formData }));
-
-        setTimeout(() => {
-            nextStep();
-        }, 2000);
-    };
-
-    const handleGenderSelect = (selectedGenderValue) => {
-        setFormData({ ...formData, gender: selectedGenderValue });
-    };
-
-    const handleServiceTimeSelect = (selectedTime) => {
-        setFormData({ ...formData, service_time: selectedTime });
-    };
-
-    const handleSelectItem = (itemId) => {
-        const itemIndex = selectedItems.indexOf(itemId);
-
-        if (itemIndex === -1) {
-            setSelectedItems([...selectedItems, itemId]);
-            const selectedItem = user.find(item => item._id === itemId);
-            if (selectedItem) {
-                setPerice(prevPrice => prevPrice + selectedItem.price);
-            }
-        } else {
-            const updatedItems = selectedItems.filter(id => id !== itemId);
-            setSelectedItems(updatedItems);
-            const selectedItem = user.find(item => item._id === itemId);
-            if (selectedItem) {
-                setPerice(prevPrice => prevPrice - selectedItem.price);
-            }
-        }
-    };
-
-    return (
-        <div id="sec_wiz_2" className="section">
-            <div id="page_service_select">
-                <span className="title">Select Service</span>
-                <div className="content" style={{ padding: "0 25px" }}>
-                    <div id="service_collection" className="product_collector big">
-                        <div id="select_service_carousel" className="owl-carousel owl-theme products">
-                            {
-                                user.filter((filter) => filter.category === "on demand").map((cur, index) => {
-                                    return (
-                                        <div className="item_wrapper" key={index} onClick={() => handlePrice(cur.price)}>
-                                            <div className={`item ${service_id === `${cur._id}` ? "selected" : ""}`} onClick={() => handleId(cur._id)}  >
-                                                <div className="bg" style={{ width: "100%", height: "20vh", backgroundSize: "cover" }}>
-                                                    <PreviewImage attachments={cur.attachments} />
-                                                </div>
-                                                <div className="content" >
-                                                    <span className="title">{cur.title}</span>
-                                                    <p className="excerpt" dangerouslySetInnerHTML={{ __html: cur.description.slice(0, 50) }} />
-                                                    <span className="rates">
-                                                        <i></i> <span className="coloreds"></span>  <b>${cur.price}</b>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    );
-                                })
-                            }
-                            <div className="gen_heading" style={{ marginBottom: "20px" }}></div>
-                        </div>
+  return (
+    <>
+      <div id="over_banner">
+        <div className="container">
+          <div className="row">
+            <form className="location card layer1">
+              <h3>Where would you like our provider to meet you.</h3>
+              <div className="input_group">
+                <PlacesAutocomplete
+                  value={Input}
+                  onChange={(e) => setInput(e)}
+                  onSelect={handleSelect}
+                >
+                  {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                    <div>
+                      <input
+                        className="input"
+                        {...getInputProps()}
+                        placeholder="Search for an address here..."
+                      />
+                      <div>
+                        {loading ? <div>Loading...</div> : null}
+                        {suggestions.map((suggestion) => {
+                          const style = {
+                            backgroundColor: suggestion.active ? '#41b6e6' : '#fff',
+                          };
+                          return (
+                            <div {...getSuggestionItemProps(suggestion, { style })}>
+                              {suggestion.description}
+                            </div>
+                          );
+                        })}
+                      </div>
                     </div>
-                    <div className="gen_heading">
-                        <h3>Gender Preference</h3>
-                    </div>
-                    <ul className="time_options">
-                        <li
-                            id="g_male"
-                            className={`gender time_option ${formData.gender === "Male" ? "selected" : ""}`}
-                            onClick={() => handleGenderSelect("Male")}
-                        >
-                            Male
-                        </li>
-                        <li
-                            id="g_female"
-                            className={`gender time_option ${formData.gender === "Female" ? "selected" : ""}`}
-                            onClick={() => handleGenderSelect("Female")}
-                        >
-                            Female
-                        </li>
-                        <li
-                            id="g_either"
-                            className={`gender time_option ${formData.gender === "Either" ? "selected" : ""}`}
-                            onClick={() => handleGenderSelect("Either")}
-                        >
-                            Either
-                        </li>
-                    </ul>
-                    <div className="gen_heading">
-                        <h3>Select Time</h3>
-                    </div>
-                    <ul className="time_options">
-                        <li
-                            id="min_45"
-                            className={`time_option ${formData.service_time === "60min" ? "selected" : ""}`}
-                            onClick={() => handleServiceTimeSelect("60min")}
-                        >
-                            60 min
-                        </li>
-                        <li
-                            id="min_60"
-                            className={`time_option ${formData.service_time === "90min" ? "selected" : ""}`}
-                            onClick={() => handleServiceTimeSelect("90min")}
-                        >
-                            90 min
-                        </li>
-                        <li
-                            id="min_90"
-                            className={`time_option ${formData.service_time === "120min" ? "selected" : ""}`}
-                            onClick={() => handleServiceTimeSelect("120min")}
-                        >
-                            120 min
-                        </li>
-                    </ul>
-                    <div className="gen_heading">
-                        <h3>Popular to consider</h3>
-                    </div>
-                    <div className="product_collector">
-                        <div id="addons_carousel" className="owl-carousel owl-theme products">
-                            {
-                                user.filter((filter) => filter.category === "addons").map((cur, index) => {
-                                    return (
-                                        <div className="item_wrapper" key={index} >
-                                            <div className={`item ${selectedItems.includes(cur._id) ? "selected" : ""}`} onClick={() => handleSelectItem(cur._id)}  >
-                                                <div className="bg" style={{ width: "100%", height: "22vh", backgroundSize: "cover" }} onClick={() => handleAdonPrice(cur.price)}>
-                                                    <PreviewImage attachments={cur.attachments} />
-                                                </div>
-                                                <div className="content">
-                                                    <span className="title">{cur.title}</span>
-                                                    <span className="rates">
-                                                        <i></i> <span className="coloreds"></span> <b>${cur.price}</b>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    );
-                                })
-                            }
-                        </div>
-                    </div>
-                    <p>Total Price: ${totalPrice}</p>
-                    <button className="button lazy" type="submit" onClick={handleSubmit}>next</button>
-                </div>
-            </div>
+                  )}
+                </PlacesAutocomplete>
+              </div>
+              <div className="input_group">
+                <button
+                  className="button"
+                  style={{ paddingTop: '11px' }}
+                  type="submit"
+                  onClick={handleSubmit}
+                >
+                  continue
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
-    );
+      </div>
+    </>
+  );
 }
 
-export default SecondForm;
+export default Location;
+
