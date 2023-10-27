@@ -18,7 +18,7 @@ const PreviewImage = ({ imagePreviewUrl }) => {
     </div>
   );
 };
-function AddGift() {
+function AddCoupon() {
   const nav = useNavigate()
   const editor = useRef(null);
   const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
@@ -76,7 +76,7 @@ function AddGift() {
       if (res.status === 200) {
         setValues({});
         resetForm();
-        nav("/admin/Gift");
+        nav("/admin/coupon");
       }
     } catch (error) {
       console.error(error);
@@ -117,7 +117,7 @@ function AddGift() {
                   <div className="">
                     <div className="headings float_wrapper">
                       <div className="gutter pull-left" >
-                        <h3>Add Gift Card</h3>
+                        <h3>Add Coupon  Card</h3>
                       </div>
                       <span className="toggle_sidebar" ></span>
                     </div>
@@ -169,12 +169,12 @@ function AddGift() {
                         <Field
                           className="input"
                           name="amount_off"
-                          type="number"
+                          type="text"
                         />
                         {errors.amount_off && touched.amount_off ? (
                           <div>{errors.amount_off}</div>
                         ) : null}
-                        <label htmlFor="">Price</label>
+                        <label htmlFor="">Coupon code</label>
                         <span class="highlight"></span>
                       </div>
 
@@ -265,7 +265,7 @@ function AddGift() {
 
                         <div className="card layer1">
                           <div className="inner">
-                            <label className="card_label" htmlFor="">Select Date and Time</label>
+                            <label className="card_label" htmlFor="">Select Expiry Date and Time</label>
                             <div className="input_group">
                               <DatePicker
                                 inline
@@ -313,4 +313,4 @@ function AddGift() {
   )
 }
 
-export default AddGift
+export default AddCoupon 

@@ -37,6 +37,10 @@ import GetGidt from "./Admins/Admin/GIFT/GetGidt";
 import AddGift from "./Admins/Admin/GIFT/AddGift"
 import EditGift from "./Admins/Admin/GIFT/EditGift"
 
+import AddCoupon from './Admins/Admin/Coupon/AddCoupon ';
+import GetCoupon from './Admins/Admin/Coupon/GetCoupon';
+import EditCoupon from './Admins/Admin/Coupon/EditCoupon';
+
 
 
 // 1.Post section
@@ -281,6 +285,20 @@ function App() {
             <Protect Component={EditGift} />
           </>} />
 
+
+
+          <Route path="/admin/coupon" element={<>
+            <Sidebar />
+            <Protect Component={GetCoupon} />
+          </>} />
+          <Route path="/admin/coupon/addcoupon" element={<>
+            <Sidebar />
+            <Protect Component={AddCoupon} />
+          </>} />
+          <Route path="/admin/coupon/editcoupon/:id" element={<>
+            <Sidebar />
+            <Protect Component={EditCoupon} />
+          </>} />
 
 
 

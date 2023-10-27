@@ -3,10 +3,12 @@ import "./Profile.css";
 import img1 from "../../../assets/img/tender-african-woman-smiling-enjoying-massage-with-closed-eyes-spa-resort.jpg"
 import Hook from "../Hook/Hook";
 import { FaMedal } from 'react-icons/fa';
+import Membership from './Membership';
 
 function Overview() {
   const username = localStorage.getItem("user_name");
   const [membershipLevel, setMembershipLevel] = useState("silver");
+  const [membership, setMembership] = useState(null);
   const [name, setName] = useState("");
   const [posts, setPosts] = useState([]);
   const [eventStates, setEventStates] = useState({});
@@ -73,17 +75,27 @@ function Overview() {
   const currentPending = filteredPending.slice(startIndex, endIndex);
   const currenSchudule = filteredSchudule.slice(startIndex, endIndex);
 
+  const handlemembersh = () => {
+    navigator("/")
+  }
+
   return (
     <>
+     
+
       <div className="inner">
         <div className='gutter'>
           <h3 className='profile_heading'>{name || username}</h3>
-          <p className="profile_heading" style={{ color: "blue", fontSize: "15px" }}>
-            {`${membershipLevel}`}
-            {membershipLevel === 'silver' && <FaMedal style={{ color: 'silver' }} />}
-            {membershipLevel === 'gold' && <FaMedal style={{ color: 'gold' }} />}
-            {membershipLevel === 'platinum' && <FaMedal style={{ color: 'gray' }} />}
-          </p>
+          <div className='update_membership'>
+            <p className="profile_heading" style={{ color: "blue", fontSize: "15px" }}>
+              {`${membershipLevel}`}
+              {membershipLevel === 'silver' && <FaMedal style={{ color: 'silver' }} />}
+              {membershipLevel === 'gold' && <FaMedal style={{ color: 'gold' }} />}
+              {membershipLevel === 'platinum' && <FaMedal style={{ color: 'gray' }} />}
+            </p>
+            {/*<button className='membership_update_button' onClick={handlemembersh}>Update</button> */}
+          </div>
+
         </div>
         <div className='gutter'>
           <h3 className='small_heading'>UPCOMING BOOKINGS</h3>

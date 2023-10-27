@@ -9,6 +9,7 @@ import Logout from "./Logout";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import bookingimage from "../../../img/plus.png"
+import Membership from "./Membership";
 
 import "./Profile.css";
 import image1 from "../../../assets/img/profile/dashboard.png";
@@ -63,7 +64,7 @@ const Book = () => {
       form = <ThirdForm step={now} nextStep={nextStep} previousStep={previousStep} />;
       break;
     case 4:
-      form = <FourForm step={now} nextStep={nextStep} previousStep={previousStep} />;
+      form = <Membership step={now} nextStep={nextStep} previousStep={previousStep} />;
       break;
     case 5:
       form = <FifthForm step={now} nextStep={nextStep} previousStep={previousStep} />;
@@ -112,12 +113,12 @@ const Book = () => {
               Invoices
             </div>
   </li> */}
-          {/*<li id="tab_4" className={activeTab === 4 ? 'active' : ''} onClick={() => setActiveTab(4)}>
+          <li id="tab_4" className={activeTab === 4 ? 'active' : ''} onClick={() => setActiveTab(4)}>
             <div className="item">
               <img src={image4} width={15} height={15} alt="..." />
-              Events
+              Membership
             </div>
-  </li> */}
+          </li>
           <li id="tab_5" className={activeTab === 5 ? 'active' : ''} onClick={() => setActiveTab(5)}>
             <div className="item">
               <img src={image5} width={15} height={15} alt="..." />

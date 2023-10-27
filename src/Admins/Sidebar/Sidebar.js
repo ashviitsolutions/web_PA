@@ -76,6 +76,12 @@ function Sidebar() {
               </Link>
             </div>
             <div className="items">
+              <Link to="/admin/coupon ">
+                <PaidIcon style={{ color: "#fff" }} />
+                <span className="title">Coupon</span>
+              </Link>
+            </div>
+            <div className="items">
               <Link to="/admin/services">
                 <MedicalServicesIcon style={{ color: "#fff" }} />
                 <span className="title">services</span>

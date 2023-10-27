@@ -103,15 +103,15 @@ ul#tabs_control li.active {
     border-radius: 20px;
 }
 
-#button_invoices .pull-right{
+#button_invoices .pull-right {
     font-size: 10px;
     background-color: red;
 }
 
 /* //Boking */
-#booking_twext_item{
-   position: relative;
-   top: -15px;
+#booking_twext_item {
+    position: relative;
+    top: -15px;
 }
 
 .overview {
@@ -619,6 +619,91 @@ ul#tabs_control .userbooking li.withicon a {
 
 .rating-feedback-section button:hover {
     background-color: #0056b3;
+}
+
+/* //Membership profile */
+
+.update_membership {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+
+
+}
+
+.update_membership button {
+    border: none;
+    padding: 2px 4px;
+    margin-left: 15px;
+    color: #007bff;
+    background-color: transparent;
+
+}
+
+.membership_container {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    margin: auto;
+}
+
+.membership_update {
+    /* background-color: chocolate; */
+    background-color: #f2f2f2;
+    box-shadow: -1px 1px 5px -3px rgba(0, 0, 0, 0.35);
+    padding: 0 10px;
+
+    border-radius: 10px;
+    margin: 10px;
+
+}
+
+.membership_update:nth-child(1) {
+    background-color: rgb(235, 234, 234);
+}
+
+.membership_update:nth-child(2) {
+    background-color: gold;
+}
+
+.membership_update .heading {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.membership_update .heading h3 {
+
+    font-weight: 700 !important;
+}
+.membership_update .heading p {
+
+    font-weight: 700 !important;
+}
+.membership_update .conetnt {
+    display: flex;
+    justify-content: space-between;
+}
+
+.membership_update .conetnt h3 {
+    font-size: 12px;
+}
+
+.mebershi_update_button {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 50px;
+    font-size: 12px;
+
+
+}
+
+.mebershi_update_button h3 {
+
+    font-size: 15px;
+    color: #03a9f4;
+
+
 }
 
 @media (max-width:992px) {
