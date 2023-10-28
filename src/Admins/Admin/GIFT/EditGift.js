@@ -1,52 +1,46 @@
-import React, { useEffect, useRef, useState } from 'react'
+
+import React, { useRef, useState, useEffect } from 'react'
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from 'axios';
 import JoditEditor from 'jodit-react';
 // import "./style.css"
 import { useNavigate } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
 import { IP } from '../../../Constant';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
+
 const PreviewImage = ({ imagePreviewUrl }) => {
     return (
-        <div style={{ width: "100%", heigh: "10vh", backgroundSize: "cover" }} className="previwimage">
+        <div style={{ width: "20vh", heigh: "10vh" }} className="previwimage">
             {imagePreviewUrl && <img src={imagePreviewUrl} alt="Preview" style={{ height: '29vh' }} />}
         </div>
     );
 };
 function EditGift() {
-    let params = useParams();
-    let { id } = params;
-    const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
-    const [user, setUser] = useState([])
-    const [formValue, setFormValue] = useState(null)
-    const [type, setType] = useState([])
-
-    const [images, setImages] = useState([])
     const nav = useNavigate()
     const editor = useRef(null);
-    const [img, setImg] = useState();
-
-    console.log("img", type)
+    const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
+    const [type, setType] = useState([])
     const [selectedDate, setSelectedDate] = useState(null);
 
     const handleDateChange = (date) => {
         setSelectedDate(date);
     };
 
+    console.log(type)
+
     const initialValues = {
         title: "",
         type: "",
-        couponImage: "",
+        couponImages: "",
         description: "",
         amount_off: "",
         percent_off: "",
-        is_active: ""
+        is_active: "",
+        max_redemptions: ""
     };
-
     const SignupSchema = Yup.object().shape({
         // title: Yup.string().required("Required"),
         // excerpt: Yup.string().required("Required"),
@@ -59,31 +53,30 @@ function EditGift() {
         try {
             const bodyFormData = new FormData();
             bodyFormData.append("title", values.title);
-            bodyFormData.append("type", values.type);
+            bodyFormData.append("type", "gift_card");
             bodyFormData.append("is_active", values.is_active);
-            bodyFormData.append("max_redemptions", "23");
+            bodyFormData.append("max_redemptions", values.max_redemptions);
             bodyFormData.append("amount_off", values.amount_off);
             bodyFormData.append("percent_off", values.percent_off);
             bodyFormData.append("expired_by", selectedDate);
-            bodyFormData.append("couponImages", values.couponImage);
+            bodyFormData.append("couponImages", values.couponImages);
             bodyFormData.append("description", values.description);
             let token = localStorage.getItem("tokenadmin");
             if (!token) {
                 throw new Error("Token not found in local storage");
             }
             console.log(token);
-            let res = await axios.put(`${IP}/coupon/${id}/update`, bodyFormData, {
+            const res = await axios.post(`${IP}/coupon/create`, bodyFormData, {
                 headers: {
-                    Authorization: token,
-                    // 'Content-Type': 'application/json',
-                    'Content-Type': 'multipart/form-data'
+                    //   Authorization: `${token}`
+                    Authorization: token
                 }
             });
             console.log(res);
             if (res.status === 200) {
                 setValues({});
-                resetForm("");
-                nav("/admin/gift");
+                resetForm();
+                nav("/admin/Gift");
             }
         } catch (error) {
             console.error(error);
@@ -96,63 +89,25 @@ function EditGift() {
 
     }
 
-    useEffect(() => {
-        fetch(`${IP}/service/fetch/${id}`).then((res) => {
-            return res.json();
-        }).then((data) => {
-            console.log(data)
-            setUser(data)
-            setImages(data.attachments)
-            const updatedSavedValues = {
-                title: data.title,
-                excerpt: data.excerpt,
-                category: data.category,
-                image: data.image,
-                description: data.description,
-                price: data.price
-            };
-            setFormValue(updatedSavedValues);
-        })
-    }, [id])
-
-
-
-    useEffect(() => {
-        const fetchImage = async () => {
-            const res = await fetch(`${IP}/file/${images}`);
-            const imageBlob = await res.blob();
-            const imageObjectURL = URL.createObjectURL(imageBlob);
-            setImg(imageObjectURL);
-        };
-        fetchImage();
-    }, [images]);
 
 
 
 
-    useEffect(() => {
-        fetch(`${IP}/service/market_place`).then((res) => {
-            return res.json();
-        }).then((data) => {
-            setType(data)
-            console.log("type", data)
 
-        })
-    }, [])
 
 
 
 
     return (
         <>
+
             <div id="content">
                 <div className="container-fluid">
                     <div className="row">
                         <Formik
-                            initialValues={formValue || initialValues}
+                            initialValues={initialValues}
                             validationSchema={SignupSchema}
                             onSubmit={onSubmit}
-                            enableReinitialize
 
                         >
 
@@ -188,22 +143,19 @@ function EditGift() {
 
                                                         <div className="input_group">
                                                             <label htmlFor="" className="static">Description</label>
-                                                            <div className='editor' style={{ marginTop: "4vh", height: "40vh" }}>
-                                                                <Field name="description" as="texarea">
-                                                                    <JoditEditor
-                                                                        name="description"
-                                                                        ref={editor}
-                                                                        value={values.description}
-                                                                        config={config}
-                                                                        onBlur={(newContent) => {
-                                                                            setFieldValue('description', newContent);
-                                                                        }}
-                                                                        onChange={(newContent) => {
-                                                                            setFieldValue('description', newContent);
-                                                                        }}
-                                                                    />
-                                                                </Field>
+                                                            <div className='editor' style={{ marginTop: "4vh" }}>
 
+                                                                <Field
+                                                                    className="input"
+                                                                    name="description"
+                                                                    type="text"
+                                                                // placeholder="Description"
+                                                                />
+                                                                {errors.description && touched.description ? (
+                                                                    <div>{errors.description}</div>
+                                                                ) : null}
+
+                                                                <span class="highlight"></span>
                                                             </div>
 
 
@@ -242,24 +194,29 @@ function EditGift() {
 
                                         </div>
 
+
+
+
+
                                         <div className="col-sm-4">
                                             <div className="gutter">
 
 
-                                                <div className="card layer1">
-                                                    <div className="inner">
-                                                        <label class="card_label" htmlFor="">Select Marketplace</label>
-                                                        <div className="input_group">
-                                                            <Field name="type" as="select" className="input">
-                                                                <option value="" >Select Status</option>
-
-                                                                <option value="gift_card">gift_card </option>
-                                                                <option value="coupon">coupon </option>
-
-                                                            </Field>
-                                                        </div>
-                                                    </div>
+                                                <div class="input_group" style={{ marginTop: "3rem" }}>
+                                                    <Field
+                                                        className="input"
+                                                        name="max_redemptions"
+                                                        type="number"
+                                                    />
+                                                    {errors.max_redemptions && touched.max_redemptions ? (
+                                                        <div>{errors.max_redemptions}</div>
+                                                    ) : null}
+                                                    <label htmlFor="">Max redemptions</label>
+                                                    <span class="highlight"></span>
                                                 </div>
+
+
+
                                                 <div className="card layer1">
                                                     <div className="inner">
                                                         <label class="card_label" htmlFor="">Select Marketplace</label>
@@ -267,20 +224,23 @@ function EditGift() {
                                                             <Field name="is_active" as="select" className="input">
                                                                 <option value="" >Select Status</option>
 
-                                                                <option value="true">true </option>
-                                                                <option value="false">false </option>
+                                                                <option value="true">Active </option>
+                                                                <option value="false">Inactive </option>
 
                                                             </Field>
                                                         </div>
                                                     </div>
                                                 </div>
+
+
+
                                                 <div className="card layer1">
                                                     <div className="inner">
-                                                        <label htmlFor="" className="card_label">Attachments</label>
+                                                        <label className="card_label" htmlFor="couponImages">Attachments</label>
                                                         <input
-                                                            name='couponImages'
+                                                            name="couponImages"
                                                             type="file"
-                                                            placeholder="couponImages"
+                                                            placeholder="Excerpt"
                                                             onChange={(e) => {
                                                                 let reader = new FileReader();
                                                                 let file = e.target.files[0];
@@ -290,21 +250,18 @@ function EditGift() {
                                                                 };
 
                                                                 reader.readAsDataURL(file);
-                                                                setFieldValue('couponImages', file)
-                                                            }
-                                                            }
+                                                                setFieldValue('couponImages', file); // Change this line to setFieldValue('couponImage', file)
+                                                            }}
                                                         />
-                                                        {errors.couponImage && touched.couponImage ? (
-                                                            <div>{errors.couponImage}</div>
+                                                        {errors.couponImages && touched.couponImages ? (
+                                                            <div>{errors.couponImages}</div>
                                                         ) : null}
-
-
-
                                                     </div>
-                                                    <div className='preview' >
+                                                    <div className="preview">
                                                         <PreviewImage imagePreviewUrl={imagePreviewUrl} />
                                                     </div>
                                                 </div>
+
 
                                                 <div className="card layer1">
                                                     <div className="inner">

@@ -42,7 +42,8 @@ function Gift() {
     fetchImages();
   }, [user]);
 
-  const giftCards = user.map((card, index) => (
+
+  const giftCards = user.filter(item => item.type === 'gift_card').map((card, index) => (
     <div className='gift_input' id='buy_gift_card_input' key={index}>
       <div className='gift_image' id='buy_gift_card_image'>
         {images[index] && <img src={images[index]} alt='...' />}

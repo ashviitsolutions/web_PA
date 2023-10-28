@@ -169,7 +169,7 @@ function AddCoupon() {
                         <Field
                           className="input"
                           name="amount_off"
-                          type="text"
+                          type="number"
                         />
                         {errors.amount_off && touched.amount_off ? (
                           <div>{errors.amount_off}</div>

@@ -43,7 +43,7 @@ function GetCoupon() {
     const [count, setCount] = useState(0);
 
     // alert(selectedType)
-    console.log("selectedType",selectedType)
+    console.log("selectedType", selectedType)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -65,8 +65,12 @@ function GetCoupon() {
         setData(data.selected + 1);
     };
 
-    const memoizedUser = useMemo(() => {
-        return user.slice((data - 1) * 10, data * 10);
+    const memoizedUser = useMemo(() => {             
+        // Coupon category ka data filter karo
+        const filteredData = user.filter(item => item.type === 'coupon');
+
+        // Data ka desired portion slice karo
+        return filteredData.slice((data - 1) * 10, data * 10);
     }, [user, data]);
 
 
@@ -167,11 +171,6 @@ function GetCoupon() {
                                     </tr>
                                 </thead>
 
-
-
-
-
-
                                 {memoizedUser.filter((values) => {
                                     if (search === "") {
                                         return values;
@@ -194,7 +193,7 @@ function GetCoupon() {
                                             <td>
                                                 <div className="content">
                                                     <span className="title " id='headingtitle'>{cur.title}</span>
-                                                  <small> <p className="description" dangerouslySetInnerHTML={{ __html: cur.description }} /></small>
+                                                    <small> <p className="description" dangerouslySetInnerHTML={{ __html: cur.description }} /></small>
                                                 </div>
                                             </td>
 
@@ -204,11 +203,11 @@ function GetCoupon() {
                                                     <span style={{ display: "block" }}> {cur.category}</span>
                                                     <div className="content mt-3" >
                                                         <span className="title " id='headingtitle'><span id='pricevalue'>Coupon code
-                                                        : </span>{cur.amount_off} <span id='pricevalue'></span>dfgdfgfdbn</span>
+                                                            : </span>{cur.amount_off} <span id='pricevalue'></span>dfgdfgfdbn</span>
                                                     </div>
                                                     <div className="content mt-3" >
-                                                    <span className="title " id='headingtitle'><span id='pricevalue'>Value of Discount %: </span>{cur.amount_off} <span id='pricevalue'> 10%</span></span>
-                                                </div>
+                                                        <span className="title " id='headingtitle'><span id='pricevalue'>Value of Discount %: </span>{cur.amount_off} <span id='pricevalue'> 10%</span></span>
+                                                    </div>
                                                     <Link to={`/admin/coupon/editcoupon/${cur._id}`} >
                                                         <span className="Edit mt-3">Edit Page</span>
                                                     </Link>

@@ -65,8 +65,12 @@ function GetGidt() {
         setData(data.selected + 1);
     };
 
-    const memoizedUser = useMemo(() => {
-        return user.slice((data - 1) * 10, data * 10);
+    const memoizedUser = useMemo(() => {             
+        // Coupon category ka data filter karo
+        const filteredData = user.filter(item => item.type === 'gift_card');
+
+        // Data ka desired portion slice karo
+        return filteredData.slice((data - 1) * 10, data * 10);
     }, [user, data]);
 
 
