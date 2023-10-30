@@ -24,11 +24,11 @@ function Membership() {
                     <div className='membership_update'>
                         <div className='heading'>
                             <h3>Silver </h3>
-                            <p>$200</p>
+                            <p>$119 / Month</p>
                         </div>
                         <div className='conetnt'>
-                            <h3>5% Discount on Regular Price </h3>
-                            <p>Monthly payment for 3 months. Get 3 Discounted services within 12 months!</p>
+                            <h3>5% saving off regular rate </h3>
+                            <p>3 months commitment</p>
                         </div>
                         <div className='mebershi_update_button'>
                             <h3 className='membership_button'>Buy Now</h3>
@@ -40,11 +40,11 @@ function Membership() {
                     <div className='membership_update'>
                         <div className='heading'>
                             <h3>Gold  </h3>
-                            <p>$400</p>
+                            <p>$400 / Month</p>
                         </div>
                         <div className='conetnt'>
-                            <h3>10% Discount on Regular Price </h3>
-                            <p>Monthly payment for 12 months. Get 12 discounted services within 24 months!</p>
+                            <h3>10% saving off regular rate </h3>
+                            <p>12 months commitment</p>
                         </div>
                         <div className='mebershi_update_button'>
                             <h3 className='membership_button'>Buy Now</h3>
