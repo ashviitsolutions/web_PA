@@ -17,7 +17,7 @@ const FifthForm = ({ step, nextStep }) => {
   // Check if the necessary form data exists before accessing its properties    
   const addon_id = formData.addon_id && formData.addon_id[0] ? formData.addon_id[0] : "";
   const location = formData.locationForm && formData.locationForm[0] ? formData.locationForm[0] : "";
- 
+
   const location_type = formData.location && formData.location[0] ? formData.location[0].location_type : "";
   const gender = formData.secondform && formData.secondform[0] ? formData.secondform[0].gender : "";
   const totalPrice = formData.secondform && formData.secondform[0] ? formData.secondform[0].totalPrice : "";
