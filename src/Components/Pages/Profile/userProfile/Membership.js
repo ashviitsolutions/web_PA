@@ -31,7 +31,7 @@ function Membership() {
                             <p>3 months commitment</p>
                         </div>
                         <div className='mebershi_update_button'>
-                            <h3 className='membership_button'>Buy Now</h3>
+                            <h3 className='membership_button'>Join now</h3>
                             <h3 className='memb'></h3>
 
                         </div>
@@ -47,7 +47,7 @@ function Membership() {
                             <p>12 months commitment</p>
                         </div>
                         <div className='mebershi_update_button'>
-                            <h3 className='membership_button'>Buy Now</h3>
+                            <h3 className='membership_button'>Join now</h3>
                             <h3 className='memb'></h3>
 
                         </div>
