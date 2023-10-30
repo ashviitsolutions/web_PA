@@ -38,9 +38,9 @@ const SeconForm = ({ step, nextStep }) => {
 
     const [user, setUser] = useState([]);
     const [selectedItems, setSelectedItems] = useState([]);
-    const [selectedGender, setSelectedGender] = useState("");
-    const [selectedGender1, setSelectedGender1] = useState("");
-    const [selectedGender2, setSelectedGender2] = useState("");
+    const [selectedGender, setSelectedGender] = useState([]);
+    const [selectedGender1, setSelectedGender1] = useState([]);
+    const [selectedGender2, setSelectedGender2] = useState([]);
     const [selectedServiceTime, setSelectedServiceTime] = useState("");
     const [service_ids, setService_id] = useState();
     const [priceservice, setPerice] = useState(0);
@@ -215,22 +215,22 @@ const SeconForm = ({ step, nextStep }) => {
                             <ul className="time_options">
                                 <li
                                     id="g_male"
-                                    className={`gender time_option ${selectedGender1 === "Male1" ? "selected" : ""}`}
-                                    onClick={() => handleGenderSelect1("Male1")}
+                                    className={`gender time_option ${selectedGender1 === "male1" ? "selected" : ""}`}
+                                    onClick={() => handleGenderSelect1("male1")}
                                 >
                                     Male
                                 </li>
                                 <li
                                     id="g_female"
-                                    className={`gender time_option ${selectedGender1 === "Female1" ? "selected" : ""}`}
-                                    onClick={() => handleGenderSelect1("Female1")}
+                                    className={`gender time_option ${selectedGender1 === "female1" ? "selected" : ""}`}
+                                    onClick={() => handleGenderSelect1("female1")}
                                 >
                                     Female
                                 </li>
                                 <li
                                     id="g_either"
-                                    className={`gender time_option ${selectedGender1 === "Either1" ? "selected" : ""}`}
-                                    onClick={() => handleGenderSelect1("Either1")}
+                                    className={`gender time_option ${selectedGender1 === "either1" ? "selected" : ""}`}
+                                    onClick={() => handleGenderSelect1("either1")}
                                 >
                                     Either
                                 </li>
@@ -241,22 +241,22 @@ const SeconForm = ({ step, nextStep }) => {
                             <ul className="time_options">
                                 <li
                                     id="g_male"
-                                    className={`gender time_option ${selectedGender2 === "Male2" ? "selected" : ""}`}
-                                    onClick={() => handleGenderSelect2("Male2")}
+                                    className={`gender time_option ${selectedGender2 === "male2" ? "selected" : ""}`}
+                                    onClick={() => handleGenderSelect2("male2")}
                                 >
                                     Male
                                 </li>
                                 <li
                                     id="g_female"
-                                    className={`gender time_option ${selectedGender2 === "Female2" ? "selected" : ""}`}
-                                    onClick={() => handleGenderSelect2("Female2")}
+                                    className={`gender time_option ${selectedGender2 === "female2" ? "selected" : ""}`}
+                                    onClick={() => handleGenderSelect2("female2")}
                                 >
                                     Female
                                 </li>
                                 <li
                                     id="g_either"
-                                    className={`gender time_option ${selectedGender2 === "Either2" ? "selected" : ""}`}
-                                    onClick={() => handleGenderSelect2("Either2")}
+                                    className={`gender time_option ${selectedGender2 === "either2" ? "selected" : ""}`}
+                                    onClick={() => handleGenderSelect2("either2")}
                                 >
                                     Either
                                 </li>
@@ -270,22 +270,22 @@ const SeconForm = ({ step, nextStep }) => {
                             <ul className="time_options">
                                 <li
                                     id="g_male"
-                                    className={`gender time_option ${selectedGender === "Male" ? "selected" : ""}`}
-                                    onClick={() => handleGenderSelect("Male")}
+                                    className={`gender time_option ${selectedGender === "male" ? "selected" : ""}`}
+                                    onClick={() => handleGenderSelect("male")}
                                 >
                                     Male
                                 </li>
                                 <li
                                     id="g_female"
-                                    className={`gender time_option ${selectedGender === "Female" ? "selected" : ""}`}
-                                    onClick={() => handleGenderSelect("Female")}
+                                    className={`gender time_option ${selectedGender === "female" ? "selected" : ""}`}
+                                    onClick={() => handleGenderSelect("female")}
                                 >
                                     Female
                                 </li>
                                 <li
                                     id="g_either"
-                                    className={`gender time_option ${selectedGender === "Either" ? "selected" : ""}`}
-                                    onClick={() => handleGenderSelect("Either")}
+                                    className={`gender time_option ${selectedGender === "either" ? "selected" : ""}`}
+                                    onClick={() => handleGenderSelect("either")}
                                 >
                                     Either
                                 </li>
@@ -346,7 +346,7 @@ const SeconForm = ({ step, nextStep }) => {
                     </div>
                     {
                         gendercheck === "guest" ? (
-                            <p>Total Price(2 x {Price}): ${totalPrice}</p>
+                            <p>Total Price(2 x {priceadon + priceservice}): ${totalPrice}</p>
                         ) : (
                             <p>Total Price: ${totalPrice}</p>
                         )

@@ -49,9 +49,7 @@ function Location() {
           <div className="row">
             <form className="location card layer1">
               <h3>Where would you like our provider to meet you.</h3>
-              <p>{coordinates.lat}</p>
-              <p>{coordinates.lng}</p>
-              <p>{address}</p>
+             
               <div className="input_group">
                 <PlacesAutocomplete
                   value={address}

@@ -210,7 +210,7 @@ const FifthForm = ({ step, nextStep }) => {
               type="text"
               name="address"
               value={address}
-              onChange={(e) => setAddress(e.target.value)}
+              // onChange={(e) => setAddress(e.target.value)}
               required
             />
           </div>
