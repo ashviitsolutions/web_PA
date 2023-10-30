@@ -28,7 +28,7 @@ function Membership() {
                         </div>
                         <div className='conetnt'>
                             <h3>5% Discount on Regular Price </h3>
-                            <p>For 3 month</p>
+                            <p>Monthly payment for 3 months. Get 3 Discounted services within 12 months!</p>
                         </div>
                         <div className='mebershi_update_button'>
                             <h3 className='membership_button'>Buy Now</h3>
@@ -44,7 +44,7 @@ function Membership() {
                         </div>
                         <div className='conetnt'>
                             <h3>10% Discount on Regular Price </h3>
-                            <p>For 1 year</p>
+                            <p>Monthly payment for 12 months. Get 12 discounted services within 24 months!</p>
                         </div>
                         <div className='mebershi_update_button'>
                             <h3 className='membership_button'>Buy Now</h3>
@@ -53,7 +53,7 @@ function Membership() {
                         </div>
 
                     </div>
-                 
+
                 </div>
 
             </div>

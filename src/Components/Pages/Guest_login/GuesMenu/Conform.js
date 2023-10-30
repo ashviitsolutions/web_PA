@@ -22,6 +22,8 @@ const Conform = () => {
     const service_time = formData.secondform && formData.secondform[0] ? formData.secondform[0].service_time : "";
     const massage_pressure = formData.thirdform && formData.thirdform[0] ? formData.thirdform[0].massage_pressure : "";
     const scheduled_date = formData.fourthform && formData.fourthform[0] ? formData.fourthform[0].date : "";
+    const adressuser = formData.locationForm?.[0]?.address || "";
+    console.log("adress", adressuser)
 
     useEffect(() => {
         const taxRate = 0.18; // 18% tax rate
@@ -75,7 +77,7 @@ const Conform = () => {
                         </li>
                         <li>
                             <span className="title">Personal Details</span>
-                            <span className="value">24000 EL Toro Road Laguna Woods, CA 92653</span>
+                            <span className="value">{adressuser}</span>
 
                         </li>
                         <li>
