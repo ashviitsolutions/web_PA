@@ -65,18 +65,18 @@ function Mobile() {
                                     <span className="title">Events</span>
                                 </Link>
                             </div>
-                            <div className="items">
+                            {<div className="items">
                                 <Link to="/admin/bookings">
                                     <BeenhereIcon style={{ color: "#fff" }} />
                                     <span className="title">bookings</span>
                                 </Link>
-                            </div>
-                            <div className="items">
+                            </div>}
+                            {/* <div className="items">
                                 <Link to="/admin/messages">
                                     <MessageIcon style={{ color: "#fff" }} />
                                     <span className="title">messages</span>
                                 </Link>
-                            </div>
+                </div> */}
                             <div className="items">
                                 <Link to="/admin/payments">
                                     <PaidIcon style={{ color: "#fff" }} />

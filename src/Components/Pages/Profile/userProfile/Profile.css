@@ -676,10 +676,13 @@ ul#tabs_control .userbooking li.withicon a {
 
     font-weight: 700 !important;
 }
+
 .membership_update .heading p {
 
     font-weight: 700 !important;
+    padding-top: 20px;
 }
+
 .membership_update .conetnt {
     display: flex;
     justify-content: space-between;
@@ -704,6 +707,16 @@ ul#tabs_control .userbooking li.withicon a {
     color: #03a9f4;
 
 
+}
+
+#membership_button_payment .button {
+    text-align: start;
+    /* background-color: red; */
+    justify-content: start;
+    padding: 4px 4px;
+    position: relative;
+    left: -50px;
+    top: -10px;
 }
 
 @media (max-width:992px) {

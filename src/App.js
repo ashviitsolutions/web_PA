@@ -350,7 +350,7 @@ function App() {
             <Sidebar />
             <Protect Component={AddClient} />
           </>} />
-          <Route path="/admin/clients/edit_client" element={<>
+          <Route path="/admin/clients/edit_client/:id" element={<>
             <Sidebar />
             <Protect Component={EditClient} />
           </>} />

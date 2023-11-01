@@ -24,7 +24,7 @@ function Login() {
         email: Yup.string()
             .email("Please enter a valid email address")
             .required("Email is required"),
-            name: Yup.string()
+        name: Yup.string()
             .required("First name is required"),
         password: Yup.string()
             .required("required password")
@@ -153,7 +153,7 @@ function Login() {
 
 
                                 </div>
-                               
+
 
 
                             </Form>

@@ -1,236 +1,140 @@
-import React, { useState } from 'react'
-import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
+import React, { useState } from 'react';
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { IP } from '../../../Constant';
-const PreviewImage = ({ imagePreviewUrl }) => {
-    return (
-      <div style={{ width: "20vh", heigh: "10vh" }} className="previwimage">
-        {imagePreviewUrl && <img src={imagePreviewUrl} alt="Preview" style={{ height: '29vh' }} />}
-      </div>
-    );
-  };
+
 function AddClient() {
-    const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
+    const [error, setError] = useState(null); // Added state for error
+    const navigate = useNavigate();
+
     const initialValues = {
-        title: "",
-        excerpt: "",
-        category: "",
-        image: "",
-        description: "",
-        price: ""
+        name: '',
+        email: '',
+        password: '',
+        Confirm_Password: '',
     };
+
     const SignupSchema = Yup.object().shape({
-        // title: Yup.string().required("Required"),
-        // excerpt: Yup.string().required("Required"),
-        // type: Yup.string().required("Required"),
-
-
+        email: Yup.string().email('Please enter a valid email address').required('Email is required'),
+        name: Yup.string().required('Name is required'),
+        password: Yup.string()
+            .required('Password is required')
+            .min(8, 'Password must be at least 8 characters')
+            .matches(
+                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+                'Must contain 8 characters, one uppercase, one lowercase, one number and one special character'
+            ),
+        Confirm_Password: Yup.string()
+            .required('Confirm password is required')
+            .oneOf([Yup.ref('password'), ''], 'Passwords must match'),
     });
-    const onSubmit = async (values, { setValues, resetForm }) => {
+
+    const onSubmit = async (values, { resetForm }) => {
         console.log(values);
+        resetForm({ values: '' });
+
         try {
             const bodyFormData = new FormData();
-            bodyFormData.append("title", values.title);
-            bodyFormData.append("excerpt", values.excerpt);
-            bodyFormData.append("category", values.category);
-            bodyFormData.append("price", values.price);
-            bodyFormData.append("postImages", values.image);
-            bodyFormData.append("description", values.description);
-            let token = localStorage.getItem("tokenadmin");
-            if (!token) {
-                throw new Error("Token not found in local storage");
-            }
-            console.log(token);
-            const res = await axios.post(`${IP}/service/add`, bodyFormData, {
-                headers: {
-                    //   Authorization: `${token}`
-                    Authorization: token
-                }
-            });
-            console.log(res);
+            bodyFormData.append("name", values.name);
+            bodyFormData.append("email", values.email);
+            bodyFormData.append("password", values.password);
+            bodyFormData.append("confirm_password", values.Confirm_Password);
 
+            const res = await axios.post("http://45.13.132.197:5000/api/user/register", bodyFormData, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+
+            });
+
+            if (res.status === 200) {
+                navigate('/admin/clients');
+            } else {
+                setError('An error occurred. Please try again.'); // Set error message
+            }
         } catch (error) {
             console.error(error);
+            setError('An error occurred. Please try again.'); // Set error message
         }
     };
+
     return (
-        <>
-
-            <div id="content">
-                <div className="container-fluid">
-                    <div className="row">
-                        <Formik
-                            initialValues={initialValues}
-                            validationSchema={SignupSchema}
-                            onSubmit={onSubmit}
-
-                        >
-
-                            {({ errors, touched, setFieldValue, values }) => (
-
-                                <Form>
-                                    <div className="">
-                                        <div className="headings float_wrapper">
-                                            <div className="gutter pull-left" style={{ paddingLeft: "0" }}>
-                                                <h3>Add Client</h3>
-                                            </div>
-                                            <span className="toggle_sidebar" ></span>
+        <div id="content">
+            <div className="container-fluid">
+                <div className="row">
+                    <Formik
+                        initialValues={initialValues}
+                        validationSchema={SignupSchema}
+                        onSubmit={onSubmit}
+                    >
+                        {({ errors, touched }) => (
+                            <Form>
+                                <div className="">
+                                    <div className="headings float_wrapper">
+                                        <div className="gutter pull-left" style={{ paddingLeft: '0' }}>
+                                            <h3>Add Client</h3>
                                         </div>
+                                        <span className="toggle_sidebar"></span>
                                     </div>
-
-
-                                    <div className="row">
-                                        <div className="col-sm-6">
-                                            <div className="gutter">
-                                                <div className="card layer1">
-                                                    <div className="inner">
-                                                        <label className="card_label" htmlFor="">Personal InhtmlFormation</label>
-                                                        <div className="input_group">
-                                                            <Field
-                                                                className="input"
-                                                                name="title"
-                                                                type="text"
-                                                            />
-                                                            <label htmlFor=''>Name</label>
-                                                            {errors.title && touched.title ? (
-                                                                <div>{errors.title}</div>
-                                                            ) : null}
-                                                            <span className="highlight"></span>
-                                                        </div>
-
-                                                        <div className="container-fluid">
-                                                            <div className="row">
-                                                                <div className="col-sm-4">
-                                                                    <div className="input_group">
-                                                                        <Field
-                                                                            className="input"
-                                                                            name="Email"
-                                                                            type="text"
-                                                                        />
-                                                                        <label htmlFor=''>Email</label>
-                                                                        {errors.title && touched.title ? (
-                                                                            <div>{errors.title}</div>
-                                                                        ) : null}
-                                                                        <span className="highlight"></span>
-                                                                    </div>
-
-                                                                </div>
-                                                                <div className="col-sm-4">
-                                                                    <div className="input_group">
-                                                                        <Field
-                                                                            className="input"
-                                                                            name="Phone"
-                                                                            type="text"
-                                                                        />
-                                                                        <label htmlFor=''>Phone</label>
-                                                                        {errors.title && touched.title ? (
-                                                                            <div>{errors.title}</div>
-                                                                        ) : null}
-                                                                        <span className="highlight"></span>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div className="col-sm-4">
-                                                                    <div className="input_group">
-                                                                        <select name="" id="" className="input">
-                                                                            <option value="">select gender</option>
-                                                                            <option value="">male</option>
-                                                                            <option value="">female</option>
-                                                                        </select>
-                                                                        <label htmlFor="">gender</label>
-                                                                        <span className="highlight"></span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div className="row">
-
-                                                                <label className="card_label" htmlFor="">City You would like to work in</label>
-
-                                                                <div className="col-sm-6">
-
-                                                                    <div className="input_group">
-                                                                        <Field
-                                                                            className="input"
-                                                                            name="Email"
-                                                                            type="text"
-                                                                        />
-                                                                        <label htmlFor=''>Zip Code</label>
-                                                                        {errors.title && touched.title ? (
-                                                                            <div>{errors.title}</div>
-                                                                        ) : null}
-                                                                        <span className="highlight"></span>
-                                                                    </div>
-                                                                </div>
-                                                                <div className="col-sm-6">
-                                                                <div className="input_group">
-                                                                <Field
-                                                                    className="input"
-                                                                    name="Email"
-                                                                    type="text"
-                                                                />
-                                                                <label htmlFor=''>City</label>
-                                                                {errors.title && touched.title ? (
-                                                                    <div>{errors.title}</div>
-                                                                ) : null}
-                                                                <span className="highlight"></span>
-                                                            </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <label className="card_label" htmlFor="">Profile Picture</label>
-
-                                                        <div id="post_attachments" className="input_group float_wrapper">
-                                                            <div className="attachment_wrapper">
-                                                            <input
-                                                            name='image'
-                                                            type="file"
-                                                            placeholder="Excerpt"
-                                                            onChange={(e) => {
-                                                              let reader = new FileReader();
-                                                              let file = e.target.files[0];
-                              
-                                                              reader.onloadend = () => {
-                                                                setImagePreviewUrl(reader.result);
-                                                              };
-                              
-                                                              reader.readAsDataURL(file);
-                                                              setFieldValue('image', file)
-                                                            }
-                                                            }
-                                                          />
-                                                          {errors.image && touched.image ? (
-                                                            <div>{errors.image}</div>
-                                                          ) : null}
-
-                                                            </div>
-                                                            <div className='preview' >
-                                                            <PreviewImage imagePreviewUrl={imagePreviewUrl} />
-                                
-                                                          </div>
-                                                        </div>
-                                                        <div className="input_group">
-                                                            <button className="button primary square lazy">Save Client</button>
-                                                        </div>
+                                </div>
+                                <div className="row">
+                                    <div className="col-sm-6">
+                                        <div className="gutter">
+                                            <div className="card layer1">
+                                                <div className="inner">
+                                                    <label className="card_label" htmlFor="">
+                                                        Personal Information
+                                                    </label>
+                                                    <div className="input_group">
+                                                        <Field className="input" name="name" type="text" />
+                                                        <label htmlFor="">Name</label>
+                                                        {errors.name && touched.name && <div>{errors.name}</div>}
+                                                        <span className="highlight"></span>
+                                                    </div>
+                                                    <div className="input_group">
+                                                        <Field className="input" name="email" type="text" />
+                                                        <label htmlFor="">Email</label>
+                                                        {errors.email && touched.email && <div>{errors.email}</div>}
+                                                        <span className="highlight"></span>
+                                                    </div>
+                                                    <div className="input_group">
+                                                        <Field className="input" name="password" type="password" />
+                                                        <label htmlFor="">Password</label>
+                                                        {errors.password && touched.password && <div>{errors.password}</div>}
+                                                        <span className="highlight"></span>
+                                                    </div>
+                                                    <div className="input_group">
+                                                        <Field
+                                                            className="input"
+                                                            name="Confirm_Password"
+                                                            type="password"
+                                                        />
+                                                        <label htmlFor="">Confirm Password</label>
+                                                        {errors.Confirm_Password && touched.Confirm_Password && (
+                                                            <div>{errors.Confirm_Password}</div>
+                                                        )}
+                                                        <span className="highlight"></span>
+                                                    </div>
+                                                    {error && <div className="error">{error}</div>} {/* Display error message */}
+                                                    <div className="input_group">
+                                                        <button type="submit" className="button primary square lazy">
+                                                            Save Client
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
-
-                                </Form>
-                            )}
-
-                        </Formik>
-
-                    </div>
+                                </div>
+                            </Form>
+                        )}
+                    </Formik>
                 </div>
             </div>
-
-        </>
-    )
+        </div>
+    );
 }
 
-export default AddClient
+export default AddClient;
