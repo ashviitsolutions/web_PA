@@ -53,7 +53,7 @@ function AddCoupon() {
     try {
       const bodyFormData = new FormData();
       bodyFormData.append("title", values.title);
-      bodyFormData.append("type", "gift_card");
+      bodyFormData.append("type", "coupon");
       bodyFormData.append("is_active", values.is_active);
       bodyFormData.append("max_redemptions", values.max_redemptions);
       bodyFormData.append("amount_off", values.amount_off);

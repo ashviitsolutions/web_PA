@@ -1009,3 +1009,10 @@ tbody .bg {
     justify-content: center;
     text-align: start;
 }
+
+.card.layer2 {
+    border-radius: 12px;
+    box-shadow: 0 10px 20px -15px rgba(0,0,0,.5);
+    font-size: 12px;
+    margin-top: 12px;
+}

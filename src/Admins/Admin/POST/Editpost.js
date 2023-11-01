@@ -21,7 +21,7 @@ function Editpost() {
     const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
     const [user, setUser] = useState([])
     const [formValue, setFormValue] = useState(null)
-    const [type , setType]=useState([])
+    const [type, setType] = useState([])
 
     const [images, setImages] = useState([])
     const nav = useNavigate()
@@ -102,21 +102,21 @@ function Editpost() {
 
     useEffect(() => {
         const fetchImage = async () => {
-          const res = await fetch(`${IP}/file/${images}`);
-          const imageBlob = await res.blob();
-          const imageObjectURL = URL.createObjectURL(imageBlob);
-          setImg(imageObjectURL);
+            const res = await fetch(`${IP}/file/${images}`);
+            const imageBlob = await res.blob();
+            const imageObjectURL = URL.createObjectURL(imageBlob);
+            setImg(imageObjectURL);
         };
         fetchImage();
-      }, [images]);
-      
-      
+    }, [images]);
+
+
     useEffect(() => {
         fetch(`${IP}/terms/fetch`).then((res) => {
             return res.json();
         }).then((data) => {
             setType(data)
-     
+
         })
     }, [])
 
@@ -222,21 +222,21 @@ function Editpost() {
                                                     </div>
                                                 </div>
                                                 <div className="card layer1">
-                                                <div className="inner">
-                                                    <label className="card_label" htmlFor="">Select Type</label>
-                                                    <div className="input_group">
-                                                    <Field name="type" as="select" className="input" >
-                                                    <option value="" >Select Type</option>
-                                                    {type.map((cur) => (
-                                                        <option key={cur._id} value={cur._id} >
-                                                            {cur.name}
-                                                        </option>
-                                                    ))}
-                                             
-                                                  </Field>
+                                                    <div className="inner">
+                                                        <label className="card_label" htmlFor="">Select Type</label>
+                                                        <div className="input_group">
+                                                            <Field name="type" as="select" className="input" >
+                                                                <option value="" >Select Type</option>
+                                                                {type.map((cur) => (
+                                                                    <option key={cur._id} value={cur._id} >
+                                                                        {cur.name}
+                                                                    </option>
+                                                                ))}
+
+                                                            </Field>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
                                                 <div className="card layer1">
                                                     <div className="inner">
                                                         <label htmlFor="" className="card_label">Attachments</label>

@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { IP } from '../../../Constant';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { useParams } from 'react-router-dom';
 
 
 const PreviewImage = ({ imagePreviewUrl }) => {
@@ -19,6 +20,7 @@ const PreviewImage = ({ imagePreviewUrl }) => {
     );
 };
 function EditCoupon() {
+    let { id } = useParams();
     const nav = useNavigate()
     const editor = useRef(null);
     const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
@@ -66,7 +68,7 @@ function EditCoupon() {
                 throw new Error("Token not found in local storage");
             }
             console.log(token);
-            const res = await axios.post(`${IP}/coupon/create`, bodyFormData, {
+            const res = await axios.put(`${IP}/coupon/update/{id}`, bodyFormData, {
                 headers: {
                     //   Authorization: `${token}`
                     Authorization: token

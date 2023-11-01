@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { IP } from '../../../Constant';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { useParams } from 'react-router-dom';
 
 
 const PreviewImage = ({ imagePreviewUrl }) => {
@@ -19,8 +20,10 @@ const PreviewImage = ({ imagePreviewUrl }) => {
     );
 };
 function EditGift() {
+    let { id } = useParams();
     const nav = useNavigate()
-    const editor = useRef(null);
+
+    const [user, setUser] = useState([]);
     const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
     const [type, setType] = useState([])
     const [selectedDate, setSelectedDate] = useState(null);
@@ -66,7 +69,7 @@ function EditGift() {
                 throw new Error("Token not found in local storage");
             }
             console.log(token);
-            const res = await axios.post(`${IP}/coupon/create`, bodyFormData, {
+            const res = await axios.put(`${IP}/coupon/update/${id}`, bodyFormData, {
                 headers: {
                     //   Authorization: `${token}`
                     Authorization: token
@@ -83,15 +86,24 @@ function EditGift() {
         }
     };
 
-    const config = {
-        readonly: false,
-        height: 400,
-
-    }
 
 
 
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const res = await fetch(`${IP}/coupon/fetch/6530cd7e0c47b39c5e9e7ece`);
+                const data = await res.json();
+                setUser(data);
+                console.log("user", data)
 
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        fetchData();
+    }, []);
 
 
 

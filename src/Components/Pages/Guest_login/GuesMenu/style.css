@@ -174,7 +174,7 @@
     margin-top: 140px;
 }
 
-#over_banners .location-container{
+#over_banners .location-container {
     width: 40%;
     margin: auto;
 }
@@ -186,19 +186,49 @@
 
 .gender.selected,
 .time_option.selected {
-  background-color: #03a9f4; /* Set the background color to blue for selected items */
-  color: white; /* Set the text color to white for better visibility */
+    background-color: #03a9f4;
+    /* Set the background color to blue for selected items */
+    color: white;
+    /* Set the text color to white for better visibility */
 }
 
 .item.selected {
     /* Styles for the selected card */
-    background-color: #03a9f4; /* Change to your desired background color */
-    color: #fff; /* Change to your desired text color */
-    border-color: #3498db; /* Change to match the background color or desired border color */
+    background-color: #03a9f4;
+    /* Change to your desired background color */
+    color: #fff;
+    /* Change to your desired text color */
+    border-color: #3498db;
+    /* Change to match the background color or desired border color */
 }
 
 
 
+/* Add these styles to your CSS file */
+
+.coupon-section {
+    margin-top: 20px;
+    display: flex;
+    /* justify-content: space-evenly; */
+}
+
+.coupon-section input {
+    width: 200px;
+    padding: 8px;
+    border: 1px solid #ccc;
+}
+
+.apply-coupon-button {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.apply-coupon-button:hover {
+    background-color: #0056b3;
+}
 
 
 
@@ -213,40 +243,40 @@
     padding: 80px;
     border-radius: 10px;
     box-shadow: 2px 2px 15px -5px rgb(0 0 0 / 35%);
-  }
-  
- .review_page  .form-group {
+}
+
+.review_page .form-group {
     margin-bottom: 15px;
-  }
-  
-  .review_page label {
+}
+
+.review_page label {
     display: block;
     margin-bottom: 5px;
-  }
-  
-  .review_page input[type="text"],
-  .review_page input[type="email"],
-  .review_page input[type="password"],
-  .review_page textarea {
+}
+
+.review_page input[type="text"],
+.review_page input[type="email"],
+.review_page input[type="password"],
+.review_page textarea {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-  }
-  
-  .review_page button {
+}
+
+.review_page button {
     background-color: #007bff;
     color: #fff;
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
-  }
-  
-  .review_page  button:hover {
+}
+
+.review_page button:hover {
     background-color: #0056b3;
-  }
-  
+}
+
 
 
 
@@ -264,30 +294,31 @@
         padding: 10px;
         border-radius: 10px;
         box-shadow: 2px 2px 15px -5px rgb(0 0 0 / 35%);
-      }
+    }
 
 
-  .review_page input[type="text"],
-  .review_page input[type="email"],
-  .review_page input[type="password"],
-  .review_page textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-
-
-
+    .review_page input[type="text"],
+    .review_page input[type="email"],
+    .review_page input[type="password"],
+    .review_page textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
 
 
 
 
 
 
-    .sidebar_tabs{
+
+
+
+    .sidebar_tabs {
         display: none !important;
     }
+
     .section {
         width: 97% !important;
         margin: auto;
@@ -298,6 +329,7 @@
         border-radius: 10px;
         box-shadow: 2px 2px 15px -5px rgb(0 0 0 / 35%);
     }
+
     #employees .option li {
         padding: 10px 15px !important;
         padding-left: 60px !important;
@@ -311,6 +343,7 @@
         border: 1px solid #ccc;
         border-radius: 25px;
     }
+
     #employees .option li .icon {
         position: absolute;
         top: 4px;

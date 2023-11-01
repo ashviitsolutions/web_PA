@@ -7,8 +7,10 @@ import { useDispatch, useSelector } from 'react-redux';
 
 
 const Conform = () => {
-    const useremail = localStorage.getItem("user_email")
-    const username = localStorage.getItem("user_name")
+    const [couponCode, setCouponCode] = useState("");
+    const [appliedCoupon, setAppliedCoupon] = useState(false);
+
+
     const formData = useSelector((state) => state.counter.formData);
     console.log("formData corm page", formData)
     const { userId, totalPrice } = useParams()
@@ -34,7 +36,16 @@ const Conform = () => {
 
 
 
-
+    const applyCoupon = () => {
+        // Add your coupon code validation logic here
+        // If the coupon is valid, you can adjust the total amount accordingly
+        if (couponCode === "YOUR_COUPON_CODE") {
+            const discount = 10; // Adjust the discount amount
+            const discountedAmount = totalPrice - discount;
+            setTotalAmount(discountedAmount);
+            setAppliedCoupon(true);
+        }
+    };
 
 
 
@@ -91,12 +102,24 @@ const Conform = () => {
                             <div className="price" style={{ display: "block", lineHeight: "10px" }}>
                                 <p className="prices" style={{ fontSize: "17px" }}>amount: ${totalPrice}</p>
                                 <p className="prices" style={{ fontSize: "17px" }}>Taxes: 18%</p>
-                                <p className="prices" style={{ fontSize: "17px" }}>Total Pay: ${totalAmount} </p>
+                                <p className="prices" style={{ fontSize: "17px" }}>Total: ${totalAmount} </p>
 
+                            </div>
+                            <div className="coupon-section">
+                                <input
+                                    type="text"
+                                    placeholder="Enter Coupon Code"
+                                    value={couponCode}
+                                    onChange={(e) => setCouponCode(e.target.value)}
+                                />
+                                <button className="apply-coupon-button" onClick={applyCoupon}>
+                                    Apply Now
+                                </button>
                             </div>
                         </li>
 
                     </ul>
+
 
 
 
@@ -108,7 +131,7 @@ const Conform = () => {
                         stripeKey="pk_test_51MXmewLnVrUYOeK2PN2SexCsPAi8lsw8dIt7Pw04DUCsoCsv7a0VReRlGhbUuDOKYqbp1PEDWRWklwSvEsUD0NZ400sa7PXdfg"
                     >
                         <div style={{ textAlign: "center" }}>
-                            <button className="button">checkout</button>
+                            <button className="button">Proceed to Pay</button>
                         </div>
                     </StripeCheckout>
 
