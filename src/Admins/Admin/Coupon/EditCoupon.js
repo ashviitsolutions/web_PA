@@ -3,13 +3,15 @@ import React, { useRef, useState, useEffect } from 'react'
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from 'axios';
-import JoditEditor from 'jodit-react';
+// import JoditEditor from 'jodit-react';
 // import "./style.css"
 import { useNavigate } from 'react-router-dom';
 import { IP } from '../../../Constant';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useParams } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const PreviewImage = ({ imagePreviewUrl }) => {
@@ -78,10 +80,28 @@ function EditCoupon() {
             if (res.status === 200) {
                 setValues({});
                 resetForm();
-                nav("/admin/coupon");
+
+                // Show success notification and navigate to '/admin/Gift'
+                toast.success("Coupon card Updated successfully!", {
+                    position: "top-right",
+                    autoClose: 3000,
+                    onClose: () => {
+                        nav("/admin/coupon");
+                    },
+                });
+            } else {
+                // Show error notification if the API response is not successful
+                toast.error("An error occurred. Please try again.", {
+                    position: "top-right",
+                    autoClose: 3000,
+                });
             }
         } catch (error) {
             console.error(error);
+            toast.error("An error occurred. Please try again.", {
+                position: "top-right",
+                autoClose: 3000,
+            });
         }
     };
 
@@ -311,6 +331,7 @@ function EditCoupon() {
                     </div>
                 </div>
             </div>
+            <ToastContainer />
         </>
     )
 }

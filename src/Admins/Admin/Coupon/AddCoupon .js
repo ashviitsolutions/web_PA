@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom';
 import { IP } from '../../../Constant';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const PreviewImage = ({ imagePreviewUrl }) => {
@@ -73,13 +75,34 @@ function AddCoupon() {
         }
       });
       console.log(res);
+
+
       if (res.status === 200) {
         setValues({});
         resetForm();
-        nav("/admin/coupon");
+
+        // Show success notification and navigate to '/admin/Gift'
+        toast.success("Coupon card created successfully!", {
+          position: "top-right",
+          autoClose: 3000,
+          onClose: () => {
+            nav("/admin/coupon");
+          },
+        });
+      } else {
+        // Show error notification if the API response is not successful
+        toast.error("An error occurred. Please try again.", {
+          position: "top-right",
+          autoClose: 3000,
+        });
       }
+
     } catch (error) {
       console.error(error);
+      toast.error("An error occurred. Please try again.", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -309,6 +332,8 @@ function AddCoupon() {
           </div>
         </div>
       </div>
+
+      <ToastContainer />
     </>
   )
 }

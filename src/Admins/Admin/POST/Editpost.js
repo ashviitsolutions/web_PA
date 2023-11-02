@@ -7,6 +7,8 @@ import "./style.css"
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { IP } from '../../../Constant';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const PreviewImage = ({ imagePreviewUrl }) => {
     return (
@@ -67,11 +69,29 @@ function Editpost() {
             console.log(res);
             if (res.status === 200) {
                 setValues({});
-                resetForm("");
-                nav("/admin/post");
+                resetForm();
+
+                // Show success notification and navigate to '/admin/Gift'
+                toast.success("Your Post Updated successfully!", {
+                    position: "top-right",
+                    autoClose: 3000,
+                    onClose: () => {
+                        nav("/admin/post");
+                    },
+                });
+            } else {
+                // Show error notification if the API response is not successful
+                toast.error("An error occurred. Please try again.", {
+                    position: "top-right",
+                    autoClose: 3000,
+                });
             }
         } catch (error) {
             console.error(error);
+            toast.error("An error occurred. Please try again.", {
+                position: "top-right",
+                autoClose: 3000,
+            });
         }
     };
 
@@ -289,6 +309,7 @@ function Editpost() {
                     </div>
                 </div>
             </div>
+            <ToastContainer />
         </>
     )
 }

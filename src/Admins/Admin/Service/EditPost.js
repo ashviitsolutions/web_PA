@@ -7,6 +7,8 @@ import JoditEditor from 'jodit-react';
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { IP } from '../../../Constant';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const PreviewImage = ({ imagePreviewUrl }) => {
     return (
@@ -71,11 +73,29 @@ function Editpost() {
             console.log(res);
             if (res.status === 200) {
                 setValues({});
-                resetForm("");
-                nav("/admin/services");
+                resetForm();
+
+                // Show success notification and navigate to '/admin/Gift'
+                toast.success("Your Services Upload successfully!", {
+                    position: "top-right",
+                    autoClose: 3000,
+                    onClose: () => {
+                        nav("/admin/services");
+                    },
+                });
+            } else {
+                // Show error notification if the API response is not successful
+                toast.error("An error occurred. Please try again.", {
+                    position: "top-right",
+                    autoClose: 3000,
+                });
             }
         } catch (error) {
             console.error(error);
+            toast.error("An error occurred. Please try again.", {
+                position: "top-right",
+                autoClose: 3000,
+            });
         }
     };
 
@@ -89,7 +109,7 @@ function Editpost() {
         fetch(`${IP}/service/fetch/${id}`).then((res) => {
             return res.json();
         }).then((data) => {
-            console.log(data)                                                
+            console.log(data)
             setUser(data)
             setImages(data.attachments)
             const updatedSavedValues = {
@@ -98,7 +118,7 @@ function Editpost() {
                 category: data.category,
                 image: data.image,
                 description: data.description,
-                price:data.price
+                price: data.price
             };
             setFormValue(updatedSavedValues);
         })
@@ -212,23 +232,23 @@ function Editpost() {
                                                                 </Field>
 
                                                             </div>
-                                                        
+
                                                         </div>
-                                                        
+
                                                     </div>
                                                 </div>
                                                 <div class="input_group" style={{ marginTop: "3rem" }}>
-                                                <Field
-                                                  className="input"
-                                                  name="price"
-                                                  type="number"
-                                                />
-                                                {errors.price && touched.price ? (
-                                                  <div>{errors.price}</div>
-                                                ) : null}
-                                                <label htmlFor="">price in USD</label>
-                                                <span class="highlight"></span>
-                                              </div>
+                                                    <Field
+                                                        className="input"
+                                                        name="price"
+                                                        type="number"
+                                                    />
+                                                    {errors.price && touched.price ? (
+                                                        <div>{errors.price}</div>
+                                                    ) : null}
+                                                    <label htmlFor="">price in USD</label>
+                                                    <span class="highlight"></span>
+                                                </div>
                                             </div>
                                         </div>
                                         <div className="col-sm-4">
@@ -310,6 +330,7 @@ function Editpost() {
                     </div>
                 </div>
             </div>
+            <ToastContainer />
         </>
     )
 }

@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom';
 import { IP } from '../../../Constant';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const PreviewImage = ({ imagePreviewUrl }) => {
@@ -41,15 +43,19 @@ function AddGift() {
     is_active: "",
     max_redemptions: ""
   };
+
   const SignupSchema = Yup.object().shape({
-    // title: Yup.string().required("Required"),
-    // excerpt: Yup.string().required("Required"),
-    // type: Yup.string().required("Required"),
-
-
+    // title: Yup.string().required("Title is required"),
+    // type: Yup.string().required("Type is required"),
+    // couponImages: Yup.string().required("Coupon Images is required"),
+    // description: Yup.string().required("Description is required"),
+    // amount_off: Yup.number().required("Amount Off is required"),
+    // percent_off: Yup.number().required("Percent Off is required"),
+    // is_active: Yup.boolean().required("Is Active is required"),
+    // max_redemptions: Yup.number().required("Max Redemptions is required")
   });
+
   const onSubmit = async (values, { setValues, resetForm }) => {
-    console.log(values);
     try {
       const bodyFormData = new FormData();
       bodyFormData.append("title", values.title);
@@ -65,23 +71,42 @@ function AddGift() {
       if (!token) {
         throw new Error("Token not found in local storage");
       }
-      console.log(token);
+
       const res = await axios.post(`${IP}/coupon/create`, bodyFormData, {
         headers: {
-          //   Authorization: `${token}`
-          Authorization: token
-        }
+          Authorization: token,
+        },
       });
-      console.log(res);
+
       if (res.status === 200) {
         setValues({});
         resetForm();
-        nav("/admin/Gift");
+
+        // Show success notification and navigate to '/admin/Gift'
+        toast.success("Gift card created successfully!", {
+          position: "top-right",
+          autoClose: 3000,
+          onClose: () => {
+            nav("/admin/Gift");
+          },
+        });
+      } else {
+        // Show error notification if the API response is not successful
+        toast.error("An error occurred. Please try again.", {
+          position: "top-right",
+          autoClose: 3000,
+        });
       }
     } catch (error) {
       console.error(error);
+      // Show error notification for exceptions
+      toast.error("An error occurred. Please try again.", {
+        position: "top-right",
+        autoClose: 3000,
+      });
     }
   };
+
 
   const config = {
     readonly: false,
@@ -299,16 +324,10 @@ function AddGift() {
               )}
 
             </Formik>
-
-
-
-
-
-
-
           </div>
         </div>
       </div>
+      <ToastContainer />
     </>
   )
 }
