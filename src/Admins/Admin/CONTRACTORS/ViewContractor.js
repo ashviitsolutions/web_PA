@@ -1,197 +1,116 @@
-import React, { useState, useEffect } from 'react'
-import { IP } from '../../../Constant'
-import avtar from "../../img/avtar.jpg"
+import React, { useState, useEffect } from 'react';
+import { IP } from '../../../Constant';
+import avtar from "../../img/avtar.jpg";
 import { useNavigate } from "react-router-dom";
 import { useParams } from 'react-router-dom';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import {Button, Card } from "react-bootstrap";
-// import { Link } from 'react-router-dom';
+import { Button, Card } from "react-bootstrap";
 import axios from 'axios';
 import Verification from './Verification';
-function ViewContractor() {
-  const [schedule, setSchedule] = useState({});
 
-  const [toggle, setToggle] = useState(false)
-  let tokenadmin = localStorage.getItem("tokenadmin");
-  const [user, setUser] = useState([]);
-  let params = useParams();
-  let { id } = params;
-  const nav = useNavigate()
+function ViewContractor() {
+  const [userschedule, setuserSchedule] = useState({});
+  const [user, setUser] = useState({});
+  const [toggle, setToggle] = useState(false);
+  const tokenadmin = localStorage.getItem("tokenadmin");
+  const params = useParams();
+  const nav = useNavigate();
   const [images, setImages] = useState(null);
   const [images1, setImages1] = useState(null);
   const [images2, setImages2] = useState(null);
-
   const [images3, setImages3] = useState(null);
   const [images4, setImages4] = useState(null);
-
   const [img, setImg] = useState('');
   const [img1, setImg1] = useState('');
   const [img2, setImg2] = useState('');
   const [img3, setImg3] = useState('');
   const [img4, setImg4] = useState('');
-  const token = localStorage.getItem("providertoken")
-
-  //get api
-
-
+  const token = localStorage.getItem("providertoken");
 
   useEffect(() => {
-    fetch(`${IP}/contractor/get/${id}`, {
-      headers: {
-        'Authorization': tokenadmin
-      }
-    }).then(resp => {
-      return resp.json()
-    }).then(result => {
-      setUser(result);
-      // setDate(result.DOB)
-      setImages(result.profile_pic);
-      setImages1(result.images)
-      setImages2(result?.documents?.drivinglicense)
-      setImages3(result?.documents?.insurance)
-      setImages4(result?.documents?.license)
-      setSchedule(result.working_information)
-      console.log("contractorvieprofile", result)
-    }).catch(err => {
-      console.log(err)
-    })
-
-  }, [id,tokenadmin])
-
-
-
-
-
-  useEffect(() => {
-    const fetchImage = async () => {
+    // Fetch user data from the API when the component mounts
+    const fetchData = async () => {
       try {
-        const res = await fetch(`http://45.13.132.197:4000/api/file/${images}`);
-        const imageBlob = await res.blob();
-        const imageObjectURL = URL.createObjectURL(imageBlob);
-        setImg(imageObjectURL);
-      } catch (err) {
-        console.log(err);
+        const response = await fetch(`${IP}/contractor/get/${params.id}`, {
+          headers: {
+            Authorization: tokenadmin
+          }
+        });
+
+        if (response.ok) {
+          const result = await response.json();
+          setUser(result);
+          setImages(result.profile_pic);
+          setImages1(result.images);
+          setImages2(result?.documents?.drivinglicense);
+          setImages3(result?.documents?.insurance);
+          setImages4(result?.documents?.license);
+        } else {
+          console.error('Failed to fetch user data');
+        }
+      } catch (error) {
+        console.error(error);
       }
     };
 
-    fetchImage();
-    if (images) {
-      fetchImage();
+    fetchData();
+  }, [params.id, tokenadmin]);
 
-      const fetchImage1 = async () => {
+  console.log("admin provider ", user)
+
+  // Fetch images and set them as base64 data URLs
+  useEffect(() => {
+    const fetchImage = async (imageUrl, setImage) => {
+      if (imageUrl) {
         try {
-          const res = await fetch(`http://45.13.132.197:4000/api/file/${images1}`);
-          const imageBlob = await res.blob();
-          const imageObjectURL = URL.createObjectURL(imageBlob);
-          setImg1(imageObjectURL);
+          const res = await fetch(`${IP}/api/file/${imageUrl}`);
+          if (res.ok) {
+            const imageBlob = await res.blob();
+            const imageObjectURL = URL.createObjectURL(imageBlob);
+            setImage(imageObjectURL);
+          } else {
+            console.error(`Failed to fetch image: ${imageUrl}`);
+          }
         } catch (err) {
-          console.log(err);
+          console.error(err);
         }
-      };
-
-
-
-
-      const fetchImage2 = async () => {
-        try {
-          const token = localStorage.getItem("providertoken")
-          const res = await fetch(`http://45.13.132.197:4000/contractor/view/${images2}`, {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          });
-          const imageBlob = await res.blob();
-          const imageObjectURL = URL.createObjectURL(imageBlob);
-          setImg2(imageObjectURL);
-        } catch (err) {
-          console.log(err);
-        }
-      };
-      fetchImage();
-
-
-
-
-
-
-
-
-
-
-
-      const fetchImage3 = async () => {
-        try {
-          const token = localStorage.getItem("providertoken")
-          const res = await fetch(`http://45.13.132.197:4000/contractor/view/${images3}`, {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          });
-          const imageBlob = await res.blob();
-          const imageObjectURL = URL.createObjectURL(imageBlob);
-          setImg3(imageObjectURL);
-        } catch (err) {
-          console.log(err);
-        }
-      };
-
-      const fetchImage4 = async () => {
-        try {
-          const token = localStorage.getItem("providertoken")
-          const res = await fetch(`http://45.13.132.197:4000/contractor/view/${images4}`, {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          });
-          const imageBlob = await res.blob();
-          const imageObjectURL = URL.createObjectURL(imageBlob);
-          setImg4(imageObjectURL);
-        } catch (err) {
-          console.log(err);
-        }
-      };
-
-      fetchImage1();
-      fetchImage2();
-      fetchImage3();
-      fetchImage4();
-      if (images1) {
-        fetchImage1();
       }
-    }
-  }, [images, token, nav, images2, images1,images3,images4]);
+    };
 
+    fetchImage(images, setImg);
+    fetchImage(images1, setImg1);
+    fetchImage(images2, setImg2);
+    fetchImage(images3, setImg3);
+    fetchImage(images4, setImg4);
+  }, [images, images1, images2, images3, images4]);
 
   const acceptApi = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     try {
-
       const bodyFormData = new FormData();
       bodyFormData.append("response", "approved");
       bodyFormData.append("id", user._id);
-      const res = await axios.put(`${IP}/contractor/update-status`, bodyFormData, {
+
+      const response = await axios.put(`${IP}/contractor/update-status`, bodyFormData, {
         headers: {
-          'Authorization': tokenadmin,
+          Authorization: tokenadmin,
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
-
       });
-      console.log(res);
-      if (res.status === 200) {
+
+      if (response.status === 200) {
         nav("/admin/contractors");
       }
-
     } catch (error) {
       console.error(error);
     }
   };
 
   const handleToggle = () => {
-    setToggle(!toggle)
-  }
-
+    setToggle(!toggle);
+  };
 
   const handlePrint = () => {
     let printContents = document.getElementById("card-right").innerHTML;
@@ -199,9 +118,7 @@ function ViewContractor() {
     document.body.innerHTML = printContents;
     window.print();
     document.body.innerHTML = originalContents;
-  }
-
-
+  };
 
   return (
     <>
@@ -224,14 +141,14 @@ function ViewContractor() {
                   <div className="avatar_wrap">
                     <div className="avatar" style={{ backgroundImage: `url(${img || avtar})` }}>
                     </div>
-                    <span className="name">{`${user.first_name} ${user.last_name}`}</span>
+                    <span className="name">{`${user?.first_name} ${user?.last_name}`}</span>
                   </div>
                   <h3 className="inner_title">Contact Info</h3>
                   <ul className="true">
-                    <li><b>phone:</b> {user.phone}</li>
-                    <li><b>email:</b> {user.email}</li>
+                    <li><b>phone:</b> {user?.phone}</li>
+                    <li><b>email:</b> {user?.email}</li>
                     <li><b>working city:</b> {user?.mailing_address?.city}</li>
-                    <li><b>Application Status:</b> {user.application_status_text}</li>
+                    <li><b>Application Status:</b> {user?.application_status_text}</li>
                   </ul>
 
                   <h3 className="inner_title"></h3>
@@ -243,7 +160,7 @@ function ViewContractor() {
                 </div>
 
                 {
-                  user.application_status === 1 ? (
+                  user?.application_status === 1 ? (
                     <Card className="mb-2">
                       <h3>Call Interview Status</h3>
 
@@ -261,8 +178,8 @@ function ViewContractor() {
 
 
                 {
-                  user.application_status === 2 ? (
-                    <Verification _id={user._id} application_status={user.application_status} />
+                  user?.application_status === 2 ? (
+                    <Verification _id={user?._id} application_status={user?.application_status} />
 
                   ) : null
                 }
@@ -271,7 +188,7 @@ function ViewContractor() {
 
 
                 {
-                  user.application_status === 0 ? (
+                  user?.application_status === 0 ? (
                     <div id="statusinfo" style={{ width: "20px", height: "20px", borderRadius: "100%", backgroundColor: "#ffc107" }}>
                       <p style={{ fontSize: "8px", paddingTop: "19px" }}>Pending</p>
                     </div>
@@ -279,7 +196,7 @@ function ViewContractor() {
                 }
 
                 {
-                  user.application_status === 1 ? (
+                  user?.application_status === 1 ? (
                     <div id="statusinfo" style={{ width: "20px", height: "20px", borderRadius: "100%", backgroundColor: "#ffc107", marginTop: "-110px" }}>
                       <p style={{ fontSize: "8px", paddingTop: "19px" }}>Pending</p>
                     </div>
@@ -287,7 +204,7 @@ function ViewContractor() {
                 }
 
                 {
-                  user.application_status >= 3 ? (
+                  user?.application_status >= 3 ? (
                     <div id="statusinfo" style={{ backgroundColor: "#00fa86", width: "20px", height: "20px", borderRadius: "100%" }}>
                       <p style={{ fontSize: "8px", paddingTop: "19px" }}>Active</p>
                     </div>
@@ -295,7 +212,7 @@ function ViewContractor() {
                 }
 
                 {
-                  user.application_status === "rejected" ? (
+                  user?.application_status === "rejected" ? (
                     <div id="statusinfo" style={{ backgroundColor: "#ff3b3b", width: "20px", height: "20px", borderRadius: "100%" }}>
                       <p style={{ fontSize: "8px" }}>Rejected</p>
                     </div>
@@ -318,16 +235,16 @@ function ViewContractor() {
 
 
                         <ul className="true">
-                          <li><b>Name:</b> {`${user.first_name} ${user.last_name}`}</li>
-                          <li><b>Email:</b> {user.email}</li>
-                          <li><b>Phone:</b> {user.phone}</li>
-                          <li><b>DOB:</b> {user.DOB}</li>
-                          <li><b>Gender:</b>{user.gender}</li>
-                          <li><b>Working shift:</b>{user.working_shift}</li>
-                          <li><b>Start date:</b>{user.start_date}</li>
-                          <li><b>SSN:</b>{user.ssn}</li>
-                          <li><b>Previous employee:</b>{user.previous_employee}</li>
-                          <li><b>Application status_text:</b>{user.application_status_text}</li>
+                          <li><b>Name:</b> {`${user?.first_name} ${user.last_name}`}</li>
+                          <li><b>Email:</b> {user?.email}</li>
+                          <li><b>Phone:</b> {user?.phone}</li>
+                          <li><b>DOB:</b> {user?.DOB}</li>
+                          <li><b>Gender:</b>{user?.gender}</li>
+                          <li><b>Working shift:</b>{user?.working_shift}</li>
+                          <li><b>Start date:</b>{user?.start_date}</li>
+                          <li><b>SSN:</b>{user?.ssn}</li>
+                          <li><b>Previous employee:</b>{user?.previous_employee}</li>
+                          <li><b>Application status_text:</b>{user?.application_status_text}</li>
                           <li><b>Address:</b>{user?.mailing_address?.address}</li>
                           <li><b>Apt number:</b> {user?.mailing_address?.apt_number}</li>
 
@@ -340,33 +257,33 @@ function ViewContractor() {
                           <li><b>Private events:</b>{user?.areas_of_expertise?.private_events}</li>
                           <li><b>Working information:</b></li>
                           <div className="d-flex">
-                            <li><p>Monday start time: {schedule.Mon_Start_time}</p></li>
-                            <li><p>Monday End time: {schedule.Mon_End_time}</p></li>
+                            <li><p>Monday start time: {userschedule?.Mon_Start_time}</p></li>
+                            <li><p>Monday End time: {userschedule?.Mon_End_time}</p></li>
                           </div>
                           <div className="d-flex">
-                            <li><p>Tuesday start time: {schedule.Tue_Start_time}</p></li>
-                            <li><p>Tuesday End time: {schedule.Tue_End_time}</p></li>
+                            <li><p>Tuesday start time: {userschedule?.Tue_Start_time}</p></li>
+                            <li><p>Tuesday End time: {userschedule?.Tue_End_time}</p></li>
                           </div>
                           <div className="d-flex">
-                            <li><p>Wednesday start time: {schedule.Wed_Start_time}</p></li>
-                            <li><p>Wednesday End time: {schedule.Wed_End_time}</p></li>
+                            <li><p>Wednesday start time: {userschedule?.Wed_Start_time}</p></li>
+                            <li><p>Wednesday End time: {userschedule?.Wed_End_time}</p></li>
                           </div>
                           <div className="d-flex">
-                            <li><p>Thursday start time: {schedule.Thu_Start_time}</p></li>
-                            <li><p>Thursday End time: {schedule.Thu_End_time}</p></li>
+                            <li><p>Thursday start time: {userschedule?.Thu_Start_time}</p></li>
+                            <li><p>Thursday End time: {userschedule?.Thu_End_time}</p></li>
                           </div>
                           <div className="d-flex">
-                            <li><p>Friday start time: {schedule.Fri_Start_time}</p></li>
-                            <li><p>Friday End time: {schedule.Fri_End_time}</p></li>
+                            <li><p>Friday start time: {userschedule?.Fri_Start_time}</p></li>
+                            <li><p>Friday End time: {userschedule?.Fri_End_time}</p></li>
                           </div>
 
                           <div className="d-flex">
-                            <li><p>Saturday start time: {schedule.Sat_Start_time}</p></li>
-                            <li><p>Saturday End time: {schedule.Sat_End_time}</p></li>
+                            <li><p>Saturday start time: {userschedule?.Sat_Start_time}</p></li>
+                            <li><p>Saturday End time: {userschedule?.Sat_End_time}</p></li>
                           </div>
                           <div className="d-flex">
-                            <li><p>Sunday start time: {schedule.Sun_Start_time}</p></li>
-                            <li><p>Sunday End time: {schedule.Sun_End_time}</p></li>
+                            <li><p>Sunday start time: {userschedule?.Sun_Start_time}</p></li>
+                            <li><p>Sunday End time: {userschedule?.Sun_End_time}</p></li>
                           </div>
 
 

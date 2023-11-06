@@ -3,7 +3,7 @@ import axios from 'axios';
 import { IP } from '../../../Constant'
 import { useNavigate } from "react-router-dom";
 function Verification(props) {
-  const {_id}=props;
+  const { _id } = props;
   const nav = useNavigate()
   const [isVerified, setIsVerified] = useState(false);
   let tokenadmin = localStorage.getItem("tokenadmin");
@@ -11,17 +11,17 @@ function Verification(props) {
     setIsVerified(event.target.value === 'yes');
   }
 
-  const handleProceed =async (e) => {
+  const handleProceed = async (e) => {
     e.preventDefault()
 
     try {
-     
+
       const bodyFormData = new FormData();
       bodyFormData.append("response", isVerified);
       bodyFormData.append("id", _id);
       const res = await axios.put(`${IP}/contractor/update-verification`, bodyFormData, {
         headers: {
-          'Authorization': tokenadmin,
+          Authorization: tokenadmin,
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
@@ -49,8 +49,8 @@ function Verification(props) {
         No
       </label>
 
-        <button onClick={handleProceed} className="mx-2 btn-sm btn btn-primary">Proceed</button>
-        <p>Please verify before proceeding.</p>
+      <button onClick={handleProceed} className="mx-2 btn-sm btn btn-primary">Proceed</button>
+      <p>Please verify before proceeding.</p>
     </div>
   );
 }

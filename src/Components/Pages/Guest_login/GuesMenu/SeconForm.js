@@ -90,7 +90,7 @@ const SeconForm = ({ step, nextStep }) => {
         setSelectedGender(selectedGenderValue);
         setGenderPreferences([selectedGenderValue]);
     };
-    
+
     const handleGenderSelect1 = (selectedGenderValue) => {
         if (!genderPreferences.includes(selectedGenderValue)) {
             setFormData({ ...formData, gender: selectedGenderValue });
@@ -98,7 +98,7 @@ const SeconForm = ({ step, nextStep }) => {
             setGenderPreferences([...genderPreferences, selectedGenderValue]);
         }
     };
-    
+
     const handleGenderSelect2 = (selectedGenderValue) => {
         if (!genderPreferences.includes(selectedGenderValue)) {
             setFormData({ ...formData, gender: selectedGenderValue });
@@ -106,7 +106,7 @@ const SeconForm = ({ step, nextStep }) => {
             setGenderPreferences([...genderPreferences, selectedGenderValue]);
         }
     };
-    
+
 
 
 
