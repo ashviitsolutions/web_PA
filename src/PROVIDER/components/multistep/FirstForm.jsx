@@ -34,8 +34,8 @@ const FirstForm = (props) => {
   const [ref2Phone, setRef2Phone] = useState('');
   const [submitDate, setSubmitDate] = useState("")
   // const [images, setImages] = useState('')
-console.log("contry .",country)
-console.log("user .",user)
+  console.log("contry .", country)
+  console.log("user .", user)
   const [availabilityHours, setAvailabilityHours] = useState({
     mon_Start_time: "",
     tue_Start_time: "",
@@ -122,7 +122,7 @@ console.log("user .",user)
       setSsn(data.ssn)
       setDOB(data.DOB)
       setAddress(data.Address.current_address)
-    
+
       setRef1Name(data.professional_references.ref_1_name)
       setRef1Phone(data.professional_references.ref_1_phone)
       setRef2Name(data.professional_references.ref_2_name)
@@ -132,7 +132,7 @@ console.log("user .",user)
     })
   }, [])
 
-console.log(country)
+  console.log(country)
   //fetch list of services
   useEffect(() => {
     fetch(`${IP}/service/view-services`)
@@ -279,19 +279,23 @@ console.log(country)
           <Row>
             <div className="col-md-6 mb-2">
               <Form.Control
+                required
                 name="fname"
                 type="text"
                 placeholder="First Name"
                 value={fname}
+                onChange={(e)=>setFname(e.target.value)}
               />
             </div>
 
             <div className="col-md-6">
               <Form.Control
+                required
                 name="lname"
                 type="text"
                 placeholder="Last Name"
-                value={lname}
+                value={lname}                
+                onChange={(e)=>setLname(e.target.value)}
               />
             </div>
           </Row>
@@ -303,6 +307,7 @@ console.log(country)
             <div className="col-md-6 mb-2">
               <Form.Label>Social Security</Form.Label>
               <Form.Control
+                required
                 name="ssn"
                 type="text"
                 placeholder="Social Security"
@@ -333,6 +338,7 @@ console.log(country)
             <div className="col-md-12 mb-2">
               <Form.Label>E-Mail</Form.Label>
               <Form.Control
+                required
                 name="email"
                 type="email"
                 placeholder="E-Mail"
@@ -351,6 +357,7 @@ console.log(country)
             <div className="col-md-12 mb-2">
               <Form.Label htmlFor="phone">Phone</Form.Label>
               <Form.Control
+                required
                 type="phone"
                 placeholder="Phone"
                 id="phone"
@@ -368,6 +375,7 @@ console.log(country)
             <div className="col-md-12 mb-2">
               <Form.Label htmlFor="current_address">Current Address</Form.Label>
               <Form.Control
+                required
                 as="textarea"
                 id="current_address"
                 placeholder="Current Address"
@@ -384,6 +392,7 @@ console.log(country)
             <div className="col-md-12 mb-2">
               <Form.Label htmlFor="zip">ZIP Code</Form.Label>
               <Form.Control
+                required
                 type="text"
                 placeholder="ZIP Code"
                 id="zip"
@@ -399,6 +408,7 @@ console.log(country)
             <div className="col-md-12 mb-2">
               <Form.Label htmlFor="country">Country</Form.Label>
               <Form.Control
+                required
                 type="text"
                 placeholder="Country"
                 id="country"
@@ -461,7 +471,7 @@ console.log(country)
           />
         ))}
         <hr className="hr" />
-        <h5>Working Shift</h5>
+        <h5>Working Shift *</h5>
         <Form.Check
           inline
           id={"parttime"}
@@ -485,7 +495,7 @@ console.log(country)
 
 
         <hr className="hr" />
-        <h5>Working Information</h5>
+        <h5>Working Information *</h5>
         <div className="col-md-4">
           <input
             type="text"
@@ -652,6 +662,7 @@ console.log(country)
             <div className="col-md-6 mb-2">
               <Form.Label>Reference 1 Name</Form.Label>
               <Form.Control
+                required
                 name="ref1name"
                 type="text"
                 placeholder="Reference 1 Name"
@@ -662,6 +673,7 @@ console.log(country)
             <div className="col-md-6 mb-2">
               <Form.Label>Reference 1 Phone</Form.Label>
               <Form.Control
+                required
                 name="ref1phone"
                 type="text"
                 placeholder="Reference 1 Phone"
@@ -672,6 +684,7 @@ console.log(country)
             <div className="col-md-6 mb-2">
               <Form.Label>Reference 2 Name</Form.Label>
               <Form.Control
+                required
                 name="ref2name"
                 type="text"
                 placeholder="Reference 2 Name"
@@ -682,6 +695,7 @@ console.log(country)
             <div className="col-md-6 mb-2">
               <Form.Label>Reference 2 Phone</Form.Label>
               <Form.Control
+                required
                 name="ref2phone"
                 type="text"
                 placeholder="Reference 2 Phone"
@@ -703,6 +717,7 @@ console.log(country)
         <Form.Group>
           <Form.Label>Choose an image:</Form.Label>
           <Form.Control
+            required
             name="office"
             type="file"
             onChange={(e) => {

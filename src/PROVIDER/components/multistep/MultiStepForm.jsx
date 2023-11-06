@@ -10,7 +10,7 @@ import { IP } from "../../../Constant";
 
 const MultiStepForm = () => {
   const [now, setnow] = useState(25);
-  
+
   const [user, setUser] = useState({});
   const token = localStorage.getItem("providertoken");
   useEffect(() => {
@@ -27,11 +27,11 @@ const MultiStepForm = () => {
         setUser(data.application_status);
         if (data.application_status === 0) {
           setnow(25);
-        }else if(data.application_status === 1){
+        } else if (data.application_status === 1) {
           setnow(50);
-        }else if(data.application_status === 2){
+        } else if (data.application_status === 2) {
           setnow(75);
-        }else if(data.application_status === 3){
+        } else if (data.application_status === 3) {
           setnow(100);
         }
 
@@ -43,7 +43,7 @@ const MultiStepForm = () => {
 
 
 
-console.log("application_status id",user)
+  console.log("application_status id", user)
   let nextStep = () => {
     setnow(now < 100 ? now + 25 : now);
   };
@@ -53,24 +53,24 @@ console.log("application_status id",user)
   let form;
   switch (now) {
     case 25:
-        form = <FirstForm step={now} nextStep={nextStep} previousStep={previousStep} />;
-    
+      form = <FirstForm step={now} nextStep={nextStep} previousStep={previousStep} />;
+
       break;
     case 50:
-        form = <SecondForm step={now} nextStep={nextStep} previousStep={previousStep} />;
+      form = <SecondForm step={now} nextStep={nextStep} previousStep={previousStep} />;
       break;
 
     case 75:
-        form = <ThirdForm step={now} nextStep={nextStep} previousStep={previousStep} />;
+      form = <ThirdForm step={now} nextStep={nextStep} previousStep={previousStep} />;
       break;
     case 100:
-        form = <FourthForm step={now} nextStep={nextStep} previousStep={previousStep} />;
+      form = <FourthForm step={now} nextStep={nextStep} previousStep={previousStep} />;
       break;
-      case 100:
-        if(user===4){
-          form = <Satatuspage />;
+    case 100:
+      if (user === 4) {
+        form = <Satatuspage />;
 
-        }
+      }
       break;
     default:
       break;
