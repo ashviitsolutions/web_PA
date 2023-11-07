@@ -3,8 +3,11 @@ import Hook from '../Hook/Hook';
 import './Profile.css';
 import image1 from "../../../assets/img/tender-african-woman-smiling-enjoying-massage-with-closed-eyes-spa-resort.jpg";
 import Rating from 'react-rating-stars-component';
+import ReactPaginate from 'react-paginate';
 
 function Booking() {
+  const [data, setData] = useState(1);
+  const [count, setCount] = useState(0);
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [userRating, setUserRating] = useState(0); // State for user rating
@@ -17,6 +20,7 @@ function Booking() {
       try {
         const response = await Hook.getPost();
         setPosts(response.data);
+        setCount(response?.data?.length);
         setIsLoading(false);
         // Initialize toggle state for each post to false
         setToggleStates(new Array(response.data.length).fill(false));
@@ -27,7 +31,15 @@ function Booking() {
     };
 
     fetchPosts();
-  }, []);
+  }, [data]);
+
+  const handlePageClick = (data) => {
+    setData(data.selected + 1);
+};
+
+const itemsPerPage = 10;
+const startIndex = (data - 1) * itemsPerPage;
+const endIndex = startIndex + itemsPerPage;
 
   const handleRatingChange = (newRating) => {
     setUserRating(newRating);
@@ -108,6 +120,27 @@ function Booking() {
           <h3 style={{ color: "#162b3c" }}>No bookings yet.</h3>
         )}
       </div>
+      <div className="pagination">
+      <ReactPaginate
+          pageCount={Math.ceil(count / itemsPerPage)}
+          pageRangeDisplayed={2}
+          marginPagesDisplayed={3}
+          previousLabel={"Previous"}
+          nextLabel={"Next"}
+          breakLabel={"..."}
+          onPageChange={handlePageClick}
+          containerClassName={"pagination justify-content-center py-3"}
+          pageClassName={"page-item"}
+          pageLinkClassName={"page-link"}
+          previousClassName={"page-item"}
+          previousLinkClassName={"page-link"}
+          nextClassName={"page-item"}
+          nextLinkClassName={"page-link"}
+          breakClassName={"page-item"}
+          breakLinkClassName={"page-link"}
+          activeClassName={"active"}
+      />
+  </div>
     </div>
   );
 }

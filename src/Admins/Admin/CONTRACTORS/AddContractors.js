@@ -59,7 +59,7 @@ function AddContractors() {
             "last_name": values.last_name, "phone": values.phone, "address": values.address, "gender": values.gender, "password": values.password
         }
         try {
-            const resp = await fetch(`http://45.13.132.197:5000/api/provider/registration`, {
+            const resp = await fetch(`${IP}/provider/registration`, {
                 method: "POST",
                 headers: {
                     'Accept': 'application/json',

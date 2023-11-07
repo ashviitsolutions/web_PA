@@ -5,6 +5,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import StripeCheckout from 'react-stripe-checkout';
 import { useDispatch, useSelector } from 'react-redux';
 
+
 const Conform = () => {
     const [couponCode, setCouponCode] = useState('');
     const [appliedCoupon, setAppliedCoupon] = useState(false);
@@ -50,7 +51,7 @@ const Conform = () => {
     const applyCoupon = () => {
 
         if (couponCode === 'YOUR_COUPON_CODE') {
-            const discount = 10; // Adjust the discount amount
+            const discount = 10;
             const discountedAmount = totalAmount - discount;
             setTotalAmount(discountedAmount);
             setAppliedCoupon(true);
@@ -77,7 +78,7 @@ const Conform = () => {
     console.log('totalPrice', totalPrice);
 
     const onSubmit = () => {
-        nav('/userProfile');
+        nav('/userProfile/payment/success');
     };
 
     return (
@@ -117,7 +118,7 @@ const Conform = () => {
                                     Total: ${totalAmount.toFixed(2)}
                                 </p>
                             </div>
-                            <div className="coupon-section">
+                            {/*  <div className="coupon-section">
                                 <input
                                     type="text"
                                     placeholder="Enter Coupon Code"
@@ -127,7 +128,7 @@ const Conform = () => {
                                 <button className="apply-coupon-button" onClick={applyCoupon}>
                                     Apply Now
                                 </button>
-                            </div>
+                               </div> */}
                         </li>
                     </ul>
                     <StripeCheckout

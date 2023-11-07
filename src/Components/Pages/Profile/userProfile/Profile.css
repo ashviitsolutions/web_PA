@@ -843,4 +843,17 @@ ul#tabs_control .userbooking li.withicon a {
 
 }
 
-@media (max-width:768px) {}
+@media (max-width:768px) {
+    .membership_container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin: auto;
+    }
+    .membership_update .conetnt h3 {
+        font-size: 10px;
+    }
+    .membership_update .conetnt p {
+        font-size: 10px;
+    }
+}

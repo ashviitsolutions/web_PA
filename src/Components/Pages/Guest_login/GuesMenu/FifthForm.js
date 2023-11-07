@@ -4,6 +4,8 @@ import postServices from "../Services/postServices";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import axios from "axios";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const FifthForm = ({ step, nextStep }) => {
@@ -156,12 +158,35 @@ const FifthForm = ({ step, nextStep }) => {
         console.log("api details redux", res)
 
         // const userId = res.data.ref;
+        if (res.status === 200) {
+          // setValues({});
+          // resetForm();
 
+          // Show success notification and navigate to '/admin/Gift'
+          toast.success("Your Application successfully!", {
+            position: "top-right",
+            autoClose: 3000,
+            onClose: () => {
+              nav(`/book/${userid}/${totalPrice}`);
+            },
+          });
+        } else {
+          // Show error notification if the API response is not successful
+          toast.error("An error occurred. Please try again.", {
+            position: "top-right",
+            autoClose: 3000,
+          });
+        }
         // Navigate to the next page with the extracted ID
-        nav(`/book/${userid}/${totalPrice}`);
+
         console.log("Response:", res);
       } catch (error) {
-        console.error("Error:", error);
+        console.error(error);
+        toast.error("An error occurred. Please try again.", {
+          position: "top-right",
+          autoClose: 3000,
+        });
+
         // Handle the error, e.g., show an error message to the user
       }
     }
@@ -265,6 +290,7 @@ const FifthForm = ({ step, nextStep }) => {
           <p style={{ float: "right" }}>Total Price: ${totalPrice}</p>
         </form>
       </div>
+      <ToastContainer />
     </>
   );
 };
