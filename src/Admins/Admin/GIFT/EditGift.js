@@ -28,6 +28,7 @@ function EditGift() {
     const [user, setUser] = useState([]);
     const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
     const [type, setType] = useState([])
+    const [formValue, setFormValue] = useState(null)
     const [selectedDate, setSelectedDate] = useState(null);
 
     const handleDateChange = (date) => {
@@ -113,10 +114,25 @@ function EditGift() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await fetch(`${IP}/coupon/fetch/6530cd7e0c47b39c5e9e7ece`);
+                const res = await fetch(`${IP}/coupon/fetch/${id}`);
                 const data = await res.json();
                 setUser(data);
-                console.log("user", data)
+                const updatedSavedValues = {
+                    title: data.title,
+                    type: data.type,
+                    couponImages: data.couponImages,
+                    description: data.description,
+
+                    amount_off: data.amount_off,
+                    percent_off: data.percent_off,
+
+                    is_active: data.is_active,
+                    max_redemptions: data.max_redemptions,
+
+
+                };
+                setFormValue(updatedSavedValues);
+                console.log("edite data", data)
 
             } catch (error) {
                 console.log(error);
@@ -138,9 +154,10 @@ function EditGift() {
                 <div className="container-fluid">
                     <div className="row">
                         <Formik
-                            initialValues={initialValues}
+                            initialValues={formValue || initialValues}
                             validationSchema={SignupSchema}
                             onSubmit={onSubmit}
+                            enableReinitialize
 
                         >
 
