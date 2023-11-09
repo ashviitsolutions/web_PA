@@ -1,60 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import "./Profile.css";
-import { IP } from '../../../../Constant';
-import image1 from "../../../assets/img/gift-card-with-red-ribbon_23-2147510395 (1).webp"
+import Yourcard from './Giftcard/Yourcard';
+import BuyCard from './Giftcard/BuyCard';
 function Gift() {
   const username = localStorage.getItem("user_name");
-  const [user, setUser] = useState([]);
-  const [images, setImageObjectURL] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch(`${IP}/coupon/fetch`);
-        const data = await res.json();
-        setUser(data);
-        console.log("gift data data", data);
-      } catch (error) {
-        // Handle errors
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    const fetchImages = async () => {
-      const imagePromises = user.map((card) => {
-        return fetch(`${IP}/file/${card.attachments}`)
-          .then((res) => res.blob())
-          .then((imageBlob) => URL.createObjectURL(imageBlob))
-          .catch((error) => {
-            console.error("Error loading image:", error);
-            return null; // Return null for images that couldn't be loaded
-          });
-      });
-
-      Promise.all(imagePromises).then((imageUrls) => {
-        setImageObjectURL(imageUrls);
-      });
-    };
-
-    fetchImages();
-  }, [user]);
 
 
-  const giftCards = user.filter(item => item.type === 'gift_card').map((card, index) => (
-    <div className='gift_input' id='buy_gift_card_input' key={index}>
-      <div className='gift_image' id='buy_gift_card_image'>
-        {images[index] && <img src={images[index]} alt='...' />}
-        <div className='gift_button'>
-          <h3 className='title'>{card.title}</h3>
-          <h3 className='title'>{card.amount_off} $ off</h3>
-          <button className='Use_button'>Buy Now</button>
-        </div>
-      </div>
-    </div>
-  ));
+
+
+
 
   return (
     <>
@@ -67,33 +21,12 @@ function Gift() {
             <h3>Your GIFT CARDS</h3>
           </div>
 
-          <div className='gift_container'>
-            <div className='gift_input'>
-              <div className='gift_image'>
-                <img src={image1} width={380} height={166} alt='...' />
-                <div className='gift_button'>
-                  <button className='Use_button'>Use</button>
-                  <button className='Send_button'>Send</button>
-                </div>
-              </div>
-            </div>
-            <div className='gift_input'>
-              <div className='gift_image'>
-                <img src={image1} width={380} height={166} alt='...' />
-                <div className='gift_button'>
-                  <button className='Use_button'>Use</button>
-                  <button className='Send_button'>Send</button>
-                </div>
-              </div>
-            </div>
-          </div>
+          <Yourcard />
 
           <div className='title' id='buycard'>
             <h3>Buy GIFT CARDS</h3>
           </div>
-          <div className='gift_container' id="gift_vard_buy">
-            {giftCards}
-          </div>
+          <BuyCard />
         </div>
       </div>
     </>
