@@ -154,7 +154,7 @@ function BuyCard() {
     const giftCards = user.filter(item => item.type === 'gift_card').map((card, index) => (
         <div className='gift_input' id='buy_gift_card_input' key={index}>
             <div className='gift_image' id='buy_gift_card_image'>
-                {images[index] && <img src={images[index]} alt='...' />}
+                {images[index] && <img src={images[index]} alt='...' width={100} height={150} />}
                 <div className='gift_button'>
                     <h3 className='title'>{card.title}</h3>
                     <h3 className='title'>{card.offerValue} $ off</h3>
