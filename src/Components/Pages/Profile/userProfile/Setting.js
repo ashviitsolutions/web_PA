@@ -18,6 +18,7 @@ function Setting() {
   const [message, setMessage] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
+
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -26,6 +27,7 @@ function Setting() {
         setEmail(response.data.email);
         setPhone(response.data.phone);
         setName(response.data.name);
+        localStorage.setItem("user_id", response.data._id)
         console.log('get setting', response.data);
       } catch (error) {
         console.error('Error fetching data:', error);

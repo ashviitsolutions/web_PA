@@ -719,6 +719,94 @@ ul#tabs_control .userbooking li.withicon a {
     top: -10px;
 }
 
+
+
+
+
+
+
+
+/* Add these styles to your existing CSS file or create a new one */
+
+.modal_send_gift_card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal_send_gift_card .modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 100%;
+}
+
+.modal_send_gift_card .close {
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 18px;
+    color: #555;
+}
+
+.modal_send_gift_card h2 {
+    margin-bottom: 20px;
+}
+
+.modal_send_gift_card label {
+    display: block;
+    margin-bottom: 8px;
+    text-align: start;
+}
+
+.modal_send_gift_card input,
+textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.modal_send_gift_card button {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.modal_send_gift_card button:hover {
+    background-color: #45a049;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @media (max-width:992px) {
     .sidebar_tab {
 
@@ -850,9 +938,11 @@ ul#tabs_control .userbooking li.withicon a {
         width: 100%;
         margin: auto;
     }
+
     .membership_update .conetnt h3 {
         font-size: 10px;
     }
+
     .membership_update .conetnt p {
         font-size: 10px;
     }
