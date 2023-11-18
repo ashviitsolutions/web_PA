@@ -118,7 +118,7 @@ const Conform = () => {
                                     Total: ${totalAmount.toFixed(2)}
                                 </p>
                             </div>
-                            {/*  <div className="coupon-section">
+                          {/*  <div className="coupon-section">
                                 <input
                                     type="text"
                                     placeholder="Enter Coupon Code"
@@ -128,7 +128,7 @@ const Conform = () => {
                                 <button className="apply-coupon-button" onClick={applyCoupon}>
                                     Apply Now
                                 </button>
-                               </div> */}
+    </div> */}
                         </li>
                     </ul>
                     <StripeCheckout

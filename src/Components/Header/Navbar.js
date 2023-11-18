@@ -91,9 +91,7 @@ function Navbar() {
                             <li>
                                 <Link to="/about" onClick={toggleLinks}>about us</Link>
                             </li>
-                            <li>
-                                <Link to="/giftcard" onClick={toggleLinks}>gift card</Link>
-                            </li>
+                          
                             <li>
                                 <Link to="/contact" onClick={toggleLinks}>contact us</Link>
                             </li>

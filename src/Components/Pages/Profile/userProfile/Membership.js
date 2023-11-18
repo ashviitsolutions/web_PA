@@ -78,7 +78,8 @@ function Membership() {
                     <h3>{username}</h3>
                 </div>
                 <div className='title'>
-                    <h3>Membership</h3>
+                    <h3>Membership Level</h3>
+                    <h3>Regular</h3>
                 </div>
                 <div className='membership_container'>
                     {membershipOptions.map((option, index) => (

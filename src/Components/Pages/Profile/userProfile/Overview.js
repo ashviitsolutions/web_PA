@@ -42,6 +42,7 @@ function Overview() {
     const fetchPosts = async () => {
       try {
         const response = await Hook.getProfile();
+        console.log("profile image", response)
         if (response.data.name) {
           setName(response.data.name);
           localStorage.setItem("user_name", response.data.name);
@@ -81,17 +82,18 @@ function Overview() {
 
   return (
     <>
-     
+
 
       <div className="inner">
         <div className='gutter'>
           <h3 className='profile_heading'>{name || username}</h3>
           <div className='update_membership'>
             <p className="profile_heading" style={{ color: "blue", fontSize: "15px" }}>
-              {`${membershipLevel}`}
+          
+              {/* {`${membershipLevel}`}
               {membershipLevel === 'silver' && <FaMedal style={{ color: 'silver' }} />}
               {membershipLevel === 'gold' && <FaMedal style={{ color: 'gold' }} />}
-              {membershipLevel === 'platinum' && <FaMedal style={{ color: 'gray' }} />}
+  {membershipLevel === 'platinum' && <FaMedal style={{ color: 'gray' }} />} */}
             </p>
             {/*<button className='membership_update_button' onClick={handlemembersh}>Update</button> */}
           </div>

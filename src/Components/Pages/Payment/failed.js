@@ -1,9 +1,37 @@
-import React from 'react'
+import React , {useEffect} from 'react';
 
-function failed() {
+import { useNavigate, useParams } from 'react-router-dom';
+import "./Payment.css"
+
+
+
+
+function Failed() {
+  const navigate = useNavigate();
+  const { paymentId, oferValue } = useParams()
+
+
+
+
+  useEffect(() => {
+    setTimeout(() => {
+      navigate("/userProfile")
+    }, 3000)
+
+  }, [])
   return (
-    <div>failed</div>
-  )
+    <>
+      <div className='PaymentForm'>
+        <h1>Payment Status</h1>
+        <p>Status: failed</p>
+        
+      
+
+      </div>
+
+    </>
+
+  );
 }
 
-export default failed
+export default Failed;
