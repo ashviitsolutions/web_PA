@@ -224,8 +224,6 @@ function App() {
           <Route path="/Book" element={<>
             <Navbar />
             <Book />
-
-
             <Footer />
           </>} />
           <Route path="/Book/:userId/:totalPrice" element={<>
