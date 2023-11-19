@@ -139,7 +139,8 @@ function BuyCard() {
             console.log('Payment successful:', response.data);
         } catch (error) {
             console.error('Error processing payment:', error);
-            nav(`/userProfile/payment/failed`);
+            // nav(`/userProfile/payment/failed`);
+            nav(`/userProfile/payment/success/${`failed`}`);
         }
     };
 

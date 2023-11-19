@@ -30,7 +30,6 @@ import Corporatebooking from './Components/Pages/Services/Submenu/Coroporate/Cor
 
 //Payment
 import Successpayment from "./Components/Pages/Payment/Success"
-import Failedpage from "./Components/Pages/Payment/Failed"
 
 //admin pannel
 import Sidebar from "./Admins/Sidebar/Sidebar";
@@ -231,13 +230,11 @@ function App() {
             <Conform />
             <Footer />
           </>} />
-          <Route path="/userProfile/payment/success/:paymentId/:oferValue" element={<>
+          <Route path="/userProfile/payment/success/:paymentId" element={<>
             <Successpayment />
           </>} />
 
-          <Route path="/userProfile/payment/failed" element={<>
-            <Failedpage />
-          </>} />
+        
 
           <Route path="/giftcard" element={<>
             <Navbar />
