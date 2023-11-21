@@ -27,6 +27,8 @@ import Profiles from "./Components/Pages/Profile/userProfile/Profile";
 import Protectuser from './Components/Pages/Protected/Protectuser';
 import UserRoutes from './Components/Pages/Protected/UserRoutes';
 import Corporatebooking from './Components/Pages/Services/Submenu/Coroporate/Corporatebooking';
+import Privacypolicy from './Components/Pages/Policy/Privacypolicy';
+import Termcondition from './Components/Pages/Policy/Termcondition';
 
 //Payment
 import Successpayment from "./Components/Pages/Payment/Success"
@@ -137,6 +139,17 @@ function App() {
             <Home />
             <Footer />
           </>} />
+          <Route path="/privacypolicy" element={<>
+            <Navbar />
+            <Privacypolicy />
+            <Footer />
+          </>} />
+
+          <Route path="/termcondition" element={<>
+            <Navbar />
+            <Termcondition />
+            <Footer />
+          </>} />
 
           <Route path="/services" element={<>
             <Navbar />
@@ -234,7 +247,7 @@ function App() {
             <Successpayment />
           </>} />
 
-        
+
 
           <Route path="/giftcard" element={<>
             <Navbar />

@@ -1,0 +1,97 @@
+.Privacy_Policy {
+    width: 100%;
+    margin: auto;
+}
+
+.privacy_container {
+    width: 80%;
+    margin: auto;
+    /* background-color: rgb(34, 0, 255); */
+    /* height: 100vh; */
+    margin-top: 10vh;
+}
+
+
+.privacy_logo {
+    justify-content: center;
+    text-align: center;
+    margin-top: 100px;
+    /* background: #162b3c; */
+    /* box-shadow: 0px 3px 4px #00000045; */
+    width: 40%;
+    height: 100px;
+    margin: auto;
+    border-radius: 20px;
+}
+
+
+.privacy_logo .icon {
+    position: absolute;
+    /* top: 200px; */
+    left: 550px;
+    width: 55px;
+    height: 55px;
+    background: url('../../img/logo.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.privacy_logo .name {
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 400;
+    padding-top: 6px;
+    position: relative;
+    display: block;
+    color: #fff;
+    /* top: 200px; */
+
+}
+
+.privacy_logo .name small {
+    text-transform: capitalize;
+    position: relative;
+    font-size: 12px;
+    display: inline-block;
+    border-top: 1px solid rgb(255 255 255 / 62%);
+    padding-top: 0px;
+    letter-spacing: 0px;
+}
+
+/* SimpleTable.css */
+
+.simple-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.simple-table th,
+.simple-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.privacy_logo_nav {
+    margin-top: 200px !important;
+    width: 30% !important;
+    height: 10vh !important;
+    justify-content: center !important;
+    z-index: -100 !important;
+    align-items: center !important;
+    position: relative !important;
+    top: -100px !important;
+    left: 400px !important
+    
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 600px) {
+
+    .simple-table th,
+    .simple-table td {
+        font-size: 12px;
+    }
+}
