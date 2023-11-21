@@ -1,45 +1,39 @@
 import React, { useEffect, useState } from 'react';
-import Hook from '../Hook/Hook';
-import './Profile.css';
-import StripeCheckout from 'react-stripe-checkout';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import StripeCheckout from 'react-stripe-checkout';
 import { IP } from '../../../../Constant';
+import moment from 'moment'; // Import moment for date formatting
+
 function Membership() {
-    const nav = useNavigate()
+    const nav = useNavigate();
     const username = localStorage.getItem('user_name');
-
-
-    const [toggle, setToggle] = useState(false);
+    const GOLD_ID = "price_1OAmzQLnVrUYOeK2VStJarnV";
+    const token = localStorage.getItem("token");
+    const [url, setUrl] = useState(null); // Change initial state to null
     const membershipOptions = [
         {
             id: "price_1OAn62LnVrUYOeK2Y2M7l0Cj",
             name: 'Silver',
-            price: 119,
+            price: 29,
             savings: '5% saving off regular rate',
             commitment: '3 months commitment',
         },
         {
-            id: "price_1OAmzQLnVrUYOeK2VStJarnV",
+            id: GOLD_ID,
             name: 'Gold',
-            price: 129,
+            price: 119,
             savings: '10% saving off regular rate',
             commitment: '12 months commitment',
         },
         // Add more membership options as needed
     ];
 
-
-
-
     const handleSubmit = async (membership_id) => {
         try {
-            // Retrieve the authentication token and user_id from local storage
             const user_id = localStorage.getItem("userid");
             const token = localStorage.getItem("token");
-
-            // Construct the URL and headers for the API request
-            const url = `${IP}/payment/create-checkout-session?membership=${membership_id}&user_id=${user_id}`;
+            const url = `${IP}/payment/create-checkout-session?membership=${membership_id}&userId=${user_id}`;
             const config = {
                 headers: {
                     "Content-Type": "application/json",
@@ -47,28 +41,21 @@ function Membership() {
                 },
             };
 
-            // Make the API request using Axios
             const res = await axios.get(url, config);
+            console.log("Stripe Redirect URL:", res.config.url);
+            setUrl(res.config.url);
+            console.log("API Response:", res);
 
-            // Check the response status and update state if successful
-
-            // Log API details and the full response
-            console.log("api details redux", res);
-            console.log("Response:", res);
-
+            if (res.config.url) {
+                // Redirect to Stripe Checkout
+                window.location.href = res.config.url;
+            } else {
+                console.error("Invalid response from the server:", res);
+            }
         } catch (error) {
-            // Handle errors by logging to the console
-            console.error(error);
+            console.error("API Error:", error);
         }
     };
-
-
-
-
-
-
-
-
 
 
     return (
@@ -88,13 +75,12 @@ function Membership() {
                                 <h3>{option.name}</h3>
                                 <p>${option.price} / month</p>
                             </div>
-                            <div className='conetnt'>
+                            <div className='content'>
                                 <h3>{option.savings}</h3>
                                 <p>{option.commitment}</p>
                             </div>
-                            <div className='mebershi_update_button'>
+                            <div className='membership_update_button'>
                                 <button className="button" onClick={() => handleSubmit(option.id)}>Join now</button>
-
                             </div>
                         </div>
                     ))}

@@ -63,7 +63,7 @@ function BuyCard() {
 
 
 
-    
+
     const handleSubmit = async (offerValue, giftCardId) => {
         setOfferId(giftCardId)
         try {
