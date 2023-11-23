@@ -38,7 +38,7 @@ function AddGift() {
     type: "",
     couponImages: "",
     description: "",
-    amount_off: "",
+    offerValue: "",
     percent_off: "",
     is_active: "",
     max_redemptions: ""
@@ -62,7 +62,7 @@ function AddGift() {
       bodyFormData.append("type", "gift_card");
       bodyFormData.append("is_active", values.is_active);
       bodyFormData.append("max_redemptions", values.max_redemptions);
-      bodyFormData.append("amount_off", values.amount_off);
+      bodyFormData.append("offerValue", values.offerValue);
       bodyFormData.append("percent_off", values.percent_off);
       bodyFormData.append("expired_by", selectedDate);
       bodyFormData.append("couponImages", values.couponImages);
@@ -193,11 +193,11 @@ function AddGift() {
                       <div class="input_group" style={{ marginTop: "3rem" }}>
                         <Field
                           className="input"
-                          name="amount_off"
+                          name="offerValue"
                           type="number"
                         />
-                        {errors.amount_off && touched.amount_off ? (
-                          <div>{errors.amount_off}</div>
+                        {errors.offerValue && touched.offerValue ? (
+                          <div>{errors.offerValue}</div>
                         ) : null}
                         <label htmlFor="">Price</label>
                         <span class="highlight"></span>

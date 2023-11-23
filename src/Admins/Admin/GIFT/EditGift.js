@@ -16,7 +16,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const PreviewImage = ({ imagePreviewUrl }) => {
     return (
-        <div style={{ width: "20vh", heigh: "10vh" }} className="previwimage">
+        <div style={{ width: "100%", heigh: "10vh", backgroundSize: "cover" }} className="previwimage">
             {imagePreviewUrl && <img src={imagePreviewUrl} alt="Preview" style={{ height: '29vh' }} />}
         </div>
     );
@@ -30,6 +30,7 @@ function EditGift() {
     const [type, setType] = useState([])
     const [formValue, setFormValue] = useState(null)
     const [selectedDate, setSelectedDate] = useState(null);
+    const [img, setImg] = useState();
 
     const handleDateChange = (date) => {
         setSelectedDate(date);
@@ -120,10 +121,10 @@ function EditGift() {
                 const updatedSavedValues = {
                     title: data.title,
                     type: data.type,
-                    couponImages: data.couponImages,
+                    couponImages: data.attachments,
                     description: data.description,
 
-                    amount_off: data.amount_off,
+                    amount_off: data.offerValue,
                     percent_off: data.percent_off,
 
                     is_active: data.is_active,
@@ -288,7 +289,7 @@ function EditGift() {
                                                     <div className="inner">
                                                         <label className="card_label" htmlFor="couponImages">Attachments</label>
                                                         <input
-                                                            name="couponImages"
+                                                            name='couponImages'
                                                             type="file"
                                                             placeholder="Excerpt"
                                                             onChange={(e) => {
@@ -300,16 +301,19 @@ function EditGift() {
                                                                 };
 
                                                                 reader.readAsDataURL(file);
-                                                                setFieldValue('couponImages', file); // Change this line to setFieldValue('couponImage', file)
-                                                            }}
+                                                                setFieldValue('couponImages', file)
+                                                            }
+                                                            }
                                                         />
                                                         {errors.couponImages && touched.couponImages ? (
                                                             <div>{errors.couponImages}</div>
                                                         ) : null}
                                                     </div>
-                                                    <div className="preview">
-                                                        <PreviewImage imagePreviewUrl={imagePreviewUrl} />
+                                                    <div className='preview' style={{ width: "100%" }}>
+                                                        <PreviewImage imagePreviewUrl={imagePreviewUrl || img} />
+
                                                     </div>
+
                                                 </div>
 
 

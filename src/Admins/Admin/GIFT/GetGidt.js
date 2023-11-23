@@ -38,6 +38,7 @@ function GetGift() {
                 const res = await fetch(`${IP}/coupon/fetch`);
                 const data = await res.json();
                 setUser(data);
+                console.log("get gift card data",data)
                 setCount(data.length);
             } catch (error) {
                 console.log(error);
