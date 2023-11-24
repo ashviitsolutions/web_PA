@@ -645,12 +645,13 @@ ul#tabs_control .userbooking li.withicon a {
     flex-direction: column;
     width: 60%;
     margin: auto;
+    background-color: #ffff;
 }
 
 .membership_update {
     /* background-color: chocolate; */
     background-color: #f2f2f2;
-    box-shadow: -1px 1px 5px -3px rgba(0, 0, 0, 0.35);
+    /* box-shadow: -1px 1px 5px -3px rgba(0, 0, 0, 0.35); */
     padding: 0 10px;
 
     border-radius: 10px;
@@ -659,11 +660,11 @@ ul#tabs_control .userbooking li.withicon a {
 }
 
 .membership_update:nth-child(1) {
-    background-color: rgb(235, 234, 234);
+    background-color: #fff;
 }
 
 .membership_update:nth-child(2) {
-    background-color: gold;
+    background-color: #ffff;
 }
 
 .membership_update .heading {
@@ -831,10 +832,24 @@ textarea {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    margin-bottom: 15px;
+
 }
 
 .membership_update_button button:hover {
     background-color: #45a049;
+}
+
+.membership_update_buttons button {
+    position: relative;
+    top: -60px;
+
+}
+.active_membership_icon{
+    position: relative;
+    top: -370px;
+    left: -40px;
+    float: right;
 }
 
 .model_card_gift_container {
@@ -868,16 +883,12 @@ textarea {
     /* background-color: #fff; */
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
 }
 
 
 
-.membership_model_item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-}
+
 
 .membership_model_item div {
     margin-left: 15px;
@@ -885,6 +896,7 @@ textarea {
 
 .membership_model_item p {
     margin: 0;
+    text-align: justify;
 }
 
 
@@ -893,13 +905,15 @@ textarea {
     font-size: 35px;
 } */
 
-#icon_mwembership{
+#icon_mwembership {
     font-size: 50px;
+
 }
 
-#icon_mwembership1{
+#icon_mwembership1 {
     font-size: 35px;
 }
+
 /* Add specific styles for your icons if needed */
 
 
@@ -912,6 +926,22 @@ textarea {
 
 
 @media (max-width:992px) {
+    .model_card_gift_container {
+        width: 100%;
+        position: fixed;
+        top: 70%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        z-index: 1000;
+
+        height: auto;
+        margin: auto;
+    }
+
     .sidebar_tab {
 
         background-color: transparent !important;

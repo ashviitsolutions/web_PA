@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import StripeCheckout from 'react-stripe-checkout';
 import { IP } from '../../../../Constant';
-import { FcClock ,FcCancel } from "react-icons/fc";
+import { FcClock, FcCancel } from "react-icons/fc";
 import { TbBrandBooking } from "react-icons/tb";
+import gold from "../../../assets/img/membership_gold2.png"
+import Activegold from "../../../assets/img/active_gold2.png"
+import Activesilver from "../../../assets/img/active_silver2.png"
+import silver from "../../../assets/img/membeship_silver21.png"
 function Membership() {
     const username = localStorage.getItem('user_name');
     const GOLD_ID = "price_1OAmzQLnVrUYOeK2VStJarnV";
@@ -16,6 +18,8 @@ function Membership() {
             price: 119,
             savings: '5% saving off regular rate',
             commitment: '3 months commitment',
+            GOLD: silver,
+            active: Activesilver,
             title1: "Membership Flexibility",
             para1: "cancel or pouse at any time after your first two monthly payment",
             title2: "One 60-minute massage each month",
@@ -29,6 +33,8 @@ function Membership() {
             price: 119,
             savings: '10% saving off regular rate',
             commitment: '12 months commitment',
+            GOLD: gold,
+            active: Activegold,
             title1: "Membership Flexibility",
             para1: "cancel or pouse at any time after your first two monthly payment",
             title2: "One 60-minute massage each month",
@@ -97,17 +103,20 @@ function Membership() {
                 <div className='membership_container'>
                     {membershipOptions.map((option, index) => (
                         <div className='membership_update' key={index}>
-                            <div className='heading'>
-                                <h3>{option.name}</h3>
-                                <p>${option.price} / month</p>
+                            <div className='image_membership'>
+                                <img src={option.GOLD} alt='...' />
+
+
+                                <div className='membership_update_buttons'>
+                                    <button className="button" onClick={() => handleToggleModal(index)}>Join now</button>
+                                </div>
+                                <div className='active_membership_icon'>
+                                    <img src={option.active} alt='...' />
+                                </div>
+
                             </div>
-                            <div className='content'>
-                                <h3>{option.savings}</h3>
-                                <p>{option.commitment}</p>
-                            </div>
-                            <div className='membership_update_button'>
-                                <button className="button" onClick={() => handleToggleModal(index)}>Join now</button>
-                            </div>
+
+
                             {showModal[index] && (
                                 <div className='model_card_gift_container'>
                                     <span className='close' onClick={closeModal}>
@@ -116,21 +125,21 @@ function Membership() {
                                     <div className='model_card_gift'>
                                         <h3>{option.name}</h3>
                                         <div className='membership_model_item'>
-                                        <FcCancel id='icon_mwembership1' />
+                                            <FcCancel id='icon_mwembership1' />
                                             <div>
                                                 <p><strong>{option.title1}</strong></p>
                                                 <p>{option.para1}</p>
                                             </div>
                                         </div>
                                         <div className='membership_model_item'>
-                                        <FcClock id='icon_mwembership' />
+                                            <FcClock id='icon_mwembership' />
                                             <div>
                                                 <p><strong>{option.title2}</strong></p>
                                                 <p>{option.para2}</p>
                                             </div>
                                         </div>
                                         <div className='membership_model_item'>
-                                        <TbBrandBooking id='icon_mwembership' />
+                                            <TbBrandBooking id='icon_mwembership' />
                                             <div>
                                                 <p><strong>{option.title3}</strong></p>
                                                 <p>{option.para3}</p>
