@@ -3,14 +3,12 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import StripeCheckout from 'react-stripe-checkout';
 import { IP } from '../../../../Constant';
-import moment from 'moment'; // Import moment for date formatting
-
+import { FcClock ,FcCancel } from "react-icons/fc";
+import { TbBrandBooking } from "react-icons/tb";
 function Membership() {
-    const nav = useNavigate();
     const username = localStorage.getItem('user_name');
     const GOLD_ID = "price_1OAmzQLnVrUYOeK2VStJarnV";
-    const token = localStorage.getItem("token");
-    const [url, setUrl] = useState(null); // Change initial state to null
+
     const membershipOptions = [
         {
             id: "price_1OAn62LnVrUYOeK2Y2M7l0Cj",
@@ -18,6 +16,12 @@ function Membership() {
             price: 119,
             savings: '5% saving off regular rate',
             commitment: '3 months commitment',
+            title1: "Membership Flexibility",
+            para1: "cancel or pouse at any time after your first two monthly payment",
+            title2: "One 60-minute massage each month",
+            para2: "you're billed for one massage a month at the member rate, no initiation fee. Credits roll over and never expire",
+            title3: "Preffered rote all bookings",
+            para3: "Book as many appointments as you like at the membership rate. Get a massage anywhere Productive Alliance is available"
         },
         {
             id: GOLD_ID,
@@ -25,9 +29,33 @@ function Membership() {
             price: 119,
             savings: '10% saving off regular rate',
             commitment: '12 months commitment',
+            title1: "Membership Flexibility",
+            para1: "cancel or pouse at any time after your first two monthly payment",
+            title2: "One 60-minute massage each month",
+            para2: "you're billed for one massage a month at the member rate, no initiation fee. Credits roll over and never expire",
+            title3: "Preffered rote all bookings",
+            para3: "Book as many appointments as you like at the membership rate. Get a massage anywhere Productive Alliance is available"
         },
         // Add more membership options as needed
     ];
+
+    const [url, setUrl] = useState(null);
+    const [showModal, setShowModal] = useState(Array(membershipOptions.length).fill(false));
+    const [selectedMembership, setSelectedMembership] = useState(null);
+
+    const handleToggleModal = (index) => {
+        setShowModal((prevShowModal) => {
+            const newShowModal = [...prevShowModal];
+            newShowModal[index] = !newShowModal[index];
+            return newShowModal;
+        });
+        setSelectedMembership(membershipOptions[index]);
+    };
+
+    const closeModal = () => {
+        setShowModal(Array(membershipOptions.length).fill(false));
+        setSelectedMembership(null);
+    };
 
     const handleSubmit = async (membership_id) => {
         try {
@@ -47,7 +75,6 @@ function Membership() {
             console.log("API Response:", res);
 
             if (res.config.url) {
-                // Redirect to Stripe Checkout
                 window.location.href = res.config.url;
             } else {
                 console.error("Invalid response from the server:", res);
@@ -56,7 +83,6 @@ function Membership() {
             console.error("API Error:", error);
         }
     };
-
 
     return (
         <div className='overview' id='invoices'>
@@ -80,8 +106,44 @@ function Membership() {
                                 <p>{option.commitment}</p>
                             </div>
                             <div className='membership_update_button'>
-                                <button className="button" onClick={() => handleSubmit(option.id)}>Join now</button>
+                                <button className="button" onClick={() => handleToggleModal(index)}>Join now</button>
                             </div>
+                            {showModal[index] && (
+                                <div className='model_card_gift_container'>
+                                    <span className='close' onClick={closeModal}>
+                                        &times;
+                                    </span>
+                                    <div className='model_card_gift'>
+                                        <h3>{option.name}</h3>
+                                        <div className='membership_model_item'>
+                                        <FcCancel id='icon_mwembership1' />
+                                            <div>
+                                                <p><strong>{option.title1}</strong></p>
+                                                <p>{option.para1}</p>
+                                            </div>
+                                        </div>
+                                        <div className='membership_model_item'>
+                                        <FcClock id='icon_mwembership' />
+                                            <div>
+                                                <p><strong>{option.title2}</strong></p>
+                                                <p>{option.para2}</p>
+                                            </div>
+                                        </div>
+                                        <div className='membership_model_item'>
+                                        <TbBrandBooking id='icon_mwembership' />
+                                            <div>
+                                                <p><strong>{option.title3}</strong></p>
+                                                <p>{option.para3}</p>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <div className='membership_update_button'>
+                                        <button className="button" onClick={() => handleSubmit(selectedMembership.id)}>Join now</button>
+                                    </div>
+                                </div>
+                            )}
                         </div>
                     ))}
                 </div>

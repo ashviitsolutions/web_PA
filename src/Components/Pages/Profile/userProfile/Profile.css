@@ -791,17 +791,121 @@ textarea {
 }
 
 
+/* //model gift card */
+
+
+.model_card_gift_container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 35%;
+    height: auto;
+    margin: auto;
+}
+
+.model_card_gift {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.model_card_gift h3 {
+    margin: 0;
+    font-size: 1.5em;
+}
+
+.model_card_gift p {
+    margin: 0;
+    color: #888;
+}
+
+.membership_update_button button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.membership_update_button button:hover {
+    background-color: #45a049;
+}
+
+.model_card_gift_container {
+    /* background-color: #e3dbdb; */
+    color: red;
+
+
+
+}
+
+.model_card_gift_container .close {
+    cursor: pointer;
+    float: right;
+    font-size: 30px;
+    position: relative;
+    /* top: -20px; */
+}
+
+.membership_model_item {
+    display: flex;
+    justify-content: space-around;
+}
+
+.membership_model_item p {
+    color: #000;
+
+}
+
+
+.model_card_gift {
+    /* background-color: #fff; */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+
+.membership_model_item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.membership_model_item div {
+    margin-left: 15px;
+}
+
+.membership_model_item p {
+    margin: 0;
+}
+
+
+/* Increase the size of the icons */
+/* .membership_model_item svg {
+    font-size: 35px;
+} */
+
+#icon_mwembership{
+    font-size: 50px;
+}
+
+#icon_mwembership1{
+    font-size: 35px;
+}
+/* Add specific styles for your icons if needed */
 
 
 
 
-
-
-
-
-
-
-
+/* Add specific styles for your icons if needed */
 
 
 
