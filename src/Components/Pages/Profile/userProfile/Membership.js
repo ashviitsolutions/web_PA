@@ -100,22 +100,22 @@ function Membership() {
                     <h3>Membership Level</h3>
                     <h3>Regular</h3>
                 </div>
-                <div className='membership_container'>
+                <div className='memberships'>
                     {membershipOptions.map((option, index) => (
-                        <div className='membership_update' key={index}>
+                        <div className='membership_containers' key={index}>
                             <div className='image_membership'>
                                 <img src={option.GOLD} alt='...' />
 
-
-                                <div className='membership_update_buttons'>
-                                    <button className="button" onClick={() => handleToggleModal(index)}>Join now</button>
-                                </div>
-                                <div className='active_membership_icon'>
+                              {/*  <div className='active_membership_icons'>
                                     <img src={option.active} alt='...' />
                                 </div>
+                    */}
+
 
                             </div>
-
+                            <div className='membership_buttons'>
+                                <button onClick={() => handleToggleModal(index)}>Join now</button>
+                            </div>
 
                             {showModal[index] && (
                                 <div className='model_card_gift_container'>

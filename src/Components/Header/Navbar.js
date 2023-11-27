@@ -91,7 +91,7 @@ function Navbar() {
                             <li>
                                 <Link to="/about" onClick={toggleLinks}>about us</Link>
                             </li>
-                          
+
                             <li>
                                 <Link to="/contact" onClick={toggleLinks}>contact us</Link>
                             </li>
@@ -117,12 +117,12 @@ function Navbar() {
                                     <li id="service_drpdwn" className="drpdwn" onClick={dashboardpage}>
                                         <span className="text" id='profileiconimage' >
                                             <img
-                                              
+
                                                 width={40}
                                                 height={40}
                                                 src={profileimage}
                                                 alt=""
-                                                style={{ borderRadius: "100%"}}
+                                                style={{ borderRadius: "100%" }}
                                                 className='profileiconimage'
                                             />
                                             <span className="ico" onClick={handleDropdown}></span>
@@ -143,7 +143,7 @@ function Navbar() {
                 </div>
             </div>
 
-          {/*  {
+            {/*  {
                 showToggleButton ? (
                     <li id="service_drpdwn" className="drpdwn" onClick={dashboardpage}>
                     <span className="text" id='profileiconimage' >

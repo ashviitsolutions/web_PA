@@ -24,7 +24,7 @@ import menuimage from "../../../assets/img/close.png"
 import menucross from "../../../assets/img/menu.png"
 import "./Profile.css";
 
-const Book = () => {
+const Profile = () => {
 
   const [activeTab, setActiveTab] = useState(1);
   const [now, setNow] = useState(0);
@@ -91,9 +91,7 @@ const Book = () => {
 
   return (
     <>
-      <div
-        className="sidebar_tab"
-      >
+      <div className={`sidebar_tab ${isSidebarOpen ? 'mobile-view' : ''}`}>
         <ul id="tabs_control" onClick={handleSidebarToggle}>
           <li id="tab_1" className={activeTab === 1 ? 'active' : ''} onClick={() => setActiveTab(1)}>
             <div className="item">
@@ -204,4 +202,4 @@ const Book = () => {
   );
 };
 
-export default Book;
+export default Profile;

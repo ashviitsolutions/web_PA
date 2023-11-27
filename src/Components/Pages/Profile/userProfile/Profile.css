@@ -845,7 +845,8 @@ textarea {
     top: -60px;
 
 }
-.active_membership_icon{
+
+.active_membership_icon {
     position: relative;
     top: -370px;
     left: -40px;
@@ -921,6 +922,88 @@ textarea {
 
 /* Add specific styles for your icons if needed */
 
+/* Container for the membership card */
+.image_membership {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+
+}
+
+/* Style for the membership image */
+.image_membership img {
+    width: 100%;
+    /* Make the image fill the container width */
+    max-width: 500px;
+    /* Set a maximum width if needed */
+    height: auto;
+    /* Maintain the aspect ratio */
+    border-radius: 8px;
+    /* Add border-radius for rounded corners */
+}
+
+/* Style for the active membership icon */
+.active_membership_icons {
+    position: relative;
+    top: -260px;
+    left: 190px;
+}
+
+.active_membership_icons img {
+    width: 100%;
+    /* Make the image fill the container width */
+    max-width: 100px;
+    /* Set a maximum width if needed */
+    height: auto;
+    /* Maintain the aspect ratio */
+    border-radius: 8px;
+}
+
+/* Style for the membership buttons */
+.membership_buttons {
+    margin-top: 10px;
+}
+
+/* Button style (customize as needed) */
+.membership_buttons button {
+    padding: 3px 13px;
+    background-color: #03a9f4;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    /* margin-top: -147px; */
+    position: relative;
+    top: -70px;
+}
+
+/* Responsive styles (adjust breakpoints as needed) */
+@media screen and (max-width: 768px) {
+    .image_membership {
+        margin: 10px;
+    }
+
+ 
+    .active_membership_icons {
+        position: relative;
+        top: -176px;
+        left: 131px;
+        width: 19%;
+    }
+
+    .membership_buttons button {
+        padding: 3px 13px;
+        background-color: #03a9f4;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        position: relative;
+        top: -50px;
+    }
+}
 
 
 
