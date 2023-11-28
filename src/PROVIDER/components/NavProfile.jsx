@@ -28,7 +28,7 @@ const NavProfile = () => {
 
     const fetchImage = async () => {
       try {
-        const res = await fetch(`http://45.13.132.197:4000/api/file/${images}`);
+        const res = await fetch(`${IP}/file/${images}`);
         const imageBlob = await res.blob();
         const imageObjectURL = URL.createObjectURL(imageBlob);
         setImg(imageObjectURL);

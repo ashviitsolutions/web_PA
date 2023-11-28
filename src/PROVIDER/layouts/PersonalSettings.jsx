@@ -98,7 +98,7 @@ const PersonalSettings = () => {
 
     const fetchImage = async () => {
       try {
-        const res = await fetch(`http://45.13.132.197:4000/api/file/${images}`);
+        const res = await fetch(`${IP}/file/${images}`);
         const imageBlob = await res.blob();
         const imageObjectURL = URL.createObjectURL(imageBlob);
         setImg(imageObjectURL);
@@ -195,15 +195,15 @@ const PersonalSettings = () => {
               >
                 Update Payout Information
               </Button>
-             
+
               <Button
                 onClick={() => seteditAvailiblityShow(true)}
                 className="mb-2"
               >
                 Edit Availability
               </Button>
-             
-              
+
+
               <Button onClick={() => setviewPUAShow(true)} className="mb-2">
                 View PlatformUser Agreement
               </Button>
@@ -268,9 +268,9 @@ const PersonalSettings = () => {
           onHide={() => setAddresedit(false)}
         />
         <ProfileEdit
-        show={profileedit}
-        onHide={() => setProfileEdit(false)}
-      />
+          show={profileedit}
+          onHide={() => setProfileEdit(false)}
+        />
       </Container>
     </>
   );
