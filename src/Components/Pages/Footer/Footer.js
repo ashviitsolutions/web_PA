@@ -56,6 +56,7 @@ function Footer() {
                                     <li><Link to="/">home</Link></li>
                                     <li><Link to="/privacypolicy">Privacy Policy</Link></li>
                                     <li><Link to="/termcondition">Term & Condition</Link></li>
+                                    <li><Link to="/agreemnet">Agreeement </Link></li>
                                     <li><Link to="/giftcard">gift card</Link></li>
                                     <li><Link to="/become_member">membership</Link></li>
                                     <li><Link to="/about">about us</Link></li>

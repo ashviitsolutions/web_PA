@@ -29,6 +29,7 @@ import UserRoutes from './Components/Pages/Protected/UserRoutes';
 import Corporatebooking from './Components/Pages/Services/Submenu/Coroporate/Corporatebooking';
 import Privacypolicy from './Components/Pages/Policy/Privacypolicy';
 import Termcondition from './Components/Pages/Policy/Termcondition';
+import Agreemnet from './Components/Pages/Policy/Agreemnet';
 
 //Payment
 import Successpayment from "./Components/Pages/Payment/Success"
@@ -148,6 +149,12 @@ function App() {
           <Route path="/termcondition" element={<>
             <Navbar />
             <Termcondition />
+            <Footer />
+          </>} />
+
+          <Route path="/agreemnet" element={<>
+            <Navbar />
+            <Agreemnet />
             <Footer />
           </>} />
 
