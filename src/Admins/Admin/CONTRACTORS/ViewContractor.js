@@ -8,6 +8,83 @@ import { Button, Card } from "react-bootstrap";
 import axios from 'axios';
 import Verification from './Verification';
 
+
+
+const PreviewImage = ({ attachments }) => {
+  const [imageObjectURL, setImageObjectURL] = useState(null);
+
+  useEffect(() => {
+    const fetchImage = async () => {
+      const res = await fetch(`${IP}/file/${attachments}`);
+      const imageBlob = await res.blob();
+      const objectURL = URL.createObjectURL(imageBlob);
+      setImageObjectURL(objectURL);
+      console.log("image", res);
+    };
+
+    fetchImage();
+  }, [attachments]);
+
+  return (
+    <div>
+      {imageObjectURL && (
+        <img
+          src={imageObjectURL || avtar}
+          alt="No Image uploaded"
+          className="previewimage"
+          style={{
+            borderRadius: "100%",
+            height: "80px",
+            width: "80px",
+          }}
+        />
+      )}
+    </div>
+  );
+};
+
+
+
+
+const OfficeImage = ({ attachments }) => {
+  const [imageObjectURL, setImageObjectURL] = useState(null);
+
+  useEffect(() => {
+    const fetchImage = async () => {
+      const res = await fetch(`${IP}/file/${attachments}`);
+      const imageBlob = await res.blob();
+      const objectURL = URL.createObjectURL(imageBlob);
+      setImageObjectURL(objectURL);
+      console.log("image", res);
+    };
+
+    fetchImage();
+  }, [attachments]);
+
+  return (
+    <div>
+      {imageObjectURL && (
+        <img
+          src={imageObjectURL || avtar}
+          alt="No Image uploaded"
+          className="previewimage"
+          style={{
+            borderRadius: "100%",
+            height: "80px",
+            width: "80px",
+          }}
+        />
+      )}
+    </div>
+  );
+};
+
+
+
+
+
+
+
 function ViewContractor() {
   const [userschedule, setuserSchedule] = useState({});
   const [user, setUser] = useState({});
@@ -15,17 +92,9 @@ function ViewContractor() {
   const tokenadmin = localStorage.getItem("tokenadmin");
   const params = useParams();
   const nav = useNavigate();
-  const [images, setImages] = useState(null);
-  const [images1, setImages1] = useState(null);
-  const [images2, setImages2] = useState(null);
-  const [images3, setImages3] = useState(null);
-  const [images4, setImages4] = useState(null);
-  const [img, setImg] = useState('');
-  const [img1, setImg1] = useState('');
-  const [img2, setImg2] = useState('');
-  const [img3, setImg3] = useState('');
-  const [img4, setImg4] = useState('');
-  const token = localStorage.getItem("providertoken");
+
+
+
 
   useEffect(() => {
     // Fetch user data from the API when the component mounts
@@ -40,11 +109,7 @@ function ViewContractor() {
         if (response.ok) {
           const result = await response.json();
           setUser(result);
-          setImages(result.profile_pic);
-          setImages1(result.images);
-          setImages2(result?.documents?.drivinglicense);
-          setImages3(result?.documents?.insurance);
-          setImages4(result?.documents?.license);
+
         } else {
           console.error('Failed to fetch user data');
         }
@@ -59,30 +124,9 @@ function ViewContractor() {
   console.log("admin provider ", user)
 
   // Fetch images and set them as base64 data URLs
-  useEffect(() => {
-    const fetchImage = async (imageUrl, setImage) => {
-      if (imageUrl) {
-        try {
-          const res = await fetch(`${IP}/api/file/${imageUrl}`);
-          if (res.ok) {
-            const imageBlob = await res.blob();
-            const imageObjectURL = URL.createObjectURL(imageBlob);
-            setImage(imageObjectURL);
-          } else {
-            console.error(`Failed to fetch image: ${imageUrl}`);
-          }
-        } catch (err) {
-          console.error(err);
-        }
-      }
-    };
 
-    fetchImage(images, setImg);
-    fetchImage(images1, setImg1);
-    fetchImage(images2, setImg2);
-    fetchImage(images3, setImg3);
-    fetchImage(images4, setImg4);
-  }, [images, images1, images2, images3, images4]);
+
+
 
   const acceptApi = async (e) => {
     e.preventDefault();
@@ -139,8 +183,7 @@ function ViewContractor() {
               <div className="gutter">
                 <div id="about_user_card" className="card layer2">
                   <div className="avatar_wrap">
-                    <div className="avatar" style={{ backgroundImage: `url(${img || avtar})` }}>
-                    </div>
+                    <PreviewImage className="avatar" attachments={user.profile_pic} />
                     <span className="name">{`${user?.first_name} ${user?.last_name}`}</span>
                   </div>
                   <h3 className="inner_title">Contact Info</h3>
@@ -288,21 +331,21 @@ function ViewContractor() {
 
 
                           <li><b>Download documents:-</b></li>
-                          <a href={img2} target="_blank" rel="noreferrer">
+                          <a href="" target="_blank" rel="noreferrer">
                             <li>
                               <b>1. Driving License:</b>
                             </li>
                           </a>
 
 
-                          <a href={img3} target="_blank" rel="noreferrer">
+                          <a href="" target="_blank" rel="noreferrer">
                             <li>
                               <b>2.Insurance:</b>
                             </li>
                           </a>
 
 
-                          <a href={img4} target="_blank" rel="noreferrer">
+                          <a href="" target="_blank" rel="noreferrer">
                             <li>
                               <b>3.License:</b>
                             </li>
@@ -314,7 +357,8 @@ function ViewContractor() {
 
                         <h3 className="inner_title mt-3" style={{ fontSize: "15px" }}> Office Image</h3>
                         <div className="avatar_wrap mt-0">
-                          <div className="avatar mt-0" id="office" style={{ backgroundImage: `url(${img1 || avtar})` }}>
+                          <div >
+                            <OfficeImage className="avatar" attachments={user.images} />
                           </div>
                         </div>
                         <h3 className="inner_title"></h3>

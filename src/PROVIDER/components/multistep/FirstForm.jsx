@@ -284,7 +284,7 @@ const FirstForm = (props) => {
                 type="text"
                 placeholder="First Name"
                 value={fname}
-                onChange={(e)=>setFname(e.target.value)}
+                onChange={(e) => setFname(e.target.value)}
               />
             </div>
 
@@ -294,8 +294,8 @@ const FirstForm = (props) => {
                 name="lname"
                 type="text"
                 placeholder="Last Name"
-                value={lname}                
-                onChange={(e)=>setLname(e.target.value)}
+                value={lname}
+                onChange={(e) => setLname(e.target.value)}
               />
             </div>
           </Row>

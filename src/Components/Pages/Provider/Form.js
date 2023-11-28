@@ -64,8 +64,8 @@ function FormPage(props) {
         city: "",
         password: "",
         confirm_password: "",
-        country:"",
-        state:""
+        country: "",
+        state: ""
     };
 
     const validate = Yup.object().shape({
@@ -144,7 +144,7 @@ function FormPage(props) {
             });
     }, []);
     return (
-       
+
         <>
             <div className="container" ref={props.servicesTabsRef} id='provideregister'>
                 <div className="contact-container" >
@@ -158,7 +158,7 @@ function FormPage(props) {
 
                             {({ errors, touched, setFieldValue, values }) => (
 
-                                <Form   onClick={()=>setToggle(false)}>
+                                <Form onClick={() => setToggle(false)}>
 
 
                                     <div >
@@ -412,7 +412,7 @@ function FormPage(props) {
                     toggle ? (
                         <div className='emailduplicate'>
                             <div className='textemail'>
-                                <h6 >Email does not Exist</h6>
+                                <h6 >Email already  Exist</h6>
                             </div>
                         </div>
                     ) : null
