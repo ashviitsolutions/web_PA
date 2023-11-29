@@ -1,4 +1,4 @@
-import React,{useState , useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -7,26 +7,26 @@ import { IP } from "../../../Constant";
 const ProfileEdit = (props) => {
   const nav = useNavigate()
 
-  const[first_name , setFirst_name]=useState("")
-  const[last_name , setLast_name]=useState("")
-  const[email , setEmail]=useState("")
-  const[phone , setPhone]=useState("")
+  const [first_name, setFirst_name] = useState("")
+  const [last_name, setLast_name] = useState("")
+  const [email, setEmail] = useState("")
+  const [phone, setPhone] = useState("")
 
 
   let token = localStorage.getItem("providertoken")
 
 
-  
-  const handleUpdate=async(event)=>{
+
+  const handleUpdate = async (event) => {
     event.preventDefault();
     let datas = {
-     "first_name":first_name,
-     "last_name":last_name,
-     "email":email,
-     "phone":phone,
-   
+      "first_name": first_name,
+      "last_name": last_name,
+      "email": email,
+      "phone": phone,
+
     }
-    
+
     try {
       const resp = await fetch(`${IP}/provider/update_profile`, {
         method: "PUT",
@@ -40,7 +40,7 @@ const ProfileEdit = (props) => {
       })
 
       if (resp.status === 200) {
-          nav("/providers");
+        nav("/providers");
       }
 
     } catch (error) {
@@ -49,9 +49,9 @@ const ProfileEdit = (props) => {
   }
 
 
-  useEffect(()=>{
+  useEffect(() => {
     handleUpdate()
-  },[handleUpdate])
+  }, [handleUpdate])
 
 
 
@@ -69,23 +69,23 @@ const ProfileEdit = (props) => {
           Profile Edit
         </Modal.Title>
       </Modal.Header>
-      <Form onSubmit={handleUpdate}>                                                              
+      <Form onSubmit={handleUpdate}>
         <Modal.Body>
           <Form.Group className="mb-3 mt-2">
             <Form.Label>First Name</Form.Label>
-            <Form.Control type="text" placeholder="First Name" onChange={(e)=>setFirst_name(e.target.value)}/>
+            <Form.Control type="text" placeholder="First Name" onChange={(e) => setFirst_name(e.target.value)} />
           </Form.Group>
           <Form.Group className="mb-3 mt-2">
-          <Form.Label>Last name</Form.Label>
-          <Form.Control type="text" placeholder="Last name" onChange={(e)=>setLast_name(e.target.value)}/>
-        </Form.Group>
+            <Form.Label>Last name</Form.Label>
+            <Form.Control type="text" placeholder="Last name" onChange={(e) => setLast_name(e.target.value)} />
+          </Form.Group>
           <Form.Group className="mb-3 mt-2">
             <Form.Label>Email</Form.Label>
-            <Form.Control type="text" placeholder="email" onChange={(e)=>setEmail(e.target.value)} />
+            <Form.Control type="text" placeholder="email" onChange={(e) => setEmail(e.target.value)} />
           </Form.Group>
           <Form.Group className="mb-3 mt-2">
             <Form.Label>Phone</Form.Label>
-            <Form.Control type="text" placeholder="phone" onChange={(e)=>setPhone(e.target.value)} />
+            <Form.Control type="text" placeholder="phone" onChange={(e) => setPhone(e.target.value)} />
           </Form.Group>
         </Modal.Body>
         <Modal.Footer style={{ justifyContent: "center" }}>

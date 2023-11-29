@@ -93,6 +93,7 @@ import Services from './PROVIDER/layouts/Services';
 import SideBarprovider from './PROVIDER/components/SideBar';
 import Loginprovider from './PROVIDER/components/Login/Login';
 import Callstatus from './PROVIDER/layouts/Callstatus';
+import Listprovider from './Components/Pages/Guest_login/Providerlocation/Listprovider';
 //protected routed
 import Protected from './PROVIDER/ProtectedRute/Protected';
 import Logout from './PROVIDER/components/Logout';
@@ -132,7 +133,7 @@ function App() {
 
   return (
     <>
-      <Provider store={store}      >
+      <Provider store={store}>   Listprovider
 
         <Routes>
           <Route path="/" element={<>
@@ -280,6 +281,14 @@ function App() {
             <Navbar />
             <Faq />
             <Footer />
+          </>} />
+
+          <Route path="/listofprovider" element={<>
+
+            <Navbar />
+            <Listprovider />
+            <Footer />
+
           </>} />
 
 

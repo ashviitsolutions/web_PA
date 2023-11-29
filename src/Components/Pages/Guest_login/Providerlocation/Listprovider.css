@@ -1,0 +1,87 @@
+/* Listprovider.css */
+
+.provider-list-container {
+    width: 100%;
+    margin: auto;
+}
+
+/* Style for the search bar */
+
+.search_bar_Listprovider {
+    width: 80%;
+    margin: auto;
+
+}
+
+.search_bar_Listprovider input {
+    width: 100%;
+    padding: 10px;
+    margin: 60px 0px;
+    box-sizing: border-box;
+    border-radius: 20px;
+    /* box-shadow: 2px 2px 2px 2px #aaa; */
+    border: 2px solid #aaa;
+
+}
+
+.Provider_List {
+    width: 80%;
+    margin: auto;
+    flex-wrap: wrap;
+    display: flex;
+    margin-bottom: 30px;
+}
+
+.provider_card {
+    width: 24%;
+    margin: auto;
+    margin-bottom: 20px;
+    box-shadow: 2px 2px 2px 2px #aaa;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.provider_card img {
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    border-radius: 20px;
+}
+
+.Provider_List .content {
+    display: flex;
+    justify-content: space-between;
+
+
+
+}
+
+.Provider_List .content p {
+    color: blue;
+
+}
+
+.Provider_List .content h3 {
+
+    font-size: 24px;
+}
+
+.Provider_List .decription {
+    font-size: 12px;
+    margin-top: -10px;
+
+}
+
+.Listprovider_button .button {
+    margin-bottom: -5px !important;
+    font-size: 10px;
+}
+
+/* Responsive CSS */
+@media (max-width: 768px) {
+    .provider_card {
+        width: calc(100% - 10px);
+        margin-bottom: 10px;
+        /* Two items per row on smaller screens */
+    }
+}
