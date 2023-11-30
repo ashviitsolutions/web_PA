@@ -6,6 +6,8 @@ import axios from 'axios';
 import { IP } from '../../../Constant';
 import { useNavigate } from 'react-router-dom';
 import "./style.css"
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const PreviewImage = ({ imagePreviewUrl }) => {
@@ -120,12 +122,32 @@ function FormPage(props) {
                 // },
             });
             console.log(res);
+
             if (res.status === 200) {
-                nav('/providers/login')
+
+
+                // Show success notification and navigate to '/admin/Gift'
+                toast.success("Your Registration successfully!", {
+                    position: "top-right",
+                    autoClose: 3000,
+                    onClose: () => {
+                        nav('/providers/login')
+                    },
+                });
+            } else {
+                // Show error notification if the API response is not successful
+                toast.error("An error occurred. Please try again.", {
+                    position: "top-right",
+                    autoClose: 3000,
+                });
             }
         } catch (error) {
             setToggle(true)
             console.error(error);
+            toast.error("An error occurred. Please try again.", {
+                position: "top-right",
+                autoClose: 3000,
+            });
         }
     };
 
@@ -419,6 +441,7 @@ function FormPage(props) {
                 }
 
             </div>
+            <ToastContainer />
         </>
     )
 }

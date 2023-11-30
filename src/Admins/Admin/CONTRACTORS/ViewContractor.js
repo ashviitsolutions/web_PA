@@ -100,7 +100,7 @@ function ViewContractor() {
     // Fetch user data from the API when the component mounts
     const fetchData = async () => {
       try {
-        const response = await fetch(`${IP}/contractor/get/${params.id}`, {
+        const response = await fetch(`${IP}/contractor/get`, {
           headers: {
             Authorization: tokenadmin
           }

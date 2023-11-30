@@ -72,10 +72,19 @@ function Contractors() {
         setData(data.selected + 1);
     };
 
-    const memoizedUser = useMemo(() => {
-        return user.slice((data - 1) * 10, data * 10);
-    }, [user, data]);
+    // const memoizedUser = useMemo(() => {
+    //     return user.slice((data - 1) * 10, data * 10);
+    // }, [user, data]);
 
+    const memoizedUser = useMemo(() => {
+        if (Array.isArray(user)) {
+            return user.slice((data - 1) * 10, data * 10);
+        } else {
+            // Handle the case when user is not an array
+            console.error("User is not an array");
+            return []; // or handle it in a way that makes sense for your use case
+        }
+    }, [user, data]);
 
     return (
         <>
