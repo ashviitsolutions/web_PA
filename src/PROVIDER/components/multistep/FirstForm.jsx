@@ -208,10 +208,10 @@ const FirstForm = (props) => {
     formData.append("start_date", startDate);
     formData.append("working_information", JSON.stringify(availabilityHours));
     formData.append("previous_employee", selectedOption);
-    formData.append("ref1name", ref1Name);
-    formData.append("ref1phone", ref1Phone);
-    formData.append("ref2name", ref2Name);
-    formData.append("ref2phone", ref2Phone);
+    formData.append("ref_1_name", ref1Name);
+    formData.append("ref_1_phone", ref1Phone);
+    formData.append("ref_2_name", ref2Name);
+    formData.append("ref_2_phone", ref2Phone);
     formData.append("submission_Date", submitDate);
     formData.append("office", images);
     formData.append("ssn", ssn);
@@ -701,7 +701,7 @@ const FirstForm = (props) => {
             Professional References
           </h5>
           <p> List two references who are willing to provide a professional reference (please do not include family members nor people who reside with you)</p>
-          <Form.Group className="mb-3 mt-3">
+          {<Form.Group className="mb-3 mt-3">
             <Row>
               <div className="col-md-6 mb-2">
                 <Form.Label>Reference 1 Name</Form.Label>
@@ -748,7 +748,7 @@ const FirstForm = (props) => {
                 />
               </div>
             </Row>
-          </Form.Group>
+          </Form.Group>}
 
 
 
