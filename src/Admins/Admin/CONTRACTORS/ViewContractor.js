@@ -93,14 +93,14 @@ function ViewContractor() {
   const params = useParams();
   const nav = useNavigate();
 
-
+  console.log("params id", params.id)
 
 
   useEffect(() => {
     // Fetch user data from the API when the component mounts
     const fetchData = async () => {
       try {
-        const response = await fetch(`${IP}/contractor/get`, {
+        const response = await fetch(`${IP}/contractor/get/${params.id}`, {
           headers: {
             Authorization: tokenadmin
           }
@@ -298,6 +298,7 @@ function ViewContractor() {
 
                           <li><b>On demand:</b>{user?.areas_of_expertise?.on_demand}</li>
                           <li><b>Private events:</b>{user?.areas_of_expertise?.private_events}</li>
+                          <li><b>Corporate events:</b>{user?.areas_of_expertise?.corporate_events}</li>
                           <li><b>Working information:</b></li>
                           <div className="d-flex">
                             <li><p>Monday start time: {userschedule?.Mon_Start_time}</p></li>

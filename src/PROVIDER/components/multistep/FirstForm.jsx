@@ -36,6 +36,8 @@ const FirstForm = (props) => {
   const [ref2Phone, setRef2Phone] = useState('');
   const [submitDate, setSubmitDate] = useState("")
   // const [images, setImages] = useState('')
+  const [selectedPrivateEvents, setSelectedPrivateEvents] = useState([]);
+  const [selectedCorporateEvents, setSelectedCorporateEvents] = useState([]);
   console.log("contry .", country)
   console.log("user .", user)
   const [availabilityHours, setAvailabilityHours] = useState({
@@ -153,68 +155,37 @@ const FirstForm = (props) => {
   })
 
   //filter corporate and private services
-  let corporate = services.filter((service) => service.category === 'corporate events' || service.category === 'private events')
-    .map((service) => {
-      return service.title
-    })
+  // let corporate = services.filter((service) => service.category === 'corporate events' || service.category === 'private events')
+  //   .map((service) => {
+  //     return service.title
+  //   })
 
+
+  // let areasofexpertise = {
+  //   ondemand: ondemand,
+  //   privatecorpevts: corporate
+  // };
+  // Filter private events
+  let privateEvents = services
+    .filter((service) => service.category === 'private events')
+    .map((service) => {
+      return service.title;
+    });
+
+  // Filter corporate events
+  let corporateEvents = services
+    .filter((service) => service.category === 'corporate events')
+    .map((service) => {
+      return service.title;
+    });
 
   let areasofexpertise = {
     ondemand: ondemand,
-    privatecorpevts: corporate
+    privateevents: privateEvents,
+    corporateevents: corporateEvents,
   };
 
 
-  // const handleSubmit = async (event) => {
-  //   console.log("handleSubmit ran");
-  //   event.preventDefault(); // 👈️ prevent page refresh
-  //   let datas = {
-  //     "fname": fname,
-  //     "lname": lname,
-  //     "phone": phone,
-  //     "email": email,
-  //     "DOB": DOB,
-  //     "current_address": address,
-  //     "zip": zip,
-  //     "country": country,
-  //     "on_demand": selectedItems,
-  //     "private_events": selectedItem,
-  //     "working_shift": workingShift,
-  //     "start_date": startDate,
-  //     "working_information": availabilityHours,
-  //     "previous_employee": selectedOption,
-  //     "ref1name": ref1Name,
-  //     "ref1phone": ref1Phone,
-  //     "ref2name": ref2Name,
-  //     "ref2phone": ref2Phone,
-  //     "submission_Date": submitDate,
-  //     "office": images,
-  //     "ssn": ssn
-
-  //   }
-  //   console.log("updates profile data",datas)
-  //   try {
-  //     const resp = await fetch(`${IP}/provider/update-details`, {
-  //       method: "PUT",
-  //       headers: {
-  //         'Authorization': token,
-  //         'Accept': 'application/json',
-  //         'Content-Type': 'application/json',
-  //       },
-
-  //       body: JSON.stringify(datas)
-  //     })
-
-  //     const result = await resp.json()
-  //     console.log("time value first form", result)
-  //     console.log(result)
-  //     props.nextStep();
-  //   } catch (error) {
-  //     console.log("Error show", error)
-  //   }
-
-
-  // };
 
 
   const handleSubmit = async (event) => {
@@ -231,7 +202,8 @@ const FirstForm = (props) => {
     formData.append("postal_code", zip);
     formData.append("country", country);
     formData.append("on_demand", selectedItems);
-    formData.append("private_events", selectedItem);
+    formData.append("private_events", selectedPrivateEvents);
+    formData.append("corporate_events", selectedCorporateEvents);
     formData.append("working_shift", workingShift);
     formData.append("start_date", startDate);
     formData.append("working_information", JSON.stringify(availabilityHours));
@@ -479,10 +451,10 @@ const FirstForm = (props) => {
               }}
             />
           ))}
+          <hr className="hr" />
+          <h6>Private Events</h6>
 
-          <h6>Private Corporate Events</h6>
-
-          {areasofexpertise.privatecorpevts.map((item, id) => (
+          {areasofexpertise.privateevents.map((item, id) => (
             <Form.Check
               key={id}
               inline
@@ -490,10 +462,10 @@ const FirstForm = (props) => {
               label={item}
               name="group1"
               value={item}
-              checked={selectedItem.includes(item)}
+              checked={selectedPrivateEvents.includes(item)}
               onChange={(e) => {
                 const itemValue = e.target.value;
-                setSelectedItem(prevSelectedItems => {
+                setSelectedPrivateEvents(prevSelectedItems => {
                   if (prevSelectedItems.includes(itemValue)) {
                     return prevSelectedItems.filter(selectedItem => selectedItem !== itemValue);
                   } else {
@@ -504,6 +476,45 @@ const FirstForm = (props) => {
             />
           ))}
           <hr className="hr" />
+
+
+
+          <h6>Corporate Events</h6>
+
+          {areasofexpertise.corporateevents.map((item, id) => (
+            <Form.Check
+              key={id}
+              inline
+              id={id + 1}
+              label={item}
+              name="group1"
+              value={item}
+              checked={selectedCorporateEvents.includes(item)}
+              onChange={(e) => {
+                const itemValue = e.target.value;
+                setSelectedCorporateEvents((prevSelectedItems) => {
+                  if (prevSelectedItems.includes(itemValue)) {
+                    return prevSelectedItems.filter(
+                      (selectedItem) => selectedItem !== itemValue
+                    );
+                  } else {
+                    return [...prevSelectedItems, itemValue];
+                  }
+                });
+              }}
+            />
+          ))}
+
+
+
+
+          <hr className="hr" />
+
+
+
+
+
+
           <h5>Working Shift *</h5>
           <Form.Check
             inline

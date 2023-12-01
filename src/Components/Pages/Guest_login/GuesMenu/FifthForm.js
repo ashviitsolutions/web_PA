@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import axios from "axios";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { IP } from "../../../../Constant";
 
 
 const FifthForm = ({ step, nextStep }) => {
@@ -145,7 +146,7 @@ const FifthForm = ({ step, nextStep }) => {
 
 
         const token = localStorage.getItem("token");
-        const url = "http://45.13.132.197:5000/api/user/service_book";
+        const url = `${IP}/user/service_book`;
         const config = {
           headers: {
             "Content-Type": "application/json",

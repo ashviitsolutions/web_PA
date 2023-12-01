@@ -6,7 +6,7 @@ import { IP } from "../../Constant";
 const Callstatus = () => {
     const [user, setUser] = useState("");
     const [data, setData] = useState("");
-    //   const users=localStorage.getItem("applicationstatus")
+    const users = localStorage.getItem("applicationstatus")
     useEffect(() => {
         const token = localStorage.getItem("providertoken");
 
@@ -46,7 +46,7 @@ const Callstatus = () => {
 
             <div className="callstatus">
                 {
-                    user === "0" ? (
+                    users === "0" ? (
                         <>
                             <h3 className="mt-5" style={{ marginTop: "18rem" }}>please fill out application form to continue</h3>
                             <Link to="/providers/application-form">
@@ -59,7 +59,7 @@ const Callstatus = () => {
                     ) : null
                 }
                 {
-                    user === "1" ? (
+                    users === "1" ? (
                         <>
                             <h3 className="mt-3" style={{ marginTop: "8rem" }}>{data.application_status_text}</h3>
                             <Link to="/providers/application-form">
@@ -72,7 +72,7 @@ const Callstatus = () => {
                     ) : null
                 }
                 {
-                    user === 2 ? (
+                    users === 2 ? (
                         <>
                             <h3 className="mt-3" style={{ marginTop: "8rem" }}>{data.application_status_text}</h3>
                             <Link to="/providers/application-form">
