@@ -7,38 +7,38 @@ import ScheduledEvents from "./ScheduledEvents";
 import { IP } from "../../Constant"
 import { useNavigate } from "react-router-dom";
 const Dashboard = () => {
-  const nav=useNavigate()
+  const nav = useNavigate()
 
   const [request, setreq] = useState([])
   const token = localStorage.getItem('providertoken')
-  const [withdraw, setWithdraw]=useState([])
-  const [available, setAvailble]=useState([])
+  const [withdraw, setWithdraw] = useState([])
+  const [available, setAvailble] = useState([])
   const [neyincome, setNeyincome] = useState([]);
-  useEffect(()=>{
-    fetch(`${IP}/provider/available`,{
-      headers:{
-        'Authorization':token
+  useEffect(() => {
+    fetch(`${IP}/provider/available`, {
+      headers: {
+        'Authorization': token
       }
-    }).then(resp=>{
+    }).then(resp => {
       return resp.json()
-    }).then(result=>{
+    }).then(result => {
       setWithdraw(result)
-     console.log("withoural",result)
-    }).catch(err=>{
+      console.log("withoural", result)
+    }).catch(err => {
       console.log(err)
     })
 
 
-    fetch(`${IP}/provider/fetchwitdrawl`,{
-      headers:{
-        'Authorization':token
+    fetch(`${IP}/provider/fetchwitdrawl`, {
+      headers: {
+        'Authorization': token
       }
-    }).then(resp=>{
+    }).then(resp => {
       return resp.json()
-    }).then(result=>{
+    }).then(result => {
       setAvailble(result)
-     console.log("setAvailble",result)
-    }).catch(err=>{
+      console.log("setAvailble", result)
+    }).catch(err => {
       console.log(err)
     })
 
@@ -53,7 +53,7 @@ const Dashboard = () => {
     }).catch(err => {
       console.log(err)
     })
-  },[])
+  }, [])
 
 
   //request api
@@ -79,10 +79,10 @@ const Dashboard = () => {
         <div className="col-md-12">
           <h2 className="text-center mt-2">Earnings</h2>
           <Row>
-          <EarningsCard label="Net Income" amt={neyincome} />
-          <EarningsCard label="Withdrawn" amt={withdraw} />
-          <EarningsCard label="Pending Clearance" amt="100" />
-          <EarningsCard label="Available for Withdrawl" amt={available} />
+            <EarningsCard label="Net Income" amt={neyincome} />
+            <EarningsCard label="Withdrawn" amt={withdraw} />
+            <EarningsCard label="Pending Clearance" amt="100" />
+            <EarningsCard label="Available for Withdrawl" amt={available} />
           </Row>
         </div>
         <div className="col-md-12">
@@ -104,9 +104,9 @@ const Dashboard = () => {
                       amt={75}
                       tip={15}
                       instructions={cur.instructions}
-                      total={cur.total} 
+                      total={cur.total}
                       _id={cur._id}
-                      
+
                     />
                   </React.Fragment>
                 ))}

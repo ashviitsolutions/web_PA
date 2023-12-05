@@ -38,7 +38,7 @@ function Select_location() {
                                         <span className="text">At the convenience of your home / your location</span>
                                     </li>
                                 </Link>
-                                <Link to="/listofprovider" onClick={() => handleSubmit('providers location')}>
+                                <Link to="/select_location" onClick={() => handleSubmit('providers location')}>
                                     <li>
                                         <span
                                             className="bg"
