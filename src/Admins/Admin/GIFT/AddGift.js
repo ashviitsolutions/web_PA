@@ -63,7 +63,7 @@ function AddGift() {
       bodyFormData.append("is_active", values.is_active);
       bodyFormData.append("max_redemptions", values.max_redemptions);
       bodyFormData.append("offerValue", values.offerValue);
-      bodyFormData.append("percent_off", values.percent_off);
+      bodyFormData.append("price", values.percent_off);
       bodyFormData.append("expired_by", selectedDate);
       bodyFormData.append("couponImages", values.couponImages);
       bodyFormData.append("description", values.description);

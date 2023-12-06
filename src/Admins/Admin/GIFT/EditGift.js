@@ -63,8 +63,8 @@ function EditGift() {
             bodyFormData.append("type", "gift_card");
             bodyFormData.append("is_active", values.is_active);
             bodyFormData.append("max_redemptions", values.max_redemptions);
-            bodyFormData.append("amount_off", values.amount_off);
-            bodyFormData.append("percent_off", values.percent_off);
+            bodyFormData.append("offerValue", values.amount_off);
+            bodyFormData.append("price", values.percent_off);
             bodyFormData.append("expired_by", selectedDate);
             bodyFormData.append("couponImages", values.couponImages);
             bodyFormData.append("description", values.description);
@@ -124,8 +124,8 @@ function EditGift() {
                     couponImages: data.attachments,
                     description: data.description,
 
-                    amount_off: data.offerValue,
-                    percent_off: data.percent_off,
+                    offerValue: data.offerValue,
+                    price: data.percent_off,
 
                     is_active: data.is_active,
                     max_redemptions: data.max_redemptions,
