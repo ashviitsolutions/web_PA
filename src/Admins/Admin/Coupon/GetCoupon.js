@@ -38,6 +38,7 @@ function GetCoupon() {
                 const res = await fetch(`${IP}/coupon/fetch`);
                 const data = await res.json();
                 setUser(data);
+                console.log("coupon", data)
                 setCount(data.length);
             } catch (error) {
                 console.log(error);
@@ -169,10 +170,13 @@ function GetCoupon() {
                                                 <div className='typefield'>
                                                     <span style={{ display: "block" }}> {cur.category}</span>
                                                     <div className="content mt-3">
-                                                        <span className="title" id='headingtitle'><span id='pricevalue'>Coupon code: </span>{cur.amount_off}</span>
+                                                        <span className="title" id='headingtitle'><span id='pricevalue'>Coupon code: </span>{cur.coupon_code}</span>
                                                     </div>
                                                     <div className="content mt-3">
-                                                        <span className="title" id='headingtitle'><span id='pricevalue'>Value of Discount %: </span>{cur.amount_off} 10%</span>
+                                                        <span className="title" id='headingtitle'><span id='pricevalue'>percentage % off: </span>{cur.percent_off} %</span>
+                                                    </div>
+                                                    <div className="content mt-3">
+                                                        <span className="title" id='headingtitle'><span id='pricevalue'>Value in USD: </span>{cur.amount_off}</span>
                                                     </div>
                                                     <Link to={`/admin/coupon/editcoupon/${cur._id}`}>
                                                         <span className="Edit mt-3">Edit Page</span>

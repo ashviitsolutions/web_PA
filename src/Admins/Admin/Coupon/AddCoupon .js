@@ -41,6 +41,7 @@ function AddCoupon() {
     amount_off: "",
     percent_off: "",
     is_active: "",
+    coupon_code: "",
     max_redemptions: ""
   };
   const SignupSchema = Yup.object().shape({
@@ -60,6 +61,7 @@ function AddCoupon() {
       bodyFormData.append("max_redemptions", values.max_redemptions);
       bodyFormData.append("amount_off", values.amount_off);
       bodyFormData.append("percent_off", values.percent_off);
+      bodyFormData.append("coupon_code", values.coupon_code);
       bodyFormData.append("expired_by", selectedDate);
       bodyFormData.append("couponImages", values.couponImages);
       bodyFormData.append("description", values.description);
@@ -191,13 +193,27 @@ function AddCoupon() {
                       <div class="input_group" style={{ marginTop: "3rem" }}>
                         <Field
                           className="input"
+                          name="coupon_code"
+                          type="text"
+                        />
+                        {errors.coupon_code && touched.coupon_code ? (
+                          <div>{errors.coupon_code}</div>
+                        ) : null}
+                        <label htmlFor="">Coupon code</label>
+                        <span class="highlight"></span>
+                      </div>
+
+
+                      <div class="input_group" style={{ marginTop: "3rem" }}>
+                        <Field
+                          className="input"
                           name="amount_off"
                           type="number"
                         />
                         {errors.amount_off && touched.amount_off ? (
                           <div>{errors.amount_off}</div>
                         ) : null}
-                        <label htmlFor="">Coupon code</label>
+                        <label htmlFor="">Value in USD</label>
                         <span class="highlight"></span>
                       </div>
 
@@ -209,12 +225,11 @@ function AddCoupon() {
                           type="number"
                         />
                         {errors.percent_off && touched.percent_off ? (
-                          <div>{errors.percent_off}</div>
+                          <div>{errors.amount_off}</div>
                         ) : null}
-                        <label htmlFor="">Value in USD</label>
+                        <label htmlFor="">% off</label>
                         <span class="highlight"></span>
                       </div>
-
                     </div>
 
 

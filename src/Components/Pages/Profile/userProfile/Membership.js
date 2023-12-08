@@ -106,7 +106,7 @@ function Membership() {
                             <div className='image_membership'>
                                 <img src={option.GOLD} alt='...' />
 
-                              {/*  <div className='active_membership_icons'>
+                                {/*  <div className='active_membership_icons'>
                                     <img src={option.active} alt='...' />
                                 </div>
                     */}
