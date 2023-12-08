@@ -173,11 +173,20 @@ function GetCoupon() {
                                                         <span className="title" id='headingtitle'><span id='pricevalue'>Coupon code: </span>{cur.coupon_code}</span>
                                                     </div>
                                                     <div className="content mt-3">
-                                                        <span className="title" id='headingtitle'><span id='pricevalue'>percentage % off: </span>{cur.percent_off} %</span>
+                                                        {cur.percent_off && (
+                                                            <span className="title" id='headingtitle'>
+                                                                <span id='pricevalue'>off: {cur.percent_off}% </span>
+                                                            </span>
+                                                        )}
+
+                                                        {cur.amount_off && (
+                                                            <span className="title" id='headingtitle'>
+                                                                <span id='pricevalue'>off: {cur.amount_off}$ </span>
+                                                            </span>
+                                                        )}
                                                     </div>
-                                                    <div className="content mt-3">
-                                                        <span className="title" id='headingtitle'><span id='pricevalue'>Value in USD: </span>{cur.amount_off}</span>
-                                                    </div>
+
+
                                                     <Link to={`/admin/coupon/editcoupon/${cur._id}`}>
                                                         <span className="Edit mt-3">Edit Page</span>
                                                     </Link>

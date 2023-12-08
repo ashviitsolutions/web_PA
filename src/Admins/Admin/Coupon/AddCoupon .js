@@ -48,9 +48,52 @@ function AddCoupon() {
     // title: Yup.string().required("Required"),
     // excerpt: Yup.string().required("Required"),
     // type: Yup.string().required("Required"),
+    // amount_off: Yup.number(),
+    // percent_off: Yup.number(),
 
 
   });
+
+  const validate = (values) => {
+    const errors = {};
+
+    // Check if both fields are filled
+    if (values.amount_off && values.percent_off) {
+      errors.amount_off = 'Please fill in only one of the fields';
+      errors.percent_off = 'Please fill in only one of the fields';
+    }
+
+    return errors;
+  };
+
+
+  const [showPercentOff, setShowPercentOff] = useState(true);
+  const [showAmountOff, setShowAmountOff] = useState(true);
+
+  const handlePercentOffChange = (e) => {
+    // Handle the change for percent_off input
+    // Set showAmountOff to false
+    setShowAmountOff(!showAmountOff);
+  };
+
+  const handleAmountOffChange = (e) => {
+    // Handle the change for amount_off input
+    // Set showPercentOff to false
+    setShowPercentOff(!showPercentOff);
+  };
+
+
+
+
+
+
+
+
+
+
+
+
+
   const onSubmit = async (values, { setValues, resetForm }) => {
     console.log(values);
     try {
@@ -133,6 +176,7 @@ function AddCoupon() {
               initialValues={initialValues}
               validationSchema={SignupSchema}
               onSubmit={onSubmit}
+              validate={validate}
 
             >
 
@@ -204,21 +248,36 @@ function AddCoupon() {
                       </div>
 
 
-                      <div class="input_group" style={{ marginTop: "3rem" }}>
-                        <Field
-                          className="input"
-                          name="amount_off"
-                          type="number"
-                        />
-                        {errors.amount_off && touched.amount_off ? (
-                          <div>{errors.amount_off}</div>
-                        ) : null}
-                        <label htmlFor="">Value in USD</label>
-                        <span class="highlight"></span>
+                      <div className="content mt-3">
+                        {showPercentOff && (
+                          <div className="input_group" style={{ marginTop: '3rem' }}>
+                            <input
+                              className="input"
+                              name="percent_off"
+                              type="number"
+                              onChange={handlePercentOffChange}
+                            />
+                            <label htmlFor="">% off</label>
+                            <span className="highlight"></span>
+                          </div>
+                        )}
+
+                        {showAmountOff && (
+                          <div className="input_group" style={{ marginTop: '3rem' }}>
+                            <input
+                              className="input"
+                              name="amount_off"
+                              type="number"
+                              onChange={handleAmountOffChange}
+                            />
+                            <label htmlFor="">Amount off</label>
+                            <span className="highlight"></span>
+                          </div>
+                        )}
                       </div>
 
 
-                      <div class="input_group" style={{ marginTop: "3rem" }}>
+                      {/*   <div class="input_group" style={{ marginTop: "3rem" }}>
                         <Field
                           className="input"
                           name="percent_off"
@@ -229,7 +288,7 @@ function AddCoupon() {
                         ) : null}
                         <label htmlFor="">% off</label>
                         <span class="highlight"></span>
-                      </div>
+                        </div> */}
                     </div>
 
 
