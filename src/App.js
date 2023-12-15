@@ -154,7 +154,7 @@ function App() {
             <Footer />
           </>} />
 
-          <Route path="/Reset_password/:tokenid" element={<>
+          <Route path="/reset_password/:tokenid" element={<>
             <Navbar />
             <Reset_password />
             <Footer />
