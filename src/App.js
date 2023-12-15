@@ -30,6 +30,7 @@ import Corporatebooking from './Components/Pages/Services/Submenu/Coroporate/Cor
 import Privacypolicy from './Components/Pages/Policy/Privacypolicy';
 import Termcondition from './Components/Pages/Policy/Termcondition';
 import Agreemnet from './Components/Pages/Policy/Agreemnet';
+import Reset_password from './Components/Pages/Reset_password/Reset_password';
 
 //Payment
 import Successpayment from "./Components/Pages/Payment/Success"
@@ -150,6 +151,12 @@ function App() {
           <Route path="/termcondition" element={<>
             <Navbar />
             <Termcondition />
+            <Footer />
+          </>} />
+
+          <Route path="/Reset_password/:tokenid" element={<>
+            <Navbar />
+            <Reset_password />
             <Footer />
           </>} />
 
