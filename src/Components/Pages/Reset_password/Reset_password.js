@@ -12,10 +12,14 @@ function ResetPassword() {
     const [message, setMessage] = useState('');
 
     const handleChangeNow = async () => {
-        console.log("pass", newPassword);
         try {
             if (newPassword !== confirmPassword) {
                 setMessage('Password and confirm password must match');
+                return;
+            }
+
+            if (!newPassword || !confirmPassword) {
+                setMessage('Please fill in both password fields');
                 return;
             }
 
@@ -42,6 +46,7 @@ function ResetPassword() {
     };
 
 
+
     return (
         <div className='reset-password-container'>
             <h2>Reset Password</h2>
@@ -51,6 +56,7 @@ function ResetPassword() {
                     type="password"
                     id="newPassword"
                     value={newPassword}
+                    required
                     onChange={(e) => setNewPassword(e.target.value)}
                 />
             </div>
@@ -60,6 +66,7 @@ function ResetPassword() {
                     type="password"
                     id="confirmPassword"
                     value={confirmPassword}
+                    required
                     onChange={(e) => setConfirmPassword(e.target.value)}
                 />
             </div>
