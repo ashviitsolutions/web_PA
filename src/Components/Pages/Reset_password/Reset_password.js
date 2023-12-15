@@ -63,7 +63,7 @@ function ResetPassword() {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                 />
             </div>
-            <button onClick={handleChangeNow}>Change Now</button>
+            <button onClick={handleChangeNow} >Change Now</button>
             <div>{message}</div>
         </div>
     );
