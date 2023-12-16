@@ -115,7 +115,7 @@ function FormPage(props) {
             bodyFormData.append("profile_pic", values.image);
 
 
-            const res = await axios.post(`http://localhost:5000/api/provider/registration`, bodyFormData, {
+            const res = await axios.post(`${IP}/provider/registration`, bodyFormData, {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
