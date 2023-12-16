@@ -115,11 +115,11 @@ function FormPage(props) {
             bodyFormData.append("profile_pic", values.image);
 
 
-            const res = await axios.post(`${IP}/provider/registration`, bodyFormData, {
-                // headers: {
-                //     'Accept': 'application/json',
-                //     'Content-Type': 'application/json'
-                // },
+            const res = await axios.post(`http://localhost:5000/api/provider/registration`, bodyFormData, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
             });
             console.log(res);
 
@@ -142,7 +142,7 @@ function FormPage(props) {
                 });
             }
         } catch (error) {
-            setToggle(true)
+           
             console.error(error);
             toast.error("An error occurred. Please try again.", {
                 position: "top-right",
@@ -430,15 +430,7 @@ function FormPage(props) {
                         </div>
                     </div>
                 </div>
-                {
-                    toggle ? (
-                        <div className='emailduplicate'>
-                            <div className='textemail'>
-                                <h6 >Email already  Exist</h6>
-                            </div>
-                        </div>
-                    ) : null
-                }
+
 
             </div>
             <ToastContainer />
