@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./style.css";
-import { useDispatch ,useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateInputData } from '../../Redux/counterSlice';
 import Calendar from 'react-calendar';
 
@@ -13,21 +13,25 @@ const FourForm = ({ nextStep }) => {
   const dispatch = useDispatch();
 
   const handleSubmit = () => {
-    // You can use selectedDate and selectedTime in your submission
+    // Format the date as a string in "YYYY-MM-DD" format
+    const formattedDate = selectedDate.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    });
+
+    // You can use formattedDate and selectedTime in your submission
     const formData = {
-      date: selectedDate.toISOString(), // Convert date to ISO format
+      date: formattedDate,
       time: selectedTime,
     };
 
     // Dispatch the form data to Redux
     dispatch(updateInputData({ formName: 'fourthform', inputData: formData }));
+
     setTimeout(() => {
       nextStep();
-
-
-  }, 2000)
-    // Proceed to the next step
-    // nextStep();
+    }, 2000);
   };
 
   return (
@@ -57,9 +61,9 @@ const FourForm = ({ nextStep }) => {
             <option value="8:00 pm">8:00 pm</option>
             <option value="9:00 am">9:00 am</option>
             <option value="10:00 am">10:00 am</option>
-            <option value="8:00 am">11:00 am</option>
-            <option value="9:00 am">12:00 pm</option>
-            <option value="10:00 am">1:00 pm</option>
+            <option value="11:00 am">11:00 am</option>
+            <option value="12:00 pm">12:00 pm</option>
+            <option value="1:00 pm">1:00 pm</option>
             {/* Add more time options as needed */}
           </select>
 
