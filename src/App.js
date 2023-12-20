@@ -31,6 +31,8 @@ import Privacypolicy from './Components/Pages/Policy/Privacypolicy';
 import Termcondition from './Components/Pages/Policy/Termcondition';
 import Agreemnet from './Components/Pages/Policy/Agreemnet';
 import Reset_password from './Components/Pages/Reset_password/Reset_password';
+import Servicecontract from './Components/Pages/Policy/Servicecontract';
+import Serviceprovider from './Components/Pages/Policy/Serviceprovider';
 
 //Payment
 import Successpayment from "./Components/Pages/Payment/Success"
@@ -163,6 +165,17 @@ function App() {
           <Route path="/agreemnet" element={<>
             <Navbar />
             <Agreemnet />
+            <Footer />
+          </>} />
+
+          <Route path="/servicecontract" element={<>
+            <Navbar />
+            <Servicecontract />
+            <Footer />
+          </>} />
+          <Route path="/serviceprovider" element={<>
+            <Navbar />
+            <Serviceprovider />
             <Footer />
           </>} />
 

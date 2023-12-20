@@ -38,7 +38,7 @@ function Login() {
     const onSubmit = async (values, { resetForm }) => {
         console.log(values)
 
-        resetForm({ values: "" });
+        
         let data = { "email": values.email, "password": values.password }
         try {
             const resp = await fetch("http://45.13.132.197:5000/api/user/login", {
@@ -57,6 +57,7 @@ function Login() {
 
 
             if (resp.status === 200) {
+                resetForm({ values: "" });
                 localStorage.setItem("users", JSON.stringify(result));
                 localStorage.setItem("userid", result?.user_info?._id);
                 localStorage.setItem("user_name", result?.user_info?.fullName);

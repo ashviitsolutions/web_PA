@@ -1,7 +1,7 @@
 import React from 'react'
 import "./Private.css"
 import { Link } from 'react-router-dom'
-
+import logo from "../../assets/img/productiveaalsis.jpg"
 function Agreemnet() {
     return (
         <div className='Privacy_Policy'>
@@ -9,28 +9,10 @@ function Agreemnet() {
 
 
 
-                <div id="navigation" className='privacy_logo_nav'>
-                    <div className="container">
+            <div className='policy_image_logo'>
+            <img src={logo} alt='' />
+        </div>
 
-                        <div className="float_wrapper">
-
-
-                            <Link to="/userprofile">
-                                <div className="logo">
-                                    <span className="icon"></span>
-                                    <span className="name">Productive Alliance <small>experience the difference</small> </span>
-                                </div>
-                            </Link>
-
-
-
-                        </div>
-
-                    </div>
-
-
-
-                </div>
 
                 <div className='agreement_content'>
                     <p><strong>Productive Alliance Terms of Service</strong></p>
