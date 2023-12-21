@@ -136,7 +136,7 @@ const Conform = () => {
                         userId={userId}
                         token={onSubmit}
                         currency="USD"
-                        stripeKey="pk_test_51MXmewLnVrUYOeK2PN2SexCsPAi8lsw8dIt7Pw04DUCsoCsv7a0VReRlGhbUuDOKYqbp1PEDWRWklwSvEsUD0NZ400sa7PXdfg"
+                        stripeKey="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"
                     >
                         <div style={{ textAlign: 'center' }}>
                             <button className="button">Proceed to Pay</button>

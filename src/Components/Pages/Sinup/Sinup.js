@@ -56,7 +56,7 @@ function Login() {
             bodyFormData.append("password", values.password);
             bodyFormData.append("confirm_password", values.Confirm_Password);
 
-            const res = await axios.post("http://45.13.132.197:5000/api/user/register", bodyFormData, {
+            const res = await axios.post("http://localhost:5000/api/user/register", bodyFormData, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -90,7 +90,11 @@ function Login() {
 
         } catch (error) {
             console.error(error);
-            setToggle(true)
+            toast.error("An error occurred. Please try again.", {
+                position: "top-right",
+                autoClose: 3000,
+            });
+           
         }
     };
 

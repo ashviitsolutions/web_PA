@@ -106,12 +106,26 @@
     height: 110px;
  
 }
+#membership_policy{
+    width: 100%;
+    margin-top: 150px;
+}
+
+#membership_policy .Privacy_content{
+    width: 70%;
+    margin: auto;
+}
 
 /* Responsive Styles */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
 
     .simple-table th,
     .simple-table td {
         font-size: 12px;
     }
+    #membership_policy .Privacy_content{
+        width: 90% !important;
+        margin: auto;
+    }
+    
 }

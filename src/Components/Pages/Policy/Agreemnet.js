@@ -9,9 +9,9 @@ function Agreemnet() {
 
 
 
-            <div className='policy_image_logo'>
-            <img src={logo} alt='' />
-        </div>
+                <div className='policy_image_logo'>
+                    <img src={logo} alt='' />
+                </div>
 
 
                 <div className='agreement_content'>

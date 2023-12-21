@@ -33,6 +33,9 @@ import Agreemnet from './Components/Pages/Policy/Agreemnet';
 import Reset_password from './Components/Pages/Reset_password/Reset_password';
 import Servicecontract from './Components/Pages/Policy/Servicecontract';
 import Serviceprovider from './Components/Pages/Policy/Serviceprovider';
+import Goldmembership from './Components/Pages/Policy/Goldmembership';
+import Cancelationpolicy from './Components/Pages/Policy/Cancelationpolicy';
+import Silvermembership from './Components/Pages/Policy/Silvermembership';
 
 //Payment
 import Successpayment from "./Components/Pages/Payment/Success"
@@ -147,6 +150,23 @@ function App() {
           <Route path="/privacypolicy" element={<>
             <Navbar />
             <Privacypolicy />
+            <Footer />
+          </>} />
+
+          <Route path="/goldmembership" element={<>
+            <Navbar />
+            <Goldmembership />
+            <Footer />
+          </>} />
+
+          <Route path="/silvermembership" element={<>
+            <Navbar />
+            <Silvermembership />
+            <Footer />
+          </>} />
+          <Route path="/cancelationpolicy" element={<>
+            <Navbar />
+            <Cancelationpolicy />
             <Footer />
           </>} />
 
