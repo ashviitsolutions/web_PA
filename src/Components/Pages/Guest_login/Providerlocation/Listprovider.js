@@ -1,41 +1,56 @@
-import React, { useState } from 'react';
-import "./Listprovider.css"
+import React, { useEffect, useState } from 'react';
+import './Listprovider.css';
+import { IP } from '../../../../Constant';
+import { useNavigate } from 'react-router-dom';
 
-import providerimage from "../../../assets/img/43547063_s.jpg"
+const PreviewImage = ({ attachments }) => {
+    const [imageObjectURL, setImageObjectURL] = useState(null);
+
+    useEffect(() => {
+        const fetchImage = async () => {
+            const res = await fetch(`${IP}/file/${attachments}`);
+            const imageBlob = await res.blob();
+            const objectURL = URL.createObjectURL(imageBlob);
+            setImageObjectURL(objectURL);
+        };
+
+        fetchImage();
+    }, [attachments]);
+
+    return (
+        <div>
+            {imageObjectURL && <img src={imageObjectURL} alt="Preview" />}
+        </div>
+    );
+};
 
 function Listprovider() {
-    // Sample list of providers
-    const providerList = [
-        {
-            id: 1,
-            image: 'provider1.jpg',
-            title: 'Provider 1',
-            description: 'Description for Provider 1',
-            rating: 4.5,
-        },
-        {
-            id: 2,
-            image: 'provider2.jpg',
-            title: 'Provider 2',
-            description: 'Description for Provider 2',
-            rating: 3.8,
-        },
-        // Add more providers as needed
-    ];
-
+    const nav = useNavigate()
+    const [users, setUsers] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
-    const [filteredProviders, setFilteredProviders] = useState(providerList);
 
-    const handleSearch = (event) => {
-        const term = event.target.value.toLowerCase();
-        setSearchTerm(term);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const res = await fetch(`${IP}/contractor/get`);
+                const data = await res.json();
+                setUsers([...data]);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
 
-        const filtered = providerList.filter((provider) =>
-            provider.title.toLowerCase().includes(term)
-        );
+        fetchData();
+    }, []);
 
-        setFilteredProviders(filtered);
-    };
+    const filteredUsers = users.filter((cur) => {
+        const fullName = `${cur.first_name} ${cur.last_name}`.toLowerCase();
+        return fullName.includes(searchTerm.toLowerCase());
+    });
+
+    const handleSelect = (provider_Id) => {
+        nav(`/book/${provider_Id}`)
+    }
 
     return (
         <div className='provider-list-container'>
@@ -45,159 +60,30 @@ function Listprovider() {
                     type="text"
                     placeholder="Search providers..."
                     value={searchTerm}
-                    onChange={handleSearch}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                 />
             </div>
 
-            {/* Provider List */}
-
             <div className='Provider_List'>
-                <div className='provider_card'>
-                    <div className='image'>
-                        <img src={providerimage} alt='...' />
+                {filteredUsers.filter(data => data.application_status >= 3).map((cur) => (
+                    <div key={cur.id} className='provider_card'>
+                        <div className='image'>
+                            <PreviewImage attachments={cur.images} />
+                        </div>
+                        <div className='content'>
+                            <h3>{cur.first_name} {cur.last_name}</h3>
+                            <p><strong>{cur.averageRating}★</strong></p>
+                        </div>
+                        <div className='decription'>
+                            <p>Available Service: {cur?.areas_of_expertise?.on_demand}</p>
+                            <p>Address: {cur?.mailing_address?.address} {cur?.mailing_address?.country} {cur?.mailing_address?.postal_code}</p>
+                        </div>
+                        <div className='Listprovider_button' >
+                            <button className='button' onClick={() => handleSelect(cur._id)}>Select</button>
+                        </div>
                     </div>
-                    <div className='content'>
-                        <h3>Spa center</h3>
-                        <p><strong>4.5★</strong></p>
-                    </div>
-                    <div className='decription'>
-                        <p>Lorem ipsum dolor sit amet, consectetur
-                            adipisicing elit. Eligendi earum ab est ipsa impedit qui,
-                        </p>
-                    </div>
-                    <div className='Listprovider_button'>
-                        <button className='button'>Select</button>
-                    </div>
-
-                </div>
-                <div className='provider_card'>
-                    <div className='image'>
-                        <img src={providerimage} alt='...' />
-                    </div>
-                    <div className='content'>
-                        <h3>Spa center</h3>
-                         <p><strong>4.5★</strong></p>
-                    </div>
-                    <div className='decription'>
-                        <p>Lorem ipsum dolor sit amet, consectetur
-                            adipisicing elit. Eligendi earum ab est ipsa impedit qui,
-                        </p>
-                    </div>
-                    <div className='Listprovider_button'>
-                        <button className='button'>Select</button>
-                    </div>
-
-                </div>
-                <div className='provider_card'>
-                    <div className='image'>
-                        <img src={providerimage} alt='...' />
-                    </div>
-                    <div className='content'>
-                        <h3>Spa center</h3>
-                         <p><strong>4.5★</strong></p>
-                    </div>
-                    <div className='decription'>
-                        <p>Lorem ipsum dolor sit amet, consectetur
-                            adipisicing elit. Eligendi earum ab est ipsa impedit qui,
-                        </p>
-                    </div>
-                    <div className='Listprovider_button'>
-                        <button className='button'>Select</button>
-                    </div>
-
-                </div>
-                <div className='provider_card'>
-                    <div className='image'>
-                        <img src={providerimage} alt='...' />
-                    </div>
-                    <div className='content'>
-                        <h3>Spa center</h3>
-                         <p><strong>4.5★</strong></p>
-                    </div>
-                    <div className='decription'>
-                        <p>Lorem ipsum dolor sit amet, consectetur
-                            adipisicing elit. Eligendi earum ab est ipsa impedit qui,
-                        </p>
-                    </div>
-                    <div className='Listprovider_button'>
-                        <button className='button'>Select</button>
-                    </div>
-
-                </div>
-                <div className='provider_card'>
-                    <div className='image'>
-                        <img src={providerimage} alt='...' />
-                    </div>
-                    <div className='content'>
-                        <h3>Spa center</h3>
-                         <p><strong>4.5★</strong></p>
-                    </div>
-                    <div className='decription'>
-                        <p>Lorem ipsum dolor sit amet, consectetur
-                            adipisicing elit. Eligendi earum ab est ipsa impedit qui,
-                        </p>
-                    </div>
-                    <div className='Listprovider_button'>
-                        <button className='button'>Select</button>
-                    </div>
-
-                </div>
-                <div className='provider_card'>
-                    <div className='image'>
-                        <img src={providerimage} alt='...' />
-                    </div>
-                    <div className='content'>
-                        <h3>Spa center</h3>
-                         <p><strong>4.5★</strong></p>
-                    </div>
-                    <div className='decription'>
-                        <p>Lorem ipsum dolor sit amet, consectetur
-                            adipisicing elit. Eligendi earum ab est ipsa impedit qui,
-                        </p>
-                    </div>
-                    <div className='Listprovider_button'>
-                        <button className='button'>Select</button>
-                    </div>
-
-                </div>
-                <div className='provider_card'>
-                    <div className='image'>
-                        <img src={providerimage} alt='...' />
-                    </div>
-                    <div className='content'>
-                        <h3>Spa center</h3>
-                         <p><strong>4.5★</strong></p>
-                    </div>
-                    <div className='decription'>
-                        <p>Lorem ipsum dolor sit amet, consectetur
-                            adipisicing elit. Eligendi earum ab est ipsa impedit qui,
-                        </p>
-                    </div>
-                    <div className='Listprovider_button'>
-                        <button className='button'>Select</button>
-                    </div>
-
-                </div>
-                <div className='provider_card'>
-                    <div className='image'>
-                        <img src={providerimage} alt='...' />
-                    </div>
-                    <div className='content'>
-                        <h3>Spa center</h3>
-                        <p><strong>4.5★</strong></p>
-                    </div>
-                    <div className='decription'>
-                        <p>Lorem ipsum dolor sit amet, consectetur
-                            adipisicing elit. Eligendi earum ab est ipsa impedit qui,
-                        </p>
-                    </div>
-                    <div className='Listprovider_button'>
-                        <button className='button'>Select</button>
-                    </div>
-
-                </div>
+                ))}
             </div>
-
         </div>
     );
 }

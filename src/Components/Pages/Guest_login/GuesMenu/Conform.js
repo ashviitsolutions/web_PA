@@ -118,7 +118,7 @@ const Conform = () => {
                                     Total: ${totalAmount.toFixed(2)}
                                 </p>
                             </div>
-                          {/*  <div className="coupon-section">
+                            {/*  <div className="coupon-section">
                                 <input
                                     type="text"
                                     placeholder="Enter Coupon Code"
@@ -136,7 +136,7 @@ const Conform = () => {
                         userId={userId}
                         token={onSubmit}
                         currency="USD"
-                        stripeKey="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"
+                        stripeKey="pk_live_51MXmewLnVrUYOeK2XZC0Pjqc0o2JPx72nyy5Y0edFTT2sh9Gi5rQs8hw0WgkbLzZXMRGTka0fuZdeEX4DqaAkle200VfQQlgLN"
                     >
                         <div style={{ textAlign: 'center' }}>
                             <button className="button">Proceed to Pay</button>

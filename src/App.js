@@ -286,6 +286,12 @@ function App() {
             <Book />
             <Footer />
           </>} />
+
+          <Route path="/book/:provider_id" element={<>
+            <Navbar />
+            <Book />
+            <Footer />
+          </>} />
           <Route path="/Book/:userId/:totalPrice" element={<>
             <Navbar />
             <Conform />

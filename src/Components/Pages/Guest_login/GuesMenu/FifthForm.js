@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./style.css";
 import postServices from "../Services/postServices";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import axios from "axios";
 import { toast, ToastContainer } from 'react-toastify';
@@ -9,7 +9,12 @@ import 'react-toastify/dist/ReactToastify.css';
 import { IP } from "../../../../Constant";
 
 
+
 const FifthForm = ({ step, nextStep }) => {
+  const { provider_id } = useParams();
+
+  console.log("all data provider_id", provider_id);
+
   const formData = useSelector((state) => state.counter.formData);
   console.log("all data dispatch", formData);
   const useremail = localStorage.getItem("user_email")
@@ -126,6 +131,7 @@ const FifthForm = ({ step, nextStep }) => {
           massage_for: massage_for,
           service_id: service_id,
           gender: gender,
+          provider_id: provider_id,
 
           service_time: service_time,
           health_conditions: health_conditions,
@@ -236,7 +242,7 @@ const FifthForm = ({ step, nextStep }) => {
               type="text"
               name="address"
               value={address}
-              // onChange={(e) => setAddress(e.target.value)}
+              onChange={(e) => setAddress(e.target.value)}
               required
             />
           </div>
