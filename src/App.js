@@ -148,32 +148,32 @@ function App() {
             <Footer />
           </>} />
           <Route path="/privacypolicy" element={<>
-            <Navbar />
+
             <Privacypolicy />
-            <Footer />
+
           </>} />
 
           <Route path="/goldmembership" element={<>
-            <Navbar />
+
             <Goldmembership />
-            <Footer />
+
           </>} />
 
           <Route path="/silvermembership" element={<>
-            <Navbar />
+
             <Silvermembership />
-            <Footer />
+
           </>} />
           <Route path="/cancelationpolicy" element={<>
-            <Navbar />
+
             <Cancelationpolicy />
-            <Footer />
+
           </>} />
 
           <Route path="/termcondition" element={<>
-            <Navbar />
+
             <Termcondition />
-            <Footer />
+
           </>} />
 
           <Route path="/reset_password/:tokenid" element={<>
@@ -183,20 +183,20 @@ function App() {
           </>} />
 
           <Route path="/agreemnet" element={<>
-            <Navbar />
+
             <Agreemnet />
-            <Footer />
+
           </>} />
 
           <Route path="/servicecontract" element={<>
-            <Navbar />
+
             <Servicecontract />
-            <Footer />
+
           </>} />
           <Route path="/serviceprovider" element={<>
-            <Navbar />
+
             <Serviceprovider />
-            <Footer />
+
           </>} />
 
           <Route path="/services" element={<>
