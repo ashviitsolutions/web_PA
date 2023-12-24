@@ -25,15 +25,15 @@ const MultiStepForm = () => {
       .then((data) => {
         console.log("multistep form", data.application_status);
         setUser(data.application_status);
-        if (data.application_status === 0) {
-          setnow(25);
-        } else if (data.application_status === 1) {
-          setnow(50);
-        } else if (data.application_status === 2) {
-          setnow(75);
-        } else if (data.application_status === 3) {
-          setnow(100);
-        }
+        // if (data.application_status === 0) {
+        //   setnow(25);
+        // } else if (data.application_status === 1) {
+        //   setnow(50);
+        // } else if (data.application_status === 2) {
+        //   setnow(75);
+        // } else if (data.application_status === 3) {
+        //   setnow(100);
+        // }
 
       })
       .catch((error) => {
