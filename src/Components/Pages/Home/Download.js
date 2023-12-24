@@ -14,7 +14,7 @@ function Download() {
                             <div className="headinghome">
                                 <h3>Try our app</h3>
                                 <h2 style={{fontSize:"18px"}}>Download our app from google play store and get a smooth booking experience</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.</p>
+                                <p>Discover the epitome of convenience with our Massage On Demand app! Elevate your booking experience by downloading our app directly from the Google Play Store. Unleash the power of instant bookings, personalized preferences, and a world of relaxation—all just a few taps away. Join us on this journey and redefine the way you indulge in wellness. Your tranquility, your way!</p>
                                 <Link to="https://play.google.com/store/apps" target="_blank"><img id='downloadimage' style={{ maxWidth: "180px" }} src={Image1} alt="" /></Link>
                                 <Link to="https://play.google.com/store/apps" target="_blank"><img  id='downloadimage' style={{ maxWidth: "161px" }} src={Image2} alt="" /></Link>
                             </div>

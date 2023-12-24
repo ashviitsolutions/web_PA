@@ -5,32 +5,32 @@ import Image2 from "../../assets/img/lotus.svg"
 import Image3 from "../../assets/img/meditation_.svg"
 function Brief() {
     return (
-    <>
+        <>
             <div id="brief">
                 <div className="container">
                     <div className="row">
                         <div className="col-sm-offset-1 col-sm-10">
                             <div className="container-fluid" id='videofile'>
-                            <div className='row'>
-                            <div className="col-sm-6" >
-                                    <div className="content heading">
-                                        <h3>Become <span>a member</span>.</h3>
-                                        <h5 >Consult now to know how you can improve your lifestyle.</h5>
+                                <div className='row'>
+                                    <div className="col-sm-6" >
+                                        <div className="content heading">
+                                            <h3>Become <span>a member</span>.</h3>
+                                            <h5 >Consult now to know how you can improve your lifestyle.</h5>
+                                        </div>
+                                        <div className="content">
+                                            <p id='videofiletext'>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                                            <button className="button primary" type="button">register now</button>
+                                        </div>
                                     </div>
-                                    <div className="content">
-                                        <p id='videofiletext'>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-                                        <button className="button primary" type="button">register now</button>
-                                    </div>
-                                </div>
-                                <div className="col-sm-5"  id='video_section'>
-                                    <div className="content">
-                                        <div className="video_wrapper">
-                                            <video id="myVideos" src={video}  autoPlay muted loop  controls={true}/>
+                                    <div className="col-sm-5" id='video_section'>
+                                        <div className="content">
+                                            <div className="video_wrapper">
+                                                <video id="myVideos" src={video} autoPlay muted loop controls={true} />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -95,10 +95,10 @@ function Brief() {
                         </div>
                     </div>
                 </div>
-                </div>
+            </div>
 
-            </>
-            )
+        </>
+    )
 }
 
-            export default Brief
+export default Brief

@@ -1,5 +1,5 @@
-import React , {useState , useEffect} from 'react'
-import { IP } from '../../../Constant'; 
+import React, { useState, useEffect } from 'react'
+import { IP } from '../../../Constant';
 
 // import Image1 from "../../assets/img/pexels-ivan-samkov-5659057.jpg"
 function Provider() {
@@ -8,7 +8,7 @@ function Provider() {
     const [users, setUsers] = useState([]);
     const [images, setImages] = useState([]);
     const [img, setImg] = useState('');
-    
+
     useEffect(() => {
         async function fetchData() {
             const responses = await Promise.all(
@@ -22,7 +22,7 @@ function Provider() {
         }
         fetchData();
     }, []);
-    
+
     useEffect(() => {
         async function fetchImages() {
             const imageObjects = await Promise.all(
@@ -42,20 +42,20 @@ function Provider() {
 
     return (
         <>
-            <div id="provider">                  
+            <div id="provider">
                 <div className="container">
                     <div className="row">
                         <div className="col-sm-6">
                             <div className="heading " id='headingprovider'>
                                 <h3>{users.title}</h3>
                                 <h5>{users.excerpt}</h5>
-                                <p  dangerouslySetInnerHTML={{ __html:users.description }}    />
+                                <p dangerouslySetInnerHTML={{ __html: users.description }} />
                                 <button className="button" type="button">become provider</button>
                             </div>
                         </div>
                         <div className="col-sm-6">
                             <div className="right_half">
-                            <img src={img} alt="..." style={{borderRadius:"7px"}} width={600} height={400}  id="right_half_image"   />
+                                <img src={img} alt="..." style={{ borderRadius: "7px" }} width={600} height={520} id="right_half_image" />
                             </div>
                         </div>
                     </div>
