@@ -44,7 +44,7 @@ function Faq() {
             <h3>
               FAQ<small>(s)</small>{' '}
             </h3>
-            <p>Feel free to provide more specific details or questions you'd like to include in the FAQ section!</p>
+            <p>Do you have questions?</p>
           </div>
         </div>
         <div className="row">

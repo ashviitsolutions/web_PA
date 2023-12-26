@@ -8,7 +8,7 @@ function Brief() {
         <>
             <div id="brief">
                 <div className="container">
-                    <div className="row">
+                    {/*    <div className="row">
                         <div className="col-sm-offset-1 col-sm-10">
                             <div className="container-fluid" id='videofile'>
                                 <div className='row'>
@@ -33,7 +33,7 @@ function Brief() {
 
                             </div>
                         </div>
-                    </div>
+    </div> */}
 
 
                     <div className="row">

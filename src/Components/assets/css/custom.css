@@ -48,17 +48,17 @@
 .col-xs-9 {
   padding: 0 !important;
 }
-banner
-a {                                         
+
+banner a {
   color: initial;
 }
 
-a:hover,                                                 
+a:hover,
 a:focus {
   color: initial;
   outline: none;
   text-decoration: none;
-}                                             
+}
 
 body {
   font-family: "open sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -235,7 +235,12 @@ body {
   top: 0;
   left: 0;
   width: 260px;
-  padding-left: 58px;
+  padding-left: 5px;
+}
+
+#navigation .logo img {
+  width: 170px;
+  margin-top: -11px;
 }
 
 #navigation .logo .icon {
@@ -327,7 +332,7 @@ body {
 
 #navigation .nav_bar li:hover a {
   text-shadow: 0px 0px 10px #cee5ff;
-  color: #03a9f4;
+  color: #03a9f4;
 
 }
 
@@ -396,7 +401,7 @@ body {
   transform: scale(1.15);
 }
 
-#video_section{
+#video_section {
   margin-left: 50px;
 }
 
@@ -424,7 +429,7 @@ body {
   transform: translate(-50%, -50%);
   z-index: 1;
   text-align: left;
-}                                                  
+}
 
 #banner .head h1 {
   position: relative;
@@ -506,26 +511,26 @@ body {
   /* padding-left: 13%; */
 }
 
-#detailimage{
+#detailimage {
   width: 65rem !important;
   height: 30rem !important;
   position: relative;
-  top: -2rem ;
+  top: -2rem;
   right: 2rem;
 }
 
 
-#detailblogitem >h3{
- position: relative;
- width: 30rem;
- left: -11%;
- top: -2rem;
- font-size: 25px !important;
+#detailblogitem>h3 {
+  position: relative;
+  width: 30rem;
+  left: -11%;
+  top: -2rem;
+  font-size: 25px !important;
 }
 
 
 
-#types   #detailblogitem>p p{
+#types #detailblogitem>p p {
   position: relative;
   text-align: center;
   right: 2.2rem;
@@ -543,7 +548,7 @@ body {
 
 
 
-.type{
+.type {
   position: relative;
   display: block;
   width: 100%;
@@ -696,7 +701,7 @@ body {
   font-size: 14px;
   color: #000000ab;
   margin-bottom: 20px;
-  
+
 }
 
 #about .item .content a {
@@ -735,7 +740,7 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
-  transform: rotate(-90deg);                                
+  transform: rotate(-90deg);
   transition: all 0.2s ease-in-out;
   filter: invert(1);
 }
@@ -808,7 +813,7 @@ body {
   background-size: contain;
 }
 
-#about .left_half .img-responsive{
+#about .left_half .img-responsive {
   width: 500px;
 }
 
@@ -985,7 +990,8 @@ body {
   padding-top: 70px;
   padding-bottom: 70px;
 }
-.members{
+
+.members {
   margin-top: 0 !important;
 }
 
@@ -1787,7 +1793,7 @@ body {
   padding-left: 9rem;
 }
 
-#download_app .heading  {
+#download_app .heading {
   position: relative;
   display: block;
   padding-right: 100px;
@@ -1802,13 +1808,13 @@ body {
   width: 100%;
   height: 500px;
   margin-top: 60px;
-  /* background: url('../img/pexels-andrea-piacquadio-3764568.jpg'); */          
+  /* background: url('../img/pexels-andrea-piacquadio-3764568.jpg'); */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 }
 
-#small_banners .heads{
+#small_banners .heads {
   background: #ebebebbd;
   height: 500px;
   padding: 79px;
@@ -2120,16 +2126,16 @@ ul.true li::after {
   display: block;
 }
 
-#gift_card .section{
+#gift_card .section {
 
-    width: 93%;
-    margin: auto;
-    margin-top: 100px;
-    margin-bottom: 200px;
-    background-color: #fff;
-    padding: 80px;
-    border-radius: 10px;
-    box-shadow: 2px 2px 15px -5px rgb(0 0 0 / 35%);
+  width: 93%;
+  margin: auto;
+  margin-top: 100px;
+  margin-bottom: 200px;
+  background-color: #fff;
+  padding: 80px;
+  border-radius: 10px;
+  box-shadow: 2px 2px 15px -5px rgb(0 0 0 / 35%);
 
 
 }
@@ -2272,10 +2278,12 @@ ul.true li::after {
   box-shadow: 6px 11px 11px 0px rgb(0 0 0 / 28%);
   border-radius: 8px;
 }
-#textareacontactpage{
+
+#textareacontactpage {
   margin-top: -30px;
 
 }
+
 #application_process {
   position: relative;
   display: block;
@@ -2505,7 +2513,7 @@ ul.true li::after {
   display: block;
   width: 100%;
   min-height: 100vh;
-  padding-top:90px;
+  padding-top: 90px;
   background: url('../img/pexels-sergey-torbik-7365442.jpg');
   background-position: center;
   background-repeat: no-repeat;
@@ -3886,7 +3894,7 @@ ul.true li::after {
 
 
 /* Home section changes */
-#anchors{
+#anchors {
   position: relative;
   float: right;
   display: inline-block;
@@ -3901,13 +3909,14 @@ ul.true li::after {
   padding: 5px 27px;
   margin-right: 10px;
 }
-#anchors:hover{
+
+#anchors:hover {
   /* display: none !important; */
   background-color: #fff !important;
   color: #000 !important;
 }
 
-#videofile{
+#videofile {
   position: relative;
   left: 8vh;
   display: flex;
@@ -3915,7 +3924,7 @@ ul.true li::after {
   width: 80%;
 }
 
-.heading{
+.heading {
   position: relative;
   left: 0;
   width: 100%;
@@ -3923,7 +3932,7 @@ ul.true li::after {
   justify-content: center;
 }
 
-.headinghome{
+.headinghome {
   position: relative;
   top: 10rem;
   /* left: -6rem; */
@@ -3933,7 +3942,7 @@ ul.true li::after {
   justify-content: center;
 }
 
-.headinghomes{
+.headinghomes {
   position: relative;
   /* top: 10rem; */
   /* left: -6rem; */
@@ -3944,7 +3953,7 @@ ul.true li::after {
 }
 
 
-.questions >h3{
+.questions>h3 {
   font-size: 15px;
   color: #2d323e;
   font-weight: 700;
@@ -3953,17 +3962,16 @@ ul.true li::after {
 }
 
 
-.buttonplus{
+.buttonplus {
   font-size: 20px;
   font-weight: 700;
 }
 
-.questions{
-  display:flex
-
+.questions {
+  display: flex
 }
 
-.buttonplus{
+.buttonplus {
   position: relative;
   text-align: end;
   justify-content: end;
@@ -3984,6 +3992,7 @@ ul.true li::after {
   width: 95%;
   margin-left: 2rem;
 }
+
 #faq_page .faq .question {
   position: relative;
   padding-left: 12px;
@@ -3994,7 +4003,7 @@ ul.true li::after {
 
 img .img-responsive {
   border-radius: 12px;
-  top:10rem;
+  top: 10rem;
   height: 50vh;
   padding-left: 2vh;
   margin-top: 8rem;
@@ -4003,15 +4012,15 @@ img .img-responsive {
 
 
 /* services */
-#servicecart:hover{
+#servicecart:hover {
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 2px 2px 2px 2px rgb(0 0 0 / 20%);
   /* border: 1px solid #f8f8f8; */
   /* padding-bottom: 15px; */
   transition: all 0.2.5s ease-in-out;
-  
-  
+
+
 }
 
 #banner .head h1 {
@@ -4033,6 +4042,7 @@ img .img-responsive {
   justify-content: center;
   padding-left: 1.3vh !important;
 }
+
 /* #banner .head h1 {
   position: relative;
   display: block;
@@ -4075,14 +4085,18 @@ img .img-responsive {
   /* overflow: scroll; */
 
 }
+
 .item .content {
-  padding-bottom: 20px; /* add some padding to the bottom */
-}
-.book-button {
-  margin-top: 10px; /* add some margin to the top */
+  padding-bottom: 20px;
+  /* add some padding to the bottom */
 }
 
-#bannerservices{
+.book-button {
+  margin-top: 10px;
+  /* add some margin to the top */
+}
+
+#bannerservices {
   justify-content: left;
 }
 
@@ -4095,16 +4109,16 @@ img .img-responsive {
 
 
 
-.Read_More{
+.Read_More {
   position: relative;
   top: 0rem;
   left: 0rem;
   border: none;
-  background-color:#ffff;
+  background-color: #ffff;
 }
 
 
-.Read_Mores{
+.Read_Mores {
   position: relative;
   top: 0rem;
   left: 0rem;
@@ -4119,24 +4133,25 @@ img .img-responsive {
   top: -2rem !important;
 }
 
-.toggleimage{
+.toggleimage {
   display: none;
 }
 
 #messagebannerdown {
   text-align: center;
   justify-content: space-around;
-  margin-top: 6.5rem ;
-  margin-left: 6.2rem ;
+  margin-top: 6.5rem;
+  margin-left: 6.2rem;
   top: 15px;
 }
-#member_cta .container-member .heading{
+
+#member_cta .container-member .heading {
   position: relative;
   top: 100px;
 
 }
 
-#becommembersyogatext{
+#becommembersyogatext {
   position: relative;
   text-align: center;
   left: -35px;
@@ -4169,7 +4184,7 @@ img .img-responsive {
   opacity: 0;
 }
 
-.blogbuttons{
+.blogbuttons {
   text-align: center;
   justify-content: center;
   position: relative;
@@ -4178,15 +4193,15 @@ img .img-responsive {
 }
 
 .react-calendar {
-    width: 100% !important;
-    padding: 20px;
-    border: solid 1px #85e1fd !important;
+  width: 100% !important;
+  padding: 20px;
+  border: solid 1px #85e1fd !important;
 }
 
-        
-.backbutton{
+
+.backbutton {
   text-align: center;
-  justify-content:center;
+  justify-content: center;
   padding-top: 10px;
   font-weight: 700;
 }
@@ -4194,6 +4209,7 @@ img .img-responsive {
 #gift_card .heading {
   padding-top: 15px;
 }
+
 /* 
 .details_blog #types{
   position: relative;
@@ -4211,7 +4227,7 @@ img .img-responsive {
   margin-bottom: 90px;
 }
 
-#services_tab .container-brief{
+#services_tab .container-brief {
   justify-content: space-around;
   text-align: center;
   display: flex;
@@ -4220,34 +4236,34 @@ img .img-responsive {
   margin: 90px;
 }
 
-#services_tab .container-brief .selects{
+#services_tab .container-brief .selects {
   display: block;
   flex-basis: 18%;
 
-  
+
 }
 
-.selects .item{
+.selects .item {
   display: block;
 }
 
 .selects .item img {
- width: 40px;
- margin-top: 25px;
- margin-bottom: 10px;
+  width: 40px;
+  margin-top: 25px;
+  margin-bottom: 10px;
 }
 
-#services_tab .container-brief .selects:hover{
+#services_tab .container-brief .selects:hover {
   background-color: #03a9f4;
   color: #ffff;
   border-radius: 20px;
   transition: .3s ease-in;
-  
+
 }
 
 
 .selects .item:hover .icons {
-  filter: brightness(0) invert(1); 
+  filter: brightness(0) invert(1);
 }
 
 /* //Guest_login */
@@ -4260,14 +4276,14 @@ img .img-responsive {
   height: 82%;
 }
 
-#gmaillogin{
+#gmaillogin {
   justify-content: center;
   text-align: center;
   /* margin-left: 13.5rem; */
   margin-top: 10px;
   /* width: 40%; */
   margin: auto;
-} 
+}
 
 
 
@@ -4286,11 +4302,12 @@ img .img-responsive {
   text-decoration: none;
 }
 
-.input_near_me{
+.input_near_me {
   display: flex;
   justify-content: space-between;
 }
-.near_me_button{
+
+.near_me_button {
   /* background-color: red; */
   position: absolute;
   font-size: 10px;
@@ -4300,7 +4317,8 @@ img .img-responsive {
   height: 10px;
   cursor: pointer;
 }
-.near_me_button h3{
+
+.near_me_button h3 {
 
   font-size: 16px;
   padding-top: 12px;

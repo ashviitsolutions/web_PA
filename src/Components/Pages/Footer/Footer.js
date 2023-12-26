@@ -86,7 +86,7 @@ function Footer() {
                                 </div>
                                 <div className="text">
                                     <p>
-                                        0123456789
+                                        732-567-0553
                                     </p>
                                 </div>
                             </div>
@@ -96,7 +96,7 @@ function Footer() {
                                 </div>
                                 <div className="text">
                                     <p>
-                                        info@yourdomain.com
+                                        info@productivealliance.com
                                     </p>
                                 </div>
                             </div>

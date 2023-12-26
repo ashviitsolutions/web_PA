@@ -45,7 +45,7 @@ function Blog() {
           <div className="row">
             <div className="heading content">
               <h3 className="dancing">Latest Blog</h3>
-              <p>Lorem ipsum dolor sit amet</p>
+              {/* <p>Lorem ipsum dolor sit amet</p> */}
               <span className="eff"></span>
             </div>
           </div>
@@ -78,7 +78,7 @@ function Blog() {
                           </div>
                         ))}
                       </div>
-                     
+
                     </div>
                   </div>
                 </div>
@@ -88,10 +88,10 @@ function Blog() {
         </div>
       </div>
       <div className='blogbuttons'>
-      <Link to="/blogpage">
-        <button className="button">View More</button>
-      </Link>
-    </div>
+        <Link to="/blogpage">
+          <button className="button">View More</button>
+        </Link>
+      </div>
     </>
   )
 }
