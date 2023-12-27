@@ -25,16 +25,30 @@ const PreviewImage = ({ attachments }) => {
 };
 
 function Listprovider() {
-    const nav = useNavigate()
+    const nav = useNavigate();
     const [users, setUsers] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
+    const [currentLocation, setCurrentLocation] = useState(null);
+
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await fetch(`${IP}/contractor/get`);
+                const latitude = currentLocation?.latitude;
+                const longitude = currentLocation?.longitude;
+
+                const res = await fetch(`${IP}/user/nearrestproviders`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ latitude, longitude }),
+                });
+
                 const data = await res.json();
-                setUsers([...data]);
+
+                console.log('Error fetching data:', data.data);
+                setUsers(data.data);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -43,15 +57,47 @@ function Listprovider() {
         fetchData();
     }, []);
 
+
+
+
+
+
+
+
+    useEffect(() => {
+        const fetchLocation = () => {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const { latitude, longitude } = position.coords;
+                        setCurrentLocation({ latitude, longitude });
+                    },
+                    (error) => {
+                        console.error('Error getting location:', error);
+                    }
+                );
+            } else {
+                console.error('Geolocation is not supported by this browser.');
+            }
+        };
+
+        fetchLocation();
+    }, []);
+
     const filteredUsers = users.filter((cur) => {
         const fullName = `${cur.first_name} ${cur.last_name}`.toLowerCase();
         return fullName.includes(searchTerm.toLowerCase());
     });
 
     const handleSelect = (provider_Id) => {
-        nav(`/book/${provider_Id}`)
-    }
-
+        nav(`/book/${provider_Id}`);
+    };
+    // {currentLocation && (
+    //     <div>
+    //         <p>Current Latitude: {currentLocation.latitude}</p>
+    //         <p>Current Longitude: {currentLocation.longitude}</p>
+    //     </div>
+    // )}
     return (
         <div className='provider-list-container'>
             {/* Search Bar */}
@@ -65,7 +111,7 @@ function Listprovider() {
             </div>
 
             <div className='Provider_List'>
-                {filteredUsers.filter(data => data.application_status >= 3).map((cur) => (
+                {filteredUsers.filter((data) => data.application_status >= 3).map((cur) => (
                     <div key={cur.id} className='provider_card'>
                         <div className='image'>
                             <PreviewImage attachments={cur.images} />
@@ -78,12 +124,17 @@ function Listprovider() {
                             <p>Available Service: {cur?.areas_of_expertise?.on_demand}</p>
                             <p>Address: {cur?.mailing_address?.address} {cur?.mailing_address?.country} {cur?.mailing_address?.postal_code}</p>
                         </div>
-                        <div className='Listprovider_button' >
+                        <div className='Listprovider_button'>
                             <button className='button' onClick={() => handleSelect(cur._id)}>Select</button>
                         </div>
                     </div>
                 ))}
+
+
             </div>
+
+
+
         </div>
     );
 }
