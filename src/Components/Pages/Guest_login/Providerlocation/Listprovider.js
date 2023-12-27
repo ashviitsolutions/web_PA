@@ -30,7 +30,6 @@ function Listprovider() {
     const [searchTerm, setSearchTerm] = useState('');
     const [currentLocation, setCurrentLocation] = useState(null);
 
-
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -47,22 +46,19 @@ function Listprovider() {
 
                 const data = await res.json();
 
-                console.log('Error fetching data:', data.data);
-                setUsers(data.data);
+                if (data && data.data) {
+                    console.log('Data fetched successfully:', data.data);
+                    setUsers(data.data);
+                } else {
+                    console.error('Invalid data format:', data);
+                }
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
         };
 
         fetchData();
-    }, []);
-
-
-
-
-
-
-
+    }, [currentLocation]);
 
     useEffect(() => {
         const fetchLocation = () => {
@@ -84,7 +80,8 @@ function Listprovider() {
         fetchLocation();
     }, []);
 
-    const filteredUsers = users.filter((cur) => {
+    // Initialize users with an empty array if it's undefined
+    const filteredUsers = (users || []).filter((cur) => {
         const fullName = `${cur.first_name} ${cur.last_name}`.toLowerCase();
         return fullName.includes(searchTerm.toLowerCase());
     });
@@ -92,12 +89,7 @@ function Listprovider() {
     const handleSelect = (provider_Id) => {
         nav(`/book/${provider_Id}`);
     };
-    // {currentLocation && (
-    //     <div>
-    //         <p>Current Latitude: {currentLocation.latitude}</p>
-    //         <p>Current Longitude: {currentLocation.longitude}</p>
-    //     </div>
-    // )}
+
     return (
         <div className='provider-list-container'>
             {/* Search Bar */}
