@@ -49,7 +49,7 @@ function Location() {
           <div className="row">
             <form className="location card layer1">
               <h3>Where would you like our provider to meet you.</h3>
-             
+
               <div className="input_group">
                 <PlacesAutocomplete
                   value={address}
@@ -85,7 +85,7 @@ function Location() {
                   className="button"
                   style={{ paddingTop: '11px' }}
                   type="submit"
-                onClick={handleSubmit}
+                  onClick={handleSubmit}
                 >
                   continue
                 </button>

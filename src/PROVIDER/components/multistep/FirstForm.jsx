@@ -6,11 +6,41 @@ import TimePicker from "./TimePicker";
 import { IP } from '../../../Constant';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 
 
 const FirstForm = (props) => {
+
+  const [coordinates, setCoordinates] = useState({
+    lat: null,
+    lng: null
+  });
+
+
+
+
+  const handleSelect = async (value) => {
+    try {
+      const results = await geocodeByAddress(value);
+      const ll = await getLatLng(results[0]);
+      console.log(ll);
+      setAddress(value);
+      setCoordinates(ll);
+    } catch (error) {
+      console.error("Error selecting location:", error);
+    }
+  }
+
+
+
+  useEffect(() => {
+    handleSelect();
+  }, [])
+
+
+
+
   const [images, setImages] = useState(null);
   const [imagePreviewUrl, setImagePreviewUrl] = useState("");
   const token = localStorage.getItem("providertoken")
@@ -40,6 +70,27 @@ const FirstForm = (props) => {
   const [selectedCorporateEvents, setSelectedCorporateEvents] = useState([]);
   console.log("contry .", country)
   console.log("user .", user)
+
+
+
+  // Create the location object using the state coordinates
+  const locationObject = {
+    location: {
+      type: 'Point',
+      coordinates: [coordinates.lat, coordinates.lng],
+      address
+    }
+  };
+
+
+
+  console.log(coordinates.lat ,coordinates.lng)
+
+
+
+
+
+
   const [availabilityHours, setAvailabilityHours] = useState({
     mon_Start_time: "",
     tue_Start_time: "",
@@ -215,9 +266,14 @@ const FirstForm = (props) => {
     formData.append("submission_Date", submitDate);
     formData.append("office", images);
     formData.append("ssn", ssn);
+    formData.append("longitude", coordinates.lng);
+    formData.append("latitude", coordinates.lat);
+
+
+
 
     try {
-      const resp = await fetch(`${IP}/provider/update-details`, {
+      const resp = await fetch(`http://localhost:5000/api/provider/update-details`, {
         method: "PUT",
         headers: {
           Authorization: token,
@@ -226,25 +282,40 @@ const FirstForm = (props) => {
       });
 
       const result = await resp.json();
+      toast.success("Your Registration successfully!", {
+        position: "top-right",
+        autoClose: 3000,
 
-      if (result.status === 200) {
+      });
+      props.nextStep();
 
-        // Show success notification and navigate to '/admin/Gift'
-        toast.success("Your Registration successfully!", {
-          position: "top-right",
-          autoClose: 3000,
+      // if (result.status === 200) {
+      //   toast.success("Your Registration successfully!", {
+      //     position: "top-right",
+      //     autoClose: 3000,
 
-        });
-        props.nextStep();
-      } else {
-        // Show error notification if the API response is not successful
-        toast.success("Your Registration successfully!", {
-          position: "top-right",
-          autoClose: 3000,
+      //   });
+      //   props.nextStep();
 
-        });
-        props.nextStep();
-      }
+      // }
+      // if (result.status === 200) {
+
+      //   // Show success notification and navigate to '/admin/Gift'
+      //   toast.success("Your Registration successfully!", {
+      //     position: "top-right",
+      //     autoClose: 3000,
+
+      //   });
+      //   props.nextStep();
+      // } else {
+      //   // Show error notification if the API response is not successful
+      //   toast.error("An error occurred. Please try again.", {
+      //     position: "top-right",
+      //     autoClose: 3000,
+
+      //   });
+
+      // }
 
 
 
@@ -375,7 +446,7 @@ const FirstForm = (props) => {
 
 
 
-          <Form.Group className="mb-3 mt-3">
+          { /* <Form.Group className="mb-3 mt-3">
             <Row>
               <div className="col-md-12 mb-2">
                 <Form.Label htmlFor="current_address">Current Address</Form.Label>
@@ -390,7 +461,63 @@ const FirstForm = (props) => {
                 />
               </div>
             </Row>
+  </Form.Group> */}
+
+
+          <Form.Group className="mb-3 mt-3">
+            <Row>
+              <div className="col-md-12 mb-2">
+                <Form.Label htmlFor="current_address">Current Address</Form.Label>
+                <div className="input_group">
+                  <PlacesAutocomplete
+                    value={address}
+                    onChange={setAddress}
+                    onSelect={handleSelect}
+                  >
+                    {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                      <div>
+                        <input
+                          className="input"
+                          {...getInputProps()}
+                          placeholder="Search for an address here..."
+                        />
+                        <div>
+                          {loading ? <div>Loading...</div> : null}
+                          {suggestions.map((suggestion) => {
+                            const style = {
+                              backgroundColor: suggestion.active ? '#41b6e6' : '#fff',
+                            };
+                            return (
+                              <div {...getSuggestionItemProps(suggestion, { style })}>
+                                {suggestion.description}
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
+                  </PlacesAutocomplete>
+                </div>
+              </div>
+            </Row>
           </Form.Group>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
           <Form.Group className="mb-3 mt-3">
             <Row>
