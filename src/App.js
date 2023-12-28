@@ -255,10 +255,10 @@ function App() {
             <Footer />
           </>} />
           <Route path="/select_location" element={<>
-            <Navbar />
+
             <Protectuser Component={SelectLocation} />
 
-            <Footer />
+
           </>} />
           <Route path="/guest_login" element={<>
             <Navbar />
@@ -269,10 +269,10 @@ function App() {
           </>} />
 
           <Route path="/select_location_type" element={<>
-            <Navbar />
+
             <Select_location />
 
-            <Footer />
+
           </>} />
 
           <Route path="/userProfile" element={<>
@@ -282,9 +282,9 @@ function App() {
           </>} />
 
           <Route path="/Book" element={<>
-            <Navbar />
+
             <Book />
-            <Footer />
+
           </>} />
 
           <Route path="/book/:provider_id" element={<>

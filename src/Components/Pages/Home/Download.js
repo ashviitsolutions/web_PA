@@ -13,8 +13,8 @@ function Download() {
                         <div className="col-sm-5">
                             <div className="headinghome">
                                 <h3>Try our app</h3>
-                                <h2 style={{ fontSize: "18px" }}>Download our app from google play store and get a smooth booking experience</h2>
-                                <p>Try our App! Subtext, “Download Productive Alliance App on Google Play or Apple App Store. Next subtext reads, “Book your desired on demand service using our app in less than 5 minutes . Your provider can be at your door as quick as within an hour!
+                                <h2 style={{ fontSize: "18px" }}>Download Productive Alliance App on Google Play or Apple App Store</h2>
+                                <p>Book your desired on demand service using our app in less than 5 minutes . Your provider can be at your door as quick as within an hour!
                                 </p>
                                 <Link to="https://play.google.com/store/apps" target="_blank"><img id='downloadimage' style={{ maxWidth: "180px" }} src={Image1} alt="" /></Link>
                                 <Link to="https://play.google.com/store/apps" target="_blank"><img id='downloadimage' style={{ maxWidth: "161px" }} src={Image2} alt="" /></Link>

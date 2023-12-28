@@ -56,14 +56,13 @@ function Navbar() {
                         {!showToggleButton ? (
                             <Link to="/">
                                 <div className="logo">
-                                   <img src={logo} alt=''   />
+                                    <img src={logo} alt='' />
                                 </div>
                             </Link>
                         ) : (
                             <Link to="/userprofile">
                                 <div className="logo">
-                                    <span className="icon"></span>
-                                    <span className="name">Productive Alliance <small>experience the difference</small> </span>
+                                    <img src={logo} alt='' />
                                 </div>
                             </Link>
                         )}

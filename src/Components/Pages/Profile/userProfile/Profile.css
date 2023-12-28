@@ -221,7 +221,7 @@ ul#tabs_control li.active {
 /* //Invoice */
 #invoices #dateofpara {
     display: block;
-    flex-direction: columns;
+    flex-direction: row;
 
 }
 

@@ -6,6 +6,7 @@ import ThirdForm from "./ThirdForm";
 import FourForm from "./FourForm";
 import FifthForm from "./FifthForm";
 import Conform from "./Conform";
+import { Link } from "react-router-dom";
 
 import "./style.css"
 
@@ -91,7 +92,13 @@ const Book = () => {
 
 
       <div className="progressbar_userpannel">
+
         <ProgressBar className="progressbarproviders mt-4" now={(activeTab) * 16.6666667} />
+
+        <div className="button">
+          <Link to="/"> <button className="btn"> back to Home</button></Link>
+
+        </div>
 
         {form}
       </div>

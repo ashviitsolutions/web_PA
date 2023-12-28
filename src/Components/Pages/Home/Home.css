@@ -13,7 +13,7 @@
 }
 
 
-.Read_More{
+.Read_More {
   font-size: 12px;
 }
 
@@ -89,7 +89,7 @@
   position: relative;
   width: 100%;
   border-radius: 7px;
-  padding:0 10px;
+  padding: 0 10px;
 }
 
 
@@ -109,23 +109,75 @@
 
 
 /* faq css */
+.FAQ_container {
+  display: flex !important;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
 
 .faqbutton {
   display: flex;
-  justify-content: center; /* Horizontally center-aligns the content */
-  align-items: center; /* Vertically center-aligns the content */
+  justify-content: center;
+  /* Horizontally center-aligns the content */
+  align-items: center;
+  /* Vertically center-aligns the content */
 }
 
 .faqbutton button {
   /* Add any additional button styles here */
 }
 
+.faq_page_wrapper {
+  width: 60%;
+}
 
+#faq_image {
+  width: 40%;
+}
 
-
+#faq_image img {
+  width: 100%;
+  /* height: 60%; */
+}
 
 @media (max-width:992px) {
   #banner {
     height: 450px;
   }
+
+  .FAQ_container {
+    display: flex !important;
+    flex-direction: column !important;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .faq_page_wrapper {
+    width: 100%;
+  }
+
+  #faq_image {
+    width: 100%;
+  }
+
+  #faq_image {
+    order: -1 !important;
+  }
+}
+
+
+
+
+
+
+
+
+
+/* Add your global styles here */
+
+.memberships {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }

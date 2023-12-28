@@ -59,7 +59,7 @@ function Editpost() {
                 throw new Error("Token not found in local storage");
             }
             console.log(token);
-            let res = await axios.post(`${IP}/post/update-post/${id}`, bodyFormData, {
+            let res = await axios.put(`${IP}/post/update-post/${id}`, bodyFormData, {
                 headers: {
                     Authorization: token,
                     // 'Content-Type': 'application/json',

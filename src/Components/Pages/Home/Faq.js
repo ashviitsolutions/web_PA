@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { IP } from '../../../Constant';
 import { Link } from 'react-router-dom';
+import img from "../../assets/img/FAQ.jpg"
+
+
+
 function Faq() {
   const postIds = [
     '640c174fff3c39ffa38ee85c',
@@ -40,42 +44,48 @@ function Faq() {
     <>
       <div className="container">
         <div className="row">
-          <div className="heading content mt-5 " id="faqtext">
+          <div className="heading content mt-5 " id="">
             <h3>
               FAQ<small>(s)</small>{' '}
             </h3>
             <p>Do you have questions?</p>
+            <p>We have the answers</p>
           </div>
         </div>
-        <div className="row">
-          <div id="faq_page" className="card layer1">
-            {users.map((curElem, index) => (
-              <div
-                className="faq"
-                key={curElem.id}
+        <div className="FAQ_container">
+          <div className='faq_page_wrapper'>
+            <div id="faq_page" className="card layer1">
+              {users.map((curElem, index) => (
+                <div
+                  className="faq"
+                  key={curElem.id}
 
-                onClick={() => handleToggle(index)}
-              >
-                <div style={{ display: 'flex' }} className="question">
-                  <span className="buttonplus">
-                    {toggle[index] ? '-' : '+'}
-                  </span>
-                  <h6 id="faqitem">{curElem.title}</h6>
-                </div>
+                  onClick={() => handleToggle(index)}
+                >
+                  <div style={{ display: 'flex' }} className="question">
+                    <span className="buttonplus">
+                      {toggle[index] ? '-' : '+'}
+                    </span>
+                    <h6 id="faqitem">{curElem.title}</h6>
+                  </div>
 
-                <div id="ans" className="answer">
-                  {toggle[index] && (
-                    <div id="ans" className="answer">
-                      <p dangerouslySetInnerHTML={{ __html: curElem.description }} />
-                    </div>
-                  )}
+                  <div id="ans" className="answer">
+                    {toggle[index] && (
+                      <div id="ans" className="answer">
+                        <p dangerouslySetInnerHTML={{ __html: curElem.description }} />
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
 
 
 
+          <div id="faq_image" >
+            <img src={img} alt='...' />
+          </div>
 
 
         </div>

@@ -8,7 +8,8 @@ import image4 from "../../assets/img/social_icons/instagram.png"
 import image5 from "../../assets/img/map.png"
 import image6 from "../../assets/img/phone.png"
 
-
+import twiter from "../../assets/img/x_twiter_logo.png"
+import tiktok from "../../assets/img/icons8-tiktok-188.png"
 import image7 from "../../assets/img/mail.png"
 import image8 from "../../assets/img/download-google-play.png"
 import image9 from "../../assets/img/download-app-store.png"
@@ -37,10 +38,10 @@ function Footer() {
                                     <img src={image1} alt="" />
                                 </div>
                                 <div className="icon">
-                                    <img style={{ Width: "90%" }} src={image2} alt="" />
+                                    <img style={{ Width: "100%", color: "#fff" }} src={twiter} alt="" />
                                 </div>
                                 <div className="icon">
-                                    <img style={{ Width: "90%" }} src={image3} alt="" />
+                                    <img style={{ Width: "100%" }} src={tiktok} alt="" />
                                 </div>
                                 <div className="icon">
                                     <img style={{ Width: "90%" }} src={image4} alt="" />
@@ -54,8 +55,8 @@ function Footer() {
                             <div className="nav">
                                 <ul>
                                     <li><Link to="/">home</Link></li>
-                                    <li><Link to="/privacypolicy">Privacy Policy</Link></li>
-                                    <li><Link to="/termcondition">Term & Condition</Link></li>
+                                    {/*<li><Link to="/privacypolicy">Privacy Policy</Link></li>
+    <li><Link to="/termcondition">Term & Condition</Link></li> */}
                                     <li><Link to="/giftcard">gift card</Link></li>
                                     <li><Link to="/become_member">membership</Link></li>
                                     <li><Link to="/about">about us</Link></li>
@@ -131,8 +132,11 @@ function Footer() {
                             <h3>Copyright © 2021 productive alliance, All Rights Reserved.</h3>
                         </div>
                         <div className="copyright pull-right">
-                            <h3>A design by <Link target="_blank" to="https://ashvi.net"><b>Ashvi IT solutions</b></Link></h3>
+                            <h3>A design by <Link target="_blank" to="/privacypolicy"><b>Ashvi IT solutions</b></Link></h3>
+                            <h3 style={{ color: "#ffff" }}><Link to="/privacypolicy" style={{ color: "#ffff" }}>Privacy Policy</Link></h3>
+                            <h3 style={{ color: "#ffff" }}> <Link to="/termcondition" style={{ color: "#ffff" }}>Term & Condition</Link></h3>
                         </div>
+
                     </div>
                 </div>
             </div>

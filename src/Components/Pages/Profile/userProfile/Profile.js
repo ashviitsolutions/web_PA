@@ -92,7 +92,7 @@ const Profile = () => {
   return (
     <>
       <div className={`sidebar_tab ${isSidebarOpen ? 'mobile-view' : ''}`}>
-        <ul id="tabs_control" onClick={handleSidebarToggle}>
+        <ul id="tabs_control" >
           <li id="tab_1" className={activeTab === 1 ? 'active' : ''} onClick={() => setActiveTab(1)}>
             <div className="item">
               <img src={image1} width={15} height={15} alt="..." />
