@@ -23,7 +23,7 @@ const PreviewImage = ({ attachments }) => {
     }, [attachments]);
 
     return (
-        <div style={{ width: "18vw", height: "22vh", backgroundSize: "cover" }}>
+        <div style={{ height: "22vh", backgroundSize: "cover" }}>
             {imageObjectURL && <img src={imageObjectURL} alt="Preview" className="previewimage" />}
         </div>
     );
@@ -47,31 +47,20 @@ const SeconForm = ({ step, nextStep }) => {
     const [priceadon, setPriceadon] = useState(0);
     const [totalPrice, setTotalPrice] = useState(0);
     const [formData, setFormData] = useState();
-    const [Price, setPrice] = useState(0);
+    const [genderPreferences, setGenderPreferences] = useState([]);
 
     useEffect(() => {
         const formData = {
             service_ids,
-            gender: selectedGender,
+            gender: genderPreferences,
             service_time: selectedServiceTime,
             selectedItems: selectedItems,
             totalPrice: priceservice + priceadon,
         };
 
         setFormData(formData);
-    }, [selectedItems, service_ids, selectedGender, selectedServiceTime, priceservice, priceadon]);
+    }, [selectedItems, service_ids, genderPreferences, selectedServiceTime, priceservice, priceadon]);
 
-    // useEffect(() => {
-    //     let total = priceservice + priceadon;
-    //     setPrice(total)
-
-    //     if (gendercheck === "guest") {
-    //         total *= 2;
-    //     }
-
-    //     setTotalPrice(total);
-    //     setFormData({ ...formData, totalPrice: total });
-    // }, [priceservice, priceadon, gendercheck, formData]);
 
     useEffect(() => {
         let total = priceservice + priceadon;
@@ -96,30 +85,52 @@ const SeconForm = ({ step, nextStep }) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
     const handleGenderSelect = (selectedGenderValue) => {
         setFormData({ ...formData, gender: selectedGenderValue });
         setSelectedGender(selectedGenderValue);
+        setGenderPreferences([selectedGenderValue]);
     };
 
     const handleGenderSelect1 = (selectedGenderValue) => {
-        setFormData({ ...formData, gender: selectedGenderValue });
-        setSelectedGender1(selectedGenderValue);
+        if (!genderPreferences.includes(selectedGenderValue)) {
+            setFormData({ ...formData, gender: selectedGenderValue });
+            setSelectedGender1(selectedGenderValue);
+            setGenderPreferences([...genderPreferences, selectedGenderValue]);
+        }
     };
 
     const handleGenderSelect2 = (selectedGenderValue) => {
-        setFormData({ ...formData, gender: selectedGenderValue });
-        setSelectedGender2(selectedGenderValue);
+        if (!genderPreferences.includes(selectedGenderValue)) {
+            setFormData({ ...formData, gender: selectedGenderValue });
+            setSelectedGender2(selectedGenderValue);
+            setGenderPreferences([...genderPreferences, selectedGenderValue]);
+        }
     };
+
+
+
+
+
+
+
+
+
+
+    // const handleGenderSelect = (selectedGenderValue) => {
+    //     setFormData({ ...formData, gender: selectedGenderValue });
+    //     setSelectedGender(selectedGenderValue);
+    //     setGenderPreferences([...genderPreferences, selectedGenderValue]);
+    // };
+
+    // const handleGenderSelect1 = (selectedGenderValue) => {
+    //     setFormData({ ...formData, gender: selectedGenderValue });
+    //     setSelectedGender1(selectedGenderValue);
+    // };
+
+    // const handleGenderSelect2 = (selectedGenderValue) => {
+    //     setFormData({ ...formData, gender: selectedGenderValue });
+    //     setSelectedGender2(selectedGenderValue);
+    // };
 
     const handleServiceTimeSelect = (selectedTime) => {
         setFormData({ ...formData, service_time: selectedTime });
@@ -181,7 +192,7 @@ const SeconForm = ({ step, nextStep }) => {
         <div id="sec_wiz_2" className="section">
             <div id="page_service_select">
                 <span className="title">Select Service</span>
-                <div className="content" style={{ padding: "0 25px" }}>
+                <div className="content" >
                     <div id="service_collection" className="product_collector big">
                         <div id="select_service_carousel" className="owl-carousel owl-theme products">
                             {
@@ -207,6 +218,16 @@ const SeconForm = ({ step, nextStep }) => {
                             <div className="gen_heading" style={{ marginBottom: "20px" }}></div>
                         </div>
                     </div>
+
+
+
+
+
+
+
+
+
+
                     {gendercheck === "guest" ? (
                         <>
                             <div className="gen_heading">
@@ -215,22 +236,22 @@ const SeconForm = ({ step, nextStep }) => {
                             <ul className="time_options">
                                 <li
                                     id="g_male"
-                                    className={`gender time_option ${selectedGender1 === "male1" ? "selected" : ""}`}
-                                    onClick={() => handleGenderSelect1("male1")}
+                                    className={`gender time_option ${selectedGender1 === "male" ? "selected" : ""}`}
+                                    onClick={() => handleGenderSelect1("male")}
                                 >
                                     Male
                                 </li>
                                 <li
                                     id="g_female"
-                                    className={`gender time_option ${selectedGender1 === "female1" ? "selected" : ""}`}
-                                    onClick={() => handleGenderSelect1("female1")}
+                                    className={`gender time_option ${selectedGender1 === "female" ? "selected" : ""}`}
+                                    onClick={() => handleGenderSelect1("female")}
                                 >
                                     Female
                                 </li>
                                 <li
                                     id="g_either"
-                                    className={`gender time_option ${selectedGender1 === "either1" ? "selected" : ""}`}
-                                    onClick={() => handleGenderSelect1("either1")}
+                                    className={`gender time_option ${selectedGender1 === "either" ? "selected" : ""}`}
+                                    onClick={() => handleGenderSelect1("either")}
                                 >
                                     Either
                                 </li>
@@ -241,22 +262,22 @@ const SeconForm = ({ step, nextStep }) => {
                             <ul className="time_options">
                                 <li
                                     id="g_male"
-                                    className={`gender time_option ${selectedGender2 === "male2" ? "selected" : ""}`}
-                                    onClick={() => handleGenderSelect2("male2")}
+                                    className={`gender time_option ${selectedGender2 === "male" ? "selected" : ""}`}
+                                    onClick={() => handleGenderSelect2("male")}
                                 >
                                     Male
                                 </li>
                                 <li
                                     id="g_female"
-                                    className={`gender time_option ${selectedGender2 === "female2" ? "selected" : ""}`}
-                                    onClick={() => handleGenderSelect2("female2")}
+                                    className={`gender time_option ${selectedGender2 === "female" ? "selected" : ""}`}
+                                    onClick={() => handleGenderSelect2("female")}
                                 >
                                     Female
                                 </li>
                                 <li
                                     id="g_either"
-                                    className={`gender time_option ${selectedGender2 === "either2" ? "selected" : ""}`}
-                                    onClick={() => handleGenderSelect2("either2")}
+                                    className={`gender time_option ${selectedGender2 === "either" ? "selected" : ""}`}
+                                    onClick={() => handleGenderSelect2("either")}
                                 >
                                     Either
                                 </li>
@@ -318,6 +339,14 @@ const SeconForm = ({ step, nextStep }) => {
                             120 min
                         </li>
                     </ul>
+
+
+
+
+
+
+
+                    
                     <div className="gen_heading">
                         <h3>Popular to consider</h3>
                     </div>

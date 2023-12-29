@@ -2765,6 +2765,7 @@ ul.true li::after {
   padding: 0;
   margin: 0;
   list-style: none;
+  font-size: 18px;
 }
 
 .selectable::after {

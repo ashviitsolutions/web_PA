@@ -53,6 +53,10 @@ function Faq() {
           </div>
         </div>
         <div className="FAQ_container">
+          <div id="faq_image" >
+            <img src={img} alt='...' />
+          </div>
+
           <div className='faq_page_wrapper'>
             <div id="faq_page" className="card layer1">
               {users.map((curElem, index) => (
@@ -79,24 +83,24 @@ function Faq() {
                 </div>
               ))}
             </div>
+            <div className='faqbutton'>
+              <Link to="/faqpage">
+                <button id="memershipbuttons" className="button">View More</button>
+              </Link>
+
+            </div>
           </div>
 
 
 
-          <div id="faq_image" >
-            <img src={img} alt='...' />
-          </div>
+
 
 
         </div>
-      </div>
-
-      <div className='faqbutton'>
-        <Link to="/faqpage">
-          <button id="memershipbuttons" className="button">View More</button>
-        </Link>
 
       </div>
+
+
     </>
   );
 }

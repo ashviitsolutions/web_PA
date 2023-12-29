@@ -3,7 +3,7 @@ import video from "../../assets/video/videoplayback.mp4"
 import Image1 from "../../assets/img/warrior.svg"
 import Image2 from "../../assets/img/lotus.svg"
 import Image3 from "../../assets/img/meditation_.svg"
-import memberhsip from "../../assets/img/memberhsip_image.png"
+import memberhsip from "../../assets/img/membership_plan_1.png"
 import memberhsips from "../../assets/img/membershipcards.png"
 import Membership from './Membership'
 function Brief() {
@@ -11,30 +11,30 @@ function Brief() {
         <>
             <div id="brief">
                 <div className="container">
-                    <div className="row">
-                        <div className="col-sm-offset-1 col-sm-10">
-                            <div className="container-fluid" id='videofile'>
-                                <div className='row'>
-                                    <div className="col-sm-6" >
-                                        <div className="content heading">
-                                            <h3>Become <span>a member</span>.</h3>
-                                            <h5 >Come along for the ride and join our members club</h5>
-                                        </div>
-                                        <div className="content">
-                                            <p id='videofiletext'>Join Productive Alliance membership today and get exclusive perks, discounts and benefits
-                                            </p>
-                                            <button className="button primary" type="button">register now</button>
-                                        </div>
-                                    </div>
-                                    <div className="col-sm-5" id='video_section'>
-                                        <div className="content">
-                                            <div className="video_wrapper">
-                                                <img src={memberhsip} alt='' width={400} />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
 
+
+                    <div className='Home_page_memberhsip_container memberhsip_section' >
+
+                        <div className="Home_page_memberhsip">
+                            <div className="content">
+                                <img src={memberhsip} alt='' width={450} height={300} />
+                            </div>
+                        </div>
+
+                        <div className="Home_page_memberhsip" >
+                            <div className="content heading" >
+                                <h3>Become <span>a member</span>.</h3>
+                                <h5 >Come along for the ride and join our members club</h5>
+                            </div>
+                            <div className="content">
+                                <p id=''>Join Productive Alliance membership today and get exclusive perks, discounts and benefits
+                                </p>
+                                <ul>
+                                    <li>Get upto 14% off on every Service</li>
+                                    <li>One 60 Min Massages Every Month</li>
+                                    <li>Preferred Rates on All Bookings</li>
+                                </ul>
+                                <button className="button primary" type="button">Join Now</button>
                             </div>
                         </div>
                     </div>
@@ -42,7 +42,6 @@ function Brief() {
 
 
 
-                  
 
 
 
@@ -59,7 +58,11 @@ function Brief() {
 
 
 
-                    <div className="row">
+
+
+
+
+                    {/*  <div className="row">
                         <div className="content">
                             <div className="light">
                             </div>
@@ -116,10 +119,10 @@ function Brief() {
                                 </div>
                             </div>
                         </div>
-                    </div>
+    </div>  */}
                 </div>
             </div>
-            <Membership />
+
         </>
     )
 }

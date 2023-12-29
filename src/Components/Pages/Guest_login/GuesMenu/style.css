@@ -162,10 +162,12 @@
 .progressbar_userpannel .progressbarproviders {
     position: relative;
     left: 0px;
+    width: 70%;
+    margin: auto;
 }
 
 .progressbar_userpannel .button {
-    padding: 1px !important;
+    padding: 10px !important;
     margin-top: 10px;
     opacity: 0.9;
 }
@@ -196,7 +198,7 @@
     /* Set the text color to white for better visibility */
 }
 
-.item.selected {
+.selected {
     /* Styles for the selected card */
     background-color: #03a9f4;
     /* Change to your desired background color */
@@ -205,7 +207,9 @@
     border-color: #3498db;
     /* Change to match the background color or desired border color */
 }
-
+.progress-bar{
+    background-color: var(--primary);
+}
 
 
 /* Add these styles to your CSS file */
@@ -281,13 +285,79 @@
 }
 
 
+/* // second for */
+
+.second_form_book_container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.second_form_book {
+    /* width: calc(30% - 20px);  */
+    flex-basis: 30%;
+    margin: 10px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    box-sizing: border-box;
+    /* Include padding and border in the total width */
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgb(0 0 0 / 13%);
+    border-radius: 20px;
+}
+
+.book-image {
+    width: 100%;
+    /* Make the image fill the container */
+    height: 200px;
+
+    /* Maintain aspect ratio */
+    border-radius: 8px;
+}
+
+.book-details {
+    margin-top: 20px;
+}
+
+.book-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.book-price {
+    font-size: 16px;
+    color: #333;
+    font-weight: 700;
+}
+
+.book-description {
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+
+
+
+@media (max-width:982px) {
+
+    .second_form_book {
+        /* width: calc(30% - 20px);  */
+        flex-basis: 45%;
+        margin: 10px;
+        border: 1px solid #ddd;
+        padding: 10px;
+        box-sizing: border-box;
+        /* Include padding and border in the total width */
+        cursor: pointer;
+    }
 
 
 
 
 
 
-@media (max-width:768px) {
+
     .review_page {
         width: 90% !important;
         margin: auto;
@@ -371,5 +441,42 @@
         margin: auto;
         white-space: normal;
         padding: 4px !important;
+    }
+}
+
+
+
+@media (max-width:768px) {
+    .sections {
+        width: 97% !important;
+        margin: auto;
+        margin-top: -50px !important;
+        margin-bottom: 200px;
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 10px;
+        box-shadow: 2px 2px 15px -5px rgb(0 0 0 / 35%);
+    }
+
+    .section {
+        width: 97% !important;
+        margin: auto;
+        margin-top: -50px !important;
+        margin-bottom: 200px;
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 10px;
+        box-shadow: 2px 2px 15px -5px rgb(0 0 0 / 35%);
+    }
+
+    .second_form_book {
+        /* width: calc(30% - 20px);  */
+        flex-basis: 95%;
+        margin: 10px;
+        border: 1px solid #ddd;
+        padding: 10px;
+        box-sizing: border-box;
+        /* Include padding and border in the total width */
+        cursor: pointer;
     }
 }

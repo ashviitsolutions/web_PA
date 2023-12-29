@@ -82,7 +82,7 @@ const Book = () => {
               <li id="tab_5" className={activeTab === 5 ? 'active' : ''} onClick={() => handleTabClick(5)}>
                 Address
               </li>
-              <li id="tab_6" className={activeTab === 6 ? 'active' : ''} onClick={() => handleTabClick(6)}>
+              <li id="tab_6" className={activeTab === 6 ? 'active' : ''} >
                 Confirm
               </li>
             </ul>
@@ -94,13 +94,22 @@ const Book = () => {
       <div className="progressbar_userpannel">
 
         <ProgressBar className="progressbarproviders mt-4" now={(activeTab) * 16.6666667} />
-
-        <div className="button">
-          <Link to="/"> <button className="btn"> back to Home</button></Link>
-
-        </div>
-
         {form}
+
+        <div className="buttonssss">
+
+
+          <p style={{
+            textAlign: 'center',
+            marginTop: '-100px',
+            fontSize: '14px',
+          }}>
+            <Link to="/" style={{
+              textDecoration: 'none',
+              color: '#248ce0',
+            }}>&larr; Back to Home</Link>
+          </p>
+        </div>
       </div>
     </>
   )
