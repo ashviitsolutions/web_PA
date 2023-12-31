@@ -52,6 +52,7 @@ function Getpost() {
         const res = await fetch(`${IP}/post/fetch?type=${selectedType || search}`);
         const data = await res.json();
         setUser(data);
+        console.log("get post data", data)
         setCount(data.length);
       } catch (error) {
       }
@@ -94,18 +95,18 @@ function Getpost() {
   //     .then((data) => {                    
   //       setDelete(data);
   //       if (data.status === 200) {
-        
+
   //         nav("/admin/post");
   //       }
-      
+
   //     })
-      
+
   //     .catch((error) => {
   //       console.log(error);
   //     });
-     
+
   // };
-  
+
   return (
     <>
       <div id="content">
@@ -138,7 +139,7 @@ function Getpost() {
                     onChange={(e) => setSelectedType(e.target.value)}
                     className="input"
                   >
-                  
+
                     <option value="">select type</option>
                     {type.map((cur) => (
                       <option key={cur._id} value={cur._id}>
@@ -156,7 +157,7 @@ function Getpost() {
                   <span className="highlight"></span>
                 </div>
               </div>
-            </div>                                                              
+            </div>
           </div>
           <div className="row">
             <div className="gutter">
@@ -174,11 +175,11 @@ function Getpost() {
 
 
 
-                {memoizedUser.filter((values)=>{
-                  if(search===""){
+                {memoizedUser.filter((values) => {
+                  if (search === "") {
                     return values;
-                  }else if (values.type.name.toLowerCase().includes(search.toLocaleLowerCase())) {
-                      return values
+                  } else if (values.type.name.toLowerCase().includes(search.toLocaleLowerCase())) {
+                    return values
                   }
                 }).map((cur, index) => {
                   return (
@@ -196,7 +197,7 @@ function Getpost() {
                       <td>
                         <div className="content">
                           <span className="title " id='headingtitle'>{cur.title}</span>
-                         <small> <p className="description" dangerouslySetInnerHTML={{ __html: cur.description.slice(0, 260) }} /></small>
+                          <small> <p className="description" dangerouslySetInnerHTML={{ __html: cur.description.slice(0, 260) }} /></small>
                         </div>
                       </td>
 

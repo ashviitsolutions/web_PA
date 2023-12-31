@@ -3,7 +3,7 @@ import { IP } from '../../../Constant';
 
 
 function Banner() {
-  const postIds = ['63f0cad81e627c34fc1b58e9'];
+  const postIds = ['6590e9ab674788fbe5a540f9'];
   const [users, setUsers] = useState([]);
   const [img, setImg] = useState('');
 
@@ -30,7 +30,7 @@ function Banner() {
     fetchData();
   }, [])
 
-  console.log("image" ,img)
+  console.log("image", img)
 
   return (
     <>

@@ -133,8 +133,8 @@ function Footer() {
                         </div>
                         <div className="copyright pull-right">
                             <h3>A design by <Link target="_blank" to="/privacypolicy"><b>Ashvi IT solutions</b></Link></h3>
-                            <h3 style={{ color: "#ffff" }}><Link to="/privacypolicy" style={{ color: "#ffff" }}>Privacy Policy</Link></h3>
-                            <h3 style={{ color: "#ffff" }}> <Link to="/termcondition" style={{ color: "#ffff" }}>Term & Condition</Link></h3>
+                            <span style={{ color: "#ffff" }}><Link to="/privacypolicy" style={{ color: "#ffff" }}>Privacy Policy</Link></span>
+                            <span style={{ color: "#ffff" }}> <Link to="/termcondition" style={{ color: "#ffff" }}>Term & Condition</Link></span>
                         </div>
 
                     </div>
