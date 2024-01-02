@@ -1,188 +1,177 @@
 .sidebar_tabs {
-    /* position: sticky; */
-    display: block;
-    width: 100%;
-    height: 10%;
-    padding: 19px 0px;
-    top: 60px;
-    background: #004f8f;
-    text-align: center;
-    z-index: 1;
+	/* position: sticky; */
+	display: block;
+	width: 100%;
+	height: 10%;
+	padding: 19px 0px;
+	top: 60px;
+	background: #004f8f;
+	text-align: center;
+	z-index: 1;
 }
 
 .sidebar_tabs ul {
-    /* padding: 0; */
-    list-style: none;
-    /* margin: 0; */
-    display: inline-block;
-    width: 80%;
-    margin: auto;
-    justify-content: center;
-    text-align: center;
+	/* padding: 0; */
+	list-style: none;
+	/* margin: 0; */
+	display: inline-block;
+	width: 80%;
+	margin: auto;
+	justify-content: center;
+	text-align: center;
 }
 
 .sidebar_tabs ul li {
-    width: calc(16.666% - 10px);
-    float: left;
-    margin: 0;
-    text-align: left;
-    margin: 0 5px;
-    cursor: pointer;
-    border: 2px solid transparent;
-    color: #fff;
-    justify-content: center;
-    text-align: center;
+	width: calc(16.666% - 10px);
+	float: left;
+	margin: 0;
+	text-align: left;
+	margin: 0 5px;
+	cursor: pointer;
+	border: 2px solid transparent;
+	color: #fff;
+	justify-content: center;
+	text-align: center;
 }
 
 .sidebar_tabs ul li[active] {
-    background-color: #03a9f4;
-    border-radius: 6px;
-    color: #fff;
-    border: 2px solid #88daff;
-    width: 40%;
-    justify-content: center;
-    text-align: center;
+	background-color: #03a9f4;
+	border-radius: 6px;
+	color: #fff;
+	border: 2px solid #88daff;
+	width: 40%;
+	justify-content: center;
+	text-align: center;
 }
 
 .sidebar_tabs ul li:hover {
-    background-color: #03a9f4;
-    border-radius: 6px;
-    /* padding: 10px 10px; */
-    color: #fff;
-    border: 2px solid #88daff;
-    justify-content: center;
-    text-align: center;
-    /* height: 40px; */
-    transition: .3s ease-in-out;
-
-
-
+	background-color: #03a9f4;
+	border-radius: 6px;
+	/* padding: 10px 10px; */
+	color: #fff;
+	border: 2px solid #88daff;
+	justify-content: center;
+	text-align: center;
+	/* height: 40px; */
+	transition: 0.3s ease-in-out;
 }
 
 .sidebar_tabs ul li .icon {
-    position: absolute;
-    top: 50%;
-    left: 12px;
-    width: 16px;
-    height: 16px;
-    transform: translateY(-50%);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
-    opacity: 0.9;
+	position: absolute;
+	top: 50%;
+	left: 12px;
+	width: 16px;
+	height: 16px;
+	transform: translateY(-50%);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	opacity: 0.9;
 }
 
 .sidebar_tabs ul li .icon {
-    position: absolute;
-    top: 50%;
-    left: 12px;
-    width: 16px;
-    height: 16px;
-    transform: translateY(-50%);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
-    opacity: 0.9;
+	position: absolute;
+	top: 50%;
+	left: 12px;
+	width: 16px;
+	height: 16px;
+	transform: translateY(-50%);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+	opacity: 0.9;
 }
 
 .section {
-    width: 60%;
-    margin: auto;
-    margin-top: 100px;
-    margin-bottom: 200px;
-    background-color: #fff;
-    padding: 80px;
-    border-radius: 10px;
-    box-shadow: 2px 2px 15px -5px rgb(0 0 0 / 35%);
+	width: 60%;
+	margin: auto;
+	margin-top: 100px;
+	margin-bottom: 200px;
+	background-color: #fff;
+	padding: 80px;
+	border-radius: 10px;
+	box-shadow: 2px 2px 15px -5px rgb(0 0 0 / 35%);
 }
 
-
 #employees {
-    justify-content: center;
-    text-align: center;
+	justify-content: center;
+	text-align: center;
 }
 
 #employees label {
-    justify-content: center;
-    text-align: center;
-    font-size: 18px !important;
-    font-weight: 600;
+	justify-content: center;
+	text-align: center;
+	font-size: 18px !important;
+	font-weight: 600;
 }
 
-
 #employees .review {
-    position: relative;
-    display: flex;
-    padding: 0;
-    margin: 0;
-    list-style: none;
-    justify-content: center;
-    text-align: justify;
-
+	position: relative;
+	display: flex;
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	justify-content: center;
+	text-align: justify;
 }
 
 #employees .option li {
-    /* padding: 10px 50px; */
-    cursor: pointer;
-    transition: all 0.2s ease-in;
-    border: 1px solid #ccc;
-    border-radius: 25px;
-    margin-top: 20px;
-    /* margin-left: 15px; */
+	/* padding: 10px 50px; */
+	cursor: pointer;
+	transition: all 0.2s ease-in;
+	border: 1px solid #ccc;
+	border-radius: 25px;
+	margin-top: 20px;
+	/* margin-left: 15px; */
 }
 
-
 #sec_wiz_2 {
-
-    width: 70%;
-    margin: auto;
-    margin-top: 60px;
-    height: auto;
-    margin-bottom: 150px;
+	width: 70%;
+	margin: auto;
+	margin-top: 60px;
+	height: auto;
+	margin-bottom: 150px;
 }
 
 .products .item_wrapper {
-    position: relative;
-    display: inline-block;
-    width: 33%;
-    margin: auto;
-    white-space: normal;
-    padding: 10px;
+	position: relative;
+	display: inline-block;
+	width: 33%;
+	margin: auto;
+	white-space: normal;
+	padding: 10px;
 }
 
-
 .progressbar_userpannel {
-    position: relative;
-    top: 10px;
-    width: 95%;
-    margin: auto;
-
+	position: relative;
+	/* top: 10px; */
+	width: 95%;
+	margin: auto;
 }
 
 .progressbar_userpannel .progressbarproviders {
-    position: relative;
-    left: 0px;
-    width: 70%;
-    margin: auto;
+	position: relative;
+	left: 0px;
+	width: 70%;
+	margin: auto;
 }
 
 .progressbar_userpannel .button {
-    padding: 10px !important;
-    margin-top: 10px;
-    opacity: 0.9;
+	padding: 10px !important;
+	margin-top: 10px;
+	opacity: 0.9;
 }
-
 
 /* //Location */
 #over_banners {
-    width: 100%;
-    margin: auto;
-    margin-top: 140px;
+	width: 100%;
+	margin: auto;
+	margin-top: 140px;
 }
 
 #over_banners .location-container {
-    width: 40%;
-    margin: auto;
+	width: 40%;
+	margin: auto;
 }
 
 /* #over_banners .location-container .locations{
@@ -192,291 +181,266 @@
 
 .gender.selected,
 .time_option.selected {
-    background-color: #03a9f4;
-    /* Set the background color to blue for selected items */
-    color: white;
-    /* Set the text color to white for better visibility */
+	background-color: #03a9f4;
+	/* Set the background color to blue for selected items */
+	color: white;
+	/* Set the text color to white for better visibility */
 }
 
 .selected {
-    /* Styles for the selected card */
-    background-color: #03a9f4;
-    /* Change to your desired background color */
-    color: #fff;
-    /* Change to your desired text color */
-    border-color: #3498db;
-    /* Change to match the background color or desired border color */
+	/* Styles for the selected card */
+	background-color: #03a9f4;
+	/* Change to your desired background color */
+	color: #fff;
+	/* Change to your desired text color */
+	border-color: #3498db;
+	/* Change to match the background color or desired border color */
 }
-.progress-bar{
-    background-color: var(--primary);
+.progress-bar {
+	background-color: var(--primary);
 }
-
 
 /* Add these styles to your CSS file */
 
 .coupon-section {
-    margin-top: 20px;
-    display: flex;
+	margin-top: 20px;
+	display: flex;
 }
 
 .coupon-section input {
-    width: 200px;
-    padding: 8px;
-    border: 1px solid #ccc;
+	width: 200px;
+	padding: 8px;
+	border: 1px solid #ccc;
 }
 
 .apply-coupon-button {
-    background-color: #007BFF;
-    color: #fff;
-    border: none;
-    padding: 8px 12px;
-    cursor: pointer;
+	background-color: #007bff;
+	color: #fff;
+	border: none;
+	padding: 8px 12px;
+	cursor: pointer;
 }
 
 .apply-coupon-button:hover {
-    background-color: #0056b3;
+	background-color: #0056b3;
 }
-
-
 
 /* //Firtform */
 
 .review_page {
-    width: 50% !important;
-    margin: auto;
-    margin-top: 40px !important;
-    margin-bottom: 200px;
-    background-color: #fff;
-    padding: 80px;
-    border-radius: 10px;
-    box-shadow: 2px 2px 15px -5px rgb(0 0 0 / 35%);
+	width: 50% !important;
+	margin: auto;
+	margin-top: 40px !important;
+	margin-bottom: 200px;
+	background-color: #fff;
+	padding: 80px;
+	border-radius: 10px;
+	box-shadow: 2px 2px 15px -5px rgb(0 0 0 / 35%);
 }
 
 .review_page .form-group {
-    margin-bottom: 15px;
+	margin-bottom: 15px;
 }
 
 .review_page label {
-    display: block;
-    margin-bottom: 5px;
+	display: block;
+	margin-bottom: 5px;
 }
 
 .review_page input[type="text"],
 .review_page input[type="email"],
 .review_page input[type="password"],
 .review_page textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
 }
 
 .review_page button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
+	background-color: #007bff;
+	color: #fff;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 5px;
+	cursor: pointer;
 }
 
 .review_page button:hover {
-    background-color: #0056b3;
+	background-color: #0056b3;
 }
-
 
 /* // second for */
 
 .second_form_book_container {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: space-between;
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	justify-content: space-between;
 }
 
 .second_form_book {
-    /* width: calc(30% - 20px);  */
-    flex-basis: 30%;
-    margin: 10px;
-    border: 1px solid #ddd;
-    padding: 10px;
-    box-sizing: border-box;
-    /* Include padding and border in the total width */
-    cursor: pointer;
-    box-shadow: 0px 4px 6px rgb(0 0 0 / 13%);
-    border-radius: 20px;
+	/* width: calc(30% - 20px);  */
+	flex-basis: 30%;
+	margin: 10px;
+	border: 1px solid #ddd;
+	padding: 10px;
+	box-sizing: border-box;
+	/* Include padding and border in the total width */
+	cursor: pointer;
+	box-shadow: 0px 4px 6px rgb(0 0 0 / 13%);
+	border-radius: 20px;
 }
 
 .book-image {
-    width: 100%;
-    /* Make the image fill the container */
-    height: 200px;
+	width: 100%;
+	/* Make the image fill the container */
+	height: 200px;
 
-    /* Maintain aspect ratio */
-    border-radius: 8px;
+	/* Maintain aspect ratio */
+	border-radius: 8px;
 }
 
 .book-details {
-    margin-top: 20px;
+	margin-top: 20px;
 }
 
 .book-title {
-    font-size: 20px;
-    margin-bottom: 10px;
+	font-size: 20px;
+	margin-bottom: 10px;
 }
 
 .book-price {
-    font-size: 16px;
-    color: #333;
-    font-weight: 700;
+	font-size: 16px;
+	color: #333;
+	font-weight: 700;
 }
 
 .book-description {
-    font-size: 14px;
-    line-height: 1.5;
+	font-size: 14px;
+	line-height: 1.5;
 }
 
+@media (max-width: 982px) {
+	.second_form_book {
+		/* width: calc(30% - 20px);  */
+		flex-basis: 45%;
+		margin: 10px;
+		border: 1px solid #ddd;
+		padding: 10px;
+		box-sizing: border-box;
+		/* Include padding and border in the total width */
+		cursor: pointer;
+	}
 
+	.review_page {
+		width: 90% !important;
+		margin: auto;
+		margin-top: -70px !important;
+		margin-bottom: 200px;
+		background-color: #fff;
+		padding: 10px;
+		border-radius: 10px;
+		box-shadow: 2px 2px 15px -5px rgb(0 0 0 / 35%);
+	}
 
+	.review_page input[type="text"],
+	.review_page input[type="email"],
+	.review_page input[type="password"],
+	.review_page textarea {
+		width: 100%;
+		padding: 10px;
+		border: 1px solid #ccc;
+		border-radius: 5px;
+	}
 
-@media (max-width:982px) {
+	.sidebar_tabs {
+		display: none !important;
+	}
 
-    .second_form_book {
-        /* width: calc(30% - 20px);  */
-        flex-basis: 45%;
-        margin: 10px;
-        border: 1px solid #ddd;
-        padding: 10px;
-        box-sizing: border-box;
-        /* Include padding and border in the total width */
-        cursor: pointer;
-    }
+	.section {
+		width: 97% !important;
+		margin: auto;
+		margin-top: -70px !important;
+		margin-bottom: 200px;
+		background-color: #fff;
+		padding: 80px;
+		border-radius: 10px;
+		box-shadow: 2px 2px 15px -5px rgb(0 0 0 / 35%);
+	}
 
+	#employees .option li {
+		padding: 10px 15px !important;
+		padding-left: 60px !important;
+		height: 42px;
+		display: inline-block;
+		width: auto;
+		font-size: 15px !important;
+		margin-right: 10px;
+		cursor: pointer;
+		transition: all 0.2s ease-in;
+		border: 1px solid #ccc;
+		border-radius: 25px;
+	}
 
+	#employees .option li .icon {
+		position: absolute;
+		top: 4px;
+		left: 8px !important;
+		width: 21px !important;
+		height: 32px;
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: contain;
+	}
 
+	.progressbar_userpannel .progressbarproviders {
+		position: relative;
+		left: 0px;
+		top: -101px !important;
+	}
 
-
-
-
-    .review_page {
-        width: 90% !important;
-        margin: auto;
-        margin-top: -70px !important;
-        margin-bottom: 200px;
-        background-color: #fff;
-        padding: 10px;
-        border-radius: 10px;
-        box-shadow: 2px 2px 15px -5px rgb(0 0 0 / 35%);
-    }
-
-
-    .review_page input[type="text"],
-    .review_page input[type="email"],
-    .review_page input[type="password"],
-    .review_page textarea {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-
-
-
-
-
-
-
-
-
-    .sidebar_tabs {
-        display: none !important;
-    }
-
-    .section {
-        width: 97% !important;
-        margin: auto;
-        margin-top: -70px !important;
-        margin-bottom: 200px;
-        background-color: #fff;
-        padding: 80px;
-        border-radius: 10px;
-        box-shadow: 2px 2px 15px -5px rgb(0 0 0 / 35%);
-    }
-
-    #employees .option li {
-        padding: 10px 15px !important;
-        padding-left: 60px !important;
-        height: 42px;
-        display: inline-block;
-        width: auto;
-        font-size: 15px !important;
-        margin-right: 10px;
-        cursor: pointer;
-        transition: all 0.2s ease-in;
-        border: 1px solid #ccc;
-        border-radius: 25px;
-    }
-
-    #employees .option li .icon {
-        position: absolute;
-        top: 4px;
-        left: 8px !important;
-        width: 21px !important;
-        height: 32px;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: contain;
-    }
-
-    .progressbar_userpannel .progressbarproviders {
-        position: relative;
-        left: 0px;
-        top: -101px !important;
-    }
-
-    .products .item_wrapper {
-        position: relative;
-        display: inline-block;
-        width: 100% !important;
-        margin: auto;
-        white-space: normal;
-        padding: 4px !important;
-    }
+	.products .item_wrapper {
+		position: relative;
+		display: inline-block;
+		width: 100% !important;
+		margin: auto;
+		white-space: normal;
+		padding: 4px !important;
+	}
 }
 
+@media (max-width: 768px) {
+	.sections {
+		width: 97% !important;
+		margin: auto;
+		margin-top: -50px !important;
+		margin-bottom: 200px;
+		background-color: #fff;
+		padding: 10px;
+		border-radius: 10px;
+		box-shadow: 2px 2px 15px -5px rgb(0 0 0 / 35%);
+	}
 
+	.section {
+		width: 97% !important;
+		margin: auto;
+		margin-top: -50px !important;
+		margin-bottom: 200px;
+		background-color: #fff;
+		padding: 10px;
+		border-radius: 10px;
+		box-shadow: 2px 2px 15px -5px rgb(0 0 0 / 35%);
+	}
 
-@media (max-width:768px) {
-    .sections {
-        width: 97% !important;
-        margin: auto;
-        margin-top: -50px !important;
-        margin-bottom: 200px;
-        background-color: #fff;
-        padding: 10px;
-        border-radius: 10px;
-        box-shadow: 2px 2px 15px -5px rgb(0 0 0 / 35%);
-    }
-
-    .section {
-        width: 97% !important;
-        margin: auto;
-        margin-top: -50px !important;
-        margin-bottom: 200px;
-        background-color: #fff;
-        padding: 10px;
-        border-radius: 10px;
-        box-shadow: 2px 2px 15px -5px rgb(0 0 0 / 35%);
-    }
-
-    .second_form_book {
-        /* width: calc(30% - 20px);  */
-        flex-basis: 95%;
-        margin: 10px;
-        border: 1px solid #ddd;
-        padding: 10px;
-        box-sizing: border-box;
-        /* Include padding and border in the total width */
-        cursor: pointer;
-    }
+	.second_form_book {
+		/* width: calc(30% - 20px);  */
+		flex-basis: 95%;
+		margin: 10px;
+		border: 1px solid #ddd;
+		padding: 10px;
+		box-sizing: border-box;
+		/* Include padding and border in the total width */
+		cursor: pointer;
+	}
 }
