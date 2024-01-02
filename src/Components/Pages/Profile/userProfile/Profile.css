@@ -1,68 +1,76 @@
 /* Styles for the tab menu */
 .progressbar_userpannel {
-    width: 100%;
+	width: 100%;
 }
-
+.parent {
+	display: flex;
+	/* margin-top: 60px; */
+}
 .sidebar_tab {
-    position: fixed;
-    display: block;
-    width: 100%;
-    padding: 20px 0px;
-    top: 60px;
-    background: #004f8f;
-    text-align: center;
-    z-index: 1;
+	/* position: fixed;
+	display: block; */
+	width: 20%;
+	padding: 20px 0px;
+	top: 60px;
+	background: #004f8f;
+	text-align: center;
+	z-index: 1;
 }
 
 .sidebar_tab ul#tabs_control {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    width: 60%;
-    margin: auto;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    cursor: pointer;
-    color: #fff;
-    justify-content: center;
-    justify-content: space-evenly;
-    text-align: center;
-
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	/* width: 60%; */
+	margin: auto;
+	/* display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap; */
+	cursor: pointer;
+	color: #fff;
+	/* justify-content: center; */
+	/* justify-content: space-evenly; */
+	/* text-align: center; */
 }
 
 ul#tabs_control li {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    display: inline-block;
-    cursor: pointer;
-    color: #fff;
-    font-family: "poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+	/* display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	/* display: inline-block; */
+	cursor: pointer;
+	color: #fff;
+	font-family: "poppins", -apple-system, BlinkMacSystemFont, "Segoe UI",
+		Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+		"Segoe UI Symbol";
+	/* border: 2px solid seagreen; */
+	margin: 20px 0;
+	padding: 15px;
 }
 
 /* Text color of inactive tabs */
 ul#tabs_control .item {
-    display: flex;
-    justify-content: space-around;
+	display: flex;
+	/* justify-content: space-around; */
+	align-items: center;
 }
 
 ul#tabs_control .item img {
-    margin-right: 5px;
-    margin-top: 5px;
-    /* background-color: #03a9f4; */
-    color: #004f8f;
+	margin-right: 5px;
+	margin-top: 5px;
+	/* background-color: #03a9f4; */
+	color: #004f8f;
 }
 
 ul#tabs_control li.active {
-    background-color: #03a9f4;
-    border-radius: 6px;
-    color: #fff;
-    border: 2px solid #88daff;
-    /* width: 10%; */
-    /* height: 30px; */
-    justify-content: center;
-    text-align: center;
+	background-color: #03a9f4;
+	border-radius: 6px;
+	color: #fff;
+	border: 2px solid #88daff;
+	/* width: 10%; */
+	/* height: 30px; */
+	/* justify-content: center; */
+	/* text-align: center; */
 }
 
 /* ul#tabs_control li:hover {
@@ -73,833 +81,752 @@ ul#tabs_control li.active {
 /* //Overview */
 
 #overview_page_container {
-    width: 80%;
-    margin: auto;
+	width: 80%;
+	margin: auto;
 }
-
 
 .inner {
-    justify-content: center;
-    text-align: center;
+	justify-content: center;
+	text-align: center;
 }
-
 
 .inner .small_heading {
-    font-size: 16px;
+	font-size: 16px;
 }
 
-
 .button_direction {
-    width: 100%;
-    white-space: nowrap;
-    font-size: 12px;
-    box-shadow: none;
-    background: #fff;
-    display: inline-block;
-    padding: 10px 14px;
-    color: #848484;
-    text-transform: uppercase;
-    border: 1px solid #dedede;
-    border-radius: 20px;
+	width: 100%;
+	white-space: nowrap;
+	font-size: 12px;
+	box-shadow: none;
+	background: #fff;
+	display: inline-block;
+	padding: 10px 14px;
+	color: #848484;
+	text-transform: uppercase;
+	border: 1px solid #dedede;
+	border-radius: 20px;
 }
 
 #button_invoices .pull-right {
-    font-size: 10px;
-    background-color: red;
+	font-size: 10px;
+	background-color: red;
 }
 
 /* //Boking */
 #booking_twext_item {
-    position: relative;
-    top: -15px;
+	position: relative;
+	top: -15px;
 }
 
 .overview {
-    background-color: #ffff;
-    width: 100%;
-    margin: auto;
-    margin-top: 10px;
+	background-color: #ffff;
+	width: 100%;
+	margin: auto;
+	margin-top: 10px;
 }
 
 .overview .overview_container {
-    width: 80%;
-    margin: auto;
-    justify-content: center;
-    text-align: center;
-    margin-top: 20px;
-
+	width: 80%;
+	margin: auto;
+	justify-content: center;
+	text-align: center;
+	margin-top: 20px;
 }
 
 .overview .overview_container .heading h3 {
-    font-size: 21px;
-    text-transform: capitalize;
-    font-weight: 300;
-    color: #6a6a6a;
-    margin-top: 10px;
+	font-size: 21px;
+	text-transform: capitalize;
+	font-weight: 300;
+	color: #6a6a6a;
+	margin-top: 10px;
 }
 
-
 .overview .overview_container .title h3 {
-    font-size: 15px;
-    text-transform: uppercase;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    word-spacing: 2px;
-    margin: 0;
+	font-size: 15px;
+	text-transform: uppercase;
+	font-weight: 600;
+	letter-spacing: 0.5px;
+	word-spacing: 2px;
+	margin: 0;
 
-    font-weight: 700;
-    margin-bottom: 40px;
+	font-weight: 700;
+	margin-bottom: 40px;
 }
 
 .overview .overview_card {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    flex: 1;
-
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	flex: 1;
 }
 
 .overview .overview_input {
-    flex: 1;
-    box-shadow: 3px 7px 8px -2px rgb(0 0 0 / 15%);
-    height: 170px;
-    padding: 15px;
-    transition: all 0.3s ease-in-out;
-    border-radius: 12px;
-    border: 1px solid #ebebeb;
-    display: flex;
-    justify-content: space-between;
-
+	flex: 1;
+	box-shadow: 3px 7px 8px -2px rgb(0 0 0 / 15%);
+	height: 170px;
+	padding: 15px;
+	transition: all 0.3s ease-in-out;
+	border-radius: 12px;
+	border: 1px solid #ebebeb;
+	display: flex;
+	justify-content: space-between;
 }
 
 .overview .overview_input .image_text {
-    display: flex;
+	display: flex;
 }
 
 .overview .overview_input .image_text img {
-    width: 150px;
-    height: 130px;
-    background-position: center;
-    background-size: cover;
+	width: 150px;
+	height: 130px;
+	background-position: center;
+	background-size: cover;
 }
 
 .overview .overview_input .image_text .text-item {
-    margin: 10px;
-    text-align: justify;
-
-
-
+	margin: 10px;
+	text-align: justify;
 }
 
 .overview .overview_input .image_text .text-item h3 {
-    text-transform: capitalize;
-    font-size: 12px;
-    font-weight: 600;
-    color: #271d42;
-
-
+	text-transform: capitalize;
+	font-size: 12px;
+	font-weight: 600;
+	color: #271d42;
 }
 
 .overview .overview_input .image_text .text-item p {
-    font-size: 10px;
-    text-transform: capitalize;
-    letter-spacing: 1px;
-    color: #616161;
-    line-height: 1px;
-    margin-top: 20px;
-
-
+	font-size: 10px;
+	text-transform: capitalize;
+	letter-spacing: 1px;
+	color: #616161;
+	line-height: 1px;
+	margin-top: 20px;
 }
 
 .overview .overview_input .time_date h3 {
-    text-transform: capitalize;
-    font-size: 14px;
-    font-weight: 600;
-    color: #271d42;
+	text-transform: capitalize;
+	font-size: 14px;
+	font-weight: 600;
+	color: #271d42;
 }
 
 /* //Invoice */
 #invoices #dateofpara {
-    display: block;
-    flex-direction: row;
-
+	display: block;
+	flex-direction: columns;
 }
 
 #invoices #dateofaddresswc {
-    position: relative;
-    top: 27px;
-    left: 0px;
+	position: relative;
+	top: 27px;
+	left: 0px;
 }
-
-
 
 #invoices .time_date button {
-    padding: 4px 10px;
-    background-color: #03a9f4;
-    color: #ffff;
-    border-radius: 20px;
-    border: none;
-    font-size: 12px;
-
+	padding: 4px 10px;
+	background-color: #03a9f4;
+	color: #ffff;
+	border-radius: 20px;
+	border: none;
+	font-size: 12px;
 }
-
 
 /* //setting form */
 #profile_page {
-    width: 100%;
-    margin: auto;
+	width: 100%;
+	margin: auto;
 }
 
 #profile_page .settings_form {
-    display: block;
-    max-width: 500px;
-    width: 100%;
-    margin: auto;
-    text-align: left;
-    border-radius: 10px;
-    margin-top: 60px;
-    box-shadow: 6px 6px 11px -6px rgb(0 0 0 / 30%);
+	display: block;
+	max-width: 500px;
+	width: 100%;
+	margin: auto;
+	text-align: left;
+	border-radius: 10px;
+	margin-top: 60px;
+	box-shadow: 6px 6px 11px -6px rgb(0 0 0 / 30%);
 }
 
-
 #profile_page .gutter {
-    padding-left: 10px;
-    padding-right: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
 }
 
 #profile_page .gutter .profile_heading {
-    font-size: 21px;
-    text-transform: capitalize;
-    font-weight: 300;
-    color: #6a6a6a;
+	font-size: 21px;
+	text-transform: capitalize;
+	font-weight: 300;
+	color: #6a6a6a;
 }
 
 #profile_page .gutter .small_heading {
-    font-size: 21px;
-    text-transform: capitalize;
-    font-weight: 600;
-    color: #6a6a6a;
+	font-size: 21px;
+	text-transform: capitalize;
+	font-weight: 600;
+	color: #6a6a6a;
 }
 
 #profile_page .profile_info .input_group {
-    position: relative;
-    display: block;
-    width: 100%;
-    margin: 18px 0px;
-    padding: 0px 10px;
-    /* z-index: 1; */
+	position: relative;
+	display: block;
+	width: 100%;
+	margin: 18px 0px;
+	padding: 0px 10px;
+	/* z-index: 1; */
 }
 
 #profile_page .profile_info label.static {
-    position: relative;
-    left: 0;
-    margin-bottom: 1px;
+	position: relative;
+	left: 0;
+	margin-bottom: 1px;
 }
 
 #profile_page .profile_info .input_group .input {
-    position: relative;
-    display: block;
-    width: 100%;
-    min-height: 40px;
-    border: 0;
-    border-bottom: 1px solid #ccc;
-    font-size: 14px;
-    font-weight: 400;
-    color: #585858;
-    background: 0;
-    z-index: 1;
+	position: relative;
+	display: block;
+	width: 100%;
+	min-height: 40px;
+	border: 0;
+	border-bottom: 1px solid #ccc;
+	font-size: 14px;
+	font-weight: 400;
+	color: #585858;
+	background: 0;
+	z-index: 1;
 }
 
-
 .input_group .button.small {
-    font-size: 11px;
-    padding: 7px 20px;
-    text-transform: capitalize;
+	font-size: 11px;
+	padding: 7px 20px;
+	text-transform: capitalize;
 }
 
 #profile_page .float_wrapper {
-    width: 100%;
-    margin: auto;
-    display: flex;
-    justify-content: space-between;
-
+	width: 100%;
+	margin: auto;
+	display: flex;
+	justify-content: space-between;
 }
 
-
 #profile_page .float_wrapper .update_button {
-    position: absolute;
-    right: 10px;
-    bottom: 10px;
-    border: none;
-    padding: 0px 15px;
-    border-radius: 20px;
-    background-color: #03a9f4;
-    color: #ffff;
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
+	border: none;
+	padding: 0px 15px;
+	border-radius: 20px;
+	background-color: #03a9f4;
+	color: #ffff;
 }
 
 /* //Gift card */
 #gift {
-    width: 100%;
-    margin: auto;
-    justify-content: center;
-    text-align: center;
+	width: 100%;
+	margin: auto;
+	justify-content: center;
+	text-align: center;
 }
 
 #gift .overview_container .heading h3 {
-    font-size: 21px;
-    text-transform: capitalize;
-    font-weight: 300;
-    color: #6a6a6a;
-    margin-top: 10px;
+	font-size: 21px;
+	text-transform: capitalize;
+	font-weight: 300;
+	color: #6a6a6a;
+	margin-top: 10px;
 }
 
-
 #gift .overview_container .title h3 {
-    font-size: 15px;
-    text-transform: uppercase;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    word-spacing: 2px;
-    margin: 0;
+	font-size: 15px;
+	text-transform: uppercase;
+	font-weight: 600;
+	letter-spacing: 0.5px;
+	word-spacing: 2px;
+	margin: 0;
 
-    font-weight: 700;
-    margin-bottom: 40px;
+	font-weight: 700;
+	margin-bottom: 40px;
 }
 
 #gift .gift_container {
-    width: 80%;
-    margin: auto;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-
-
+	width: 80%;
+	margin: auto;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
 }
 
 #gift .gift_container .gift_input {
-    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.3);
-    padding: 4px;
-    margin: 10px;
-    border-radius: 10px;
-    height: auto;
-
-
+	box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.3);
+	padding: 4px;
+	margin: 10px;
+	border-radius: 10px;
+	height: auto;
 }
 
 #gift .gift_container .gift_input .gift_button {
-    margin-top: 10px;
-    margin: 10px;
-
+	margin-top: 10px;
+	margin: 10px;
 }
 
 #gift .gift_container .gift_input .gift_button .Use_button {
-    padding: 0px 21px;
-    border: none;
-    border-radius: 20px;
-    background-color: #2196f3;
-    color: #ffff;
-    margin-right: 10px;
-
-
+	padding: 0px 21px;
+	border: none;
+	border-radius: 20px;
+	background-color: #2196f3;
+	color: #ffff;
+	margin-right: 10px;
 }
 
 #gift .gift_container .gift_input .gift_button .Send_button {
-    padding: 0px 21px;
-    border-radius: 20px;
-    box-shadow: -1px 1px 5px -3px rgba(0, 0, 0, 0.35);
-    color: #000;
-    background: #fff;
-    color: #737373;
-    font-weight: 500;
-    border: 2px solid #fff;
-
+	padding: 0px 21px;
+	border-radius: 20px;
+	box-shadow: -1px 1px 5px -3px rgba(0, 0, 0, 0.35);
+	color: #000;
+	background: #fff;
+	color: #737373;
+	font-weight: 500;
+	border: 2px solid #fff;
 }
 
-
 #gift .gift_container .gift_input .gift_button .Use_button:hover {
-    transform: translateY(-3px);
-    box-shadow: -1px 1px 5px -3px rgba(0, 0, 0, 0.35);
-    cursor: pointer;
-    transition: all 0.15s ease-in;
+	transform: translateY(-3px);
+	box-shadow: -1px 1px 5px -3px rgba(0, 0, 0, 0.35);
+	cursor: pointer;
+	transition: all 0.15s ease-in;
 }
 
 #gift .gift_container .gift_input .gift_button .Send_button:hover {
-    transform: translateY(-3px);
-    box-shadow: -1px 1px 5px -3px rgba(0, 0, 0, 0.35);
-    cursor: pointer;
-    transition: all 0.15s ease-in;
+	transform: translateY(-3px);
+	box-shadow: -1px 1px 5px -3px rgba(0, 0, 0, 0.35);
+	cursor: pointer;
+	transition: all 0.15s ease-in;
 }
-
-
 
 /* //Footer */
 .user_profile_footer {
-    width: 100%;
-    margin: auto;
-    background: #0f1d28;
-    min-height: 50px;
-    margin-top: 31rem;
-    color: #ffff;
-
+	width: 100%;
+	margin: auto;
+	background: #0f1d28;
+	min-height: 50px;
+	margin-top: 31rem;
+	color: #ffff;
 }
 
 .footer_container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    text-align: center;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	text-align: center;
 }
 
 .footer_warapper p {
-    color: #ffffff;
-    font-weight: 400;
-    font-size: 13px;
-    letter-spacing: 0.5px;
-    padding-top: 16px;
-
+	color: #ffffff;
+	font-weight: 400;
+	font-size: 13px;
+	letter-spacing: 0.5px;
+	padding-top: 16px;
 }
 
 #ashvi_design {
-    color: #596a76;
-
+	color: #596a76;
 }
 
 #navigationuser {
-    display: none;
+	display: none;
 }
-
-
-
-
-
 
 .mobile-view {
-    background-color: #2b2c36 !important;
-    /* Change this to your desired color */
+	background-color: #2b2c36 !important;
+	/* Change this to your desired color */
 }
-
-
-
 
 /* Pagination Styles */
 .overview_user_page_pagination {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    float: right;
+	margin-top: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	float: right;
 }
 
 .overview_user_page_pagination button {
-    background-color: #f2f2f2;
-    border: none;
-    color: #333;
-    padding: 8px 16px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    cursor: pointer;
-    margin: 0 5px;
-    border-radius: 4px;
-    transition: background-color 0.3s;
+	background-color: #f2f2f2;
+	border: none;
+	color: #333;
+	padding: 8px 16px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	cursor: pointer;
+	margin: 0 5px;
+	border-radius: 4px;
+	transition: background-color 0.3s;
 }
 
 .overview_user_page_pagination button.active {
-    background-color: #333;
-    color: #fff;
+	background-color: #333;
+	color: #fff;
 }
 
 .overview_user_page_pagination button:hover {
-    background-color: #ddd;
+	background-color: #ddd;
 }
 
 .userbooking {
-    display: none !important;
+	display: none !important;
 }
 
-
 ul#tabs_control .userbooking li.withicon a {
-    font-weight: 500;
-    background: #03a9f4;
-    border-radius: 25px;
-    padding: 5px 15px;
-    color: #fff;
-    top: 5px;
+	font-weight: 500;
+	background: #03a9f4;
+	border-radius: 25px;
+	padding: 5px 15px;
+	color: #fff;
+	top: 5px;
 }
 
 #imagebooking {
-    position: fixed;
-    top: 600px;
-    right: 10px;
-    z-index: 100;
+	position: fixed;
+	top: 600px;
+	right: 10px;
+	z-index: 100;
 }
 
 #buycard {
-    padding-top: 60px;
+	padding-top: 60px;
 }
 
 #gift_vard_buy {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
 }
 
 /* #gift_card_buy_input{
     width: 22%;
 } */
 #buy_gift_card_input {
-    width: 25%;
-    margin: auto;
+	width: 25%;
+	margin: auto;
 }
 
 #buy_gift_card_image img {
-    width: 100%;
-    background-size: cover;
-    background-position: center;
+	width: 100%;
+	background-size: cover;
+	background-position: center;
 }
 
 .gift_button h3 {
-    font-size: 15px;
-    text-align: start;
+	font-size: 15px;
+	text-align: start;
 }
 
 .status_booking {
-    text-align: start;
-    font-size: 12px;
+	text-align: start;
+	font-size: 12px;
 }
 
 .status_booking h3 {
-    font-size: 15px;
+	font-size: 15px;
 }
 
-
 .rating-feedback-section {
-    /* background-color: #f5f5f5; */
-    padding: 10px;
-    /* border: 1px solid #ccc; */
-    border-radius: 5px;
-    /* margin-top: 10px; */
-    width: 100%;
-    margin: auto;
-    box-shadow: -1px 1px 5px -3px rgba(0, 0, 0, 0.35);
-    /* position: relative;
+	/* background-color: #f5f5f5; */
+	padding: 10px;
+	/* border: 1px solid #ccc; */
+	border-radius: 5px;
+	/* margin-top: 10px; */
+	width: 100%;
+	margin: auto;
+	box-shadow: -1px 1px 5px -3px rgba(0, 0, 0, 0.35);
+	/* position: relative;
     top: -164px; */
 }
 
 .rating-feedback-section h3 {
-    font-size: 18px;
-    /* margin-bottom: 10px; */
+	font-size: 18px;
+	/* margin-bottom: 10px; */
 }
 
 .rating-feedback-section input[type="number"] {
-    width: 60px;
-    padding: 5px;
-    margin-right: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+	width: 60px;
+	padding: 5px;
+	margin-right: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
 }
 
 .rating-feedback-section textarea {
-    width: 100%;
-    padding: 1px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    /* margin-bottom: 10px; */
+	width: 100%;
+	padding: 1px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	/* margin-bottom: 10px; */
 }
 
 .rating-feedback-section button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 10px;
-    cursor: pointer;
-    font-size: 12px;
+	background-color: #007bff;
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	padding: 5px 10px;
+	cursor: pointer;
+	font-size: 12px;
 }
 
 .rating-feedback-section button:hover {
-    background-color: #0056b3;
+	background-color: #0056b3;
 }
 
 /* //Membership profile */
 
 .update_membership {
-    display: flex;
-    text-align: center;
-    justify-content: center;
-
-
+	display: flex;
+	text-align: center;
+	justify-content: center;
 }
 
 .update_membership button {
-    border: none;
-    padding: 2px 4px;
-    margin-left: 15px;
-    color: #007bff;
-    background-color: transparent;
-
+	border: none;
+	padding: 2px 4px;
+	margin-left: 15px;
+	color: #007bff;
+	background-color: transparent;
 }
 
 .membership_container {
-    display: flex;
-    flex-direction: column;
-    width: 60%;
-    margin: auto;
-    background-color: #ffff;
+	display: flex;
+	flex-direction: column;
+	width: 60%;
+	margin: auto;
+	background-color: #ffff;
 }
 
 .membership_update {
-    /* background-color: chocolate; */
-    background-color: #f2f2f2;
-    /* box-shadow: -1px 1px 5px -3px rgba(0, 0, 0, 0.35); */
-    padding: 0 10px;
+	/* background-color: chocolate; */
+	background-color: #f2f2f2;
+	/* box-shadow: -1px 1px 5px -3px rgba(0, 0, 0, 0.35); */
+	padding: 0 10px;
 
-    border-radius: 10px;
-    margin: 10px;
-
+	border-radius: 10px;
+	margin: 10px;
 }
 
 .membership_update:nth-child(1) {
-    background-color: #fff;
+	background-color: #fff;
 }
 
 .membership_update:nth-child(2) {
-    background-color: #ffff;
+	background-color: #ffff;
 }
 
 .membership_update .heading {
-    display: flex;
-    justify-content: space-between;
-
+	display: flex;
+	justify-content: space-between;
 }
 
 .membership_update .heading h3 {
-
-    font-weight: 700 !important;
+	font-weight: 700 !important;
 }
 
 .membership_update .heading p {
-
-    font-weight: 700 !important;
-    padding-top: 20px;
+	font-weight: 700 !important;
+	padding-top: 20px;
 }
 
 .membership_update .conetnt {
-    display: flex;
-    justify-content: space-between;
+	display: flex;
+	justify-content: space-between;
 }
 
 .membership_update .conetnt h3 {
-    font-size: 12px;
+	font-size: 12px;
 }
 
 .mebershi_update_button {
-    display: flex;
-    justify-content: space-between;
-    margin-left: 50px;
-    font-size: 12px;
-
-
+	display: flex;
+	justify-content: space-between;
+	margin-left: 50px;
+	font-size: 12px;
 }
 
 .mebershi_update_button h3 {
-
-    font-size: 15px;
-    color: #03a9f4;
-
-
+	font-size: 15px;
+	color: #03a9f4;
 }
 
 #membership_button_payment .button {
-    text-align: start;
-    /* background-color: red; */
-    justify-content: start;
-    padding: 4px 4px;
-    position: relative;
-    left: -50px;
-    top: -10px;
+	text-align: start;
+	/* background-color: red; */
+	justify-content: start;
+	padding: 4px 4px;
+	position: relative;
+	left: -50px;
+	top: -10px;
 }
-
-
-
-
-
-
-
 
 /* Add these styles to your existing CSS file or create a new one */
 
 .modal_send_gift_card {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
 }
 
 .modal_send_gift_card .modal-content {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    max-width: 400px;
-    width: 100%;
+	background-color: #fff;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+	max-width: 400px;
+	width: 100%;
 }
 
 .modal_send_gift_card .close {
-    cursor: pointer;
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 18px;
-    color: #555;
+	cursor: pointer;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	font-size: 18px;
+	color: #555;
 }
 
 .modal_send_gift_card h2 {
-    margin-bottom: 20px;
+	margin-bottom: 20px;
 }
 
 .modal_send_gift_card label {
-    display: block;
-    margin-bottom: 8px;
-    text-align: start;
+	display: block;
+	margin-bottom: 8px;
+	text-align: start;
 }
 
 .modal_send_gift_card input,
 textarea {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+	width: 100%;
+	padding: 8px;
+	margin-bottom: 16px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
 }
 
 .modal_send_gift_card button {
-    background-color: #4caf50;
-    color: #fff;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+	background-color: #4caf50;
+	color: #fff;
+	padding: 10px 15px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
 }
 
 .modal_send_gift_card button:hover {
-    background-color: #45a049;
+	background-color: #45a049;
 }
-
 
 /* //model gift card */
 
-
 .model_card_gift_container {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    width: 35%;
-    height: auto;
-    margin: auto;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: #fff;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	z-index: 1000;
+	width: 35%;
+	height: auto;
+	margin: auto;
 }
 
 .model_card_gift {
-    text-align: center;
-    margin-bottom: 20px;
+	text-align: center;
+	margin-bottom: 20px;
 }
 
 .model_card_gift h3 {
-    margin: 0;
-    font-size: 1.5em;
+	margin: 0;
+	font-size: 1.5em;
 }
 
 .model_card_gift p {
-    margin: 0;
-    color: #888;
+	margin: 0;
+	color: #888;
 }
 
 .membership_update_button button {
-    background-color: #4caf50;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-bottom: 15px;
-
+	background-color: #4caf50;
+	color: white;
+	padding: 10px 15px;
+	border: none;
+	border-radius: 4px;
+	cursor: pointer;
+	margin-bottom: 15px;
 }
 
 .membership_update_button button:hover {
-    background-color: #45a049;
+	background-color: #45a049;
 }
 
 .membership_update_buttons button {
-    position: relative;
-    top: -60px;
-
+	position: relative;
+	top: -60px;
 }
 
 .active_membership_icon {
-    position: relative;
-    top: -370px;
-    left: -40px;
-    float: right;
+	position: relative;
+	top: -370px;
+	left: -40px;
+	float: right;
 }
 
 .model_card_gift_container {
-    /* background-color: #e3dbdb; */
-    color: red;
-
-
-
+	/* background-color: #e3dbdb; */
+	color: red;
 }
 
 .model_card_gift_container .close {
-    cursor: pointer;
-    float: right;
-    font-size: 30px;
-    position: relative;
-    /* top: -20px; */
+	cursor: pointer;
+	float: right;
+	font-size: 30px;
+	position: relative;
+	/* top: -20px; */
 }
 
 .membership_model_item {
-    display: flex;
-    justify-content: space-around;
+	display: flex;
+	justify-content: space-around;
 }
 
 .membership_model_item p {
-    color: #000;
-
+	color: #000;
 }
-
 
 .model_card_gift {
-    /* background-color: #fff; */
-    padding: 20px;
-    border-radius: 10px;
-    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+	/* background-color: #fff; */
+	padding: 20px;
+	border-radius: 10px;
+	/* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
 }
 
-
-
-
-
 .membership_model_item div {
-    margin-left: 15px;
+	margin-left: 15px;
 }
 
 .membership_model_item p {
-    margin: 0;
-    text-align: justify;
+	margin: 0;
+	text-align: justify;
 }
-
 
 /* Increase the size of the icons */
 /* .membership_model_item svg {
@@ -907,260 +834,249 @@ textarea {
 } */
 
 #icon_mwembership {
-    font-size: 50px;
-
+	font-size: 50px;
 }
 
 #icon_mwembership1 {
-    font-size: 35px;
+	font-size: 35px;
 }
 
 /* Add specific styles for your icons if needed */
-
-
-
 
 /* Add specific styles for your icons if needed */
 
 /* Container for the membership card */
 .image_membership {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 20px;
-
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 20px;
 }
 
 /* Style for the membership image */
 .image_membership img {
-    width: 100%;
-    /* Make the image fill the container width */
-    max-width: 500px;
-    /* Set a maximum width if needed */
-    height: auto;
-    /* Maintain the aspect ratio */
-    border-radius: 8px;
-    /* Add border-radius for rounded corners */
+	width: 100%;
+	/* Make the image fill the container width */
+	max-width: 500px;
+	/* Set a maximum width if needed */
+	height: auto;
+	/* Maintain the aspect ratio */
+	border-radius: 8px;
+	/* Add border-radius for rounded corners */
 }
 
 /* Style for the active membership icon */
 .active_membership_icons {
-    position: relative;
-    top: -260px;
-    left: 190px;
+	position: relative;
+	top: -260px;
+	left: 190px;
 }
 
 .active_membership_icons img {
-    width: 100%;
-    /* Make the image fill the container width */
-    max-width: 100px;
-    /* Set a maximum width if needed */
-    height: auto;
-    /* Maintain the aspect ratio */
-    border-radius: 8px;
+	width: 100%;
+	/* Make the image fill the container width */
+	max-width: 100px;
+	/* Set a maximum width if needed */
+	height: auto;
+	/* Maintain the aspect ratio */
+	border-radius: 8px;
 }
 
 /* Style for the membership buttons */
 .membership_buttons {
-    margin-top: 10px;
+	margin-top: 10px;
 }
 
 /* Button style (customize as needed) */
 .membership_buttons button {
-    padding: 3px 13px;
-    background-color: #03a9f4;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    /* margin-top: -147px; */
-    position: relative;
-    top: -70px;
+	padding: 3px 13px;
+	background-color: #03a9f4;
+	color: #fff;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	/* margin-top: -147px; */
+	position: relative;
+	top: -70px;
 }
 
 /* Responsive styles (adjust breakpoints as needed) */
 @media screen and (max-width: 768px) {
-    .image_membership {
-        margin: 10px;
-    }
+	.image_membership {
+		margin: 10px;
+	}
 
- 
-    .active_membership_icons {
-        position: relative;
-        top: -176px;
-        left: 131px;
-        width: 19%;
-    }
+	.active_membership_icons {
+		position: relative;
+		top: -176px;
+		left: 131px;
+		width: 19%;
+	}
 
-    .membership_buttons button {
-        padding: 3px 13px;
-        background-color: #03a9f4;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        position: relative;
-        top: -50px;
-    }
+	.membership_buttons button {
+		padding: 3px 13px;
+		background-color: #03a9f4;
+		color: #fff;
+		border: none;
+		border-radius: 5px;
+		cursor: pointer;
+		position: relative;
+		top: -50px;
+	}
 }
 
+@media (max-width: 992px) {
+	.model_card_gift_container {
+		width: 100%;
+		position: fixed;
+		top: 70%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		background-color: #fff;
+		padding: 20px;
+		border-radius: 8px;
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+		z-index: 1000;
 
+		height: auto;
+		margin: auto;
+	}
 
+	.sidebar_tab {
+		background-color: transparent !important;
+		padding: 30px 0px;
+		top: 60px;
+		/* display: none; */
+		position: absolute;
+		top: 10;
+		right: 0;
+		z-index: 100;
+	}
 
-@media (max-width:992px) {
-    .model_card_gift_container {
-        width: 100%;
-        position: fixed;
-        top: 70%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        z-index: 1000;
+	.mobile-view {
+		background-color: #2b2c36 !important;
+		/* Change this to your desired color */
+		width: 350px;
+		height: 100%;
+	}
 
-        height: auto;
-        margin: auto;
-    }
+	.sidebar_tab ul#tabs_control {
+		display: none;
+	}
 
-    .sidebar_tab {
+	.mobile-view ul#tabs_control {
+		display: block;
+	}
 
-        background-color: transparent !important;
-        padding: 30px 0px;
-        top: 60px;
-        /* display:none !important ; */
+	.mobile-view ul#tabs_control .item {
+		/* display: block; */
+		padding: 12px 50px;
+		justify-content: left;
+		/* align-items: start; */
+	}
 
-        z-index: 100;
-    }
+	ul#tabs_control li {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-around;
+		display: block;
+		cursor: pointer;
+		color: #fff;
+		font-family: "poppins", -apple-system, BlinkMacSystemFont, "Segoe UI",
+			Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+			"Segoe UI Symbol";
+	}
 
-    .mobile-view {
-        background-color: #2b2c36 !important;
-        /* Change this to your desired color */
-    }
+	.footer_container {
+		display: flex;
+		flex-direction: column !important;
+		justify-content: space-around;
+		text-align: center;
+	}
 
-    .sidebar_tab ul#tabs_control {
-        display: none !important;
-    }
+	.inner {
+		justify-content: center;
+		text-align: center;
+		margin-top: -67px !important;
+	}
 
-    .mobile-view ul#tabs_control {
-        display: block !important;
-    }
+	#overview_page_container {
+		width: 100% !important;
+		margin: auto;
+	}
 
+	.overview {
+		margin-top: -84px !important;
+	}
 
-    .mobile-view ul#tabs_control .item {
-        /* display: block; */
-        padding: 12px 50px;
-        justify-content: left;
-        align-items: start;
-    }
+	.overview .overview_container {
+		width: 97% !important;
+		margin: auto;
+		justify-content: center;
+		text-align: center;
+		margin-top: 20px;
+	}
 
-    ul#tabs_control li {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        display: block;
-        cursor: pointer;
-        color: #fff;
-        font-family: "poppins", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    }
+	.overview .overview_input .image_text img {
+		width: 98px !important;
+		height: 78px !important;
+		background-position: center;
+		background-size: cover;
+	}
 
+	#navigationuser .toggle_buttons {
+		position: absolute;
+		top: -45px;
+		right: 15px;
+		width: 45px;
+		height: 32px;
+		/* background-image: url(../img/menu.png); */
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: 70%;
+		filter: invert(1);
+	}
 
-    .footer_container {
-        display: flex;
-        flex-direction: column !important;
-        justify-content: space-around;
-        text-align: center;
-    }
+	#navigationuser {
+		display: block !important;
+	}
 
-    .inner {
-        justify-content: center;
-        text-align: center;
-        margin-top: -67px !important;
-    }
+	#navigationuser .toggle_buttons img {
+		width: 25px;
+	}
 
-    #overview_page_container {
-        width: 100% !important;
-        margin: auto;
-    }
+	.userbooking {
+		display: block !important;
+	}
 
-    .overview {
+	#imagebooking {
+		/* position: fixed;
+		top: 500px;
+		right: 10px;
+		z-index: 100; */
+		display: none;
+	}
 
-        margin-top: -84px !important;
-    }
-
-    .overview .overview_container {
-        width: 97% !important;
-        margin: auto;
-        justify-content: center;
-        text-align: center;
-        margin-top: 20px;
-    }
-
-    .overview .overview_input .image_text img {
-        width: 98px !important;
-        height: 78px !important;
-        background-position: center;
-        background-size: cover;
-    }
-
-    #navigationuser .toggle_buttons {
-        position: absolute;
-        top: -45px;
-        right: 15px;
-        width: 45px;
-        height: 32px;
-        /* background-image: url(../img/menu.png); */
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: 70%;
-        filter: invert(1);
-    }
-
-    #navigationuser {
-        display: block !important;
-    }
-
-    #navigationuser .toggle_buttons img {
-        width: 25px;
-
-    }
-
-    .userbooking {
-        display: block !important;
-    }
-
-    #imagebooking {
-        position: fixed;
-        top: 500px;
-        right: 10px;
-        z-index: 100;
-
-
-    }
-
-    #imagebooking img {
-        width: 49px;
-        height: 49px;
-
-    }
-
+	/* #imagebooking img {
+		width: 49px;
+		height: 49px;
+	} */
 }
 
-@media (max-width:768px) {
-    .membership_container {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        margin: auto;
-    }
+@media (max-width: 768px) {
+	.membership_container {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		margin: auto;
+	}
 
-    .membership_update .conetnt h3 {
-        font-size: 10px;
-    }
+	.membership_update .conetnt h3 {
+		font-size: 10px;
+	}
 
-    .membership_update .conetnt p {
-        font-size: 10px;
-    }
+	.membership_update .conetnt p {
+		font-size: 10px;
+	}
 }
