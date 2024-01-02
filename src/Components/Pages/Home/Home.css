@@ -123,8 +123,9 @@
 }
 
 .faqbutton {
-  display: flex;
-  margin-left: 30px;
+  text-align: center;
+  /* display: flex;
+  margin-left: 30px; */
   /* justify-content: center; */
   /* Horizontally center-aligns the content */
   /* align-items: center; */
@@ -192,6 +193,7 @@
   padding-left: 0 !important;
 
 }
+
 /* Style for the container holding the membership section */
 .Home_page_memberhsip_container {
   display: flex;
@@ -203,48 +205,48 @@
 
 }
 
-  /* Style for each membership card */
-  .Home_page_memberhsip {
-    flex: 1;
-    margin: 10px;
-    background: #f5f5f5;
-    /* padding: 20px; */
-    text-align: center;
-  }
+/* Style for each membership card */
+.Home_page_memberhsip {
+  flex: 1;
+  margin: 10px;
+  background: #f5f5f5;
+  /* padding: 20px; */
+  text-align: center;
+}
 
 
-  /* Style for the heading and text inside the membership card */
+/* Style for the heading and text inside the membership card */
 
-  .memberhsip_section .content.heading h3 {
-    color: #333;
-    font-size: 50px !important;
-    padding-left: 0 !important;
+.memberhsip_section .content.heading h3 {
+  color: #333;
+  font-size: 50px !important;
+  padding-left: 0 !important;
 
-  }
+}
 
-  .content.heading h3 span {
-    color: #007bff;
-    /* or any other color you prefer for the highlighted text */
-  }
+.content.heading h3 span {
+  color: #007bff;
+  /* or any other color you prefer for the highlighted text */
+}
 
-  .content.heading h5 {
-    color: #666;
-    font-size: 25px !important;
-  }
+.content.heading h5 {
+  color: #666;
+  font-size: 25px !important;
+}
 
-  /* Style for the image inside the membership card */
-  .content img {
-    max-width: 100%;
-    height: auto;
-  }
+/* Style for the image inside the membership card */
+.content img {
+  max-width: 100%;
+  height: auto;
+}
 
-  /* Style for the paragraph and button inside the membership card */
-  .content p {
-    color: #555;
-    font-size: 18px !important;
-  }
+/* Style for the paragraph and button inside the membership card */
+.content p {
+  color: #555;
+  font-size: 15px !important;
+}
 
-  .button.primary {
+/* .button.primary {
     background-color: #007bff;
     color: #fff;
     padding: 10px 20px;
@@ -252,7 +254,7 @@
     cursor: pointer;
     font-size: 16px;
     margin-top: 10px;
-  }
+  } */
 
 
 /* Responsive adjustments */
@@ -261,9 +263,14 @@
     flex-direction: column;
   }
 
-  .Home_page_memberhsip {
-    margin: 10px 0;
+  .memberhsip_section * {
+    text-align: center !important;
   }
+
+  /* .Home_page_memberhsip {
+    padding-left: 75px;
+    text-align: center !important;
+  } */
 }
 
 

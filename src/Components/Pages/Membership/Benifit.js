@@ -62,7 +62,7 @@ function Benifit() {
                                                 </div>
                                                 <div className="text">
                                                     <h3>fast earning</h3>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                                    <p>Get upto 14% off on every Service.</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -75,7 +75,7 @@ function Benifit() {
                                                 </div>
                                                 <div className="text">
                                                     <h3>work flexibility</h3>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                                    <p>One 60 Min Massages Every Month</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -88,7 +88,7 @@ function Benifit() {
                                                 </div>
                                                 <div className="text">
                                                     <h3>safety first</h3>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                                    <p>Preferred Rates on All Bookings</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -101,7 +101,7 @@ function Benifit() {
                                                 </div>
                                                 <div className="text">
                                                     <h3>grow your business</h3>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                                    <p>Unlock exclusive benefits, access premium content, and enjoy personalized perks with our membership plan. Elevate your experience and grow together!</p>
                                                 </div>
                                             </div>
                                         </div>

@@ -319,13 +319,13 @@
         font-size: 13px;
         color: #232018;
         width: 100%;
-        margin-left: -2.5rem;
+        /* margin-left: -2.5rem; */
     }
 
     #brief .content.heading h3 {
-        position: relative;
-        right: 3rem;
-        font-size: 25px;
+        /* position: relative;
+        right: 3rem; */
+        font-size: 20px !important;
         text-transform: capitalize;
         font-weight: 800;
         color: #29251a;
@@ -333,9 +333,9 @@
     }
 
     #brief .content.heading h5 {
-        position: relative;
-        right: 3rem;
-        font-size: 20px;
+        /* position: relative;
+        right: 3rem; */
+        font-size: 15px !important;
         font-weight: 300;
         margin-bottom: 32px;
         color: #29251a;

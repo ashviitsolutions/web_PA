@@ -1,9 +1,9 @@
-import React,{useEffect,useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import Member from '../Services/Submenu/Member'
 import { IP } from '../../../Constant';
 
 function Teams() {
-  const postIds = ['63fa03a606e32e1493232825', '63fa03dc06e32e1493232839', '63fa03e106e32e1493232845'];
+  const postIds = ['63fa03a606e32e1493232825', '653fb043ea0362647dc676da', '63fa03e106e32e1493232845'];
 
   const [users, setUsers] = useState([]);
   const [img, setImg] = useState('');
@@ -39,7 +39,7 @@ function Teams() {
               <div className="gutter">
                 <div className="heading">
                   <h3 >Our Team</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                  <p>We are a wellness service platform that delivers a wide range of On-demand wellness products and services to the place of your choice. Quality and convinince is what defines us! Join us and Experince The Difference</p>
                 </div>
               </div>
             </div>
@@ -59,8 +59,8 @@ function Teams() {
                       <div className="text float_wrapper">
                       </div>
                       <div className="text content">
-                      <h3>{user.title}</h3>
-                      <p dangerouslySetInnerHTML={{ __html: user.description }} />
+                        <h3>{user.title}</h3>
+                        <p dangerouslySetInnerHTML={{ __html: user.description }} />
                       </div>
                       <div className="text">
                       </div>

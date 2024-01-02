@@ -26,7 +26,7 @@ function Footer() {
                             </div>
                             <div className="intro" style={{ Width: "100%" }}>
                                 <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras diam massa, placerat at elit in, ornare venenatis purus. Curabitur consequat elementum diam, nec molestie ex ornare ut.
+                                    We  are a nationwide wellness service platform that focuses on Ondemand Services. We accomplish this by connecting wellness service providers to corporate and private organizations, provide access to marketplace, connect service providers with ondemand every day consumers.
                                 </p>
 
                             </div>
@@ -77,7 +77,7 @@ function Footer() {
                                 </div>
                                 <div className="text">
                                     <p>
-                                        Lorem ipsum dolor sit amet. consectetur adipiscing elit.
+                                        1 Shea Ln Tinton Falls NJ 07724
                                     </p>
                                 </div>
                             </div>
@@ -113,7 +113,7 @@ function Footer() {
                                 </form>
                                 <div className="intro">
                                     <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                        Join our nationwide team of wellness service providers
                                     </p>
                                 </div>
                                 <div className="app_buttons">
@@ -129,12 +129,12 @@ function Footer() {
                 <div className="container">
                     <div className="row">
                         <div className="copyright pull-left">
-                            <h3>Copyright © 2021 productive alliance, All Rights Reserved.</h3>
+                            <h3>Copyright © 2021 productive alliance, All Rights Reserved. <Link to="/privacypolicy" style={{ color: "#ffff" }}>Privacy Policy</Link>  <Link to="/termcondition" style={{ color: "#ffff" }}>Term & Condition</Link></h3>
+                         
                         </div>
                         <div className="copyright pull-right">
                             <h3>A design by <Link target="_blank" to="/privacypolicy"><b>Ashvi IT solutions</b></Link></h3>
-                            <span style={{ color: "#ffff" }}><Link to="/privacypolicy" style={{ color: "#ffff" }}>Privacy Policy</Link></span>
-                            <span style={{ color: "#ffff" }}> <Link to="/termcondition" style={{ color: "#ffff" }}>Term & Condition</Link></span>
+
                         </div>
 
                     </div>

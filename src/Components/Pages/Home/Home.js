@@ -9,6 +9,7 @@ import Provider from './Provider'
 import Testimonials from './Testimonials'
 import Blog from './Blog'
 import Faq from './Faq'
+import Worklist from '../Services/Submenu/Coroporate/Worklist'
 // import Event_services from '../Services/Submenu/Coroporate/Event_services'
 
 
@@ -24,6 +25,7 @@ function Home() {
            <Testimonials/>
            <Blog/>
            <Faq/>
+           <Worklist/>
 
         </>
     )
