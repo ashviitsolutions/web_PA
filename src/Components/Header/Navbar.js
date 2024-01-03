@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import Images1 from "../assets/img/download-google-play.png"
 import Images2 from "../assets/img/download-app-store.png"
 import profileimage from "../img/user.png"
-import logo from "../assets/img/productivealliance_logo_white 3 (1).png"
+import logo from "../assets/img/logo_home_navbar.png"
 // import { FaBars } from 'react-icons/fa';
 import menuimage from "../assets/img/close.png"
 import menucross from "../assets/img/menu.png"
