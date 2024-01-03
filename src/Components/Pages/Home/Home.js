@@ -17,15 +17,42 @@ function Home() {
     return (
         <>
             <Banner />
-            <Yoga />
-            <Worklist />
-            <About />
-            <Brief />
-            <Download />
-            <Provider />
-            <Testimonials />
-            <Blog />
-            <Faq />
+            <div className='mt-5'>
+                <Yoga />
+            </div>
+
+            <div className='mt-5'>
+                <Worklist />
+            </div>
+            <div className='mt-5'>
+                <About />
+            </div>
+            <div className='mt-5'>
+                <Brief />
+            </div>
+            <div className='mt-5'>
+                <Download />
+            </div>
+
+            <div className='mt-5'>
+                <Provider />
+            </div>
+
+            <div className='mt-5'>
+                <Testimonials />
+            </div>
+
+            <div className='mt-5'>
+                <Blog />
+            </div>
+
+            <div className='mt-5'>
+                <Faq />
+            </div>
+
+
+
+
 
 
         </>
