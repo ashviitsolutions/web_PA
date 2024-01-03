@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import Image1 from "../../assets/img/download-google-play.png"
 import Image2 from "../../assets/img/download-app-store.png"
-import Image3 from "../../assets/img/phone_mockup.png"
+import Image3 from "../../assets/img/app copy1.png"
 
 function Download() {
     return (

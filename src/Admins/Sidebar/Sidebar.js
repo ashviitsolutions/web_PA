@@ -31,7 +31,7 @@ function Sidebar() {
 
           <div className="infobox_big avatar" id='avtar'>
             <img src={images} alt="..." style={{ height: "50px" }} />
-            <div className="items" style={{ marginTop: "5px" , textAlign:"center" }}>
+            <div className="items" style={{ marginTop: "5px", textAlign: "center" }}>
               <span className="title">admin</span>
 
 
