@@ -42,9 +42,9 @@ function Faq() {
 
   return (
     <>
-      <div className="container">
+      <div className="container" style={{marginTop:"-50px"}}>
         <div className="row">
-          <div className="heading content mt-5 " id="">
+          <div className="heading content  " id="">
             <h3>
               FAQ<small>(s)</small>{' '}
             </h3>

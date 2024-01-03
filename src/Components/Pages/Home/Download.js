@@ -20,7 +20,7 @@ function Download() {
                                 <Link to="https://play.google.com/store/apps" target="_blank"><img id='downloadimage' style={{ maxWidth: "161px" }} src={Image2} alt="" /></Link>
                             </div>
                         </div>
-                        <div className="col-sm-7">
+                        <div className="col-sm-7 mt-3">
                             <div className="gutter" >
                                 <img className="img-responsive" src={Image3} alt="" />
                             </div>

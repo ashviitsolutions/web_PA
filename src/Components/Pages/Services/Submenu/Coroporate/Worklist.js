@@ -88,8 +88,8 @@ function Worklist() {
           </div>
           <div className="row mt-1">
             <div className="buttons_pane">
-              <Link to="https://play.google.com/store/apps" target="_blank"><img id='downloadimage' style={{ maxWidth: "180px" , margin:"2px" }} src={Image1} alt="" /></Link>
-              <Link to="https://play.google.com/store/apps" target="_blank"><img id='downloadimage' style={{ maxWidth: "161px" ,margin:"2px" }} src={Image2} alt="" /></Link>
+              <Link to="https://play.google.com/store/apps" target="_blank"><img id='downloadimage' style={{ maxWidth: "180px", margin: "2px" }} src={Image1} alt="" /></Link>
+              <Link to="https://play.google.com/store/apps" target="_blank"><img id='downloadimage' style={{ maxWidth: "161px", margin: "2px" }} src={Image2} alt="" /></Link>
             </div>
           </div>
         </div>

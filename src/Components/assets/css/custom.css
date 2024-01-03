@@ -509,6 +509,7 @@ body {
   position: relative;
   display: block;
   width: 100%;
+  margin-top: 50px;
   /* padding-left: 13%; */
 }
 
@@ -637,8 +638,8 @@ body {
   position: relative;
   display: block;
   width: 100%;
-  margin-top: 100px;
-  padding: 40px 0px;
+  margin-top: 50px;
+  /* padding: 40px 0px; */
 }
 
 #about .item {
@@ -987,7 +988,7 @@ body {
   position: relative;
   display: block;
   width: 100%;
-  margin-top: 80px;
+  margin-top: 0;
   padding-top: 70px;
   padding-bottom: 70px;
 }
@@ -1172,8 +1173,9 @@ body {
   position: relative;
   display: block;
   width: 100%;
-  margin-top: 40px;
-  margin-bottom: 60px;
+  top: -110px;
+  /* margin-top: 40px;
+  margin-bottom: 60px; */
 }
 
 #testimonials .item_wrapper {
@@ -1271,7 +1273,7 @@ body {
   background: #f5f5f5;
   min-height: 400px;
   width: 100%;
-  padding-bottom: 25px;
+  padding-bottom: 50px;
 }
 
 #talent .big_head span {
@@ -1779,6 +1781,7 @@ body {
   display: block;
   width: 100%;
   background: #f2f9ff;
+  top: -150px;
 }
 
 #provider .right_half {
@@ -3836,11 +3839,12 @@ ul.true li::after {
 #blog {
   position: relative;
   display: block;
+  top: -80px;
   width: 100%;
   min-height: 500px;
   background-color: #f2f9ff;
   padding-top: 50px;
-  padding-bottom: 50px;
+  padding-bottom: 30px;
 }
 
 #navigation .nav_bar .app_buttons {
