@@ -10,7 +10,8 @@ import MedicalServicesIcon from '@mui/icons-material/MedicalServices';
 import Groups2Icon from '@mui/icons-material/Groups2';
 import LogoutIcon from '@mui/icons-material/Logout';
 import HailIcon from '@mui/icons-material/Hail';
-import images from "../img/logo.png"
+import images from "../../Components/assets/img/logo_home_navbar.png"
+
 // import { useNavigate } from 'react-router-dom';
 // import MenuIcon from '@mui/icons-material/Menu';
 // import CloseIcon from '@mui/icons-material/Close';
@@ -29,10 +30,10 @@ function Sidebar() {
         <div className="card layer">
 
           <div className="infobox_big avatar" id='avtar'>
-            <img src={images} alt="..." style={{ height: "50px", marginTop: "10px" }} />
-            <div className="items" style={{ marginTop: "5px" }}>
+            <img src={images} alt="..." style={{ height: "50px" }} />
+            <div className="items" style={{ marginTop: "5px" , textAlign:"center" }}>
               <span className="title">admin</span>
-              <span className="excerpt">999999999</span>
+
 
             </div>
             <span className="toggle_sidebar close" ></span>
