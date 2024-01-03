@@ -42,7 +42,7 @@ function Testimonials() {
           <div className="row">
             <div className="heading" style={{ textAlign: "center" }}>
               <h3>testimonials</h3>
-             {/* <p>people who changed their lives</p> */}
+              {/* <p>people who changed their lives</p> */}
               <p>Your feedback means the world to us</p>
             </div>
           </div>
@@ -72,6 +72,29 @@ function Testimonials() {
                       <p dangerouslySetInnerHTML={{ __html: users2.description }} />
 
                     </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+
+
+
+
+        </div>
+        <div className='textmonia_section_middle'>
+          <div className="textmonian">
+            <div className="item_wrapper">
+              <div className="item right">
+                <div className="avatar" style={{ backgroundImage: `url(${img[1]})`, backgroundPosition: "top" }}>
+                </div>
+                <div className="content">
+                  <div className="inner">
+                    <h3>{users2.title}</h3>
+                    <p dangerouslySetInnerHTML={{ __html: users2.description }} />
+
                   </div>
                 </div>
               </div>

@@ -71,7 +71,7 @@ function Footer() {
                             <div className="head">
                                 <h3>Keep <span>in touch</span></h3>
                             </div>
-                            <div className="infobox">
+                            { /* <div className="infobox">
                                 <div className="icon">
                                     <img src={image5} alt="" />
                                 </div>
@@ -80,7 +80,7 @@ function Footer() {
                                         1 Shea Ln Tinton Falls NJ 07724
                                     </p>
                                 </div>
-                            </div>
+</div> */}
                             <div className="infobox">
                                 <div className="icon">
                                     <img src={image6} alt="" />
@@ -130,7 +130,7 @@ function Footer() {
                     <div className="row">
                         <div className="copyright pull-left">
                             <h3>Copyright © 2021 productive alliance, All Rights Reserved. <Link to="/privacypolicy" style={{ color: "#ffff" }}>Privacy Policy</Link>  <Link to="/termcondition" style={{ color: "#ffff" }}>Term & Condition</Link></h3>
-                         
+
                         </div>
                         <div className="copyright pull-right">
                             <h3>A design by <Link target="_blank" to="/privacypolicy"><b>Ashvi IT solutions</b></Link></h3>

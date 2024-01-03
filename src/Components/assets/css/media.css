@@ -660,11 +660,18 @@
         margin-left: -2rem;
 
     }
-
+    .textmonian {
+        width: 100% !important;
+        margin: auto;
+    }
     #talent .wrapper .item {
         top: 0 !important;
     }
-
+    #talent .buttons_pane {
+        text-align: center;
+        margin: 0;
+        margin-left: 0 !important;
+    }
     #talent .wrapper .item::before,
     #talent .wrapper .item .tri {
         display: none;

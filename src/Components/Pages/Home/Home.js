@@ -16,16 +16,17 @@ import Worklist from '../Services/Submenu/Coroporate/Worklist'
 function Home() {
     return (
         <>
-           <Banner/>
-           <Yoga/>
-           <About/>
-           <Brief/>
-           <Download/>
-           <Provider/>
-           <Testimonials/>
-           <Blog/>
-           <Faq/>
-           <Worklist/>
+            <Banner />
+            <Yoga />
+            <Worklist />
+            <About />
+            <Brief />
+            <Download />
+            <Provider />
+            <Testimonials />
+            <Blog />
+            <Faq />
+
 
         </>
     )

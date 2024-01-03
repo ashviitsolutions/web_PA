@@ -322,3 +322,17 @@
   flex-wrap: wrap;
   justify-content: space-around;
 }
+
+
+.textmonia_section_middle{
+
+
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.textmonian{
+  width: 50%;
+  margin: auto;
+}

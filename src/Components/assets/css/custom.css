@@ -1447,6 +1447,7 @@ body {
 #talent .buttons_pane {
   text-align: center;
   margin: 0;
+  margin-left: -9px !important;
 }
 
 #talent .button {
