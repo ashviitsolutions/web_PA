@@ -90,8 +90,6 @@ function Footer() {
                                         732-567-0553
                                     </p>
                                 </div>
-                            </div>
-                            <div className="infobox">
                                 <div className="icon">
                                     <img src={image7} alt="" />
                                 </div>
@@ -101,6 +99,11 @@ function Footer() {
                                     </p>
                                 </div>
                             </div>
+                            {/* 
+                            <div className="infobox">
+                                
+                            </div>
+                            */}
                         </div>
                         <div className="col-sm-3">
                             <div className="head">
@@ -113,7 +116,7 @@ function Footer() {
                                 </form>
                                 <div className="intro">
                                     <p>
-                                        Join our nationwide team of wellness service providers
+                                        Download Productive Alliance Mobile App, to book a service on the go!
                                     </p>
                                 </div>
                                 <div className="app_buttons">

@@ -48,7 +48,7 @@ function Blog() {
           <div className="row">
             <div className="heading content">
               <h3 className="dancing">Latest Blog</h3>
-              {/* <p>Lorem ipsum dolor sit amet</p> */}
+              <p><small>Feeling healthy and feeling good about yourself is not a luxury, it's an absolute necessity!</small></p>
               <span className="eff"></span>
             </div>
           </div>
@@ -77,7 +77,7 @@ function Blog() {
                                     <p dangerouslySetInnerHTML={{
                                       __html: index === activeCardIndex
                                         ? user.description
-                                        : user.description.slice(0, 160) + (user.description.length > 160 ? "...." : "")
+                                        : user.description.slice(0, 185) + (user.description.length > 185 ? "...." : "")
                                     }} />
 
                                   </div>

@@ -47,27 +47,20 @@ function Blog() {
 
   return (
     <>
-      <div className='details_blog'>
-
-        <div id="blog" style={{ marginTop: "5rem" }}>
-          <div className="container">
-            <div className="row">
-              <div id="types">
-                <div className="container">
-                  <div className="row">
-                    <div className="col-sm-10 col-sm-offset-1">
-                      <div className="container-fluid">
-                        <div className="row">
+    <div className='blogPage'>
+      <div className='details_blog row'>
+        <div id="blogPost" className='blogPost col-sm-8'>
+         
 
 
                           {users.map((user, index) => (
-                            <div className="col-sm-4" key={user._id}>
-                              <div className="item_wrapper">
-                                <div className="item">
+                            <div className="" key={user._id}>
+                              <div className="blog_wrapper">
+                                <div className="blogContent">
                                   <Link to={`/detailblog/${user._id}`} >
                                     <div
                                       id='detailimage'
-                                      className="bg"
+                                      className="bg blogImage"
                                       style={{
                                         backgroundImage: `url(${img[index]})`,
                                         borderRadius: '7px',
@@ -75,7 +68,7 @@ function Blog() {
                                     ></div>
                                   </Link>
 
-                                  <div className="content" id='detailblogitem'>
+                                  <div className="content blogContent" id='detailblogitem'>
                                     <h3 >{user.title}</h3>
                                     { /*<p dangerouslySetInnerHTML={{ __html: user.description }} />  */}
                                     <p
@@ -90,14 +83,18 @@ function Blog() {
 
                         </div>
 
-                      </div>
-                    </div>
-                  </div>
+        <div className='col-sm-4 blogSidebar'>
+          <div className='sideBlogs'>
+              <div className='sideBox'>
+                <div className='sideImg'><img/></div>
+                <div className='sideContent'>
+                  <h3></h3>
+                  <p></p>
                 </div>
               </div>
-            </div>
           </div>
         </div>
+      </div>
       </div>
 
     </>

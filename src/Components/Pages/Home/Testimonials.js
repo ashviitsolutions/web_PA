@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import stars from "../../assets/img/stars.png"
+import bg11 from "../../assets/img/bg11.jpg"
 import { IP } from '../../../Constant';
 
 function Testimonials() {
