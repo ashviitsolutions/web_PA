@@ -8389,6 +8389,7 @@ ul.true li::after {
     background: #dff5ff;
     padding: 7px 0px;
     border-top: 1px solid #58bcea;
+    color:var(--primary);
 }
 
 img .img-responsive {
