@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import stars from "../../assets/img/stars.png"
 import { IP } from '../../../Constant';
 
 function Testimonials() {
@@ -47,6 +48,7 @@ function Testimonials() {
             </div>
           </div>
           <div className="row">
+            {/* 
             <div className="col-sm-6">
               <div className="item_wrapper">
                 <div className="item">
@@ -61,7 +63,8 @@ function Testimonials() {
                 </div>
               </div>
             </div>
-            <div className="col-sm-6">
+            */}
+            <div className="col-sm-4">
               <div className="item_wrapper">
                 <div className="item right">
                   <div className="avatar" style={{ backgroundImage: `url(${img[1]})`, backgroundPosition: "top" }}>
@@ -70,7 +73,37 @@ function Testimonials() {
                     <div className="inner">
                       <h3>{users2.title}</h3>
                       <p dangerouslySetInnerHTML={{ __html: users2.description }} />
-
+                      <p align="center"><img src={stars} /></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="col-sm-4">
+              <div className="item_wrapper">
+                <div className="item right">
+                  <div className="avatar" style={{ backgroundImage: `url(${img[1]})`, backgroundPosition: "top" }}>
+                  </div>
+                  <div className="content">
+                    <div className="inner">
+                      <h3>{users2.title}</h3>
+                      <p dangerouslySetInnerHTML={{ __html: users2.description }} />
+                      <p align="center"><img src={stars} /></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="col-sm-4">
+              <div className="item_wrapper">
+                <div className="item right">
+                  <div className="avatar" style={{ backgroundImage: `url(${img[1]})`, backgroundPosition: "top" }}>
+                  </div>
+                  <div className="content">
+                    <div className="inner">
+                      <h3>{users2.title}</h3>
+                      <p dangerouslySetInnerHTML={{ __html: users2.description }} />
+                      <p align="center"><img src={stars} /></p>
                     </div>
                   </div>
                 </div>
@@ -84,6 +117,7 @@ function Testimonials() {
 
 
         </div>
+        {/* 
         <div className='textmonia_section_middle'>
           <div className="textmonian">
             <div className="item_wrapper">
@@ -101,6 +135,7 @@ function Testimonials() {
             </div>
           </div>
         </div>
+        */}
       </div>
 
     </>

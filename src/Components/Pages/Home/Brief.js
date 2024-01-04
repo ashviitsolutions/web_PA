@@ -30,9 +30,9 @@ function Brief() {
                                 <p id=''>Join Productive Alliance membership today and get exclusive perks, discounts and benefits
                                 </p>
                                 <ul>
-                                    <li>Get upto 14% off on every Service</li>
-                                    <li>One 60 Min Massages Every Month</li>
-                                    <li>Preferred Rates on All Bookings</li>
+                                    <li>Get up to 14% off on all available services</li>
+                                    <li>Monthly 60-minute massage commitment at members rate</li>
+                                    <li>Unlimited massages on all services at members rates.</li>
                                 </ul>
                                 <button className="button primary" type="button">Join Now</button>
                             </div>

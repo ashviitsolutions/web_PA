@@ -73,7 +73,7 @@ function About() {
             </div>
           </div>
 
-          <div className="row">
+          <div className="row mt-5">
             <div className="col-sm-4">
               <div className="item">
                 <div className="content">
