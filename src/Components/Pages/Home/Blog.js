@@ -47,7 +47,7 @@ function Blog() {
         <div className="container">
           <div className="row">
             <div className="heading content">
-              <h3 className="dancing">Latest Blog</h3>
+              <h3 className="dancing">Latest in Wellness!</h3>
               <p><small>Feeling healthy and feeling good about yourself is not a luxury, it's an absolute necessity!</small></p>
               <span className="eff"></span>
             </div>

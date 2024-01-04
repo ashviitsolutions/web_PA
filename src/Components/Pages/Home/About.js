@@ -79,10 +79,10 @@ function About() {
                 <div className="content">
                   <div className="icon" style={{ backgroundImage: `url(${Image2})`, borderRadius: "7px" }}>
                   </div>
-                  <h3>Proffecional vetted  service providers
+                  <h3>Vetted service providers
                   </h3>
                   <p>
-                    We screen and run background checks on all of our providers, make sure they are licensed, insured, and fully equipped to service our clients' needs.
+                  We screen and run background checks on all of our service providers. We regularly verify to make sure our providers are licensed,  insured, and fully equipped to service our clients' needs.
                   </p>
 
                 </div>
