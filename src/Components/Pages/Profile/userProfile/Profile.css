@@ -1,4 +1,7 @@
 /* Styles for the tab menu */
+:root {
+	--theme: #03a9f4;
+}
 .progressbar_userpannel {
 	width: 100%;
 }
@@ -15,6 +18,9 @@
 	background: #004f8f;
 	text-align: center;
 	z-index: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 }
 
 .sidebar_tab ul#tabs_control {
@@ -44,8 +50,8 @@ ul#tabs_control li {
 		Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
 		"Segoe UI Symbol";
 	/* border: 2px solid seagreen; */
-	margin: 20px 0;
-	padding: 15px;
+	margin: 10px 0;
+	padding: 10px;
 }
 
 /* Text color of inactive tabs */
@@ -66,7 +72,7 @@ ul#tabs_control li.active {
 	background-color: #03a9f4;
 	border-radius: 6px;
 	color: #fff;
-	border: 2px solid #88daff;
+	/* border: 2px solid #88daff; */
 	/* width: 10%; */
 	/* height: 30px; */
 	/* justify-content: center; */
@@ -139,7 +145,7 @@ ul#tabs_control li.active {
 	text-transform: capitalize;
 	font-weight: 300;
 	color: #6a6a6a;
-	margin-top: 10px;
+	margin: 10px 0;
 }
 
 .overview .overview_container .title h3 {
@@ -151,7 +157,7 @@ ul#tabs_control li.active {
 	margin: 0;
 
 	font-weight: 700;
-	margin-bottom: 40px;
+	margin-bottom: 10px;
 }
 
 .overview .overview_card {
@@ -236,20 +242,66 @@ ul#tabs_control li.active {
 /* //setting form */
 #profile_page {
 	width: 100%;
-	margin: auto;
+	/* margin: auto; */
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
-
+.profile__name {
+	font-size: 25px;
+}
+.profile__page__div {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	align-items: center;
+}
+.navItem {
+	display: flex;
+	align-items: center;
+	width: 60%;
+	background-color: #03a9f4;
+	margin: 10px 0;
+	justify-content: space-between;
+	border-radius: 12px;
+	padding: 10px;
+	cursor: pointer;
+}
+.navItem:hover {
+	opacity: 0.8;
+}
+.navItem > p {
+	margin: 0;
+	color: #fff;
+	font-size: 17px;
+}
 #profile_page .settings_form {
 	display: block;
 	max-width: 500px;
 	width: 100%;
 	margin: auto;
-	text-align: left;
+	/* text-align: left; */
 	border-radius: 10px;
 	margin-top: 60px;
-	box-shadow: 6px 6px 11px -6px rgb(0 0 0 / 30%);
+	box-shadow: 0px 8px 18px -6px rgb(0 0 0 / 30%);
+	padding: 20px;
 }
 
+#profile_page .profile__avatar {
+	/* align-self: center; */
+	background-color: #f9fcff;
+	background-image: linear-gradient(147deg, #f9fcff 0%, #dee4ea 74%);
+	width: 80px;
+	height: 80px;
+	border-radius: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.profile__avatarInitial {
+	font-size: 30px;
+	margin: 0;
+}
 #profile_page .gutter {
 	padding-left: 10px;
 	padding-right: 10px;
@@ -298,10 +350,14 @@ ul#tabs_control li.active {
 	z-index: 1;
 }
 
-.input_group .button.small {
+.input_group .button__small {
 	font-size: 11px;
-	padding: 7px 20px;
+	padding: 7px 40px;
 	text-transform: capitalize;
+	background-color: var(--theme);
+	border: 0;
+	border-radius: 8px;
+	color: #fff;
 }
 
 #profile_page .float_wrapper {
@@ -411,7 +467,7 @@ ul#tabs_control li.active {
 	margin: auto;
 	background: #0f1d28;
 	min-height: 50px;
-	margin-top: 31rem;
+	/* margin-top: 31rem; */
 	color: #ffff;
 }
 
@@ -604,7 +660,22 @@ ul#tabs_control .userbooking li.withicon a {
 	margin: auto;
 	background-color: #ffff;
 }
+.gold__text {
+	background: linear-gradient(319deg, #faa499 0%, #f7dd85 37%, #ffc55c 100%);
 
+	-webkit-text-fill-color: transparent;
+	-webkit-background-clip: text;
+	background-clip: text;
+	/* Set the text color to transparent */
+	/* color: transparent; */
+}
+.silver__text {
+	background: linear-gradient(315deg, #bdcad9 0%, #e1dada 74%);
+
+	-webkit-text-fill-color: transparent;
+	-webkit-background-clip: text;
+	background-clip: text;
+}
 .membership_update {
 	/* background-color: chocolate; */
 	background-color: #f2f2f2;
@@ -765,7 +836,7 @@ textarea {
 }
 
 .membership_update_button button {
-	background-color: #4caf50;
+	/* background-color: #4caf50; */
 	color: white;
 	padding: 10px 15px;
 	border: none;
@@ -775,7 +846,7 @@ textarea {
 }
 
 .membership_update_button button:hover {
-	background-color: #45a049;
+	/* background-color: #45a049; */
 }
 
 .membership_update_buttons button {
@@ -792,7 +863,7 @@ textarea {
 
 .model_card_gift_container {
 	/* background-color: #e3dbdb; */
-	color: red;
+	/* color: red; */
 }
 
 .model_card_gift_container .close {
@@ -846,8 +917,12 @@ textarea {
 /* Add specific styles for your icons if needed */
 
 /* Container for the membership card */
-.image_membership {
+.membership_containers {
 	position: relative;
+}
+.image_membership {
+	/* position: relative; */
+	/* position: absolute; */
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -868,24 +943,29 @@ textarea {
 
 /* Style for the active membership icon */
 .active_membership_icons {
-	position: relative;
-	top: -260px;
-	left: 190px;
+	position: absolute;
+	/* top: -10px;
+	right: -5px; */
+	top: 8px;
+	right: 15px;
 }
 
 .active_membership_icons img {
-	width: 100%;
+	width: 150px;
 	/* Make the image fill the container width */
-	max-width: 100px;
+	/* max-width: 100px; */
 	/* Set a maximum width if needed */
-	height: auto;
+	height: 100px;
 	/* Maintain the aspect ratio */
-	border-radius: 8px;
+	/* border-radius: 8px; */
 }
 
 /* Style for the membership buttons */
 .membership_buttons {
 	margin-top: 10px;
+	position: absolute;
+	bottom: 12%;
+	left: 35%;
 }
 
 /* Button style (customize as needed) */
@@ -896,14 +976,13 @@ textarea {
 	border: none;
 	border-radius: 5px;
 	cursor: pointer;
-	/* margin-top: -147px; */
-	position: relative;
-	top: -70px;
+	margin-left: 40px;
+	margin-bottom: 10px;
 }
 
 /* Responsive styles (adjust breakpoints as needed) */
 @media screen and (max-width: 768px) {
-	.image_membership {
+	/* .image_membership {
 		margin: 10px;
 	}
 
@@ -914,15 +993,17 @@ textarea {
 		width: 19%;
 	}
 
+	*/
 	.membership_buttons button {
-		padding: 3px 13px;
+		/* padding: 3px 13px;
 		background-color: #03a9f4;
 		color: #fff;
 		border: none;
 		border-radius: 5px;
 		cursor: pointer;
 		position: relative;
-		top: -50px;
+		top: -50px; */
+		margin-left: 10px;
 	}
 }
 
@@ -1062,6 +1143,9 @@ textarea {
 		width: 49px;
 		height: 49px;
 	} */
+	.profile__divs {
+		flex-direction: column;
+	}
 }
 
 @media (max-width: 768px) {
