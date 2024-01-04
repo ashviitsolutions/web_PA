@@ -17,7 +17,6 @@ function Blog() {
         postIds.map(async id => {
           const res = await fetch(`${IP}/post/fetch/${id}`);
           return res.json();
-
         })
       );
       setUsers(responses);
@@ -37,6 +36,8 @@ function Blog() {
     setActiveCardIndex(index);
   };
 
+
+  console.log("blogs", img)
   return (
     <>
 

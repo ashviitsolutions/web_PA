@@ -142,7 +142,7 @@ function FormPage(props) {
                 });
             }
         } catch (error) {
-           
+
             console.error(error);
             toast.error("An error occurred. Please try again.", {
                 position: "top-right",
