@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Image7 from "../../../../assets/img/works/test.svg"
-import Image8 from "../../../../assets/img/works/agreement.svg"
+import Image8 from "../../../../assets/img/works/yoga.png"
 import Image9 from "../../../../assets/img/works/move.svg"
 import Image1 from "../../../../assets/img/download-google-play.png"
 import Image2 from "../../../../assets/img/download-app-store.png"
