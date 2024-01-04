@@ -22,7 +22,7 @@ function Download() {
                         </div>
                         <div className="col-sm-7 mt-3">
                             <div className="gutter" >
-                                <img className="img-responsive" src={Image3} alt="" />
+                                <img className="img-responsive" src={Image3} alt="" style={{width:"100%" , margin:"auto"}} />
                             </div>
                         </div>
                     </div>
