@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import moment from 'moment'
 import { IP } from "../../../../Constant";
-import { FcClock, FcCancel } from "react-icons/fc";
-import { TbBrandBooking } from "react-icons/tb";
+
 import gold from "../../../assets/img/membership_gold2.png";
 import Activegold from "../../../assets/img/active_gold2.png";
 import Activesilver from "../../../assets/img/active_silver2.png";
@@ -13,7 +13,9 @@ import {
 	faUniversalAccess,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import moment from "moment";
+
+
+
 function Membership() {
 	const username = localStorage.getItem("user_name");
 	const GOLD_ID = "price_1OAmzQLnVrUYOeK2VStJarnV";
