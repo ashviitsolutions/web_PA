@@ -26,11 +26,15 @@ import "./Profile.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	faArrowRightFromBracket,
+	faBell,
 	faBorderAll,
 	faCalendarDays,
+	faFileContract,
 	faGift,
+	faHeart,
 	faIdBadge,
 	faMoneyCheckDollar,
+	faRectangleXmark,
 	faSpa,
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -119,114 +123,161 @@ const Profile = () => {
 			{/* <div className={`sidebar_tab ${isSidebarOpen ? "mobile-view" : ""}`}>
 			 */}
 			<div className={`sidebar_tab ${isSidebarOpen && "mobile-view"}`}>
-				<ul id="tabs_control">
-					<li
-						id="tab_1"
-						className={activeTab === 1 && "active"}
-						onClick={() => setActiveTab(1)}
-					>
-						<div className="item">
-							{/* <img
+				<div className="">
+					<ul id="tabs_control">
+						<li
+							id="tab_1"
+							className={activeTab === 1 && "active"}
+							onClick={() => setActiveTab(1)}
+						>
+							<div className="item">
+								{/* <img
 								src={image1}
 								width={15}
 								height={15}
 								alt="..."
 								className={`${activeTab == 1 && "active__Img"}`}
 							/> */}
-							<FontAwesomeIcon icon={faBorderAll} style={{ marginRight: 10 }} />
-							Overview
-						</div>
-					</li>
-					<li
-						id="tab_2"
-						className={activeTab === 2 ? "active" : ""}
-						onClick={() => setActiveTab(2)}
-					>
-						<div className="item">
-							{/* <img src={image2} width={15} height={15} alt="..." /> */}
-							<FontAwesomeIcon
-								icon={faCalendarDays}
-								style={{ marginRight: 10 }}
-							/>
-							Bookings
-						</div>
-					</li>
-					{/* <li id="tab_3" className={activeTab === 3 ? 'active' : ''} onClick={() => setActiveTab(3)}>
+								<FontAwesomeIcon
+									icon={faBorderAll}
+									style={{ marginRight: 10 }}
+								/>
+								Overview
+							</div>
+						</li>
+						<li
+							id="tab_2"
+							className={activeTab === 2 ? "active" : ""}
+							onClick={() => setActiveTab(2)}
+						>
+							<div className="item">
+								{/* <img src={image2} width={15} height={15} alt="..." /> */}
+								<FontAwesomeIcon
+									icon={faCalendarDays}
+									style={{ marginRight: 10 }}
+								/>
+								Bookings
+							</div>
+						</li>
+						{/* <li id="tab_3" className={activeTab === 3 ? 'active' : ''} onClick={() => setActiveTab(3)}>
             <div className="item">
               <img src={image3} width={15} height={15} alt="..." />
               Invoices
             </div>
           </li> */}
-					<li
-						id="tab_4"
-						className={activeTab === 4 ? "active" : ""}
-						onClick={() => setActiveTab(4)}
-					>
-						<div className="item">
-							{/* <img src={image4} width={15} height={15} alt="..." /> */}
-							<FontAwesomeIcon
-								icon={faMoneyCheckDollar}
-								style={{ marginRight: 10 }}
-							/>
-							Membership
-						</div>
-					</li>
-					<li
-						id="tab_5"
-						className={activeTab === 5 ? "active" : ""}
-						onClick={() => setActiveTab(5)}
-					>
-						<div className="item">
-							{/* <img src={image5} width={15} height={15} alt="..." /> */}
-							<FontAwesomeIcon
-								icon={faGift}
-								size={15}
-								style={{ marginRight: 10 }}
-							/>
-							Gift Card
-						</div>
-					</li>
-					<li
-						id="tab_6"
-						className={activeTab === 6 ? "active" : ""}
-						onClick={() => setActiveTab(6)}
-					>
-						<div className="item">
-							{/* <img src={image6} width={15} height={15} alt="..." />
-							 */}
-							<FontAwesomeIcon icon={faIdBadge} style={{ marginRight: 10 }} />
-							Profile
-						</div>
-					</li>
-					<li id="tab_7" className={activeTab === 7 ? "active" : ""}>
-						<div className="item" onClick={handleLogout}>
-							{/* <img src={image7} width={15} height={15} alt="..." /> */}
-							<FontAwesomeIcon
-								icon={faArrowRightFromBracket}
-								style={{ marginRight: 10 }}
-							/>
-							Logout
-						</div>
-					</li>
-
-					<div className="userbooking">
-						<li id="tab_7">
-							<div className="item" onClick={handleBook}>
-								{/* <img src={image7} width={15} height={15} alt="..." /> */}
-								<FontAwesomeIcon icon={faSpa} style={{ marginRight: 10 }} />
-								Book now
+						<li
+							id="tab_4"
+							className={activeTab === 4 ? "active" : ""}
+							onClick={() => setActiveTab(4)}
+						>
+							<div className="item">
+								{/* <img src={image4} width={15} height={15} alt="..." /> */}
+								<FontAwesomeIcon
+									icon={faMoneyCheckDollar}
+									style={{ marginRight: 10 }}
+								/>
+								Membership
 							</div>
 						</li>
+						<li
+							id="tab_5"
+							className={activeTab === 5 ? "active" : ""}
+							onClick={() => setActiveTab(5)}
+						>
+							<div className="item">
+								{/* <img src={image5} width={15} height={15} alt="..." /> */}
+								<FontAwesomeIcon
+									icon={faGift}
+									size={15}
+									style={{ marginRight: 10 }}
+								/>
+								Gift Card
+							</div>
+						</li>
+						<li
+							id="tab_6"
+							className={activeTab === 6 ? "active" : ""}
+							onClick={() => setActiveTab(6)}
+						>
+							<div className="item">
+								{/* <img src={image6} width={15} height={15} alt="..." />
+								 */}
+								<FontAwesomeIcon icon={faIdBadge} style={{ marginRight: 10 }} />
+								Profile
+							</div>
+						</li>
+						<li id="" className={activeTab === 8 ? "active" : ""}>
+							<div className="item">
+								{/* <img src={image7} width={15} height={15} alt="..." /> */}
+								<FontAwesomeIcon icon={faBell} style={{ marginRight: 10 }} />
+								Notifications
+							</div>
+						</li>
+						<li id="" className={activeTab === 9 ? "active" : ""}>
+							<div className="item">
+								{/* <img src={image7} width={15} height={15} alt="..." /> */}
+								<FontAwesomeIcon icon={faHeart} style={{ marginRight: 10 }} />
+								Favourites
+							</div>
+						</li>
+						<li id="tab_7" className={activeTab === 7 ? "active" : ""}>
+							<div className="item" onClick={handleLogout}>
+								{/* <img src={image7} width={15} height={15} alt="..." /> */}
+								<FontAwesomeIcon
+									icon={faArrowRightFromBracket}
+									style={{ marginRight: 10 }}
+								/>
+								Logout
+							</div>
+						</li>
+
+						<div className="userbooking">
+							<li id="tab_7">
+								<div className="item" onClick={handleBook}>
+									{/* <img src={image7} width={15} height={15} alt="..." /> */}
+									<FontAwesomeIcon icon={faSpa} style={{ marginRight: 10 }} />
+									Book now
+								</div>
+							</li>
+						</div>
+					</ul>
+					<div id="navigationuser">
+						<div className="toggle_buttons" onClick={handleSidebarToggle}>
+							{isSidebarOpen ? (
+								<img src={menuimage} alt="Close" className="toggleimages" />
+							) : (
+								<img src={menucross} alt="Menu" className="toggleimages" />
+							)}
+						</div>
 					</div>
-				</ul>
-				<div id="navigationuser">
-					<div className="toggle_buttons" onClick={handleSidebarToggle}>
-						{isSidebarOpen ? (
-							<img src={menuimage} alt="Close" className="toggleimages" />
-						) : (
-							<img src={menucross} alt="Menu" className="toggleimages" />
-						)}
-					</div>
+				</div>
+				<div
+					className="
+        "
+				>
+					<ul id="tabs_control">
+						<li id="" className={activeTab === 8 ? "active" : ""}>
+							<div className="item" style={{ fontSize: 10 }}>
+								{/* <img src={image7} width={15} height={15} alt="..." /> */}
+								<FontAwesomeIcon
+									icon={faFileContract}
+									style={{ marginRight: 10 }}
+								/>
+								Terms and Conditions
+							</div>
+						</li>
+
+						<li id="" className={activeTab === 9 ? "active" : ""}>
+							<div className="item" style={{ fontSize: 10 }}>
+								{/* <img src={image7} width={15} height={15} alt="..." /> */}
+								<FontAwesomeIcon
+									icon={faRectangleXmark}
+									style={{ marginRight: 10 }}
+								/>
+								Cancellation Policy
+							</div>
+						</li>
+					</ul>
 				</div>
 			</div>
 
