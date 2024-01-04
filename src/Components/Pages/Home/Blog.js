@@ -77,7 +77,7 @@ function Blog() {
                                     <p dangerouslySetInnerHTML={{
                                       __html: index === activeCardIndex
                                         ? user.description
-                                        : user.description.slice(0, 185) + (user.description.length > 185 ? "...." : "")
+                                        : user.description.slice(0, 185) + (user.description.length > 185 ? "..." : "")
                                     }} />
 
                                   </div>
