@@ -5621,6 +5621,7 @@ body {
   text-transform: capitalize;
   font-size: 24px;
   font-weight: 300;
+  color:black;
 }
 
 #testimonials .item_wrapper .item p {
@@ -8762,6 +8763,6 @@ img .img-responsive {
 .blog_wrapper {
   padding: 15px;
 }
-h3 {
-  color: var(--primary) !important;
+.mt-5 h3 {
+  color: var(--primary);
 }
