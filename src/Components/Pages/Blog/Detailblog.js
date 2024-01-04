@@ -39,7 +39,9 @@ function Blog() {
     setActiveCardIndex(index);
   };
 
-
+  const createMarkup = (htmlString) => {
+    return { __html: htmlString };
+  };
 
 
 
@@ -75,8 +77,11 @@ function Blog() {
 
                                   <div className="content" id='detailblogitem'>
                                     <h3 >{user.title}</h3>
-                                    <p dangerouslySetInnerHTML={{ __html: user.description }} />
+                                    { /*<p dangerouslySetInnerHTML={{ __html: user.description }} />  */}
+                                    <p
 
+                                      dangerouslySetInnerHTML={createMarkup(user.description)}
+                                    />
                                   </div>
                                 </div>
                               </div>

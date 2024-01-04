@@ -36,7 +36,9 @@ function Blog() {
     setActiveCardIndex(index);
   };
 
-
+  const createMarkup = (htmlString) => {
+    return { __html: htmlString };
+  };
   console.log("blogs", img)
   return (
     <>
@@ -72,7 +74,14 @@ function Blog() {
                                   ></div>
                                   <div className="content">
                                     <h3>{user.title}</h3>
+                                    <p dangerouslySetInnerHTML={{
+                                      __html: index === activeCardIndex
+                                        ? user.description
+                                        : user.description.slice(0, 160) + (user.description.length > 160 ? "...." : "")
+                                    }} />
+
                                   </div>
+
                                 </Link>
                               </div>
                             </div>
