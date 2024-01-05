@@ -117,7 +117,19 @@ function Testimonials() {
         */}
         <div className="userRatings row">
           <div className="col-sm-4" align="center">
-            <div className='userImg' style={{ backgroundImage: `url(${img[1]})`, backgroundPosition: "" }}>
+            <div className='userImg' style={{ backgroundImage: `url(${img[0]})`, backgroundPosition: "", backgroundSize:"100%", }}>
+
+            </div>
+            <div className="content">
+                      <div className="inner">
+                        <h3>{users1.title}</h3>
+                        <p dangerouslySetInnerHTML={{ __html: users2.description }} />
+                        <p align="center"><img src={stars} /></p>
+                      </div>
+                    </div>
+          </div>
+          <div className="col-sm-4" align="center">
+            <div className='userImg' style={{ backgroundImage: `url(${img[1]})`, backgroundPosition: "", backgroundSize:"100%", }}>
 
             </div>
             <div className="content">
@@ -129,19 +141,7 @@ function Testimonials() {
                     </div>
           </div>
           <div className="col-sm-4" align="center">
-            <div className='userImg' style={{ backgroundImage: `url(${img[1]})`, backgroundPosition: "" }}>
-
-            </div>
-            <div className="content">
-                      <div className="inner">
-                        <h3>{users2.title}</h3>
-                        <p dangerouslySetInnerHTML={{ __html: users2.description }} />
-                        <p align="center"><img src={stars} /></p>
-                      </div>
-                    </div>
-          </div>
-          <div className="col-sm-4" align="center">
-            <div className='userImg' style={{ backgroundImage: `url(${img[1]})`, backgroundPosition: "" }}>
+            <div className='userImg' style={{ backgroundImage: `url(${img[1]})`, backgroundPosition: "", backgroundSize:"100%", }}>
 
             </div>
             <div className="content">

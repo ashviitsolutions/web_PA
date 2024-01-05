@@ -8766,3 +8766,38 @@ img .img-responsive {
 .userRatings .inner {
   width: 80%;
 }
+.sideImg img {
+  width: 100%;
+}
+
+.sideContent h3 {
+  font-size: 14px;
+  margin-top:14px;
+}
+
+.sideContent p {
+  font-size: 12px;
+  widht:95%;
+}
+
+.sideBox {background: white;border: solid 1px #cce9ff;width: 98%;margin: 10px;box-shadow: 2px 2px 2px lightblue;}
+
+.sideImg {
+  padding: 10px;
+}
+
+.sideContent {
+  padding: 10px !important;
+}
+
+.sideBlogs {
+  margin-left: 10px;
+  background: white;
+  padding: 12px;
+}
+
+.sideBox:hover {
+  translate: -5px -5px;
+  transition: .2s ease-in;
+  box-shadow: 5px 5px 5px lightblue;
+}
