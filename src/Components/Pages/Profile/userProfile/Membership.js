@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import moment from 'moment'
+import moment from "moment";
 import { IP } from "../../../../Constant";
 
 import gold from "../../../assets/img/membership_gold2.png";
@@ -13,8 +13,7 @@ import {
 	faUniversalAccess,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-
+import Avatar from "./Avatar";
 
 function Membership() {
 	const username = localStorage.getItem("user_name");
@@ -132,9 +131,10 @@ function Membership() {
 	return (
 		<div className="overview" id="invoices">
 			<div className="overview_container">
-				<div className="heading">
+				{/* <div className="heading">
 					<h3>{username}</h3>
-				</div>
+				</div> */}
+				<Avatar name={username} />
 				<div className="title">
 					<h3>Membership Level</h3>
 					<h3

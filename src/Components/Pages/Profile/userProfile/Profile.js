@@ -117,7 +117,7 @@ const Profile = () => {
 	const handleBook = () => {
 		nav("/select_location");
 	};
-
+	const navigate = useNavigate();
 	return (
 		<div className="parent">
 			{/* <div className={`sidebar_tab ${isSidebarOpen ? "mobile-view" : ""}`}>
@@ -257,7 +257,11 @@ const Profile = () => {
 				>
 					<ul id="tabs_control">
 						<li id="" className={activeTab === 8 ? "active" : ""}>
-							<div className="item" style={{ fontSize: 10 }}>
+							<div
+								className="item"
+								style={{ fontSize: 10 }}
+								onClick={() => navigate("/termcondition")}
+							>
 								{/* <img src={image7} width={15} height={15} alt="..." /> */}
 								<FontAwesomeIcon
 									icon={faFileContract}
@@ -268,7 +272,11 @@ const Profile = () => {
 						</li>
 
 						<li id="" className={activeTab === 9 ? "active" : ""}>
-							<div className="item" style={{ fontSize: 10 }}>
+							<div
+								className="item"
+								style={{ fontSize: 10 }}
+								onClick={() => navigate("/cancelationpolicy")}
+							>
 								{/* <img src={image7} width={15} height={15} alt="..." /> */}
 								<FontAwesomeIcon
 									icon={faRectangleXmark}

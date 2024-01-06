@@ -4,6 +4,9 @@ import "./Profile.css";
 import image1 from "../../../assets/img/tender-african-woman-smiling-enjoying-massage-with-closed-eyes-spa-resort.jpg";
 import Rating from "react-rating-stars-component";
 import ReactPaginate from "react-paginate";
+import { faDownload } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Avatar from "./Avatar";
 
 function Booking() {
 	const [data, setData] = useState(1);
@@ -64,13 +67,14 @@ function Booking() {
 		console.log("User Rating:", userRating);
 		console.log("User Feedback:", userFeedback);
 	};
-
+	// console.log("posts", posts);
 	return (
 		<div className="overview" id="invoices">
 			<div className="overview_container">
-				<div className="heading">
+				<Avatar name={username} />
+				{/* <div className="heading">
 					<h3>{username}</h3>
-				</div>
+				</div> */}
 				<div className="title">
 					<h3>BOOKING HISTORY</h3>
 				</div>
@@ -82,7 +86,7 @@ function Booking() {
 							<div className="overview_card" key={index}>
 								<div
 									className="overview_input"
-									onClick={() => handleToggle(index)}
+									// onClick={() => handleToggle(index)}
 								>
 									<div className="image_text">
 										<img src={image1} width={150} height={130} alt="..." />
@@ -95,7 +99,10 @@ function Booking() {
 									<div className="time_date">
 										<p>{booking.scheduled_date}</p>
 										<h3>{booking.scheduled_timing}</h3>
-										<button>Download Invoice</button>
+										<button onClick={() => handleToggle(index)}>
+											{/* <FontAwesomeIcon icon={faDownload} />  */}
+											Feedback
+										</button>
 									</div>
 								</div>
 								{toggleStates[index] && (
