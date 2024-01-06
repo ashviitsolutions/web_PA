@@ -87,8 +87,10 @@ ul#tabs_control li.active {
 /* //Overview */
 
 #overview_page_container {
-	width: 80%;
+	/* width: 80%; */
 	margin: auto;
+	display: flex;
+	justify-content: center;
 }
 
 .inner {
@@ -133,13 +135,17 @@ ul#tabs_control li.active {
 }
 
 .overview .overview_container {
-	width: 80%;
+	width: 100%;
 	margin: auto;
 	justify-content: center;
 	text-align: center;
 	margin-top: 20px;
 }
-
+.overview__containerMain {
+	display: flex;
+	justify-content: space-evenly;
+	flex-wrap: wrap;
+}
 .overview .overview_container .heading h3 {
 	font-size: 21px;
 	text-transform: capitalize;
@@ -164,7 +170,9 @@ ul#tabs_control li.active {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
-	flex: 1;
+	/* flex: 1; */
+	width: 500px;
+	margin: 10px;
 }
 
 .overview .overview_input {
@@ -177,6 +185,7 @@ ul#tabs_control li.active {
 	border: 1px solid #ebebeb;
 	display: flex;
 	justify-content: space-between;
+	width: 100%;
 }
 
 .overview .overview_input .image_text {
@@ -207,7 +216,7 @@ ul#tabs_control li.active {
 	text-transform: capitalize;
 	letter-spacing: 1px;
 	color: #616161;
-	line-height: 1px;
+	/* line-height: 1px; */
 	margin-top: 20px;
 }
 
@@ -581,7 +590,7 @@ ul#tabs_control .userbooking li.withicon a {
 }
 
 .status_booking {
-	text-align: start;
+	/* text-align: start; */
 	font-size: 12px;
 }
 
@@ -1079,7 +1088,7 @@ textarea {
 	.inner {
 		justify-content: center;
 		text-align: center;
-		margin-top: -67px !important;
+		/* margin-top: -67px !important; */
 	}
 
 	#overview_page_container {
@@ -1088,14 +1097,14 @@ textarea {
 	}
 
 	.overview {
-		margin-top: -84px !important;
+		/* margin-top: -84px !important; */
 	}
 
 	.overview .overview_container {
 		width: 97% !important;
 		margin: auto;
 		justify-content: center;
-		text-align: center;
+		/* text-align: center; */
 		margin-top: 20px;
 	}
 
@@ -1162,5 +1171,13 @@ textarea {
 
 	.membership_update .conetnt p {
 		font-size: 10px;
+	}
+}
+@media (max-width: 1084px) {
+	.overview__containerMain {
+		/* flex-direction: column; */
+	}
+	.overview_card {
+		width: 100%;
 	}
 }

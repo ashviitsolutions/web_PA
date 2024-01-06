@@ -65,55 +65,95 @@ function Testimonials() {
               </div>
             </div>
             */}
-            <div className="col-sm-4">
-              <div className="item_wrapper">
-                <div className="item right">
-                  <div className="avatar" style={{ backgroundImage: `url(${img[1]})`, backgroundPosition: "top" }}>
-                  </div>
-                  <div className="content">
-                    <div className="inner">
-                      <h3>{users2.title}</h3>
-                      <p dangerouslySetInnerHTML={{ __html: users2.description }} />
-                      <p align="center"><img src={stars} /></p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-sm-4">
-              <div className="item_wrapper">
-                <div className="item right">
-                  <div className="avatar" style={{ backgroundImage: `url(${img[1]})`, backgroundPosition: "top" }}>
-                  </div>
-                  <div className="content">
-                    <div className="inner">
-                      <h3>{users2.title}</h3>
-                      <p dangerouslySetInnerHTML={{ __html: users2.description }} />
-                      <p align="center"><img src={stars} /></p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-sm-4">
-              <div className="item_wrapper">
-                <div className="item right">
-                  <div className="avatar" style={{ backgroundImage: `url(${img[1]})`, backgroundPosition: "top" }}>
-                  </div>
-                  <div className="content">
-                    <div className="inner">
-                      <h3>{users2.title}</h3>
-                      <p dangerouslySetInnerHTML={{ __html: users2.description }} />
-                      <p align="center"><img src={stars} /></p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
 
+            {/* 
+            <div className="col-sm-4">
+              <div className="item_wrapper">
+                <div className="item right">
+                  <div className="avatar" style={{ backgroundImage: `url(${img[1]})`, backgroundPosition: "top" }}>
+                  </div>
+                  <div className="content">
+                    <div className="inner">
+                      <h3>{users2.title}</h3>
+                      <p dangerouslySetInnerHTML={{ __html: users2.description }} />
+                      <p align="center"><img src={stars} /></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="col-sm-4">
+              <div className="item_wrapper">
+                <div className="item right">
+                  <div className="avatar" style={{ backgroundImage: `url(${img[1]})`, backgroundPosition: "top" }}>
+                  </div>
+                  <div className="content">
+                    <div className="inner">
+                      <h3>{users2.title}</h3>
+                      <p dangerouslySetInnerHTML={{ __html: users2.description }} />
+                      <p align="center"><img src={stars} /></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="col-sm-4">
+              <div className="item_wrapper">
+                <div className="item right">
+                  <div className="avatar" style={{ backgroundImage: `url(${img[1]})`, backgroundPosition: "top" }}>
+                  </div>
+                  <div className="content">
+                    <div className="inner">
+                      <h3>{users2.title}</h3>
+                      <p dangerouslySetInnerHTML={{ __html: users2.description }} />
+                      <p align="center"><img src={stars} /></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            
+        */}
+        <div className="userRatings row">
+          <div className="col-sm-4" align="center">
+            <div className='userImg' style={{ backgroundImage: `url(${img[0]})`, backgroundPosition: "", backgroundSize:"100%", }}>
 
+            </div>
+            <div className="content">
+                      <div className="inner">
+                        <h3>{users1.title}</h3>
+                        <p dangerouslySetInnerHTML={{ __html: users2.description }} />
+                        <p align="center"><img src={stars} /></p>
+                      </div>
+                    </div>
           </div>
+          <div className="col-sm-4" align="center">
+            <div className='userImg' style={{ backgroundImage: `url(${img[1]})`, backgroundPosition: "", backgroundSize:"100%", }}>
 
+            </div>
+            <div className="content">
+                      <div className="inner">
+                        <h3>{users2.title}</h3>
+                        <p dangerouslySetInnerHTML={{ __html: users2.description }} />
+                        <p align="center"><img src={stars} /></p>
+                      </div>
+                    </div>
+          </div>
+          <div className="col-sm-4" align="center">
+            <div className='userImg' style={{ backgroundImage: `url(${img[1]})`, backgroundPosition: "", backgroundSize:"100%", }}>
+
+            </div>
+            <div className="content">
+                      <div className="inner">
+                        <h3>{users2.title}</h3>
+                        <p dangerouslySetInnerHTML={{ __html: users2.description }} />
+                        <p align="center"><img src={stars} /></p>
+                      </div>
+                    </div>
+          </div>
+        </div>
+          </div>
 
 
 

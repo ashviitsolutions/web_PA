@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { IP } from '../../../Constant';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import sampleImg from '../../assets/img/FAQ.jpg'
 
 function Blog() {
 
@@ -85,11 +86,32 @@ function Blog() {
 
         <div className='col-sm-4 blogSidebar'>
           <div className='sideBlogs'>
-              <div className='sideBox'>
-                <div className='sideImg'><img/></div>
-                <div className='sideContent'>
-                  <h3></h3>
-                  <p></p>
+          <div className='sideBox row'>
+                <div className='sideImg col-sm-3'><img src={sampleImg} /></div>
+                <div className='sideContent col-sm-9'>
+                  <h3>Dummy Title Here</h3>
+                  <p>In our busy lives, amidst the hustle and bustle, it's easy to overlook a fundamental aspect of our well-being....</p>
+                </div>
+              </div>
+              <div className='sideBox row'>
+                <div className='sideImg col-sm-3'><img src={sampleImg} /></div>
+                <div className='sideContent col-sm-9'>
+                  <h3>Dummy Title Here</h3>
+                  <p>In our busy lives, amidst the hustle and bustle, it's easy to overlook a fundamental aspect of our well-being....</p>
+                </div>
+              </div>
+              <div className='sideBox row'>
+                <div className='sideImg col-sm-3'><img src={sampleImg} /></div>
+                <div className='sideContent col-sm-9'>
+                  <h3>Dummy Title Here</h3>
+                  <p>In our busy lives, amidst the hustle and bustle, it's easy to overlook a fundamental aspect of our well-being....</p>
+                </div>
+              </div>
+              <div className='sideBox row'>
+                <div className='sideImg col-sm-3'><img src={sampleImg} /></div>
+                <div className='sideContent col-sm-9'>
+                  <h3>Dummy Title Here</h3>
+                  <p>In our busy lives, amidst the hustle and bustle, it's easy to overlook a fundamental aspect of our well-being....</p>
                 </div>
               </div>
           </div>

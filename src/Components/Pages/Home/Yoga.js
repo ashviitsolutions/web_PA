@@ -75,7 +75,7 @@ function Yoga() {
                             <p dangerouslySetInnerHTML={{
                               __html: index === activeCardIndex
                                 ? user.description
-                                : user.description.slice(0, 160) + (user.description.length > 160 ? "...." : "")
+                                : user.description.slice(0, 200) + (user.description.length > 180 ? "...." : "")
                             }} />
 
                             {index === activeCardIndex ? (

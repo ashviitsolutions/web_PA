@@ -75,7 +75,7 @@ function Worklist() {
                   <div className="item" style={{ top: "70px" }}>
                     <div className="inner_wrapper">
                       <div className="content">
-                        <h3> <b>04</b> give us  Ratings</h3>
+                        <h3> <b>04</b> Rate us</h3>
                         <p>Write to us and give us your feedback</p>
                       </div>
                     </div>
