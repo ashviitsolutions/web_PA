@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { IP } from '../../../Constant';
+import { Link } from 'react-router-dom';
 
 // import Image1 from "../../assets/img/pexels-ivan-samkov-5659057.jpg"
 function Provider() {
@@ -50,7 +51,12 @@ function Provider() {
                                 <h3>{users.title}</h3>
                                 <h5>{users.excerpt}</h5>
                                 <p dangerouslySetInnerHTML={{ __html: users.description }} />
-                                <button className="button" type="button">become provider</button>
+
+
+                                <Link to="/become_member">
+                                    <button className="button" type="button">become provider</button>
+                                </Link>
+
                             </div>
                         </div>
                         <div className="col-sm-6">

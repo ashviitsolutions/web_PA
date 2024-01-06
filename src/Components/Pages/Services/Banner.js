@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { IP } from "../../../Constant";
+import { Link } from "react-router-dom";
 
 function Banner() {
 	const postIds = ["640ab764ad080eddce5217dd"];
@@ -36,7 +37,7 @@ function Banner() {
 		<>
 			<div
 				id="small_banner"
-				style={{ backgroundImage: `${IP}/file/${users.attachments})` }}
+				style={{ backgroundImage: `url(${img})` }}
 			>
 				<div className="container-fluid">
 					<div className="row">
@@ -47,9 +48,13 @@ function Banner() {
 									dangerouslySetInnerHTML={{ __html: users.description }}
 									style={{ fontWeight: "500", fontSize: "15px" }}
 								/>
-								<button className="button" type="button">
-									book now
-								</button>
+
+								<Link to="/guest_login">
+									<button className="button" type="button">
+										book now
+									</button>
+								</Link>
+
 								<button className="button negative" type="button">
 									book for event
 								</button>

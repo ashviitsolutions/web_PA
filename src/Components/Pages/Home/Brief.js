@@ -6,6 +6,7 @@ import Image3 from "../../assets/img/meditation_.svg"
 import memberhsip from "../../assets/img/membership_plan_1.png"
 import memberhsips from "../../assets/img/membershipcards.png"
 import Membership from './Membership'
+import { Link } from 'react-router-dom'
 function Brief() {
     return (
         <>
@@ -34,7 +35,11 @@ function Brief() {
                                     <li>Monthly 60-minute massage commitment at members rate</li>
                                     <li>Unlimited massages on all services at members rates.</li>
                                 </ul>
-                                <button className="button primary" type="button">Join Now</button>
+
+                                <Link to="/become_member">
+                                    <button className="button primary" type="button">Join Now</button>
+                                </Link>
+
                             </div>
                         </div>
                     </div>

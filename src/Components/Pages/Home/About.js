@@ -66,9 +66,14 @@ function About() {
                 {/* <span>Lorem ipsum dolor...</span> 8*/}
                 <h3>{users.title}</h3>
                 <p dangerouslySetInnerHTML={{ __html: users.description }} style={{ fontWeight: "500", fontSize: "15px" }} />
-                <button className="button primary" type="button">get started</button>
-                <button className="button ghost" type="button">see services</button>
+                <Link to="/about">
+                  <button className="button primary" type="button">get started</button>
+                </Link>
 
+
+                <Link to="/services">
+                  <button className="button ghost" type="button">see services</button>
+                </Link>
               </div>
             </div>
           </div>
@@ -82,7 +87,7 @@ function About() {
                   <h3>Vetted service providers
                   </h3>
                   <p>
-                  We screen and run background checks on all of our service providers. We regularly verify to make sure our providers are licensed,  insured, and fully equipped to service our clients' needs.
+                    We screen and run background checks on all of our service providers. We regularly verify to make sure our providers are licensed,  insured, and fully equipped to service our clients' needs.
                   </p>
 
                 </div>

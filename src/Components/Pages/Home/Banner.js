@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { IP } from '../../../Constant';
+import { Link } from 'react-router-dom';
 
 
 function Banner() {
@@ -40,12 +41,20 @@ function Banner() {
             <div className="head">
               <h1>{users.title} <span>{users.excerpt}</span></h1>
               <h3 dangerouslySetInnerHTML={{ __html: users.description }} style={{ fontWeight: "500", fontSize: "15px" }} />
-              <button className="primary button small" type="button">
-                get started
-              </button>
-              <button className="hollow button small" type="button">
-                services
-              </button>
+
+              <Link to="/guest_login">
+                <button className="primary button small" type="button">
+                  get started
+                </button>
+              </Link>
+
+              <Link to="/services">
+                <button className="hollow button small" type="button">
+                  services
+                </button>
+              </Link>
+
+
             </div>
           </div>
         </div>

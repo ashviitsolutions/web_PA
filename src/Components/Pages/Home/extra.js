@@ -1,27 +1,58 @@
-<div className="row">
-<div className="col-sm-offset-1 col-sm-10">
-    <div className="container-fluid" id='videofile'>
-        <div className='row'>
-            <div className="col-sm-6" >
-                <div className="content heading">
-                    <h3>Become <span>a member</span>.</h3>
-                    <h5 >Come along for the ride and join our members club</h5>
-                </div>
-                <div className="content">
-                    <p id='videofiletext'>Join Productive Alliance membership today and get exclusive perks, discounts and benefits
-                    </p>
-                    <button className="button primary" type="button">register now</button>
-                </div>
-            </div>
-            <div className="col-sm-5" id='video_section'>
-                <div className="content">
-                    <div className="video_wrapper">
-                        <img src={memberhsips} alt='' width={400} />
-                    </div>
-                </div>
-            </div>
-        </div>
+import React, { useState, useEffect } from 'react';
+import { IP } from '../../../Constant';
 
-    </div>
-</div>
-</div>
+
+function Banner() {
+  const postIds = ['63f0cad81e627c34fc1b58e9'];
+  const [users, setUsers] = useState([]);
+  const [img, setImg] = useState('');
+
+  useEffect(() => {
+    async function fetchData() {
+      const responses = await Promise.all(
+        postIds.map(async id => {
+          const res = await fetch(`${IP}/post/fetch/${id}`);
+          return res.json();
+
+        })
+      );
+      setUsers(responses[0]);
+      setImg(
+        await Promise.all(
+          responses.flatMap(response => response.attachments).map(async image => {
+            const res = await fetch(`${IP}/file/${image}`);
+            const imageBlob = await res.blob();
+            return URL.createObjectURL(imageBlob);
+          })
+        )
+      );
+    }
+    fetchData();
+  }, [])
+
+  console.log("image", img)
+
+  return (
+    <>
+      <div id="banner" style={{ backgroundImage: `url(${img})` }}>
+        <div className="container">
+          <div className="row">
+            <div className="head">
+              <h1>{users.title} <span>{users.excerpt}</span></h1>
+              <h3 dangerouslySetInnerHTML={{ __html: users.description }} style={{ fontWeight: "500", fontSize: "15px" }} />
+              <button className="primary button small" type="button">
+                get started
+              </button>
+              <button className="hollow button small" type="button">
+                services
+              </button>
+            </div>
+          </div>
+        </div>
+        <div className="arrow_down"></div>
+      </div>
+    </>
+  );
+}
+
+export default Banner;
