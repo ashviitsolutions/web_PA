@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import "./style.css"
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import imagepath from "../../assets/img/43547063_s.jpg"
 
 
 const PreviewImage = ({ imagePreviewUrl }) => {
@@ -425,7 +426,7 @@ function FormPage(props) {
 
                     <div className="contact-item">
                         <div className="gutter" >
-                            <div className="member_form_wrap_bg" style={{ backgroundImage: `url(${img})` }}>
+                            <div className="member_form_wrap_bg" style={{ backgroundImage: `url(${imagepath})` }}>
                             </div>
                         </div>
                     </div>

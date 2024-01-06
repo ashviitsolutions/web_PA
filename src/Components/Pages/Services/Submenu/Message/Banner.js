@@ -32,6 +32,8 @@ function Banner() {
         fetchData();
     }, []);
 
+    console.log("img",users)
+
   return (
     <>
     <div id="small_banner" style={{ backgroundImage: `url(${img})` }}>

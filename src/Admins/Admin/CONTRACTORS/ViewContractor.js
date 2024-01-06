@@ -108,6 +108,7 @@ function ViewContractor() {
 
         if (response.ok) {
           const result = await response.json();
+          console.log("result" ,result)
           setUser(result);
 
         } else {
