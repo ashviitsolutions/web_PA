@@ -107,6 +107,13 @@ function Mobile() {
                                     <span className="title">posts</span>
                                 </Link>
                             </div>
+
+                            <div className="items">
+                            <Link to="/admin/blogs">
+                              <MedicalServicesIcon style={{ color: "#fff" }} />
+                              <span className="title">Blogs</span>
+                            </Link>
+                          </div>
                             <div className="items">
                                 <Link to="/admin/contractors">
                                     <HailIcon style={{ color: "#fff" }} />
