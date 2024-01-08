@@ -104,7 +104,10 @@ function Blog() {
 
 
 
-
+  const monthNames = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ];
 
 
 
@@ -196,8 +199,7 @@ function Blog() {
                       <ul className='timeline_month'>
                         {timelineItem.months.map((month, monthIndex) => (
                           <li key={monthIndex} onClick={() => handleMonthClick(timelineItem.year, month)}>
-                           {/* {month < 10 ? `0${month}` : `${month}`}  */}
-                           January
+                            {monthNames[month - 1]} {/* month is 1-indexed, so subtract 1 */}
                           </li>
                         ))}
                       </ul>
