@@ -71,7 +71,7 @@ function Ourpage() {
 										<li>sed do eiusmod tempor incididunt ut labore</li>
 										<li>
 											ea commodo consequat. Duis aute irure dolor in
-											reprehenderit{" "}
+											reprehenderit
 										</li>
 									</div>
 								</ul>

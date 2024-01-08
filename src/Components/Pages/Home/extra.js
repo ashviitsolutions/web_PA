@@ -1,58 +1,85 @@
-import React, { useState, useEffect } from 'react';
-import { IP } from '../../../Constant';
+// import React, { useState, useEffect } from 'react';
+// import { IP } from '../../../Constant';
 
 
-function Banner() {
-  const postIds = ['63f0cad81e627c34fc1b58e9'];
-  const [users, setUsers] = useState([]);
-  const [img, setImg] = useState('');
+// function Banner() {
+// 	const postIds = ["63f0cad81e627c34fc1b58e9"];
+// 	const [users, setUsers] = useState([]);
+// 	const [img, setImg] = useState("");
 
-  useEffect(() => {
-    async function fetchData() {
-      const responses = await Promise.all(
-        postIds.map(async id => {
-          const res = await fetch(`${IP}/post/fetch/${id}`);
-          return res.json();
+// 	useEffect(() => {
+// 		async function fetchData() {
+// 			const responses = await Promise.all(
+// 				postIds.map(async (id) => {
+// 					const res = await fetch(`${IP}/post/fetch/${id}`);
+// 					return res.json();
+// 				})
+// 			);
+// 			setUsers(responses[0]);
+// 			setImg(
+// 				await Promise.all(
+// 					responses
+// 						.flatMap((response) => response.attachments)
+// 						.map(async (image) => {
+// 							const res = await fetch(`${IP}/file/${image}`);
+// 							const imageBlob = await res.blob();
+// 							return URL.createObjectURL(imageBlob);
+// 						})
+// 				)
+// 			);
+// 		}
+// 		fetchData();
+// 	}, []);
 
-        })
-      );
-      setUsers(responses[0]);
-      setImg(
-        await Promise.all(
-          responses.flatMap(response => response.attachments).map(async image => {
-            const res = await fetch(`${IP}/file/${image}`);
-            const imageBlob = await res.blob();
-            return URL.createObjectURL(imageBlob);
-          })
-        )
-      );
+// 	console.log("image", img)
+
+// 	return (
+// 		<>
+// 			<div id="banner" style={{ backgroundImage: `url(${img})` }}>
+// 				<div className="container">
+// 					<div className="row">
+// 						<div className="head">
+// 							<h1>{users.title} <span>{users.excerpt}</span></h1>
+// 							<h3 dangerouslySetInnerHTML={{ __html: users.description }} style={{ fontWeight: "500", fontSize: "15px" }} />
+// 							<button className="primary button small" type="button">
+// 								get started
+// 							</button>
+// 							<button className="hollow button small" type="button">
+// 								services
+// 							</button>
+// 						</div>
+// 					</div>
+// 				</div>
+// 				<div className="arrow_down"></div>
+// 			</div>
+// 		</>
+// 	);
+// }
+
+// export default Banner;
+
+
+import { fetchUserData } from '../path-to-your-Hook';
+
+
+const [users, setUsers] = useState([]);
+const [postIds, setPostIds] = useState(["63f0cad81e627c34fc1b58e9"]);
+
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const postId = postIds[0];
+      const userData = await fetchUserData(postId);
+
+      // Update the users state with the new data
+      setUsers(userData);
+    } catch (error) {
+      console.error('Error in fetchData:', error.message);
     }
-    fetchData();
-  }, [])
+  };
 
-  console.log("image", img)
+  fetchData();
+}, [postIds]);
 
-  return (
-    <>
-      <div id="banner" style={{ backgroundImage: `url(${img})` }}>
-        <div className="container">
-          <div className="row">
-            <div className="head">
-              <h1>{users.title} <span>{users.excerpt}</span></h1>
-              <h3 dangerouslySetInnerHTML={{ __html: users.description }} style={{ fontWeight: "500", fontSize: "15px" }} />
-              <button className="primary button small" type="button">
-                get started
-              </button>
-              <button className="hollow button small" type="button">
-                services
-              </button>
-            </div>
-          </div>
-        </div>
-        <div className="arrow_down"></div>
-      </div>
-    </>
-  );
-}
+console.log("home banner", users);
 
-export default Banner;

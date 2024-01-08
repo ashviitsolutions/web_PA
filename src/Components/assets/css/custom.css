@@ -2453,7 +2453,7 @@ ul.true li::after {
   position: relative;
   display: block;
   width: 100%;
-  /* height: 560px; */
+  height: 560px;
   /* background-image: url('../img/43547063_s.jpg') */
   background-position: center;
   background-repeat: no-repeat;

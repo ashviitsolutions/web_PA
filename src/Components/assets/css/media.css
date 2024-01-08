@@ -285,7 +285,7 @@
 
     #about .left_half .img-responsive {
         /* width: 300px; */
-        max-width: 90%;
+        max-width: 100%;
         margin: auto;
     }
 

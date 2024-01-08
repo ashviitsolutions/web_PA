@@ -103,6 +103,7 @@ function Membership() {
                             <div className='image_membership'>
                                 <img src={option.GOLD} alt='...' />
                             </div>
+                            
                             <div className='membership_buttons'>
                                 <button onClick={() => handleToggleModal(index)}>Join now</button>
                             </div>
