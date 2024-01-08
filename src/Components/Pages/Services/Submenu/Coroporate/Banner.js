@@ -42,8 +42,8 @@ function Banner() {
                 <div className="head">
                 <h1>{users.title} </h1>
                 <h3 dangerouslySetInnerHTML={{ __html: users.description }} style={{fontWeight:"500", fontSize:"15px"}}/>
-                    <button className="button" >get started</button>
-                    <button className="button hollow" >services</button>
+                    {/* <button className="button" >get started</button>
+                    <button className="button hollow" >services</button> */}
                 </div>
             </div>
         </div>

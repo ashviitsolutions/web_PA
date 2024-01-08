@@ -45,7 +45,7 @@ function Provider() {
                 </div>
             </div>
         </div>
-     */}
+     
      <div className="row mt-5">
             <div className="col-sm-4">
               <div className="item">
@@ -88,6 +88,8 @@ function Provider() {
               </div>
             </div>
           </div>
+          */}
+          
     </div>
 </div>
 

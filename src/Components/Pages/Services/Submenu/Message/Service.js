@@ -38,7 +38,7 @@ function Service() {
 	return (
 		<>
 			<div id="types">
-				<div className="container">
+				<div className="container mt-5">
 					<div className="row">
 						<div className="gutter">
 							<div className="heading">
@@ -92,7 +92,7 @@ function Service() {
 																	Read more
 																</button>
 															)}
-															<Link to="#" className="anchor" id="anchors">
+															<Link to="/guest_login" className="anchor" id="anchors">
 																book now
 															</Link>
 														</div>

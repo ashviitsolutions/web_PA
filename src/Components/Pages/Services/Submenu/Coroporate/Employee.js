@@ -44,7 +44,7 @@ function Employee() {
                             <h3>{users.title}</h3>
                             <p dangerouslySetInnerHTML={{ __html: users.description }} />
 
-                                <button className="button" type="button" name="button">book now</button>
+                                {/* <button className="button" type="button" name="button">book now</button> */}
                             </div>
                         </div>
                     </div>
