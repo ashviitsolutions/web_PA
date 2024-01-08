@@ -21,6 +21,8 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+	position: sticky;
+	height: 95vh;
 }
 
 .sidebar_tab ul#tabs_control {
@@ -190,6 +192,7 @@ ul#tabs_control li.active {
 
 .overview .overview_input .image_text {
 	display: flex;
+	flex: 0.7;
 }
 
 .overview .overview_input .image_text img {
@@ -219,7 +222,12 @@ ul#tabs_control li.active {
 	/* line-height: 1px; */
 	margin-top: 20px;
 }
-
+.overview .overview_input .time_date {
+	display: flex;
+	flex-direction: column;
+	flex: 0.3;
+	justify-content: space-between;
+}
 .overview .overview_input .time_date h3 {
 	text-transform: capitalize;
 	font-size: 14px;
@@ -472,12 +480,15 @@ ul#tabs_control li.active {
 
 /* //Footer */
 .user_profile_footer {
-	width: 100%;
+	width: 95%;
 	margin: auto;
 	background: #0f1d28;
 	min-height: 50px;
 	/* margin-top: 31rem; */
 	color: #ffff;
+	position: fixed;
+	bottom: 0;
+	z-index: 100;
 }
 
 .footer_container {
@@ -515,6 +526,7 @@ ul#tabs_control li.active {
 	justify-content: center;
 	align-items: center;
 	float: right;
+	margin-bottom: 30%;
 }
 
 .overview_user_page_pagination button {
@@ -1116,8 +1128,8 @@ textarea {
 	}
 
 	#navigationuser .toggle_buttons {
-		position: absolute;
-		top: -45px;
+		position: fixed;
+		top: 15px;
 		right: 15px;
 		width: 45px;
 		height: 32px;
@@ -1154,6 +1166,9 @@ textarea {
 	} */
 	.profile__divs {
 		flex-direction: column;
+	}
+	.user_profile_footer {
+		width: 100%;
 	}
 }
 

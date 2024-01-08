@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { IP } from '../../../Constant';
-import { Link } from 'react-router-dom';
 
 // import Image1 from "../../assets/img/pexels-ivan-samkov-5659057.jpg"
 function Provider() {
-    const postIds = ['63f8ad3d5a71849662bd26b8'];
+	const postIds = ["63f8ad3d5a71849662bd26b8"];
 
-    const [users, setUsers] = useState([]);
-    const [images, setImages] = useState([]);
-    const [img, setImg] = useState('');
+	const [users, setUsers] = useState([]);
+	const [images, setImages] = useState([]);
+	const [img, setImg] = useState("");
 
     useEffect(() => {
         async function fetchData() {
@@ -51,12 +50,7 @@ function Provider() {
                                 <h3>{users.title}</h3>
                                 <h5>{users.excerpt}</h5>
                                 <p dangerouslySetInnerHTML={{ __html: users.description }} />
-
-
-                                <Link to="/become_member">
-                                    <button className="button" type="button">become provider</button>
-                                </Link>
-
+                                <button className="button" type="button">become provider</button>
                             </div>
                         </div>
                         <div className="col-sm-6">
@@ -72,4 +66,4 @@ function Provider() {
     )
 }
 
-export default Provider
+export default Provider;

@@ -6,21 +6,19 @@ import Image3 from "../../assets/img/meditation_.svg"
 import memberhsip from "../../assets/img/membership_plan_1.png"
 import memberhsips from "../../assets/img/membershipcards.png"
 import Membership from './Membership'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 function Brief() {
-    return (
-        <>
-            <div id="brief">
-                <div className="container">
-
-
-                    <div className='Home_page_memberhsip_container memberhsip_section' >
-
-                        <div className="Home_page_memberhsip">
-                            <div className="content">
-                                <img src={memberhsip} alt='' width={450} height={300} />
-                            </div>
-                        </div>
+	const navigate = useNavigate();
+	return (
+		<>
+			<div id="brief">
+				<div className="container">
+					<div className="Home_page_memberhsip_container memberhsip_section">
+						<div className="Home_page_memberhsip">
+							<div className="content">
+								<img src={memberhsip} alt="" width={450} height={300} />
+							</div>
+						</div>
 
                         <div className="Home_page_memberhsip" >
                             <div className="content heading" >
@@ -35,11 +33,7 @@ function Brief() {
                                     <li>Monthly 60-minute massage commitment at members rate</li>
                                     <li>Unlimited massages on all services at members rates.</li>
                                 </ul>
-
-                                <Link to="/become_member">
-                                    <button className="button primary" type="button">Join Now</button>
-                                </Link>
-
+                                <button className="button primary" type="button">Join Now</button>
                             </div>
                         </div>
                     </div>
@@ -67,7 +61,7 @@ function Brief() {
 
 
 
-                    {/*  <div className="row">
+					{/*  <div className="row">
                         <div className="content">
                             <div className="light">
                             </div>
@@ -125,11 +119,10 @@ function Brief() {
                             </div>
                         </div>
     </div>  */}
-                </div>
-            </div>
-
-        </>
-    )
+				</div>
+			</div>
+		</>
+	);
 }
 
-export default Brief
+export default Brief;

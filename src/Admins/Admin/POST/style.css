@@ -3,26 +3,25 @@
 @import "../../CSS/media.css"; 
 @import "../../CSS/table.css";  */
 
-
-#prevalue{
-    z-index: 1000;
-    margin-top: -30px;
+#prevalue {
+	z-index: 1000;
+	margin-top: -30px;
 }
 
-.pagination{
-    text-align:end;
-    justify-content:flex-end;
+.pagination {
+	text-align: end;
+	justify-content: flex-end;
+	margin-bottom: 20%;
 }
 
-.paginate{
-    text-align:end;
-    justify-content:flex-end;
+.paginate {
+	text-align: end;
+	justify-content: flex-end;
 }
-
 
 .button.small {
-    font-size: 10px;
-    padding: 1.6em 2.5em;
+	font-size: 10px;
+	padding: 1.6em 2.5em;
 }
 /* 
 .PreviewImage {
@@ -30,95 +29,73 @@
     height: 100%;
     object-fit: cover;
   } */
-  #headingtitle{
-    font-weight: 700;
-
-  }
-  .description{
-    font-size: 14px;
-    padding-top: 10px;
-
-  }
-  .Edit{
-    align-items: center;
-    appearance: none;
-    background-color: #fff;
-    border: 1px solid #dbdbdb;
-    border-radius: .375em;
-    box-shadow: none;
-    box-sizing: border-box;
-    color: #363636;
-    cursor: pointer;
-    display: inline-flex;
-    font-family: BlinkMacSystemFont,-apple-system,"Segoe UI",Roboto,Oxygen,Ubuntu,Cantarell,"Fira Sans","Droid Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-size: 1rem;
-    height: 2.5em;
-    justify-content: center;
-    line-height: 1.5;
-    padding: calc(.5em - 1px) 1em;
-    position: relative;
-    text-align: center;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    vertical-align: top;
-    white-space: nowrap;
-    
-    
-    
-
-  }
-
-  .Edit:active {
-    border-color: #4a4a4a;
-    outline: 0;
-  }
-  
-  .Edit:focus {
-    border-color: #485fc7;
-    outline: 0;
-  }
-  
-  .Edit:hover {
-    border-color: #b5b5b5;
-  }
-  
-  .Edit:focus:not(:active) {
-    box-shadow: rgba(72, 95, 199, .25) 0 0 0 .125em;
-  }
-
-  .previewimage{
-    position: relative;
-    top: -17px !important;
-    display: flex;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-
-  }
-@media only screen and (min-width:320px) and (max-width:770px){
-.mobileview{
-    display: block;
+#headingtitle {
+	font-weight: 700;
 }
-.button.small {
-    font-size: 10px;
-    padding: 1em 2.0em;
+.description {
+	font-size: 14px;
+	padding-top: 10px;
+}
+.Edit {
+	align-items: center;
+	appearance: none;
+	background-color: #fff;
+	border: 1px solid #dbdbdb;
+	border-radius: 0.375em;
+	box-shadow: none;
+	box-sizing: border-box;
+	color: #363636;
+	cursor: pointer;
+	display: inline-flex;
+	font-family: BlinkMacSystemFont, -apple-system, "Segoe UI", Roboto, Oxygen,
+		Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Helvetica,
+		Arial, sans-serif;
+	font-size: 1rem;
+	height: 2.5em;
+	justify-content: center;
+	line-height: 1.5;
+	padding: calc(0.5em - 1px) 1em;
+	position: relative;
+	text-align: center;
+	user-select: none;
+	-webkit-user-select: none;
+	touch-action: manipulation;
+	vertical-align: top;
+	white-space: nowrap;
 }
 
+.Edit:active {
+	border-color: #4a4a4a;
+	outline: 0;
 }
 
+.Edit:focus {
+	border-color: #485fc7;
+	outline: 0;
+}
 
+.Edit:hover {
+	border-color: #b5b5b5;
+}
 
+.Edit:focus:not(:active) {
+	box-shadow: rgba(72, 95, 199, 0.25) 0 0 0 0.125em;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
+.previewimage {
+	position: relative;
+	top: -17px !important;
+	display: flex;
+	width: 100%;
+	height: 100%;
+	background-size: cover;
+}
+@media only screen and (min-width: 320px) and (max-width: 770px) {
+	.mobileview {
+		display: block;
+	}
+	.button.small {
+		font-size: 10px;
+		padding: 1em 2em;
+	}
+}

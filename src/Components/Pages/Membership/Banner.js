@@ -44,14 +44,14 @@ function Banner() {
 								</h1>
 								<h3 dangerouslySetInnerHTML={{ __html: users.description }} />
 								<Link
-									to="/guest_login"
-									// to="/book"
+									// to="/guest_login"
+									to="/book"
 								>
 									<button
 										className="button"
-										// type="button"
-										// name="button"
-										onClick={() => alert("yes")}
+										type="button"
+										name="button"
+										// onClick={() => alert("yes")}
 									>
 										Get Started
 									</button>

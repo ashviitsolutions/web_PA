@@ -1,54 +1,50 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'
-import { IP } from '../../../Constant';
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { IP } from "../../../Constant";
 
 // import Image1 from "../../assets/img/treatment-finger-keep-hand-161477.jpeg"
-import Image2 from "../../assets/img/meditate.svg"
-import Image3 from "../../assets/img/meditation.svg"
-import Image4 from "../../assets/img/sahasrara.svg"
-
-
+import Image2 from "../../assets/img/meditate.svg";
+import Image3 from "../../assets/img/meditation.svg";
+import Image4 from "../../assets/img/sahasrara.svg";
 
 function About() {
+	const postIds = ["63fa025b06e32e1493232788"];
 
+	const [users, setUsers] = useState([]);
+	const [images, setImages] = useState([]);
+	const [img, setImg] = useState("");
 
-  const postIds = ['63fa025b06e32e1493232788'];
+	useEffect(() => {
+		async function fetchData() {
+			const responses = await Promise.all(
+				postIds.map(async (id) => {
+					const res = await fetch(`${IP}/post/fetch/${id}`);
+					return res.json();
+				})
+			);
+			setUsers(responses[0]);
+			setImages(responses.flatMap((response) => response.attachments));
+		}
+		fetchData();
+	}, []);
 
-  const [users, setUsers] = useState([]);
-  const [images, setImages] = useState([]);
-  const [img, setImg] = useState('');
+	useEffect(() => {
+		async function fetchImages() {
+			const imageObjects = await Promise.all(
+				images.map(async (image) => {
+					const res = await fetch(`${IP}/file/${image}`);
+					const imageBlob = await res.blob();
+					return URL.createObjectURL(imageBlob);
+				})
+			);
+			setImg(imageObjects); // Set the first image URL as the state value
+		}
+		if (images.length > 0) {
+			fetchImages();
+		}
+	}, [images]);
 
-  useEffect(() => {
-    async function fetchData() {
-      const responses = await Promise.all(
-        postIds.map(async id => {
-          const res = await fetch(`${IP}/post/fetch/${id}`);
-          return res.json();
-        })
-      );
-      setUsers(responses[0]);
-      setImages(responses.flatMap(response => response.attachments));
-    }
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    async function fetchImages() {
-      const imageObjects = await Promise.all(
-        images.map(async image => {
-          const res = await fetch(`${IP}/file/${image}`);
-          const imageBlob = await res.blob();
-          return URL.createObjectURL(imageBlob);
-        })
-      );
-      setImg(imageObjects); // Set the first image URL as the state value
-    }
-    if (images.length > 0) {
-      fetchImages();
-    }
-  }, [images]);
-
-
+	const navigate = useNavigate();
 
   return (
     <>
@@ -66,14 +62,9 @@ function About() {
                 {/* <span>Lorem ipsum dolor...</span> 8*/}
                 <h3>{users.title}</h3>
                 <p dangerouslySetInnerHTML={{ __html: users.description }} style={{ fontWeight: "500", fontSize: "15px" }} />
-                <Link to="/about">
-                  <button className="button primary" type="button">get started</button>
-                </Link>
+                <button className="button primary" type="button">get started</button>
+                <button className="button ghost" type="button">see services</button>
 
-
-                <Link to="/services">
-                  <button className="button ghost" type="button">see services</button>
-                </Link>
               </div>
             </div>
           </div>
@@ -87,7 +78,7 @@ function About() {
                   <h3>Vetted service providers
                   </h3>
                   <p>
-                    We screen and run background checks on all of our service providers. We regularly verify to make sure our providers are licensed,  insured, and fully equipped to service our clients' needs.
+                  We screen and run background checks on all of our service providers. We regularly verify to make sure our providers are licensed,  insured, and fully equipped to service our clients' needs.
                   </p>
 
                 </div>
@@ -126,4 +117,4 @@ function About() {
   )
 }
 
-export default About
+export default About;

@@ -1,20 +1,19 @@
 .slider {
-  position: relative;
-  width: 100%;
-  margin-top: 5px !important;
+	position: relative;
+	width: 100%;
+	margin-top: 5px !important;
 
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  color: #fff;
-  font-size: 100px;
-  margin-top: 40px;
-  height: 89vh;
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	color: #fff;
+	font-size: 100px;
+	margin-top: 40px;
+	height: 89vh;
 }
 
-
 .Read_More {
-  font-size: 12px;
+	font-size: 12px;
 }
 
 /* .image {
@@ -23,133 +22,129 @@
       width: 100%;
     } */
 
-
 .right-arrow {
-  position: absolute;
-  top: 18rem !important;
-  right: 191px;
-  font-size: 1.7rem;
-  color: #000;
-  z-index: 10;
-  cursor: pointer;
-  -webkit-user-select: none;
-  user-select: none;
-  transform: translateY(-30px);
-  border-radius: 50%;
-  cursor: pointer;
-  box-shadow: 0px 4px 6px rgb(0 0 0 / 13%);
-  border: 1px solid #ebebeb;
+	position: absolute;
+	top: 18rem !important;
+	right: 191px;
+	font-size: 1.7rem;
+	color: #000;
+	z-index: 10;
+	cursor: pointer;
+	-webkit-user-select: none;
+	user-select: none;
+	transform: translateY(-30px);
+	border-radius: 50%;
+	cursor: pointer;
+	box-shadow: 0px 4px 6px rgb(0 0 0 / 13%);
+	border: 1px solid #ebebeb;
 }
 
 .left-arrow {
-  position: absolute;
-  top: 18rem !important;
-  left: 186px;
-  font-size: 1.7rem;
-  color: #000;
-  z-index: 10;
-  cursor: pointer;
-  -webkit-user-select: none;
-  user-select: none;
-  transform: translateY(-30px);
-  border-radius: 50%;
-  cursor: pointer;
-  box-shadow: 0px 4px 6px rgb(0 0 0 / 13%);
-  border: 1px solid #ebebeb;
+	position: absolute;
+	top: 18rem !important;
+	left: 186px;
+	font-size: 1.7rem;
+	color: #000;
+	z-index: 10;
+	cursor: pointer;
+	-webkit-user-select: none;
+	user-select: none;
+	transform: translateY(-30px);
+	border-radius: 50%;
+	cursor: pointer;
+	box-shadow: 0px 4px 6px rgb(0 0 0 / 13%);
+	border: 1px solid #ebebeb;
 }
 
 .slide {
-  opacity: 0;
-  transition-duration: 1s ease;
+	opacity: 0;
+	transition-duration: 1s ease;
 }
 
 .slide.active {
-  opacity: 1;
-  transition-duration: 1s;
-  transform: scale(1.08);
+	opacity: 1;
+	transition-duration: 1s;
+	transform: scale(1.08);
 }
 
-
 #slidercoursal {
-  display: flex;
-  flex-wrap: nowrap !important;
-  overflow-x: auto !important;
+	display: flex;
+	flex-wrap: nowrap !important;
+	overflow-x: auto !important;
 }
 
 .item_wrapper {
-  flex: 0 0 auto !important;
-  margin-right: 15px;
+	flex: 0 0 auto !important;
+	margin-right: 15px;
 }
 
 .item_wrapper:last-child {
-  margin-right: 0 !important;
+	margin-right: 0 !important;
 }
 
 .item {
-  position: relative;
-  width: 100%;
-  border-radius: 7px;
-  padding: 0 10px;
+	position: relative;
+	width: 100%;
+	border-radius: 7px;
+	padding: 0 10px;
 }
 
 .items {
-  position: relative;
-  width: 100%;
-  border-radius: 7px;
-  padding: 0 10px;
+	position: relative;
+	width: 100%;
+	border-radius: 7px;
+	padding: 0 10px;
 }
 
 .showcard {
-  display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;
+	display: flex;
+	flex-wrap: nowrap;
+	overflow-x: auto;
 }
 
 .class_brief.card {
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 3px 6px 7px -7px rgb(0 0 0 / 20%);
-  border: 1px solid #f8f8f8;
-  padding-bottom: 15px;
+	border-radius: 8px;
+	overflow: hidden;
+	box-shadow: 3px 6px 7px -7px rgb(0 0 0 / 20%);
+	border: 1px solid #f8f8f8;
+	padding-bottom: 15px;
 }
-
 
 /* faq css */
 .FAQ_container {
-  display: flex !important;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
+	display: flex !important;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-between;
 }
 
 .faqbutton {
-  text-align: center;
-  /* display: flex;
+	text-align: center;
+	/* display: flex;
   margin-left: 30px; */
-  /* justify-content: center; */
-  /* Horizontally center-aligns the content */
-  /* align-items: center; */
-  /* Vertically center-aligns the content */
+	/* justify-content: center; */
+	/* Horizontally center-aligns the content */
+	/* align-items: center; */
+	/* Vertically center-aligns the content */
 }
 
 .faqbutton button {
-  /* Add any additional button styles here */
+	/* Add any additional button styles here */
 }
 
 .faq_page_wrapper {
-  width: 70%;
-  padding: 2% 0;
+	width: 70%;
+	padding: 2% 0;
 }
 
 #faq_image {
-  width: 30%;
+	width: 30%;
 }
 
 #faq_image img {
-  width: 90%;
-  /* height: 60%; */
+	width: 90%;
+	/* height: 60%; */
 }
-
 
 /* .Home_page_memberhsip_container {
   width: 100%;
@@ -180,70 +175,63 @@
 
 } */
 
-
-
-
 .memberhsip_section * {
-  text-align: left !important;
+	text-align: left !important;
 }
 
 .memberhsip_section .content.heading h3 {
-  color: #333;
-  font-size: 50px !important;
-  padding-left: 0 !important;
-
+	color: #333;
+	font-size: 50px !important;
+	padding-left: 0 !important;
 }
 
 /* Style for the container holding the membership section */
 .Home_page_memberhsip_container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: center;
-  /* padding: 20px; */
-  max-width: 100%;
-
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-items: center;
+	/* padding: 20px; */
+	max-width: 100%;
 }
 
 /* Style for each membership card */
 .Home_page_memberhsip {
-  flex: 1;
-  margin: 10px;
-  background: #f5f5f5;
-  /* padding: 20px; */
-  text-align: center;
+	flex: 1;
+	margin: 10px;
+	background: #f5f5f5;
+	/* padding: 20px; */
+	text-align: center;
 }
-
 
 /* Style for the heading and text inside the membership card */
 
 .memberhsip_section .content.heading h3 {
-  color: #333;
-  font-size: 50px !important;
-  padding-left: 0 !important;
-
+	color: #333;
+	font-size: 50px !important;
+	padding-left: 0 !important;
 }
 
 .content.heading h3 span {
-  color: #007bff;
-  /* or any other color you prefer for the highlighted text */
+	color: #007bff;
+	/* or any other color you prefer for the highlighted text */
 }
 
 .content.heading h5 {
-  color: #666;
-  font-size: 25px !important;
+	color: #666;
+	font-size: 25px !important;
 }
 
 /* Style for the image inside the membership card */
 .content img {
-  max-width: 100%;
-  height: auto;
+	max-width: 100%;
+	height: auto;
 }
 
 /* Style for the paragraph and button inside the membership card */
 .content p {
-  color: #555;
-  font-size: 15px !important;
+	color: #555;
+	font-size: 15px !important;
 }
 
 /* .button.primary {
@@ -256,83 +244,63 @@
     margin-top: 10px;
   } */
 
-
 /* Responsive adjustments */
 @media screen and (max-width: 768px) {
-  .Home_page_memberhsip_container {
-    flex-direction: column;
-  }
+	.Home_page_memberhsip_container {
+		flex-direction: column;
+	}
 
-  .memberhsip_section * {
-    text-align: center !important;
-  }
+	.memberhsip_section * {
+		text-align: center !important;
+	}
 
-  /* .Home_page_memberhsip {
+	/* .Home_page_memberhsip {
     padding-left: 75px;
     text-align: center !important;
   } */
 }
 
+@media (max-width: 992px) {
+	#banner {
+		height: 450px;
+	}
 
+	.FAQ_container {
+		display: flex !important;
+		flex-direction: column !important;
+		flex-wrap: wrap;
+		justify-content: space-between;
+	}
 
+	.faq_page_wrapper {
+		width: 100%;
+	}
 
+	#faq_image {
+		width: 100%;
+	}
 
-
-
-
-
-
-@media (max-width:992px) {
-  #banner {
-    height: 450px;
-  }
-
-  .FAQ_container {
-    display: flex !important;
-    flex-direction: column !important;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-
-  .faq_page_wrapper {
-    width: 100%;
-  }
-
-  #faq_image {
-    width: 100%;
-  }
-
-  #faq_image {
-    order: -1 !important;
-  }
+	#faq_image {
+		order: -1 !important;
+	}
 }
-
-
-
-
-
-
-
-
 
 /* Add your global styles here */
 
 .memberships {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	margin-bottom: 20%;
 }
 
-
-.textmonia_section_middle{
-
-
-  text-align: center;
-  justify-content: center;
-  align-items: center;
+.textmonia_section_middle {
+	text-align: center;
+	justify-content: center;
+	align-items: center;
 }
 
-.textmonian{
-  width: 50%;
-  margin: auto;
+.textmonian {
+	width: 50%;
+	margin: auto;
 }

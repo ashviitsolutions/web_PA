@@ -5,6 +5,7 @@ import Hook from "../Hook/Hook";
 import { FaMedal } from "react-icons/fa";
 import Membership from "./Membership";
 import moment from "moment";
+import Avatar from "./Avatar";
 
 function Overview() {
 	const username = localStorage.getItem("user_name");
@@ -91,9 +92,10 @@ function Overview() {
 	return (
 		<>
 			<div className="inner">
-				<div className="gutter">
+				<Avatar name={username} />
+				{/* <div className="gutter">
 					<h3 className="profile_heading">{name || username}</h3>
-				</div>
+				</div> */}
 				<div className="gutter">
 					<h3 className="small_heading">UPCOMING BOOKINGS</h3>
 				</div>
