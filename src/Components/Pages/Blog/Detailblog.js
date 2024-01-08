@@ -86,34 +86,54 @@ function Blog() {
 
         <div className='col-sm-4 blogSidebar'>
           <div className='sideBlogs'>
-          <div className='sideBox row'>
-                <div className='sideImg col-sm-3'><img src={sampleImg} /></div>
-                <div className='sideContent col-sm-9'>
-                  <h3>Dummy Title Here</h3>
-                  <p>In our busy lives, amidst the hustle and bustle, it's easy to overlook a fundamental aspect of our well-being....</p>
+            <h3 className='smallHeading'>Recent Posts</h3>
+            <div className='sideBox row'>
+                  <div className='sideImg col-sm-3'><img src={sampleImg} /></div>
+                  <div className='sideContent col-sm-9'>
+                    <h3>Dummy Title Here</h3>
+                    <p>In our busy lives, amidst the hustle and bustle, it's easy to overlook a fundamental aspect of our well-being....</p>
+                  </div>
                 </div>
-              </div>
-              <div className='sideBox row'>
-                <div className='sideImg col-sm-3'><img src={sampleImg} /></div>
-                <div className='sideContent col-sm-9'>
-                  <h3>Dummy Title Here</h3>
-                  <p>In our busy lives, amidst the hustle and bustle, it's easy to overlook a fundamental aspect of our well-being....</p>
+                <div className='sideBox row'>
+                  <div className='sideImg col-sm-3'><img src={sampleImg} /></div>
+                  <div className='sideContent col-sm-9'>
+                    <h3>Dummy Title Here</h3>
+                    <p>In our busy lives, amidst the hustle and bustle, it's easy to overlook a fundamental aspect of our well-being....</p>
+                  </div>
                 </div>
-              </div>
-              <div className='sideBox row'>
-                <div className='sideImg col-sm-3'><img src={sampleImg} /></div>
-                <div className='sideContent col-sm-9'>
-                  <h3>Dummy Title Here</h3>
-                  <p>In our busy lives, amidst the hustle and bustle, it's easy to overlook a fundamental aspect of our well-being....</p>
+                <div className='sideBox row'>
+                  <div className='sideImg col-sm-3'><img src={sampleImg} /></div>
+                  <div className='sideContent col-sm-9'>
+                    <h3>Dummy Title Here</h3>
+                    <p>In our busy lives, amidst the hustle and bustle, it's easy to overlook a fundamental aspect of our well-being....</p>
+                  </div>
                 </div>
-              </div>
-              <div className='sideBox row'>
-                <div className='sideImg col-sm-3'><img src={sampleImg} /></div>
-                <div className='sideContent col-sm-9'>
-                  <h3>Dummy Title Here</h3>
-                  <p>In our busy lives, amidst the hustle and bustle, it's easy to overlook a fundamental aspect of our well-being....</p>
+                <div className='sideBox row'>
+                  <div className='sideImg col-sm-3'><img src={sampleImg} /></div>
+                  <div className='sideContent col-sm-9'>
+                    <h3>Dummy Title Here</h3>
+                    <p>In our busy lives, amidst the hustle and bustle, it's easy to overlook a fundamental aspect of our well-being....</p>
+                  </div>
                 </div>
-              </div>
+                <div className='sideBox row'>
+                  <div className='sideImg col-sm-3'><img src={sampleImg} /></div>
+                  <div className='sideContent col-sm-9'>
+                    <h3>Dummy Title Here</h3>
+                    <p>In our busy lives, amidst the hustle and bustle, it's easy to overlook a fundamental aspect of our well-being....</p>
+                  </div>
+                </div>
+              <div className='timeline'>
+                <h3 className='smallHeading mt-5'>Timeline</h3>
+                <ul className='timeline_year'>
+                  <li>2024
+                    <ul className='timeline_month'>
+                      <li>January</li>
+                      <li>Fabruary</li>
+                    </ul>
+                  </li>
+                  <li>2023</li>
+                </ul>
+             </div>
           </div>
         </div>
       </div>

@@ -53,7 +53,7 @@ function Yoga() {
 
   return (
     <>
-      <div id="types">
+      <div id="types" className='marketplace'>
         <div className="container">
           <div className="row">
             <div className="col-sm-12 col-sm-offset-1">
@@ -89,7 +89,7 @@ function Yoga() {
                             )}
 
                             <button className="button small" onClick={() => history(url[index].navigate)}>
-                              Book now
+                              View More
                             </button>
                           </div>
                         </div>

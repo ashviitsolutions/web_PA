@@ -8801,3 +8801,27 @@ img .img-responsive {
   transition: .2s ease-in;
   box-shadow: 5px 5px 5px lightblue;
 }
+.smallHeading {
+  font-size: 20px;
+  color: var(--primary);
+}
+.smallHeading {
+  font-size: 20px;
+  color: var(--primary);
+}
+
+.timeline {
+  color: var(--primary);
+}
+
+.timeline_month {
+  display: none;
+}
+
+.timeline_year li:hover .timeline_month {
+  display: block;
+}
+.marketplace .button{
+  background-color: var(--primary) !important;
+  color: white !important;
+}
