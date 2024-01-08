@@ -113,12 +113,12 @@ function Footer() {
                                 </div>
 </div> */}
 							<div className="infobox">
-								<div className="icon">
+								{/* <div className="icon">
 									<img src={image6} alt="" />
 								</div>
 								<div className="text">
 									<p>732-567-0553</p>
-								</div>
+								</div> */}
 								<div className="icon">
 									<img src={image7} alt="" />
 								</div>

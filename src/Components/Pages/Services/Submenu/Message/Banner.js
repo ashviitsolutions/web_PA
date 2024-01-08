@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { IP } from '../../../../../Constant';
+import { Link } from "react-router-dom";
 
 function Banner() {
     const postIds = ['640ab873ad080eddce52185e'];
@@ -41,8 +42,8 @@ function Banner() {
                             <div className="head">
                                 <h1>{users.title} </h1>
                                 <h3 dangerouslySetInnerHTML={{ __html: users.description }} style={{ fontWeight: "500", fontSize: "15px", paddingLeft: "10px" }} />
-                                <button className="button" >get started</button>
-                                <button className="button hollow" >services</button>
+                                <Link to="/guest_login"><button className="button" >get started</button></Link>
+                                {/*<button className="button hollow" >services</button>*/}
                             </div>
                         </div>
                     </div>

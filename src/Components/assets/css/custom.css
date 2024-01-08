@@ -1906,7 +1906,6 @@ body {
   width: 100%;
   min-height: 300px;
   background: #061623;
-  margin-top: 70px;
 }
 
 #member_cta h3,
@@ -6094,8 +6093,9 @@ body {
 #footer_strip .copyright h3 {
   color: #ffffff;
   font-weight: 400;
-  font-size: 12px;
+  font-size: 10px;
   letter-spacing: 0.5px;
+  padding:15px 0;
 }
 
 #footer_strip .copyright.pull-right h3,
@@ -6278,7 +6278,6 @@ body {
   width: 100%;
   min-height: 300px;
   background: #061623;
-  margin-top: 70px;
 }
 
 #member_cta h3,
@@ -8825,3 +8824,4 @@ img .img-responsive {
   background-color: var(--primary) !important;
   color: white !important;
 }
+.copyright {width: 50%;}

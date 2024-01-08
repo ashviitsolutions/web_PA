@@ -5,14 +5,15 @@ import Provider from './Provider'
 import Service from './Service'
 import Member from '../Member'
 import Faq from '../../../Home/Faq'
+import Worklins from '../../Submenu/Coroporate/Worklist'
 
 function MessageDemand() {
   return (
     <>
     <Banner/>
     <Visit/>
-    <Provider/>
     <Service/>
+    <Worklins/>
     <Member/>
     <Faq/>
     </>
