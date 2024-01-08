@@ -50,7 +50,9 @@ import AddCoupon from './Admins/Admin/Coupon/AddCoupon ';
 import GetCoupon from './Admins/Admin/Coupon/GetCoupon';
 import EditCoupon from './Admins/Admin/Coupon/EditCoupon';
 
+//Blogs section
 
+import Blogs from './Admins/Admin/Blogs/Blogs';
 
 // 1.Post section
 import Addpost from './Admins/Admin/POST/Addpost';
@@ -108,6 +110,8 @@ import Logout from './PROVIDER/components/Logout';
 import Blogpage from './Components/Pages/Blog/Blogpage';
 import Detailblog from './Components/Pages/Blog/Detailblog';
 import Faq from './Components/Pages/FAQ/Faq';
+import Addblog from './Admins/Admin/Blogs/Addblog';
+import Editblog from './Admins/Admin/Blogs/Editblog';
 function App() {
   const nav = useNavigate()
   useEffect(() => {
@@ -310,12 +314,17 @@ function App() {
           </>} />
 
 
-          <Route path="/blogpage" element={<>
+          <Route path="/blogpage/:id" element={<>
             <Navbar />
             <Blogpage />
             <Footer />
           </>} />
 
+          <Route path="/blogpage" element={<>
+            <Navbar />
+            <Blogpage />
+            <Footer />
+          </>} />
           <Route path="/detailblog/:id" element={<>
             <Navbar />
             <Detailblog />
@@ -342,6 +351,24 @@ function App() {
           <Route path="/admin" element={<>
 
             <Protect Component={Sidebar} />
+          </>} />
+
+
+
+          <Route path="/admin/blogs" element={<>
+            <Sidebar />
+            <Protect Component={Blogs} />
+          </>} />
+
+
+          <Route path="/admin/blog/addblogs" element={<>
+            <Sidebar />
+            <Protect Component={Addblog} />
+          </>} />
+
+          <Route path="/admin/blog/editblogs/:id" element={<>
+            <Sidebar />
+            <Protect Component={Editblog} />
           </>} />
 
 

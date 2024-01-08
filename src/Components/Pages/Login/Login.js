@@ -129,7 +129,7 @@ function Login() {
                                     >sign in</button>
                                     <span >Don't have an account? <Link to="/sign_up" className="anchor" >Sign Up</Link> </span>
 
-                                    <button className="button gmail_login" > <span className="ico"></span> Sign In with Gmail</button>
+                                   
                                     {
                                         toggle ? (
                                             <div id="notification_holder">

@@ -34,6 +34,8 @@ function Contact() {
         fetchData();
     }, [])
 
+    console.log("contact fform", users)
+
     const initialValues = {
         name: "",
         contact_number: "",
@@ -56,7 +58,7 @@ function Contact() {
             bodyFormData.append("type", values.email);
             bodyFormData.append("postImages", values.image);
             bodyFormData.append("description", values.message);
-            const res = await axios.post("http://45.13.132.197:4000/api/post/create", bodyFormData);
+            const res = await axios.post("", bodyFormData);
             console.log(res);
 
         } catch (error) {

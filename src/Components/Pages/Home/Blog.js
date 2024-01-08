@@ -1,48 +1,31 @@
-import React, { useState, useEffect } from 'react'
-import "./Home.css"
+import React, { useState, useEffect } from 'react';
 import { IP } from '../../../Constant';
 import { Link } from 'react-router-dom';
 
-
 function Blog() {
-  const [activeCardIndex, setActiveCardIndex] = useState(null);
-  const postIds = ['6406e884ad080eddce51de80', '6406e8a8ad080eddce51de96', '6406e8c8ad080eddce51deac'];
-
   const [users, setUsers] = useState([]);
-  const [img, setImg] = useState('');
+  const [image, setImage] = useState();
+  const [activeCardIndex, setActiveCardIndex] = useState(null);
 
   useEffect(() => {
-    async function fetchData() {
-      const responses = await Promise.all(
-        postIds.map(async id => {
-          const res = await fetch(`${IP}/post/fetch/${id}`);
-          return res.json();
-        })
-      );
-      setUsers(responses);
-      setImg(
-        await Promise.all(
-          responses.flatMap(response => response.attachments).map(async image => {
-            const res = await fetch(`${IP}/file/${image}`);
-            const imageBlob = await res.blob();
-            return URL.createObjectURL(imageBlob);
-          })
-        )
-      );
-    }
-    fetchData();
-  }, [])
-  const handleReadMoreClick = (index) => {
-    setActiveCardIndex(index);
-  };
+    const fetchData = async () => {
+      try {
+        const res = await fetch(`${IP}/blog/blogs`);
+        const data = await res.json();
+        setUsers(data.slice(0, 3));
+        setImage(data[0].attachments)
+        console.log("get post data", data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
 
-  const createMarkup = (htmlString) => {
-    return { __html: htmlString };
-  };
-  console.log("blogs", img)
+    fetchData();
+  }, []);
+
+  console.log("image post data", image);
   return (
     <>
-
       <div id="blog">
         <div className="container">
           <div className="row">
@@ -68,7 +51,7 @@ function Blog() {
                                   <div
                                     className="bg"
                                     style={{
-                                      backgroundImage: `url(${img[index]})`,
+                                      backgroundImage: `url(${`http://45.13.132.197:5000/api/file/${user.attachments}`})`,
                                       borderRadius: '7px',
                                     }}
                                   ></div>
@@ -79,16 +62,14 @@ function Blog() {
                                         ? user.description
                                         : user.description.slice(0, 185) + (user.description.length > 185 ? "..." : "")
                                     }} />
-
                                   </div>
-
                                 </Link>
+
                               </div>
                             </div>
                           </div>
                         ))}
                       </div>
-
                     </div>
                   </div>
                 </div>
@@ -103,7 +84,7 @@ function Blog() {
         </Link>
       </div>
     </>
-  )
+  );
 }
 
-export default Blog
+export default Blog;

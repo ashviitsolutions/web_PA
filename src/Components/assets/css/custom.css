@@ -8766,7 +8766,10 @@ img .img-responsive {
   width: 80%;
 }
 .sideImg img {
-  width: 100%;
+  width: 90%;
+  margin: auto;
+  border-radius: 10px;
+  margin-top: 12px;
 }
 
 .sideContent h3 {
@@ -8811,6 +8814,8 @@ img .img-responsive {
 
 .timeline {
   color: var(--primary);
+  /* cursor: pointer; */
+  
 }
 
 .timeline_month {
@@ -8819,6 +8824,7 @@ img .img-responsive {
 
 .timeline_year li:hover .timeline_month {
   display: block;
+  cursor: pointer;
 }
 .marketplace .button{
   background-color: var(--primary) !important;

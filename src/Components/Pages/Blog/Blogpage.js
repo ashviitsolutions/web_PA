@@ -1,46 +1,36 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { IP } from "../../../Constant";
 import ReactPaginate from "react-paginate";
+import { useParams } from 'react-router-dom';
 
 function Blogpage() {
-	const [data, setData] = useState(1);
-	const [count, setCount] = useState(0);
+	const [users, setUsers] = useState([]);
 	const [activeCardIndex, setActiveCardIndex] = useState(null);
+
+	let params = useParams();
+	let { id } = params;
+	console.log("params data", id)
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const res = await fetch(`${IP}/blog/blogs?${id}`);
+				const data = await res.json();
+				setUsers(data);
+				console.log("get post data", data);
+			} catch (error) {
+				console.error("Error fetching data:", error);
+			}
+		};
+
+		fetchData();
+	}, [id]);
 
 	const handleReadMoreClick = (index) => {
 		setActiveCardIndex(index);
 	};
 
-	const [users, setUsers] = useState([]);
-	const [img, setImg] = useState("");
 
-	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const res = await fetch(`${IP}/post/term?type=home page blog`);
-				const data = await res.json();
-				setUsers(data);
-				setCount(data.length);
-				const imageUrls = data.map(async (item) => {
-					const res = await fetch(`${IP}/file/${item.attachments}`);
-					const imageBlob = await res.blob();
-					const imageObjectURL = URL.createObjectURL(imageBlob);
-					return imageObjectURL;
-				});
-				Promise.all(imageUrls).then((urls) => setImg(urls));
-				console.log("get data", data);
-			} catch (error) {
-				console.error(error);
-			}
-		};
-
-		fetchData();
-	}, [data]);
-
-	const handlePageClick = (data) => {
-		setData(data.selected + 1);
-	};
 
 	return (
 		<>
@@ -74,7 +64,7 @@ function Blogpage() {
 																	<div
 																		className="bg"
 																		style={{
-																			backgroundImage: `url(${img[index]})`,
+																			backgroundImage: `url(${`http://45.13.132.197:5000/api/file/${user.attachments}`})`,
 																			borderRadius: "7px",
 																		}}
 																	></div>
@@ -86,9 +76,9 @@ function Blogpage() {
 																					index === activeCardIndex
 																						? user.description
 																						: user.description.slice(0, 185) +
-																						  (user.description.length > 185
-																								? "..."
-																								: ""),
+																						(user.description.length > 185
+																							? "..."
+																							: ""),
 																			}}
 																		/>
 																	</div>
@@ -106,29 +96,7 @@ function Blogpage() {
 					</div>
 				</div>
 			</div>
-			<div className="pagination">
-				<ReactPaginate
-					itemsPerPage={10}
-					previousLabel={"Previous"}
-					nextLabel={"Next"}
-					breakLabel={"..."}
-					pageCount={Math.ceil(count / 10)}
-					marginPagesDisplayed={3}
-					pageRangeDisplayed={2}
-					onPageChange={handlePageClick}
-					// css apply on pagination
-					containerClassName={"pagination justify-content-center py-3"}
-					pageClassName={"page-item"}
-					pageLinkClassName={"page-link"}
-					previousClassName={"page-item"}
-					previousLinkClassName={"page-link"}
-					nextClassName={"page-item"}
-					nextLinkClassName={"page-link"}
-					breakClassName={"page-item"}
-					breakLinkClassName={"page-link"}
-					activeClassName={"active"}
-				/>
-			</div>
+
 		</>
 	);
 }
