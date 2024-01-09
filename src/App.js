@@ -267,8 +267,6 @@ function App() {
           <Route path="/guest_login" element={<>
             <Navbar />
             <GuestLogin />
-
-
             <Footer />
           </>} />
 

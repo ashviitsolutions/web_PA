@@ -1,7 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { IP } from "../../../../../Constant";
+
+import { useDispatch, useSelector } from 'react-redux';
+import { updateInputData } from '../../../Redux/counterSlice';
+
+
+
 function Service() {
+
+	const dispatch = useDispatch();
+	const selector = useSelector((state) => state.counter.formData);
+
+
+	console.log("selector", selector)
+
 	const [activeCardIndex, setActiveCardIndex] = useState(null);
 
 	const handleReadMoreClick = (index) => {
@@ -34,6 +47,19 @@ function Service() {
 
 		fetchData();
 	}, []);
+
+
+
+	const handleSubmit = async (service_id) => {
+		dispatch(updateInputData({ formName: 'service_id', inputData: service_id }));
+
+
+	};
+
+
+
+
+
 
 	return (
 		<>
@@ -70,9 +96,9 @@ function Service() {
 																	index === activeCardIndex
 																		? user.description
 																		: user.description.slice(0, 138) +
-																		  (user.description.length > 138
-																				? "...."
-																				: ""),
+																		(user.description.length > 138
+																			? "...."
+																			: ""),
 															}}
 														/>
 
@@ -92,7 +118,7 @@ function Service() {
 																	Read more
 																</button>
 															)}
-															<Link to="/guest_login" className="anchor" id="anchors">
+															<Link to={`/guest_login`} className="anchor" id="anchors" onClick={() => handleSubmit(user._id)}>
 																book now
 															</Link>
 														</div>

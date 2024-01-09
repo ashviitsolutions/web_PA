@@ -17,7 +17,9 @@ const SeconForm = ({ step, nextStep }) => {
     const selector = useSelector((state) => state.counter.formData);
     // const gendercheck = selector?.firstForm[0];
     const gendercheck = selector?.firstForm && selector.firstForm.length > 0 ? selector.firstForm[0] : "";
+    const service_id = selector?.service_id && selector.service_id.length > 0 ? selector.service_id[0] : "";
 
+    console.log("selector service_id" ,service_id)
 
     const [user, setUser] = useState([]);
     const [selectedItems, setSelectedItems] = useState([]);
@@ -25,7 +27,7 @@ const SeconForm = ({ step, nextStep }) => {
     const [selectedGender1, setSelectedGender1] = useState([]);
     const [selectedGender2, setSelectedGender2] = useState([]);
     const [selectedServiceTime, setSelectedServiceTime] = useState("");
-    const [service_ids, setService_id] = useState();
+    const [service_ids, setService_id] = useState(service_id);
     const [priceservice, setPerice] = useState(0);
     const [priceadon, setPriceadon] = useState(0);
     const [totalPrice, setTotalPrice] = useState(0);
@@ -196,7 +198,7 @@ const SeconForm = ({ step, nextStep }) => {
                         user.filter((filter) => filter.category === "on demand").map((cur, index) => {
                             return (
 
-                                <div  className={`second_form_book ${service_ids === `${cur._id}` ? "selected" : ""}`}     key={index} onClick={() => handlePrice(cur.price)}  >
+                                <div className={`second_form_book ${service_ids === `${cur._id}` ? "selected" : ""}`} key={index} onClick={() => handlePrice(cur.price)}  >
                                     <div onClick={() => handleId(cur._id)} className="item" >
                                         <PreviewImage attachments={cur.attachments} />
                                         <div className="book-details" >
@@ -357,8 +359,8 @@ const SeconForm = ({ step, nextStep }) => {
                         user.filter((filter) => filter.category === "addons").map((cur, index) => {
                             return (
 
-                                <div className={`second_form_book ${selectedItems.includes(cur._id) ? "selected" : ""}`}      key={index}>
-                                    <div className="item"  onClick={() => handleSelectItem(cur._id)}>
+                                <div className={`second_form_book ${selectedItems.includes(cur._id) ? "selected" : ""}`} key={index}>
+                                    <div className="item" onClick={() => handleSelectItem(cur._id)}>
                                         <PreviewImage attachments={cur.attachments} />
                                         <div className="book-details">
                                             <h2 className="book-title">{cur.title}</h2>
