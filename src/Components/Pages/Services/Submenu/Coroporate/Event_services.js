@@ -68,7 +68,7 @@ function Event_services() {
         <div className="container" >
           <div className="row">
             <div className="gutter">
-              <div className="heading">
+              <div className="heading mt-5">
                 <h3 >Corporate Wellness Services</h3>
                 <p>Select your desired wellness service</p>
               </div>
