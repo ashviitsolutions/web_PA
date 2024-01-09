@@ -36,6 +36,7 @@ import Serviceprovider from './Components/Pages/Policy/Serviceprovider';
 import Goldmembership from './Components/Pages/Policy/Goldmembership';
 import Cancelationpolicy from './Components/Pages/Policy/Cancelationpolicy';
 import Silvermembership from './Components/Pages/Policy/Silvermembership';
+import Chatbot from './Components/Header/Chatbot';
 
 //Payment
 import Successpayment from "./Components/Pages/Payment/Success"
@@ -147,6 +148,7 @@ function App() {
 
         <Routes>
           <Route path="/" element={<>
+            <Chatbot />
             <Navbar />
             <Home />
             <Footer />
