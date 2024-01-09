@@ -37,6 +37,8 @@ import {
 	faRectangleXmark,
 	faSpa,
 } from "@fortawesome/free-solid-svg-icons";
+import Notifications from "./Notifications";
+import Favorites from "./Favorites";
 
 const Profile = () => {
 	const [activeTab, setActiveTab] = useState(1);
@@ -103,6 +105,18 @@ const Profile = () => {
 			form = (
 				<Logout step={now} nextStep={nextStep} previousStep={previousStep} />
 			);
+			break;
+		case 8:
+			form = (
+				<Notifications
+					step={now}
+					nextStep={nextStep}
+					previousStep={previousStep}
+				/>
+			);
+			break;
+		case 9:
+			form = <Favorites />;
 			break;
 		default:
 			break;
@@ -206,14 +220,22 @@ const Profile = () => {
 								Profile
 							</div>
 						</li>
-						<li id="" className={activeTab === 8 ? "active" : ""}>
+						<li
+							id=""
+							className={activeTab === 8 ? "active" : ""}
+							onClick={() => setActiveTab(8)}
+						>
 							<div className="item">
 								{/* <img src={image7} width={15} height={15} alt="..." /> */}
 								<FontAwesomeIcon icon={faBell} style={{ marginRight: 10 }} />
 								Notifications
 							</div>
 						</li>
-						<li id="" className={activeTab === 9 ? "active" : ""}>
+						<li
+							id=""
+							className={activeTab === 9 ? "active" : ""}
+							onClick={() => setActiveTab(9)}
+						>
 							<div className="item">
 								{/* <img src={image7} width={15} height={15} alt="..." /> */}
 								<FontAwesomeIcon icon={faHeart} style={{ marginRight: 10 }} />
@@ -256,7 +278,7 @@ const Profile = () => {
         "
 				>
 					<ul id="tabs_control">
-						<li id="" className={activeTab === 8 ? "active" : ""}>
+						<li id="" className={activeTab === 10 ? "active" : ""}>
 							<div
 								className="item"
 								style={{ fontSize: 10 }}
@@ -271,7 +293,7 @@ const Profile = () => {
 							</div>
 						</li>
 
-						<li id="" className={activeTab === 9 ? "active" : ""}>
+						<li id="" className={activeTab === 11 ? "active" : ""}>
 							<div
 								className="item"
 								style={{ fontSize: 10 }}

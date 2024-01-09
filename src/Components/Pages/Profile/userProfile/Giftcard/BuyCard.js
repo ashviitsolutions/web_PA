@@ -155,21 +155,23 @@ function BuyCard() {
 								<div className="content_container_gift_card_dis">
 									<p
 										className="description"
-										dangerouslySetInnerHTML={{
-											__html: card.description && card.description.slice(0, 60),
-										}}
-									/>
+										// dangerouslySetInnerHTML={{
+										// 	__html: card.description && card.description.slice(0, 60),
+										// }}
+									>
+										{card.description.slice(0, 60)}...
+									</p>
 								</div>
 								<div className="content_container_gift_card_para">
-									<p>Price: {card.amount_off}$</p>
-									<p>Value: {card.offerValue}$</p>
+									<p>Price: ${card.price}</p>
+									{/* <p>Value: ${card.offerValue}</p> */}
+									<button
+										id="Buy_gift_card"
+										onClick={() => handleSubmit(card.offerValue, card._id)}
+									>
+										Buy Now
+									</button>
 								</div>
-								<button
-									id="Buy_gift_card"
-									onClick={() => handleSubmit(card.offerValue, card._id)}
-								>
-									Buy Now
-								</button>
 							</div>
 							{clientSecret && (
 								<StripeCheckout
