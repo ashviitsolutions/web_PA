@@ -8,9 +8,11 @@ import Image5 from "../../assets/img/warrior.svg";
 import Image6 from "../../assets/img/lotus.svg";
 import Image7 from "../../assets/img/meditation_.svg";
 import Image8 from "../../assets/img/meditation_.svg";
+import Membership from "../Home/Brief";
 function Benifit() {
 	return (
 		<>
+			<Membership />
 			<div id="membership_benifits" className="">
 				<div className="container">
 					<div className="row">
