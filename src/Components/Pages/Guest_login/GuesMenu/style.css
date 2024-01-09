@@ -1,13 +1,13 @@
 .sidebar_tabs {
 	/* position: sticky; */
 	display: block;
-	width: 100%;
-	height: 10%;
-	padding: 19px 0px;
-	top: 60px;
-	background: #004f8f;
-	text-align: center;
-	z-index: 1;
+    width: 100%;
+    height: 10%;
+    padding: 19px 0px;
+    top: 60px;
+    background: #004f8f91;
+    text-align: center;
+
 }
 
 .sidebar_tabs ul {
@@ -84,13 +84,13 @@
 
 .section {
 	width: 60%;
-	margin: auto;
-	margin-top: 100px;
-	margin-bottom: 200px;
-	background-color: #fff;
-	padding: 80px;
-	border-radius: 10px;
-	box-shadow: 2px 2px 15px -5px rgb(0 0 0 / 35%);
+    margin: auto;
+    margin-top: 100px;
+    margin-bottom: 200px;
+    background-color: #ffffffa6;
+    padding: 80px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 15px -5px rgb(0 0 0 / 35%);
 }
 
 #employees {
@@ -117,20 +117,25 @@
 
 #employees .option li {
 	/* padding: 10px 50px; */
-	cursor: pointer;
-	transition: all 0.2s ease-in;
-	border: 1px solid #ccc;
-	border-radius: 25px;
-	margin-top: 20px;
-	/* margin-left: 15px; */
+    cursor: pointer;
+    transition: all 0.2s ease-in;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    margin-top: 20px;
+    /* margin-left: 15px; */
+    background: white;
 }
 
 #sec_wiz_2 {
 	width: 70%;
-	margin: auto;
-	margin-top: 60px;
-	height: auto;
-	margin-bottom: 150px;
+    margin: auto;
+    margin-top: 60px;
+    height: auto;
+    margin-bottom: 150px;
+    background: #ffffffa6;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 15px -5px rgb(0 0 0 / 35%);
 }
 
 .products .item_wrapper {
@@ -151,9 +156,11 @@
 
 .progressbar_userpannel .progressbarproviders {
 	position: relative;
-	left: 0px;
-	width: 70%;
-	margin: auto;
+    left: 0px;
+    width: 70%;
+    margin: auto;
+    background: white;
+    border: solid 1px lightblue;
 }
 
 .progressbar_userpannel .button {
@@ -188,13 +195,9 @@
 }
 
 .selected {
-	/* Styles for the selected card */
-	background-color: #03a9f4;
-	/* Change to your desired background color */
-	color: #fff;
-	/* Change to your desired text color */
-	border-color: #3498db;
-	/* Change to match the background color or desired border color */
+	background-color: #03a9f4 !important;
+    color: #fff;
+    border-color: #3498db !important;
 }
 .progress-bar {
 	background-color: var(--primary);
@@ -229,13 +232,13 @@
 
 .review_page {
 	width: 50% !important;
-	margin: auto;
-	margin-top: 40px !important;
-	margin-bottom: 200px;
-	background-color: #fff;
-	padding: 80px;
-	border-radius: 10px;
-	box-shadow: 2px 2px 15px -5px rgb(0 0 0 / 35%);
+    margin: auto;
+    margin-top: 40px !important;
+    margin-bottom: 200px;
+    background-color: #ffffffa6;
+    padding: 80px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 15px -5px rgb(0 0 0 / 35%);
 }
 
 .review_page .form-group {
@@ -280,16 +283,15 @@
 }
 
 .second_form_book {
-	/* width: calc(30% - 20px);  */
 	flex-basis: 30%;
-	margin: 10px;
-	border: 1px solid #ddd;
-	padding: 10px;
-	box-sizing: border-box;
-	/* Include padding and border in the total width */
-	cursor: pointer;
-	box-shadow: 0px 4px 6px rgb(0 0 0 / 13%);
-	border-radius: 20px;
+    margin: 10px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    box-sizing: border-box;
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgb(0 0 0 / 13%);
+    border-radius: 20px;
+    background: white;
 }
 
 .book-image {
@@ -306,18 +308,18 @@
 }
 
 .book-title {
-	font-size: 20px;
+	font-size: 16px;
 	margin-bottom: 10px;
 }
 
 .book-price {
-	font-size: 16px;
+	font-size: 13px;
 	color: #333;
 	font-weight: 700;
 }
 
 .book-description {
-	font-size: 14px;
+	font-size: 13px;
 	line-height: 1.5;
 }
 
@@ -359,11 +361,11 @@
 	}
 
 	.section {
-		width: 97% !important;
+		width: 60%;
 		margin: auto;
-		margin-top: -70px !important;
+		margin-top: 100px;
 		margin-bottom: 200px;
-		background-color: #fff;
+		background-color: #ffffffa6;
 		padding: 80px;
 		border-radius: 10px;
 		box-shadow: 2px 2px 15px -5px rgb(0 0 0 / 35%);

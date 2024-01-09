@@ -23,7 +23,7 @@ function Select_location() {
                 <div className="container">
                     <div className="row">
                         <form className="location">
-                            <h3>Where would you like us to <b>Serve you</b> </h3>
+                            <h3>Where would you like us to <b>serve you</b> </h3>
                             <ul className="service">
                                 <Link to="/select_location" onClick={() => handleSubmit('Home')}>
                                     <li>

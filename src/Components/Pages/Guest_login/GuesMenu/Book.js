@@ -63,6 +63,7 @@ const Book = () => {
 
   return (
     <>
+    <div className="full_wrapper">
       <div className="sidebar_tabs">
         <div className="container">
           <div className="row">
@@ -106,11 +107,13 @@ const Book = () => {
           }}>
             <Link to="/" style={{
               textDecoration: 'none',
-              color: '#248ce0',
+              color: 'black',
+              fontWeight:'bold',
             }}>&larr; Back to Home</Link>
           </p>
         </div>
       </div>
+    </div>
     </>
   )
 }

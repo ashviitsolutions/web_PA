@@ -6919,7 +6919,7 @@ ul.true li::after {
   left: 0;
   width: 100%;
   height: 50%;
-  /* background: url('../img/pexels-andrea-piacquadio-3764568.jpg'); */
+  background: url('../../assets/img/pexels-andrea-piacquadio-3764568.jpg'); 
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -6927,13 +6927,14 @@ ul.true li::after {
 
 #over_banner::after {
   content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 50%;
-  background-color: #162b3cdb;
-  backdrop-filter: blur(3px);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background-color: #28587edb;
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(1px);
 }
 
 #over_banner .location {
@@ -8234,9 +8235,7 @@ ul.true li::after {
   font-size: 18px;
 }
 
-#faq_page .faq .question[aria-expanded="true"]::after {
-  /* content: '-'; */
-}
+
 
 #faq_page .faq .answer {
   padding-left: 40px;
@@ -8826,4 +8825,24 @@ img .img-responsive {
 }
 .provider-process{
   background-color: #162b3c;
+}
+/* .full_wrapper::before{
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  z-index: -1;
+  background-image: url('../img/pexels-andrea-piacquadio-3764568.jpg');
+  background-attachment: fixed;
+} */
+.full_wrapper {
+  background-color: #212529c4;
+  background-image: url('../img/pexels-andrea-piacquadio-3764568.jpg');
+  height: 100%;
+  min-height: 100vh;
+  background-attachment: fixed;
+  background-size: cover;
 }
