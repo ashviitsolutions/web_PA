@@ -46,8 +46,8 @@ function PrivateEvents() {
           <div className="row">
             <div className="gutter">
               <div className="heading">
-                <h3 >Private Event Services</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                <h3 >Private Wellness Services</h3>
+                <p>Select your desired wellness service</p>
               </div>
             </div>
           </div>

@@ -69,7 +69,7 @@ function Service() {
 						<div className="gutter">
 							<div className="heading">
 								<h3>Massage services</h3>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+								<p>Select your desired service</p>
 							</div>
 						</div>
 					</div>

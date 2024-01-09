@@ -69,8 +69,8 @@ function Event_services() {
           <div className="row">
             <div className="gutter">
               <div className="heading">
-                <h3 >corporate event services</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                <h3 >Corporate Wellness Services</h3>
+                <p>Select your desired wellness service</p>
               </div>
             </div>
           </div>
