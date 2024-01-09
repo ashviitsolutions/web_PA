@@ -53,12 +53,29 @@ function Login() {
                 localStorage.setItem('user_name', result?.user_info?.fullName);
                 localStorage.setItem('user_email', result?.user_info?.email);
                 localStorage.setItem('token', token);
-                nav('/userProfile');
+                toast.success("Logged in successfully", {
+                    position: "top-right",
+                    autoClose: 3000,
+                    onClose: () => {
+                        nav('/userProfile');
+                    },
+                });
+
             } else {
                 setToggle(true);
+
+                toast.error("Invalid credentials", {
+                    position: "top-right",
+                    autoClose: 3000,
+                });
+
             }
         } catch (error) {
             console.log('Error show', error);
+            toast.error("An error occurred. Please try again.", {
+                position: "top-right",
+                autoClose: 3000,
+            });
         }
     };
 
@@ -159,7 +176,7 @@ function Login() {
                                     </Link>{' '}
                                 </span>
 
-                                {toggle ? (
+                                {/*   {toggle ? (
                                     <div id="notification_holder">
                                         {!loginguser ? (
                                             <div className="notificatioerror">
@@ -170,7 +187,7 @@ function Login() {
                                             <h3>Success</h3>
                                         )}
                                     </div>
-                                ) : null}
+                                        ) : null}   */}
                             </div>
                         </div>
                     </div>
