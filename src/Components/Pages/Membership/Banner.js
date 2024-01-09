@@ -45,7 +45,7 @@ function Banner() {
 								<h3 dangerouslySetInnerHTML={{ __html: users.description }} />
 								<Link
 									// to="/guest_login"
-									to="/book"
+									to="/login"
 								>
 									<button
 										className="button"

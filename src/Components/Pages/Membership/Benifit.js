@@ -143,11 +143,11 @@ function Benifit() {
 				</div>
 			</div>
 
-			<div className="faqbutton">
+			{/* <div className="faqbutton">
 				<Link to="/book">
 					<button className="button">get started</button>
 				</Link>
-			</div>
+			</div> */}
 		</>
 	);
 }

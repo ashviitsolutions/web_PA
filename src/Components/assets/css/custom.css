@@ -3547,20 +3547,6 @@ ul.true li::after {
   margin: 0 10px;
 }
 
-#membership_benifits .content ul li .icon {
-  position: absolute;
-  top: -13px;
-  left: 0;
-  width: 75px;
-  height: 75px;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 50%;
-  filter: invert(1);
-  background-color: #009688;
-  border-radius: 50%;
-  border: 2px solid #000;
-}
 
 #membership_benifits .content ul li .title {
   display: block;
@@ -4228,15 +4214,6 @@ img .img-responsive {
   width: 100%;
   background: #d6edff;
   margin-bottom: 90px;
-}
-
-#services_tab .container-brief {
-  justify-content: space-around;
-  text-align: center;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  margin: 90px;
 }
 
 #services_tab .container-brief .selects {
@@ -7920,18 +7897,17 @@ ul.true li::after {
 }
 
 #membership_benifits .content ul li .icon {
-  position: absolute;
-  top: -13px;
-  left: 0;
-  width: 75px;
-  height: 75px;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 50%;
-  filter: invert(1);
-  background-color: #009688;
-  border-radius: 50%;
-  border: 2px solid #000;
+    position: absolute;
+    top: -13px;
+    left: 0;
+    width: 75px;
+    height: 75px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 50%;
+    background-color: #2196f3;
+    border-radius: 50%;
+    border: 2px solid #fff;
 }
 
 #membership_benifits .content ul li .title {
@@ -8602,7 +8578,6 @@ img .img-responsive {
 #services_tab {
   width: 100%;
   background: #d6edff;
-  margin-bottom: 90px;
 }
 
 #services_tab .container-brief {
@@ -8611,7 +8586,6 @@ img .img-responsive {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  margin: 90px;
 }
 
 #services_tab .container-brief .selects {
@@ -8842,4 +8816,14 @@ img .img-responsive {
       box-shadow: 2px 12px 2px #add8e6;
   transition: .1s ease-in;
   translate: 0 -10px;
+}
+.processImg img {
+  width: 100%;
+  padding: 10px;
+}
+.process {
+  padding: 50px 0;
+}
+.provider-process{
+  background-color: #162b3c;
 }

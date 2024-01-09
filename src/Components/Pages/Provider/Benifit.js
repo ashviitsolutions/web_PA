@@ -15,6 +15,10 @@ import Image10 from "../../assets/img/massage.png"
 import Image11 from "../../assets/img/reflexology.png"
 import Image12 from "../../assets/img/diet.png"
 import Image13 from "../../assets/img/screening.png"
+import Process1 from "../../assets/img/process1.png"
+import Process2 from "../../assets/img/process2.png"
+import Process3 from "../../assets/img/process3.png"
+import Process4 from "../../assets/img/process4.png"
 function Benifit() {
     return (
         <>
@@ -87,7 +91,7 @@ function Benifit() {
             </div>
 
 
-            <div id="application_process">
+            {/* <div id="application_process">
                 <ul>
                     <li>
                         <span className="count">01</span>
@@ -106,8 +110,25 @@ function Benifit() {
                         <span className="content"><span style={{ backgroundImage: `url(${Image8})` }} className="icon"></span>sign the contract</span>
                     </li>
                 </ul>
+            </div> */}
+            <div className='container-fluid provider-process'>
+                <div className='container process'>
+                    <div className='row'>
+                    <div className='col-sm-3 processImg'>
+                            <img src={Process1} />
+                        </div>
+                        <div className='col-sm-3 processImg'>
+                            <img src={Process2} />
+                        </div>
+                        <div className='col-sm-3 processImg'>
+                            <img src={Process3} />
+                        </div>
+                        <div className='col-sm-3 processImg'>
+                            <img src={Process4} />
+                        </div>
+                    </div>
+                </div>
             </div>
-
 
 
 
