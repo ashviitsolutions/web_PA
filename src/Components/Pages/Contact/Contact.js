@@ -5,6 +5,7 @@ import * as Yup from "yup";
 import axios from 'axios';
 import { IP } from '../../../Constant';
 import "./Contact.css"
+import Faq from "../Home/Faq";
 
 function Contact() {
     const postIds = ['64007afb61c43a17d60e95b4'];
@@ -70,7 +71,7 @@ function Contact() {
     return (
         <>
 
-            <div id="contact_us" style={{ backgroundImage: `url(${img})` }}>
+            <div id="contact_us" style={{ backgroundImage: `url(${img})`, backgroundAttachment: 'fixed' }}>
                 <div className="container">
                     <div className="contact-container">
                         <div className="contact-item">
@@ -80,10 +81,10 @@ function Contact() {
                                     <p>fill this form and our expert will be in touch with you soon.</p>
                                 </div>
                                 <div className="content">
-                                    <div className="">
+                                    {/* <div className="">
                                         <p>you can call us on </p>
                                         <Link to="tel: 9876543210"><span className="phones">{users.title}</span></Link>
-                                    </div>
+                                    </div> */}
                                     <div className="">
                                         <p>or write to us on </p>
                                         <Link to="mailto:info@productivealliance.com"><span className="phones">{users.excerpt}</span></Link>
@@ -189,6 +190,7 @@ function Contact() {
 
                             </div>
                         </div>
+                        <Faq />
                     </div>
                 </div>
             </div>

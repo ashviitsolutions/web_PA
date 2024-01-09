@@ -139,11 +139,13 @@
 
 #faq_image {
 	width: 30%;
+	z-index:1;
 }
 
 #faq_image img {
 	width: 90%;
 	/* height: 60%; */
+	border-radius:50%;
 }
 
 /* .Home_page_memberhsip_container {
