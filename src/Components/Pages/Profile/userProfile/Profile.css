@@ -178,7 +178,7 @@ ul#tabs_control li.active {
 }
 
 .overview .overview_input {
-	flex: 1;
+	/* flex: 1; */
 	box-shadow: 3px 7px 8px -2px rgb(0 0 0 / 15%);
 	height: 170px;
 	padding: 15px;

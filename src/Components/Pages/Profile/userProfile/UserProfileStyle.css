@@ -1,0 +1,33 @@
+.container__view {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	align-items: center;
+	margin-bottom: 5%;
+}
+.notification__view {
+	margin: 20px;
+	justify-self: center;
+}
+.notification__item {
+	width: 90%;
+	height: auto;
+	border-radius: 10px;
+	margin: 20px 0;
+	padding: 20px;
+	box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.notification__titleView {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.notification__titleView > h3 {
+	font-size: 20px;
+}
+.notification__titleView > h4 {
+	font-size: 18px;
+}
+.notification__item > p {
+	color: lightslategray;
+}
