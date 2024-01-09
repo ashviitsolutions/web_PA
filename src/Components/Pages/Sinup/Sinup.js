@@ -7,9 +7,10 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { IP } from '../../../Constant';
 
 function Login() {
-    const [toggle, setToggle] = useState(false)
+
 
     const nav = useNavigate()
 
@@ -43,60 +44,56 @@ function Login() {
             .oneOf([Yup.ref("password"), ""], "password does not match"),
 
     });
+
+
     const onSubmit = async (values, { resetForm }) => {
         console.log(values);
 
         try {
-            const bodyFormData = new FormData();
+            const data = {
+                first_name: values.first_name,
+                last_name: values.last_name,
+                email: values.email,
+                mobile: values.mobile,
+                password: values.password,
+                confirm_password: values.Confirm_Password,
+            };
 
-            bodyFormData.append("first_name", values.first_name);
-            bodyFormData.append("last_name", values.last_name);
-            bodyFormData.append("email", values.email);
-            bodyFormData.append("mobile", values.mobile);
-            bodyFormData.append("password", values.password);
-            bodyFormData.append("confirm_password", values.Confirm_Password);
-
-            const res = await axios.post("http://localhost:5000/api/user/register", bodyFormData, {
+            const res = await axios.post(`${IP}/user/register`, data, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-
             });
+
             console.log(res);
 
-
-
-
             if (res.status === 200) {
-
                 resetForm({ values: "" });
-                // Show success notification and navigate to '/admin/Gift'
-                toast.success("Your Post created successfully!", {
+                // Show success notification and navigate to '/login'
+                toast.success("Registration successful!", {
                     position: "top-right",
                     autoClose: 3000,
                     onClose: () => {
                         nav("/login")
-
                     },
                 });
-            } else {
+            } else if (res.status === 400) {
                 // Show error notification if the API response is not successful
-                toast.error("An error occurred. Please try again.", {
+                toast.error("email or mobile number already used", {
                     position: "top-right",
                     autoClose: 3000,
                 });
-
             }
 
         } catch (error) {
             console.error(error);
-            toast.error("An error occurred. Please try again.", {
+            toast.error("email or mobile number already used", {
                 position: "top-right",
                 autoClose: 3000,
             });
-           
         }
     };
+
 
     return (
         <>
@@ -205,7 +202,7 @@ function Login() {
                                     </div>
                                     <div style={{ height: "5px" }}>
                                     </div>
-                                    <Link to="#" style={{ background: 0, color: "#707070" }}>forget password ?</Link>
+
 
                                     <div className="input_group" style={{ textDecoration: "none", paddingTop: "1px" }}>
                                         <button type="submit" className="button">sign Up</button>
