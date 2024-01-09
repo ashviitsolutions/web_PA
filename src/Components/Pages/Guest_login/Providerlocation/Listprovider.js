@@ -2,27 +2,9 @@ import React, { useEffect, useState } from 'react';
 import './Listprovider.css';
 import { IP } from '../../../../Constant';
 import { useNavigate } from 'react-router-dom';
+import image1 from "../../../assets/img/pexels-ivan-samkov-5659057.jpg"
 
-const PreviewImage = ({ attachments }) => {
-    const [imageObjectURL, setImageObjectURL] = useState(null);
 
-    useEffect(() => {
-        const fetchImage = async () => {
-            const res = await fetch(`${IP}/file/${attachments}`);
-            const imageBlob = await res.blob();
-            const objectURL = URL.createObjectURL(imageBlob);
-            setImageObjectURL(objectURL);
-        };
-
-        fetchImage();
-    }, [attachments]);
-
-    return (
-        <div>
-            {imageObjectURL && <img src={imageObjectURL} alt="Preview" />}
-        </div>
-    );
-};
 
 function Listprovider() {
     const nav = useNavigate();
@@ -82,6 +64,12 @@ function Listprovider() {
         fetchLocation();
     }, []);
 
+
+    console.log("image try to fetch", users[0].images)
+
+
+
+
     // Initialize users with an empty array if it's undefined
     const filteredUsers = (users || []).filter((cur) => {
         const fullName = `${cur.first_name} ${cur.last_name}`.toLowerCase();
@@ -108,7 +96,8 @@ function Listprovider() {
                 {filteredUsers.filter((data) => data.application_status >= 3).map((cur) => (
                     <div key={cur.id} className='provider_card'>
                         <div className='image'>
-                            <PreviewImage attachments={cur.images} />
+                            <img src={`http://45.13.132.197:5000/api/file/${cur.images}`} alt='' />
+
                         </div>
                         <div className='content'>
                             <h3>{cur.first_name} {cur.last_name}</h3>

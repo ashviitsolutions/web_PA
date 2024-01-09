@@ -48,22 +48,22 @@ function GuestLogin() {
     }
   };
 
-    useEffect(() => {
+  useEffect(() => {
 
-        if (!loginguser) {
-            nav("/guest_login");
-        } else {
+    if (!loginguser) {
+      nav("/guest_login");
+    } else {
 
-            nav("/select_location_type");
+      nav("/select_location_type");
 
-        }
+    }
 
-    }, []);
+  }, []);
 
 
   return (
     <>
-    
+
       <div id="over_banner">
         <div className="container">
           <div className="row">
@@ -125,13 +125,13 @@ function GuestLogin() {
                               <label htmlFor="">password</label>
                               <span className="highlight"></span>
                             </div>
-                            <Link to="#" style={{ background: 0, color: "#707070" }}>forget password ?</Link>
+                            <Link to="/login" style={{ background: 0, color: "#707070" }}>forget password ?</Link>
                             <div className="input_group">
                               <button className="button" type="submit" >sign in</button>
                             </div>
                             <span>Don't have an account? <Link to="/sign_up" className="anchor" style={{ textDecoration: "none" }}>Sign Up</Link> </span>
 
-                            <button className="button gmail_login d-block" type="submit" id="gmaillogin"> <span className="ico"></span> Sign In with Gmail</button>
+
 
                             {
                               toggle ? (
