@@ -22,7 +22,7 @@ const Notifications = () => {
 			},
 		};
 		axios
-			.get(`${IP}//get-all-notifications/${user_id}`, config)
+			.get(`${IP}/get-all-notifications/${user_id}`, config)
 			.then((res) => {
 				console.log(res.data);
 				setNotifications(res.data);

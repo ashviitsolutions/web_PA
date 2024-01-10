@@ -15,7 +15,7 @@
 	width: 20%;
 	padding: 20px 0px;
 	top: 60px;
-	background: #004f8f;
+	background: linear-gradient(91deg, #032a49, #0d67af);
 	text-align: center;
 	z-index: 1;
 	display: flex;
@@ -71,7 +71,7 @@ ul#tabs_control .item img {
 }
 
 ul#tabs_control li.active {
-	background-color: #03a9f4;
+	background: linear-gradient(91deg, #011423, #07518d);
 	border-radius: 6px;
 	color: #fff;
 	/* border: 2px solid #88daff; */
@@ -812,7 +812,7 @@ textarea {
 }
 
 .modal_send_gift_card button {
-	background-color: #4caf50;
+	background-color: #03a9f4;
 	color: #fff;
 	padding: 10px 15px;
 	border: none;
@@ -820,9 +820,9 @@ textarea {
 	cursor: pointer;
 }
 
-.modal_send_gift_card button:hover {
+/* .modal_send_gift_card button:hover {
 	background-color: #45a049;
-}
+} */
 
 /* //model gift card */
 

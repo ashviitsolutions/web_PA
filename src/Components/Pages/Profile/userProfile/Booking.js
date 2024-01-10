@@ -7,8 +7,13 @@ import ReactPaginate from "react-paginate";
 import { faDownload } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Avatar from "./Avatar";
+import { FallingLines } from "react-loader-spinner";
+import axios from "../../../../axios";
+import { toast } from "react-toastify";
 
 function Booking() {
+	const token = localStorage.getItem("token");
+	const user_id = localStorage.getItem("user_id");
 	const [data, setData] = useState(1);
 	const [count, setCount] = useState(0);
 	const [posts, setPosts] = useState([]);
@@ -17,6 +22,8 @@ function Booking() {
 	const [userFeedback, setUserFeedback] = useState(""); // State for user feedback
 	const username = localStorage.getItem("user_name");
 	const [toggleStates, setToggleStates] = useState([]); // State for toggle states
+	const [isModalOpen, setModalOpen] = useState(false);
+	const [providerId, setProviderId] = useState("658c0477d46d859aa893a4da");
 
 	useEffect(() => {
 		const fetchPosts = async () => {
@@ -59,13 +66,47 @@ function Booking() {
 		setToggleStates(newToggleStates);
 	};
 
-	const handleSubmitRating = (bookingId) => {
-		// You can send the userRating and userFeedback to your backend for processing here
-		// Make an API call to submit the user's rating and feedback
-		// Update the UI as needed
-		console.log("Booking ID:", bookingId);
-		console.log("User Rating:", userRating);
-		console.log("User Feedback:", userFeedback);
+	const handleSubmitRating = () => {
+		// console.log("Booking ID:", providerId);
+		// console.log("User Rating:", userRating);
+		// console.log("User Feedback:", userFeedback);
+		axios
+			.post(
+				`/user/addReviewToStore/${providerId}/${user_id} `,
+				{
+					reviewerName: username,
+					rating: userRating,
+					comments: userFeedback,
+				},
+
+				{ shouldAddAuth: true }
+			)
+			.then((res) => {
+				console.log(res);
+				toast.error(res.data.message, {
+					position: "top-right",
+					autoClose: 3000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: "light",
+				});
+			})
+			.catch((err) => {
+				console.log(err);
+				toast.error(err.response.data.message, {
+					position: "top-right",
+					autoClose: 3000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: "light",
+				});
+			});
 	};
 	// console.log("posts", posts);
 	return (
@@ -80,7 +121,12 @@ function Booking() {
 				</div>
 				<div className="overview__containerMain">
 					{isLoading ? (
-						<h1 style={{ color: "#162b3c" }}>Loading...</h1>
+						<FallingLines
+							color="#03a9f4"
+							width="150"
+							visible={true}
+							ariaLabel="falling-circles-loading"
+						/>
 					) : posts.length > 0 ? (
 						posts.map((booking, index) => (
 							<div className="overview_card" key={index}>
@@ -99,7 +145,13 @@ function Booking() {
 									<div className="time_date">
 										<p>{booking.scheduled_date}</p>
 										<h3>{booking.scheduled_timing}</h3>
-										<button onClick={() => handleToggle(index)}>
+										<button
+											onClick={() => {
+												// setProviderId(booking.provider_id);
+												setModalOpen(true);
+												// handleToggle(index)}
+											}}
+										>
 											{/* <FontAwesomeIcon icon={faDownload} />  */}
 											Feedback
 										</button>
@@ -131,6 +183,43 @@ function Booking() {
 						<h3 style={{ color: "#162b3c" }}>No bookings yet.</h3>
 					)}
 				</div>
+				{isModalOpen && (
+					<div className="modal_send_gift_card">
+						<div className="modal-content">
+							<span className="close" onClick={() => setModalOpen(false)}>
+								&times;
+							</span>
+							<h3>Rate your experience</h3>
+							<div
+								style={{
+									display: "flex",
+									justifyContent: "center",
+									margin: 10,
+								}}
+							>
+								<Rating
+									value={userRating}
+									count={5}
+									onChange={handleRatingChange}
+									size={24}
+									activeColor="#007bff"
+								/>
+							</div>
+							<textarea
+								placeholder="Share your feedback"
+								value={userFeedback}
+								onChange={handleFeedbackChange}
+							/>
+							{/* <button onClick={() => handleSubmitRating(booking.id)}>
+									Submit
+								</button> */}
+
+							<button type="submit" onClick={() => handleSubmitRating()}>
+								Submit
+							</button>
+						</div>
+					</div>
+				)}
 			</div>
 			<div className="pagination">
 				<ReactPaginate
