@@ -83,6 +83,14 @@ body {
   background: #616161;
 }
 
+/* .Toastify__progress-bar--animated {
+  animation: Toastify__trackProgress linear 1 forwards;
+  background: radial-gradient(black, transparent);
+  background-color: #2196f3;
+} */
+
+
+
 .gutter {
   padding-left: 10px;
   padding-right: 10px;
