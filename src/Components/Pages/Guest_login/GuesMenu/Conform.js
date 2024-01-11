@@ -78,7 +78,7 @@ const Conform = () => {
     console.log('totalPrice', totalPrice);
 
     const onSubmit = () => {
-        nav('/userProfile/payment/success');
+        nav(`/userProfile/payment/success/${userId}`);
     };
 
     return (

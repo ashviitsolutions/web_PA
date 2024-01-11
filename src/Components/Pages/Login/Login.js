@@ -55,7 +55,7 @@ function Login() {
                 localStorage.setItem('token', token);
                 toast.success("Logged in successfully", {
                     position: "top-right",
-                    autoClose: 30000000000000,
+                    autoClose: 3000,
                     onClose: () => {
                         nav('/userProfile');
                     },
