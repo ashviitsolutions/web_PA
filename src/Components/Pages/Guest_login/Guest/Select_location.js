@@ -24,7 +24,7 @@ function Select_location() {
     useEffect(() => {
         if (state === "Home") {
             nav("/select_location")
-        } else if(state === "providers location"){
+        } else if (state === "providers location") {
             nav("/listofprovider")
         }
 
