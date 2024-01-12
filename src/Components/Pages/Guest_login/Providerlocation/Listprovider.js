@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './Listprovider.css';
 import { IP } from '../../../../Constant';
 import { useNavigate } from 'react-router-dom';
-import image1 from "../../../assets/img/pexels-ivan-samkov-5659057.jpg"
+
 
 
 
@@ -65,7 +65,7 @@ function Listprovider() {
     }, []);
 
 
-    console.log("image try to fetch", users[0].images)
+
 
 
 

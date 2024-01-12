@@ -31,6 +31,7 @@ import {
 	faCalendarDays,
 	faFileContract,
 	faGift,
+	faHeadset,
 	faHeart,
 	faIdBadge,
 	faMoneyCheckDollar,
@@ -39,6 +40,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Notifications from "./Notifications";
 import Favorites from "./Favorites";
+import Support from "./Support";
 
 const Profile = () => {
 	const [activeTab, setActiveTab] = useState(1);
@@ -107,16 +109,13 @@ const Profile = () => {
 			);
 			break;
 		case 8:
-			form = (
-				<Notifications
-					step={now}
-					nextStep={nextStep}
-					previousStep={previousStep}
-				/>
-			);
+			form = <Notifications />;
 			break;
 		case 9:
 			form = <Favorites />;
+			break;
+		case 10:
+			form = <Support />;
 			break;
 		default:
 			break;
@@ -242,6 +241,17 @@ const Profile = () => {
 								Favourites
 							</div>
 						</li>
+						<li
+							id=""
+							className={activeTab === 10 ? "active" : ""}
+							onClick={() => setActiveTab(10)}
+						>
+							<div className="item">
+								{/* <img src={image7} width={15} height={15} alt="..." /> */}
+								<FontAwesomeIcon icon={faHeadset} style={{ marginRight: 10 }} />
+								Support
+							</div>
+						</li>
 						<li id="tab_7" className={activeTab === 7 ? "active" : ""}>
 							<div className="item" onClick={handleLogout}>
 								{/* <img src={image7} width={15} height={15} alt="..." /> */}
@@ -278,7 +288,7 @@ const Profile = () => {
         "
 				>
 					<ul id="tabs_control">
-						<li id="" className={activeTab === 10 ? "active" : ""}>
+						<li id="">
 							<div
 								className="item"
 								style={{ fontSize: 10 }}
@@ -293,7 +303,7 @@ const Profile = () => {
 							</div>
 						</li>
 
-						<li id="" className={activeTab === 11 ? "active" : ""}>
+						<li id="">
 							<div
 								className="item"
 								style={{ fontSize: 10 }}

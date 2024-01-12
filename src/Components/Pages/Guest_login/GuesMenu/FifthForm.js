@@ -24,7 +24,10 @@ const FifthForm = ({ step, nextStep }) => {
 
   // Check if the necessary form data exists before accessing its properties    
   const addon_id = formData.addon_id && formData.addon_id[0] ? formData.addon_id[0] : "";
-  const location = formData.locationForm && formData.locationForm[0] ? formData.locationForm[0] : "";
+  const location = formData.locationForm && formData.locationForm[0] ? formData.locationForm[0] : null;
+  // Check if location is defined before trying to access its properties
+  const locationName = location ? location.location : null;
+
 
   const location_type = formData.location && formData.location[0] ? formData.location[0].location_type : "";
   const gender = formData.secondform && formData.secondform[0] ? formData.secondform[0].gender : "";
@@ -44,7 +47,7 @@ const FifthForm = ({ step, nextStep }) => {
   // const addon_id = formData.addon_id?.[0] || "";
   // const location = formData.locationForm?.[0] || "";
   const adressuser = formData.locationForm?.[0]?.address || "";
-  console.log("adress", adressuser)
+  console.log("location", locationName)
   // const secondform = formData.secondform?.[0] || {};
   // const { gender, totalPrice, service_id, service_time } = secondform;
   // const thirdform = formData.thirdform?.[0] || {};
@@ -126,7 +129,7 @@ const FifthForm = ({ step, nextStep }) => {
             }
 
           ),
-          location: location,
+          location: locationName,
           location_type: location_type,
           massage_for: massage_for,
           service_id: service_id,

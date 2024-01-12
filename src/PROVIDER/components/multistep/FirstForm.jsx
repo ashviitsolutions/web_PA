@@ -84,7 +84,7 @@ const FirstForm = (props) => {
 
 
 
-  console.log(coordinates.lat ,coordinates.lng)
+  console.log(coordinates.lat, coordinates.lng)
 
 
 
@@ -273,7 +273,7 @@ const FirstForm = (props) => {
 
 
     try {
-      const resp = await fetch(`http://localhost:5000/api/provider/update-details`, {
+      const resp = await fetch(`${IP}/provider/update-details`, {
         method: "PUT",
         headers: {
           Authorization: token,
