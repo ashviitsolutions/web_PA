@@ -8793,9 +8793,11 @@ img .img-responsive {
 
 .timeline_month {
   display: none;
+  transition:1s ease-in;
 }
 
 .timeline_year li:hover .timeline_month {
+  
   display: block;
   cursor: pointer;
 }
