@@ -14,7 +14,7 @@ function Worklist() {
             <div className="col-sm-12">
               <div className="big_head text-center">
                 <h3>how <span>it works</span></h3>
-                <p>If you have any questions please feel free to to reach out to us, are here to assist you.
+                <p>If you have any questions please feel free to reach out to us, We are here to assist you.
                 </p>
               </div>
             </div>
@@ -43,7 +43,7 @@ function Worklist() {
                     <div className="inner_wrapper">
                       <div className="content">
                         <h3> <b>02</b> contractor's  check in</h3>
-                        <p>Once your service is submitted, your provider will check in with you and keep you informed
+                        <p>Once your service is submitted, your provider will be notified. He will check in with you and you will be informed.
                         </p>
                       </div>
                     </div>

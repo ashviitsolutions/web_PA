@@ -2258,10 +2258,7 @@ ul.true li::after {
   content: '';
 }
 
-#contact_us .heading h3 {
-  color: #fff;
-  font-size: 52px;
-}
+
 
 #contact_us .heading p {
   color: #fff;
@@ -5926,7 +5923,7 @@ body {
 }
 
 #footer .intro p {
-  color: #ffffff73;
+  color: #ffffffc4;
   font-size: 12px;
   text-align: left;
   padding-right: 45px;
@@ -6105,10 +6102,10 @@ body {
 
 #footer .infobox .text p {
   padding-left: 34px;
-  color: #6a6a6a;
+  color: #ffffffc4;
   font-size: 13px;
   width: 100%;
-  text-transform: capitalize;
+  text-transform: none;
 }
 
 #provider {
@@ -6607,9 +6604,9 @@ ul.true li::after {
   content: '';
 }
 
-#contact_us .heading h3 {
-  color: #fff;
-  font-size: 52px;
+#contact_us .big_heading {
+    color: #fff;
+    font-size: 52px;
 }
 
 #contact_us .heading p {
@@ -8801,9 +8798,11 @@ img .img-responsive {
 
 .timeline_month {
   display: none;
+  transition:1s ease-in;
 }
 
 .timeline_year li:hover .timeline_month {
+  
   display: block;
   cursor: pointer;
 }
@@ -8853,4 +8852,19 @@ img .img-responsive {
   min-height: 100vh;
   background-attachment: fixed;
   background-size: cover;
+}
+#contact_us .heading h3 {
+  color: white;
+}
+.react-calendar {
+  background: none !important;
+  border: none !important;
+}
+
+.react-calendar__navigation {
+  background: var(--primary);
+}
+
+.react-calendar__navigation * {
+  color: white;
 }

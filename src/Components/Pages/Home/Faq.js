@@ -45,7 +45,7 @@ function Faq() {
 							FAQ<small>(s)</small>{" "}
 						</h3>
 						<p>
-							<small>Do you have a question? We might have an answer you looking for -</small>
+							<small>Do you have a question? We might have an answer you looking for</small>
 						</p>
 					</div>
 				</div>

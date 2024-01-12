@@ -1,5 +1,6 @@
 import React from 'react'
 import "./style.css"
+import { Link } from "react-router-dom";
 
 function Member() {
   return (
@@ -9,7 +10,7 @@ function Member() {
           <div className="heading" >
             <h3>become a member now !</h3>
             <h2 style={{ fontSize: "18px" }}>get access to more professional services...</h2>
-            <button className="button" >become member</button>
+            <Link to="/become_member"><button className="button" >become member</button></Link>
           </div>
         </div>
       </div>
