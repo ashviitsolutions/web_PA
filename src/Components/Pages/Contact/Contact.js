@@ -77,7 +77,7 @@ function Contact() {
                         <div className="contact-item">
                             <div className="card_wrapper">
                                 <div className="heading">
-                                    <h3>Any  Questions ?</h3>
+                                    <h3 className='big_heading'>Any  Questions ?</h3>
                                     <p>fill this form and our expert will be in touch with you soon.</p>
                                 </div>
                                 <div className="content">

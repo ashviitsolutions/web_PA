@@ -79,7 +79,7 @@ function Private_Events() {
                 <p dangerouslySetInnerHTML={{ __html: users2.description }}  />
 
 
-                <button className="button" type="button" name="button">book now</button>
+                {/* <button className="button" type="button" name="button">book now</button> */}
               </div>
             </div>
           </div>

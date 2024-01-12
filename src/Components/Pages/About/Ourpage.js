@@ -63,7 +63,7 @@ function Ourpage() {
 							<div className="heading">
 								<h3>{users2.title}</h3>
 								<p dangerouslySetInnerHTML={{ __html: users2.description }} />
-								<ul className="true">
+								{/* <ul className="true">
 									<div className="true-item">
 										<li>
 											Lorem ipsum dolor sit amet, consectetur adipisicing elit,{" "}
@@ -74,7 +74,7 @@ function Ourpage() {
 											reprehenderit
 										</li>
 									</div>
-								</ul>
+								</ul> */}
 							</div>
 						</div>
 						<div className="col-sm-6">

@@ -86,9 +86,9 @@ function PrivateEvents() {
                                   Read more
                                 </button>
                               )}
-                              <Link to="#" className="anchor" id="anchors">
-                                book now
-                              </Link>
+                            <Link to="#" className="anchor" id="anchors">
+                              book now
+                            </Link>
                             </div>
                           </div>
                         </div>
