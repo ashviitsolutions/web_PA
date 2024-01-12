@@ -48,7 +48,7 @@ function Banner() {
 		<>
 			<div
 				id="small_banner"
-				style={{ backgroundImage: `url(${IP}/file/${users.attachments})` }}
+				style={{ backgroundImage: `url(${img})` }}
 			>
 				<div className="container">
 					<div className="row">

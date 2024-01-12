@@ -1,4 +1,4 @@
-import React , {useEffect , useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import { IP } from '../../../../../Constant';
 
 function Employee() {
@@ -41,8 +41,8 @@ function Employee() {
                         </div>
                         <div className="col-sm-6">
                             <div className="heading">
-                            <h3>{users.title}</h3>
-                            <p dangerouslySetInnerHTML={{ __html: users.description }} />
+                                <h3>{users.title}</h3>
+                                <p dangerouslySetInnerHTML={{ __html: users.description }} />
 
                                 {/* <button className="button" type="button" name="button">book now</button> */}
                             </div>

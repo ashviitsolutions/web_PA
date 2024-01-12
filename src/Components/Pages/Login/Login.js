@@ -80,12 +80,21 @@ function Login() {
     };
 
     const forGet = async () => {
+        if (!email) {
+            // Add a check to ensure email is not empty
+            toast.error('Please enter your email before requesting a password reset.', {
+                position: 'top-right',
+                autoClose: 3000,
+            });
+            return;
+        }
+
         try {
             const data = { email };
             const resp = await fetch(`${IP}/user/forgate-password`, {
                 method: 'POST',
                 headers: {
-                    'Accept': 'application/json',
+                    Accept: 'application/json',
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(data),
@@ -93,37 +102,35 @@ function Login() {
 
             if (resp.status === 200) {
                 const result = await resp.json();
-                console.log("result", result);
+                console.log('result', result);
 
-                toast.success("Password reset email sent. Check your inbox.", {
-                    position: "top-right",
+                toast.success('Password reset email sent. Check your inbox.', {
+                    position: 'top-right',
                     autoClose: 3000,
                     onClose: () => {
-                        nav("/login");
+                        nav('/login');
                     },
                 });
-
-                // Handle success, perhaps show a notification or redirect the user
             } else {
-                // Handle failure, perhaps show an error message
                 const errorResult = await resp.json();
                 toast.error(`${errorResult.message}`, {
-                    position: "top-right",
+                    position: 'top-right',
                     autoClose: 3000,
                     onClose: () => {
-                        nav("/login");
+                        nav('/login');
                     },
                 });
-                console.log("errorResult", errorResult);
+                console.log('errorResult', errorResult);
             }
         } catch (error) {
             console.log('Error:', error);
-            toast.error("An error occurred. Please try again.", {
-                position: "top-right",
+            toast.error('An error occurred. Please try again.', {
+                position: 'top-right',
                 autoClose: 3000,
             });
         }
     };
+
 
 
 

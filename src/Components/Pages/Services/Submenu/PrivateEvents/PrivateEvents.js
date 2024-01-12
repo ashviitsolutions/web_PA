@@ -33,10 +33,10 @@ function PrivateEvents() {
         console.error(error);
       }
     };
-  
+
     fetchData();
   }, []);
-  
+
 
 
   return (
@@ -86,7 +86,7 @@ function PrivateEvents() {
                                   Read more
                                 </button>
                               )}
-                              <Link to="#" className="anchor" id="anchors">
+                              <Link to={`/services/corporate_events/booking/${user.title}`} className="anchor" id="anchors">
                                 book now
                               </Link>
                             </div>
