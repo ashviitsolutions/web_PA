@@ -1781,7 +1781,7 @@ body {
   background-size: cover;
 } */
 #small_banner {
-  background-position: 50%;
+  /* background-position: 50%; */
   background-repeat: no-repeat;
   background-size: cover;
   display: block;
@@ -6116,15 +6116,6 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
 } */
-#small_banner {
-  background-position: 50%;
-  background-repeat: no-repeat;
-  background-size: cover;
-  display: block;
-  height: 500px;
-  position: relative;
-  width: 100%;
-}
 
 
 #small_banners .heads {
