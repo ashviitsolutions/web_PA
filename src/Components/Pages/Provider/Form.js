@@ -10,6 +10,9 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import imagepath from "../../assets/img/43547063_s.jpg"
 
+import openEye from "../../assets/img/iconoir_eye.png"
+import closeEye from "../../assets/img/codicon_eye-closed.png"
+
 
 const PreviewImage = ({ imagePreviewUrl }) => {
     return (
@@ -32,6 +35,22 @@ function FormPage(props) {
     const [img, setImg] = useState('');
     const [toggle, setToggle] = useState(false)
     const nav = useNavigate()
+
+
+
+    const [showPassword, setShowPassword] = useState(false);
+
+    const handleTogglePassword = () => {
+        setShowPassword(!showPassword);
+    };
+
+
+
+
+
+
+
+
 
     useEffect(() => {
         async function fetchData() {
@@ -355,13 +374,16 @@ function FormPage(props) {
                                                 <Field
                                                     className="input"
                                                     name="password"
-                                                    type="password"
+                                                    type={showPassword ? 'text' : 'password'}
                                                     placeholder=""
                                                 />
                                                 {errors.password && touched.password ? (
                                                     <div>{errors.password}</div>
                                                 ) : null}
                                                 <label htmlFor="">password</label>
+                                                <button className='eye_button' type="button" onClick={handleTogglePassword}>
+                                                {showPassword ? <img src={closeEye} alt='' /> : <img src={openEye} alt='' />}
+                                            </button>
                                                 <span className="highlight"></span>
                                             </div>
 
@@ -369,13 +391,16 @@ function FormPage(props) {
                                                 <Field
                                                     className="input"
                                                     name="confirm_password"
-                                                    type="password"
+                                                    type={showPassword ? 'text' : 'password'}
                                                     placeholder=""
                                                 />
                                                 {errors.confirm_password && touched.confirm_password ? (
                                                     <div>{errors.confirm_password}</div>
                                                 ) : null}
                                                 <label htmlFor="">confirm Password</label>
+                                                <button className='eye_button' type="button" onClick={handleTogglePassword}>
+                                                {showPassword ? <img src={closeEye} alt='' /> : <img src={openEye} alt='' />}
+                                            </button>
                                                 <span className="highlight"></span>
                                             </div>
 

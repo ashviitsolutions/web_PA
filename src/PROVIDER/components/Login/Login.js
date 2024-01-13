@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { IP } from '../../../Constant';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import openEye from "../../../Components/assets/img/iconoir_eye.png"
+import closeEye from "../../../Components/assets/img/codicon_eye-closed.png"
 
 function LoginProvider() {
     const [email, setEmail] = useState('');
@@ -12,6 +14,13 @@ function LoginProvider() {
     const token = localStorage.getItem('providertoken');
     const approvaltoken = localStorage.getItem('approvaluser');
     const nav = useNavigate();
+
+    const [showPassword, setShowPassword] = useState(false);
+
+    const handleTogglePassword = () => {
+        setShowPassword(!showPassword);
+    };
+
 
     const onSubmit = async () => {
         try {
@@ -74,7 +83,7 @@ function LoginProvider() {
                 toast.error(`${errorResult.message}`, {
                     position: 'top-right',
                     autoClose: 3000,
-                  
+
                 });
                 console.log('errorResult', errorResult);
             }
@@ -110,12 +119,15 @@ function LoginProvider() {
                             <div className="input_group">
                                 <input
                                     className="input"
-                                    type="password"
+                                    type={showPassword ? 'text' : 'password'}
                                     placeholder="Password"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
                             </div>
+                            <button className='eye_button' type="button" onClick={handleTogglePassword}>
+                                {showPassword ? <img src={closeEye} alt='' /> : <img src={openEye} alt='' />}
+                            </button>
                             <p
                                 style={{
                                     background: 0,

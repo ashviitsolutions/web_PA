@@ -8,12 +8,31 @@ import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import openEye from "../../assets/img/iconoir_eye.png"
+import closeEye from "../../assets/img/codicon_eye-closed.png"
+
 function GuestLogin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [toggle, setToggle] = useState(false);
   const nav = useNavigate();
   const loginguser = localStorage.getItem('token');
+
+
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleTogglePassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+
+
+
+
+
+
+
 
   useEffect(() => {
     if (!loginguser) {
@@ -54,7 +73,7 @@ function GuestLogin() {
         toast.success('Password reset email sent. Check your inbox.', {
           position: 'top-right',
           autoClose: 3000,
-        
+
         });
       } else {
         const errorResult = await resp.json();
@@ -149,12 +168,15 @@ function GuestLogin() {
                           <input
                             className="input"
                             name="password"
-                            type="password"
+                            type={showPassword ? 'text' : 'password'}
                             placeholder=""
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                           />
                           <label htmlFor="password">Password</label>
+                          <button className='eye_button' type="button" onClick={handleTogglePassword}>
+                            {showPassword ? <img src={closeEye} alt='' /> : <img src={openEye} alt='' />}
+                          </button>
                           <span className="highlight"></span>
                         </div>
                         <p style={{ background: 0, color: '#707070', cursor: "pointer" }} onClick={forGet}>

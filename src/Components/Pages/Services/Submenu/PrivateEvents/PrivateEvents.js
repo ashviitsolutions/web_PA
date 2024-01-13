@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { IP } from '../../../../../Constant';
 
-// import Imge4 from "../../assets/img/pexels-andrea-piacquadio-3764568.jpg"
+
 
 
 function PrivateEvents() {
@@ -86,7 +86,7 @@ function PrivateEvents() {
                                   Read more
                                 </button>
                               )}
-                              <Link to="#" className="anchor" id="anchors">
+                              <Link to={`/services/corporate_events/booking/${user.title}`} className="anchor" id="anchors">
                                 book now
                               </Link>
                             </div>

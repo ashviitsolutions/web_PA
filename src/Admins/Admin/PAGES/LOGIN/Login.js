@@ -7,11 +7,19 @@ import { IP } from '../../../../Constant';
 // import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
+import openEye from "../../../../Components/assets/img/iconoir_eye.png"
+import closeEye from "../../../../Components/assets/img/codicon_eye-closed.png"
+
 function Login() {
     const [toggle, setToggle] = useState(false)
     const loginguser = localStorage.getItem("tokenadmin")
     const nav = useNavigate()
 
+    const [showPassword, setShowPassword] = useState(false);
+
+    const handleTogglePassword = () => {
+        setShowPassword(!showPassword);
+    };
     useEffect(() => {
         const auth = localStorage.getItem("tokenadmin")
         if (auth) {
@@ -124,9 +132,12 @@ function Login() {
                                                 <Field
                                                     className="input"
                                                     name="password"
-                                                    type="password"
+                                                    type={showPassword ? 'text' : 'password'}
                                                 />
                                                 <label for="">password</label>
+                                                <button className='eye_button' type="button" onClick={handleTogglePassword}>
+                                                    {showPassword ? <img src={closeEye} alt='' /> : <img src={openEye} alt='' />}
+                                                </button>
                                                 {errors.password && touched.password ? (
                                                     <div>{errors.password}</div>
                                                 ) : null}

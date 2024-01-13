@@ -8,12 +8,17 @@ import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { IP } from '../../../Constant';
+import openEye from "../../assets/img/iconoir_eye.png"
+import closeEye from "../../assets/img/codicon_eye-closed.png"
 
 function Login() {
-
-
     const nav = useNavigate()
 
+    const [showPassword, setShowPassword] = useState(false);
+
+    const handleTogglePassword = () => {
+        setShowPassword(!showPassword);
+    };
 
     // const nav=useNavigate()
     const initialValues = {
@@ -176,13 +181,16 @@ function Login() {
                                         <Field
                                             className="input"
                                             name="password"
-                                            type="password"
+                                            type={showPassword ? 'text' : 'password'}
                                             placeholder=""
                                         />
                                         {errors.password && touched.password ? (
                                             <div>{errors.password}</div>
                                         ) : null}
                                         <label htmlFor="">password</label>
+                                        <button className='eye_button' type="button" onClick={handleTogglePassword}>
+                                            {showPassword ? <img src={closeEye} alt='' /> : <img src={openEye} alt='' />}
+                                        </button>
                                         <span className="highlight"></span>
                                     </div>
                                     <div style={{ height: "5px" }}>
@@ -191,13 +199,16 @@ function Login() {
                                         <Field
                                             className="input"
                                             name="Confirm_Password"
-                                            type="password"
+                                            type={showPassword ? 'text' : 'password'}
                                             placeholder=""
                                         />
                                         {errors.Confirm_Password && touched.Confirm_Password ? (
                                             <div>{errors.Confirm_Password}</div>
                                         ) : null}
                                         <label htmlFor="">confirm password</label>
+                                        <button className='eye_button' type="button" onClick={handleTogglePassword}>
+                                            {showPassword ? <img src={closeEye} alt='' /> : <img src={openEye} alt='' />}
+                                        </button>
                                         <span className="highlight"></span>
                                     </div>
                                     <div style={{ height: "5px" }}>
