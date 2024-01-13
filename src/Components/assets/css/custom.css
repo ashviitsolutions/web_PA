@@ -8823,3 +8823,24 @@ img .img-responsive {
   background: #cae7ff;
   margin: auto;
 }
+.eye_button {
+  height: 30px;
+  width: 30px;
+  background: none;
+  border: none;
+  position: relative;
+  bottom: 30px;
+  left: 90%;
+  z-index: 999;
+}
+
+.eye_button img {
+  width: 100%;
+}
+.sign_in_form p {
+  text-align: center;
+}
+.sign_in_forms .eye_button {
+  left: 44% !important;
+}
+
