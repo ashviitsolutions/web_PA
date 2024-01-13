@@ -38,8 +38,8 @@ function Benifit() {
                                                     <span style={{ backgroundImage: `url(${Image1})` }}></span>
                                                 </div>
                                                 <div className="text">
-                                                    <h3>fast earning</h3>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                                    <h3>Maximize your earning potential</h3>
+                                                    <p>Experience unparalleled earning potential with our commitment to generous compensation. Our pay rates soar 100% above the national average per hour, ensuring that your efforts are handsomely recognized.</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -51,8 +51,8 @@ function Benifit() {
                                                     <span style={{ backgroundImage: `url(${Image2})` }}></span>
                                                 </div>
                                                 <div className="text">
-                                                    <h3>work flexibility</h3>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                                    <h3>Tailored to Your Lifestyle</h3>
+                                                    <p>Whether you're opting for part-time independence, full-time commitment, or a side hustle, we provide flexible opportunities that suit your schedule seamlessly.</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -64,8 +64,8 @@ function Benifit() {
                                                     <span style={{ backgroundImage: `url(${Image3})` }} ></span>
                                                 </div>
                                                 <div className="text">
-                                                    <h3>safety first</h3>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                                    <h3>Freedom to Choose</h3>
+                                                    <p>We respect the significance of your time at Productive Alliance. Providers bear no obligation; the power is in your hands. Seamlessly respond to opportunities by clicking "Accept" or "Deny" in your personalized provider portal.</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -77,8 +77,8 @@ function Benifit() {
                                                     <span style={{ backgroundImage: `url(${Image4})` }}></span>
                                                 </div>
                                                 <div className="text">
-                                                    <h3>grow your business</h3>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                                    <h3>Enhanced Rewards System</h3>
+                                                    <p>At Productive Alliance, we take pride in delivering quality and convenience to our clients. As a token of appreciation, our clients automatically include gratuity, boosting our providers' earnings beyond their salary.</p>
                                                 </div>
                                             </div>
                                         </div>

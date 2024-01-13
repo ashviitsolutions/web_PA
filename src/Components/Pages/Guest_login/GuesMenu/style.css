@@ -83,11 +83,11 @@
 }
 
 .section {
-	width: 60%;
+    width: 60%;
     margin: auto;
     margin-top: 100px;
     margin-bottom: 200px;
-    background-color: #ffffffa6;
+    background-color: #ffffffe3;
     padding: 80px;
     border-radius: 10px;
     box-shadow: 2px 2px 15px -5px rgb(0 0 0 / 35%);
@@ -127,12 +127,12 @@
 }
 
 #sec_wiz_2 {
-	width: 70%;
+    width: 70%;
     margin: auto;
     margin-top: 60px;
     height: auto;
     margin-bottom: 150px;
-    background: #ffffffa6;
+    background: #ffffffe3;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 2px 2px 15px -5px rgb(0 0 0 / 35%);
@@ -231,11 +231,11 @@
 /* //Firtform */
 
 .review_page {
-	width: 50% !important;
+    width: 50% !important;
     margin: auto;
     margin-top: 40px !important;
     margin-bottom: 200px;
-    background-color: #ffffffa6;
+    background-color: #ffffffe3;
     padding: 80px;
     border-radius: 10px;
     box-shadow: 2px 2px 15px -5px rgb(0 0 0 / 35%);
@@ -365,7 +365,7 @@
 		margin: auto;
 		margin-top: 100px;
 		margin-bottom: 200px;
-		background-color: #ffffffa6;
+		background-color: #ffffffe3;
 		padding: 80px;
 		border-radius: 10px;
 		box-shadow: 2px 2px 15px -5px rgb(0 0 0 / 35%);

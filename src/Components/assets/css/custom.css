@@ -993,31 +993,6 @@ body {
   margin-top: 0 !important;
 }
 
-#brief::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url('../img/777d847667a91be2f9be37101a52f46b.jpg');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  filter: grayscale(1);
-}
-
-#brief::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #f0f8ff;
-  opacity: 0.9;
-}
-
 #brief .content {
   position: relative;
   display: block;
@@ -1762,13 +1737,6 @@ body {
   text-transform: capitalize;
 }
 
-#provider {
-  position: relative;
-  display: block;
-  width: 100%;
-  background: #f2f9ff;
-  top: -150px;
-}
 
 #provider .right_half {
   position: relative;
@@ -1813,7 +1781,7 @@ body {
   background-size: cover;
 } */
 #small_banner {
-  background-position: 50%;
+  /* background-position: 50%; */
   background-repeat: no-repeat;
   background-size: cover;
   display: block;
@@ -3806,16 +3774,6 @@ ul.true li::after {
   font-size: 12px;
 }
 
-#blog {
-  position: relative;
-  display: block;
-  top: -80px;
-  width: 100%;
-  min-height: 500px;
-  background-color: #f2f9ff;
-  padding-top: 50px;
-  padding-bottom: 30px;
-}
 
 #navigation .nav_bar .app_buttons {
   display: none;
@@ -5328,28 +5286,28 @@ body {
 }
 
 #brief::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url('../img/777d847667a91be2f9be37101a52f46b.jpg');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  filter: grayscale(1);
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* background-image: url(http://localhost:3000/static/media/777d847….72dc8f2….jpg); */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    filter: grayscale(1);
 }
 
 #brief::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #f0f8ff;
-  opacity: 0.9;
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #d6edff;
+    opacity: 0.9;
 }
 
 #brief .content {
@@ -6109,11 +6067,11 @@ body {
 }
 
 #provider {
-  position: relative;
-  display: block;
-  width: 100%;
-  background: #f2f9ff;
-  top: -150px;
+    position: relative;
+    display: block;
+    width: 100%;
+    background: #d6edff;
+    top: -150px;
 }
 
 #provider .right_half {
@@ -6158,15 +6116,6 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
 } */
-#small_banner {
-  background-position: 50%;
-  background-repeat: no-repeat;
-  background-size: cover;
-  display: block;
-  height: 500px;
-  position: relative;
-  width: 100%;
-}
 
 
 #small_banners .heads {
@@ -8170,14 +8119,14 @@ ul.true li::after {
 }
 
 #blog {
-  position: relative;
-  display: block;
-  top: -80px;
-  width: 100%;
-  min-height: 500px;
-  background-color: #f2f9ff;
-  padding-top: 50px;
-  padding-bottom: 30px;
+    position: relative;
+    display: block;
+    top: -80px;
+    width: 100%;
+    min-height: 500px;
+    background-color: #d6edff;
+    padding-top: 50px;
+    padding-bottom: 30px;
 }
 
 #navigation .nav_bar .app_buttons {
@@ -8867,4 +8816,10 @@ img .img-responsive {
 
 .react-calendar__navigation * {
   color: white;
+}
+.hspace {
+  height: 50px;
+  width: 100%;
+  background: #cae7ff;
+  margin: auto;
 }

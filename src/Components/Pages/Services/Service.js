@@ -14,8 +14,11 @@ function Service() {
     <>
     <Banner/>
     <Services/>
+    <div className='hspace'></div>
     <Event_services/>
+    <div className='hspace'></div>
     <PrivateEvents/>
+    <div className='hspace'></div>
     <Faq/>
     </>
   )
