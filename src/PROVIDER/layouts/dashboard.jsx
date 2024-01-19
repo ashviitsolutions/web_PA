@@ -11,9 +11,7 @@ const Dashboard = () => {
 
   const [request, setreq] = useState([])
   const token = localStorage.getItem('providertoken')
-  const [withdraw, setWithdraw] = useState([])
-  const [available, setAvailble] = useState([])
-  const [neyincome, setNeyincome] = useState([]);
+
 
   const [wallate, setWallate] = useState();
 
@@ -52,7 +50,7 @@ const Dashboard = () => {
 
   //request api
   useEffect(() => {
-    fetch(`http://localhost:5000/api/provider/requests`, {
+    fetch(`${IP}/provider/requests`, {
       headers: {
         'Authorization': token
       }
