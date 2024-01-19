@@ -19,9 +19,6 @@ const Profile = () => {
 
   const [user, setUser] = useState({
     name: "John Doe",
-    description: `Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi earum ab est ipsa impedit qui, suscipit commodi doloribus voluptate inventore similique odit, nemo porro quam, optio totam exercitationem minima tempora!Lorem Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit molestias quas iusto odio rem similique vitae perspiciatis aliquid sunt autem assumenda molestiae quo minus porro, nesciunt atque itaque distinctio delectus?doloribus
-
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque tempora, fugiat dolores quia necessitatibus, accusamus incidunt temporibus quod, eligendi illum recusandae nesciunt. Minima doloremque at, vitae tenetur earum est enim!`,
     // skills: ["Therapeutic Massage", "Sports Massage", "Swedish Massage"],
     mobile: "9876543210",
     email: "demo@demo.com",
@@ -109,22 +106,19 @@ const Profile = () => {
         </div>
         <div className="col-md-8">
           <h4 className="profile_description   mb-4"> {name} </h4>
-          <p className="profile_description">{user.description}</p>
+          <Row>
+            <div className="col-md-4">
+              <Contacts mobile={phone} email={email} />
+             
+            </div>
+            <div className="col-md-8">
+              <Skills skills={{ skill: skills }} />
+            </div>
+          </Row>
         </div>
       </Row>
       <hr className="hr" />
-      <Row>
-        <div className="col-md-4">
-          <Contacts mobile={phone} email={email} />
-          <Socials />
-        </div>
-        <div className="col-md-8">
-          {/* <Skills
-            skills={{ skill: ["Therapeutic Massage", "Sports Massage"] }}
-          /> */}
-          <Skills skills={{ skill: skills }} />
-        </div>
-      </Row>
+     
       <hr className="hr" />
       <div className="text-center">
         <Button onClick={() => setModalShow(true)}>Update</Button>
