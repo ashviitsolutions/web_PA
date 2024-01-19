@@ -42,9 +42,8 @@ function Worklist() {
                   <div className="item" style={{ top: "70px" }}>
                     <div className="inner_wrapper">
                       <div className="content">
-                        <h3> <b>02</b> contractor's  check in</h3>
-                        <p>Once your service is submitted, your provider will be notified. He will check in with you and you will be informed.
-                        </p>
+                        <h3> <b>02</b> Provider Check In</h3>
+                        <p>Once your request is submitted, your service provider will receive your request. Once agreed, your provider will check in with you and keep you informed</p>
                       </div>
                     </div>
                     <div className="bg">

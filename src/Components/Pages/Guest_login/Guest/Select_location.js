@@ -48,7 +48,7 @@ function Select_location() {
                                         ></span>
 
                                         <span className="title">My Location</span>
-                                        <span className="text">At the convenience of your home / your location</span>
+                                        <span className="text">Home, Office, Hotel</span>
                                     </li>
                                 </div>
                                 <div onClick={() => handleSubmit('providers location')}>
@@ -61,7 +61,7 @@ function Select_location() {
                                         ></span>
 
                                         <span className="title">Provider's Location</span>
-                                        <span className="text">at service provider's location for better professional support</span>
+                                        <span className="text">Massage Parlor, Spa, Wellness Center</span>
                                     </li>
                                 </div>
                             </ul>
