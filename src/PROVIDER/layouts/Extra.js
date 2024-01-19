@@ -15,30 +15,52 @@ const Dashboard = () => {
   const [available, setAvailble] = useState([])
   const [neyincome, setNeyincome] = useState([]);
 
-  const [wallate, setWallate] = useState();
-
 
 
   useEffect(() => {
-    fetch(`${IP}/provider/getProviderWallet`, {
+    fetch(`${IP}/provider/available`, {
       headers: {
         'Authorization': token
       }
     }).then(resp => {
       return resp.json()
     }).then(result => {
-      setWallate(result.wallet)
-
+      setWithdraw(result)
+      console.log("available", result)
     }).catch(err => {
       console.log(err)
     })
 
 
+    fetch(`${IP}/provider/fetchwitdrawl`, {
+      headers: {
+        'Authorization': token
+      }
+    }).then(resp => {
+      return resp.json()
+    }).then(result => {
+      setAvailble(result)
+      console.log("fetchwitdrawl", result)
+    }).catch(err => {
+      console.log(err)
+    })
 
+    fetch(`${IP}/provider/net-income`, {
+      headers: {
+        'Authorization': token
+      }
+    }).then(resp => {
+      return resp.json()
+    }).then(result => {
+      setNeyincome(result.net_income)
+      console.log("net-income", result.net_income)
+    }).catch(err => {
+      console.log(err)
+    })
   }, [])
 
 
-  console.log("available", wallate)
+
 
 
 
@@ -52,7 +74,7 @@ const Dashboard = () => {
 
   //request api
   useEffect(() => {
-    fetch(`http://localhost:5000/api/provider/requests`, {
+    fetch(`${IP}/provider/requests`, {
       headers: {
         'Authorization': token
       }
@@ -73,9 +95,10 @@ const Dashboard = () => {
         <div className="col-md-12">
           <h2 className="text-center mt-2">Earnings</h2>
           <Row>
-            <EarningsCard label="Net Income" amt={wallate?.total_withdrawn} />
-            <EarningsCard label="Pending Clearance" amt={wallate?.available_amount} />
-         
+            <EarningsCard label="Net Income" amt={neyincome} />
+            <EarningsCard label="Withdrawn" amt={withdraw} />
+            <EarningsCard label="Pending Clearance" amt="100" />
+            <EarningsCard label="Available for Withdrawl" amt={available} />
           </Row>
         </div>
         <div className="col-md-12">
@@ -92,7 +115,6 @@ const Dashboard = () => {
                       newclient="true"
                       title={cur.service}
                       location={cur.location}
-                      address={cur.address}
                       time={cur.scheduled_time}
                       date={cur.scheduled_date}
                       amt={75}

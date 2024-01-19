@@ -128,11 +128,11 @@ function Booking() {
 							ariaLabel="falling-circles-loading"
 						/>
 					) : posts.length > 0 ? (
-						posts.map((booking, index) => (
+						posts.filter((booking) => booking.service_status === "completed").map((booking, index) => (
 							<div className="overview_card" key={index}>
 								<div
 									className="overview_input"
-									// onClick={() => handleToggle(index)}
+								// onClick={() => handleToggle(index)}
 								>
 									<div className="image_text">
 										<img src={image1} width={150} height={130} alt="..." />

@@ -2,7 +2,7 @@ import React from "react";
 
 const EarningsCard = (props) => {
   return (
-    <div className="col-md-6 col-lg-3 mb-3">
+    <div className="col-md-12 col-lg-6 mb-6">
        <div
          className="shadow-sm earning-income-card card text-center"
        >
