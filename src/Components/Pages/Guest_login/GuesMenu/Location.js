@@ -1,8 +1,10 @@
+
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateInputData } from '../../Redux/counterSlice';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import { useNavigate } from 'react-router-dom';
+
 function Location() {
   const [address, setAddress] = useState("");
   const [coordinates, setCoordinates] = useState({
@@ -14,7 +16,6 @@ function Location() {
     try {
       const results = await geocodeByAddress(value);
       const ll = await getLatLng(results[0]);
-      console.log(ll);
       setAddress(value);
       setCoordinates(ll);
     } catch (error) {
@@ -22,9 +23,37 @@ function Location() {
     }
   }
 
+  const handleGetCurrentLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const latLng = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+
+          try {
+            const results = await geocodeByAddress(`${latLng.lat},${latLng.lng}`);
+            const address = results[0].formatted_address;
+
+            setAddress(address);
+            setCoordinates(latLng);
+          } catch (error) {
+            console.error("Error getting current location:", error);
+          }
+        },
+        (error) => {
+          console.error("Error getting current location:", error);
+        }
+      );
+    } else {
+      console.error("Geolocation is not supported by this browser.");
+    }
+  };
 
   const dispatch = useDispatch();
   const nav = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const config = {
@@ -79,7 +108,17 @@ function Location() {
                     </div>
                   )}
                 </PlacesAutocomplete>
+
+                <button
+                  className="button"
+                  style={{ padding: '8px', marginTop: '10px' }}
+                  type="button"
+                  onClick={handleGetCurrentLocation}
+                >
+                  Use Current Location
+                </button>
               </div>
+
               <div className="input_group">
                 <button
                   className="button"
@@ -87,7 +126,7 @@ function Location() {
                   type="submit"
                   onClick={handleSubmit}
                 >
-                  continue
+                  Continue
                 </button>
               </div>
             </form>
@@ -99,3 +138,22 @@ function Location() {
 }
 
 export default Location;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

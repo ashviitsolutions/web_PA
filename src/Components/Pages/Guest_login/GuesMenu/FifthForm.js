@@ -47,7 +47,7 @@ const FifthForm = ({ step, nextStep }) => {
   // const addon_id = formData.addon_id?.[0] || "";
   // const location = formData.locationForm?.[0] || "";
   const adressuser = formData.locationForm?.[0]?.address || "";
-  console.log("location", locationName)
+  console.log("location", adressuser)
   // const secondform = formData.secondform?.[0] || {};
   // const { gender, totalPrice, service_id, service_time } = secondform;
   // const thirdform = formData.thirdform?.[0] || {};

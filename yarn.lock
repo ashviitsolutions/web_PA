@@ -8523,6 +8523,11 @@ react-fit@^1.4.0, react-fit@^1.7.0:
     prop-types "^15.6.0"
     tiny-warning "^1.0.0"
 
+react-geocode@^1.0.0-alpha.1:
+  version "1.0.0-alpha.1"
+  resolved "https://registry.npmjs.org/react-geocode/-/react-geocode-1.0.0-alpha.1.tgz"
+  integrity sha512-MCzPh2uVabBHUYv/nrkEfkiAdRsVgcgyKKMEKFoB9il/zVltCjy3k81TGRIIxE246hmbZgIJeV5afIJ739EBhA==
+
 react-google-places-autocomplete@^4.0.1:
   version "4.0.1"
   resolved "https://registry.npmjs.org/react-google-places-autocomplete/-/react-google-places-autocomplete-4.0.1.tgz"

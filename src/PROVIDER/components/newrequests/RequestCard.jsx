@@ -6,6 +6,8 @@ import { IP } from "../../../Constant";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Dashboard from "../../layouts/dashboard";
+
+
 const RequestCard = (props) => {
   const token = localStorage.getItem("providertoken")
   const { total } = props;
@@ -86,7 +88,7 @@ const RequestCard = (props) => {
             <div className="col-md-8">
               <div>
                 <FontAwesomeIcon icon={faLocationDot} style={{ width: 20 }} />{" "}
-                {props.location}
+                {props.address}
               </div>
               <div>
                 <FontAwesomeIcon icon={faClock} style={{ width: 20 }} /> {props.time}

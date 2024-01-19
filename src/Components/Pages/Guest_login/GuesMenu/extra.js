@@ -1,391 +1,263 @@
-import { useState, useEffect } from "react";
-import "./style.css";
+// import React, { useState } from 'react';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { updateInputData } from '../../Redux/counterSlice';
+// import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+// import { useNavigate } from 'react-router-dom';
+// function Location() {
+//   const [address, setAddress] = useState("");
+//   const [coordinates, setCoordinates] = useState({
+//     lat: null,
+//     lng: null
+//   });
+
+//   const handleSelect = async (value) => {
+//     try {
+//       const results = await geocodeByAddress(value);
+//       const ll = await getLatLng(results[0]);
+//       console.log(ll);
+//       setAddress(value);
+//       setCoordinates(ll);
+//     } catch (error) {
+//       console.error("Error selecting location:", error);
+//     }
+//   }
+
+
+//   const dispatch = useDispatch();
+//   const nav = useNavigate();
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     const config = {
+//       address: address,
+//       location: {
+//         type: 'Point',
+//         coordinates: [coordinates.lat, coordinates.lng],
+//       },
+//     };
+
+//     dispatch(updateInputData({ formName: 'locationForm', inputData: config }));
+
+//     setTimeout(() => {
+//       nav("/book");
+//     }, 2000);
+//   };
+
+//   return (
+//     <>
+//       <div id="over_banner">
+//         <div className="container">
+//           <div className="row">
+//             <form className="location card layer1">
+//               <h3>Where would you like our provider to meet you.</h3>
+
+//               <div className="input_group">
+//                 <PlacesAutocomplete
+//                   value={address}
+//                   onChange={setAddress}
+//                   onSelect={handleSelect}
+//                 >
+//                   {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+//                     <div>
+//                       <input
+//                         className="input"
+//                         {...getInputProps()}
+//                         placeholder="Search for an address here..."
+//                       />
+//                       <div>
+//                         {loading ? <div>Loading...</div> : null}
+//                         {suggestions.map((suggestion) => {
+//                           const style = {
+//                             backgroundColor: suggestion.active ? '#41b6e6' : '#fff',
+//                           };
+//                           return (
+//                             <div {...getSuggestionItemProps(suggestion, { style })}>
+//                               {suggestion.description}
+//                             </div>
+//                           );
+//                         })}
+//                       </div>
+//                     </div>
+//                   )}
+//                 </PlacesAutocomplete>
+//               </div>
+//               <div className="input_group">
+//                 <button
+//                   className="button"
+//                   style={{ paddingTop: '11px' }}
+//                   type="submit"
+//                   onClick={handleSubmit}
+//                 >
+//                   continue
+//                 </button>
+//               </div>
+//             </form>
+//           </div>
+//         </div>
+//       </div>
+//     </>
+//   );
+// }
+
+// export default Location;
+
+
+
+
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateInputData } from '../../Redux/counterSlice';
-import { IP } from "../../../../Constant";
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import { useRef } from "react";
+import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+import { useNavigate } from 'react-router-dom';
 
-const PreviewImage = ({ attachments }) => {
-    const [imageObjectURL, setImageObjectURL] = useState(null);
+function Location() {
+  const [address, setAddress] = useState("");
+  const [coordinates, setCoordinates] = useState({
+    lat: null,
+    lng: null
+  });
 
-    useEffect(() => {
-        const fetchImage = async () => {
-            const res = await fetch(`${IP}/file/${attachments}`);
-            const imageBlob = await res.blob();
-            const objectURL = URL.createObjectURL(imageBlob);
-            setImageObjectURL(objectURL);
-        };
+  const handleSelect = async (value) => {
+    try {
+      const results = await geocodeByAddress(value);
+      const ll = await getLatLng(results[0]);
+      setAddress(value);
+      setCoordinates(ll);
+    } catch (error) {
+      console.error("Error selecting location:", error);
+    }
+  }
 
-        fetchImage();
-    }, [attachments]);
+  const handleGetCurrentLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const latLng = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
 
-    return (
-        <div style={{ height: "22vh", backgroundSize: "cover" }}>
-            {imageObjectURL && <img src={imageObjectURL} alt="Preview" className="previewimage" />}
+          try {
+            const results = await geocodeByAddress(`${latLng.lat},${latLng.lng}`);
+            const address = results[0].formatted_address;
+
+            setAddress(address);
+            setCoordinates(latLng);
+          } catch (error) {
+            console.error("Error getting current location:", error);
+          }
+        },
+        (error) => {
+          console.error("Error getting current location:", error);
+        }
+      );
+    } else {
+      console.error("Geolocation is not supported by this browser.");
+    }
+  };
+
+  const dispatch = useDispatch();
+  const nav = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const config = {
+      address: address,
+      location: {
+        type: 'Point',
+        coordinates: [coordinates.lat, coordinates.lng],
+      },
+    };
+
+    dispatch(updateInputData({ formName: 'locationForm', inputData: config }));
+
+    setTimeout(() => {
+      nav("/book");
+    }, 2000);
+  };
+
+  return (
+    <>
+      <div id="over_banner">
+        <div className="container">
+          <div className="row">
+            <form className="location card layer1">
+              <h3>Where would you like our provider to meet you.</h3>
+
+              <div className="input_group">
+                <PlacesAutocomplete
+                  value={address}
+                  onChange={setAddress}
+                  onSelect={handleSelect}
+                >
+                  {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                    <div>
+                      <input
+                        className="input"
+                        {...getInputProps()}
+                        placeholder="Search for an address here..."
+                      />
+                      <div>
+                        {loading ? <div>Loading...</div> : null}
+                        {suggestions.map((suggestion) => {
+                          const style = {
+                            backgroundColor: suggestion.active ? '#41b6e6' : '#fff',
+                          };
+                          return (
+                            <div {...getSuggestionItemProps(suggestion, { style })}>
+                              {suggestion.description}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+                </PlacesAutocomplete>
+
+                <button
+                  className="button"
+                  style={{ paddingTop: '11px', marginRight: '10px' }}
+                  type="button"
+                  onClick={handleGetCurrentLocation}
+                >
+                  Use Current Location
+                </button>
+              </div>
+
+              <div className="input_group">
+                <button
+                  className="button"
+                  style={{ paddingTop: '11px' }}
+                  type="submit"
+                  onClick={handleSubmit}
+                >
+                  Continue
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
-    );
-};
-
-const SeconForm = ({ step, nextStep }) => {
-    const dispatch = useDispatch();
-    const selector = useSelector((state) => state.counter.formData);
-    // const gendercheck = selector?.firstForm[0];
-    const gendercheck = selector?.firstForm && selector.firstForm.length > 0 ? selector.firstForm[0] : "";
-
-
-    const [user, setUser] = useState([]);
-    const [selectedItems, setSelectedItems] = useState([]);
-    const [selectedGender, setSelectedGender] = useState([]);
-    const [selectedGender1, setSelectedGender1] = useState([]);
-    const [selectedGender2, setSelectedGender2] = useState([]);
-    const [selectedServiceTime, setSelectedServiceTime] = useState("");
-    const [service_ids, setService_id] = useState();
-    const [priceservice, setPerice] = useState(0);
-    const [priceadon, setPriceadon] = useState(0);
-    const [totalPrice, setTotalPrice] = useState(0);
-    const [formData, setFormData] = useState();
-    const [genderPreferences, setGenderPreferences] = useState([]);
-
-    useEffect(() => {
-        const formData = {
-            service_ids,
-            gender: genderPreferences,
-            service_time: selectedServiceTime,
-            selectedItems: selectedItems,
-            totalPrice: priceservice + priceadon,
-        };
-
-        setFormData(formData);
-    }, [selectedItems, service_ids, genderPreferences, selectedServiceTime, priceservice, priceadon]);
-
-
-    useEffect(() => {
-        let total = priceservice + priceadon;
-        const time_status = selectedServiceTime;
-
-        if (time_status === "90min") {
-            total += 40;
-        } else if (time_status === "120min") {
-            total += 80;
-        }
-
-        if (gendercheck === "guest") {
-            total *= 2;
-        }
-
-        setTotalPrice(total);
-        setFormData({ ...formData, totalPrice: total });
-    }, [priceservice, priceadon, selectedServiceTime, gendercheck]);
-
-
-
-
-
-
-    const handleGenderSelect = (selectedGenderValue) => {
-        setFormData({ ...formData, gender: selectedGenderValue });
-        setSelectedGender(selectedGenderValue);
-        setGenderPreferences([selectedGenderValue]);
-    };
-
-    const handleGenderSelect1 = (selectedGenderValue) => {
-        if (!genderPreferences.includes(selectedGenderValue)) {
-            setFormData({ ...formData, gender: selectedGenderValue });
-            setSelectedGender1(selectedGenderValue);
-            setGenderPreferences([...genderPreferences, selectedGenderValue]);
-        }
-    };
-
-    const handleGenderSelect2 = (selectedGenderValue) => {
-        if (!genderPreferences.includes(selectedGenderValue)) {
-            setFormData({ ...formData, gender: selectedGenderValue });
-            setSelectedGender2(selectedGenderValue);
-            setGenderPreferences([...genderPreferences, selectedGenderValue]);
-        }
-    };
-
-
-
-
-
-
-
-
-
-
-    // const handleGenderSelect = (selectedGenderValue) => {
-    //     setFormData({ ...formData, gender: selectedGenderValue });
-    //     setSelectedGender(selectedGenderValue);
-    //     setGenderPreferences([...genderPreferences, selectedGenderValue]);
-    // };
-
-    // const handleGenderSelect1 = (selectedGenderValue) => {
-    //     setFormData({ ...formData, gender: selectedGenderValue });
-    //     setSelectedGender1(selectedGenderValue);
-    // };
-
-    // const handleGenderSelect2 = (selectedGenderValue) => {
-    //     setFormData({ ...formData, gender: selectedGenderValue });
-    //     setSelectedGender2(selectedGenderValue);
-    // };
-
-    const handleServiceTimeSelect = (selectedTime) => {
-        setFormData({ ...formData, service_time: selectedTime });
-        setSelectedServiceTime(selectedTime);
-    };
-
-    const handleId = (id) => {
-        setService_id(id);
-        setFormData({ ...formData, service_ids: id });
-    };
-
-    const handlePrice = (price) => {
-        setPriceadon(price);
-    };
-
-    const handleSelectItem = (itemId) => {
-        const itemIndex = selectedItems.indexOf(itemId);
-
-        if (itemIndex === -1) {
-            setSelectedItems([...selectedItems, itemId]);
-            setFormData({ ...formData, selectedItems: itemId });
-            const selectedItem = user.find(item => item._id === itemId);
-            if (selectedItem) {
-                setPerice(prevPrice => prevPrice + selectedItem.price);
-            }
-        } else {
-            const updatedItems = selectedItems.filter(id => id !== itemId);
-            setSelectedItems(updatedItems);
-            const selectedItem = user.find(item => item._id === itemId);
-            if (selectedItem) {
-                setPerice(prevPrice => prevPrice - selectedItem.price);
-            }
-        }
-    };
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const res = await fetch(`${IP}/service/view-services`);
-                const data = await res.json();
-                setUser(data);
-            } catch (error) {
-                // Handle errors
-            }
-        };
-
-        fetchData();
-    }, []);
-
-    const handleSubmit = async () => {
-        dispatch(updateInputData({ formName: 'secondform', inputData: formData }));
-        dispatch(updateInputData({ formName: 'addon_id', inputData: selectedItems }));
-        setTimeout(() => {
-            nextStep();
-        }, 2000);
-    };
-
-    return (
-        <div id="sec_wiz_2" className="section">
-            <div id="page_service_select">
-                <span className="title">Select Service</span>
-                <div className="content" >
-                    <div id="service_collection" className="product_collector big">
-                        <div id="select_service_carousel" className="owl-carousel owl-theme products">
-                            {
-                                user.filter((filter) => filter.category === "on demand").map((cur, index) => {
-                                    return (
-                                        <div className="item_wrapper" key={index} onClick={() => handlePrice(cur.price)}>
-                                            <div className={`item ${service_ids === `${cur._id}` ? "selected" : ""}`} onClick={() => handleId(cur._id)}>
-                                                <div className="bg" style={{ width: "100%", height: "19vh", backgroundSize: "cover" }}>
-                                                    <PreviewImage attachments={cur.attachments} />
-                                                </div>
-                                                <div className="content" >
-                                                    <span className="title">{cur.title}</span>
-                                                    <p className="excerpt" dangerouslySetInnerHTML={{ __html: cur.description.slice(0, 50) }} />
-                                                    <span className="rates">
-                                                        <i></i> <span className="coloreds"></span>  <b>${cur.price}</b>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    );
-                                })
-                            }
-                            <div className="gen_heading" style={{ marginBottom: "20px" }}></div>
-                        </div>
-                    </div>
-
-
-
-
-
-
-
-
-
-
-                    {gendercheck === "guest" ? (
-                        <>
-                            <div className="gen_heading">
-                                <h3>Gender Preference 1</h3>
-                            </div>
-                            <ul className="time_options">
-                                <li
-                                    id="g_male"
-                                    className={`gender time_option ${selectedGender1 === "male" ? "selected" : ""}`}
-                                    onClick={() => handleGenderSelect1("male")}
-                                >
-                                    Male
-                                </li>
-                                <li
-                                    id="g_female"
-                                    className={`gender time_option ${selectedGender1 === "female" ? "selected" : ""}`}
-                                    onClick={() => handleGenderSelect1("female")}
-                                >
-                                    Female
-                                </li>
-                                <li
-                                    id="g_either"
-                                    className={`gender time_option ${selectedGender1 === "either" ? "selected" : ""}`}
-                                    onClick={() => handleGenderSelect1("either")}
-                                >
-                                    Either
-                                </li>
-                            </ul>
-                            <div className="gen_heading">
-                                <h3>Gender Preference 2</h3>
-                            </div>
-                            <ul className="time_options">
-                                <li
-                                    id="g_male"
-                                    className={`gender time_option ${selectedGender2 === "male" ? "selected" : ""}`}
-                                    onClick={() => handleGenderSelect2("male")}
-                                >
-                                    Male
-                                </li>
-                                <li
-                                    id="g_female"
-                                    className={`gender time_option ${selectedGender2 === "female" ? "selected" : ""}`}
-                                    onClick={() => handleGenderSelect2("female")}
-                                >
-                                    Female
-                                </li>
-                                <li
-                                    id="g_either"
-                                    className={`gender time_option ${selectedGender2 === "either" ? "selected" : ""}`}
-                                    onClick={() => handleGenderSelect2("either")}
-                                >
-                                    Either
-                                </li>
-                            </ul>
-                        </>
-                    ) : (
-                        <>
-                            <div className="gen_heading">
-                                <h3>Gender Preference</h3>
-                            </div>
-                            <ul className="time_options">
-                                <li
-                                    id="g_male"
-                                    className={`gender time_option ${selectedGender === "male" ? "selected" : ""}`}
-                                    onClick={() => handleGenderSelect("male")}
-                                >
-                                    Male
-                                </li>
-                                <li
-                                    id="g_female"
-                                    className={`gender time_option ${selectedGender === "female" ? "selected" : ""}`}
-                                    onClick={() => handleGenderSelect("female")}
-                                >
-                                    Female
-                                </li>
-                                <li
-                                    id="g_either"
-                                    className={`gender time_option ${selectedGender === "either" ? "selected" : ""}`}
-                                    onClick={() => handleGenderSelect("either")}
-                                >
-                                    Either
-                                </li>
-                            </ul>
-                        </>
-                    )}
-                    <div className="gen_heading">
-                        <h3>Select Time</h3>
-                    </div>
-                    <ul className="time_options">
-                        <li
-                            id="min_45"
-                            className={`time_option ${selectedServiceTime === "60min" ? "selected" : ""}`}
-                            onClick={() => handleServiceTimeSelect("60min")}
-                        >
-                            60 min
-                        </li>
-                        <li
-                            id="min_60"
-                            className={`time_option ${selectedServiceTime === "90min" ? "selected" : ""}`}
-                            onClick={() => handleServiceTimeSelect("90min")}
-                        >
-                            90 min
-                        </li>
-                        <li
-                            id="min_90"
-                            className={`time_option ${selectedServiceTime === "120min" ? "selected" : ""}`}
-                            onClick={() => handleServiceTimeSelect("120min")}
-                        >
-                            120 min
-                        </li>
-                    </ul>
-
-
-
-
-
-
-
-                    
-                    <div className="gen_heading">
-                        <h3>Popular to consider</h3>
-                    </div>
-                    <div className="product_collector">
-                        <div id="addons_carousel" className="owl-carousel owl-theme products">
-                            {
-                                user.filter((filter) => filter.category === "addons").map((cur, index) => {
-                                    return (
-                                        <div className="item_wrapper" key={index}>
-                                            <div className={`item ${selectedItems.includes(cur._id) ? "selected" : ""}`} onClick={() => handleSelectItem(cur._id)}>
-                                                <div className="bg" style={{ width: "100%", height: "19vh", backgroundSize: "cover" }}>
-                                                    <PreviewImage attachments={cur.attachments} />
-                                                </div>
-                                                <div className="content">
-                                                    <span className="title">{cur.title}</span>
-                                                    <span className="rates">
-                                                        <i></i> <span className="coloreds"></span> <b>${cur.price}</b>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    );
-                                })
-                            }
-                        </div>
-                    </div>
-                    {
-                        gendercheck === "guest" ? (
-                            <p>Total Price(2 x {priceadon + priceservice}): ${totalPrice}</p>
-                        ) : (
-                            <p>Total Price: ${totalPrice}</p>
-                        )
-                    }
-
-                    <button className="button lazy" type="submit" onClick={handleSubmit}>next</button>
-                </div>
-            </div>
-        </div>
-    );
+      </div>
+    </>
+  );
 }
 
-export default SeconForm;
+export default Location;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

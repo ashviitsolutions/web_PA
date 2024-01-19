@@ -197,10 +197,10 @@ function Overview() {
 																	{post.scheduled_timing}
 																</h3>
 																<h4 className="pull-right">
-																	{moment(
-																		post.scheduled_date,
-																		"DD-MM-YYYY"
-																	).format("dddd, MMMM DD, YYYY")}
+
+																	{post.scheduled_date}
+
+
 																</h4>
 															</div>
 															{/* <div className="absolute_time float_wrapper">
@@ -361,7 +361,7 @@ function Overview() {
 													<div className="gutter">
 														<div
 															className="appointment card"
-															// onClick={() => handleToggle(`app${index + 1}`)}
+														// onClick={() => handleToggle(`app${index + 1}`)}
 														>
 															<span className="ripple"></span>
 															<div className="relative_time float_wrapper">

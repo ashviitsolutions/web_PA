@@ -12,7 +12,8 @@ const Avatar = ({ name }) => {
 		justifyContent: "center",
 		alignItems: "center",
 	};
-	const initial = name.slice(0, 1).toUpperCase();
+	// const initial = name.slice(0, 1).toUpperCase();
+	const initial = name ?name.slice(0, 1) : '';
 	return (
 		<div
 			style={{

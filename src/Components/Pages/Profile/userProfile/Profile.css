@@ -2,18 +2,21 @@
 :root {
 	--theme: #03a9f4;
 }
+
 .progressbar_userpannel {
 	width: 100%;
 }
+
 .parent {
 	display: flex;
 	/* margin-top: 60px; */
 }
+
 .sidebar_tab {
 	/* position: fixed;
 	display: block; */
 	width: 20%;
-	padding: 20px 0px;
+	padding: 0px 0px !important;
 	top: 60px;
 	background: linear-gradient(91deg, #032a49, #0d67af);
 	text-align: center;
@@ -143,11 +146,13 @@ ul#tabs_control li.active {
 	text-align: center;
 	margin-top: 20px;
 }
+
 .overview__containerMain {
 	display: flex;
 	justify-content: space-evenly;
 	flex-wrap: wrap;
 }
+
 .overview .overview_container .heading h3 {
 	font-size: 21px;
 	text-transform: capitalize;
@@ -222,12 +227,14 @@ ul#tabs_control li.active {
 	/* line-height: 1px; */
 	margin-top: 20px;
 }
+
 .overview .overview_input .time_date {
 	display: flex;
 	flex-direction: column;
 	flex: 0.3;
 	justify-content: space-between;
 }
+
 .overview .overview_input .time_date h3 {
 	text-transform: capitalize;
 	font-size: 14px;
@@ -264,15 +271,18 @@ ul#tabs_control li.active {
 	flex-direction: column;
 	align-items: center;
 }
+
 .profile__name {
 	font-size: 25px;
 }
+
 .profile__page__div {
 	display: flex;
 	flex: 1;
 	flex-direction: column;
 	align-items: center;
 }
+
 .navItem {
 	display: flex;
 	align-items: center;
@@ -284,14 +294,17 @@ ul#tabs_control li.active {
 	padding: 10px;
 	cursor: pointer;
 }
+
 .navItem:hover {
 	opacity: 0.8;
 }
-.navItem > p {
+
+.navItem>p {
 	margin: 0;
 	color: #fff;
 	font-size: 17px;
 }
+
 #profile_page .settings_form {
 	display: block;
 	max-width: 500px;
@@ -315,10 +328,12 @@ ul#tabs_control li.active {
 	justify-content: center;
 	align-items: center;
 }
+
 .profile__avatarInitial {
 	font-size: 30px;
 	margin: 0;
 }
+
 #profile_page .gutter {
 	padding-left: 10px;
 	padding-right: 10px;
@@ -681,6 +696,7 @@ ul#tabs_control .userbooking li.withicon a {
 	margin: auto;
 	background-color: #ffff;
 }
+
 .gold__text {
 	background: linear-gradient(319deg, #faa499 0%, #f7dd85 37%, #ffc55c 100%);
 
@@ -690,6 +706,7 @@ ul#tabs_control .userbooking li.withicon a {
 	/* Set the text color to transparent */
 	/* color: transparent; */
 }
+
 .silver__text {
 	background: linear-gradient(315deg, #bdcad9 0%, #e1dada 74%);
 
@@ -697,6 +714,7 @@ ul#tabs_control .userbooking li.withicon a {
 	-webkit-background-clip: text;
 	background-clip: text;
 }
+
 .membership_update {
 	/* background-color: chocolate; */
 	background-color: #f2f2f2;
@@ -941,6 +959,7 @@ textarea {
 .membership_containers {
 	position: relative;
 }
+
 .image_membership {
 	/* position: relative; */
 	/* position: absolute; */
@@ -1003,6 +1022,7 @@ textarea {
 
 /* Responsive styles (adjust breakpoints as needed) */
 @media screen and (max-width: 768px) {
+
 	/* .image_membership {
 		margin: 10px;
 	}
@@ -1029,6 +1049,15 @@ textarea {
 }
 
 @media (max-width: 992px) {
+	.notification__item {
+		width: 100%;
+		height: auto;
+		border-radius: 10px;
+		margin: 20px 0;
+		padding: 20px;
+		box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+	}
+
 	.model_card_gift_container {
 		width: 100%;
 		position: fixed;
@@ -1054,6 +1083,7 @@ textarea {
 		top: 10;
 		right: 0;
 		z-index: 100;
+		height: 0vh;
 	}
 
 	.mobile-view {
@@ -1061,6 +1091,8 @@ textarea {
 		/* Change this to your desired color */
 		width: 350px;
 		height: 100%;
+		position: fixed;
+		z-index: 1000;
 	}
 
 	.sidebar_tab ul#tabs_control {
@@ -1073,7 +1105,7 @@ textarea {
 
 	.mobile-view ul#tabs_control .item {
 		/* display: block; */
-		padding: 12px 50px;
+		padding: 1px 50px;
 		justify-content: left;
 		/* align-items: start; */
 	}
@@ -1167,6 +1199,7 @@ textarea {
 	.profile__divs {
 		flex-direction: column;
 	}
+
 	.user_profile_footer {
 		width: 100%;
 	}
@@ -1188,10 +1221,12 @@ textarea {
 		font-size: 10px;
 	}
 }
+
 @media (max-width: 1084px) {
 	.overview__containerMain {
 		/* flex-direction: column; */
 	}
+
 	.overview_card {
 		width: 100%;
 	}
