@@ -6,6 +6,8 @@ import RequestCard from "../components/newrequests/RequestCard";
 import ScheduledEvents from "./ScheduledEvents";
 import { IP } from "../../Constant"
 import { useNavigate } from "react-router-dom";
+import Modal from "../Modal";
+
 const Dashboard = () => {
   const nav = useNavigate()
 
@@ -113,6 +115,7 @@ const Dashboard = () => {
           </Row>
         </div>
       </Row>
+      <Modal />
     </Container>
   );
 };

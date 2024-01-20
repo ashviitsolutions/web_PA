@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateInputData } from '../../Redux/counterSlice';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import { useNavigate } from 'react-router-dom';
+import LocationIcon from '../../../assets/img/crosshair.svg';
 
 function Location() {
   const [address, setAddress] = useState("");
@@ -108,7 +109,7 @@ function Location() {
                     </div>
                   )}
                 </PlacesAutocomplete>
-
+                {/*  
                 <button
                   className="button"
                   style={{ padding: '8px', marginTop: '10px' }}
@@ -117,8 +118,10 @@ function Location() {
                 >
                   Use Current Location
                 </button>
+                    */}
+                    <p onClick={handleGetCurrentLocation} className='useLocation'><img src={LocationIcon} alt='location' height={15} /> Use my current Location</p>
+                    
               </div>
-
               <div className="input_group">
                 <button
                   className="button"

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Badge, Button, Card, Row } from "react-bootstrap";
-import { faClock, faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import { faCalendar, faClock, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { IP } from "../../../Constant";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -85,7 +85,7 @@ const RequestCard = (props) => {
         </Card.Title>
         <Card.Body>
           <Row>
-            <div className="col-md-8">
+            <div className="col-md-8 cardLeft">
               <div>
                 <FontAwesomeIcon icon={faLocationDot} style={{ width: 20 }} />{" "}
                 {props.address}
@@ -94,16 +94,18 @@ const RequestCard = (props) => {
                 <FontAwesomeIcon icon={faClock} style={{ width: 20 }} /> {props.time}
               </div>
               <div>
-                <FontAwesomeIcon icon={faClock} style={{ width: 20 }} /> {props.date}
+                <FontAwesomeIcon icon={faCalendar} style={{ width: 20 }} /> {props.date}
               </div>
               <div>
                 {instructions !== '' ? <><strong className="mt-1">Instructions : </strong> {instructions} </> : ''}
               </div>
             </div>
-            <div className="col-md-4" style={{ textAlign: "right" }}>
-              <div>${props.amt}</div>
+            <div className="col-md-4 tip">
+              <p>you'll earn</p>
+              {/* <div>${props.amt}</div>
               <div>+${tip} pre-tip</div>
-              <div className="text-warning">Total = ${total}</div>
+              <div className="text-warning">Total = ${total}</div> */}
+              <div className="earn"><span>$</span>{props.amt}</div>
             </div>
           </Row>
         </Card.Body>
