@@ -163,7 +163,7 @@ function Benifit() {
                     <div className="selects">
                         <div className='item'>
                             <img className="icons" src={Image12} alt='...' />
-                            <p id='becommembersyogatexts3'>neutritionist</p>
+                            <p id='becommembersyogatexts3'>nutritionist</p>
                         </div>
 
                     </div>
@@ -171,7 +171,7 @@ function Benifit() {
                     <div className="selects">
                         <div className='item'>
                             <img className="icons" src={Image13} alt='...' />
-                            <p id='becommembersyogatexts4'> biometric screening</p>
+                            <p id='becommembersyogatexts4'>medical screening</p>
                         </div>
 
                     </div>

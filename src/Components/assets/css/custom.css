@@ -3835,9 +3835,6 @@ ul.true li::after {
   font-size: 18px;
 }
 
-#faq_page .faq .question[aria-expanded="true"]::after {
-  /* content: '-'; */
-}
 
 #faq_page .faq .answer {
   padding-left: 40px;
@@ -8851,4 +8848,15 @@ img .img-responsive {
   text-align: right;
   position: relative;
   right: 10px;
+}
+.useLocation {
+  text-align: left;
+  margin: 5px;
+  font-size: 12px;
+  color: grey;
+}
+
+.useLocation img {
+  filter: opacity(0.5);
+  margin-top: -2px;
 }

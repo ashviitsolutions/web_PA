@@ -109,11 +109,11 @@ function FormPage(props) {
             .min(8, "At least an 8-character password is required")
             .matches(
                 /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-                "Must Contain 8 Characters, One Uppercase,Lowercase,Number and one special case Character "
+                "Must Contain 8 Characters, One Uppercase, Lowercase, Number and one special case Character "
             ),
 
         confirm_password: Yup.string()
-            .required("required confirm_password")
+            .required("required confirm password")
             .oneOf([Yup.ref("password"), ""], "password does not match"),
     });
 
@@ -359,18 +359,8 @@ function FormPage(props) {
                                                         <span className="highlight"></span>
                                                     </div>
                                                 </div>
-                                            </div>
-
-
-
-
-
-
-
-
-
-
-                                            <div className="input_group">
+                                                <div className="col-sm-12">
+                                                <div className="input_group">
                                                 <Field
                                                     className="input"
                                                     name="password"
@@ -383,7 +373,7 @@ function FormPage(props) {
                                                 <label htmlFor="">password</label>
                                                 <button className='eye_button' type="button" onClick={handleTogglePassword}>
                                                 {showPassword ? <img src={closeEye} alt='' /> : <img src={openEye} alt='' />}
-                                            </button>
+                                                </button>
                                                 <span className="highlight"></span>
                                             </div>
 
@@ -402,6 +392,8 @@ function FormPage(props) {
                                                 {showPassword ? <img src={closeEye} alt='' /> : <img src={openEye} alt='' />}
                                             </button>
                                                 <span className="highlight"></span>
+                                            </div>
+                                                </div>
                                             </div>
 
                                             <div className="input_group">
