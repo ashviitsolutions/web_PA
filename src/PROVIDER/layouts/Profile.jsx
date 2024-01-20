@@ -107,13 +107,12 @@ const Profile = () => {
         <div className="col-md-8">
           <h4 className="profile_description   mb-4"> {name} </h4>
           <Row>
-            <div className="col-md-4">
+            <div className="col-md-12">
               <Contacts mobile={phone} email={email} />
+              <Skills skills={{ skill: skills }} />
              
             </div>
-            <div className="col-md-8">
-              <Skills skills={{ skill: skills }} />
-            </div>
+           
           </Row>
         </div>
       </Row>
