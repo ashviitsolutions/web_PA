@@ -370,7 +370,7 @@ function FormPage(props) {
                                                 {errors.password && touched.password ? (
                                                     <div>{errors.password}</div>
                                                 ) : null}
-                                                <label htmlFor="">password</label>
+                                                <label htmlFor="">create password</label>
                                                 <button className='eye_button' type="button" onClick={handleTogglePassword}>
                                                 {showPassword ? <img src={closeEye} alt='' /> : <img src={openEye} alt='' />}
                                                 </button>
