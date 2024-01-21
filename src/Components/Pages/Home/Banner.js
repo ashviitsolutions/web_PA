@@ -44,7 +44,7 @@ function Banner() {
 							<h3 dangerouslySetInnerHTML={{ __html: users.description }} style={{ fontWeight: "500", fontSize: "15px" }} />
 							<Link to="/guest_login">
 								<button className="primary button small" type="button">
-									get started
+									book
 								</button>
 							</Link>
 
