@@ -158,43 +158,23 @@ function Payments() {
 
 
           {memoizedUser.map((cur, index) => (
+
             <div class="row">
               <div class="gutter">
                 <div class="bookings">
                   <div class="item_wrapper">
                     <div class="item card layer1">
-                      <React.Fragment key={index}>
-                        <tbody id="post_container">
-                          <tr className="wrapper" id="tr_post_77">
-                            <td>
-                              <div className="avatar_wrap">
-                                <div className="inner">
-                                  <div className='preview' style={{
-                                    width: "50%",
-                                    //  height:"80px",
-                                    backgroundSize: "cover",
-
-                                  }}>
-                                    <PreviewImage className="avatar" attachments={cur.images} />
-                                  </div>
-                                </div>
-                              </div>
-                            </td>
-                            <td>
-                              <div className="content">
-                                <span className="title" >{`${cur.first_name} ${cur.last_name}`} </span>
-                                <span className="title" style={{ display: "block", fontSize: "12px" }}>{cur.email}</span>
-                              </div>
-                            </td>
-
-
-                          </tr>
-                        </tbody>
-                      </React.Fragment>
+                      <div class="first_half">
+                        <h3>{`${cur.first_name} ${cur.last_name}`} </h3>
+                        <span class="address">jersey city NJ 07305</span>
+                        <span class="time">Sun, 08 november 2022</span>
+                        <span class="tag"> <b>Parking Type</b> Parking lot</span>
+                        <span class="tag"> <b>Instruction</b> free parking</span>
+                      </div>
                       <div class="second_half">
                         <span>$70</span>
                         <span>+15 pre-tip</span>
-                        <span class="colored">Total = $85</span>
+                        <span class="colored">Total = ${cur?.wallet?.available_amount}</span>
                         <button class="button primary square">Release Payment</button>
                       </div>
                     </div>

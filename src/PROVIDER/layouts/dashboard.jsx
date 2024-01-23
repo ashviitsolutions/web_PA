@@ -38,17 +38,7 @@ const Dashboard = () => {
   }, [])
 
 
-  console.log("available", wallate)
-
-
-
-
-
-
-
-
-
-
+  // console.log("available", wallate)
 
   //request api
   useEffect(() => {
@@ -60,7 +50,7 @@ const Dashboard = () => {
       return resp.json()
     }).then(result => {
       setreq(result)
-      console.log("request api", result)
+      // console.log("request api", result)
     }).catch(err => {
       console.log(err)
     })
@@ -75,7 +65,7 @@ const Dashboard = () => {
           <Row>
             <EarningsCard label="Net Income" amt={wallate?.total_withdrawn} />
             <EarningsCard label="Pending Clearance" amt={wallate?.available_amount} />
-         
+
           </Row>
         </div>
         <div className="col-md-12">
@@ -115,7 +105,7 @@ const Dashboard = () => {
           </Row>
         </div>
       </Row>
-      <Modal />
+
     </Container>
   );
 };
