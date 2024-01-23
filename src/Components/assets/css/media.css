@@ -124,7 +124,7 @@
     }
 
     #banner .arrow_down {
-        bottom: 0px;
+        bottom: 15%;
         left: 48%;
     }
 
@@ -161,7 +161,7 @@
         margin: 1px 0px;
         padding: 8px 22px;
         margin-left: 1rem;
-        width: 140px;
+        width: 145px;
     }
 
     #downloadimage {

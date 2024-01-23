@@ -8860,3 +8860,7 @@ img .img-responsive {
   filter: opacity(0.5);
   margin-top: -2px;
 }
+#small_banners {
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
