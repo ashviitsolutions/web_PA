@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Row, Button, Modal } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { IP } from "../../Constant";
 
 const MyVerticallyCenteredModal = (props) => {
   const nav = useNavigate();
@@ -24,7 +25,7 @@ const MyVerticallyCenteredModal = (props) => {
         checkin: timeValue,
       };
 
-      const res = await axios.put(`http://localhost:5000/api/provider/update/checkin`, formData, {
+      const res = await axios.put(`${IP}/provider/update/checkin`, formData, {
         headers: {
           'Authorization': token,
           'Accept': 'application/json',
