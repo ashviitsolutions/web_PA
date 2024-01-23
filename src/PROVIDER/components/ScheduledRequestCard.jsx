@@ -19,7 +19,8 @@ const ScheduledRequestCard = (props) => {
 
 
 
-  const tokenapi = localStorage.getItem("providertoken");
+  const token = localStorage.getItem("providertoken");
+  const tokenapi = localStorage.getItem("removedChekincard");
 
   const showCheckInButton = (tokenapi !== _id);
 
@@ -48,7 +49,7 @@ const ScheduledRequestCard = (props) => {
 
       const response = await fetch(`${IP}/provider/events/booking/${id}`, {
         headers: {
-          'Authorization': tokenapi
+          'Authorization': token
         }
       });
 

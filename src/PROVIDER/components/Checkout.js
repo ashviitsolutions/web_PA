@@ -9,8 +9,8 @@ import { useNavigate } from "react-router-dom";
 
 const Checkout = (props) => {
   const nav = useNavigate()
-  const {user_id} = props;
-  const {_id}=props;
+  const { user_id } = props;
+  const { _id } = props;
 
   const [hour, setHour] = useState('')
   const [minute, setMinute] = useState('')
@@ -44,7 +44,7 @@ const Checkout = (props) => {
       // console.log(res);
       if (res.status === 200) {
         nav("/providers/scheduled-requests");
-         props.onHide();
+        props.onHide();
       }
 
     } catch (error) {
