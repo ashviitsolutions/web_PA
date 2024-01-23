@@ -20,9 +20,13 @@ const ScheduledRequestCard = (props) => {
 
 
   const token = localStorage.getItem("providertoken");
-  const tokenapi = localStorage.getItem("removedChekincard");
 
-  const showCheckInButton = (tokenapi !== _id);
+  // const tokenapi = localStorage.getItem("removedChekincard");
+
+
+  const removedChekincardArray = JSON.parse(localStorage.getItem('removedChekincard')) || [];
+  const showCheckInButton = !removedChekincardArray.includes(_id);
+
 
 
   const formattedDate = new Date().toLocaleDateString();  // formatted as M/D/YYYY
@@ -68,6 +72,10 @@ const ScheduledRequestCard = (props) => {
   };
 
   console.log("scheduled api id user", user);
+  useEffect(() => {
+    fetchData()
+  }, [])
+
 
   return (
     <>

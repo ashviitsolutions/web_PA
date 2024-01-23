@@ -44,7 +44,16 @@ const Checkout = (props) => {
       // console.log(res);
       if (res.status === 200) {
         nav("/providers/scheduled-requests");
-        props.onHide();
+        if (res.status === 200) {
+          // Remove _id from removedChekincard in localStorage
+          const removedChekincardArray = JSON.parse(localStorage.getItem('removedChekincard')) || [];
+          const updatedArray = removedChekincardArray.filter(itemId => itemId !== _id);
+          localStorage.setItem('removedChekincard', JSON.stringify(updatedArray));
+
+          nav("/providers");
+          props.onHide();
+        }
+
       }
 
     } catch (error) {
@@ -53,9 +62,9 @@ const Checkout = (props) => {
   };
 
 
-  // useEffect(() => {
-  //   onSubmit()
-  // }, [])
+  useEffect(() => {
+    onSubmit()
+  }, [])
 
 
 

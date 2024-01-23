@@ -184,7 +184,7 @@ const FifthForm = ({ step, nextStep }) => {
           // Show error notification if the API response is not successful
           toast.error("An error occurred. Please try again.", {
             position: "top-right",
-            autoClose: 3000,
+            autoClose: 2000,
           });
         }
         // Navigate to the next page with the extracted ID

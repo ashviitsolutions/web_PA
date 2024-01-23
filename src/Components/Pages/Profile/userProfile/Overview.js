@@ -148,8 +148,10 @@ function Overview() {
 				);
 			});
 	};
+
+
 	console.log("schedule from overview", currenSchudule);
-	console.log("completed booking", completedBookings);
+	console.log("completed posts", currentPending);
 	return (
 		<>
 			<div className="inner">
@@ -327,7 +329,7 @@ function Overview() {
 																			</p>
 																		) : (
 																			<p>
-																				Appointment with <b>{post.host}</b>
+																				Appointment with <b>{post?.providerInfo?.first_name} {post?.providerInfo?.last_name}</b>
 																			</p>
 																		)}
 																	</div>
@@ -347,7 +349,7 @@ function Overview() {
 											))
 										)}
 									</div>
-									<div className="row mt-3" id="overview_page_container">
+									{/*	<div className="row mt-3" id="overview_page_container">
 										<div className="status_booking">
 											<h3>Completed Bookings</h3>
 										</div>
@@ -419,7 +421,7 @@ function Overview() {
 												</div>
 											))
 										)}
-									</div>
+																		</div> */}
 								</>
 							)}
 						</div>
