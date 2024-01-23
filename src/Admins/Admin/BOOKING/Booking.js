@@ -6,6 +6,7 @@ function Booking() {
     const [data, setData] = useState(0);
     const [count, setCount] = useState(0);
     const [user, setUser] = useState([]);
+    const [loading, setLoading] = useState(true);  // Added loading state
 
     const token = localStorage.getItem("tokenadmin");
 
@@ -19,10 +20,18 @@ function Booking() {
                     }
                 });
                 const data = await res.json();
-                setUser(data);
-                setCount(data.length);
+
+                if (Array.isArray(data)) {
+                    setUser(data);
+                    setCount(data.length);
+                } else {
+                    console.error("API response is not an array:", data);
+                }
+
+                setLoading(false);  // Set loading to false after fetching data
             } catch (error) {
                 console.log(error);
+                setLoading(false);  // Set loading to false in case of an error
             }
         };
 
@@ -82,25 +91,31 @@ function Booking() {
                     <div className="row">
                         <div className="gutter">
                             <div className="bookings">
-                                {user.slice(startIndex, endIndex).map((booking, index) => (
-                                    <div className="item_wrapper" key={index}>
-                                        <div className="item card layer2">
-                                            <div className="first_half">
-                                                <h3>{booking.title}</h3>
-                                                <span className="address">email: {booking.customer_email}</span>
-                                                <span className="address">address: {booking.address}</span>
-                                                <span className="time">date: {booking.scheduled_date}</span>
-                                                <span className="tag"> <b>Parking Type</b> {booking.location_type}</span>
-                                                <span className="tag"> <b>Instruction</b> {booking.instructions}</span>
-                                            </div>
-                                            <div className="second_half">
-                                                <span>${booking.price}</span>
-                                                <span>+{booking.preTip} pre-tip</span>
-                                                <span className="colored">Total = ${booking.amount_charged}</span>
+                                {loading ? (
+                                    <p>Loading...</p>
+                                ) : user.length === 0 ? (
+                                    <p>No bookings found.</p>
+                                ) : (
+                                    user.map((booking, index) => (
+                                        <div className="item_wrapper" key={index}>
+                                            <div className="item card layer2">
+                                                <div className="first_half">
+                                                    <h3>{booking.title}</h3>
+                                                    <span className="address">email: {booking.customer_email}</span>
+                                                    <span className="address">address: {booking.address}</span>
+                                                    <span className="time">date: {booking.scheduled_date}</span>
+                                                    <span className="tag"> <b>Parking Type</b> {booking.location_type}</span>
+                                                    <span className="tag"> <b>Instruction</b> {booking.instructions}</span>
+                                                </div>
+                                                <div className="second_half">
+                                                    <span>${booking.price}</span>
+                                                    <span>+{booking.preTip} pre-tip</span>
+                                                    <span className="colored">Total = ${booking.amount_charged}</span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                ))}
+                                    ))
+                                )}
                             </div>
                         </div>
                     </div>
