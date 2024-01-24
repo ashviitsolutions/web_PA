@@ -24,7 +24,7 @@ const Checkout = (props) => {
 
 
   const onSubmit = async (e) => {
-    e.preventDefault()
+    // e.preventDefault()
 
     try {
       const timeValue = `${hour}:${minute}`;

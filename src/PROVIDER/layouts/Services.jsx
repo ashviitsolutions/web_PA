@@ -8,39 +8,17 @@ const Services = () => {
   const [radioValue, setRadioValue] = useState("1");
   const [ondemand, setOndemand] = useState([]);
   const [privateEvent, setPrivateEvent] = useState([]);
+  const [corporate, setCorporate] = useState([]);
   const [selectedServices, setSelectedServices] = useState([]);
 
   const token = localStorage.getItem("providertoken");
 
   const radios = [
-    { name: "Corporate Private Events", value: "1" },
+    { name: "Corporate Events", value: "1" },
     { name: "Service on Demand", value: "2" },
+    { name: "Private Events", value: "3" },
+
   ];
-
-  // const services = [
-  
-  //   {
-  //     title: "Couple Deep Tissue Massage1",
-  //     location: 'Jersey city, NJ 546842',
-  //     time: 'Sun, June 12, 06:30pm',
-  //     amt: 75,
-  //     tip: null,
-  //     instructions: null
-  //   },
-  //   {
-  //     title: "Service 3",
-  //     location: 'Location 3',
-  //     time: 'Time 3',
-  //     amt: 50,
-  //     tip: 10,
-  //     instructions: 'Instructions for Service 3'
-  //   },
-    
-  // ];
-
-
-
-
 
 
 
@@ -54,26 +32,47 @@ const Services = () => {
         return resp.json();
       })
       .then((result) => {
+        console.log("srvice data", result)
         setOndemand(result?.areas_of_expertise?.on_demand);
         setPrivateEvent(result?.areas_of_expertise?.private_events);
+        setCorporate(result?.areas_of_expertise?.corporate_events)
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
 
+
+
+
+
+
   useEffect(() => {
     if (radioValue === "1") {
-      setSelectedServices(privateEvent.map(service => {
-        return { ...service, title: service + " (Private)" };
-      }));
+      setSelectedServices(
+        corporate.map((service) => ({
+          ...service,
+          title: `${service} (Corporate)`,
+        }))
+      );
     } else if (radioValue === "2") {
-      setSelectedServices(ondemand.map(service => {
-        return { ...service, title: service + " (On Demand)" };
-      }));
+      setSelectedServices(
+        ondemand.map((service) => ({
+          ...service,
+          title: `${service} (On Demand)`,
+        }))
+      );
+    } else if (radioValue === "3") {
+      setSelectedServices(
+        privateEvent.map((service) => ({
+          ...service,
+          title: `${service} (Private)`,
+        }))
+      );
     }
-  }, [radioValue, ondemand, privateEvent]);
-  
+  }, [radioValue, corporate, ondemand, privateEvent]);
+
+
 
   return (
     <Container className="schudulecard">

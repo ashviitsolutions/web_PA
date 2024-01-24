@@ -7,7 +7,7 @@ import { IP } from "../../Constant";
 import ScheduledRequestCard from "../components/BookingCard";
 import { useNavigate } from "react-router-dom";
 const Events = () => {
-  const nav=useNavigate()
+  const nav = useNavigate()
   const [radioValue, setRadioValue] = useState('1');
   const [ondemand, setOndemand] = useState([]);
   const [privateEvent, setPrivateEvent] = useState([]);
@@ -85,8 +85,8 @@ const Events = () => {
       }));
     }
   }, [radioValue, ondemand, privateEvent]);
-  
-console.log("Bookinhg User Completd",user)
+
+  console.log("Bookinhg User Completd", user)
 
 
 
@@ -114,90 +114,90 @@ console.log("Bookinhg User Completd",user)
         </div>
       </div>
 
-    
+
 
       {radioValue === '2' && (
         <>
 
 
-        {user.map((cur, index) => (
-          <React.Fragment key={index}>
-            <ScheduledRequestCard
-              title={cur.service_id.title}
-              location={cur.address}
-              time={cur.scheduled_timing}
-              date={cur.scheduled_date}
-              amt={75}
-              tip={15}
-              instructions={cur.instructions}
-              amount={cur.amount_charged}
-            />
-    
-          </React.Fragment>
-        ))}
+          {user.map((cur, index) => (
+            <React.Fragment key={index}>
+              <ScheduledRequestCard
+                title={cur.service_id.title}
+                location={cur.address}
+                time={cur.scheduled_timing}
+                date={cur.scheduled_date}
+                amt={75}
+                tip={15}
+                instructions={cur.instructions}
+                amount={cur.amount_charged}
+              />
+
+            </React.Fragment>
+          ))}
 
         </>
       )}
-      
+
       {radioValue === '1' && (
         <>
-        {booking.map((cur, index) => (
-          <React.Fragment key={index}>
-            <ScheduledRequestCard
-              title={cur.service_id.title}
-              location={cur.address}
-              time={cur.scheduled_timing}
-              date={cur.scheduled_date}
-              amt={75}
-              tip={15}
-              instructions={cur.instructions}
-              amount={cur.amount_charged}
-            />
-    
-          </React.Fragment>
-        ))}
+          {booking.map((cur, index) => (
+            <React.Fragment key={index}>
+              <ScheduledRequestCard
+                title={cur.service_id.title}
+                location={cur.address}
+                time={cur.scheduled_timing}
+                date={cur.scheduled_date}
+                amt={75}
+                tip={15}
+                instructions={cur.instructions}
+                amount={cur.amount_charged}
+              />
+
+            </React.Fragment>
+          ))}
         </>
       )}
-      
+
       {radioValue === '3' && (
         <>
-        <EventsCard
-        title="Couple Deep Tissue Massage"
-        location="Jersey city, NJ 546842"
-        time="Sun, June 12, 06:30pm"
-        amt={75}
-        tip={15}                                            
-        instructions="Main Nahi bataunga"
-        
-      />
-      <EventsCard
-        title="Couple Deep Tissue Massage1"
-        location="Jersey city, NJ 546842"
-        time="Sun, June 12, 06:30pm"
-        amt={75}
-      />
+          <EventsCard
+            title="Couple Deep Tissue Massage"
+            location="Jersey city, NJ 546842"
+            time="Sun, June 12, 06:30pm"
+            amt={75}
+            tip={15}
+            instructions="Main Nahi bataunga"
+
+          />
+          <EventsCard
+            title="Couple Deep Tissue Massage1"
+            location="Jersey city, NJ 546842"
+            time="Sun, June 12, 06:30pm"
+            amt={75}
+          />
         </>
       )}
-      
+
       {radioValue === '4' && (
         <>
-        <EventsCard
-        title="Couple Deep Tissue Massage"
-        location="Jersey city, NJ 546842"
-        time="Sun, June 12, 06:30pm"
-        amt={75}
-        tip={15}                                            
-        instructions="Main Nahi bataunga"
-      />
-      <EventsCard
-        title="Couple Deep Tissue Massage1"
-        location="Jersey city, NJ 546842"
-        time="Sun, June 12, 06:30pm"
-        amt={75}
-      />
+          <EventsCard
+            title="Couple Deep Tissue Massage"
+            location="Jersey city, NJ 546842"
+            time="Sun, June 12, 06:30pm"
+            amt={75}
+            tip={15}
+            instructions="Main Nahi bataunga"
+          />
+          <EventsCard
+            title="Couple Deep Tissue Massage1"
+            location="Jersey city, NJ 546842"
+            time="Sun, June 12, 06:30pm"
+            amt={75}
+          />
         </>
       )}
-      
+
 
     </Container>
   );

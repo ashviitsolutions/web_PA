@@ -1,62 +1,36 @@
 import React, { useState, useEffect } from "react";
-import { Row } from "react-bootstrap";
+import { FormCheck, Row } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
+import DataTable from "../components/earnings/DataTable";
 import EarningsCard from "../components/earnings/EarningsCard";
-import RequestCard from "../components/newrequests/RequestCard";
-import ScheduledEvents from "./ScheduledEvents";
+import FilterSection from "../components/earnings/FilterSection";
+import Tags from "../components/earnings/Tags";
+import MyPagination from "../components/MyPagination";
 import { IP } from "../../Constant"
-import { useNavigate } from "react-router-dom";
-const Dashboard = () => {
-  const nav = useNavigate()
-
-  const [request, setreq] = useState([])
+const Earnings = () => {
   const token = localStorage.getItem('providertoken')
-  const [withdraw, setWithdraw] = useState([])
-  const [available, setAvailble] = useState([])
-  const [neyincome, setNeyincome] = useState([]);
+
+
+  const [wallate, setWallate] = useState();
 
 
 
   useEffect(() => {
-    fetch(`${IP}/provider/available`, {
+    fetch(`${IP}/provider/getProviderWallet`, {
       headers: {
         'Authorization': token
       }
     }).then(resp => {
       return resp.json()
     }).then(result => {
-      setWithdraw(result)
-      console.log("available", result)
+      setWallate(result.wallet)
+
     }).catch(err => {
       console.log(err)
     })
 
 
-    fetch(`${IP}/provider/fetchwitdrawl`, {
-      headers: {
-        'Authorization': token
-      }
-    }).then(resp => {
-      return resp.json()
-    }).then(result => {
-      setAvailble(result)
-      console.log("fetchwitdrawl", result)
-    }).catch(err => {
-      console.log(err)
-    })
 
-    fetch(`${IP}/provider/net-income`, {
-      headers: {
-        'Authorization': token
-      }
-    }).then(resp => {
-      return resp.json()
-    }).then(result => {
-      setNeyincome(result.net_income)
-      console.log("net-income", result.net_income)
-    }).catch(err => {
-      console.log(err)
-    })
   }, [])
 
 
@@ -70,75 +44,45 @@ const Dashboard = () => {
 
 
 
-
-
-  //request api
-  useEffect(() => {
-    fetch(`${IP}/provider/requests`, {
-      headers: {
-        'Authorization': token
-      }
-    }).then(resp => {
-      return resp.json()
-    }).then(result => {
-      setreq(result)
-      console.log("request api", result)
-    }).catch(err => {
-      console.log(err)
-    })
-  }, [])
 
 
   return (
-    <Container className="dashboardprovider">
+    <Container className="schudulecard">
+      <h2 className="text-center mt-2" id="schudule-title">Earnings</h2>
       <Row>
-        <div className="col-md-12">
-          <h2 className="text-center mt-2">Earnings</h2>
-          <Row>
-            <EarningsCard label="Net Income" amt={neyincome} />
-            <EarningsCard label="Withdrawn" amt={withdraw} />
-            <EarningsCard label="Pending Clearance" amt="100" />
-            <EarningsCard label="Available for Withdrawl" amt={available} />
-          </Row>
-        </div>
-        <div className="col-md-12">
-          <Row>
-            <div className="col-md-6">
-              <div className="shadow card px-2" style={{ border: "none" }}>
-                <h2 className="text-center mt-2">New Requests</h2>
+        <EarningsCard label="Net Income" amt={wallate?.total_withdrawn} />
+        <EarningsCard label="Pending Clearance" amt={wallate?.available_amount} />
 
+      </Row>
+      <h4 className="mt-3">Withdraw</h4>
+      <Row>
+        <FormCheck
+          style={{ width: "auto", marginLeft: "10px" }}
+          type="radio"
+          name="pymt"
+          id="bank"
+          label="Bank Transfer"
+        />
+        <FormCheck
+          style={{ width: "auto" }}
+          type="radio"
+          name="pymt"
+          id="paypal"
+          label="PayPal"
+        />
+      </Row>
+      <h5 className="mt-2">View Earning History</h5>
+      <Row>
+        <FilterSection />
+        <Tags />
+      </Row>
+      <DataTable />
 
-
-                {Array.isArray(request) && request.map((cur, index) => (
-                  <React.Fragment key={index}>
-                    <RequestCard
-                      newclient="true"
-                      title={cur.service}
-                      location={cur.location}
-                      time={cur.scheduled_time}
-                      date={cur.scheduled_date}
-                      amt={75}
-                      tip={15}
-                      instructions={cur.instructions}
-                      total={cur.total}
-                      _id={cur._id}
-
-                    />
-                  </React.Fragment>
-                ))}
-              </div>
-            </div>
-            <div className="col-md-6">
-              <div className="schoduledasboard">
-                <ScheduledEvents />
-
-              </div>
-            </div>
-          </Row>
-        </div>
+      <Row className="text-center">
+        <MyPagination />
       </Row>
     </Container>
   );
 };
 
-export default Dashboard;
+export default Earnings;
