@@ -503,78 +503,78 @@ function App() {
 
 
           <Route path="/providers" element={<>
-            <NavBarProvide />
             <SideBarprovider />
+            <NavBarProvide />
             <Protected Component={DashboardProvider} />
           </>} />
           <Route path="/providers/scheduled-requests" element={<>
-            <NavBarProvide />
             <SideBarprovider />
+            <NavBarProvide />
             <Protected Component={ScheduledRequests} />
 
           </>} />
           <Route path="/providers/events" element={<>
-            <NavBarProvide />
             <SideBarprovider />
+            <NavBarProvide />
             <Protected Component={Events} />
           </>} />
 
           <Route path="/providers/services" element={<>
-            <NavBarProvide />
             <SideBarprovider />
+            <NavBarProvide />
             <Protected Component={Services} />
           </>} />
           <Route path="/providers/earnings" element={<>
-            <NavBarProvide />
             <SideBarprovider />
+            <NavBarProvide />
             <Protected Component={Earnings} />
           </>} />
           <Route path="/providers/application-form" element={<>
-            <NavBarProvide />
             <SideBarprovider />
+            <NavBarProvide />
             <Protected Component={ApplicationForm} />
           </>} />
 
 
           <Route path="/providers/bookings" element={<>
-            <NavBarProvide />
             <SideBarprovider />
+            <NavBarProvide />
             <Protected Component={Booking} />
           </>} />
 
           <Route path="/providers/events" element={<>
-            <NavBarProvide />
             <SideBarprovider />
+            <NavBarProvide />
             <Protected Component={Event} />
           </>} />
 
           <Route path="/providers/messages" element={<>
-            <NavBarProvide />
             <SideBarprovider />
+            <NavBarProvide />
             <Protected Component={Message} />
           </>} />
           <Route path="/providers/dashboard" element={<>
-            <NavBarProvide />
             <SideBarprovider />
+            <NavBarProvide />
             <Protected Component={DashboardProvider} />
           </>} />
 
 
           <Route path="/providers/profile" element={<>
-            <NavBarProvide />
             <SideBarprovider />
+            <NavBarProvide />
             <Protected Component={Profile} />
           </>} />
 
           <Route path="/providers/personal-settings" element={<>
-            <NavBarProvide />
             <SideBarprovider />
+            <NavBarProvide />
             <Protected Component={PersonalSettings} />
           </>} />
 
           <Route path="/providers/waiting" element={<>
-            <NavBarProvide />
             <SideBarprovider />
+            <NavBarProvide />
             <Protected Component={Callstatus} />
           </>} />
           <Route path="/providers/login" element={<>

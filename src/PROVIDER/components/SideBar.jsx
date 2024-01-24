@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import image1 from "./img/logo_image2.png"
+import image1 from "../../Components/assets/img/logo_home_navbar.png"
 import { IP } from "../../Constant";
 // import Protected from "../ProtectedRute/Protected";
 
@@ -49,11 +49,11 @@ const SideBar = () => {
   return (
     <>
 
-      <div className="sidebar" >
+      <div className="sidebar col-md-3" >
         <div className="sidebar-title">
-          <Link className="navbar-brand shadow-sm" to="/providers">
+          <Link className="navbar-brand" to="/providers">
             <img
-              style={{ marginTop: "-30px" }}
+              
               src={image1}
               width="200"
               className="d-inline-block align-top"

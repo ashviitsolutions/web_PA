@@ -205,10 +205,9 @@
 }
 
 .sidebar-title {
-  padding: 8px 0;
-  /* background-color: #ffffff; */
   color: #2196f3;
-  margin-top: -4rem;
+  /* margin-top: -4rem; */
+  padding: 8px 0;
 }
 
 .sidebar-menu a {
@@ -276,26 +275,35 @@
 }
 
 .sidebar {
-  height: 100vh;
-  width: 20%;
-  top: 1px;
-  background: linear-gradient(271deg, #032a49, #0d67af);
-  text-align: center;
+  background: linear-gradient(271deg,#032a49,#0d67af);
   float: left;
-  /* Add any additional styles you need */
+  height: 100vh;
+  text-align: center;
+  top: 0;
+  width: 20%;
+  position: sticky;
 }
 
 
 #topbar {
-  margin-top: 1rem;
   height: 4rem;
+  /* margin-top: 1rem; */
+  position: sticky;
+}
+.dropdown-toggle .nav link img {
+  width: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+  height: 50px;
+  background: white;
+}
+.navbar-nav {
+  color: white;
 }
 
 
-
-
 .navbar-light {
-  background: #ffffff;
+  background-color: #134166 !important;
 }
 
 .earning-income-card {
@@ -323,10 +331,11 @@
 .dashboardprovider {
   position: relative;
   left: 2rem;
+  z-index: -1;
 }
 
 .notification {
-  background-color: #ffff;
+  color: #ffff;
   /* box-shadow: 0px 2px 20px 2px #aaaa; */
   margin-left: 20%;
   z-index: 100 !important;
@@ -334,6 +343,13 @@
   margin-top: 17px;
   margin-right: 20px;
   height: 100rem;
+}
+.dropdown-toggle .nav link img {
+  width: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+  height: 50px;
+  background: white;
 }
 
 
