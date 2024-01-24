@@ -100,6 +100,7 @@ function Overview() {
 	const endIndex = startIndex + itemsPerPage;
 
 	// Get the data for the current page
+	const fullAppointment = filteredAppointments.slice(startIndex, endIndex);
 	const currentPending = filteredPending.slice(startIndex, endIndex);
 	const currenSchudule = filteredSchudule.slice(startIndex, endIndex);
 
@@ -173,7 +174,7 @@ function Overview() {
 						/>
 					) : (
 						<div className="container-fluid">
-							{currentPending.length === 0 ? (
+							{fullAppointment.length === 0 ? (
 								<h3 style={{ color: "#162b3c" }}>No bookings yet.</h3>
 							) : (
 								<>

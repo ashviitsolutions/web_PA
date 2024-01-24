@@ -20,7 +20,7 @@ const RequestCard = (props) => {
   const [display, setDisplay] = useState(true);
 
   const onSubmit = async (e) => {
-    // e.preventDefault()
+    e.preventDefault()
 
     try {
 

@@ -9,10 +9,23 @@ const FourForm = ({ nextStep }) => {
   console.log("selector", selector);
   const [selectedTime, setSelectedTime] = useState(""); // State to store selected time
   const [selectedDate, setSelectedDate] = useState(new Date()); // State to store selected date
-
+  const [errorMessage, setErrorMessage] = useState("");
   const dispatch = useDispatch();
 
+
+
+
+
   const handleSubmit = () => {
+    // If selectedTime is not set, set an error message and do not proceed
+    if (!selectedTime) {
+      setErrorMessage("Please select a time before proceeding.");
+      return;
+    }
+
+    // Clear any previous error message
+    setErrorMessage("");
+
     // Format the date as a string in "YYYY-MM-DD" format
     const formattedDate = selectedDate.toLocaleDateString('en-US', {
       year: 'numeric',
@@ -33,6 +46,7 @@ const FourForm = ({ nextStep }) => {
       nextStep();
     }, 2000);
   };
+
 
   return (
     <>
@@ -88,6 +102,7 @@ const FourForm = ({ nextStep }) => {
             <option value="9:30 pm">9:30 pm</option>
             <option value="10:00 pm">10:00 pm</option>
           </select>
+          <div className="error-message">{errorMessage}</div>
 
           {/* Button to submit */}
           <button className="button" type="button" onClick={handleSubmit}>
