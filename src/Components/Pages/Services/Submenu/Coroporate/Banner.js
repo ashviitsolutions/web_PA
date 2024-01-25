@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { IP } from '../../../../../Constant';
 
 function Banner() {
@@ -7,7 +7,7 @@ function Banner() {
     const [img, setImg] = useState('');
 
     console.log("users", users)
-    console.log("image value of coroport iamge", img)            
+    console.log("image value of coroport iamge", img)
 
 
     useEffect(() => {
@@ -33,24 +33,24 @@ function Banner() {
         fetchData();
     }, []);
 
-  return (
-    <>
-    <div id="small_banner" style={{ backgroundImage: `url(${img})` }}>
-    <div className="container">
-        <div className="row">
-            <div className="col-sm-6">
-                <div className="head">
-                <h1>{users.title} </h1>
-                <h3 dangerouslySetInnerHTML={{ __html: users.description }} style={{fontWeight:"500", fontSize:"15px"}}/>
-                    {/* <button className="button" >get started</button>
+    return (
+        <>
+            <div id="small_banner" style={{ backgroundImage: `url(${img})` }}>
+                <div className="container">
+                    <div className="row">
+                        <div className="col-sm-6">
+                            <div className="head">
+                                <h1>{users.title} </h1>
+                                <h3 dangerouslySetInnerHTML={{ __html: users.description }} style={{ fontWeight: "500", fontSize: "15px" }} />
+                                {/* <button className="button" >get started</button>
                     <button className="button hollow" >services</button> */}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-    </>
-  )
+        </>
+    )
 }
 
 export default Banner

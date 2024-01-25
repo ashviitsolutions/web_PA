@@ -52,21 +52,21 @@ const Services = () => {
       setSelectedServices(
         corporate.map((service) => ({
           ...service,
-          title: `${service} (Corporate)`,
+          title: `${service}`,
         }))
       );
     } else if (radioValue === "2") {
       setSelectedServices(
         ondemand.map((service) => ({
           ...service,
-          title: `${service} (On Demand)`,
+          title: `${service}`,
         }))
       );
     } else if (radioValue === "3") {
       setSelectedServices(
         privateEvent.map((service) => ({
           ...service,
-          title: `${service} (Private)`,
+          title: `${service}`,
         }))
       );
     }

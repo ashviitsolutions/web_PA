@@ -68,8 +68,8 @@ const FirstForm = (props) => {
   // const [images, setImages] = useState('')
   const [selectedPrivateEvents, setSelectedPrivateEvents] = useState([]);
   const [selectedCorporateEvents, setSelectedCorporateEvents] = useState([]);
-  console.log("contry .", country)
-  console.log("user .", user)
+  // console.log("contry .", country)
+  // console.log("user .", user)
 
 
 
@@ -170,18 +170,18 @@ const FirstForm = (props) => {
       setUser(data)
       setCountry(data?.mailing_address.country)
       setZip(data?.mailing_address?.postal_code)
-      setFname(data.first_name)
-      setLname(data.last_name)
-      setEmail(data.email)
-      setPhone(data.phone)
-      setSsn(data.ssn)
-      setDOB(data.DOB)
-      setAddress(data.Address.current_address)
+      setFname(data?.first_name)
+      setLname(data?.last_name)
+      setEmail(data?.email)
+      setPhone(data?.phone)
+      setSsn(data?.ssn)
+      setDOB(data?.DOB)
+      setAddress(data?.Address?.current_address)
 
-      setRef1Name(data.professional_references.ref_1_name)
-      setRef1Phone(data.professional_references.ref_1_phone)
-      setRef2Name(data.professional_references.ref_2_name)
-      setRef2Phone(data.professional_references.ref_2_phone)
+      setRef1Name(data?.professional_references?.ref_1_name)
+      setRef1Phone(data?.professional_references?.ref_1_phone)
+      setRef2Name(data?.professional_references?.ref_2_name)
+      setRef2Phone(data?.professional_references?.ref_2_phone)
     }).catch((error) => {
       console.log(error)
     })
@@ -201,34 +201,36 @@ const FirstForm = (props) => {
   }, [])
 
   //filters on demand services
-  let ondemand = services.filter((service) => service.category === 'on demand').map((service) => {
-    return service.title
-  })
-
-  //filter corporate and private services
-  // let corporate = services.filter((service) => service.category === 'corporate events' || service.category === 'private events')
-  //   .map((service) => {
-  //     return service.title
-  //   })
+  // let ondemand = services.filter((service) => service.category === 'on demand').map((service) => {
+  //   return service.title
+  // })
 
 
-  // let areasofexpertise = {
-  //   ondemand: ondemand,
-  //   privatecorpevts: corporate
-  // };
+  let ondemand = services
+    .filter((service) => service.category === 'on demand')
+    .map((service) => {
+      return { id: service._id, title: service.title };
+    });
+
+  console.log("On Demand Services:", ondemand);
+
   // Filter private events
   let privateEvents = services
     .filter((service) => service.category === 'private events')
     .map((service) => {
-      return service.title;
+      return { id: service._id, title: service.title };
     });
 
+
+  console.log("On privateEvents Services:", privateEvents);
   // Filter corporate events
   let corporateEvents = services
     .filter((service) => service.category === 'corporate events')
     .map((service) => {
-      return service.title;
+      return { id: service._id, title: service.title };
     });
+
+  console.log("On corporateEvents Services:", corporateEvents);
 
   let areasofexpertise = {
     ondemand: ondemand,
@@ -282,6 +284,7 @@ const FirstForm = (props) => {
       });
 
       const result = await resp.json();
+      console.log("result Services:", result);
       toast.success("Your Registration successfully!", {
         position: "top-right",
         autoClose: 3000,
@@ -557,20 +560,20 @@ const FirstForm = (props) => {
           <h5>Areas of Expertise</h5>
           <h6>On Demand</h6>
 
-          {areasofexpertise.ondemand.map((item, id) => (
+          {areasofexpertise.ondemand.map((item) => (
             <Form.Check
-              key={id}
+              key={item.id}  // Use item.id directly without additional curly braces
               inline
-              id={id + 1}
-              label={item}
+              id={item.id}  // Assuming id is unique for each item
+              label={item.title}  // Use the specific property (e.g., title) from the item object
               name="group1"
-              value={item}
-              checked={selectedItems.includes(item)}
+              value={item.id}  // Use the specific property (e.g., id) from the item object
+              checked={selectedItems.includes(item.id)}  // Check against the specific property (e.g., id) from the item object
               onChange={(e) => {
                 const itemValue = e.target.value;
-                setSelectedItems(prevSelectedItems => {
+                setSelectedItems((prevSelectedItems) => {
                   if (prevSelectedItems.includes(itemValue)) {
-                    return prevSelectedItems.filter(selectedItem => selectedItem !== itemValue);
+                    return prevSelectedItems.filter((selectedItem) => selectedItem !== itemValue);
                   } else {
                     return [...prevSelectedItems, itemValue];
                   }
@@ -578,23 +581,24 @@ const FirstForm = (props) => {
               }}
             />
           ))}
+
           <hr className="hr" />
           <h6>Private Events</h6>
 
-          {areasofexpertise.privateevents.map((item, id) => (
+          {areasofexpertise.privateevents.map((item) => (
             <Form.Check
-              key={id}
+              key={item.id}
               inline
-              id={id + 1}
-              label={item}
+              id={item.id}
+              label={item.title}
               name="group1"
-              value={item}
-              checked={selectedPrivateEvents.includes(item)}
+              value={item.id}
+              checked={selectedPrivateEvents.includes(item.id)}  // Compare against item.id
               onChange={(e) => {
                 const itemValue = e.target.value;
-                setSelectedPrivateEvents(prevSelectedItems => {
+                setSelectedPrivateEvents((prevSelectedItems) => {
                   if (prevSelectedItems.includes(itemValue)) {
-                    return prevSelectedItems.filter(selectedItem => selectedItem !== itemValue);
+                    return prevSelectedItems.filter((selectedItem) => selectedItem !== itemValue);
                   } else {
                     return [...prevSelectedItems, itemValue];
                   }
@@ -602,21 +606,22 @@ const FirstForm = (props) => {
               }}
             />
           ))}
+
           <hr className="hr" />
 
 
 
           <h6>Corporate Events</h6>
 
-          {areasofexpertise.corporateevents.map((item, id) => (
+          {areasofexpertise.corporateevents.map((item) => (
             <Form.Check
-              key={id}
+              key={item.id}
               inline
-              id={id + 1}
-              label={item}
+              id={item.id}
+              label={item.title}
               name="group1"
-              value={item}
-              checked={selectedCorporateEvents.includes(item)}
+              value={item.id}
+              checked={selectedCorporateEvents.includes(item.id)}  // Compare against item.id
               onChange={(e) => {
                 const itemValue = e.target.value;
                 setSelectedCorporateEvents((prevSelectedItems) => {
@@ -631,6 +636,7 @@ const FirstForm = (props) => {
               }}
             />
           ))}
+
 
 
 

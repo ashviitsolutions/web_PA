@@ -43,7 +43,7 @@ function Getpost() {
     const [count, setCount] = useState(0);
 
     // alert(selectedType)
-    console.log("selectedType",selectedType)
+    console.log("selectedType", selectedType)
 
     useEffect(() => {
         const fetchData = async () => {
