@@ -1,24 +1,97 @@
-import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Badge, Button, Card, Row } from "react-bootstrap";
-import { faClock, faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useHistory from React Router
+import { IP } from '../../../Constant';
+import { Card } from "react-bootstrap";
+
 
 const ServicesCard = (props) => {
-  var tip = props.tip?props.tip:0;
-  var instructions = props.instructions?props.instructions:'';
-  let badge = props.newclient ? <Badge pill bg="warning shadow" style={{width:'auto',width: '70px',position: 'absolute',top: '8px',right: '-12px'}}>New</Badge> :'';
+  console.log("props", props.title)
+  const [users, setUsers] = useState([]);
+  const [img, setImg] = useState('');
+  const [activeCardIndex, setActiveCardIndex] = useState(null);
+
+  const postIds = [props.title]
+
+
+
+
+  useEffect(() => {
+    async function fetchData() {
+      const responses = await Promise.all(
+        postIds.map(async id => {
+          const res = await fetch(`${IP}/service/fetch/${id}`);
+          return res.json();
+        })
+      );
+      setUsers(responses);
+      setImg(
+        await Promise.all(
+          responses.flatMap(response => response.attachments).map(async image => {
+            const res = await fetch(`${IP}/file/${image}`);
+            const imageBlob = await res.blob();
+            return URL.createObjectURL(imageBlob);
+          })
+        )
+      );
+    }
+    fetchData();
+  }, [])
+
+  console.log("users provider ", users)
+
+  const handleReadMoreClick = (index) => {
+    setActiveCardIndex(index);
+  };
+
+  const history = useNavigate();
+
   return (
-    <div>
-      <Card className="shadow-sm mb-2">
-         {badge}
-        <Card.Title
-          className="px-3"
-          style={{ paddingLeft: "18px", paddingTop: "10px" }}
-        >
-          {props.title}
-        </Card.Title>
-       
-      </Card>
+    <div id="types" className='marketplace'>
+      <div className="container">
+        <div className="row">
+          <div className="col-sm-12 col-sm-offset-1">
+            <div className="container-fluid">
+              <div className="row">
+                {users.map((user, index) => (
+                  <div className="col-sm-4 col-xs-12" key={user._id}>
+                    <div className="item_wrapper">
+                      <div className="item">
+                        <div
+                          className="bg"
+                          style={{
+                            backgroundImage: `url(${img[index]})`,
+                            borderRadius: '7px',
+                          }}
+                        ></div>
+                        <div className="content">
+                          <h3>{user.title}</h3>
+                          <p dangerouslySetInnerHTML={{
+                            __html: index === activeCardIndex
+                              ? user.description
+                              : user.description.slice(0, 200) + (user.description.length > 180 ? "...." : "")
+                          }} />
+
+                          {index === activeCardIndex ? (
+                            <button onClick={() => handleReadMoreClick(null)} className="Read_More">
+                              Show less
+                            </button>
+                          ) : (
+                            <button onClick={() => handleReadMoreClick(index)} className="Read_More">
+                              Read more
+                            </button>
+                          )}
+
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
