@@ -191,43 +191,7 @@ const SeconForm = ({ step, nextStep }) => {
 
     return (
         <div id="sec_wiz_2" className="sections">
-            <div id="page_service_selects">
-                <span className="title">Select Service</span>
-                <div className="second_form_book_container">
-                    {
-                        user.filter((filter) => filter.category === "on demand").map((cur, index) => {
-                            return (
-
-                                <div className={`second_form_book ${service_ids === `${cur._id}` ? "selected" : ""}`} key={index} onClick={() => handlePrice(cur.price)}  >
-                                    <div onClick={() => handleId(cur._id)} className="item" >
-                                        <PreviewImage attachments={cur.attachments} />
-                                        <div className="book-details" >
-                                            <h2 className="book-title">{cur.title}</h2>
-                                            <p className="book-description" dangerouslySetInnerHTML={{ __html: cur.description.slice(0, 50) }} />
-                                            <p className="book-price">Price: ${cur.price}</p>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-
-                            );
-                        })
-                    }
-
-
-                </div>
-
-
-
-
-
-
-
-
-
-
-                {gendercheck === "guest" ? (
+            {gendercheck === "guest" ? (
                     <>
                         <div className="gen_heading">
                             <h3>Gender Preference 1</h3>
@@ -313,7 +277,7 @@ const SeconForm = ({ step, nextStep }) => {
                     </>
                 )}
                 <div className="gen_heading">
-                    <h3>Select Time</h3>
+                    <h3>Select Duration</h3>
                 </div>
                 <ul className="time_options">
                     <li
@@ -339,6 +303,43 @@ const SeconForm = ({ step, nextStep }) => {
                     </li>
                 </ul>
 
+            <div id="page_service_selects">
+                <span className="title">Select Service</span>
+                <div className="second_form_book_container">
+                    {
+                        user.filter((filter) => filter.category === "on demand").map((cur, index) => {
+                            return (
+
+                                <div className={`second_form_book ${service_ids === `${cur._id}` ? "selected" : ""}`} key={index} onClick={() => handlePrice(cur.price)}  >
+                                    <div onClick={() => handleId(cur._id)} className="item" >
+                                        <PreviewImage attachments={cur.attachments} />
+                                        <div className="book-details" >
+                                            <h2 className="book-title">{cur.title}</h2>
+                                            <p className="book-description" dangerouslySetInnerHTML={{ __html: cur.description.slice(0, 50) }} />
+                                            <p className="book-price">Price: ${cur.price}</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                            );
+                        })
+                    }
+
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+                
 
 
 
@@ -351,7 +352,7 @@ const SeconForm = ({ step, nextStep }) => {
 
 
                 <div className="gen_heading">
-                    <h3>Popular to consider</h3>
+                    <h3>Popular addons to consider</h3>
                 </div>
 
                 <div className="second_form_book_container">

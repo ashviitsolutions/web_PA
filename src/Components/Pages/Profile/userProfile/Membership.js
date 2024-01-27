@@ -29,7 +29,7 @@ function Membership() {
 			GOLD: silver,
 			active: Activesilver,
 			title1: "Membership Flexibility",
-			para1: "cancel or pouse at any time after your first two monthly payment",
+			para1: "5% discount on every service, Quaterly Subscription",
 			title2: "One 60-minute massage each month",
 			para2:
 				"you're billed for one massage a month at the member rate, no initiation fee. Credits roll over and never expire",
@@ -46,7 +46,7 @@ function Membership() {
 			GOLD: gold,
 			active: Activegold,
 			title1: "Membership Flexibility",
-			para1: "cancel or pouse at any time after your first two monthly payment",
+			para1: "Annual Membership. 10% discount on all member services. Prioritize and select your favorite therapist.",
 			title2: "One 60-minute massage each month",
 			para2:
 				"you're billed for one massage a month at the member rate, no initiation fee. Credits roll over and never expire",
@@ -62,7 +62,7 @@ function Membership() {
 		Array(membershipOptions.length).fill(false)
 	);
 	const [selectedMembership, setSelectedMembership] = useState(null);
-	const [membershipLevel, setMembershipLevel] = useState("Regular");
+	const [membershipLevel, setMembershipLevel] = useState("Non-Member");
 	const [membershipEndDate, setMembershipEndDate] = useState();
 
 	const handleToggleModal = (index) => {
@@ -138,13 +138,14 @@ function Membership() {
 				<div className="title">
 					<h3>Membership Level</h3>
 					<h3
-						style={{ fontSize: 50 }}
+						style={{ fontSize: 30 }}
 						className={`${
 							membershipLevel == "gold" ? "gold__text" : "silver__text"
 						}`}
 					>
-						{membershipLevel.toUpperCase()}
+						{membershipLevel}
 					</h3>
+					<p>Become a Member/Your Membership</p>
 				</div>
 				<div className="memberships">
 					{membershipOptions.map((option, index) => (

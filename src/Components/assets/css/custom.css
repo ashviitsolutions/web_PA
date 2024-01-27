@@ -8864,3 +8864,9 @@ img .img-responsive {
   background-size: 100%;
   background-repeat: no-repeat;
 }
+.sign_in_forms a {
+  color: var(--primary);
+}
+.sign_in_forms a:hover {
+  color: blue;
+}

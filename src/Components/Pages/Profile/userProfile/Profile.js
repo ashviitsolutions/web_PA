@@ -238,7 +238,7 @@ const Profile = () => {
 							<div className="item">
 								{/* <img src={image7} width={15} height={15} alt="..." /> */}
 								<FontAwesomeIcon icon={faHeart} style={{ marginRight: 10 }} />
-								Favourites
+								Favorites
 							</div>
 						</li>
 						<li

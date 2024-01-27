@@ -4,6 +4,7 @@ import { IP } from "../../../../Constant";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import support from "../../../../Components/assets/img/support.jpg"
 
 const Support = () => {
 	const [text, setText] = useState("");
@@ -48,18 +49,30 @@ const Support = () => {
 	};
 	return (
 		<div className="container__view" style={{ marginTop: 30 }}>
-			<h3>Describe your issue below and we will get back to you</h3>
-			<textarea
-				name=""
-				id=""
-				className="support__input"
-				rows={10}
-				onChange={(e) => setText(e.target.value)}
-			></textarea>
-			<button className="support__button" disabled={!text} onClick={onSubmit}>
-				Submit
-			</button>
-			<ToastContainer closeOnClick newestOnTop autoClose={true} />
+			<div className="row supportSection">
+				<div className="col-md-4">
+					<img src={support} className="careImg" />
+				</div>
+				<div className="col-md-8">
+					<h3>Please describe your concern to us bellow</h3>
+					<p>We will get back to you within 24 hours</p>
+					<p>
+						<textarea
+						name=""
+						id=""
+						className="support__input col-md-12"
+						rows={10}
+						onChange={(e) => setText(e.target.value)}
+					></textarea>
+					</p>
+					<p>
+					<button className="support__button" disabled={!text} onClick={onSubmit}>
+						Submit
+					</button>
+					</p>
+					<ToastContainer closeOnClick newestOnTop autoClose={true} />
+				</div>
+			</div>
 		</div>
 	);
 };

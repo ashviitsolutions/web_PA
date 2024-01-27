@@ -90,7 +90,6 @@ const Dashboard = () => {
                       instructions={cur.instructions}
                       total={cur.total}
                       _id={cur._id}
-
                     />
                   </React.Fragment>
                 ))}

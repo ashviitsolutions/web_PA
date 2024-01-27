@@ -503,6 +503,7 @@ function App() {
 
 
           <Route path="/providers" element={<>
+            {/* <Chatbot /> */}
             <SideBarprovider />
             <NavBarProvide />
             <Protected Component={DashboardProvider} />
