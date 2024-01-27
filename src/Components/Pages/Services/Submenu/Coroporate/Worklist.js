@@ -14,7 +14,7 @@ function Worklist() {
             <div className="col-sm-12">
               <div className="big_head text-center">
                 <h3>how <span>it works</span></h3>
-                <p>If you have any questions please feel free to reach out to us, We are here to assist you.
+                <p>If you have any questions please feel free to reach out to us, we are here to assist you.
                 </p>
               </div>
             </div>
