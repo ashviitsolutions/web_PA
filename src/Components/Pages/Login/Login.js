@@ -200,8 +200,8 @@ function Login() {
                                 </button>
                                 <span>
                                     Don't have an account? <Link to="/sign_up" className="anchor">
-                                        Sign Up
-                                    </Link>{' '}
+                                        SignUp
+                                    </Link>
                                 </span>
 
                                 {/*   {toggle ? (
