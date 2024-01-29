@@ -47,42 +47,42 @@ const ServicesCard = (props) => {
 
   return (
     <>
-                {users.map((user, index) => (
-                  <div className="col-md-4" key={user._id}>
-                    <div className="item_wrapper">
-                      <div className="item">
-                        <div
-                          className="bg"
-                          style={{
-                            backgroundImage: `url(${img[index]})`,
-                            borderRadius: '7px',
-                          }}
-                        ></div>
-                        <div className="content">
-                          <h3>{user.title}</h3>
-                          <p dangerouslySetInnerHTML={{
-                            __html: index === activeCardIndex
-                              ? user.description
-                              : user.description.slice(0, 200) + (user.description.length > 180 ? "...." : "")
-                          }} />
+      {users.map((user, index) => (
+        <div className="col-md-4" key={user._id}>
+          <div className="item_wrapper">
+            <div className="item">
+              <div
+                className="bg"
+                style={{
+                  backgroundImage: `url(${img[index]})`,
+                  borderRadius: '7px',
+                }}
+              ></div>
+              <div className="content">
+                <h3>{user.title}</h3>
+                <p dangerouslySetInnerHTML={{
+                  __html: index === activeCardIndex
+                    ? user.description
+                    : user.description.slice(0, 200) + (user.description.length > 180 ? "...." : "")
+                }} />
 
-                          {index === activeCardIndex ? (
-                            <button onClick={() => handleReadMoreClick(null)} className="Read_More">
-                              Show less
-                            </button>
-                          ) : (
-                            <button onClick={() => handleReadMoreClick(index)} className="Read_More">
-                              Read more
-                            </button>
-                          )}
+                {index === activeCardIndex ? (
+                  <button onClick={() => handleReadMoreClick(null)} className="Read_More">
+                    Show less
+                  </button>
+                ) : (
+                  <button onClick={() => handleReadMoreClick(index)} className="Read_More">
+                    Read more
+                  </button>
+                )}
 
 
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-                </>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </>
   );
 };
 

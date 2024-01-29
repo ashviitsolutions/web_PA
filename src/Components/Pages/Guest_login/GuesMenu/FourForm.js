@@ -61,6 +61,7 @@ const FourForm = ({ nextStep }) => {
             <Calendar
               onChange={(date) => setSelectedDate(date)}
               value={selectedDate}
+              minDate={new Date()}
             />
           </div>
 

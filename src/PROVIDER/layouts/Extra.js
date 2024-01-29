@@ -1,88 +1,149 @@
 import React, { useState, useEffect } from "react";
-import { FormCheck, Row } from "react-bootstrap";
-import Container from "react-bootstrap/Container";
-import DataTable from "../components/earnings/DataTable";
-import EarningsCard from "../components/earnings/EarningsCard";
-import FilterSection from "../components/earnings/FilterSection";
-import Tags from "../components/earnings/Tags";
-import MyPagination from "../components/MyPagination";
-import { IP } from "../../Constant"
-const Earnings = () => {
-  const token = localStorage.getItem('providertoken')
-
-
-  const [wallate, setWallate] = useState();
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import DateRangeIcon from '@mui/icons-material/DateRange';
+import { Button, Card, Row } from "react-bootstrap";
+import { faClock, faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import MyVerticallyCenteredModal from "./MyVerticallyCenteredModal";
+import Checkouts from "./Checkout";
+import { IP } from "../../Constant";
+import Modal from "../Modal";
 
 
 
-  useEffect(() => {
-    fetch(`${IP}/provider/getProviderWallet`, {
-      headers: {
-        'Authorization': token
+const ScheduledRequestCard = (props) => {
+  const { handleClose, user_id, _id, amount, title, date, location, time, instructions = props.instructions ? props.instructions : '' } = props;
+  const [user, setUser] = useState([]);
+  const [modalShow, setModalShow] = React.useState(false);
+  const [checkout, setCheckout] = React.useState(false);
+  const [isLoading, setIsLoading] = useState(true); // New state to track loading state
+
+
+
+  const token = localStorage.getItem("providertoken");
+
+  // const tokenapi = localStorage.getItem("removedChekincard");
+
+
+  const removedChekincardArray = JSON.parse(localStorage.getItem('removedChekincard')) || [];
+  const showCheckInButton = !removedChekincardArray.includes(_id);
+
+
+
+  const formattedDate = new Date().toLocaleDateString();  // formatted as M/D/YYYY
+  const formattedScheduledDate = new Date(date).toLocaleDateString();  // format the date in the same way
+
+  const isDisabled = formattedDate !== formattedScheduledDate;
+
+
+  const handleCloseModal = () => {
+    setIsLoading(false);
+    handleClose(); // Call the function to close the modal
+  };
+
+
+  const handleClick = () => {
+
+    fetchData(_id);
+  };
+
+
+  const fetchData = async (id) => {
+    try {
+      console.log('Fetching data for ID:', id);
+
+      const response = await fetch(`${IP}/provider/events/booking/${id}`, {
+        headers: {
+          'Authorization': token
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
       }
-    }).then(resp => {
-      return resp.json()
-    }).then(result => {
-      setWallate(result.wallet)
 
-    }).catch(err => {
-      console.log(err)
-    })
+      const result = await response.json();
+      setUser(result.bookings);
+      console.log("scheduled api id based", result?.bookings);
 
+    } catch (error) {
+      console.log('Error fetching data:', error.message);
+      // You can handle the error here, e.g., set an error state, show a message, etc.
+    }
+  };
 
-
+  console.log("scheduled api id user", user);
+  useEffect(() => {
+    fetchData()
   }, [])
 
 
-
-
-
-
-
-
-
-
-
-
-
-
   return (
-    <Container className="schudulecard">
-      <h2 className="text-center mt-2" id="schudule-title">Earnings</h2>
-      <Row>
-        <EarningsCard label="Net Income" amt={wallate?.total_withdrawn} />
-        <EarningsCard label="Pending Clearance" amt={wallate?.available_amount} />
+    <>
+      {Array.isArray(user) && user.length > 0 && <Modal user={user} onClose={handleCloseModal} />}
+      <div>
+        <Card className="shadow-sm mb-2">
+          <Card.Title
+            className="px-3"
+          >
+            {props.title}
+          </Card.Title>
+          <Card.Body>
+            <Row>
+              <div className="col-md-8" onClick={handleClick}>
+                <div>
+                  <FontAwesomeIcon icon={faLocationDot} style={{ width: 20 }} />
+                  {props.location}
+                </div>
+                <div>
+                  <FontAwesomeIcon icon={faClock} style={{ width: 20 }} /> {props.time}
+                </div>
+                <div>
+                  <FontAwesomeIcon icon={faClock} style={{ width: 20 }} /> {props.date}
+                </div>
+                <div>
+                  {instructions !== '' ? <><strong className="mt-1">Instructions : </strong> {instructions} </> : ''}
+                </div>
+              </div>
+              <div className="col-md-4" style={{ textAlign: "right" }}>
 
-      </Row>
-      <h4 className="mt-3">Withdraw</h4>
-      <Row>
-        <FormCheck
-          style={{ width: "auto", marginLeft: "10px" }}
-          type="radio"
-          name="pymt"
-          id="bank"
-          label="Bank Transfer"
-        />
-        <FormCheck
-          style={{ width: "auto" }}
-          type="radio"
-          name="pymt"
-          id="paypal"
-          label="PayPal"
-        />
-      </Row>
-      <h5 className="mt-2">View Earning History</h5>
-      <Row>
-        <FilterSection />
-        <Tags />
-      </Row>
-      <DataTable />
+                <div className="text-warning">Total = ${amount}</div>
+              </div>
+            </Row>
+          </Card.Body>
+          <Card.Footer>
 
-      <Row className="text-center">
-        <MyPagination />
-      </Row>
-    </Container>
+            {showCheckInButton ? (
+              <Button className="mx-2 btn-sm" disabled={isDisabled} onClick={() => setModalShow(true)}
+                style={{ backgroundColor: isDisabled ? "dimgray" : null }}
+              >
+                Check In
+              </Button>
+            ) : (
+              <Button className="btn-sm" onClick={() => setCheckout(true)}>
+                Check Out
+              </Button>
+            )}
+
+          </Card.Footer>
+        </Card>
+        <MyVerticallyCenteredModal
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+          user_id={props.user_id}
+          date={props.date}
+          _id={props._id}
+        />
+        <Checkouts
+          show={checkout}
+          onHide={() => setCheckout(false)}
+          user_id={props.user_id}
+          date={props.date}
+          _id={props._id}
+        />
+      </div>
+    </>
+
   );
 };
 
-export default Earnings;
+export default ScheduledRequestCard;

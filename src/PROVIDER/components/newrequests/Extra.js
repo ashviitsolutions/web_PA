@@ -5,23 +5,25 @@ import { faCalendar, faClock, faLocationDot } from "@fortawesome/free-solid-svg-
 import { IP } from "../../../Constant";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import CustomModal from "../../Modal";
+import Dashboard from "../../layouts/dashboard";
+
 
 const RequestCard = (props) => {
-  const token = localStorage.getItem("providertoken");
+  const token = localStorage.getItem("providertoken")
   const { total } = props;
   const { _id } = props;
   var tip = props.tip ? props.tip : 0;
   var instructions = props.instructions ? props.instructions : '';
   let badge = props.newclient ? <Badge pill bg="warning shadow-sm" style={{ width: '70px', position: 'absolute', top: '8px', right: '-12px', fontSize: '0.7rem' }}>New</Badge> : '';
-  const nav = useNavigate();
+  const nav = useNavigate()
 
   const [display, setDisplay] = useState(true);
-  const [showModal, setShowModal] = useState(false); // State to control modal visibility
 
   const onSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
+
     try {
+
       const bodyFormData = new FormData();
       bodyFormData.append("_id", _id);
       bodyFormData.append("response", "accept");
@@ -31,27 +33,28 @@ const RequestCard = (props) => {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
         },
+
       });
       console.log(res);
       if (res.status === 200) {
         setDisplay(false);
       }
+
     } catch (error) {
       console.error(error);
     }
   };
 
+
+  useEffect(() => {
+    onSubmit();
+  }, [_id]);
+
+
+
   const removeItem = () => {
     localStorage.setItem('removedCard', _id); // set new _id
     setDisplay(false);
-  };
-
-  const openModal = () => {
-    setShowModal(true);
-  };
-
-  const closeModal = () => {
-    setShowModal(false);
   };
 
   useEffect(() => {
@@ -65,6 +68,7 @@ const RequestCard = (props) => {
     }
   }, [_id]);
 
+
   if (!display) {
     return null;
   }
@@ -72,16 +76,16 @@ const RequestCard = (props) => {
   return (
 
     <div>
-      <Card className="mb-2" >
+      <Card className="mb-2">
         {badge}
         <Card.Title
           className="px-3"
         >
           {props.title}
         </Card.Title>
-        <Card.Body onClick={openModal}>
+        <Card.Body>
           <Row>
-            <div className="col-md-8 cardLeft" >
+            <div className="col-md-8 cardLeft">
               <div>
                 <FontAwesomeIcon icon={faLocationDot} style={{ width: 20 }} />{" "}
                 {props.address}
@@ -113,13 +117,6 @@ const RequestCard = (props) => {
           </Button>
         </Card.Footer>
       </Card>
-      <CustomModal
-        show={showModal}
-        onHide={closeModal}
-        title={props.title}
-        location={props.address}
-        time={props.time}
-      />
     </div>
   );
 };
