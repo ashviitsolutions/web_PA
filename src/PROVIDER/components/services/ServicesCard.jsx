@@ -46,14 +46,9 @@ const ServicesCard = (props) => {
   const history = useNavigate();
 
   return (
-    <div id="types" className='marketplace'>
-      <div className="container">
-        <div className="row">
-          <div className="col-sm-12 col-sm-offset-1">
-            <div className="container-fluid">
-              <div className="row">
+    <>
                 {users.map((user, index) => (
-                  <div className="col-sm-4 col-xs-12" key={user._id}>
+                  <div className="col-md-4" key={user._id}>
                     <div className="item_wrapper">
                       <div className="item">
                         <div
@@ -87,12 +82,7 @@ const ServicesCard = (props) => {
                     </div>
                   </div>
                 ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+                </>
   );
 };
 

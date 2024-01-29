@@ -99,12 +99,14 @@ const Services = () => {
           ))}
         </ButtonGroup>
       </div>
-
-      {/* render the selected services */}
-      {selectedServices.map((service, idx) => (
-        <ServicesCard key={idx} {...service} />
-      ))}
-
+      <div id="types" className='marketplace'>
+        <div className="row">
+          {/* render the selected services */}
+          {selectedServices.map((service, idx) => (
+            <ServicesCard key={idx} {...service} />
+          ))}
+      </div>
+    </div>
     </Container>
   );
 };
