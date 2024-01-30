@@ -106,11 +106,11 @@ const RequestCard = (props) => {
           </Row>
         </Card.Body>
         <Card.Footer>
-          <button className="mx-2 btn-sm btn btn-primary" onClick={onSubmit}>Accept</button>
+          <button className="mx-2 btn-sm btn btn-primary" onClick={onSubmit}>Review Request</button>
 
-          <Button className="nofillbtn btn-sm" onClick={removeItem}>
+          {/* <Button className="nofillbtn btn-sm" onClick={removeItem}>
             Reject
-          </Button>
+          </Button> */}
         </Card.Footer>
       </Card>
       <CustomModal
