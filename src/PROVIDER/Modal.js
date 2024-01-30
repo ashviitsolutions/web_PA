@@ -5,17 +5,102 @@ import {
   faEnvelope,
   faInfoCircle,
 }
-from "@fortawesome/free-solid-svg-icons";
+  from "@fortawesome/free-solid-svg-icons";
+import { IP } from "../Constant";
+import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FontAwesomeIconProps } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import BootstrapModal from "react-bootstrap/Modal";
+import MyVerticallyCenteredModal from "./components/MyVerticallyCenteredModal";
+import Checkouts from "./components/Checkout";
 
-function CustomModal({ title, location, time, onClose, show, onHide }) {
+function CustomModal(
+  { title, serviceTime, massage_for, gender, areasOfConcern, specialConsiderations, massageBodyPart, healthConditions, locationType,
+    location,
+    time,
+    user_id,
+    onClose,
+    date,
+    show,
+    onHide,
+    _id,
+    newclient,
+    sheduleEvent
+  }
+) {
+
+
+
+
+
+
+
+  const token = localStorage.getItem("providertoken");
+  const [checkInShow, setCheckInShow] = useState(false);
+  const [checkOutShow, setCheckOutShow] = useState(false);
+  const [mainCardShow, setMainCardShow] = useState(true);
+
+
   const handleClose = () => {
     onHide();
   };
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const bodyFormData = new FormData();
+      bodyFormData.append("_id", _id);
+      bodyFormData.append("response", "accept");
+      const res = await axios.put(`${IP}/provider/service_response`, bodyFormData, {
+        headers: {
+          'Authorization': token,
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+      });
+      console.log(res);
+      if (res.status === 200) {
+        onHide();
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const removeItem = () => {
+    localStorage.setItem('removedCard', _id); // set new _id
+    onHide();
+  };
+
+
+  const handleCheckInClick = () => {
+    setCheckInShow(true);
+    setMainCardShow(false);
+  };
+
+  const handleCheckInModalClose = () => {
+    setCheckInShow(false);
+    setMainCardShow(true);
+  };
+
+  const handleCheckOutModalClose = () => {
+    setCheckOutShow(false);
+    setMainCardShow(true);
+  };
+  const handleCheckOutClick = () => {
+    setCheckOutShow(true);
+    // setMainCardShow(false);
+  };
+
+
+  const formattedDate = new Date().toLocaleDateString();
+  const formattedScheduledDate = new Date(date).toLocaleDateString();
+  const isDisabled = formattedDate !== formattedScheduledDate;
+
+  const removedChekincardArray = JSON.parse(localStorage.getItem('removedChekincard')) || [];
+  const showCheckInButton = !removedChekincardArray.includes(_id);
 
   return (
     <BootstrapModal show={show} onHide={handleClose}>
@@ -24,7 +109,7 @@ function CustomModal({ title, location, time, onClose, show, onHide }) {
       </BootstrapModal.Header>
       <BootstrapModal.Body>
         {/* Display user data in the modal */}
-        <p className="title">{title} (90min) - Couple</p>
+        <p className="title">{title} {serviceTime} - {massage_for}</p>
         <div className="col-md-12 detailsTable">
           {/* booking details */}
           <div className="title detailTitle">
@@ -35,10 +120,10 @@ function CustomModal({ title, location, time, onClose, show, onHide }) {
               Booking Type
             </div>
             <div div className="col-md-6">
-              Couple
+              {locationType}
             </div>
             <div className="col-md-6 title">Duration and Earning</div>
-            <div className="col-md-3">90Min</div>
+            <div className="col-md-3">{serviceTime}</div>
             <div className="col-md-3 title">135$</div>
             <div div className="col-md-6 title">
               Location:
@@ -46,22 +131,22 @@ function CustomModal({ title, location, time, onClose, show, onHide }) {
             <div className="col-md-6">{location}</div>
             <div className="col-md-6 title">Direction</div>
             <div className="col-md-6">
-        <a href="#" className="btn btn-sm btn-link"><FontAwesomeIcon icon={faLocationDot} /> Get Direction</a></div>
+              <a href="#" className="btn btn-sm btn-link"><FontAwesomeIcon icon={faLocationDot} /> Get Direction</a></div>
             <div div className="col-md-6 title">
               Date/Time:
             </div>
-            <div className="col-md-6">30-01-2024/{time}</div>
+            <div className="col-md-6">{formattedScheduledDate}/{time}</div>
           </div>
 
-           {/* Customer details */}
-           <div className="title detailTitle">
+          {/* Customer details */}
+          <div className="title detailTitle">
             <FontAwesomeIcon icon={faInfoCircle} /> Customer Info
           </div>
           <div className="container row detailInfo">
             <div div className="col-md-6 title">
               Gender:
             </div>
-            <div className="col-md-6">Male, Female</div>
+            <div className="col-md-6">{gender}</div>
           </div>
 
           {/* Health Datails details */}
@@ -69,22 +154,24 @@ function CustomModal({ title, location, time, onClose, show, onHide }) {
             <FontAwesomeIcon icon={faInfoCircle} /> Health/Massage Info
           </div>
           <div className="container row detailInfo">
-          <div div className="col-md-6 title">
+            <div div className="col-md-6 title">
               Area of Concern:
             </div>
-            <div className="col-md-6">Pain, Stress, Anxiety</div>
+            <div className="col-md-6">{areasOfConcern}</div>
             <div div className="col-md-6 title">
               Health Issues:
             </div>
-            <div className="col-md-6">Arthritis, Digestive Disorder</div>
+            <div className="col-md-6">{healthConditions}</div>
             <div div className="col-md-6 title">
               Special Concideration:
             </div>
-            <div className="col-md-6">I prefer Geriatric Massage</div>
+            <div className="col-md-6">{specialConsiderations}</div>
             <div div className="col-md-6 title">
               Massage Body Part:
             </div>
-            <div className="col-md-6">Neck</div>
+            <div className="col-md-6">{massageBodyPart}</div>
+
+            {/* <div className="col-md-6">{massageBodyPart}</div>
             <div div className="col-md-6 title">
               Massage Pressure:
             </div>
@@ -92,64 +179,150 @@ function CustomModal({ title, location, time, onClose, show, onHide }) {
             <div div className="col-md-6 title">
               Any Other Remark:
             </div>
-            <div className="col-md-6">No Remark</div>
+  <div className="col-md-6">No Remark</div> */}
           </div>
 
-          {/* Health Datails details */}
-          {/* <div className="title detailTitle">
-            <FontAwesomeIcon icon={faInfoCircle} /> Health/Massage Info (Female)
-          </div>
-          <div className="container row detailInfo">
-          <div div className="col-md-6 title">
-              Area of Concern:
-            </div>
-            <div className="col-md-6">Pain, Stress, Anxiety</div>
-            <div div className="col-md-6 title">
-              Health Issues:
-            </div>
-            <div className="col-md-6">Arthritis, Pregnancy</div>
-            <div div className="col-md-6 title">
-              Special Concideration:
-            </div>
-            <div className="col-md-6">I prefer Geriatric Massage</div>
-            <div div className="col-md-6 title">
-              Massage Body Part:
-            </div>
-            <div className="col-md-6">Neck</div>
-            <div div className="col-md-6 title">
-              Massage Pressure:
-            </div>
-            <div className="col-md-6">Light</div>
-            <div div className="col-md-6 title">
-              Any Other Remark:
-            </div>
-            <div className="col-md-6">No Remark</div>
-          </div> */}
 
-          <div class="alert alert-warning" role="alert">
-            <p className="title">Accept before anyone else does!</p>
-            <p>This service request might have sent to multiple providers near to client location, accept the service before anyone else does!</p>
-          </div>
-          {/* <div class="alert alert-dark" role="alert">
-            <p className="title">Wait for schedule date to check in!</p>
-            <p>You will be able to check in for this service request once your calender and clock reaches the right date and time!</p>
-          </div> */}
-          
-          {/* <div class="alert alert-success" role="alert">
-            <p className="title">Check-In to Start!</p>
-            <p>Be on time to start your service, click on <b>check in!</b></p>
-          </div> */}
+
+          {
+            sheduleEvent && (
+              <div>
+                {
+                  isDisabled && (
+                    <div class="alert alert-dark" role="alert">
+                      <p className="title">Wait for schedule date to check in!</p>
+                      <p>You will be able to check in for this service request once your calender and clock reaches the right date and time!</p>
+                    </div>
+                  )
+                }
+
+                {!isDisabled && (
+                  <div class="alert alert-success" role="alert">
+                    <p className="title">Check-In to Start!</p>
+                    <p>Be on time to start your service, click on <b>check in!</b></p>
+                  </div>
+                )
+                }
+
+
+              </div>
+
+
+            )
+          }
+
+
+
+
+
+
+
+
+
+
+          {
+            newclient && (
+              <div class="alert alert-warning" role="alert">
+                <p className="title">Accept before anyone else does!</p>
+                <p>This service request might have sent to multiple providers near to client location, accept the service before anyone else does!</p>
+              </div>
+            )
+          }
+
+
+
+
+
 
         </div>
       </BootstrapModal.Body>
-      <BootstrapModal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
-          Close
-        </Button>
-        <Button variant="primary" onClick={handleClose}>
-          Accept
-        </Button>
-      </BootstrapModal.Footer>
+      {
+        newclient && (
+          <BootstrapModal.Footer>
+            <Button variant="primary" onClick={onSubmit}>
+              Accept
+            </Button>
+            <Button className="nofillbtn btn-sm" onClick={removeItem}>
+              Reject
+            </Button>
+
+
+          </BootstrapModal.Footer>
+        )
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      {sheduleEvent && (
+        <BootstrapModal.Footer>
+          {showCheckInButton ? (
+            <Button
+              className="mx-2 btn-sm"
+              disabled={isDisabled}
+              onClick={handleCheckInClick}
+              style={{ backgroundColor: isDisabled ? "dimgray" : null }}
+            >
+              Check In
+            </Button>
+          ) : (
+            <Button className="btn-sm" onClick={handleCheckOutClick}>
+              Check Out
+            </Button>
+          )}
+        </BootstrapModal.Footer>
+      )}
+
+
+
+
+
+      {checkInShow && (
+        <MyVerticallyCenteredModal
+          show={checkInShow}
+          onHide={handleCheckInModalClose}
+          user_id={user_id}
+          date={date}
+          _id={_id}
+        />
+      )}
+
+      {checkOutShow && (
+        <Checkouts
+          show={checkOutShow}
+          onHide={handleCheckOutModalClose}
+          user_id={user_id}
+          date={date}
+          _id={_id}
+        />
+      )}
+
+
+
+
+
+
+
+
     </BootstrapModal>
   );
 }

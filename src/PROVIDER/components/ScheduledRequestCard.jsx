@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Card, Row } from "react-bootstrap";
 import { faClock, faLocationDot } from "@fortawesome/free-solid-svg-icons";
-import MyVerticallyCenteredModal from "./MyVerticallyCenteredModal";
-import Checkouts from "./Checkout";
-import { IP } from "../../Constant";
+
 import CustomModal from "../Modal";
 
 const ScheduledRequestCard = (props) => {
@@ -21,14 +19,14 @@ const ScheduledRequestCard = (props) => {
   } = props;
 
   const [checkInShow, setCheckInShow] = useState(false);
-  const [checkOutShow, setCheckOutShow] = useState(false);
+
   const [mainCardShow, setMainCardShow] = useState(true);
 
-  const [user, setUser] = useState([]);
-  const [checkout, setCheckout] = React.useState(false);
+
+
   const [isLoading, setIsLoading] = useState(true);
 
-  const token = localStorage.getItem("providertoken");
+
   const removedChekincardArray = JSON.parse(localStorage.getItem('removedChekincard')) || [];
   const showCheckInButton = !removedChekincardArray.includes(_id);
 
@@ -36,7 +34,7 @@ const ScheduledRequestCard = (props) => {
   const formattedScheduledDate = new Date(date).toLocaleDateString();
   const isDisabled = formattedDate !== formattedScheduledDate;
 
-  ;
+
   const handleCloseModal = () => {
     console.log("Modal closed!");
     setIsLoading(false);
@@ -48,20 +46,14 @@ const ScheduledRequestCard = (props) => {
     setMainCardShow(false);
   };
 
-  const handleCheckOutClick = () => {
-    setCheckOutShow(true);
-    // setMainCardShow(false);
-  };
+
 
   const handleCheckInModalClose = () => {
     setCheckInShow(false);
     setMainCardShow(true);
   };
 
-  const handleCheckOutModalClose = () => {
-    setCheckOutShow(false);
-    setMainCardShow(true);
-  };
+
 
   return (
     <>
@@ -102,7 +94,7 @@ const ScheduledRequestCard = (props) => {
                   Check In
                 </Button>
               ) : (
-                <Button className="btn-sm" onClick={handleCheckOutClick}>
+                <Button className="btn-sm" onClick={handleCheckInClick}>
                   Check Out
                 </Button>
               )}
@@ -113,34 +105,22 @@ const ScheduledRequestCard = (props) => {
 
       {checkInShow && (
         <CustomModal
+          sheduleEvent="true"
           show={checkInShow}
           onHide={handleCheckInModalClose}
           title={props.title}
           location={props.location}
           time={props.time}
+          date={props.date}
+          _id={props._id}
+          user_id={props.user_id}
           onClose={handleCloseModal}
+
+
         />
       )}
 
-      {checkInShow && (
-        <MyVerticallyCenteredModal
-          shows={checkInShow}
-          onHide={handleCheckInModalClose}
-          user_id={props.user_id}
-          date={props.date}
-          _id={props._id}
-        />
-      )}
 
-      {checkOutShow && (
-        <Checkouts
-          show={checkOutShow}
-          onHide={handleCheckOutModalClose}
-          user_id={props.user_id}
-          date={props.date}
-          _id={props._id}
-        />
-      )}
     </>
   );
 };

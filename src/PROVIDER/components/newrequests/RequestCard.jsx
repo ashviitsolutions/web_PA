@@ -7,6 +7,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import CustomModal from "../../Modal";
 
+
+
 const RequestCard = (props) => {
   const token = localStorage.getItem("providertoken");
   const { total } = props;
@@ -19,32 +21,7 @@ const RequestCard = (props) => {
   const [display, setDisplay] = useState(true);
   const [showModal, setShowModal] = useState(false); // State to control modal visibility
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const bodyFormData = new FormData();
-      bodyFormData.append("_id", _id);
-      bodyFormData.append("response", "accept");
-      const res = await axios.put(`${IP}/provider/service_response`, bodyFormData, {
-        headers: {
-          'Authorization': token,
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-      });
-      console.log(res);
-      if (res.status === 200) {
-        setDisplay(false);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
-  const removeItem = () => {
-    localStorage.setItem('removedCard', _id); // set new _id
-    setDisplay(false);
-  };
 
   const openModal = () => {
     setShowModal(true);
@@ -106,7 +83,7 @@ const RequestCard = (props) => {
           </Row>
         </Card.Body>
         <Card.Footer>
-          <button className="mx-2 btn-sm btn btn-primary" onClick={onSubmit}>Review Request</button>
+          <button className="mx-2 btn-sm btn btn-primary" >Review Request</button>
 
           {/* <Button className="nofillbtn btn-sm" onClick={removeItem}>
             Reject
@@ -119,6 +96,17 @@ const RequestCard = (props) => {
         title={props.title}
         location={props.address}
         time={props.time}
+        date={props.date}
+        _id={props._id}
+        serviceTime={props.serviceTime}
+        massage_for={props.massageFor}
+        specialConsiderations={props.specialConsiderations}
+        massageBodyPart={props.massageBodyPart}
+        healthConditions={props.healthConditions}
+        areasOfConcern={props.areasOfConcern}
+        gender={props.gender}
+        locationType={props.locationType}
+        newclient={props.newclient}
       />
     </div>
   );

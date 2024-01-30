@@ -139,9 +139,8 @@ function Membership() {
 					<h3>Membership Level</h3>
 					<h3
 						style={{ fontSize: 30 }}
-						className={`${
-							membershipLevel == "gold" ? "gold__text" : "silver__text"
-						}`}
+						className={`${membershipLevel == "gold" ? "gold__text" : "silver__text"
+							}`}
 					>
 						{membershipLevel}
 					</h3>

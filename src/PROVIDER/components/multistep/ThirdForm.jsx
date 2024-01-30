@@ -7,9 +7,9 @@ import { useEffect } from "react";
 import CancelIcon from '@mui/icons-material/Cancel';
 
 const ThirdForm = (props) => {
-  const nav=useNavigate()
-  const[toggle , setToggle]=useState(false)
-  const[thanks , setThanks]=useState(false)
+  const nav = useNavigate()
+  const [toggle, setToggle] = useState(false)
+  const [thanks, setThanks] = useState(false)
   let saveAndContinue = (e) => {
     e.preventDefault();
     props.nextStep();
@@ -51,27 +51,27 @@ const ThirdForm = (props) => {
     }
   };
 
-useEffect(()=>{
-  handleFormSubmit()
-},[])
+  useEffect(() => {
+    handleFormSubmit()
+  }, [])
 
-const handleApi=async()=>{
-  try {
-    const response = await fetch(`${IP}/provider/screening`, {
-      method: 'POST',
-      headers: {
-        Authorization: token,
-      },
-    });
-    if (response.status === 200) {
-      // nav("/providers")
-      setToggle(false)
-      setThanks(true)
+  const handleApi = async () => {
+    try {
+      const response = await fetch(`${IP}/provider/screening`, {
+        method: 'POST',
+        headers: {
+          Authorization: token,
+        },
+      });
+      if (response.status === 200) {
+        // nav("/providers")
+        setToggle(false)
+        setThanks(true)
+      }
+    } catch (error) {
+
     }
-  } catch (error) {
-    
   }
-}
 
 
 
@@ -151,37 +151,37 @@ const handleApi=async()=>{
         {
           toggle ? (
             <div className="schudulecard" >
-            <div className="callstatus" style={{marginTop:"7rem"}}>
-            <CancelIcon style={{float:"right"}} onClick={()=>setToggle(false)} />
-              <p style={{paddingTop:"7rem"}}>
-                We would like to let you know that before proceeding further,
-                we require our clients to agree with our background screening
-                process which is conducted by third-party.
-                If you would like us to proceed ahead with your
-                application please acknowledge and click on "Agree" button below.
-              </p>
-              <div className="text-center"><Button type="submit" onClick={handleApi}>aggree</Button></div>
+              <div className="callstatus" style={{ marginTop: "7rem" }}>
+                <CancelIcon style={{ float: "right" }} onClick={() => setToggle(false)} />
+                <p style={{ paddingTop: "7rem" }}>
+                  We would like to let you know that before proceeding further,
+                  we require our clients to agree with our background screening
+                  process which is conducted by third-party.
+                  If you would like us to proceed ahead with your
+                  application please acknowledge and click on "Agree" button below.
+                </p>
+                <div className="text-center"><Button type="submit" onClick={handleApi}>aggree</Button></div>
+              </div>
             </div>
-          </div>
-  
-          ):null
+
+          ) : null
         }
-   
 
 
-   {
-    thanks ? (
-      <div className="schudulecard" >
-      <div className="callstatus" style={{marginTop:"7rem"}}>
-      <CancelIcon style={{float:"right"}} onClick={()=>setThanks(false)} />
-        <h3 style={{paddingTop:"7rem"}}>
-          Thanks You for showing intrest , please check your email
-        </h3>
-      </div>
-    </div>
 
-    ):null
-   }
+        {
+          thanks ? (
+            <div className="schudulecard" >
+              <div className="callstatus" style={{ marginTop: "7rem" }}>
+                <CancelIcon style={{ float: "right" }} onClick={() => setThanks(false)} />
+                <h3 style={{ paddingTop: "7rem" }}>
+                  Thanks You for showing intrest , please check your email
+                </h3>
+              </div>
+            </div>
+
+          ) : null
+        }
 
 
 
@@ -193,7 +193,7 @@ const handleApi=async()=>{
 
         <div className="text-center"><Button type="submit">Upload</Button></div>
         <Row style={{ justifyContent: "space-between", padding: '10px' }}>
-         {/* <Button
+          {/* <Button
             style={{ width: "auto" }}
             variant="primary"
             onClick={previousStep}

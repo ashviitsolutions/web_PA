@@ -54,6 +54,7 @@ const ScheduledEvents = () => {
             amount={cur.amount_charged}
             user_id={cur.service_id._id}
             _id={cur._id}
+
           />
 
         </React.Fragment>
