@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Badge, Button, Card, Row } from "react-bootstrap";
-import { faCalendar, faClock, faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import { faCalendar, faClock, faLocationDot, faCoins } from "@fortawesome/free-solid-svg-icons";
 import { IP } from "../../../Constant";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -72,14 +72,14 @@ const RequestCard = (props) => {
   return (
 
     <div>
-      <Card className="mb-2" >
+      <Card className="mb-2 pointer" onClick={openModal} >
         {badge}
         <Card.Title
           className="px-3"
         >
           {props.title}
         </Card.Title>
-        <Card.Body onClick={openModal}>
+        <Card.Body>
           <Row>
             <div className="col-md-8 cardLeft" >
               <div>
@@ -101,7 +101,7 @@ const RequestCard = (props) => {
               {/* <div>${props.amt}</div>
               <div>+${tip} pre-tip</div>
               <div className="text-warning">Total = ${total}</div> */}
-              <div className="earn"><span>$</span>{props.amt}</div>
+              <div className="earn"><span><FontAwesomeIcon icon={faCoins} /></span> {props.amt}$</div>
             </div>
           </Row>
         </Card.Body>

@@ -560,34 +560,30 @@
 }
 
 /* new style by Vishal */
+.pointer{
+  cursor: pointer !important;
+}
 .tip {
   text-align: center;
-  position: relative;
-  left: 100px;
   cursor: pointer;
+  position: relative;
 }
 
 .earn {
-  padding: 24px 5px;
   text-align: center;
   font-weight: bold;
-  border: solid 1px var(--primary);
-  height: 70px;
-  width: 70px;
+  /* border: solid 1px var(--primary); */
   position: relative;
-  border-radius: 50%;
-  font-size: 15px;
+  /* border-radius: 50%; */
+  font-size: 20px;
   color: black;
-  box-shadow: 0px 0px 10px #2196f375;
+  /* box-shadow: 0px 0px 10px #2196f375; */
 }
 
 .earn span {
   color: var(--primary);
 }
 .tip p {
-  text-align: center !important;
-  position: relative;
-  left: -55px;
   margin: 3px;
   font-size: 12px;
   color: var(--primary);
@@ -626,6 +622,24 @@
   left: 98%;
   bottom: 10px;
   z-index: 1000;
+}
+.modal {
+  background: #000000cf;
+  top: 0;
+  left: 0;
+}
+.title{ font-weight: bold;}
+.detailsTable {
+  font-size: 14px;
+}
+.detailInfo {
+  padding: 5px 25px;
+}
+
+.detailTitle {
+  padding: 5px 10px;
+  background: #edebeb;
+  border-radius: 10px;
 }
 
 @media only screen and (max-width: 600px) {
