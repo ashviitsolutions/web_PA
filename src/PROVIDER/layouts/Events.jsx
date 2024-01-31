@@ -19,8 +19,8 @@ const Events = () => {
   const radios = [
     { name: "Booked Events", value: "1" },
     { name: "Completed Events", value: "2" },
-    { name: "Payment Pending", value: "3" },
-    { name: "Paid Events", value: "4" },
+    { name: "New Events", value: "3" },
+
   ];
 
 
@@ -179,24 +179,6 @@ const Events = () => {
         </>
       )}
 
-      {radioValue === '4' && (
-        <>
-          <EventsCard
-            title="Couple Deep Tissue Massage"
-            location="Jersey city, NJ 546842"
-            time="Sun, June 12, 06:30pm"
-            amt={75}
-            tip={15}
-            instructions="Main Nahi bataunga"
-          />
-          <EventsCard
-            title="Couple Deep Tissue Massage1"
-            location="Jersey city, NJ 546842"
-            time="Sun, June 12, 06:30pm"
-            amt={75}
-          />
-        </>
-      )}
 
 
     </Container>

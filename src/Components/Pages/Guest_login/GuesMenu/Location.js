@@ -8,6 +8,7 @@ import LocationIcon from '../../../assets/img/crosshair.svg';
 
 function Location() {
   const [address, setAddress] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [coordinates, setCoordinates] = useState({
     lat: null,
     lng: null
@@ -19,6 +20,7 @@ function Location() {
       const ll = await getLatLng(results[0]);
       setAddress(value);
       setCoordinates(ll);
+      setErrorMessage("");
     } catch (error) {
       console.error("Error selecting location:", error);
     }
@@ -55,8 +57,21 @@ function Location() {
   const dispatch = useDispatch();
   const nav = useNavigate();
 
+
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!address) {
+      setErrorMessage("Please fill the address");
+      return;
+    } else {
+      setErrorMessage("");
+
+    }
+
+
     const config = {
       address: address,
       location: {
@@ -71,6 +86,7 @@ function Location() {
       nav("/book");
     }, 2000);
   };
+
 
   return (
     <>
@@ -119,9 +135,10 @@ function Location() {
                   Use Current Location
                 </button>
                     */}
-                    <p onClick={handleGetCurrentLocation} className='useLocation'><img src={LocationIcon} alt='location' height={15} /> Use my current Location</p>
-                    
+                <p onClick={handleGetCurrentLocation} className='useLocation'><img src={LocationIcon} alt='location' height={15} /> Use my current Location</p>
+
               </div>
+              <div className="error-message">{errorMessage}</div>
               <div className="input_group">
                 <button
                   className="button"

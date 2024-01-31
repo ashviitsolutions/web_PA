@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Card, Row } from "react-bootstrap";
-import { faClock, faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import { faClock, faLocationDot, faCoins } from "@fortawesome/free-solid-svg-icons";
 
 import CustomModal from "../Modal";
 
@@ -78,18 +78,26 @@ const ScheduledRequestCard = (props) => {
                     {instructions !== '' ? <><strong className="mt-1">Instructions : </strong> {instructions} </> : ''}
                   </div>
                 </div>
-                <div className="col-md-4" style={{ textAlign: "right" }}>
-                  <div className="text-warning">Total = ${amount}</div>
+
+                <div className="col-md-4 tip">
+                  <p>you'll earn</p>
+                  {/* <div>${props.amt}</div>
+                <div>+${tip} pre-tip</div>
+                <div className="text-warning">Total = ${total}</div> */}
+                  <div className="earn"><span><FontAwesomeIcon icon={faCoins} /></span>Total {amount}$</div>
                 </div>
+
+
+
+
+
               </Row>
             </Card.Body>
             <Card.Footer>
               {showCheckInButton ? (
                 <Button
                   className="mx-2 btn-sm"
-                  disabled={isDisabled}
                   onClick={handleCheckInClick}
-                  style={{ backgroundColor: isDisabled ? "dimgray" : null }}
                 >
                   Check In
                 </Button>

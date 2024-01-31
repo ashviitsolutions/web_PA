@@ -1,238 +1,128 @@
-import {
-    faClock,
-    faLocationDot,
-    faCalendar,
-    faEnvelope,
-    faInfoCircle,
-  }
-    from "@fortawesome/free-solid-svg-icons";
-  import { IP } from "../Constant";
-  import axios from "axios";
-  import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-  import { FontAwesomeIconProps } from "@fortawesome/react-fontawesome";
-  import React, { useEffect, useState } from "react";
-  import { Button } from "react-bootstrap";
-  import BootstrapModal from "react-bootstrap/Modal";
-  
-  function CustomModal({ title, location, time, onClose, show, onHide, _id ,newclient}) {
-    const token = localStorage.getItem("providertoken");
-    const handleClose = () => {
-      onHide();
-    };
-  
-    const onSubmit = async (e) => {
-      e.preventDefault();
-      try {
-        const bodyFormData = new FormData();
-        bodyFormData.append("_id", _id);
-        bodyFormData.append("response", "accept");
-        const res = await axios.put(`${IP}/provider/service_response`, bodyFormData, {
-          headers: {
-            'Authorization': token,
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-        });
-        console.log(res);
-        if (res.status === 200) {
-          onHide();
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-  
-    const removeItem = () => {
-      localStorage.setItem('removedCard', _id); // set new _id
-      onHide();
-    };
-  
-  
-  
-    return (
-      <BootstrapModal show={show} onHide={handleClose}>
-        <BootstrapModal.Header closeButton>
-          <BootstrapModal.Title>Booking Details</BootstrapModal.Title>
-        </BootstrapModal.Header>
-        <BootstrapModal.Body>
-          {/* Display user data in the modal */}
-          <p className="title">{title} (90min) - Couple</p>
-          <div className="col-md-12 detailsTable">
-            {/* booking details */}
-            <div className="title detailTitle">
-              <FontAwesomeIcon icon={faInfoCircle} /> Booking Info
-            </div>
-            <div className="container row detailInfo">
-              <div div className="col-md-6 title">
-                Booking Type
-              </div>
-              <div div className="col-md-6">
-                Couple
-              </div>
-              <div className="col-md-6 title">Duration and Earning</div>
-              <div className="col-md-3">90Min</div>
-              <div className="col-md-3 title">135$</div>
-              <div div className="col-md-6 title">
-                Location:
-              </div>
-              <div className="col-md-6">{location}</div>
-              <div className="col-md-6 title">Direction</div>
-              <div className="col-md-6">
-                <a href="#" className="btn btn-sm btn-link"><FontAwesomeIcon icon={faLocationDot} /> Get Direction</a></div>
-              <div div className="col-md-6 title">
-                Date/Time:
-              </div>
-              <div className="col-md-6">30-01-2024/{time}</div>
-            </div>
-  
-            {/* Customer details */}
-            <div className="title detailTitle">
-              <FontAwesomeIcon icon={faInfoCircle} /> Customer Info
-            </div>
-            <div className="container row detailInfo">
-              <div div className="col-md-6 title">
-                Gender:
-              </div>
-              <div className="col-md-6">Male, Female</div>
-            </div>
-  
-            {/* Health Datails details */}
-            <div className="title detailTitle">
-              <FontAwesomeIcon icon={faInfoCircle} /> Health/Massage Info
-            </div>
-            <div className="container row detailInfo">
-              <div div className="col-md-6 title">
-                Area of Concern:
-              </div>
-              <div className="col-md-6">Pain, Stress, Anxiety</div>
-              <div div className="col-md-6 title">
-                Health Issues:
-              </div>
-              <div className="col-md-6">Arthritis, Digestive Disorder</div>
-              <div div className="col-md-6 title">
-                Special Concideration:
-              </div>
-              <div className="col-md-6">I prefer Geriatric Massage</div>
-              <div div className="col-md-6 title">
-                Massage Body Part:
-              </div>
-              <div className="col-md-6">Neck</div>
-              <div div className="col-md-6 title">
-                Massage Pressure:
-              </div>
-              <div className="col-md-6">Light</div>
-              <div div className="col-md-6 title">
-                Any Other Remark:
-              </div>
-              <div className="col-md-6">No Remark</div>
-            </div>
-  
-            {/* Health Datails details */}
-            {/* <div className="title detailTitle">
-              <FontAwesomeIcon icon={faInfoCircle} /> Health/Massage Info (Female)
-            </div>
-            <div className="container row detailInfo">
-            <div div className="col-md-6 title">
-                Area of Concern:
-              </div>
-              <div className="col-md-6">Pain, Stress, Anxiety</div>
-              <div div className="col-md-6 title">
-                Health Issues:
-              </div>
-              <div className="col-md-6">Arthritis, Pregnancy</div>
-              <div div className="col-md-6 title">
-                Special Concideration:
-              </div>
-              <div className="col-md-6">I prefer Geriatric Massage</div>
-              <div div className="col-md-6 title">
-                Massage Body Part:
-              </div>
-              <div className="col-md-6">Neck</div>
-              <div div className="col-md-6 title">
-                Massage Pressure:
-              </div>
-              <div className="col-md-6">Light</div>
-              <div div className="col-md-6 title">
-                Any Other Remark:
-              </div>
-              <div className="col-md-6">No Remark</div>
-            </div> */}
-  
-            <div class="alert alert-warning" role="alert">
-              <p className="title">Accept before anyone else does!</p>
-              <p>This service request might have sent to multiple providers near to client location, accept the service before anyone else does!</p>
-            </div>
-            {/* <div class="alert alert-dark" role="alert">
-              <p className="title">Wait for schedule date to check in!</p>
-              <p>You will be able to check in for this service request once your calender and clock reaches the right date and time!</p>
-            </div> */}
-  
-            {/* <div class="alert alert-success" role="alert">
-              <p className="title">Check-In to Start!</p>
-              <p>Be on time to start your service, click on <b>check in!</b></p>
-            </div> */}
-  
-          </div>
-        </BootstrapModal.Body>
-        <BootstrapModal.Footer>
-          <Button variant="primary" onClick={onSubmit}>
-            Accept
-          </Button>
-          <Button className="nofillbtn btn-sm" onClick={removeItem}>
-            Reject
-          </Button>
-  
-  
-        </BootstrapModal.Footer>
-      </BootstrapModal>
-    );
-  }
-  
-  export default CustomModal;
-  
+import React, { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button, Card, Row } from "react-bootstrap";
+import { faClock, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 
+import CustomModal from "../Modal";
 
-  
-  {
-    sheduleEvent && (
-      <BootstrapModal.Footer>
-        {
-          isDisabled && (
-            <Button
-              className="mx-2 btn-sm"
-              disabled
+const ScheduledRequestCard = (props) => {
+  const {
+    handleClose,
+    user_id,
+    _id,
+    amount,
+    title,
+    date,
+    location,
+    time,
+    instructions = props.instructions ? props.instructions : '',
+  } = props;
 
-              style={{ backgroundColor: "dimgray" }}
-            >
-              Check In
-            </Button>
-          )
-        }
+  const [checkInShow, setCheckInShow] = useState(false);
 
-        {!isDisabled && (
-          <Button
-            className="mx-2 btn-sm"
-
-            onClick={handleCheckInClick}
-            style={{ backgroundColor: "null" }}
-          >
-            Check In
-          </Button>
-        )
-        }
+  const [mainCardShow, setMainCardShow] = useState(true);
 
 
 
-
-        {!showCheckInButton && (
-          <Button className="btn-sm" onClick={handleCheckOutClick}>
-            Check Out
-          </Button>
-        )
-        }
-
-      </BootstrapModal.Footer>
+  const [isLoading, setIsLoading] = useState(true);
 
 
-    )
-  }
+  const removedChekincardArray = JSON.parse(localStorage.getItem('removedChekincard')) || [];
+  const showCheckInButton = !removedChekincardArray.includes(_id);
+
+  const formattedDate = new Date().toLocaleDateString();
+  const formattedScheduledDate = new Date(date).toLocaleDateString();
+  const isDisabled = formattedDate !== formattedScheduledDate;
+
+
+  const handleCloseModal = () => {
+    console.log("Modal closed!");
+    setIsLoading(false);
+    handleClose();
+  };
+
+  const handleCheckInClick = () => {
+    setCheckInShow(true);
+    setMainCardShow(false);
+  };
+
+
+
+  const handleCheckInModalClose = () => {
+    setCheckInShow(false);
+    setMainCardShow(true);
+  };
+
+
+
+  return (
+    <>
+      {mainCardShow && (
+        <div>
+          <Card className="shadow-sm mb-2">
+            <Card.Title className="px-3">{props.title}</Card.Title>
+            <Card.Body>
+              <Row>
+                <div className="col-md-8" onClick={handleCheckInClick}>
+                  <div>
+                    <FontAwesomeIcon icon={faLocationDot} style={{ width: 20 }} />
+                    {props.location}
+                  </div>
+                  <div>
+                    <FontAwesomeIcon icon={faClock} style={{ width: 20 }} /> {props.time}
+                  </div>
+                  <div>
+                    <FontAwesomeIcon icon={faClock} style={{ width: 20 }} /> {props.date}
+                  </div>
+                  <div>
+                    {instructions !== '' ? <><strong className="mt-1">Instructions : </strong> {instructions} </> : ''}
+                  </div>
+                </div>
+                <div className="col-md-4" style={{ textAlign: "right" }}>
+                  <div className="text-warning">Total = ${amount}</div>
+                </div>
+              </Row>
+            </Card.Body>
+            <Card.Footer>
+              {showCheckInButton ? (
+                <Button
+                  className="mx-2 btn-sm"
+                  disabled={isDisabled}
+                  onClick={handleCheckInClick}
+                  style={{ backgroundColor: isDisabled ? "dimgray" : null }}
+                >
+                  Check In
+                </Button>
+              ) : (
+                <Button className="btn-sm" onClick={handleCheckInClick}>
+                  Check Out
+                </Button>
+              )}
+            </Card.Footer>
+          </Card>
+        </div>
+      )}
+
+      {checkInShow && (
+        <CustomModal
+          sheduleEvent="true"
+          show={checkInShow}
+          onHide={handleCheckInModalClose}
+          title={props.title}
+          location={props.location}
+          time={props.time}
+          date={props.date}
+          _id={props._id}
+          user_id={props.user_id}
+          onClose={handleCloseModal}
+
+
+        />
+      )}
+
+
+    </>
+  );
+};
+
+export default ScheduledRequestCard;

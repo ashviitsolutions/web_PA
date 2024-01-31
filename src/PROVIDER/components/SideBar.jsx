@@ -53,7 +53,7 @@ const SideBar = () => {
         <div className="sidebar-title">
           <Link className="navbar-brand" to="/providers">
             <img
-              
+
               src={image1}
               width="200"
               className="d-inline-block align-top"
@@ -67,11 +67,9 @@ const SideBar = () => {
               <Link to="/providers">
                 <div className="menu-item">Dashboard</div>
               </Link>
-              <Link to="/providers/scheduled-requests">
-                <div className="menu-item">Scheduled Events</div>
-              </Link>
+
               <Link to="/providers/events">
-                <div className="menu-item">Events</div>
+                <div className="menu-item">My Events</div>
               </Link>
               <Link to="/providers/services">
                 <div className="menu-item">Services</div>
@@ -79,20 +77,22 @@ const SideBar = () => {
               <Link to="/providers/earnings">
                 <div className="menu-item">Earnings</div>
               </Link>
-              <Link to="/providers/application-form">
-                <div className="menu-item">Application Form</div>
-              </Link>
+              {user !== 4 && (
+                <Link to="/providers/application-form">
+                  <div className="menu-item">Application Form</div>
+                </Link>
+              )}
+
+
             </>
           ) : (
             <>
               <Link to="/providers/waiting">
                 <div className="menu-item">Dashboard</div>
               </Link>
+
               <Link to="/providers/waiting">
-                <div className="menu-item">Scheduled Events</div>
-              </Link>
-              <Link to="/providers/waiting">
-                <div className="menu-item">Events</div>
+                <div className="menu-item">My Events</div>
               </Link>
               <Link to="/providers/waiting">
                 <div className="menu-item">Services</div>

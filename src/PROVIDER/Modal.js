@@ -186,25 +186,9 @@ function CustomModal(
 
           {
             sheduleEvent && (
-              <div>
-                {
-                  isDisabled && (
-                    <div class="alert alert-dark" role="alert">
-                      <p className="title">Wait for schedule date to check in!</p>
-                      <p>You will be able to check in for this service request once your calender and clock reaches the right date and time!</p>
-                    </div>
-                  )
-                }
-
-                {!isDisabled && (
-                  <div class="alert alert-success" role="alert">
-                    <p className="title">Check-In to Start!</p>
-                    <p>Be on time to start your service, click on <b>check in!</b></p>
-                  </div>
-                )
-                }
-
-
+              <div class="alert alert-success" role="alert">
+                <p className="title">Check-In to Start!</p>
+                <p>Be on time to start your service, click on <b>check in!</b></p>
               </div>
 
 
@@ -278,9 +262,9 @@ function CustomModal(
           {showCheckInButton ? (
             <Button
               className="mx-2 btn-sm"
-              disabled={isDisabled}
+    
               onClick={handleCheckInClick}
-              style={{ backgroundColor: isDisabled ? "dimgray" : null }}
+            
             >
               Check In
             </Button>
