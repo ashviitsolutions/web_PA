@@ -38,6 +38,9 @@ function Addpost() {
 
 
     });
+
+
+    
     const onSubmit = async (values, { setValues, resetForm }) => {
         try {
             const bodyFormData = new FormData();

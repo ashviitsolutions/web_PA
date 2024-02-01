@@ -79,6 +79,12 @@ function Membership() {
 		setSelectedMembership(null);
 	};
 
+
+
+
+
+
+
 	const handleSubmit = async (membership_id) => {
 		try {
 			const user_id = localStorage.getItem("userid");
@@ -105,6 +111,24 @@ function Membership() {
 			console.error("API Error:", error);
 		}
 	};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -154,9 +178,7 @@ function Membership() {
 	return (
 		<div className="overview" id="invoices">
 			<div className="overview_container">
-				{/* <div className="heading">
-					<h3>{username}</h3>
-				</div> */}
+
 				<Avatar name={username} />
 				<div className="title">
 					<h3>Membership Level</h3>

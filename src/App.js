@@ -37,6 +37,7 @@ import Goldmembership from './Components/Pages/Policy/Goldmembership';
 import Cancelationpolicy from './Components/Pages/Policy/Cancelationpolicy';
 import Silvermembership from './Components/Pages/Policy/Silvermembership';
 import Chatbot from './Components/Header/Chatbot';
+import Response from './Components/Pages/Profile/userProfile/Response/Response';
 
 //Payment
 import Successpayment from "./Components/Pages/Payment/Success"
@@ -346,6 +347,23 @@ function App() {
 
           </>} />
 
+          <Route
+            path="/membership/:userId/:membershipType/:renewalDate"
+            element={
+              <>
+                <Navbar />
+                <Response />
+                <Footer />
+              </>
+            }
+          />
+
+
+
+
+
+
+
 
 
           <Route path="/admin" element={<>
@@ -591,7 +609,7 @@ function App() {
 
         </Routes>
 
-      </Provider>
+      </Provider >
 
 
     </>
