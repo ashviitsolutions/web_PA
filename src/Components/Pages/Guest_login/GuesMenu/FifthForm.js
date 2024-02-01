@@ -44,23 +44,9 @@ const FifthForm = ({ step, nextStep }) => {
   const massage_for = formData?.firstForm?.[0];
 
 
-  // const addon_id = formData.addon_id?.[0] || "";
-  // const location = formData.locationForm?.[0] || "";
   const adressuser = formData.locationForm?.[0]?.address || "";
   console.log("location", adressuser)
-  // const secondform = formData.secondform?.[0] || {};
-  // const { gender, totalPrice, service_id, service_time } = secondform;
-  // const thirdform = formData.thirdform?.[0] || {};
-  // const {
-  //   areas_of_concern,
-  //   health_conditions,
-  //   massage_body_part,
-  //   massage_pressure,
-  //   special_considerations
-  // } = thirdform;
-  // const fourthform = formData.fourthform?.[0] || {};
-  // const { date: scheduled_date, time: scheduled_timing } = fourthform;
-  // const massage_for = formData?.firstForm?.[0];
+
 
 
 
@@ -87,36 +73,7 @@ const FifthForm = ({ step, nextStep }) => {
       setError(true);
     } else {
       try {
-        // const formData = new FormData();
 
-
-        // {
-        //   userid && (
-        //     formData.append("user", userid)
-
-        //   )
-        // }
-
-        // formData.append("add_ons", addon_id);
-        // formData.append("location", location);
-        // formData.append("location_type", location_type);
-        // formData.append("massage_for", massage_for);
-        // formData.append("service_id", service_id);
-        // formData.append("gender", gender);
-        // formData.append("service_time", service_time);
-        // formData.append("areas_of_concern", areas_of_concern);
-        // formData.append("special_considerations", special_considerations);
-        // formData.append("health_conditions", health_conditions);
-        // formData.append("massage_body_part", massage_body_part);
-        // formData.append("massage_pressure", massage_pressure);
-        // formData.append("scheduled_date", scheduled_date);
-        // formData.append("scheduled_timing", scheduled_timing);
-        // formData.append("address", address);
-        // formData.append("email", email);
-        // formData.append("name", name);
-        // formData.append("arrival_instructions", arrivalInstructions);
-        // formData.append("password", password);
-        // formData.append("confirm_password", confirmpassword);
         const formData = {
           ...(userid ? {
             user: userid,
@@ -169,9 +126,6 @@ const FifthForm = ({ step, nextStep }) => {
 
         // const userId = res.data.ref;
         if (res.status === 200) {
-          // setValues({});
-          // resetForm();
-
           // Show success notification and navigate to '/admin/Gift'
           toast.success("Your Application successfully!", {
             position: "top-right",
@@ -197,7 +151,7 @@ const FifthForm = ({ step, nextStep }) => {
           autoClose: 3000,
         });
 
-        // Handle the error, e.g., show an error message to the user
+
       }
     }
   };

@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import BookingCard from "../components/BookingCard";
 
 const ScheduledEvents = () => {
-  // const nav = useNavigate()
+  const nav = useNavigate()
   const [user, setUser] = useState([]);
   const token = localStorage.getItem("providertoken");
 

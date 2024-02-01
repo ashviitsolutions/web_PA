@@ -62,7 +62,7 @@ function Membership() {
 		Array(membershipOptions.length).fill(false)
 	);
 	const [selectedMembership, setSelectedMembership] = useState(null);
-	const [membershipLevel, setMembershipLevel] = useState("Non-Member");
+	const [membershipLevel, setMembershipLevel] = useState();
 	const [membershipEndDate, setMembershipEndDate] = useState();
 
 	const handleToggleModal = (index) => {
@@ -105,29 +105,52 @@ function Membership() {
 			console.error("API Error:", error);
 		}
 	};
+
+
+
+
 	useEffect(() => {
 		const getUserMembership = async () => {
 			const token = localStorage.getItem("token");
-			axios
-				.get(`${IP}/user/membership-details`, {
-					headers: { "Content-Type": "application/json", Authorization: token },
-				})
-				.then((response) => {
-					// console.log(response.data);
-					setMembershipLevel(response.data.membershipType);
-					const daysToAdd = response.data.renewalDays;
-					const result = new Date(response.data.lastRenewalPaymentDate);
-					// console.log(result.getDate());
-					result.setDate(result.getDate() + daysToAdd);
-					setMembershipEndDate(result);
-				})
-				.catch((error) => {
-					console.log(error);
+
+			try {
+				const response = await fetch(`${IP}/user/membership-details`, {
+					method: 'GET',
+					headers: {
+						'Content-Type': 'application/json',
+						'Authorization': token,
+					},
 				});
+
+				if (!response.ok) {
+					throw new Error(`HTTP error! Status: ${response.status}`);
+				}
+
+				const data = await response.json();
+
+				console.log("membership", data);
+				setMembershipLevel(data.membershipType);
+
+				const daysToAdd = data.renewalDays;
+				const result = new Date(data.lastRenewalPaymentDate);
+				result.setDate(result.getDate() + daysToAdd);
+				setMembershipEndDate(result);
+			} catch (error) {
+				console.error("Error:", error);
+			}
 		};
+
 		getUserMembership();
-	}, []);
+	}, [membershipLevel]);
+
+
+
+
 	console.log(membershipLevel, membershipEndDate);
+
+
+
+
 	return (
 		<div className="overview" id="invoices">
 			<div className="overview_container">
@@ -153,6 +176,12 @@ function Membership() {
 								<img src={option.GOLD} alt="..." />
 
 								{index == 1 && membershipLevel == "gold" && (
+									<div className="active_membership_icons">
+										<img src={option.active} alt="..." />
+									</div>
+								)}
+
+								{index == 0 && membershipLevel == "silver" && (
 									<div className="active_membership_icons">
 										<img src={option.active} alt="..." />
 									</div>

@@ -7,6 +7,7 @@ import { IP } from "../../Constant";
 const MyVerticallyCenteredModal = (props) => {
   const nav = useNavigate();
   const { user_id, _id, date } = props;
+  console.log("data console", user_id, _id, date)
   const [hour, setHour] = useState('');
   const [minute, setMinute] = useState('');
   const [am, setAm] = useState(true);
