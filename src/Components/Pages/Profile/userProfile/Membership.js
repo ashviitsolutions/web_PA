@@ -38,7 +38,7 @@ function Membership() {
 				"Book as many appointments as you like at the membership rate. Get a massage anywhere Productive Alliance is available",
 		},
 		{
-			id: GOLD_ID,
+			id: "price_1OMYiBLnVrUYOeK2LPEbMEvW",
 			name: "Gold",
 			price: 119,
 			savings: "10% saving off regular rate",
@@ -78,11 +78,6 @@ function Membership() {
 		setShowModal(Array(membershipOptions.length).fill(false));
 		setSelectedMembership(null);
 	};
-
-
-
-
-
 
 
 	const handleSubmit = async (membership_id) => {

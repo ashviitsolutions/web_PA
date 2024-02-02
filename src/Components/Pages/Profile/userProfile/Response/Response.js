@@ -16,7 +16,7 @@ function Response() {
       name: "Silver",
     },
     {
-      id: "price_1OAmzQLnVrUYOeK2VStJarnV",
+      id: "price_1OMYiBLnVrUYOeK2LPEbMEvW",
       name: "Gold",
     },
   ];
@@ -29,20 +29,22 @@ function Response() {
       setIsLoading(true);
 
       try {
-        let renewalDays;
+        if (!selectedMembership) {
+          throw new Error("Selected membership not found");
+        }
+
+        let renewalDays = 0;
 
         // Set different renewalDays based on membership name
-        if (selectedMembership) {
-          switch (selectedMembership.name) {
-            case "silver":
-              renewalDays = 90;
-              break;
-            case "gold":
-              renewalDays = 365;
-              break;
-            default:
-              renewalDays = 0; // Set a default value if necessary
-          }
+        switch (selectedMembership.name.toLowerCase()) {
+          case "silver":
+            renewalDays = 90;
+            break;
+          case "gold":
+            renewalDays = 365;
+            break;
+          default:
+            throw new Error("Invalid membership type");
         }
 
         const response = await fetch(`${IP}/payment/add-membership-record`, {
@@ -51,7 +53,7 @@ function Response() {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            membershipType: selectedMembership ? selectedMembership.name : "", // Use the name property
+            membershipType: selectedMembership.name,
             renewalDays,
             userId,
             status: "active",
@@ -72,6 +74,7 @@ function Response() {
         setIsLoading(false);
       }
     };
+
 
     // Call the handleAddMembership function
     handleAddMembership();
