@@ -192,13 +192,13 @@ function Membership() {
 							<div className="image_membership">
 								<img src={option.GOLD} alt="..." />
 
-								{index == 1 && membershipLevel == "gold" && (
+								{index == 1 && membershipLevel == "Gold" && (
 									<div className="active_membership_icons">
 										<img src={option.active} alt="..." />
 									</div>
 								)}
 
-								{index == 0 && membershipLevel == "silver" && (
+								{index == 0 && membershipLevel == "Silver" && (
 									<div className="active_membership_icons">
 										<img src={option.active} alt="..." />
 									</div>

@@ -114,6 +114,7 @@ import Detailblog from './Components/Pages/Blog/Detailblog';
 import Faq from './Components/Pages/FAQ/Faq';
 import Addblog from './Admins/Admin/Blogs/Addblog';
 import Editblog from './Admins/Admin/Blogs/Editblog';
+import Failed from './Components/Pages/Profile/userProfile/Response/Failed';
 function App() {
   const nav = useNavigate()
   useEffect(() => {
@@ -359,7 +360,16 @@ function App() {
           />
 
 
-
+          <Route
+            path="/payment/cancel"
+            element={
+              <>
+                <Navbar />
+                <Failed />
+                <Footer />
+              </>
+            }
+          />
 
 
 
