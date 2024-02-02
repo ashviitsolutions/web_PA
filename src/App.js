@@ -349,7 +349,8 @@ function App() {
           </>} />
 
           <Route
-            path="/membership/:userId/:membershipType/:renewalDate"
+            // path="/membership/:userId/:membershipType/:renewalDate"
+            path="/membership"
             element={
               <>
                 <Navbar />

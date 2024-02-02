@@ -4,11 +4,22 @@ import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { useLocation } from 'react-router-dom';
 
 function Response() {
   const nav = useNavigate()
-  // Destructure the parameters from useParams
-  const { userId, membershipType, renewalDate } = useParams();
+
+
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+
+  // Access query parameters
+  const session_id = searchParams.get('session_id');
+  const userId = searchParams.get('userId');
+  const membershipId = searchParams.get('membershipId');
+  const renewalDate = searchParams.get('renewalDate');
+
+  console.log("session_id", session_id, userId, membershipId, renewalDate)
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -16,15 +27,17 @@ function Response() {
     {
       id: "price_1OAn62LnVrUYOeK2Y2M7l0Cj",
       name: "Silver",
+      price: "99"
     },
     {
       id: "price_1OMYiBLnVrUYOeK2LPEbMEvW",
       name: "Gold",
+      price: "199"
     },
   ];
 
   // Find the matching membership option based on the provided membershipType
-  const selectedMembership = membershipOptions.find(option => option.id === membershipType);
+  const selectedMembership = membershipOptions.find(option => option.id === membershipId);
 
   useEffect(() => {
     const handleAddMembership = async () => {
@@ -49,7 +62,7 @@ function Response() {
             throw new Error("Invalid membership type");
         }
 
-        const response = await fetch(`${IP}/payment/add-membership-record`, {
+        const response = await fetch(`http://localhost:5000/api/payment/add-membership-record?session_id=${session_id}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -59,7 +72,7 @@ function Response() {
             renewalDays,
             userId,
             status: "active",
-            stripeCustomerId: "test",
+            stripeCustomerId: session_id,
             lastRenewalPaymentDate: renewalDate,
           }),
         });
@@ -80,7 +93,7 @@ function Response() {
 
     // Call the handleAddMembership function
     handleAddMembership();
-  }, [nav]);
+  }, [session_id, userId, membershipId, renewalDate]);
 
   return (
     <div>
@@ -91,11 +104,11 @@ function Response() {
           <div className='PaymentForm successful'>
             <h4 className='.head'><FontAwesomeIcon icon={faCheckCircle} /></h4>
             <h4 className='.head'>Membership Purchased</h4>
-            <p><strong>Plan:</strong> Gold</p>
+            <p><strong>Plan:</strong> {selectedMembership?.name || 'N/A'}</p>
             <p><strong>Status:</strong> Active</p>
-            <p><strong>Expiration:</strong> 02-02-2025</p>
-            <p><strong>Price:</strong> 199$</p>
-            <p><strong>Transaction Id:</strong> bdsvbvkbdsvkdbv44556</p>
+            <p><strong>Expiration:</strong>   {renewalDate || 'N/A'}</p>
+            <p><strong>Price:</strong> {selectedMembership?.price || 'N/A'}$</p>
+            <p><strong>Transaction Id:</strong> {session_id || 'N/A'}</p>
             <p className='space'>Enjoy seemless booking on Productive Alliance at special price!</p>
 
 

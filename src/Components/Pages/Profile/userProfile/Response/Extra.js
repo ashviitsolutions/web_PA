@@ -1,69 +1,122 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { IP } from '../../../../../Constant';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { useLocation } from 'react-router-dom';
 
 function Response() {
-  const { id } = useParams();
-  const [portalSessionUrl, setPortalSessionUrl] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const nav = useNavigate()
+
+
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+
+  // Access query parameters
+  const session_id = searchParams.get('session_id');
+  const userId = searchParams.get('userId');
+  const membershipId = searchParams.get('membershipId');
+  const renewalDate = searchParams.get('session_id');
+
+  console.log("session_id", session_id, userId, membershipId, renewalDate)
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const membershipOptions = [
+    {
+      id: "price_1OAn62LnVrUYOeK2Y2M7l0Cj",
+      name: "Silver",
+    },
+    {
+      id: "price_1OMYiBLnVrUYOeK2LPEbMEvW",
+      name: "Gold",
+    },
+  ];
+
+  // Find the matching membership option based on the provided membershipType
+  const selectedMembership = membershipOptions.find(option => option.id === membershipId);
 
   useEffect(() => {
-    const apiEndpoint = `http://localhost:5000/api/payment/create-portal-session`; // Replace with your actual API base URL
+    const handleAddMembership = async () => {
+      setIsLoading(true);
 
-    fetch(apiEndpoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ session_id: id }),
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+      try {
+        if (!selectedMembership) {
+          throw new Error("Selected membership not found");
         }
-        return response.json();
-      })
-      .then((data) => {
-        setPortalSessionUrl(data.portalSessionUrl);
-      })
-      .catch((error) => {
-        setError(error.message || 'An error occurred while fetching the API.');
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, [id]);
+
+        let renewalDays = 0;
+
+        // Set different renewalDays based on membership name
+        switch (selectedMembership.name.toLowerCase()) {
+          case "silver":
+            renewalDays = 90;
+            break;
+          case "gold":
+            renewalDays = 365;
+            break;
+          default:
+            throw new Error("Invalid membership type");
+        }
+
+        const response = await fetch(`http://localhost:5000/api/payment/add-membership-record?session_id=${session_id}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            membershipType: selectedMembership.name,
+            renewalDays,
+            userId,
+            status: "active",
+            stripeCustomerId: session_id,
+            lastRenewalPaymentDate: renewalDate,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`Failed to add membership: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        console.log('Membership added successfully:', data);
+      } catch (error) {
+        console.error('Error adding membership:', error.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+
+    // Call the handleAddMembership function
+    handleAddMembership();
+  }, [nav]);
 
   return (
     <div>
-      {loading ? (
+      {isLoading ? (
         <p>Loading...</p>
-      ) : error ? (
-        <p>Error: {error}</p>
-      ) : portalSessionUrl ? (
-        <a href={portalSessionUrl} target="_blank" rel="noopener noreferrer">
-          Go to Billing Portal
-        </a>
       ) : (
-        <p>No portal session URL available.</p>
+        <>
+          <div className='PaymentForm successful'>
+            <h4 className='.head'><FontAwesomeIcon icon={faCheckCircle} /></h4>
+            <h4 className='.head'>Membership Purchased</h4>
+            <p><strong>Plan:</strong> Gold</p>
+            <p><strong>Status:</strong> Active</p>
+            <p><strong>Expiration:</strong> 02-02-2025</p>
+            <p><strong>Price:</strong> 199$</p>
+            <p><strong>Transaction Id:</strong> bdsvbvkbdsvkdbv44556</p>
+            <p className='space'>Enjoy seemless booking on Productive Alliance at special price!</p>
+
+
+          </div>
+
+
+        </>
       )}
     </div>
   );
 }
 
 export default Response;
-
-
-
-  // Helper function to get the renewal date dynamically
-  const getRenewalDate = () => {
-    const currentDate = new Date();
-
-    // Example: Calculate renewal date as one year from the current date
-    const oneYearLater = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
-
-    // Format the date as needed (e.g., 'YYYY-MM-DD')
-    const formattedDate = `${oneYearLater.getFullYear()}-${(oneYearLater.getMonth() + 1).toString().padStart(2, '0')}-${oneYearLater.getDate().toString().padStart(2, '0')}`;
-
-    return formattedDate;
-  };
