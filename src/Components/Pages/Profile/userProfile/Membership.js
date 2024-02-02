@@ -84,7 +84,7 @@ function Membership() {
 		try {
 			const user_id = localStorage.getItem("userid");
 			const token = localStorage.getItem("token");
-			const url = `http://localhost:5000/api/payment/create-checkout-session?membership=${membership_id}&userId=${user_id}`;
+			const url = `${IP}/payment/create-checkout-session?membership=${membership_id}&userId=${user_id}`;
 			const config = {
 				headers: {
 					"Content-Type": "application/json",

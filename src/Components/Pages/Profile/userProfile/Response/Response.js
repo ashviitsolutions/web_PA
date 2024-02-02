@@ -62,7 +62,7 @@ function Response() {
             throw new Error("Invalid membership type");
         }
 
-        const response = await fetch(`http://localhost:5000/api/payment/add-membership-record?session_id=${session_id}`, {
+        const response = await fetch(`${IP}/payment/add-membership-record?session_id=${session_id}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
