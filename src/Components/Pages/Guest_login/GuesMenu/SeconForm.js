@@ -190,12 +190,10 @@ const SeconForm = ({ step, nextStep }) => {
     };
 
     return (
-        <div id="sec_wiz_2" className="sections">
+        <div id="sec_wiz_2" className="sections sec_wiz_2">
             {gendercheck === "guest" ? (
                     <>
-                        <div className="gen_heading">
-                            <h3>Gender Preference 1</h3>
-                        </div>
+                        <p className="title">Gender Preference</p>
                         <ul className="time_options">
                             <li
                                 id="g_male"
@@ -219,9 +217,7 @@ const SeconForm = ({ step, nextStep }) => {
                                 Either
                             </li>
                         </ul>
-                        <div className="gen_heading">
-                            <h3>Gender Preference 2</h3>
-                        </div>
+                        <p className="title">Gender Preference</p>
                         <ul className="time_options">
                             <li
                                 id="g_male"
@@ -248,9 +244,7 @@ const SeconForm = ({ step, nextStep }) => {
                     </>
                 ) : (
                     <>
-                        <div className="gen_heading">
-                            <h3>Gender Preference</h3>
-                        </div>
+                        <p className="title">Gender Preference</p>
                         <ul className="time_options">
                             <li
                                 id="g_male"
@@ -304,7 +298,7 @@ const SeconForm = ({ step, nextStep }) => {
                 </ul>
 
             <div id="page_service_selects">
-                <span className="title">Select Service</span>
+                <p className="title">Select Service</p>
                 <div className="second_form_book_container">
                     {
                         user.filter((filter) => filter.category === "on demand").map((cur, index) => {
@@ -351,9 +345,9 @@ const SeconForm = ({ step, nextStep }) => {
 
 
 
-                <div className="gen_heading">
-                    <h3>Popular addons to consider</h3>
-                </div>
+                
+                <p className="title">Popular addons to consider</p>
+                
 
                 <div className="second_form_book_container">
                     {

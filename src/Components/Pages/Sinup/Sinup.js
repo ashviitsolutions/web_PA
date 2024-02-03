@@ -34,8 +34,10 @@ function Login() {
         email: Yup.string()
             .email("Please enter a valid email address")
             .required("Email is required"),
-        first_name: Yup.string()
+            first_name: Yup.string()
             .required("First name is required"),
+             last_name: Yup.string()
+            .required("last name is required"),
         password: Yup.string()
             .required("required password")
             .min(8, "atleast 8 character password is required")
@@ -102,7 +104,7 @@ function Login() {
 
     return (
         <>
-            <div id="login_page">
+            <div id="login_page" className='sign_up_page'>
                 <div className="container">
                     <div className="row" style={{ textAlign: "center" }}>
                         <Formik
@@ -129,8 +131,7 @@ function Login() {
                                         <label htmlFor="">First Name</label>
                                         <span className="highlight"></span>
                                     </div>
-                                    <div style={{ height: "5px" }}>
-                                    </div>
+                        
                                     <div className="input_group">
                                         <Field
                                             className="input"
@@ -143,8 +144,6 @@ function Login() {
                                         ) : null}
                                         <label htmlFor="">Last Name</label>
                                         <span className="highlight"></span>
-                                    </div>
-                                    <div style={{ height: "5px" }}>
                                     </div>
                                     <div className="input_group">
                                         <Field
@@ -159,8 +158,8 @@ function Login() {
                                         <label htmlFor="">E-mail</label>
                                         <span className="highlight"></span>
                                     </div>
-                                    <div style={{ height: "5px" }}>
-                                    </div>
+                                    {/* <div style={{ height: "5px" }}>
+                                    </div> */}
                                     <div className="input_group">
                                         <Field
                                             className="input"
@@ -174,8 +173,8 @@ function Login() {
                                         <label htmlFor="">Mobile</label>
                                         <span className="highlight"></span>
                                     </div>
-                                    <div style={{ height: "5px" }}>
-                                    </div>
+                                    {/* <div style={{ height: "5px" }}>
+                                    </div> */}
 
                                     <div className="input_group">
                                         <Field
@@ -193,8 +192,8 @@ function Login() {
                                         </button>
                                         <span className="highlight"></span>
                                     </div>
-                                    <div style={{ height: "5px" }}>
-                                    </div>
+                                    {/* <div style={{ height: "5px" }}>
+                                    </div> */}
                                     <div className="input_group">
                                         <Field
                                             className="input"
@@ -211,11 +210,11 @@ function Login() {
                                         </button>
                                         <span className="highlight"></span>
                                     </div>
-                                    <div style={{ height: "5px" }}>
-                                    </div>
+                                    {/* <div style={{ height: "5px" }}>
+                                    </div> */}
 
 
-                                    <div className="input_group" style={{ textDecoration: "none", paddingTop: "1px" }}>
+                                    <div className="input_group" style={{ textDecoration: "none", marginTop:"-10px" }}>
                                         <button type="submit" className="button">sign Up</button>
                                         <span>already have an account? <Link to="/login" className="anchor">Sign In</Link> </span>
 

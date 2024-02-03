@@ -127,7 +127,7 @@ const FifthForm = ({ step, nextStep }) => {
         // const userId = res.data.ref;
         if (res.status === 200) {
           // Show success notification and navigate to '/admin/Gift'
-          toast.success("Your Application successfully!", {
+          toast.success("information received, moving to checkout now!", {
             position: "top-right",
             autoClose: 3000,
             onClose: () => {
@@ -208,11 +208,11 @@ const FifthForm = ({ step, nextStep }) => {
             <input
               type="text"
               name="hotelName"
-              required
+              
             />
           </div>
           <div className="form-group">
-            <label htmlFor="bio">Arrival Instructions:</label>
+            <label htmlFor="bio">Arrival instructions for service provider:</label>
             <textarea
               name="bio"
               rows="4"

@@ -140,7 +140,7 @@ function Benifit() {
                     <div className="selects">
                         <div className='item'>
                             <img className="icons" src={Image9} alt='...' />
-                            <p id='becommembersyogatexts'>yoga</p>
+                            <p id='becommembersyogatexts'>Yoga</p>
                         </div>
 
                     </div>
@@ -148,7 +148,7 @@ function Benifit() {
                     <div className="selects">
                         <div className='item'>
                             <img className="icons" src={Image10} alt='...' />
-                            <p id='becommembersyogatexts2'>massage</p>
+                            <p id='becommembersyogatexts2'>Massage</p>
                         </div>
 
                     </div>
@@ -163,7 +163,7 @@ function Benifit() {
                     <div className="selects">
                         <div className='item'>
                             <img className="icons" src={Image12} alt='...' />
-                            <p id='becommembersyogatexts3'>nutritionist</p>
+                            <p id='becommembersyogatexts3'>Nutritionist</p>
                         </div>
 
                     </div>
@@ -171,7 +171,7 @@ function Benifit() {
                     <div className="selects">
                         <div className='item'>
                             <img className="icons" src={Image13} alt='...' />
-                            <p id='becommembersyogatexts4'>medical screening</p>
+                            <p id='becommembersyogatexts4'>Medical Screening</p>
                         </div>
 
                     </div>

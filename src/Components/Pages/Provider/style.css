@@ -3,12 +3,13 @@
     margin: auto;
  }
  
- #provideregister .contact-container{
-     display: flex !important;
-     flex-direction: row !important;
-     flex-wrap: wrap !important;
-     justify-content: space-between !important;
- }
+ #provideregister .contact-container {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    justify-content: space-between !important;
+    align-items: center;
+}
  
  #provideregister .contact-container .contact-item{
      flex-basis: 50%;

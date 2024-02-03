@@ -41,10 +41,10 @@ const FirstForm = ({ step, nextStep }) => {
         <>
 
 
-            <div id="sec_wiz_1" className="section">
+            <div id="sec_wiz_1" className="section smallOne">
                 <div id="employees" style={{ textAlign: "center" }}>
                     <label className="as_title" htmlFor="" >
-                        Who Is it For ?
+                        Who Is it for?
                     </label>
                     <ul className="review option" style={{ display: "flex" }} id="review_option">
                         <li onClick={() => handleSubmit('myself')}>
@@ -54,7 +54,7 @@ const FirstForm = ({ step, nextStep }) => {
                                     backgroundImage: `url(${image13})`,
                                 }}
                             ></span>
-                            just me
+                            Just me
                         </li>
                         <li onClick={() => handleSubmit('guest')}>
                             <span

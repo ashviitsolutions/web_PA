@@ -94,7 +94,7 @@ function Location() {
         <div className="container">
           <div className="row">
             <form className="location card layer1">
-              <h3>Where would you like our provider to meet you.</h3>
+              <h3>Where would you like our provider to meet you?</h3>
 
               <div className="input_group">
                 <PlacesAutocomplete
@@ -135,7 +135,7 @@ function Location() {
                   Use Current Location
                 </button>
                     */}
-                <p onClick={handleGetCurrentLocation} className='useLocation'><img src={LocationIcon} alt='location' height={15} /> Use my current Location</p>
+                <p onClick={handleGetCurrentLocation} className='useLocation'><img src={LocationIcon} alt='location' height={20} /> Use my current ocation</p>
 
               </div>
               <div className="error-message">{errorMessage}</div>

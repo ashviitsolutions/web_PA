@@ -3,6 +3,7 @@ import './style.css';
 import postServices from '../Services/postServices';
 import { useParams, useNavigate } from 'react-router-dom';
 import StripeCheckout from 'react-stripe-checkout';
+import vectorImg from "../../../assets/img/6212029.jpg";
 import { useDispatch, useSelector } from 'react-redux';
 
 
@@ -83,7 +84,10 @@ const Conform = () => {
 
     return (
         <>
-            <div id="sec_wiz_6" className="section">
+        <div className='container checkoutPage'>
+            <div className=' row '>
+            <div className='col-md-4 centerFlex circle'><img src={vectorImg} alt='' className='col-md-12' /></div>
+            <div id="" className="col-md-8 padding20">
                 <div id="employees">
                     <label style={{ textAlign: 'center', fontSize: '18px' }} className="as_title" htmlFor="">
                         Review
@@ -103,7 +107,7 @@ const Conform = () => {
                         </li>
                         <li>
                             <span className="title">Appointments</span>
-                            <span className="value">Sarah's Massage <small>{service_time} min swedish massage</small> </span>
+                            <span className="value">[Massage title here] <small>{service_time}</small> </span>
                             <div className="price" style={{ display: 'block', lineHeight: '10px' }}>
                                 <p className="prices" style={{ fontSize: '17px' }}>
                                     Amount: ${totalPrice}
@@ -144,6 +148,8 @@ const Conform = () => {
                         </div>
                     </StripeCheckout>
                 </div>
+            </div>
+            </div>
             </div>
         </>
     );

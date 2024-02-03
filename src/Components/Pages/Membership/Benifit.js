@@ -24,10 +24,9 @@ function Benifit() {
 											className="icon"
 											style={{ backgroundImage: `url(${Image1})` }}
 										></span>
-										<span className="title">Provider's Location</span>
+										<span className="title">Eternal Bliss</span>
 										<span className="text">
-											get access to professional locations for better
-											experience.
+										Sessions never expire as long as you are an active member 
 										</span>
 									</li>
 									<li className="">
@@ -35,26 +34,26 @@ function Benifit() {
 											className="icon"
 											style={{ backgroundImage: `url(${Image2})` }}
 										></span>
-										<span className="title">Savings</span>
+										<span className="title">Referral Bonus</span>
 										<span className="text">
-											enjoy less rates on 30+ services
+										Enjoy a 10$ discount on your next session when you refer a friend, plus 14% off on your friends first session. It's win-win for both!
 										</span>
-									</li>
-									<li className="">
-										<span
-											className="icon"
-											style={{ backgroundImage: `url(${Image3})` }}
-										></span>
-										<span className="title">Exclusive Offers</span>
-										<span className="text">unlock member only coupons</span>
 									</li>
 									<li className="">
 										<span
 											className="icon"
 											style={{ backgroundImage: `url(${Image4})` }}
 										></span>
-										<span className="title">Priority Support</span>
-										<span className="text">24/7 support for members only.</span>
+										<span className="title">Customer Care</span>
+										<span className="text">24/7 customer service support via chat. Live operators are standing by</span>
+									</li>
+									<li className="">
+										<span
+											className="icon"
+											style={{ backgroundImage: `url(${Image3})` }}
+										></span>
+										<span className="title">Quality Service</span>
+										<span className="text">On-demand highly vetted licensed and insured providers ready to service you</span>
 									</li>
 								</ul>
 							</div>
@@ -63,7 +62,7 @@ function Benifit() {
 				</div>
 			</div>
 
-			<div id="brief" className="members">
+			{/* <div id="brief" className="members">
 				<div className="container">
 					<div className="row">
 						<div className="heading content">
@@ -141,7 +140,7 @@ function Benifit() {
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> */}
 
 			{/* <div className="faqbutton">
 				<Link to="/book">

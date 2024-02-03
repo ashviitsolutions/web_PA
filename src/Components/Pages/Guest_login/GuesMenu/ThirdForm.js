@@ -93,7 +93,7 @@ const ThirdForm = ({ nextStep }) => {
 
     return (
         <div id="sec_wiz_3 thirdform" className="section">
-            <label className="static" htmlFor="">
+            <label className="static title" htmlFor="">
                 Areas of Concern
             </label>
             <ul className="selectable">
@@ -112,13 +112,13 @@ const ThirdForm = ({ nextStep }) => {
                                     )
                                 }
                             />
-                            {option}
+                            {" "} {option}
                         </label>
                     </li>
                 ))}
             </ul>
 
-            <label className="static mt-5" htmlFor="">
+            <label className="static mt-5 title" htmlFor="">
                 Health Conditions
             </label>
             <ul className="selectable">
@@ -137,13 +137,13 @@ const ThirdForm = ({ nextStep }) => {
                                     )
                                 }
                             />
-                            {option}
+                            {" "}{option}
                         </label>
                     </li>
                 ))}
             </ul>
 
-            <label className="static mt-5" htmlFor="">
+            <label className="static mt-5 title" htmlFor="">
                 Special consideration
             </label>
             <ul className="selectable">
@@ -157,13 +157,13 @@ const ThirdForm = ({ nextStep }) => {
                                 checked={specialConsideration === option}
                                 onChange={() => setSpecialConsideration(option)}
                             />
-                            {option}
+                            {" "} {option}
                         </label>
                     </li>
                 ))}
             </ul>
 
-            <label className="static mt-5" htmlFor="">
+            <label className="static mt-5 title" htmlFor="">
                 Massage body part
             </label>
             <ul className="selectable">
@@ -177,13 +177,13 @@ const ThirdForm = ({ nextStep }) => {
                                 checked={massageBodyPart === option}
                                 onChange={() => setMassageBodyPart(option)}
                             />
-                            {option}
+                            {" "} {option}
                         </label>
                     </li>
                 ))}
             </ul>
 
-            <label className="static mt-5" htmlFor="">
+            <label className="static mt-5 title" htmlFor="">
                 Massage pressure
             </label>
             <ul id="massage_pressure" className="selectable">
@@ -197,7 +197,7 @@ const ThirdForm = ({ nextStep }) => {
                                 checked={massagePressure === option}
                                 onChange={() => setMassagePressure(option)}
                             />
-                            {option}
+                            {" "}{option}
                         </label>
                     </li>
                 ))}

@@ -180,7 +180,7 @@ function GuestLogin() {
                           <span className="highlight"></span>
                         </div>
                         <p style={{ background: 0, color: '#707070', cursor: "pointer" }} onClick={forGet}>
-                          forgot password ?
+                          Forgot password ?
                         </p>
                         <div className="input_group">
                           <button className="button" type="submit">
