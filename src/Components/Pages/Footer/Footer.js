@@ -73,7 +73,7 @@ function Footer() {
 									{/*<li><Link to="/privacypolicy">Privacy Policy</Link></li>
     <li><Link to="/termcondition">Term & Condition</Link></li> */}
 									<li>
-										<Link to="/profile">gift card</Link>
+										<Link to="/userProfile">gift card</Link>
 									</li>
 									<li>
 										<Link to="/become_member">membership</Link>
