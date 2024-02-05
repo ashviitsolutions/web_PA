@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./style.css";
 import postServices from "../Services/postServices";
 import { useNavigate, useParams } from "react-router-dom";
@@ -7,20 +7,10 @@ import axios from "axios";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { IP } from "../../../../Constant";
-import StripeCheckout from 'react-stripe-checkout';
 
 
 
 const FifthForm = ({ step, nextStep }) => {
-
-  const [clientSecret, setClientSecret] = useState(null);
-  // const [error, setError] = useState(null);
-  const [totalAmount, setTotalAmount] = useState(0);
-  const [tax, setTax] = useState(0);
-  const [tip, setTip] = useState(0);
-
-
-
   const { provider_id } = useParams();
 
   console.log("all data provider_id", provider_id);
@@ -80,178 +70,36 @@ const FifthForm = ({ step, nextStep }) => {
 
 
 
-  const makePayment = async () => {
-    try {
-      const response = await axios.post(`${IP}/payment/pay`, {
-        amount: 100,
-        booking_id: userid,
-      }, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token,
-        },
-      });
 
-      setClientSecret(response.data.client_secret);
-    } catch (error) {
-      setError(error.response?.data?.msg || "An error occurred during payment initiation.");
-    }
-  };
+  
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  useEffect(() => {
-    makePayment()
-  }, [])
-
-
-  console.log("secret key", clientSecret)
-
-
-
-
-  useEffect(() => {
-    const tip = 31.5;
-    const taxRate = 0.06625;
-    const calculatedTax = (totalPrice * 100 * taxRate) / 100;
-    const totalAmount = (totalPrice * 100 + tip * 100 + calculatedTax * 100) / 100;
-
-    setTax(calculatedTax);
-    setTip(tip);
-    setTotalAmount(totalAmount);
-  }, [totalPrice]);
-
-
-
-
-
-
-
-
-
-  // const handleSubmit = async (stripeToken) => {
-
-
-  //   if (password !== confirmpassword) {
-  //     setError(true);
-  //   } else {
-  //     try {
-
-  //       const formData = {
-  //         ...(userid ? {
-  //           user: userid,
-  //           customer_email: email,
-  //         }
-  //           : {
-  //             email: email,
-  //             password: password,
-  //             confirm_password: confirmpassword
-  //           }
-
-  //         ),
-  //         location: locationName,
-  //         location_type: location_type,
-  //         massage_for: massage_for,
-  //         service_id: service_id,
-  //         gender: gender,
-  //         provider_id: provider_id,
-
-  //         service_time: service_time,
-  //         health_conditions: health_conditions,
-  //         areas_of_concern: areas_of_concern,
-  //         special_considerations: special_considerations,
-  //         massage_body_part: massage_body_part,
-  //         massage_pressure: massage_pressure,
-  //         scheduled_date: scheduled_date,
-  //         scheduled_timing: scheduled_timing,
-  //         address: address,
-
-  //         instructions: "bring material",
-  //         add_ons: addon_id,
-  //         stripe_token: stripeToken.id,
-
-
-  //       }
-
-
-
-  //       const token = localStorage.getItem("token");
-  //       const url = `${IP}/user/service_book`;
-  //       const config = {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: token,
-  //           "Stripe-Secret": clientSecret,
-  //         },
-  //       };
-
-  //       const res = await axios.post(url, formData, config);
-
-  //       console.log("api details redux", res)
-  //       const generatedToken = res.data.ref;
-  //       // const userId = res.data.ref;
-  //       if (res.status === 200) {
-
-
-  //         // Navigate to the success page with the generated token
-
-  //         // Show success notification and navigate to '/admin/Gift'
-  //         toast.success("information received, moving to checkout now!", {
-  //           position: "top-right",
-  //           autoClose: 3000,
-  //           onClose: () => {
-  //             nav(`/userProfile/payment/success/${generatedToken}`);
-  //           },
-  //         });
-  //       } else {
-  //         // Show error notification if the API response is not successful
-  //         toast.error("An error occurred. Please try again.", {
-  //           position: "top-right",
-  //           autoClose: 2000,
-  //           onClose: () => {
-  //             nav(`/userProfile/payment/failed/${generatedToken}`);
-  //           },
-  //         });
-  //       }
-  //       // Navigate to the next page with the extracted ID
-
-  //       console.log("Response:", res);
-  //     } catch (error) {
-  //       console.error(error);
-  //       toast.error("An error occurred. Please try again.", {
-  //         position: "top-right",
-  //         autoClose: 3000,
-
-  //       });
-
-
-  //     }
-  //   }
-  // };
-
-
-
-  const handleSubmit = async (stripeToken) => {
     if (password !== confirmpassword) {
       setError(true);
     } else {
       try {
+
         const formData = {
-          ...(userid
-            ? {
-              user: userid,
-              customer_email: email,
-            }
+          ...(userid ? {
+            user: userid,
+            customer_email: email,
+          }
             : {
               email: email,
               password: password,
-              confirm_password: confirmpassword,
-            }),
+              confirm_password: confirmpassword
+            }
+
+          ),
           location: locationName,
           location_type: location_type,
           massage_for: massage_for,
           service_id: service_id,
           gender: gender,
           provider_id: provider_id,
+
           service_time: service_time,
           health_conditions: health_conditions,
           areas_of_concern: areas_of_concern,
@@ -261,10 +109,14 @@ const FifthForm = ({ step, nextStep }) => {
           scheduled_date: scheduled_date,
           scheduled_timing: scheduled_timing,
           address: address,
+
           instructions: "bring material",
           add_ons: addon_id,
-          stripe_token: stripeToken.id,
-        };
+
+
+        }
+
+
 
         const token = localStorage.getItem("token");
         const url = `${IP}/user/service_book`;
@@ -272,22 +124,21 @@ const FifthForm = ({ step, nextStep }) => {
           headers: {
             "Content-Type": "application/json",
             Authorization: token,
-            "Stripe-Secret": clientSecret,
           },
         };
 
         const res = await axios.post(url, formData, config);
 
-        console.log("api details redux", res);
-        const generatedToken = res.data.ref;
+        console.log("api details redux", res)
 
+        // const userId = res.data.ref;
         if (res.status === 200) {
-          // Navigate to the success page with the generated token
-          toast.success("Information received, moving to checkout now!", {
+          // Show success notification and navigate to '/admin/Gift'
+          toast.success("information received, moving to checkout now!", {
             position: "top-right",
             autoClose: 3000,
             onClose: () => {
-              nav(`/userProfile/payment/success/${generatedToken}`);
+              nav(`/book/${userid}/${totalPrice}`);
             },
           });
         } else {
@@ -295,23 +146,19 @@ const FifthForm = ({ step, nextStep }) => {
           toast.error("An error occurred. Please try again.", {
             position: "top-right",
             autoClose: 2000,
-            onClose: () => {
-              nav(`/userProfile/payment/failed/${res.data.payment_id}`);
-            },
           });
         }
-
         // Navigate to the next page with the extracted ID
+
         console.log("Response:", res);
       } catch (error) {
         console.error(error);
         toast.error("An error occurred. Please try again.", {
           position: "top-right",
           autoClose: 3000,
-          onClose: () => {
-            nav(`/userProfile/payment/failed/${clientSecret}`);
-          },
         });
+
+
       }
     }
   };
@@ -328,10 +175,11 @@ const FifthForm = ({ step, nextStep }) => {
 
 
 
+
   return (
     <>
       <div className="review_page">
-        <div>
+        <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="name">Name:</label>
             <input
@@ -407,45 +255,11 @@ const FifthForm = ({ step, nextStep }) => {
             )
           }
 
-          <div>
-            <span className="title">Appointments</span>
-            <span className="value">[Massage title here] <small>{service_time}</small> </span>
-            <div className="price" style={{ display: 'block', lineHeight: '10px' }}>
-              <p className="prices" style={{ fontSize: '17px' }}>
-                Amount: ${totalPrice}
-              </p>
-              <p className="prices" style={{ fontSize: '17px' }}>
-                18% Tip: ${tip}
-              </p>
-              <p className="prices" style={{ fontSize: '17px' }}>
-                6.625% Taxes: ${tax.toFixed(2)}
-              </p>
-              <p className="prices" style={{ fontSize: '17px' }}>
-                Total: ${totalAmount.toFixed(2)}
-              </p>
-            </div>
-
-          </div>
-
-          <StripeCheckout
-            amount={totalAmount * 100}
-            clientSecret={clientSecret}
-            token={handleSubmit}
-            currency="USD"
-
-            stripeKey="pk_test_51MXmewLnVrUYOeK2PN2SexCsPAi8lsw8dIt7Pw04DUCsoCsv7a0VReRlGhbUuDOKYqbp1PEDWRWklwSvEsUD0NZ400sa7PXdfg"
-          >
-            <div style={{ textAlign: 'center' }}>
-              <button className="button">Proceed to Pay</button>
-            </div>
-          </StripeCheckout>
-
-
-
-
-
-          <p style={{ float: "right" }}>Total Price: ${totalAmount}</p>
-        </div>
+          <button type="submit"
+            className="button"
+          >review</button>
+          <p style={{ float: "right" }}>Total Price: ${totalPrice}</p>
+        </form>
       </div>
       <ToastContainer />
     </>
