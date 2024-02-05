@@ -115,7 +115,7 @@ function Event_services() {
                                 </button>
                               )}
                               <Link to={`/services/corporate_events/booking/${user.title}`} className="anchor" id="anchors">
-                                book now
+                                <button className='button small cta'>book now</button>
                               </Link>
                             </div>
                           </div>

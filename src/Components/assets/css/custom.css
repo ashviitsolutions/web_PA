@@ -8870,3 +8870,29 @@ img .img-responsive {
 .sign_in_forms a:hover {
   color: blue;
 }
+.new_book{
+  background: url('../img/pexels-sergey-torbik-7365442.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* background-attachment: fixed; */
+  overflow: hidden;
+  padding: 50px 0;
+  backdrop-filter:blur(1);
+}
+/* .new_book::before{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, black, #2196f366);
+  width: 100%;
+  height: 100%;
+  content: '';
+} */
+.cta{
+  background-color: var(--primary) !important;
+  color: white !important;
+}
+

@@ -87,138 +87,141 @@ function Corporatebooking() {
     return (
         <>
             <ToastContainer />
-            <div className="review_page" id="corporate_form" style={{ marginTop: "300px" }}>
-                <form onSubmit={handleSubmit}>
-                    <div className="form-group">
-                        <label htmlFor="name">Name:</label>
-                        <input
-                            type="text"
-                            name="name"
-                            placeholder="Enter your full name"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="name">Company Name:</label>
-                        <input
-                            type="text"
-                            name="companyName"
-                            placeholder="Enter company name"
-                            value={companyName}
-                            onChange={(e) => setCompanyName(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="name">Your Service:</label>
-                        <input
-                            type="text"
-                            name="service"
-                            placeholder="Enter service name"
-                            value={service}
-                            onChange={(e) => setService(e.target.value)}
-                            required
-                        />
-                    </div>
-
-                    <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div className='new_book'>
+                <div className="review_page" id="corporate_form" style={{ marginTop: "300px" }}>
+                    <form onSubmit={handleSubmit}>
                         <div className="form-group">
-                            <label htmlFor="name">No. of hours:</label>
+                            <label htmlFor="name">Name:</label>
                             <input
-                                type="number"
-                                name="hours"
-                                value={hours}
-                                onChange={(e) => setHours(e.target.value)}
+                                type="text"
+                                name="name"
+                                placeholder="Enter your full name"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
                                 required
                             />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="name">No. of People :</label>
+                            <label htmlFor="name">Company Name:</label>
                             <input
-                                type="number"
-                                name="numPeople"
-                                value={numPeople}
-                                onChange={(e) => setNumPeople(e.target.value)}
+                                type="text"
+                                name="companyName"
+                                placeholder="Enter company name"
+                                value={companyName}
+                                onChange={(e) => setCompanyName(e.target.value)}
                                 required
                             />
                         </div>
-                    </div>
+                        <div className="form-group">
+                            <label htmlFor="name">Your Service:</label>
+                            <input
+                                type="text"
+                                name="service"
+                                placeholder="Enter service name"
+                                value={service}
+                                onChange={(e) => setService(e.target.value)}
+                                required
+                            />
+                        </div>
 
-                    <div className="form-group">
-                        <label htmlFor="email">Email:</label>
-                        <input
-                            type="email"
-                            name="email"
-                            placeholder="Enter Email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="address">Contact No.:</label>
-                        <input
-                            type="text"
-                            name="contactNo"
-                            placeholder="Enter contact Number"
-                            value={contactNo}
-                            onChange={(e) => setContactNo(e.target.value)}
-                            required
-                        />
-                    </div>
+                        <div style={{ display: "flex", justifyContent: "space-between" }}>
+                            <div className="form-group half">
+                                <label htmlFor="name">No. of hours:</label>
+                                <input
+                                    type="number"
+                                    name="hours"
+                                    value={hours}
+                                    onChange={(e) => setHours(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className="form-group half">
+                                <label htmlFor="name">No. of People :</label>
+                                <input
+                                    type="number"
+                                    name="numPeople"
+                                    value={numPeople}
+                                    onChange={(e) => setNumPeople(e.target.value)}
+                                    required
+                                />
+                            </div>
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="email">Email:</label>
+                            <input
+                                type="email"
+                                name="email"
+                                placeholder="Enter Email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="address">Contact No.:</label>
+                            <input
+                                type="text"
+                                name="contactNo"
+                                placeholder="Enter contact Number"
+                                value={contactNo}
+                                onChange={(e) => setContactNo(e.target.value)}
+                                required
+                            />
+                        </div>
 
 
 
-                    <div className="form-group">
-                        <label htmlFor="address">Address:</label>
-                        <PlacesAutocomplete
-                            value={address}
-                            onChange={setAddress}
-                            onSelect={handleSelect}
-                        >
-                            {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                                <div>
-                                    <input
-                                        className="input"
-                                        {...getInputProps()}
-                                        placeholder="Search for an address here..."
-                                    />
+                        <div className="form-group">
+                            <label htmlFor="address">Address:</label>
+                            <PlacesAutocomplete
+                                value={address}
+                                onChange={setAddress}
+                                onSelect={handleSelect}
+                            >
+                                {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                                     <div>
-                                        {loading ? <div>Loading...</div> : null}
-                                        {suggestions.map((suggestion) => {
-                                            const style = {
-                                                backgroundColor: suggestion.active ? '#41b6e6' : '#fff',
-                                            };
-                                            return (
-                                                <div {...getSuggestionItemProps(suggestion, { style })}>
-                                                    {suggestion.description}
-                                                </div>
-                                            );
-                                        })}
+                                        <input
+                                            className="input"
+                                            {...getInputProps()}
+                                            placeholder="Search for an address here..."
+                                        />
+                                        <div>
+                                            {loading ? <div>Loading...</div> : null}
+                                            {suggestions.map((suggestion) => {
+                                                const style = {
+                                                    backgroundColor: suggestion.active ? '#41b6e6' : '#fff',
+                                                };
+                                                return (
+                                                    <div {...getSuggestionItemProps(suggestion, { style })}>
+                                                        {suggestion.description}
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
                                     </div>
-                                </div>
-                            )}
-                        </PlacesAutocomplete>
-                    </div>
+                                )}
+                            </PlacesAutocomplete>
+                        </div>
 
 
 
-                    <div className="form-group">
-                        <label htmlFor="bio">Any Additional Instruction:</label>
-                        <textarea
-                            name="arrivalInstructions"
-                            rows="4"
-                            value={arrivalInstructions}
-                            onChange={(e) => setArrivalInstructions(e.target.value)}
-                        />
-                    </div>
-
-                    <button type="submit" className="button">
-                        Book
-                    </button>
-                </form>
+                        <div className="form-group">
+                            <label htmlFor="bio">Any Additional Instruction:</label>
+                            <textarea
+                                name="arrivalInstructions"
+                                rows="4"
+                                value={arrivalInstructions}
+                                onChange={(e) => setArrivalInstructions(e.target.value)}
+                            />
+                        </div>
+                        <p style={{textAlign:"center"}}>
+                        <button type="submit" className="button">
+                            Submit Inquiry
+                        </button>
+                        </p>
+                    </form>
+                </div>
             </div>
         </>
 

@@ -239,12 +239,15 @@
 .review_page {
     width: 50% !important;
     margin: auto;
-    margin-top: 40px !important;
-    margin-bottom: 200px;
+    margin-top: 0 !important;
+    /* margin-bottom: 200px; */
     background-color: #ffffffe3;
-    padding: 80px;
+    /* padding: 80px; */
     border-radius: 10px;
     box-shadow: 2px 2px 15px -5px rgb(0 0 0 / 35%);
+	padding: 10px;
+	position: relative;
+	z-index: 1;
 }
 
 .review_page .form-group {
@@ -256,14 +259,18 @@
 	margin-bottom: 5px;
 }
 
-.review_page input[type="text"],
-.review_page input[type="email"],
-.review_page input[type="password"],
-.review_page textarea {
-	width: 100%;
-	padding: 10px;
-	border: 1px solid #ccc;
-	border-radius: 5px;
+.review_page input[type="text"], 
+.review_page input[type="email"], 
+.review_page input[type="password"], 
+.review_page textarea, 
+.review_page input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.half{
+	width: 40%;
 }
 
 .review_page button {

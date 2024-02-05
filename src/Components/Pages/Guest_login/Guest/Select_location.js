@@ -5,6 +5,8 @@ import image2 from "../../../assets/img/istockphoto-1307109392-170667a.jpg";
 import { useDispatch } from 'react-redux';
 import { updateInputData } from '../../Redux/counterSlice';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 
 function Select_location() {
     const nav = useNavigate()
@@ -65,6 +67,7 @@ function Select_location() {
                                     </li>
                                 </div>
                             </ul>
+                            <a className='small' href='/'><FontAwesomeIcon icon={faArrowLeftLong} /> Back to Home</a>
                         </form>
                     </div>
                 </div>

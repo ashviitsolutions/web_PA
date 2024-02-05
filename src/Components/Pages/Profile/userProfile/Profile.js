@@ -169,7 +169,7 @@ const Profile = () => {
 									icon={faCalendarDays}
 									style={{ marginRight: 10 }}
 								/>
-								Bookings
+								Reservations
 							</div>
 						</li>
 						{/* <li id="tab_3" className={activeTab === 3 ? 'active' : ''} onClick={() => setActiveTab(3)}>

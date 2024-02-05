@@ -61,7 +61,7 @@ const Support = () => {
 						name=""
 						id=""
 						className="support__input col-md-12"
-						rows={10}
+						rows={9}
 						onChange={(e) => setText(e.target.value)}
 					></textarea>
 					</p>
