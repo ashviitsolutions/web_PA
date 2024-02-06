@@ -62,6 +62,8 @@ const FifthForm = ({ step, nextStep }) => {
 
 
   const nav = useNavigate();
+  const [bookingId, setBookingId] = useState()
+  const [TransactionId, setTransectionId] = useState()
   const [address, setAddress] = useState(adressuser);
   const [email, setEmail] = useState(useremail);
   const [arrivalInstructions, setArrivalInstructions] = useState("");
@@ -82,26 +84,34 @@ const FifthForm = ({ step, nextStep }) => {
 
   const makePayment = async () => {
     try {
-      const response = await axios.post(`${IP}/payment/pay`, {
-        amount: 100,
-        booking_id: userid,
-      }, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token,
+      const response = await axios.post(
+        `${IP}/payment/pay`,
+        {
+          amount: totalAmount * 100, // Convert to cents
+          booking_id: bookingId,
         },
-      });
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
 
       setClientSecret(response.data.client_secret);
     } catch (error) {
-      setError(error.response?.data?.msg || "An error occurred during payment initiation.");
+      setError(
+        error.response?.data?.msg ||
+        "An error occurred during payment initiation."
+      );
     }
   };
 
 
+
   useEffect(() => {
     makePayment()
-  }, [])
+  }, [bookingId])
 
 
   console.log("secret key", clientSecret)
@@ -128,109 +138,12 @@ const FifthForm = ({ step, nextStep }) => {
 
 
 
-  // const handleSubmit = async (stripeToken) => {
-
-
-  //   if (password !== confirmpassword) {
-  //     setError(true);
-  //   } else {
-  //     try {
-
-  //       const formData = {
-  //         ...(userid ? {
-  //           user: userid,
-  //           customer_email: email,
-  //         }
-  //           : {
-  //             email: email,
-  //             password: password,
-  //             confirm_password: confirmpassword
-  //           }
-
-  //         ),
-  //         location: locationName,
-  //         location_type: location_type,
-  //         massage_for: massage_for,
-  //         service_id: service_id,
-  //         gender: gender,
-  //         provider_id: provider_id,
-
-  //         service_time: service_time,
-  //         health_conditions: health_conditions,
-  //         areas_of_concern: areas_of_concern,
-  //         special_considerations: special_considerations,
-  //         massage_body_part: massage_body_part,
-  //         massage_pressure: massage_pressure,
-  //         scheduled_date: scheduled_date,
-  //         scheduled_timing: scheduled_timing,
-  //         address: address,
-
-  //         instructions: "bring material",
-  //         add_ons: addon_id,
-  //         stripe_token: stripeToken.id,
-
-
-  //       }
-
-
-
-  //       const token = localStorage.getItem("token");
-  //       const url = `${IP}/user/service_book`;
-  //       const config = {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: token,
-  //           "Stripe-Secret": clientSecret,
-  //         },
-  //       };
-
-  //       const res = await axios.post(url, formData, config);
-
-  //       console.log("api details redux", res)
-  //       const generatedToken = res.data.ref;
-  //       // const userId = res.data.ref;
-  //       if (res.status === 200) {
-
-
-  //         // Navigate to the success page with the generated token
-
-  //         // Show success notification and navigate to '/admin/Gift'
-  //         toast.success("information received, moving to checkout now!", {
-  //           position: "top-right",
-  //           autoClose: 3000,
-  //           onClose: () => {
-  //             nav(`/userProfile/payment/success/${generatedToken}`);
-  //           },
-  //         });
-  //       } else {
-  //         // Show error notification if the API response is not successful
-  //         toast.error("An error occurred. Please try again.", {
-  //           position: "top-right",
-  //           autoClose: 2000,
-  //           onClose: () => {
-  //             nav(`/userProfile/payment/failed/${generatedToken}`);
-  //           },
-  //         });
-  //       }
-  //       // Navigate to the next page with the extracted ID
-
-  //       console.log("Response:", res);
-  //     } catch (error) {
-  //       console.error(error);
-  //       toast.error("An error occurred. Please try again.", {
-  //         position: "top-right",
-  //         autoClose: 3000,
-
-  //       });
-
-
-  //     }
-  //   }
-  // };
 
 
 
   const handleSubmit = async (stripeToken) => {
+    console.log("stripeToken", stripeToken.id)
+    setTransectionId(stripeToken?.id)
     if (password !== confirmpassword) {
       setError(true);
     } else {
@@ -272,7 +185,7 @@ const FifthForm = ({ step, nextStep }) => {
           headers: {
             "Content-Type": "application/json",
             Authorization: token,
-            "Stripe-Secret": clientSecret,
+
           },
         };
 
@@ -280,6 +193,7 @@ const FifthForm = ({ step, nextStep }) => {
 
         console.log("api details redux", res);
         const generatedToken = res.data.ref;
+        setBookingId(generatedToken)
 
         if (res.status === 200) {
           // Navigate to the success page with the generated token
@@ -287,16 +201,16 @@ const FifthForm = ({ step, nextStep }) => {
             position: "top-right",
             autoClose: 3000,
             onClose: () => {
-              nav(`/userProfile/payment/success/${generatedToken}`);
+              nav(`/userProfile/payment/success/${stripeToken.id}`);
             },
           });
         } else {
           // Show error notification if the API response is not successful
           toast.error("An error occurred. Please try again.", {
             position: "top-right",
-            autoClose: 2000,
+            autoClose: 3000,
             onClose: () => {
-              nav(`/userProfile/payment/failed/${res.data.payment_id}`);
+              nav(`/userProfile/payment/failed/${stripeToken.id}`);
             },
           });
         }
@@ -309,7 +223,7 @@ const FifthForm = ({ step, nextStep }) => {
           position: "top-right",
           autoClose: 3000,
           onClose: () => {
-            nav(`/userProfile/payment/failed/${clientSecret}`);
+            nav(`/userProfile/payment/failed/${stripeToken.id}`);
           },
         });
       }
