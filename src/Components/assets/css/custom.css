@@ -8861,7 +8861,7 @@ img .img-responsive {
   margin-top: -2px;
 }
 #small_banners {
-  background-size: 100%;
+  background-size: 100% 100%;
   background-repeat: no-repeat;
 }
 .sign_in_forms a {

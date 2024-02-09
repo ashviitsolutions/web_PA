@@ -55,7 +55,7 @@ function Visit() {
                                 <h3>{users1.title}</h3>
                                 <h4 >{users1.excerpt}</h4>
                                 <p dangerouslySetInnerHTML={{ __html: users1.description }} />
-                                <Link to="/select_location">
+                                <Link to="/guest_login">
                                     <button className="button" type="button" name="button">book now</button>
 
                                 </Link>
