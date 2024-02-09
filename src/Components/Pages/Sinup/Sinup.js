@@ -34,9 +34,9 @@ function Login() {
         email: Yup.string()
             .email("Please enter a valid email address")
             .required("Email is required"),
-            first_name: Yup.string()
+        first_name: Yup.string()
             .required("First name is required"),
-             last_name: Yup.string()
+        last_name: Yup.string()
             .required("last name is required"),
         password: Yup.string()
             .required("required password")
@@ -79,7 +79,7 @@ function Login() {
                 // Show success notification and navigate to '/login'
                 toast.success("Registration successful!", {
                     position: "top-right",
-                    autoClose: 3000,
+                    autoClose: 1000,
                     onClose: () => {
                         nav("/login")
                     },
@@ -131,7 +131,7 @@ function Login() {
                                         <label htmlFor="">First Name</label>
                                         <span className="highlight"></span>
                                     </div>
-                        
+
                                     <div className="input_group">
                                         <Field
                                             className="input"
@@ -214,7 +214,7 @@ function Login() {
                                     </div> */}
 
 
-                                    <div className="input_group" style={{ textDecoration: "none", marginTop:"-10px" }}>
+                                    <div className="input_group" style={{ textDecoration: "none", marginTop: "-10px" }}>
                                         <button type="submit" className="button">sign Up</button>
                                         <span>already have an account? <Link to="/login" className="anchor">Sign In</Link> </span>
 

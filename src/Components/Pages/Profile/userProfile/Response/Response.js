@@ -7,7 +7,7 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { useLocation } from 'react-router-dom';
 
 function Response() {
-  const nav = useNavigate()
+  const navigate = useNavigate();
 
 
   const location = useLocation();
@@ -94,6 +94,22 @@ function Response() {
     // Call the handleAddMembership function
     handleAddMembership();
   }, [session_id, userId, membershipId, renewalDate]);
+
+
+
+  useEffect(() => {
+    setTimeout(() => {
+      navigate("/userProfile")
+    }, 3000)
+
+  }, [])
+
+
+
+
+
+
+
 
   return (
     <div>

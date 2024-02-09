@@ -27,9 +27,7 @@ function BuyCard() {
 				const data = await res.json();
 				const giftCards = data.filter((d) => d.type === "gift_card");
 				setUser(giftCards);
-				// setUser(data);
-				// setOfferValue(data.offerValue)
-				// setGiftCardId(data._id)
+
 				console.log("gift data data card", giftCards);
 			} catch (error) {
 				// Handle errors
@@ -39,25 +37,6 @@ function BuyCard() {
 		fetchData();
 	}, []);
 
-	// useEffect(() => {
-	// 	const fetchImages = async () => {
-	// 		const imagePromises = user.map((card) => {
-	// 			return fetch(`${IP}/file/${card.attachments}`)
-	// 				.then((res) => res.blob())
-	// 				.then((imageBlob) => URL.createObjectURL(imageBlob))
-	// 				.catch((error) => {
-	// 					console.error("Error loading image:", error);
-	// 					return null; // Return null for images that couldn't be loaded
-	// 				});
-	// 		});
-
-	// 		Promise.all(imagePromises).then((imageUrls) => {
-	// 			setImageObjectURL(imageUrls);
-	// 		});
-	// 	};
-
-	// 	fetchImages();
-	// }, [user]);
 
 	const handleSubmit = async (offerValue, giftCardId) => {
 		setOfferId(giftCardId);
@@ -82,7 +61,7 @@ function BuyCard() {
 
 			if (res.status === 200) {
 				setClientSecret(res.data.client_secret);
-				setOfferValue(res.data.offerValue);
+
 			} else {
 			}
 
@@ -155,9 +134,9 @@ function BuyCard() {
 								<div className="content_container_gift_card_dis">
 									<p
 										className="description"
-										// dangerouslySetInnerHTML={{
-										// 	__html: card.description && card.description.slice(0, 60),
-										// }}
+									// dangerouslySetInnerHTML={{
+									// 	__html: card.description && card.description.slice(0, 60),
+									// }}
 									>
 										{card.description.slice(0, 60)}...
 									</p>
@@ -175,15 +154,13 @@ function BuyCard() {
 							</div>
 							{clientSecret && (
 								<StripeCheckout
-									amount={card.offerValue * 100}
+									amount={oferValue * 100}
 									clientSecret
 									token={onSubmit}
 									currency="USD"
 									stripeKey="pk_test_51MXmewLnVrUYOeK2PN2SexCsPAi8lsw8dIt7Pw04DUCsoCsv7a0VReRlGhbUuDOKYqbp1PEDWRWklwSvEsUD0NZ400sa7PXdfg"
 								>
 									<div style={{ textAlign: "center" }}>
-										{/* Modal for sending gift card */}
-
 										<div className="modal_send_gift_card">
 											<div className="modal-content">
 												<span className="close" onClick={closeModal}>
@@ -193,12 +170,11 @@ function BuyCard() {
 												<p
 													className="description"
 													dangerouslySetInnerHTML={{
-														__html:
-															card.description && card.description.slice(0, 60),
+														__html: card.description && card.description.slice(0, 60),
 													}}
 												/>
 												<button className="button">
-													Proceed to Pay {card.offerValue}
+													Proceed to Pay {oferValue}
 												</button>
 											</div>
 										</div>

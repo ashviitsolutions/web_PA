@@ -17,7 +17,8 @@ import Avatar from "./Avatar";
 
 function Membership() {
 	const username = localStorage.getItem("user_name");
-	const GOLD_ID = "price_1OAmzQLnVrUYOeK2VStJarnV";
+
+	const [status, setStatus] = useState()
 
 	const membershipOptions = [
 		{
@@ -108,26 +109,6 @@ function Membership() {
 	};
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	useEffect(() => {
 		const getUserMembership = async () => {
 			const token = localStorage.getItem("token");
@@ -149,6 +130,7 @@ function Membership() {
 
 				console.log("membership", data);
 				setMembershipLevel(data.membershipType);
+				setStatus(data.status)
 
 				const daysToAdd = data.renewalDays;
 				const result = new Date(data.lastRenewalPaymentDate);
@@ -189,6 +171,7 @@ function Membership() {
 				<div className="memberships">
 					{membershipOptions.map((option, index) => (
 						<div className="membership_containers" key={index}>
+
 							<div className="image_membership">
 								<img src={option.GOLD} alt="..." />
 
@@ -204,21 +187,33 @@ function Membership() {
 									</div>
 								)}
 							</div>
+
+
+
+
 							<div className="membership_buttons">
-								{membershipLevel == "gold" && index == 1 ? (
+								{membershipLevel == "Gold" && index == 1 ? (
 									<p>
-										Valid till {moment(membershipEndDate).format("MMM Do YYYY")}
+										Valid till {moment(option.renewalDays).format("MMM Do YYYY")}
 									</p>
-								) : membershipLevel == "silver" && index == 0 ? (
+								) : membershipLevel == "Silver" && index == 0 ? (
 									<p>
-										Valid till {moment(membershipEndDate).format("MMM Do YYYY")}
+										Valid till {moment(option.renewalDays).format("MMM Do YYYY")}
 									</p>
 								) : (
-									<button onClick={() => handleToggleModal(index)}>
+
+									<button disabled={status === 'active'} onClick={() => handleToggleModal(index)}>
 										Join now
 									</button>
+
 								)}
 							</div>
+
+
+
+
+
+
 
 							{showModal[index] && (
 								<div className="model_card_gift_container">
