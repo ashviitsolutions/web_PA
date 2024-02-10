@@ -65,15 +65,7 @@ const FirstForm = ({ step, nextStep }) => {
                             ></span>
                             Duo
                         </li>
-                        {/*   <li onClick={() => handleSubmit('partners(couple)')}>
-                            <span
-                                className="icon"
-                                style={{
-                                    backgroundImage: `url(${image15})`,
-                                }}
-                            ></span>
-                            Something Else
-                            </li> */}
+                       
                     </ul>
 
                 </div>

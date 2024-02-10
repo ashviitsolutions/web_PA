@@ -7,8 +7,6 @@ const ThirdForm = ({ nextStep }) => {
     const third = useSelector((state) => state.counter.formData);
     console.log("third", third);
 
-
-
     const [areasOfConcern, setAreasOfConcern] = useState([]);
     const [healthConditions, setHealthConditions] = useState([]);
     const [specialConsideration, setSpecialConsideration] = useState([]);
@@ -21,8 +19,8 @@ const ThirdForm = ({ nextStep }) => {
     const handleSubmit = () => {
         // Create an object to hold the form data
         const formData = {
-            areas_of_concern: areasOfConcern, // Join areasOfConcern if it's an array
-            health_conditions: healthConditions, // Join healthConditions if it's an array
+            areas_of_concern: areasOfConcern,
+            health_conditions: healthConditions,
             special_considerations: specialConsideration,
             massage_body_part: massageBodyPart,
             massage_pressure: massagePressure,
@@ -34,7 +32,6 @@ const ThirdForm = ({ nextStep }) => {
 
             setTimeout(() => {
                 nextStep();
-
             }, 2000)
         } catch (error) {
             console.error("Error submitting form:", error);
@@ -171,11 +168,16 @@ const ThirdForm = ({ nextStep }) => {
                     <li key={option}>
                         <label>
                             <input
-                                type="radio"
-                                name="massageBodyPart"
+                                type="checkbox"
                                 value={option}
-                                checked={massageBodyPart === option}
-                                onChange={() => setMassageBodyPart(option)}
+                                checked={massageBodyPart.includes(option)}
+                                onChange={() =>
+                                    handleCheckboxChange(
+                                        massageBodyPart,
+                                        setMassageBodyPart,
+                                        option
+                                    )
+                                }
                             />
                             {" "} {option}
                         </label>
@@ -210,4 +212,4 @@ const ThirdForm = ({ nextStep }) => {
     );
 };
 
-export default ThirdForm;
+export default ThirdForm

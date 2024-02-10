@@ -28,6 +28,8 @@ const Notifications = () => {
       .get(`${IP}/get-all-notifications/${user_id}`, config)
       .then((res) => {
         console.log(res.data);
+
+        console.log("notification data", res)
         setNotifications(res.data);
         setLoading(false);
       })
