@@ -159,7 +159,7 @@ function BuyCard() {
 			};
 
 			const response = await axios.post(
-				`${IP}/payment/add-giftcard-payment`,
+				`http://localhost:5000/api/payment/add-giftcard-payment`,
 				paymentData,
 				config
 			);
@@ -210,43 +210,24 @@ function BuyCard() {
 										<div className="content_container_gift_card_para">
 											<p>Price: ${card.price}</p>
 
-											<button
-												id="Buy_gift_card"
-												onClick={() => handleSubmit(card.offerValue, card._id)}
+											<StripeCheckout
+												amount={oferValue * 100}
+												clientSecret
+												token={onSubmit}
+												currency="USD"
+												stripeKey="pk_test_51MXmewLnVrUYOeK2PN2SexCsPAi8lsw8dIt7Pw04DUCsoCsv7a0VReRlGhbUuDOKYqbp1PEDWRWklwSvEsUD0NZ400sa7PXdfg"
 											>
-												Buy Now
-											</button>
+												<button
+													id="Buy_gift_card"
+													onClick={() => handleSubmit(card.offerValue, card._id)}
+												>
+													Buy Now
+												</button>
+											</StripeCheckout>
+
 										</div>
 									</div>
-									{clientSecret && (
-										<StripeCheckout
-											amount={oferValue * 100}
-											clientSecret
-											token={onSubmit}
-											currency="USD"
-											stripeKey="pk_test_51MXmewLnVrUYOeK2PN2SexCsPAi8lsw8dIt7Pw04DUCsoCsv7a0VReRlGhbUuDOKYqbp1PEDWRWklwSvEsUD0NZ400sa7PXdfg"
-										>
-											<div style={{ textAlign: "center" }}>
-												<div className="modal_send_gift_card">
-													<div className="modal-content">
-														<span className="close" onClick={closeModal}>
-															&times;
-														</span>
-														<h2>{card.title}</h2>
-														<p
-															className="description"
-															dangerouslySetInnerHTML={{
-																__html: card.description && card.description.slice(0, 60),
-															}}
-														/>
-														<button className="button">
-															Proceed to Pay {card.offerValue}
-														</button>
-													</div>
-												</div>
-											</div>
-										</StripeCheckout>
-									)}
+								
 								</div>
 							</div>
 						);

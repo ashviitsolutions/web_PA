@@ -4,6 +4,7 @@ import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { IP } from '../../../../../Constant';
+import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -43,7 +44,7 @@ function Yourcard() {
                 const res = await fetch(`${IP}/user/my-giftCards`, config);
                 const data = await res.json();
                 setUser(data?.data);
-              
+
                 console.log("user/my-giftCards", data.data);
             } catch (error) {
                 // Handle errors
@@ -52,6 +53,8 @@ function Yourcard() {
 
         fetchData();
     }, []);
+
+
 
 
     useEffect(() => {
@@ -152,7 +155,10 @@ function Yourcard() {
                                         <div className='gift_image'>
                                             <img src={images[index]} width={380} height={166} alt='...' />
                                             <div className='gift_button'>
-                                                <button className='Use_button'>Use</button>
+                                                <Link to="/select_location_type">
+                                                    <button className='Use_button'>Use</button>
+                                                </Link>
+
                                                 <button className='Send_button' onClick={openModal}>
                                                     Send
                                                 </button>
