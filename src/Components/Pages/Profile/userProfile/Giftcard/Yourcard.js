@@ -43,8 +43,7 @@ function Yourcard() {
                 const res = await fetch(`${IP}/user/my-giftCards`, config);
                 const data = await res.json();
                 setUser(data?.data);
-                // setOfferValue(data.offerValue)
-                // setGiftCardId(data._id)
+              
                 console.log("user/my-giftCards", data.data);
             } catch (error) {
                 // Handle errors
