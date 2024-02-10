@@ -159,7 +159,7 @@ function BuyCard() {
 			};
 
 			const response = await axios.post(
-				`http://localhost:5000/api/payment/add-giftcard-payment`,
+				`${IP}/payment/add-giftcard-payment`,
 				paymentData,
 				config
 			);

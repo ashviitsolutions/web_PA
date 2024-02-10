@@ -88,7 +88,7 @@ const FifthForm = ({ step, nextStep }) => {
         `${IP}/payment/pay`,
         {
           amount: totalAmount * 100, // Convert to cents
-          booking_id: bookingId,
+          booking_id: service_id,
         },
         {
           headers: {
@@ -111,7 +111,7 @@ const FifthForm = ({ step, nextStep }) => {
 
   useEffect(() => {
     makePayment()
-  }, [bookingId])
+  }, [service_id])
 
 
   console.log("secret key", clientSecret)
