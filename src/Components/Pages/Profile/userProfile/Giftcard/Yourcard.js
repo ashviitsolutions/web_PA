@@ -7,9 +7,8 @@ import { IP } from '../../../../../Constant';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
-
 function Yourcard() {
-    let IPs = "http://localhost:5000/api"
+   
     const nav = useNavigate();
     // const id = localStorage.getItem("userid")
     const [isModalOpen, setModalOpen] = useState(false);
@@ -18,8 +17,7 @@ function Yourcard() {
     const [user, setUser] = useState([]);
     const [giftCardId, setGiftcardId] = useState();
     const [images, setImageObjectURL] = useState([]);
-
-
+    const [loading, setLoading] = useState(false);
 
     const openModal = (id) => {
         setGiftcardId(id)
@@ -29,9 +27,6 @@ function Yourcard() {
     const closeModal = () => {
         setModalOpen(false);
     };
-
-
-
 
     useEffect(() => {
         const fetchData = async () => {
@@ -57,9 +52,6 @@ function Yourcard() {
         fetchData();
     }, []);
 
-
-
-
     useEffect(() => {
         const fetchImages = async () => {
             const imagePromises = user.map((card) => {
@@ -81,18 +73,10 @@ function Yourcard() {
         fetchImages();
     }, [user]);
 
-
-
     console.log("user", user);
 
-
-
-
-
-
-
-
     const handleSend = async () => {
+        setLoading(true);
         console.log("id giftcard", giftCardId)
         try {
             const formData = {
@@ -101,7 +85,7 @@ function Yourcard() {
             };
 
             const token = localStorage.getItem("token");
-            const url = `${IPs}/user/send-gift/${giftCardId}`;
+            const url = `${IP}/user/send-gift/${giftCardId}`;
             const config = {
                 headers: {
                     "Content-Type": "application/json",
@@ -120,7 +104,6 @@ function Yourcard() {
                     autoClose: 3000,
                     onClose: () => {
                         nav("/userProfile")
-
                     },
                 });
             } else {
@@ -137,50 +120,39 @@ function Yourcard() {
                 position: "top-right",
                 autoClose: 3000,
             });
+        } finally {
+            setLoading(false);
         }
-
-
     };
-
-
-
 
     return (
         <>
             <div id='gift'>
                 <div className='overview_container'>
                     <div className='gift_container'>
-                        {
-                            user.length === 0 ? (
-                                <p>No gift cards available</p>
-                            ) : (
-                                user.map((cur, index) => (
-                                    <div className='gift_input' key={index}>
-                                        <div className='gift_image'>
-                                            <img src={images[index]} width={380} height={166} alt='...' />
-                                            <div className='gift_button'>
-                                                <Link to="/select_location_type">
-                                                    <button className='Use_button'>Use</button>
-                                                </Link>
-
-                                                <button className='Send_button' onClick={() => openModal(cur._id)}>
-                                                    Send
-                                                </button>
-
-                                            </div>
+                        {user.length === 0 ? (
+                            <p>No gift cards available</p>
+                        ) : (
+                            user.map((cur, index) => (
+                                <div className='gift_input' key={index}>
+                                    <div className='gift_image'>
+                                        <img src={images[index]} width={380} height={166} alt='...' />
+                                        <div className='gift_button'>
+                                            <Link to="/select_location_type">
+                                                <button className='Use_button'>Use</button>
+                                            </Link>
+                                            <button className='Send_button' onClick={() => openModal(cur._id)}>
+                                            Send
+                                            </button>
                                         </div>
                                     </div>
-                                ))
-                            )
-                        }
-
-
-                        {/* Other gift inputs */}
+                                </div>
+                            ))
+                        )}
                     </div>
                 </div>
             </div>
 
-            {/* Modal for sending gift card */}
             {isModalOpen && (
                 <div className='modal_send_gift_card'>
                     <div className='modal-content'>
@@ -201,13 +173,12 @@ function Yourcard() {
                             onChange={(e) => setMessage(e.target.value)}
                             placeholder='Enter your message'
                         />
-                        <button type='submit' onClick={handleSend}>Send</button>
+                        <button type='submit' onClick={handleSend}> {loading ? "Sending..." : "Send"}</button>
                     </div>
                 </div>
             )}
             <ToastContainer />
         </>
-
     );
 }
 

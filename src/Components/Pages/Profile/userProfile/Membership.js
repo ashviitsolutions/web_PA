@@ -19,6 +19,7 @@ function Membership() {
 	const username = localStorage.getItem("user_name");
 
 	const [status, setStatus] = useState()
+	const [loading, setLoading] = useState(null);
 
 	const membershipOptions = [
 		{
@@ -67,6 +68,7 @@ function Membership() {
 	const [membershipEndDate, setMembershipEndDate] = useState();
 
 	const handleToggleModal = (index) => {
+
 		setShowModal((prevShowModal) => {
 			const newShowModal = [...prevShowModal];
 			newShowModal[index] = !newShowModal[index];
@@ -81,7 +83,8 @@ function Membership() {
 	};
 
 
-	const handleSubmit = async (membership_id) => {
+	const handleSubmit = async (membership_id, index) => {
+		setLoading(index);
 		try {
 			const user_id = localStorage.getItem("userid");
 			const token = localStorage.getItem("token");
@@ -105,6 +108,11 @@ function Membership() {
 			}
 		} catch (error) {
 			console.error("API Error:", error);
+		}
+		finally {
+			if (loading === index) {
+				setLoading(null); // Reset loading state only if it matches the index
+			}
 		}
 	};
 
@@ -265,10 +273,11 @@ function Membership() {
 									<div className="membership_update_button">
 										<button
 											className="button"
-											onClick={() => handleSubmit(selectedMembership.id)}
+											onClick={() => handleSubmit(selectedMembership.id, index)}
 										>
-											Join now
+											{loading === index ? "Loading..." : "Join now"}
 										</button>
+
 									</div>
 								</div>
 							)}

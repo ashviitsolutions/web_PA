@@ -12,6 +12,7 @@ function Contact() {
     const postIds = ['64007afb61c43a17d60e95b4'];
     const [users, setUsers] = useState([]);
     const [img, setImg] = useState('');
+    const [loading, setLoading] = useState(false); // State variable for loading indicator
 
     useEffect(() => {
         async function fetchData() {
@@ -36,8 +37,6 @@ function Contact() {
         fetchData();
     }, []);
 
-    console.log("contact form", users);
-
     const initialValues = {
         name: '',
         contact_number: '',
@@ -52,7 +51,8 @@ function Contact() {
         message: Yup.string().required('Required'),
     });
 
-    const onSubmit = async (values) => {
+    const onSubmit = async (values, { setSubmitting }) => { // Destructure setSubmitting from Formik
+        setLoading(true); // Set loading to true when form is submitted
         try {
             const response = await axios.post(
                 `${IP}/user/sendSupportEmail`,
@@ -80,6 +80,9 @@ function Contact() {
                 position: "top-right",
                 autoClose: 3000,
             });
+        } finally {
+            setLoading(false); // Set loading to false after form submission completes
+            setSubmitting(false); // Set Formik's submitting state to false
         }
     };
 
@@ -109,73 +112,83 @@ function Contact() {
                                     validationSchema={SignupSchema}
                                     onSubmit={onSubmit}
                                 >
-                                    <Form className="card layer1">
-                                        <div className="container-fluid">
-                                            <div className="row">
-                                                <div className="col-sm-12">
-                                                    <div className="input_group">
-                                                        <Field
-                                                            className="input"
-                                                            name="name"
-                                                            type="text"
-                                                            placeholder=""
-                                                        />
-                                                        <ErrorMessage name="name" component="div" className="error-message" />
-                                                        <label htmlFor="">Your name</label>
-                                                        <span className="highlight"></span>
+                                    {({ isSubmitting }) => ( // Destructure isSubmitting from Formik
+                                        <Form className="card layer1">
+                                            <div className="container-fluid">
+                                                <div className="row">
+                                                    <div className="col-sm-12">
+                                                        <div className="input_group">
+                                                            <Field
+                                                                className="input"
+                                                                name="name"
+                                                                type="text"
+                                                                placeholder=""
+                                                            />
+                                                            <ErrorMessage name="name" component="div" className="error-message" />
+                                                            <label htmlFor="">Your name</label>
+                                                            <span className="highlight"></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="row">
+                                                    <div className="col-sm-12">
+                                                        <div className="input_group">
+                                                            <Field
+                                                                className="input"
+                                                                name="contact_number"
+                                                                type="text"
+                                                                placeholder=""
+                                                            />
+                                                            <ErrorMessage name="contact_number" component="div" className="error-message" />
+                                                            <label htmlFor="">Your contact number</label>
+                                                            <span className="highlight"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-sm-12">
+                                                        <div className="input_group">
+                                                            <Field
+                                                                className="input"
+                                                                name="email"
+                                                                type="email"
+                                                                placeholder=""
+                                                            />
+                                                            <ErrorMessage name="email" component="div" className="error-message" />
+                                                            <label htmlFor="">Your email</label>
+                                                            <span className="highlight"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-sm-12">
+                                                        <div className="input_group">
+                                                           
+                                                            <Field
+                                                                as="textarea"
+                                                                id="textareacontactpage"
+                                                                className="input"
+                                                                name="message"
+                                                                rows="3"
+                                                                cols="80"
+                                                            />
+                                                            <ErrorMessage name="message" component="div" className="error-message" />
+                                                            <span className="highlight"></span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-sm-12">
+                                                        <div className="input_group">
+                                                            <button
+                                                                style={{ width: "100%" }}
+                                                                className="button"
+                                                                type="submit"
+                                                                name="button"
+                                                                disabled={isSubmitting || loading} // Disable button while submitting or loading
+                                                            >
+                                                                {loading ? 'Loading...' : 'Send'}
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="row">
-                                                <div className="col-sm-12">
-                                                    <div className="input_group">
-                                                        <Field
-                                                            className="input"
-                                                            name="contact_number"
-                                                            type="text"
-                                                            placeholder=""
-                                                        />
-                                                        <ErrorMessage name="contact_number" component="div" className="error-message" />
-                                                        <label htmlFor="">Your contact number</label>
-                                                        <span className="highlight"></span>
-                                                    </div>
-                                                </div>
-                                                <div className="col-sm-12">
-                                                    <div className="input_group">
-                                                        <Field
-                                                            className="input"
-                                                            name="email"
-                                                            type="email"
-                                                            placeholder=""
-                                                        />
-                                                        <ErrorMessage name="email" component="div" className="error-message" />
-                                                        <label htmlFor="">Your email</label>
-                                                        <span className="highlight"></span>
-                                                    </div>
-                                                </div>
-                                                <div className="col-sm-12">
-                                                    <div className="input_group">
-                                                        <label className="static" htmlFor="">Your query</label>
-                                                        <Field
-                                                            as="textarea"
-                                                            id="textareacontactpage"
-                                                            className="input"
-                                                            name="message"
-                                                            rows="3"
-                                                            cols="80"
-                                                        />
-                                                        <ErrorMessage name="message" component="div" className="error-message" />
-                                                        <span className="highlight"></span>
-                                                    </div>
-                                                </div>
-                                                <div className="col-sm-12">
-                                                    <div className="input_group">
-                                                        <button style={{ width: "100%" }} className="button" type="submit" name="button">Send</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </Form>
+                                        </Form>
+                                    )}
                                 </Formik>
                             </div>
                         </div>
