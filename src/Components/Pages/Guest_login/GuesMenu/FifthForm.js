@@ -12,7 +12,7 @@ import { IP } from "../../../../Constant";
 
 
 const FifthForm = ({ step, nextStep }) => {
-  
+
   const { provider_id } = useParams();
   const selector = useSelector((state) => state.counter.formData);
   const dispatch = useDispatch();

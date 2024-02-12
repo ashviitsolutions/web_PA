@@ -9,17 +9,20 @@ import { useNavigate } from 'react-router-dom';
 
 
 function Yourcard() {
+    let IPs = "http://localhost:5000/api"
     const nav = useNavigate();
-    const id = localStorage.getItem("userid")
+    // const id = localStorage.getItem("userid")
     const [isModalOpen, setModalOpen] = useState(false);
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
     const [user, setUser] = useState([]);
+    const [giftCardId, setGiftcardId] = useState();
     const [images, setImageObjectURL] = useState([]);
 
 
 
-    const openModal = () => {
+    const openModal = (id) => {
+        setGiftcardId(id)
         setModalOpen(true);
     };
 
@@ -90,6 +93,7 @@ function Yourcard() {
 
 
     const handleSend = async () => {
+        console.log("id giftcard", giftCardId)
         try {
             const formData = {
                 usermail: email,
@@ -97,7 +101,7 @@ function Yourcard() {
             };
 
             const token = localStorage.getItem("token");
-            const url = `${IP}/user/send-gift/${id}`;
+            const url = `${IPs}/user/send-gift/${giftCardId}`;
             const config = {
                 headers: {
                     "Content-Type": "application/json",
@@ -116,7 +120,7 @@ function Yourcard() {
                     autoClose: 3000,
                     onClose: () => {
                         nav("/userProfile")
-                        // Handle navigation or other actions on success
+
                     },
                 });
             } else {
@@ -134,7 +138,7 @@ function Yourcard() {
                 autoClose: 3000,
             });
         }
-        // Close the modal after sending
+
 
     };
 
@@ -159,9 +163,10 @@ function Yourcard() {
                                                     <button className='Use_button'>Use</button>
                                                 </Link>
 
-                                                <button className='Send_button' onClick={openModal}>
+                                                <button className='Send_button' onClick={() => openModal(cur._id)}>
                                                     Send
                                                 </button>
+
                                             </div>
                                         </div>
                                     </div>
