@@ -143,7 +143,7 @@ const Profile = () => {
 							className={activeTab === 1 && "active"}
 							onClick={() => setActiveTab(1)}
 						>
-							<div className="item">
+							<div className="item" onClick={handleSidebarToggle}>
 								{/* <img
 								src={image1}
 								width={15}
@@ -163,7 +163,7 @@ const Profile = () => {
 							className={activeTab === 2 ? "active" : ""}
 							onClick={() => setActiveTab(2)}
 						>
-							<div className="item">
+							<div className="item" onClick={handleSidebarToggle}>
 								{/* <img src={image2} width={15} height={15} alt="..." /> */}
 								<FontAwesomeIcon
 									icon={faCalendarDays}
@@ -183,7 +183,7 @@ const Profile = () => {
 							className={activeTab === 4 ? "active" : ""}
 							onClick={() => setActiveTab(4)}
 						>
-							<div className="item">
+							<div className="item" onClick={handleSidebarToggle}>
 								{/* <img src={image4} width={15} height={15} alt="..." /> */}
 								<FontAwesomeIcon
 									icon={faMoneyCheckDollar}
@@ -197,7 +197,7 @@ const Profile = () => {
 							className={activeTab === 5 ? "active" : ""}
 							onClick={() => setActiveTab(5)}
 						>
-							<div className="item">
+							<div className="item" onClick={handleSidebarToggle}>
 								{/* <img src={image5} width={15} height={15} alt="..." /> */}
 								<FontAwesomeIcon
 									icon={faGift}
@@ -212,7 +212,7 @@ const Profile = () => {
 							className={activeTab === 6 ? "active" : ""}
 							onClick={() => setActiveTab(6)}
 						>
-							<div className="item">
+							<div className="item" onClick={handleSidebarToggle}>
 								{/* <img src={image6} width={15} height={15} alt="..." />
 								 */}
 								<FontAwesomeIcon icon={faIdBadge} style={{ marginRight: 10 }} />
@@ -224,7 +224,7 @@ const Profile = () => {
 							className={activeTab === 8 ? "active" : ""}
 							onClick={() => setActiveTab(8)}
 						>
-							<div className="item">
+							<div className="item" onClick={handleSidebarToggle}>
 								{/* <img src={image7} width={15} height={15} alt="..." /> */}
 								<FontAwesomeIcon icon={faBell} style={{ marginRight: 10 }} />
 								Notifications
@@ -235,7 +235,7 @@ const Profile = () => {
 							className={activeTab === 9 ? "active" : ""}
 							onClick={() => setActiveTab(9)}
 						>
-							<div className="item">
+							<div className="item" onClick={handleSidebarToggle}>
 								{/* <img src={image7} width={15} height={15} alt="..." /> */}
 								<FontAwesomeIcon icon={faHeart} style={{ marginRight: 10 }} />
 								Favorites
@@ -246,7 +246,7 @@ const Profile = () => {
 							className={activeTab === 10 ? "active" : ""}
 							onClick={() => setActiveTab(10)}
 						>
-							<div className="item">
+							<div className="item" onClick={handleSidebarToggle}>
 								{/* <img src={image7} width={15} height={15} alt="..." /> */}
 								<FontAwesomeIcon icon={faHeadset} style={{ marginRight: 10 }} />
 								Support

@@ -8,7 +8,13 @@ import logo from "../assets/img/logo_home_navbar.png"
 import menuimage from "../assets/img/close.png"
 import menucross from "../assets/img/menu.png"
 import { useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom';
 function Navbar() {
+
+    const location = useLocation();
+
+    const isUserProfilePath = location.pathname === '/userProfile';
+
 
     const nav = useNavigate()
     const [isActive, setIsActive] = useState(false);
@@ -30,23 +36,23 @@ function Navbar() {
         nav("/userProfile");
     };
 
-    // // useEffect(() => {
+    // useEffect(() => {
 
-    // //     if (!showToggleButton) {
-    // //         nav("/")
-    // //     }
-    // // }, [])
+    //     if (!showToggleButton) {
+    //         nav("/")
+    //     }
+    // }, [])
     return (
 
         <div id="navigation" {...(isActive ? { active: "" } : {})} >
 
 
-            {!showToggleButton && (
+            {showToggleButton && (
                 <div className="toggle_button" onClick={toggleLinks}>
                     {isActive ? (
-                        <img src={menuimage} alt="Close" style={{ width: '50%' }} className="toggleimage" />
+                        <img src={menuimage} alt="Close" style={{ width: '50%' }} className={isUserProfilePath ? "toggleimage hidden_navbar" : "toggleimage"} />
                     ) : (
-                        <img src={menucross} alt="Menu" style={{ width: '70%' }} className="toggleimage" />
+                        <img src={menucross} alt="Menu" style={{ width: '70%' }} className={isUserProfilePath ? "toggleimage hidden_navbar" : "toggleimage"} />
                     )}
                 </div>
             )}
@@ -60,7 +66,7 @@ function Navbar() {
                                 </div>
                             </Link>
                         ) : (
-                            <Link to="/userprofile">
+                            <Link to="/userProfile">
                                 <div className="logo">
                                     <img src={logo} alt='' />
                                 </div>

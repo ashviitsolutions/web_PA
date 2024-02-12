@@ -4082,8 +4082,11 @@ img .img-responsive {
   top: -2rem !important;
 }
 
-.toggleimage {
-  display: none;
+/* .toggleimage {
+  display: none ;
+} */
+.hidden_navbar {
+  display: none !important;
 }
 
 #messagebannerdown {
