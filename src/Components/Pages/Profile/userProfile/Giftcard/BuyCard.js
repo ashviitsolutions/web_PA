@@ -159,7 +159,7 @@ function BuyCard() {
 			};
 
 			const response = await axios.post(
-				`${IP}/payment/add-giftcard-payment`,
+				`http://localhost:5000/api/payment/add-giftcard-payment`,
 				paymentData,
 				config
 			);
@@ -211,11 +211,12 @@ function BuyCard() {
 											<p>Price: ${card.price}</p>
 
 											<StripeCheckout
-												amount={oferValue * 100}
-												clientSecret
+												amount={oferValue * 100} // Make sure oferValue is defined and has a numeric value
 												token={onSubmit}
 												currency="USD"
 												stripeKey="pk_test_51MXmewLnVrUYOeK2PN2SexCsPAi8lsw8dIt7Pw04DUCsoCsv7a0VReRlGhbUuDOKYqbp1PEDWRWklwSvEsUD0NZ400sa7PXdfg"
+											// Add clientSecret prop if needed
+											// clientSecret={clientSecret}
 											>
 												<button
 													id="Buy_gift_card"
@@ -225,9 +226,10 @@ function BuyCard() {
 												</button>
 											</StripeCheckout>
 
+
 										</div>
 									</div>
-								
+
 								</div>
 							</div>
 						);

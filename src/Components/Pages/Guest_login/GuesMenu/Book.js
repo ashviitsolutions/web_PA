@@ -54,66 +54,66 @@ const Book = () => {
     case 5:
       form = <FifthForm step={now} nextStep={navigateToNextForm} previousStep={previousStep} />;
       break;
-      {/* case 6:
+    case 6:
       form = <Conform step={now} nextStep={navigateToNextForm} previousStep={previousStep} />;
-  break;  */}
+      break;
     default:
       break;
   }
 
   return (
     <>
-    <div className="full_wrapper">
-      <div className="sidebar_tabs">
-        <div className="container">
-          <div className="row">
-            <ul id="tabs_control">
-              <li id="tab_1" className={activeTab === 1 ? 'active' : ''} onClick={() => handleTabClick(1)}>
-                Members
-              </li>
-              <li id="tab_2" className={activeTab === 2 ? 'active' : ''} onClick={() => handleTabClick(2)}>
-                Service
-              </li>
-              <li id="tab_3" className={activeTab === 3 ? 'active' : ''} onClick={() => handleTabClick(3)}>
-                Customize
-              </li>
-              <li id="tab_4" className={activeTab === 4 ? 'active' : ''} onClick={() => handleTabClick(4)}>
-                Schedule
-              </li>
-              <li id="tab_5" className={activeTab === 5 ? 'active' : ''} onClick={() => handleTabClick(5)}>
-                Address
-              </li>
-              <li id="tab_6" className={activeTab === 6 ? 'active' : ''} >
-                Confirm
-              </li>
-            </ul>
+      <div className="full_wrapper">
+        <div className="sidebar_tabs">
+          <div className="container">
+            <div className="row">
+              <ul id="tabs_control">
+                <li id="tab_1" className={activeTab === 1 ? 'active' : ''} onClick={() => handleTabClick(1)}>
+                  Members
+                </li>
+                <li id="tab_2" className={activeTab === 2 ? 'active' : ''} onClick={() => handleTabClick(2)}>
+                  Service
+                </li>
+                <li id="tab_3" className={activeTab === 3 ? 'active' : ''} onClick={() => handleTabClick(3)}>
+                  Customize
+                </li>
+                <li id="tab_4" className={activeTab === 4 ? 'active' : ''} onClick={() => handleTabClick(4)}>
+                  Schedule
+                </li>
+                <li id="tab_5" className={activeTab === 5 ? 'active' : ''} onClick={() => handleTabClick(5)}>
+                  Address
+                </li>
+                <li id="tab_6" className={activeTab === 6 ? 'active' : ''} onClick={() => handleTabClick(6)} >
+                  Confirm
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+
+        <div className="progressbar_userpannel">
+
+          <ProgressBar className="progressbarproviders mt-4" now={(activeTab) * 16.6666667} />
+          {form}
+
+          <div className="buttonssss">
+
+
+            <p style={{
+              textAlign: 'center',
+              marginTop: '-100px',
+              fontSize: '14px',
+            }}>
+              <Link to="/" style={{
+                textDecoration: 'none',
+                color: 'black',
+                fontWeight: 'bold',
+              }}>&larr; Back to Home</Link>
+            </p>
           </div>
         </div>
       </div>
-
-
-      <div className="progressbar_userpannel">
-
-        <ProgressBar className="progressbarproviders mt-4" now={(activeTab) * 16.6666667} />
-        {form}
-
-        <div className="buttonssss">
-
-
-          <p style={{
-            textAlign: 'center',
-            marginTop: '-100px',
-            fontSize: '14px',
-          }}>
-            <Link to="/" style={{
-              textDecoration: 'none',
-              color: 'black',
-              fontWeight:'bold',
-            }}>&larr; Back to Home</Link>
-          </p>
-        </div>
-      </div>
-    </div>
     </>
   )
 }

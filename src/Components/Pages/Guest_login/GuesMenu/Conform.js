@@ -10,22 +10,32 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const Conform = () => {
     const tokenuser = localStorage.getItem("token")
+    const formData = useSelector((state) => state.counter.formData);
+
+    const service_id = formData.secondform && formData.secondform[0] ? formData.secondform[0].service_ids : "";
+    const service_time = formData.secondform && formData.secondform[0] ? formData.secondform[0].service_time : "";
+    const massage_pressure = formData.thirdform && formData.thirdform[0] ? formData.thirdform[0].massage_pressure : "";
+    const scheduled_date = formData.fourthform && formData.fourthform[0] ? formData.fourthform[0].date : "";
+    const adressuser = formData.locationForm?.[0]?.address || "";
+
+
+
+
+
     const [clientSecret, setClientSecret] = useState(null);
     const [error, setError] = useState(null);
 
-    const formData = useSelector((state) => state.counter.formData);
 
-    const { userId, totalPrice } = useParams();
+
+    const { totalPrice } = useParams();
+
     const nav = useNavigate();
 
     const [totalAmount, setTotalAmount] = useState(0);
     const [tax, setTax] = useState(0);
     const [tip, setTip] = useState(0);
 
-    const service_time = formData.secondform && formData.secondform[0] ? formData.secondform[0].service_time : "";
-    const massage_pressure = formData.thirdform && formData.thirdform[0] ? formData.thirdform[0].massage_pressure : "";
-    const scheduled_date = formData.fourthform && formData.fourthform[0] ? formData.fourthform[0].date : "";
-    const adressuser = formData.locationForm?.[0]?.address || "";
+
 
     useEffect(() => {
         const tip = 31.5;
@@ -43,7 +53,7 @@ const Conform = () => {
         try {
             const response = await axios.post(`${IP}/payment/pay`, {
                 amount: 100,
-                booking_id: userId,
+                booking_id: service_id,
             }, {
                 headers: {
                     "Content-Type": "application/json",

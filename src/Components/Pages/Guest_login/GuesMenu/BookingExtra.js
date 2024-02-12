@@ -71,7 +71,7 @@ const FifthForm = ({ step, nextStep }) => {
 
 
 
-  
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -162,19 +162,6 @@ const FifthForm = ({ step, nextStep }) => {
       }
     }
   };
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   return (
     <>
