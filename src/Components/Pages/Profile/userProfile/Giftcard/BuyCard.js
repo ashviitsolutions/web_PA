@@ -15,6 +15,7 @@ function BuyCard() {
 	const [offerId, setOfferId] = useState();
 	const [oferValue, setOfferValue] = useState();
 	const [ID, setID] = useState([])
+	const [loading, setLoading] = useState(false);
 
 	console.log("ID", ID)
 
@@ -89,6 +90,7 @@ function BuyCard() {
 
 
 	const handleSubmit = async (offerValue, giftCardId) => {
+		setLoading(true);
 		setOfferId(giftCardId);
 		setOfferValue(offerValue)
 
@@ -119,6 +121,7 @@ function BuyCard() {
 
 			if (res.status === 200) {
 				setClientSecret(res.data.client_secret);
+				setLoading(false);
 			} else {
 				console.error("Failed to fetch client secret from server.");
 			}
@@ -211,21 +214,21 @@ function BuyCard() {
 											<p>Price: ${card.price}</p>
 
 											<StripeCheckout
-												amount={oferValue * 100} // Make sure oferValue is defined and has a numeric value
+												amount={card.offerValue * 100}
+												clientSecret
 												token={onSubmit}
 												currency="USD"
 												stripeKey="pk_test_51MXmewLnVrUYOeK2PN2SexCsPAi8lsw8dIt7Pw04DUCsoCsv7a0VReRlGhbUuDOKYqbp1PEDWRWklwSvEsUD0NZ400sa7PXdfg"
-											// Add clientSecret prop if needed
-											// clientSecret={clientSecret}
+												key={card._id}
 											>
 												<button
 													id="Buy_gift_card"
 													onClick={() => handleSubmit(card.offerValue, card._id)}
+													disabled={loading && card._id === offerId} // Disable button if loading and card id matches offerId
 												>
-													Buy Now
+													{loading && card._id === offerId ? "Waiting" : "Buy Now"}
 												</button>
 											</StripeCheckout>
-
 
 										</div>
 									</div>
