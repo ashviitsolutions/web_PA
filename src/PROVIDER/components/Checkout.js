@@ -43,7 +43,7 @@ const Checkout = (props) => {
       });
       // console.log(res);
       if (res.status === 200) {
-        nav("/providers/scheduled-requests");
+        nav("/providers");
         if (res.status === 200) {
           // Remove _id from removedChekincard in localStorage
           const removedChekincardArray = JSON.parse(localStorage.getItem('removedChekincard')) || [];

@@ -15,6 +15,7 @@ import { Button } from "react-bootstrap";
 import BootstrapModal from "react-bootstrap/Modal";
 import MyVerticallyCenteredModal from "./components/MyVerticallyCenteredModal";
 import Checkouts from "./components/Checkout";
+import { useNavigate } from "react-router-dom";
 
 function CustomModal(
   { title, serviceTime, massage_for, gender, areasOfConcern, specialConsiderations, massageBodyPart, healthConditions, locationType,
@@ -42,6 +43,7 @@ function CustomModal(
   const [checkOutShow, setCheckOutShow] = useState(false);
   const [mainCardShow, setMainCardShow] = useState(true);
 
+  const nav=useNavigate()
 
   const handleClose = () => {
     onHide();
@@ -63,6 +65,7 @@ function CustomModal(
       console.log(res);
       if (res.status === 200) {
         onHide();
+        nav("/providers")
       }
     } catch (error) {
       console.error(error);

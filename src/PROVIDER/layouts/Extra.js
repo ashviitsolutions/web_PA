@@ -147,3 +147,35 @@ const ScheduledRequestCard = (props) => {
 };
 
 export default ScheduledRequestCard;
+
+
+
+
+
+{Array.isArray(request) && request.map((cur, index) => (
+  <React.Fragment key={index}>
+    <RequestCard
+      newclient="true"
+      title={cur.service}
+      location={cur.location}
+      address={cur.address}
+      time={cur.scheduled_time}
+      date={cur.scheduled_date}
+      amt={75}  // Update this with the actual logic for calculating amount
+      tip={15}  // Update this with the actual logic for calculating tip
+      instructions={cur.instructions}
+      total={cur.total}
+      _id={cur._id}
+      areasOfConcern={cur.areas_of_concern}
+      customerEmail={cur.customer_email}
+      gender={cur.gender}
+      healthConditions={cur.health_conditions}
+      locationType={cur.location_type}
+      massageBodyPart={cur.massage_body_part}
+      massageFor={cur.massage_for}
+      serviceTime={cur.service_time}
+      specialConsiderations={cur.special_considerations}
+    />
+
+  </React.Fragment>
+))}

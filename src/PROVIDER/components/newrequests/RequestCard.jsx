@@ -48,7 +48,7 @@ const RequestCard = (props) => {
 
   return (
 
-    <div>
+    <div  >
       <Card className="mb-2 pointer" onClick={openModal} >
         {badge}
         <Card.Title

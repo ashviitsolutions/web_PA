@@ -2,10 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Button, ButtonGroup, ToggleButton } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import EventsCard from "../components/events/EventsCard";
+import ScheduledRequestCard from "../components/ScheduledRequestCard";
 import { IP } from "../../Constant";
+import RequestCard from "../components/newrequests/RequestCard"
 // import ServicesCard from "../components/services/ServicesCard";
-import ScheduledRequestCard from "../components/BookingCard";
+// import ScheduledRequestCard from "../components/BookingCard";
 import { useNavigate } from "react-router-dom";
+
+
 const Events = () => {
   const nav = useNavigate()
   const [radioValue, setRadioValue] = useState('1');
@@ -14,6 +18,7 @@ const Events = () => {
   const [selectedServices, setSelectedServices] = useState([]);
   const [user, setUser] = useState([]);
   const [booking, setBooking] = useState([]);
+  const [request, setreq] = useState([])
 
   const token = localStorage.getItem("providertoken");
   const radios = [
@@ -86,8 +91,23 @@ const Events = () => {
     }
   }, [radioValue, ondemand, privateEvent]);
 
-  console.log("Bookinhg User Completd", user)
 
+  useEffect(() => {
+    fetch(`${IP}/provider/requests`, {
+      headers: {
+        'Authorization': token
+      }
+    }).then(resp => {
+      return resp.json()
+    }).then(result => {
+      setreq(result)
+      // console.log("request api", result)
+    }).catch(err => {
+      console.log(err)
+    })
+  }, [])
+
+  console.log("data request", request)
 
 
   return (
@@ -122,16 +142,7 @@ const Events = () => {
 
           {user.map((cur, index) => (
             <React.Fragment key={index}>
-              <ScheduledRequestCard
-                title={cur.service_id.title}
-                location={cur.address}
-                time={cur.scheduled_timing}
-                date={cur.scheduled_date}
-                amt={75}
-                tip={15}
-                instructions={cur.instructions}
-                amount={cur.amount_charged}
-              />
+              <ScheduledRequestCard />
 
             </React.Fragment>
           ))}
@@ -161,21 +172,34 @@ const Events = () => {
 
       {radioValue === '3' && (
         <>
-          <EventsCard
-            title="Couple Deep Tissue Massage"
-            location="Jersey city, NJ 546842"
-            time="Sun, June 12, 06:30pm"
-            amt={75}
-            tip={15}
-            instructions="Main Nahi bataunga"
+          {Array.isArray(request) && request.map((cur, index) => (
+            <React.Fragment key={index}>
+              <RequestCard
+                newclient="true"
+                title={cur.service}
+                location={cur.location}
+                address={cur.address}
+                time={cur.scheduled_time}
+                date={cur.scheduled_date}
+                amt={75}  // Update this with the actual logic for calculating amount
+                tip={15}  // Update this with the actual logic for calculating tip
+                instructions={cur.instructions}
+                total={cur.total}
+                _id={cur._id}
+                areasOfConcern={cur.areas_of_concern}
+                customerEmail={cur.customer_email}
+                gender={cur.gender}
+                healthConditions={cur.health_conditions}
+                locationType={cur.location_type}
+                massageBodyPart={cur.massage_body_part}
+                massageFor={cur.massage_for}
+                serviceTime={cur.service_time}
+                specialConsiderations={cur.special_considerations}
+              />
 
-          />
-          <EventsCard
-            title="Couple Deep Tissue Massage1"
-            location="Jersey city, NJ 546842"
-            time="Sun, June 12, 06:30pm"
-            amt={75}
-          />
+            </React.Fragment>
+          ))}
+
         </>
       )}
 

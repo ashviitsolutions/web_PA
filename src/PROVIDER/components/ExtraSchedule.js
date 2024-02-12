@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Badge, Button, Card, Row } from "react-bootstrap";
-import { faCalendar, faClock, faLocationDot, faCoins } from "@fortawesome/free-solid-svg-icons";
+import { Button, Card, Row } from "react-bootstrap";
+import { faClock, faLocationDot, faCoins } from "@fortawesome/free-solid-svg-icons";
 
 import CustomModal from "../Modal";
 
@@ -18,7 +18,6 @@ const ScheduledRequestCard = (props) => {
     instructions = props.instructions ? props.instructions : '',
   } = props;
 
-  let badge = props.newclient ? <Badge pill bg="warning shadow-sm" style={{ width: '70px', position: 'absolute', top: '8px', right: '-12px', fontSize: '0.7rem' }}>New</Badge> : '';
   const [checkInShow, setCheckInShow] = useState(false);
 
   const [mainCardShow, setMainCardShow] = useState(true);
@@ -60,37 +59,38 @@ const ScheduledRequestCard = (props) => {
     <>
       {mainCardShow && (
         <div>
-          <Card className="mb-2 pointer" onClick={handleCheckInClick} >
-            {badge}
-            <Card.Title
-              className="px-3"
-            >
-              {props.title}
-            </Card.Title>
+          <Card className="shadow-sm mb-2">
+            <Card.Title className="px-3">{props.title}</Card.Title>
             <Card.Body>
               <Row>
-                <div className="col-md-8 cardLeft" >
+                <div className="col-md-8" onClick={handleCheckInClick}>
                   <div>
-                    <FontAwesomeIcon icon={faLocationDot} style={{ width: 20 }} />{" "}
+                    <FontAwesomeIcon icon={faLocationDot} style={{ width: 20 }} />
                     {props.location}
                   </div>
                   <div>
                     <FontAwesomeIcon icon={faClock} style={{ width: 20 }} /> {props.time}
                   </div>
                   <div>
-                    <FontAwesomeIcon icon={faCalendar} style={{ width: 20 }} /> {props.date}
+                    <FontAwesomeIcon icon={faClock} style={{ width: 20 }} /> {props.date}
                   </div>
                   <div>
                     {instructions !== '' ? <><strong className="mt-1">Instructions : </strong> {instructions} </> : ''}
                   </div>
                 </div>
+
                 <div className="col-md-4 tip">
                   <p>you'll earn</p>
                   {/* <div>${props.amt}</div>
-              <div>+${tip} pre-tip</div>
-              <div className="text-warning">Total = ${total}</div> */}
-                  <div className="earn"><span><FontAwesomeIcon icon={faCoins} /></span> {props.amt}$</div>
+                <div>+${tip} pre-tip</div>
+                <div className="text-warning">Total = ${total}</div> */}
+                  <div className="earn"><span><FontAwesomeIcon icon={faCoins} /></span>Total {amount}$</div>
                 </div>
+
+
+
+
+
               </Row>
             </Card.Body>
             <Card.Footer>

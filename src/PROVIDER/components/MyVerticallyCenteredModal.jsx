@@ -35,7 +35,7 @@ const MyVerticallyCenteredModal = (props) => {
       });
 
       if (res.status === 200) {
-        nav("/providers/scheduled-requests");
+        nav("/providers");
         props.onHide();
         // Retrieve existing array or initialize an empty array
         const removedChekincardArray = JSON.parse(localStorage.getItem('removedChekincard')) || [];

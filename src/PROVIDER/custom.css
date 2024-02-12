@@ -261,6 +261,8 @@
   box-shadow: 0 40px 0 0 #ffffff;
 }
 
+
+
 /* //navbar functionlity */
 
 .sidebar-menu>a:hover::after {
@@ -275,7 +277,7 @@
 }
 
 .sidebar {
-  background: linear-gradient(271deg,#032a49,#0d67af);
+  background: linear-gradient(271deg, #032a49, #0d67af);
   float: left;
   height: 100vh;
   text-align: center;
@@ -285,11 +287,12 @@
 
 
 #topbar {
-  height: 4rem;
-  /* margin-top: 1rem; */
+  height: 3.6rem;
+  margin-top: 1rem;
   position: sticky;
   z-index: 1;
 }
+
 .dropdown-toggle .nav link img {
   width: 50px;
   object-fit: cover;
@@ -297,6 +300,7 @@
   height: 50px;
   background: white;
 }
+
 .navbar-nav {
   color: white;
 }
@@ -343,6 +347,7 @@
   margin-right: 20px;
   height: 100rem;
 }
+
 .dropdown-toggle .nav link img {
   width: 50px;
   object-fit: cover;
@@ -560,9 +565,10 @@
 }
 
 /* new style by Vishal */
-.pointer{
+.pointer {
   cursor: pointer !important;
 }
+
 .tip {
   text-align: center;
   cursor: pointer;
@@ -583,19 +589,23 @@
 .earn span {
   color: var(--primary);
 }
+
 .tip p {
   margin: 3px;
   font-size: 12px;
   color: var(--primary);
 }
+
 .cardLeft {
   color: grey;
   font-size: 13px;
 }
-.card-body{
+
+.card-body {
   cursor: pointer !important;
   padding: 2rem;
 }
+
 .modalBody {
   width: 100%;
   height: 100vh;
@@ -605,11 +615,13 @@
   top: 0;
   left: 0;
 }
+
 .modalCard {
   min-height: 50vh;
   background: white;
   margin-top: 10vh;
 }
+
 .modalClose {
   color: white;
   width: 40px;
@@ -623,15 +635,21 @@
   bottom: 10px;
   z-index: 1000;
 }
+
 .modal {
   background: #000000cf;
   top: 0;
   left: 0;
 }
-.title{ font-weight: bold;}
+
+.title {
+  font-weight: bold;
+}
+
 .detailsTable {
   font-size: 14px;
 }
+
 .detailInfo {
   padding: 5px 25px;
 }
