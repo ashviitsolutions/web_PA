@@ -337,9 +337,12 @@
 }
 .sec_wiz_2 .title, #page_service_selects .title {
     padding: 10px;
-    background: skyblue;
     border-radius: 10px;
-	text-align: center;
+    text-align: center;
+    border: solid 1px lightgray;
+    background: #2196f3;
+    box-shadow: 2px 2px 5px lightgray;
+    color: white;
 }
 .checkoutPage {
     padding: 20px 0;
