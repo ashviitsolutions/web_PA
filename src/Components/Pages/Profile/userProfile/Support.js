@@ -11,6 +11,8 @@ const Support = () => {
 	const token = localStorage.getItem("token");
 	const username = localStorage.getItem("user_name");
 	const user_email = localStorage.getItem("user_email");
+
+
 	const onSubmit = async () => {
 		const config = {
 			headers: {
@@ -33,7 +35,7 @@ const Support = () => {
 			console.log(response.data);
 			toast.success(`${response.data.message}`, {
 				position: "top-right",
-				autoClose: 3000,
+				autoClose: 1000,
 				hideProgressBar: false,
 				closeOnClick: true,
 				pauseOnHover: true,
@@ -58,17 +60,17 @@ const Support = () => {
 					<p>We will get back to you within 24 hours</p>
 					<p>
 						<textarea
-						name=""
-						id=""
-						className="support__input col-md-12"
-						rows={9}
-						onChange={(e) => setText(e.target.value)}
-					></textarea>
+							name=""
+							id=""
+							className="support__input col-md-12"
+							rows={9}
+							onChange={(e) => setText(e.target.value)}
+						></textarea>
 					</p>
 					<p>
-					<button className="support__button" disabled={!text} onClick={onSubmit}>
-						Submit
-					</button>
+						<button className="support__button" disabled={!text} onClick={onSubmit}>
+							Submit
+						</button>
 					</p>
 					<ToastContainer closeOnClick newestOnTop autoClose={true} />
 				</div>
