@@ -5,17 +5,13 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import axios from "axios";
 import { toast, ToastContainer } from 'react-toastify';
-import { updateInputData } from '../../Redux/counterSlice';
 import 'react-toastify/dist/ReactToastify.css';
 import { IP } from "../../../../Constant";
 
 
 
 const FifthForm = ({ step, nextStep }) => {
-
   const { provider_id } = useParams();
-  const selector = useSelector((state) => state.counter.formData);
-  const dispatch = useDispatch();
 
   console.log("all data provider_id", provider_id);
 
@@ -80,98 +76,91 @@ const FifthForm = ({ step, nextStep }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Dispatch the form data to Redux
-    dispatch(updateInputData({ formName: 'fourthform', inputData: formData }));
+    if (password !== confirmpassword) {
+      setError(true);
+    } else {
+      try {
 
-    setTimeout(() => {
-      nextStep();
-    }, 2000);
+        const formData = {
+          ...(userid ? {
+            user: userid,
+            customer_email: email,
+          }
+            : {
+              email: email,
+              password: password,
+              confirm_password: confirmpassword
+            }
 
-    // if (password !== confirmpassword) {
-    //   setError(true);
-    // } else {
-    //   try {
+          ),
+          location: locationName,
+          location_type: location_type,
+          massage_for: massage_for,
+          service_id: service_id,
+          gender: gender,
+          provider_id: provider_id,
 
-    //     const formData = {
-    //       ...(userid ? {
-    //         user: userid,
-    //         customer_email: email,
-    //       }
-    //         : {
-    //           email: email,
-    //           password: password,
-    //           confirm_password: confirmpassword
-    //         }
+          service_time: service_time,
+          health_conditions: health_conditions,
+          areas_of_concern: areas_of_concern,
+          special_considerations: special_considerations,
+          massage_body_part: massage_body_part,
+          massage_pressure: massage_pressure,
+          scheduled_date: scheduled_date,
+          scheduled_timing: scheduled_timing,
+          address: address,
 
-    //       ),
-    //       location: locationName,
-    //       location_type: location_type,
-    //       massage_for: massage_for,
-    //       service_id: service_id,
-    //       gender: gender,
-    //       provider_id: provider_id,
-
-    //       service_time: service_time,
-    //       health_conditions: health_conditions,
-    //       areas_of_concern: areas_of_concern,
-    //       special_considerations: special_considerations,
-    //       massage_body_part: massage_body_part,
-    //       massage_pressure: massage_pressure,
-    //       scheduled_date: scheduled_date,
-    //       scheduled_timing: scheduled_timing,
-    //       address: address,
-
-    //       instructions: "bring material",
-    //       add_ons: addon_id,
+          instructions: "bring material",
+          add_ons: addon_id,
 
 
-    //     }
+        }
 
 
 
-    //     const token = localStorage.getItem("token");
-    //     const url = `${IP}/user/service_book`;
-    //     const config = {
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //         Authorization: token,
-    //       },
-    //     };
+        const token = localStorage.getItem("token");
+        const url = `${IP}/user/service_book`;
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        };
 
-    //     const res = await axios.post(url, formData, config);
+        const res = await axios.post(url, formData, config);
 
-    //     console.log("api details redux", res)
+        console.log("api details redux", res)
 
-    //     // const userId = res.data.ref;
-    //     if (res.status === 200) {
-    //       // Show success notification and navigate to '/admin/Gift'
-    //       toast.success("information received, moving to checkout now!", {
-    //         position: "top-right",
-    //         autoClose: 3000,
-    //         onClose: () => {
-    //           nav(`/book/${userid}/${totalPrice}`);
-    //         },
-    //       });
-    //     } else {
-    //       // Show error notification if the API response is not successful
-    //       toast.error("An error occurred. Please try again.", {
-    //         position: "top-right",
-    //         autoClose: 2000,
-    //       });
-    //     }
-    //     // Navigate to the next page with the extracted ID
+        // const userId = res.data.ref;
+        if (res.status === 200) {
+          // Show success notification and navigate to '/admin/Gift'
+          toast.success("information received, moving to checkout now!", {
+            position: "top-right",
+            autoClose: 3000,
+            onClose: () => {
+              nav(`/book/${userid}/${totalPrice}`);
+            },
+          });
+        } else {
+          // Show error notification if the API response is not successful
+          toast.error("An error occurred. Please try again.", {
+            position: "top-right",
+            autoClose: 2000,
+          });
+        }
+        // Navigate to the next page with the extracted ID
 
-    //     console.log("Response:", res);
-    //   } catch (error) {
-    //     console.error(error);
-    //     toast.error("An error occurred. Please try again.", {
-    //       position: "top-right",
-    //       autoClose: 3000,
-    //     });
+        console.log("Response:", res);
+      } catch (error) {
+        console.error(error);
+        toast.error("An error occurred. Please try again.", {
+          position: "top-right",
+          autoClose: 3000,
+        });
 
 
-    //   }
-    // }
+      }
+    }
   };
 
   return (
