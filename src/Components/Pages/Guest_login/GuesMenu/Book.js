@@ -83,7 +83,7 @@ const Book = () => {
                 <li id="tab_5" className={activeTab === 5 ? 'active' : ''} onClick={() => handleTabClick(5)}>
                   Address
                 </li>
-                <li id="tab_6" className={activeTab === 6 ? 'active' : ''} onClick={() => handleTabClick(6)} >
+                <li id="tab_6" className={activeTab === 6 ? 'active' : ''}  >
                   Confirm
                 </li>
               </ul>
