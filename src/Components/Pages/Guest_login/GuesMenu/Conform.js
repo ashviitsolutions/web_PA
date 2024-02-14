@@ -147,7 +147,7 @@ const Conform = () => {
 
 
                 }
-
+                const paymentId = token.id;
 
                 const url = `${IP}/user/service_book`;
                 const config = {
@@ -160,13 +160,13 @@ const Conform = () => {
                 const res = await axios.post(url, formData, config);
 
                 if (res.status === 200) {
-                    const generatedToken = res.data.generated_token;
+
                     // Show success notification and navigate to payment success page
                     toast.success("Information received, moving to checkout now!", {
                         position: "top-right",
                         autoClose: 3000,
                         onClose: () => {
-                            nav(`/userProfile/payment/success/${generatedToken}`);
+                            nav(`/userProfile/payment/success/${paymentId}`);
                         },
                     });
                 } else {
