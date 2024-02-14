@@ -213,7 +213,7 @@ const Conform = () => {
                                 </li>
                                 <li>
                                     <span className="title">Appointments</span>
-                                    <span className="value">[Massage title here] <small>{formData.secondform?.[0]?.service_time}</small> </span>
+                                    <span className="value"> <small>{formData.secondform?.[0]?.service_time}</small> </span>
                                     <div className="price" style={{ display: 'block', lineHeight: '10px' }}>
                                         <p className="prices" style={{ fontSize: '17px' }}>
                                             Amount: ${formData.secondform?.[0]?.totalPrice}
@@ -233,6 +233,7 @@ const Conform = () => {
                             <StripeCheckout
                                 amount={totalAmount * 100}
                                 token={onSubmit}
+                                clientSecret={clientSecret}
                                 currency="USD"
                                 stripeKey="pk_test_51MXmewLnVrUYOeK2PN2SexCsPAi8lsw8dIt7Pw04DUCsoCsv7a0VReRlGhbUuDOKYqbp1PEDWRWklwSvEsUD0NZ400sa7PXdfg"
                             >
