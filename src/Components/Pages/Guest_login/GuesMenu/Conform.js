@@ -76,37 +76,41 @@ const Conform = () => {
         setTotalAmount(totalAmount);
     }, [totalPrice]); // Add totalPrice as a dependency
 
-    const makePayment = async () => {
-        if (!totalAmount || totalAmount <= 0) {
-            return false;
-        }
-        try {
-            const response = await axios.post(`${IP}/payment/pay`, {
-                amount: totalAmount,
-                booking_id: service_id,
-            }, {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: tokenuser,
-                },
-            });
 
-            setClientSecret(response.data.client_secret);
-        } catch (error) {
-            console.error(error);
-            setError(error.response?.data?.msg || "An error occurred during payment initiation.");
-        }
-    };
+
 
     useEffect(() => {
+        const makePayment = async () => {
+            if (!totalAmount || totalAmount <= 0) {
+                return false;
+            }
+            try {
+                const response = await axios.post(`${IP}/payment/pay`, {
+                    amount: totalAmount,
+                    booking_id: service_id,
+                }, {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: tokenuser,
+                    },
+                });
+
+                setClientSecret(response.data.client_secret);
+            } catch (error) {
+                console.error(error);
+                setError(error.response?.data?.msg || "An error occurred during payment initiation.");
+            }
+        };
+
         makePayment();
     }, [totalAmount]); // Add totalAmount as a dependency
+
 
     console.log("clientSecret", clientSecret);
 
 
 
-    console.log("clientSecret", clientSecret)
+
 
 
 
@@ -236,6 +240,7 @@ const Conform = () => {
                                 clientSecret={clientSecret}
                                 currency="USD"
                                 stripeKey="pk_test_51MXmewLnVrUYOeK2PN2SexCsPAi8lsw8dIt7Pw04DUCsoCsv7a0VReRlGhbUuDOKYqbp1PEDWRWklwSvEsUD0NZ400sa7PXdfg"
+
                             >
                                 <div style={{ textAlign: 'center' }}>
                                     <button className="button">Proceed to Pay ${totalAmount}</button>

@@ -156,7 +156,7 @@ function BuyCard() {
 												clientSecret={clientSecret}
 												token={onSubmit}
 												currency="USD"
-												stripeKey="your_stripe_publishable_key"
+												stripeKey="pk_test_51MXmewLnVrUYOeK2PN2SexCsPAi8lsw8dIt7Pw04DUCsoCsv7a0VReRlGhbUuDOKYqbp1PEDWRWklwSvEsUD0NZ400sa7PXdfg"
 												key={card._id}
 											>
 												<button
