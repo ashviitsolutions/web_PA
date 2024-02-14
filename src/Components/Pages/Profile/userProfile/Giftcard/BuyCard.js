@@ -150,7 +150,7 @@ function BuyCard() {
 				paymentId: paymentId,
 				userId: user_id,
 				offerId: offerId,
-				offerValue: oferValue,
+				price: oferValue,
 				status: "paid",
 			};
 
@@ -214,7 +214,7 @@ function BuyCard() {
 											<p>Price: ${card.price}</p>
 
 											<StripeCheckout
-												amount={card.offerValue * 100}
+												amount={card.price * 100}
 												clientSecret
 												token={onSubmit}
 												currency="USD"
@@ -223,7 +223,7 @@ function BuyCard() {
 											>
 												<button
 													id="Buy_gift_card"
-													onClick={() => handleSubmit(card.offerValue, card._id)}
+													onClick={() => handleSubmit(card.price, card._id)}
 													disabled={loading && card._id === offerId} // Disable button if loading and card id matches offerId
 												>
 													{loading && card._id === offerId ? "Waiting" : "Buy Now"}
