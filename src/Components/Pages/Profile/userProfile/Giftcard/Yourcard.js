@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 function Yourcard() {
-   
+
     const nav = useNavigate();
     // const id = localStorage.getItem("userid")
     const [isModalOpen, setModalOpen] = useState(false);
@@ -142,44 +142,56 @@ function Yourcard() {
                                                 <button className='Use_button'>Use</button>
                                             </Link>
                                             <button className='Send_button' onClick={() => openModal(cur._id)}>
-                                            Send
+                                                Send
                                             </button>
                                         </div>
+                                        <div className="content_container_gift_card">
+                                            <h3>{cur?.offerId?.title}</h3>
+                                            <div className="content_container_gift_card_dis">
+                                                <p className="description">{cur?.offerId?.description.slice(0, 60)}...</p>
+                                            </div>
+                                            <div className="content_container_gift_card_para">
+                                                <div className="d-block">
+                                                    <p>Price: ${cur?.offerId?.price}</p>
+                                                    <p>Offer Value: ${cur?.offerId?.offerValue}</p>
+                                                </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            ))
+                                    ))
                         )}
-                    </div>
+                                </div>
                 </div>
-            </div>
+                </div>
 
-            {isModalOpen && (
-                <div className='modal_send_gift_card'>
-                    <div className='modal-content'>
-                        <span className='close' onClick={closeModal}>
-                            &times;
-                        </span>
-                        <h2>single massage</h2>
-                        <label>Email:</label>
-                        <input
-                            type='email'
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            placeholder='Enter recipient email'
-                        />
-                        <label>Message:</label>
-                        <textarea
-                            value={message}
-                            onChange={(e) => setMessage(e.target.value)}
-                            placeholder='Enter your message'
-                        />
-                        <button type='submit' onClick={handleSend}> {loading ? "Sending..." : "Send"}</button>
+                {isModalOpen && (
+                    <div className='modal_send_gift_card'>
+                        <div className='modal-content'>
+                            <span className='close' onClick={closeModal}>
+                                &times;
+                            </span>
+                            <h2>single massage</h2>
+                            <label>Email:</label>
+                            <input
+                                type='email'
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                placeholder='Enter recipient email'
+                            />
+                            <label>Message:</label>
+                            <textarea
+                                value={message}
+                                onChange={(e) => setMessage(e.target.value)}
+                                placeholder='Enter your message'
+                            />
+                            <button type='submit' onClick={handleSend}> {loading ? "Sending..." : "Send"}</button>
+                        </div>
                     </div>
-                </div>
-            )}
-            <ToastContainer />
-        </>
-    );
+                )}
+                <ToastContainer />
+            </>
+            );
 }
 
-export default Yourcard;
+            export default Yourcard;

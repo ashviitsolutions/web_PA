@@ -23,7 +23,7 @@ const Conform = () => {
     const addressUser = formData.locationForm?.[0]?.address || "";
 
 
-    console.log("most of the data", formData)
+    console.log("most of the data", totalPrice)
 
     // Check if the necessary form data exists before accessing its properties    
     const addon_id = formData.addon_id && formData.addon_id[0] ? formData.addon_id[0] : "";
@@ -78,33 +78,44 @@ const Conform = () => {
 
 
 
+    const makePayment = async () => {
+        if (!totalAmount || totalAmount <= 0) {
+            return false; // Return false if totalAmount or service_id is not valid
+        }
+        try {
+            // Convert totalAmount to integer by rounding to the nearest whole number
+            const roundedAmount = Math.round(totalAmount);
+
+            const response = await fetch(`${IP}/payment/pay`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': tokenuser,
+                },
+                body: JSON.stringify({
+                    amount: roundedAmount, // Send the rounded amount in the request body
+                    booking_id: service_id,
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch client secret from server.');
+            }
+
+            const responseData = await response.json();
+            setClientSecret(responseData.client_secret);
+        } catch (error) {
+            console.error("Error making payment:", error);
+            setError(error.message || "An error occurred during payment initiation.");
+        }
+    };
+
+
+    // Add totalAmount as a dependency
 
     useEffect(() => {
-        const makePayment = async () => {
-            if (!totalAmount || totalAmount <= 0) {
-                return false;
-            }
-            try {
-                const response = await axios.post(`${IP}/payment/pay`, {
-                    amount: totalAmount,
-                    booking_id: service_id,
-                }, {
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: tokenuser,
-                    },
-                });
-
-                setClientSecret(response.data.client_secret);
-            } catch (error) {
-                console.error(error);
-                setError(error.response?.data?.msg || "An error occurred during payment initiation.");
-            }
-        };
-
-        makePayment();
-    }, [totalAmount]); // Add totalAmount as a dependency
-
+        makePayment()
+    }, [totalAmount])
 
     console.log("clientSecret", clientSecret);
 

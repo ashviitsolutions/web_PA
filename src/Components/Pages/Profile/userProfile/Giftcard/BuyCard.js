@@ -49,20 +49,23 @@ function BuyCard() {
 		fetchData();
 	}, [user]);
 
-	const closeModal = () => {
-		setClientSecret(null);
-	};
+
 
 	const handleSubmit = async (priceValue, giftCardId) => {
 		setLoading(true);
-		setOfferId(giftCardId);
-		setPrices(priceValue);
-		console.log("client secrate", priceValue)
 		try {
 			if (!priceValue || !giftCardId) {
 				console.error("Offer value or gift card ID is missing.");
 				return;
 			}
+
+			setOfferId(giftCardId);
+			setPrices(priceValue);
+
+			// Store offerId and prices in localStorage
+			localStorage.setItem('offerId', giftCardId);
+			localStorage.setItem('prices', priceValue);
+
 			const formData = {
 				amount: priceValue,
 				giftCardId: giftCardId,
@@ -87,23 +90,22 @@ function BuyCard() {
 		}
 	};
 
-
-
-
 	const onSubmit = async (stripeToken) => {
-
-		console.log("token payment", stripeToken)
 		try {
 			const paymentId = stripeToken.id;
-			const authToken = localStorage.getItem("token");
+
+			// Retrieve offerId and prices from localStorage
+			const offerIds = localStorage.getItem('offerId');
+			const prices = localStorage.getItem('prices');
+
 			const paymentData = {
 				paymentId: paymentId,
 				userId: user_id,
-				offerId: offerId,
+				offerId: offerIds,
 				price: prices,
 				status: "paid",
 			};
-			console.log("Payment data:", paymentData); // Log payment data to check its format
+			const authToken = localStorage.getItem("token");
 			const config = {
 				headers: {
 					"Content-Type": "application/json",
@@ -111,7 +113,6 @@ function BuyCard() {
 				},
 			};
 			const response = await axios.post(`${IP}/payment/add-giftcard-payment`, paymentData, config);
-			console.log("Response from server:", response); // Log server response
 			if (response.status === 200) {
 				nav(`/userProfile/payment/success/${paymentId}`);
 			}
@@ -153,16 +154,16 @@ function BuyCard() {
 											</div>
 											<StripeCheckout
 												amount={card.price * 100}
-												clientSecret={clientSecret}
 												token={onSubmit}
 												currency="USD"
 												stripeKey="pk_test_51MXmewLnVrUYOeK2PN2SexCsPAi8lsw8dIt7Pw04DUCsoCsv7a0VReRlGhbUuDOKYqbp1PEDWRWklwSvEsUD0NZ400sa7PXdfg"
-												key={card._id}
 											>
 												<button
 													id="Buy_gift_card"
-													onClick={() => handleSubmit(card.price, card._id)}
-
+													onClick={(event) => {
+														event.preventDefault();
+														handleSubmit(card.price, card._id);
+													}}
 												>
 													{loading && card._id === offerId ? "Waiting" : "Buy Now"}
 												</button>
