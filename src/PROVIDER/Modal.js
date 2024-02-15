@@ -42,7 +42,7 @@ function CustomModal(
   const [checkInShow, setCheckInShow] = useState(false);
   const [checkOutShow, setCheckOutShow] = useState(false);
   const [mainCardShow, setMainCardShow] = useState(true);
-
+  const [loading, setLoading] = useState(false);
   const nav = useNavigate()
 
   const handleClose = () => {
@@ -51,6 +51,7 @@ function CustomModal(
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true)
     try {
       const bodyFormData = new FormData();
       bodyFormData.append("_id", _id);
@@ -65,6 +66,7 @@ function CustomModal(
       console.log(res);
       if (res.status === 200) {
         onHide();
+
         // nav("/providers")
       }
     } catch (error) {
@@ -226,10 +228,12 @@ function CustomModal(
       {
         newclient && (
           <BootstrapModal.Footer>
-            <Button variant="primary" onClick={onSubmit}>
-              Accept
+
+            <Button variant="primary" onClick={onSubmit} disabled={loading}>
+              {loading ? "Accepting" : "Accept"}
+
             </Button>
-            <Button className="nofillbtn btn-sm" onClick={removeItem}>
+            <Button className="nofillbtn btn-sm" onClick={removeItem} >
               Reject
             </Button>
 
