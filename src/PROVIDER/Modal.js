@@ -43,7 +43,7 @@ function CustomModal(
   const [checkOutShow, setCheckOutShow] = useState(false);
   const [mainCardShow, setMainCardShow] = useState(true);
 
-  const nav=useNavigate()
+  const nav = useNavigate()
 
   const handleClose = () => {
     onHide();
@@ -65,7 +65,7 @@ function CustomModal(
       console.log(res);
       if (res.status === 200) {
         onHide();
-        nav("/providers")
+        // nav("/providers")
       }
     } catch (error) {
       console.error(error);
@@ -265,9 +265,9 @@ function CustomModal(
           {showCheckInButton ? (
             <Button
               className="mx-2 btn-sm"
-    
+
               onClick={handleCheckInClick}
-            
+
             >
               Check In
             </Button>

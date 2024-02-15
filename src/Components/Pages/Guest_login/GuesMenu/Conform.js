@@ -73,10 +73,10 @@ const Conform = () => {
         const taxRate = 0.06625;
         const calculatedTax = (totalPrice * 100 * taxRate) / 100;
         const totalAmount = (totalPrice * 100 + tip * 100 + calculatedTax * 100) / 100;
-
+        const totalAmountInteger = Math.floor(totalAmount);
         setTax(calculatedTax);
         setTip(tip);
-        setTotalAmount(totalAmount);
+        setTotalAmount(totalAmountInteger);
     }, [totalPrice]); // Add totalPrice as a dependency
 
 
@@ -85,10 +85,10 @@ const Conform = () => {
     const makePayment = async () => {
         try {
             // Convert totalAmount to integer and remove decimal part
-            const totalAmountInteger = Math.floor(totalAmount);
+            // const totalAmountInteger = Math.floor(totalAmount);
 
             const response = await axios.post(`${IP}/create-payment-intent`, {
-                amount: totalAmountInteger,
+                amount: totalAmount,
                 returnUrl: 'http://localhost:3000/userProfile/payment/success/:paymentId'
             });
             setPaymentIntentId(response?.data?.paymentIntent?.id);
