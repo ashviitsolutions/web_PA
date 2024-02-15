@@ -121,6 +121,7 @@ const ScheduledRequestCard = (props) => {
           time={props.time}
           date={props.date}
           _id={props._id}
+          paymentIntentId={props.paymentIntentId}
           user_id={props.user_id}
           onClose={handleCloseModal}
 

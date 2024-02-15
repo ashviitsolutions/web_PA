@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { IP } from '../../../../Constant';
@@ -57,9 +58,10 @@ const Conform = () => {
 
     console.log("email dispatch", totalPrice, email, address, arrivalInstructions, confirmpassword, password)
 
+    const [paymentIntentId, setPaymentIntentId] = useState('');
+    const [client_secret, setClientSecret] = useState();
 
-
-    const [clientSecret, setClientSecret] = useState(null);
+    // const [clientSecret, setClientSecret] = useState(null);
     const [totalAmount, setTotalAmount] = useState(0);
     const [tax, setTax] = useState(0);
     const [tip, setTip] = useState(0);
@@ -78,35 +80,19 @@ const Conform = () => {
 
 
 
+
     const makePayment = async () => {
-        if (!totalAmount || totalAmount <= 0) {
-            return false; // Return false if totalAmount or service_id is not valid
-        }
         try {
-            // Convert totalAmount to integer by rounding to the nearest whole number
-            const roundedAmount = Math.round(totalAmount);
-
-            const response = await fetch(`${IP}/payment/pay`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': tokenuser,
-                },
-                body: JSON.stringify({
-                    amount: roundedAmount, // Send the rounded amount in the request body
-                    booking_id: service_id,
-                }),
+            const response = await axios.post(`${IP}/create-payment-intent`, {
+                amount: totalAmount, // Assuming the amount is in cents (i.e., $10.00)
+                returnUrl: 'http://localhost:3000//userProfile/payment/success/:paymentId'
             });
-
-            if (!response.ok) {
-                throw new Error('Failed to fetch client secret from server.');
-            }
-
-            const responseData = await response.json();
-            setClientSecret(responseData.client_secret);
+            setPaymentIntentId(response?.data?.paymentIntent?.id);
+            setClientSecret(response.data.client_secret)
+            console.log("data of paymemnt", response?.data?.paymentIntent?.id)
+            console.log("data of paymemnts", response?.data?.paymentIntent?.client_secret)
         } catch (error) {
-            console.error("Error making payment:", error);
-            setError(error.message || "An error occurred during payment initiation.");
+            console.error('Error creating payment intent:', error);
         }
     };
 
@@ -115,9 +101,9 @@ const Conform = () => {
 
     useEffect(() => {
         makePayment()
-    }, [totalAmount])
+    }, [totalPrice])
 
-    console.log("clientSecret", clientSecret);
+    console.log("clientSecret", client_secret);
 
 
 
@@ -141,6 +127,7 @@ const Conform = () => {
 
                     ),
                     location: locationName,
+                    paymentIntentId: paymentIntentId,
                     location_type: location_type,
                     massage_for: massage_for,
                     service_id: service_id,
@@ -248,7 +235,7 @@ const Conform = () => {
                             <StripeCheckout
                                 amount={totalAmount * 100}
                                 token={onSubmit}
-                                clientSecret={clientSecret}
+                                client_secret={client_secret}
                                 currency="USD"
                                 stripeKey="pk_test_51MXmewLnVrUYOeK2PN2SexCsPAi8lsw8dIt7Pw04DUCsoCsv7a0VReRlGhbUuDOKYqbp1PEDWRWklwSvEsUD0NZ400sa7PXdfg"
 
@@ -268,3 +255,4 @@ const Conform = () => {
 };
 
 export default Conform;
+
