@@ -19,6 +19,7 @@ const Conform = () => {
     const userid = localStorage.getItem("userid");
     const tokenuser = localStorage.getItem("token");
     const nav = useNavigate();
+    const [loading, setLoading] = useState(false);
 
     const formData = useSelector((state) => state.counter.formData);
     const addressUser = formData.locationForm?.[0]?.address || "";
@@ -83,25 +84,30 @@ const Conform = () => {
 
     const makePayment = async () => {
         try {
+            // Convert totalAmount to integer and remove decimal part
+            const totalAmountInteger = Math.floor(totalAmount);
+
             const response = await axios.post(`${IP}/create-payment-intent`, {
-                amount: totalAmount, // Assuming the amount is in cents (i.e., $10.00)
-                returnUrl: 'http://localhost:3000//userProfile/payment/success/:paymentId'
+                amount: totalAmountInteger,
+                returnUrl: 'http://localhost:3000/userProfile/payment/success/:paymentId'
             });
             setPaymentIntentId(response?.data?.paymentIntent?.id);
-            setClientSecret(response.data.client_secret)
-            console.log("data of paymemnt", response?.data?.paymentIntent?.id)
-            console.log("data of paymemnts", response?.data?.paymentIntent?.client_secret)
+            setClientSecret(response.data.client_secret);
+            console.log("data of payment", response?.data?.paymentIntent?.id);
+            console.log("data of payment", response?.data?.paymentIntent?.client_secret);
         } catch (error) {
             console.error('Error creating payment intent:', error);
         }
     };
 
 
-    // Add totalAmount as a dependency
 
+    // Add totalAmount as a dependency
     useEffect(() => {
-        makePayment()
-    }, [totalPrice])
+        if (totalAmount) {
+            makePayment();
+        }
+    }, [totalAmount]);
 
     console.log("clientSecret", client_secret);
 
@@ -238,12 +244,14 @@ const Conform = () => {
                                 client_secret={client_secret}
                                 currency="USD"
                                 stripeKey="pk_test_51MXmewLnVrUYOeK2PN2SexCsPAi8lsw8dIt7Pw04DUCsoCsv7a0VReRlGhbUuDOKYqbp1PEDWRWklwSvEsUD0NZ400sa7PXdfg"
-
                             >
                                 <div style={{ textAlign: 'center' }}>
-                                    <button className="button">Proceed to Pay ${totalAmount}</button>
+                                    <button className="button" onClick={() => setLoading(true)} disabled={loading}>
+                                        {loading ? "Processing" : "Proceed to Pay"} ${totalAmount}
+                                    </button>
                                 </div>
                             </StripeCheckout>
+
 
                         </div>
                     </div>
