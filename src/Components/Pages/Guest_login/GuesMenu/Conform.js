@@ -71,12 +71,12 @@ const Conform = () => {
         const tip = 31.5;
         const taxRate = 0.06625;
         const calculatedTax = (totalPrice * 100 * taxRate) / 100;
-        const totalAmount = (totalPrice * 100 + tip * 100 + calculatedTax * 100) / 100;
+        const totalAmount = Math.round((totalPrice * 100 + tip * 100 + calculatedTax * 100) / 100);
 
         setTax(calculatedTax);
         setTip(tip);
         setTotalAmount(totalAmount);
-    }, [totalPrice]); // Add totalPrice as a dependency
+    }, [totalPrice]); 
 
 
 
@@ -85,7 +85,7 @@ const Conform = () => {
         try {
             const response = await axios.post(`${IP}/create-payment-intent`, {
                 amount: totalAmount, // Assuming the amount is in cents (i.e., $10.00)
-                returnUrl: 'http://localhost:3000//userProfile/payment/success/:paymentId'
+                returnUrl: 'http://localhost:3000/userProfile/payment/success/:paymentId'
             });
             setPaymentIntentId(response?.data?.paymentIntent?.id);
             setClientSecret(response.data.client_secret)
@@ -101,7 +101,7 @@ const Conform = () => {
 
     useEffect(() => {
         makePayment()
-    }, [totalPrice])
+    }, [])
 
     console.log("clientSecret", client_secret);
 
@@ -234,11 +234,10 @@ const Conform = () => {
                             </ul>
                             <StripeCheckout
                                 amount={totalAmount * 100}
-                                token={onSubmit}
+                                token={onSubmit} // Pass onSubmit as a callback to the token prop
                                 client_secret={client_secret}
                                 currency="USD"
                                 stripeKey="pk_test_51MXmewLnVrUYOeK2PN2SexCsPAi8lsw8dIt7Pw04DUCsoCsv7a0VReRlGhbUuDOKYqbp1PEDWRWklwSvEsUD0NZ400sa7PXdfg"
-
                             >
                                 <div style={{ textAlign: 'center' }}>
                                     <button className="button">Proceed to Pay ${totalAmount}</button>
