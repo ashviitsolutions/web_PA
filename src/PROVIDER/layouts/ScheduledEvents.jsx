@@ -26,7 +26,7 @@ const ScheduledEvents = () => {
     }).catch(err => {
       console.log(err)
     })
-  }, [])
+  }, [user])
 
 
 

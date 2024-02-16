@@ -27,6 +27,7 @@ const Dashboard = () => {
     }).then(resp => {
       return resp.json()
     }).then(result => {
+
       setWallate(result.wallet)
 
     }).catch(err => {
@@ -38,7 +39,7 @@ const Dashboard = () => {
   }, [])
 
 
-  // console.log("available", wallate)
+  console.log("available", wallate)
 
   //request api
   useEffect(() => {
@@ -54,7 +55,7 @@ const Dashboard = () => {
     }).catch(err => {
       console.log(err)
     })
-  }, [])
+  }, [request])
 
   console.log("data request", request)
 

@@ -44,7 +44,7 @@ const Checkout = (props) => {
         confirmAndCapturePayment();
 
         // Redirect to providers page
-        nav("/providers");
+        // nav("/providers");
         props.onHide();
       }
     } catch (error) {
