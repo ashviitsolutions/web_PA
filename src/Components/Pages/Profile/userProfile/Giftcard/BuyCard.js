@@ -174,7 +174,7 @@ function BuyCard() {
 							</div>
 						);
 					} else {
-						return null;
+						return null; 
 					}
 				})}
 			</div>

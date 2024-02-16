@@ -522,9 +522,10 @@ body {
 
 #detailimage {
   width: 100% !important;
-    height: 30rem !important;
-    position: relative;
-    margin-bottom: 25px;
+  height: 30rem !important;
+  position: relative;
+  margin-bottom: 25px;
+  background-size: cover;
 }
 
 
