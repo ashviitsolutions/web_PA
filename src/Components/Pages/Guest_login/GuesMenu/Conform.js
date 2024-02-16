@@ -71,12 +71,12 @@ const Conform = () => {
         const tip = 31.5;
         const taxRate = 0.06625;
         const calculatedTax = (totalPrice * 100 * taxRate) / 100;
-        const totalAmount = Math.round((totalPrice * 100 + tip * 100 + calculatedTax * 100) / 100);
-
+        const totalAmount = (totalPrice * 100 + tip * 100 + calculatedTax * 100) / 100;
+        const totalAmountInteger = Math.floor(totalAmount);
         setTax(calculatedTax);
         setTip(tip);
-        setTotalAmount(totalAmount);
-    }, [totalPrice]); 
+        setTotalAmount(totalAmountInteger);
+    }, [totalPrice]);
 
 
 
@@ -97,11 +97,14 @@ const Conform = () => {
     };
 
 
-    // Add totalAmount as a dependency
+    // Add totalAmount as a 
 
     useEffect(() => {
-        makePayment()
-    }, [])
+        if (totalAmount) {
+            makePayment()
+        }
+
+    }, [totalAmount])
 
     console.log("clientSecret", client_secret);
 
