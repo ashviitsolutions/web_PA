@@ -109,7 +109,7 @@ function Login() {
 
         try {
             const data = { email };
-            const resp = await fetch(`http://localhost:5000/api/user/forgate-password`, {
+            const resp = await fetch(`${IP}/user/forgate-password`, {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
