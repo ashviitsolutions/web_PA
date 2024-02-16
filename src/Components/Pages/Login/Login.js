@@ -99,7 +99,7 @@ function Login() {
 
     const forGet = async () => {
         if (!email) {
-            // Add a check to ensure email is not empty
+            // Add  check to ensure email is not empty
             toast.error('Please enter your email before requesting a password reset.', {
                 position: 'top-right',
                 autoClose: 3000,
@@ -109,7 +109,7 @@ function Login() {
 
         try {
             const data = { email };
-            const resp = await fetch(`${IP}/user/forgate-password`, {
+            const resp = await fetch(`http://localhost:5000/api/user/forgate-password`, {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
