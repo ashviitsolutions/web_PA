@@ -7,15 +7,17 @@ import { IP } from "../../Constant";
 const MyVerticallyCenteredModal = (props) => {
   const nav = useNavigate();
   const { user_id, _id, date } = props;
-  console.log("data console", user_id, _id, date)
+  // console.log("data console", user_id, _id, date)
   const [hour, setHour] = useState('');
   const [minute, setMinute] = useState('');
   const [am, setAm] = useState(true);
   const [pm, setPm] = useState(false);
   const token = localStorage.getItem("providertoken");
+  const [loading, setLoading] = useState(false);
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true)
 
     try {
       const timeValue = `${hour}:${minute} ${am ? 'AM' : 'PM'}`;
@@ -98,7 +100,8 @@ const MyVerticallyCenteredModal = (props) => {
         </Row>
       </Modal.Body>
       <Modal.Footer style={{ justifyContent: "center" }}>
-        <Button onClick={onSubmit}>Done</Button>
+       
+        <Button onClick={onSubmit} disabled={loading}> {loading ? "Loading.." : "Done"}</Button>
       </Modal.Footer>
     </Modal>
   );

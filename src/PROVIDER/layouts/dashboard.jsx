@@ -36,26 +36,53 @@ const Dashboard = () => {
 
 
 
-  }, [])
+  }, [wallate])
 
 
-  console.log("available", wallate)
+
 
   //request api
-  useEffect(() => {
+  // useEffect(() => {
+  //   fetch(`${IP}/provider/requests`, {
+  //     headers: {
+  //       'Authorization': token
+  //     }
+  //   }).then(resp => {
+  //     return resp.json()
+  //   }).then(result => {
+  //     setreq(result)
+  //     // console.log("request api", result)
+  //   }).catch(err => {
+  //     console.log(err)
+  //   })
+  // }, [])
+
+  const fetchRequests = () => {
     fetch(`${IP}/provider/requests`, {
       headers: {
         'Authorization': token
       }
-    }).then(resp => {
-      return resp.json()
-    }).then(result => {
-      setreq(result)
-      // console.log("request api", result)
-    }).catch(err => {
-      console.log(err)
     })
-  }, [request])
+      .then(resp => resp.json())
+      .then(result => {
+        setreq(result)
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    fetchRequests();
+
+    // Poll the API every 5 seconds (adjust as needed)
+    const interval = setInterval(() => {
+      fetchRequests();
+    }, 5000);
+
+    // Clear the interval on component unmount
+    return () => clearInterval(interval);
+  }, [token]);
 
   console.log("data request", request)
 
@@ -102,6 +129,7 @@ const Dashboard = () => {
                       massageFor={cur.massage_for}
                       serviceTime={cur.service_time}
                       specialConsiderations={cur.special_considerations}
+                      paymentIntentId={cur.paymentIntentId}
                     />
 
                   </React.Fragment>

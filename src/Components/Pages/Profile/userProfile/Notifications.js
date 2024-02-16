@@ -10,7 +10,7 @@ import ReactPaginate from "react-paginate";
 const Notifications = () => {
   const token = localStorage.getItem("token");
   const username = localStorage.getItem("user_name");
-  const user_id = localStorage.getItem("user_id");
+  const user_id = localStorage.getItem("userid");
   const [loading, setLoading] = useState(false);
   const [notifications, setNotifications] = useState([]);
   const [pageNumber, setPageNumber] = useState(0);
@@ -71,8 +71,14 @@ const Notifications = () => {
                 <h4>{moment(n.createdAt).format("LT")}</h4>
               </div>
               <p>{n.content}</p>
-              <p>Booked Date: {n.bookedDate}</p>
-              <p>Booked Time: {n.bookedTime}</p>
+              {n.bookedDate && n.bookedTime && (
+                <>
+                  <p>Booked Date: {n.bookedDate}</p>
+                  <p>Booked Time: {n.bookedTime}</p>
+                </>
+              )}
+
+
             </div>
           ))
         ) : (

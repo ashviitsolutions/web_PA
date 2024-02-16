@@ -14,10 +14,14 @@ const Checkout = (props) => {
   const [minute, setMinute] = useState('');
   const [am, setAm] = useState(true);
   const [pm, setPm] = useState(false);
+  const [loading, setLoading] = useState(false);
   const token = localStorage.getItem("providertoken");
+
+  // console.log("paymentiod", props)
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true)
 
     try {
       const timeValue = `${hour}:${minute}`;
@@ -44,8 +48,9 @@ const Checkout = (props) => {
         confirmAndCapturePayment();
 
         // Redirect to providers page
-        // nav("/providers");
+
         props.onHide();
+        nav("/providers/earnings");
       }
     } catch (error) {
       console.error(error);
@@ -63,10 +68,10 @@ const Checkout = (props) => {
     }
   };
 
-  useEffect(() => {
-    // This useEffect runs only once when the component mounts
-    onSubmit();
-  }, []);
+  // useEffect(() => {
+
+  //   onSubmit();
+  // }, []);
 
 
   return (
@@ -106,7 +111,7 @@ const Checkout = (props) => {
         </Row>
       </Modal.Body>
       <Modal.Footer style={{ justifyContent: "center" }}>
-        <Button onClick={onSubmit}>Done</Button>
+        <Button onClick={onSubmit} disabled={loading}> {loading ? "Loading.." : "Done"}</Button>
       </Modal.Footer>
     </Modal>
   );

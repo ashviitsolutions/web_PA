@@ -107,6 +107,7 @@ const RequestCard = (props) => {
         gender={props.gender}
         locationType={props.locationType}
         newclient={props.newclient}
+        paymentIntentId={props.paymentIntentId}
       />
     </div>
   );

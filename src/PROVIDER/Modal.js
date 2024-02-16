@@ -18,7 +18,7 @@ import Checkouts from "./components/Checkout";
 import { useNavigate } from "react-router-dom";
 
 function CustomModal(
-  { title, serviceTime, massage_for, gender, areasOfConcern, specialConsiderations, massageBodyPart, healthConditions, locationType,
+  { title,paymentIntentId, serviceTime, massage_for, gender, areasOfConcern, specialConsiderations, massageBodyPart, healthConditions, locationType,
     location,
     time,
     user_id,
@@ -301,6 +301,7 @@ function CustomModal(
         <Checkouts
           show={checkOutShow}
           onHide={handleCheckOutModalClose}
+          paymentIntentId={paymentIntentId}
           user_id={user_id}
           date={date}
           _id={_id}

@@ -22,14 +22,14 @@ const ScheduledEvents = () => {
       return resp.json()
     }).then(result => {
       setUser(result.scheduled);
-      // console.log("scheduled api", result.scheduled)
+
     }).catch(err => {
       console.log(err)
     })
   }, [user])
 
 
-
+  console.log("scheduled dfrghdfhdfhdfhapi", user)
 
 
 
@@ -53,6 +53,7 @@ const ScheduledEvents = () => {
             instructions={cur.instructions}
             amount={cur.amount_charged}
             user_id={cur.service_id._id}
+            paymentIntentId={cur.paymentIntentId}
             _id={cur._id}
 
           />
