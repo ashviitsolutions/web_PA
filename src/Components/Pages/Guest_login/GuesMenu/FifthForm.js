@@ -28,6 +28,7 @@ const FifthForm = ({ step, nextStep }) => {
   const [password, setPassword] = useState("");
   const [confirmpassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -35,7 +36,7 @@ const FifthForm = ({ step, nextStep }) => {
       setError(true);
       return;
     }
-
+    setLoading(true)
     const formData = {
       name: name,
       email: email,
@@ -129,11 +130,14 @@ const FifthForm = ({ step, nextStep }) => {
               </>
             )
           }
+
           <button
             type="submit"
             className="button"
+            disabled={loading}
           >
-            Review
+            {loading ? "Loading" : "Review"}
+
           </button>
           <p style={{ float: "right" }}>Total Price: ${totalPrice}</p>
         </form>

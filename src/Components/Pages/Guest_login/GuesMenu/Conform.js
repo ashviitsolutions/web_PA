@@ -60,6 +60,7 @@ const Conform = () => {
 
     const [paymentIntentId, setPaymentIntentId] = useState('');
     const [client_secret, setClientSecret] = useState();
+    const [loading, setLoading] = useState(false);
 
     // const [clientSecret, setClientSecret] = useState(null);
     const [totalAmount, setTotalAmount] = useState(0);
@@ -81,23 +82,44 @@ const Conform = () => {
 
 
 
+    // const makePayment = async () => {
+    //     try {
+    //         const response = await axios.post(`${IP}/create-payment-intent`, {
+    //             amount: totalAmount, // Assuming the amount is in cents (i.e., $10.00)
+    //             returnUrl: 'http://localhost:3000/userProfile/payment/success/:paymentId'
+    //         });
+    //         setPaymentIntentId(response?.data?.paymentIntent?.id);
+    //         setClientSecret(response.data.client_secret)
+    //         console.log("data of paymemnt", response?.data?.paymentIntent?.id)
+    //         console.log("data of paymemnts", response?.data?.paymentIntent?.client_secret)
+    //     } catch (error) {
+    //         console.error('Error creating payment intent:', error);
+    //     }
+    // };
+
+
+    // Add totalAmount as a 
+
+
     const makePayment = async () => {
         try {
             const response = await axios.post(`${IP}/create-payment-intent`, {
                 amount: totalAmount, // Assuming the amount is in cents (i.e., $10.00)
-                returnUrl: 'http://localhost:3000/userProfile/payment/success/:paymentId'
+                returnUrl: 'http://productivealliance.com/userProfile/payment/success/:paymentId'
             });
             setPaymentIntentId(response?.data?.paymentIntent?.id);
-            setClientSecret(response.data.client_secret)
-            console.log("data of paymemnt", response?.data?.paymentIntent?.id)
-            console.log("data of paymemnts", response?.data?.paymentIntent?.client_secret)
+            setClientSecret(response.data.client_secret) // Accessing client_secret from paymentIntent object
+            // console.log("data of payment", response?.data?.paymentIntent?.id);
+            // console.log("data of payment client_secret", response?.data?.paymentIntent?.client_secret);
         } catch (error) {
             console.error('Error creating payment intent:', error);
         }
     };
 
 
-    // Add totalAmount as a 
+
+
+
 
     useEffect(() => {
         if (totalAmount) {
@@ -167,13 +189,15 @@ const Conform = () => {
                 if (res.status === 200) {
 
                     // Show success notification and navigate to payment success page
-                    toast.success("Information received, moving to checkout now!", {
+                    toast.success("Your Booking Successfully", {
                         position: "top-right",
-                        autoClose: 3000,
+                        autoClose: 1000,
                         onClose: () => {
                             nav(`/userProfile/payment/success/${paymentId}`);
                         },
+                       
                     });
+                    setLoading(false)
                 } else {
                     // Show error notification if the API response is not successful
                     toast.error("An error occurred. Please try again.", {
@@ -243,7 +267,8 @@ const Conform = () => {
                                 stripeKey="pk_test_51MXmewLnVrUYOeK2PN2SexCsPAi8lsw8dIt7Pw04DUCsoCsv7a0VReRlGhbUuDOKYqbp1PEDWRWklwSvEsUD0NZ400sa7PXdfg"
                             >
                                 <div style={{ textAlign: 'center' }}>
-                                    <button className="button">Proceed to Pay ${totalAmount}</button>
+
+                                    <button className="button"> Proceed to Pay ${totalAmount}</button>
                                 </div>
                             </StripeCheckout>
 

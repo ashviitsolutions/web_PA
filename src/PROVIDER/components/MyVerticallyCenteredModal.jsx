@@ -38,7 +38,7 @@ const MyVerticallyCenteredModal = (props) => {
 
       if (res.status === 200) {
         // nav("/providers");
-        props.onHide();
+
         // Retrieve existing array or initialize an empty array
         const removedChekincardArray = JSON.parse(localStorage.getItem('removedChekincard')) || [];
 
@@ -47,6 +47,8 @@ const MyVerticallyCenteredModal = (props) => {
 
         // Save the updated array in localStorage
         localStorage.setItem('removedChekincard', JSON.stringify(removedChekincardArray));
+        props.onHide();
+        nav("/providers/events");
       }
     } catch (error) {
       console.error(error);
@@ -100,7 +102,7 @@ const MyVerticallyCenteredModal = (props) => {
         </Row>
       </Modal.Body>
       <Modal.Footer style={{ justifyContent: "center" }}>
-       
+
         <Button onClick={onSubmit} disabled={loading}> {loading ? "Loading.." : "Done"}</Button>
       </Modal.Footer>
     </Modal>

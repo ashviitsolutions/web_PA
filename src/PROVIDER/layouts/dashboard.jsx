@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Row } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import EarningsCard from "../components/earnings/EarningsCard";
@@ -36,7 +36,7 @@ const Dashboard = () => {
 
 
 
-  }, [wallate])
+  }, [])
 
 
 
@@ -51,38 +51,38 @@ const Dashboard = () => {
   //     return resp.json()
   //   }).then(result => {
   //     setreq(result)
-  //     // console.log("request api", result)
+
   //   }).catch(err => {
   //     console.log(err)
   //   })
   // }, [])
 
-  const fetchRequests = () => {
+
+
+  const fetchData = useCallback(() => {
     fetch(`${IP}/provider/requests`, {
       headers: {
         'Authorization': token
       }
-    })
-      .then(resp => resp.json())
-      .then(result => {
-        setreq(result)
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  };
+    }).then(resp => {
+      return resp.json()
+    }).then(result => {
+      setreq(result)
+    }).catch(err => {
+      console.log(err)
+    });
+  }, [token, setreq]);
 
   useEffect(() => {
-    fetchRequests();
+    fetchData();
+  }, [fetchData]);
 
-    // Poll the API every 5 seconds (adjust as needed)
-    const interval = setInterval(() => {
-      fetchRequests();
-    }, 5000);
 
-    // Clear the interval on component unmount
-    return () => clearInterval(interval);
-  }, [token]);
+
+
+
+
+
 
   console.log("data request", request)
 

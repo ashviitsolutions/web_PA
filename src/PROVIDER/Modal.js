@@ -18,7 +18,7 @@ import Checkouts from "./components/Checkout";
 import { useNavigate } from "react-router-dom";
 
 function CustomModal(
-  { title,paymentIntentId, serviceTime, massage_for, gender, areasOfConcern, specialConsiderations, massageBodyPart, healthConditions, locationType,
+  { title, paymentIntentId, serviceTime, massage_for, gender, areasOfConcern, specialConsiderations, massageBodyPart, healthConditions, locationType,
     location,
     time,
     user_id,
@@ -67,7 +67,7 @@ function CustomModal(
       if (res.status === 200) {
         onHide();
 
-        // nav("/providers")
+        nav("/providers/events");
       }
     } catch (error) {
       console.error(error);

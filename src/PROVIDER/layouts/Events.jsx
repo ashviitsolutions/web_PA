@@ -5,8 +5,10 @@ import EventsCard from "../components/events/EventsCard";
 import ScheduledRequestCard from "../components/ScheduledRequestCard";
 import { IP } from "../../Constant";
 import RequestCard from "../components/newrequests/RequestCard"
+import Completed from "../components/newrequests/Completed";
 // import ServicesCard from "../components/services/ServicesCard";
 // import ScheduledRequestCard from "../components/BookingCard";
+import ScheduledEvents from "./ScheduledEvents";
 import { useNavigate } from "react-router-dom";
 
 
@@ -44,13 +46,13 @@ const Events = () => {
       })
       .then((result) => {
         setUser(result.completed);
-        // console.log("boking completd", result.completed);
+        console.log("boking completd", result);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
-
+  console.log("boking completd", user);
 
   useEffect(() => {
     fetch(`${IP}/provider/events/booked`, {
@@ -142,19 +144,7 @@ const Events = () => {
 
           {user.map((cur, index) => (
             <React.Fragment key={index}>
-              <ScheduledRequestCard />
-
-            </React.Fragment>
-          ))}
-
-        </>
-      )}
-
-      {radioValue === '1' && (
-        <>
-          {booking.map((cur, index) => (
-            <React.Fragment key={index}>
-              <ScheduledRequestCard
+              <Completed
                 title={cur.service_id.title}
                 location={cur.address}
                 time={cur.scheduled_timing}
@@ -167,7 +157,17 @@ const Events = () => {
 
             </React.Fragment>
           ))}
+
         </>
+      )}
+
+      {radioValue === '1' && (
+
+        <div>
+          <ScheduledEvents />
+        </div>
+
+
       )}
 
       {radioValue === '3' && (
@@ -195,6 +195,7 @@ const Events = () => {
                 massageFor={cur.massage_for}
                 serviceTime={cur.service_time}
                 specialConsiderations={cur.special_considerations}
+                paymentIntentId={cur.paymentIntentId}
               />
 
             </React.Fragment>

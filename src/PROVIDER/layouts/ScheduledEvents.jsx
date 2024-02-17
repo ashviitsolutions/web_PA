@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Container from "react-bootstrap/Container";
 import ScheduledRequestCard from "../components/ScheduledRequestCard";
 import { IP } from "../../Constant";
@@ -13,7 +13,21 @@ const ScheduledEvents = () => {
 
 
   //request api
-  useEffect(() => {
+  // useEffect(() => {
+  //   fetch(`${IP}/provider/events/scheduled`, {
+  //     headers: {
+  //       'Authorization': token
+  //     }
+  //   }).then(resp => {
+  //     return resp.json()
+  //   }).then(result => {
+  //     setUser(result.scheduled);
+
+  //   }).catch(err => {
+  //     console.log(err)
+  //   })
+  // }, [user])
+  const fetchData = useCallback(() => {
     fetch(`${IP}/provider/events/scheduled`, {
       headers: {
         'Authorization': token
@@ -22,11 +36,15 @@ const ScheduledEvents = () => {
       return resp.json()
     }).then(result => {
       setUser(result.scheduled);
-
     }).catch(err => {
       console.log(err)
-    })
-  }, [user])
+    });
+  }, [token, setUser]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
 
 
   console.log("scheduled dfrghdfhdfhdfhapi", user)
