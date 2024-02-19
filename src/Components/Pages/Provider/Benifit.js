@@ -156,7 +156,7 @@ function Benifit() {
                     <div className="selects">
                         <div className='item'>
                             <img className="icons" src={Image11} alt='...' />
-                            <p id='becommembersyogatexts2' style={{ marginLeft: "-10px" }}>reflexology</p>
+                            <p id='becommembersyogatexts2' style={{ marginLeft: "-10px" }}>Reflexology</p>
                         </div>
 
                     </div>
