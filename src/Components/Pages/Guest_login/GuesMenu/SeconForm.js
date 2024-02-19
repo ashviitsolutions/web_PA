@@ -184,9 +184,10 @@ const SeconForm = ({ step, nextStep }) => {
     };
 
     return (
-        <div id="sec_wiz_2" className="sections sec_wiz_2">
+        <>
             {gendercheck === "guest" ? (
                 <>
+                <div id="sec_wiz_2" className="sections sec_wiz_2">
                     <p className="title">Gender Preference</p>
                     <ul className="time_options">
                         <li
@@ -211,6 +212,8 @@ const SeconForm = ({ step, nextStep }) => {
                             Either
                         </li>
                     </ul>
+                    </div>
+                    <div id="sec_wiz_2" className="sections sec_wiz_2">
                     <p className="title">Gender Preference</p>
                     <ul className="time_options">
                         <li
@@ -235,9 +238,11 @@ const SeconForm = ({ step, nextStep }) => {
                             Either
                         </li>
                     </ul>
+                    </div>
                 </>
             ) : (
                 <>
+                <div id="sec_wiz_2" className="sections sec_wiz_2">
                     <p className="title">Gender Preference</p>
                     <ul className="time_options">
                         <li
@@ -262,11 +267,14 @@ const SeconForm = ({ step, nextStep }) => {
                             Either
                         </li>
                     </ul>
+                    </div>
                 </>
             )}
-            <div className="gen_heading">
+            {/* <div className="gen_heading">
                 <h3>Select Duration</h3>
-            </div>
+            </div> */}
+            <div id="sec_wiz_2" className="sections sec_wiz_2">
+            <p className="title">Select Duration</p>
             <ul className="time_options">
                 <li
                     id="min_45"
@@ -290,33 +298,37 @@ const SeconForm = ({ step, nextStep }) => {
                     120 min
                 </li>
             </ul>
+            </div>
 
-            <div id="page_service_selects">
-                <p className="title">Select Service</p>
-                <div className="second_form_book_container">
-                    {
-                        user.filter((filter) => filter.category === "on demand").map((cur, index) => {
-                            return (
+            <div id="sec_wiz_2" className="sections sec_wiz_2">
+                <div id="page_service_selects">
+                    <p className="title">Select Service</p>
+                    <div className="second_form_book_container">
+                        {
+                            user.filter((filter) => filter.category === "on demand").map((cur, index) => {
+                                return (
 
-                                <div className={`second_form_book ${service_ids === `${cur._id}` ? "selected" : ""}`} key={index} onClick={() => handlePrice(cur.price)}  >
-                                    <div onClick={() => handleId(cur._id)} className="item" >
-                                        <PreviewImage attachments={cur.attachments} />
-                                        <div className="book-details" >
-                                            <h2 className="book-title">{cur.title}</h2>
-                                            <p className="book-description" dangerouslySetInnerHTML={{ __html: cur.description.slice(0, 50) }} />
-                                            <p className="book-price">Price: ${cur.price}</p>
+                                    <div className={`second_form_book ${service_ids === `${cur._id}` ? "selected" : ""}`} key={index} onClick={() => handlePrice(cur.price)}  >
+                                        <div onClick={() => handleId(cur._id)} className="item" >
+                                            <PreviewImage attachments={cur.attachments} />
+                                            <div className="book-details" >
+                                                <h2 className="book-title">{cur.title}</h2>
+                                                <p className="book-description" dangerouslySetInnerHTML={{ __html: cur.description.slice(0, 50) }} />
+                                                <p className="book-price">Price: ${cur.price}</p>
+                                            </div>
                                         </div>
+
                                     </div>
 
-                                </div>
+
+                                );
+                            })
+                        }
 
 
-                            );
-                        })
-                    }
-
-
+                    </div>
                 </div>
+            </div>
 
 
 
@@ -338,8 +350,7 @@ const SeconForm = ({ step, nextStep }) => {
 
 
 
-
-
+            <div id="sec_wiz_2" className="sections sec_wiz_2 addoList">
                 <p className="title">Popular addons to consider</p>
 
 
@@ -366,7 +377,8 @@ const SeconForm = ({ step, nextStep }) => {
                     }
 
 
-                </div>
+                
+            </div>
                 {
                     gendercheck === "guest" ? (
                         <p>Total Price(2 x {priceadon + priceservice}): ${totalPrice}</p>
@@ -376,9 +388,9 @@ const SeconForm = ({ step, nextStep }) => {
                 }
                 <div className="error-message">{errorMessage}</div>
                 <button className="button lazy" type="submit" onClick={handleSubmit}>next</button>
-
+                <center><a className='small' href='/'>&larr; Back to Home</a></center>
             </div>
-        </div >
+        </>
     );
 }
 

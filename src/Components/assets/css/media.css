@@ -463,6 +463,11 @@
         height: auto;
         width: 100%;
         padding-bottom: 60px;
+        background: #ffffff52;
+        backdrop-filter: blur(0px) !important;
+    }
+    #small_banner .head h1{
+        padding-top: 30px;
     }
 
 
@@ -719,7 +724,7 @@
     }
 
     #small_banner .button {
-        margin-top: 12px;
+        margin-top: 40px;
     }
 
     .member_form_wrap_bg {

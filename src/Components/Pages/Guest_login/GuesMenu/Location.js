@@ -149,9 +149,11 @@ function Location() {
                   Continue
                 </button>
               </div>
+              <a className='small' href='/'>&larr; Back to Home</a>
             </form>
           </div>
         </div>
+        
       </div>
     </>
   );

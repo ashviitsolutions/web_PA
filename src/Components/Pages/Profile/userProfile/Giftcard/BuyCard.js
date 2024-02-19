@@ -149,8 +149,8 @@ function BuyCard() {
 										</div>
 										<div className="content_container_gift_card_para">
 											<div className="d-block">
-												<p>Price: ${card.price}</p>
-												<p>Offer Value: ${card.offerValue}</p>
+												{/* <p>Price: ${card.price}</p> */}
+												<p>Card Value: ${card.offerValue}</p>
 											</div>
 											<StripeCheckout
 												amount={card.price * 100}
@@ -159,7 +159,7 @@ function BuyCard() {
 												stripeKey="pk_test_51MXmewLnVrUYOeK2PN2SexCsPAi8lsw8dIt7Pw04DUCsoCsv7a0VReRlGhbUuDOKYqbp1PEDWRWklwSvEsUD0NZ400sa7PXdfg"
 											>
 												<button
-													id="Buy_gift_card"
+													id="Buy_gift_card" className=""
 													onClick={(event) => {
 														event.preventDefault();
 														handleSubmit(card.price, card._id);

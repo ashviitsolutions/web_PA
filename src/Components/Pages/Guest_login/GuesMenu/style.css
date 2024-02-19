@@ -86,7 +86,7 @@
 	width: 60%;
 	margin: auto;
 	margin-top: 100px;
-	margin-bottom: 200px;
+	/* margin-bottom: 200px; */
 	background-color: #ffffffe3;
 	padding: 80px;
 	border-radius: 10px;
@@ -131,17 +131,16 @@
 	background: white;
 }
 
-#sec_wiz_2,
-.sec_wiz_2 {
-	width: 70%;
-	margin: auto;
-	margin-top: 60px;
-	height: auto;
-	margin-bottom: 150px;
-	background: #ffffffe3;
-	padding: 20px;
-	border-radius: 10px;
-	box-shadow: 2px 2px 15px -5px rgb(0 0 0 / 35%);
+#sec_wiz_2, .sec_wiz_2 {
+    width: 70%;
+    margin: auto;
+    margin-top: 30px;
+    height: auto;
+    /* margin-bottom: 30px; */
+    background: #ffffffe3;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 15px -5px rgb(0 0 0 / 35%);
 }
 
 .products .item_wrapper {
@@ -338,20 +337,22 @@
 	line-height: 1.5;
 }
 
-.sec_wiz_2 .title,
-#page_service_selects .title {
-	padding: 10px;
-	border-radius: 10px;
-	text-align: center;
-	border: solid 1px lightgray;
-	background: #2196f3;
-	box-shadow: 2px 2px 5px lightgray;
-	color: white;
+.sec_wiz_2 .title, #page_service_selects .title {
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    border: solid 2px #2196f3;
+    box-shadow: 2px 2px 5px lightgray;
+    color: #2196f3;
+    background: white;
 }
 
 .checkoutPage {
 	padding: 20px 0;
 	margin: 50px auto;
+}
+a {
+    text-decoration: none;
 }
 
 @media (max-width: 982px) {
@@ -395,7 +396,7 @@
 		width: 60%;
 		margin: auto;
 		margin-top: 100px;
-		margin-bottom: 200px;
+		/* margin-bottom: 200px; */
 		background-color: #ffffffe3;
 		padding: 80px;
 		border-radius: 10px;
@@ -433,13 +434,12 @@
 		top: 11px !important;
 	}
 
-	#sec_wiz_2,
-	.sec_wiz_2 {
+	#sec_wiz_2, .sec_wiz_2 {
 		width: 97%;
 		margin: auto;
-		margin-top: 60px !important;
+		margin-top: 20px !important;
 		height: auto;
-		margin-bottom: 150px;
+		margin-bottom: 20px;
 		background: #ffffffe3;
 		padding: 20px;
 		border-radius: 10px;
@@ -472,7 +472,7 @@
 		width: 97% !important;
 		margin: auto;
 		margin-top: 35px !important;
-		margin-bottom: 200px;
+		/* margin-bottom: 200px; */
 		background-color: #fff;
 		padding: 10px;
 		border-radius: 10px;

@@ -67,9 +67,10 @@ const FirstForm = ({ step, nextStep }) => {
                         </li>
                        
                     </ul>
-
+                    <a className='small' href='/'>&larr; Back to Home</a>
                 </div>
             </div>
+            
 
         </>
     )
