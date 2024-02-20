@@ -23,17 +23,18 @@ function Booking() {
 	const username = localStorage.getItem("user_name");
 	const [toggleStates, setToggleStates] = useState([]); // State for toggle states
 	const [isModalOpen, setModalOpen] = useState(false);
-	const [providerId, setProviderId] = useState("658c0477d46d859aa893a4da");
-
+	const [providerId, setProviderId] = useState();
 	useEffect(() => {
 		const fetchPosts = async () => {
 			try {
 				const response = await Hook.getPost();
-				setPosts(response.data);
-				setCount(response?.data?.length);
+				// Filter posts where service_status is completed
+				const filteredPosts = response.data.filter(booking => booking.service_status === "completed");
+				setPosts(filteredPosts);
+				setCount(filteredPosts.length);
 				setIsLoading(false);
 				// Initialize toggle state for each post to false
-				setToggleStates(new Array(response.data.length).fill(false));
+				setToggleStates(new Array(filteredPosts.length).fill(false));
 			} catch (error) {
 				console.error("Error fetching data:", error);
 				setIsLoading(false);
@@ -60,16 +61,20 @@ function Booking() {
 	};
 
 	const handleToggle = (index) => {
+		setModalOpen(true);
+		setProviderId(index)
 		// Create a copy of the toggleStates array and update the state for the clicked card
 		const newToggleStates = [...toggleStates];
 		newToggleStates[index] = !newToggleStates[index];
 		setToggleStates(newToggleStates);
 	};
 
+
+
 	const handleSubmitRating = () => {
-		// console.log("Booking ID:", providerId);
-		// console.log("User Rating:", userRating);
-		// console.log("User Feedback:", userFeedback);
+		console.log("Booking ID:", providerId);
+		console.log("User Rating:", userRating);
+		console.log("User Feedback:", userFeedback);
 		axios
 			.post(
 				`/user/addReviewToStore/${providerId}/${user_id} `,
@@ -83,16 +88,21 @@ function Booking() {
 			)
 			.then((res) => {
 				console.log(res);
-				toast.error(res.data.message, {
-					position: "top-right",
-					autoClose: 3000,
-					hideProgressBar: false,
-					closeOnClick: true,
-					pauseOnHover: true,
-					draggable: true,
-					progress: undefined,
-					theme: "light",
-				});
+
+				if (res.status == 200) {
+					setModalOpen(false);
+					toast.error(res.data.message, {
+						position: "top-right",
+						autoClose: 3000,
+						hideProgressBar: false,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: true,
+						progress: undefined,
+						theme: "light",
+					});
+				}
+
 			})
 			.catch((err) => {
 				console.log(err);
@@ -108,7 +118,7 @@ function Booking() {
 				});
 			});
 	};
-	// console.log("posts", posts);
+	console.log("posts", posts);
 	return (
 		<div className="overview" id="invoices">
 			<div className="overview_container">
@@ -128,11 +138,11 @@ function Booking() {
 							ariaLabel="falling-circles-loading"
 						/>
 					) : posts.length > 0 ? (
-						posts.filter((booking) => booking.service_status === "completed").map((booking, index) => (
+						posts.map((booking, index) => (
 							<div className="overview_card" key={index}>
 								<div
 									className="overview_input"
-								// onClick={() => handleToggle(index)}
+								
 								>
 									<div className="image_text">
 										<img src={image1} width={150} height={130} alt="..." />
@@ -145,16 +155,12 @@ function Booking() {
 									<div className="time_date">
 										<p>{booking.scheduled_date}</p>
 										<h3>{booking.scheduled_timing}</h3>
-										<button
-											onClick={() => {
-												// setProviderId(booking.provider_id);
-												setModalOpen(true);
-												// handleToggle(index)}
-											}}
-										>
-											{/* <FontAwesomeIcon icon={faDownload} />  */}
+
+
+										<button onClick={() => handleToggle(booking.provider)}>
 											Feedback
 										</button>
+
 									</div>
 								</div>
 								{toggleStates[index] && (
@@ -210,9 +216,7 @@ function Booking() {
 								value={userFeedback}
 								onChange={handleFeedbackChange}
 							/>
-							{/* <button onClick={() => handleSubmitRating(booking.id)}>
-									Submit
-								</button> */}
+
 
 							<button type="submit" onClick={() => handleSubmitRating()}>
 								Submit
@@ -221,27 +225,7 @@ function Booking() {
 					</div>
 				)}
 			</div>
-			<div className="pagination">
-				<ReactPaginate
-					pageCount={Math.ceil(count / itemsPerPage)}
-					pageRangeDisplayed={2}
-					marginPagesDisplayed={3}
-					previousLabel={"Previous"}
-					nextLabel={"Next"}
-					breakLabel={"..."}
-					onPageChange={handlePageClick}
-					containerClassName={"pagination justify-content-center py-3"}
-					pageClassName={"page-item"}
-					pageLinkClassName={"page-link"}
-					previousClassName={"page-item"}
-					previousLinkClassName={"page-link"}
-					nextClassName={"page-item"}
-					nextLinkClassName={"page-link"}
-					breakClassName={"page-item"}
-					breakLinkClassName={"page-link"}
-					activeClassName={"active"}
-				/>
-			</div>
+
 		</div>
 	);
 }

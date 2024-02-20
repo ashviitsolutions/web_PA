@@ -195,7 +195,7 @@ const Conform = () => {
                         onClose: () => {
                             nav(`/userProfile/payment/success/${paymentId}`);
                         },
-                       
+
                     });
                     setLoading(false)
                 } else {

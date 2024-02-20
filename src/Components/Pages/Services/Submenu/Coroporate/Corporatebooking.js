@@ -58,11 +58,11 @@ function Corporatebooking() {
             if (response.ok) {
                 const result = await response.json();
                 console.log(result);
-                toast.success("Logged in successfully", {
+                toast.success("Enquiry submitted successfully", {
                     position: "top-right",
-                    autoClose: 3000,
+                    autoClose: 2000,
                     onClose: () => {
-                        nav('/userProfile');
+                        nav('/services');
                     },
                 });
 
@@ -71,7 +71,7 @@ function Corporatebooking() {
                 console.error(errorResult);
                 toast.error("An error occurred. Please try again.", {
                     position: "top-right",
-                    autoClose: 3000,
+                    autoClose: 2000,
                 });
                 // Handle error response here
             }
@@ -215,10 +215,10 @@ function Corporatebooking() {
                                 onChange={(e) => setArrivalInstructions(e.target.value)}
                             />
                         </div>
-                        <p style={{textAlign:"center"}}>
-                        <button type="submit" className="button">
-                            Submit Inquiry
-                        </button>
+                        <p style={{ textAlign: "center" }}>
+                            <button type="submit" className="button">
+                                Submit Inquiry
+                            </button>
                         </p>
                     </form>
                 </div>
