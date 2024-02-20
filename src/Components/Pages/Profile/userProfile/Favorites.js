@@ -29,10 +29,12 @@ const Favorites = () => {
     };
 
     axios
-      .get(`/user/getfavrate/${user_id}`, config)
+      .get(`${IP}/user/getfavrate/${user_id}`, config)
       .then((response) => {
+
         if (response.status === 200) {
           const { data } = response.data;
+
           setFavorites(data);
           setCount(data.length);
           setLoading(false);
@@ -44,6 +46,7 @@ const Favorites = () => {
       });
   }, [currentPage]);
 
+  console.log("favorites", favorites)
   const handlePageClick = ({ selected }) => {
     setCurrentPage(selected + 1);
   };
@@ -51,6 +54,9 @@ const Favorites = () => {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = favorites.slice(indexOfFirstItem, indexOfLastItem);
+  console.log("favorites", favorites)
+
+
 
   return (
     <div className="container__view">
@@ -100,7 +106,7 @@ const Favorites = () => {
                 </span>
               </div>
               <p style={{ opacity: 0.7 }}>
-                Available Services - {cur.areas_of_expertise.on_demand}
+                Provider name - {cur.first_name} {cur.last_name}
               </p>
               <p>
                 {cur.mailing_address.address}, {cur.mailing_address.postal_code}
