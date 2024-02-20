@@ -208,6 +208,9 @@ const ThirdForm = ({ nextStep }) => {
             <button className="button lazy mt-5" type="button" onClick={handleSubmit}>
                 Continue
             </button>
+            <center>
+                <a className='small' href='/'>&larr; Back to Home</a>
+            </center>
         </div>
     );
 };

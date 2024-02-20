@@ -110,6 +110,10 @@ const FourForm = ({ nextStep }) => {
             Next
           </button>
         </div>
+        
+        <center>
+                <a className='small' href='/'>&larr; Back to Home</a>
+            </center>
       </div>
     </>
   );

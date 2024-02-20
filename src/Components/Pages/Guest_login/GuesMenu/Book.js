@@ -97,23 +97,10 @@ const Book = () => {
           <ProgressBar className="progressbarproviders mt-4" now={(activeTab) * 16.6666667} />
           {form}
 
-          <div className="buttonssss">
-
-
-            <p style={{
-              textAlign: 'center',
-              marginTop: '-100px',
-              fontSize: '14px',
-            }}>
-              <Link to="/" style={{
-                textDecoration: 'none',
-                color: 'black',
-                fontWeight: 'bold',
-              }}>&larr; Back to Home</Link>
-            </p>
-          </div>
+          
         </div>
       </div>
+      
     </>
   )
 }

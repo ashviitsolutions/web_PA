@@ -129,14 +129,14 @@ function Yourcard() {
         <>
             <div id='gift'>
                 <div className='overview_container'>
-                    <div className='gift_container'>
+                    <div className='gift_container row'>
                         {user.length === 0 ? (
                             <p>No gift cards available</p>
                         ) : (
                             user.map((cur, index) => (
-                                <div className='gift_input' key={index}>
+                                <div className='gift_input col-md-4' key={index}>
                                     <div className='gift_image'>
-                                        <img src={images[index]} width={380} height={166} alt='...' />
+                                        <img src={images[index]} alt='...' />
                                         <div className='gift_button'>
                                             <Link to="/select_location_type">
                                                 <button className='Use_button'>Use</button>
@@ -152,8 +152,8 @@ function Yourcard() {
                                             </div>
                                             <div className="content_container_gift_card_para">
                                                 <div className="d-block">
-                                                    <p>Price: ${cur?.offerId?.price}</p>
-                                                    <p>Offer Value: ${cur?.offerId?.offerValue}</p>
+                                                    {/* <p>Price: ${cur?.offerId?.price}</p> */}
+                                                    <p>Card Value: ${cur?.offerId?.offerValue}</p>
                                                 </div>
                                                 </div>
                                             </div>

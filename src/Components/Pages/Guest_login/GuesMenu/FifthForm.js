@@ -141,6 +141,10 @@ const FifthForm = ({ step, nextStep }) => {
           </button>
           <p style={{ float: "right" }}>Total Price: ${totalPrice}</p>
         </form>
+        
+        <center>
+                <a className='small' href='/'>&larr; Back to Home</a>
+            </center>
       </div>
       <ToastContainer />
     </>

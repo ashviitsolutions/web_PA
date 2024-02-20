@@ -87,7 +87,7 @@ function PrivateEvents() {
                                 </button>
                               )}
                               <Link to={`/services/corporate_events/booking/${user.title}`} className="anchor" id="anchors">
-                                book now
+                                <button className='button small cta'>Get Started</button>
                               </Link>
                             </div>
                           </div>

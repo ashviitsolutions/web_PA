@@ -461,12 +461,13 @@ ul#tabs_control li.active {
 }
 
 #gift .gift_container .gift_input .gift_button .Use_button {
-	padding: 0px 21px;
-	border: none;
-	border-radius: 20px;
-	background-color: #2196f3;
-	color: #ffff;
-	margin-right: 10px;
+    padding: 4px 21px;
+    border: none;
+    border-radius: 20px;
+    background-color: #2196f3;
+    color: #ffff;
+    margin-right: 10px;
+    font-size: 14px;
 }
 
 #gift .gift_container .gift_input .gift_button .Send_button {
