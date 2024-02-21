@@ -324,8 +324,9 @@
 }
 
 .book-title {
-	font-size: 16px;
-	margin-bottom: 10px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    word-wrap: break-word;
 }
 
 .book-price {
@@ -350,8 +351,8 @@
 }
 
 .checkoutPage {
-	padding: 20px 0;
-	margin: 50px auto;
+    padding: 10px 0;
+    margin: auto;
 }
 a {
     text-decoration: none;
@@ -367,6 +368,9 @@ a {
 		box-sizing: border-box;
 		/* Include padding and border in the total width */
 		cursor: pointer;
+	}
+	.book-title {
+		font-size: 12px;
 	}
 
 	.review_page {
@@ -407,7 +411,7 @@ a {
 
 	#employees .option li {
 		padding: 10px 15px !important;
-		padding-left: 60px !important;
+		padding-left: 35px !important;
 		height: 42px;
 		display: inline-block;
 		width: auto;
@@ -417,6 +421,7 @@ a {
 		transition: all 0.2s ease-in;
 		border: 1px solid #ccc;
 		border-radius: 25px;
+		min-width: 120px;
 	}
 
 	#employees .option li .icon {

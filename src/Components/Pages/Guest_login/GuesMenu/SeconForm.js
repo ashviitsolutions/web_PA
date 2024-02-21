@@ -319,7 +319,7 @@ const SeconForm = ({ step, nextStep }) => {
                                             <PreviewImage attachments={cur.attachments} />
                                             <div className="book-details" >
                                                 <h2 className="book-title">{cur.title}</h2>
-                                                <p className="book-description" dangerouslySetInnerHTML={{ __html: cur.description.slice(0, 50) }} />
+                                                {/* <p className="book-description" dangerouslySetInnerHTML={{ __html: cur.description.slice(0, 50) }} /> */}
                                                 <p className="book-price">Price: ${cur.price}</p>
                                             </div>
                                         </div>
@@ -370,7 +370,7 @@ const SeconForm = ({ step, nextStep }) => {
                                         <PreviewImage attachments={cur.attachments} />
                                         <div className="book-details">
                                             <h2 className="book-title">{cur.title}</h2>
-                                            <p className="book-description" dangerouslySetInnerHTML={{ __html: cur.description.slice(0, 50) }} />
+                                            {/* <p className="book-description" dangerouslySetInnerHTML={{ __html: cur.description.slice(0, 50) }} /> */}
                                             <p className="book-price">Price: ${cur.price}</p>
                                         </div>
                                     </div>

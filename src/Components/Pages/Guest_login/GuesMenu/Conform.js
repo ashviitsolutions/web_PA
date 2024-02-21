@@ -341,9 +341,8 @@ const Conform = () => {
                                     <span className="title">Booking Details</span>
                                     <span className="value">Couples/Partners Massage {service_time} - {massage_for}
                                     </span>
-                                    <span className="title">ArrivalInstructions : <small>{arrivalInstructions}</small> </span>
+                                    <span className="title">Arrival Instructions : <small>{arrivalInstructions}</small> </span>
                                     <span className="value">Booking Type: {location_type}</span>
-                                    <span className="title">ArrivalInstructions : <small>{arrivalInstructions}</small> </span>
                                 </li>
                                 <li>
                                     <div className="form-group row mb-3">
@@ -366,7 +365,7 @@ const Conform = () => {
                                                         <div className="form-group row justify-content-center mb-0">
                                                             <div className="col-md-12 px-3 mt-2">
                                                                 <input type="checkbox" id={`use-gift-card-${index}`} onChange={() => handleGiftCardChange(cur?.offerId?.offerValue)} />
-                                                                <label htmlFor={`use-gift-card-${index}`} className="ml-2">Use your ${cur?.offerId?.offerValue} gift card</label>
+                                                                <label htmlFor={`use-gift-card-${index}`} className="ml-2"> <span className='title'> Use your ${cur?.offerId?.offerValue} gift card</span></label>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -381,27 +380,33 @@ const Conform = () => {
 
                                     <div className="price" style={{ display: 'block', lineHeight: '10px' }}>
                                         <p className="prices" style={{ fontSize: '17px' }}>
+                                            <span className='value'>
                                             Amount: ${formData.secondform?.[0]?.totalPrice}
-                                        </p>
+                                        </span></p>
                                         <p className="prices" style={{ fontSize: '17px' }}>
+                                            <span className='value'>
                                             18% Tip: ${tip}
-                                        </p>
+                                        </span></p>
                                         <p className="prices" style={{ fontSize: '17px' }}>
+                                            <span className='value'>
                                             6.625% Taxes: ${tax.toFixed(2)}
-                                        </p>
+                                        </span></p>
                                         {membership === "Silver" && (
                                             <p className="prices" style={{ fontSize: '17px' }}>
+                                                <span className='value'>
                                                 5% Silver Membership Discount: ${(originalprice * 0.05).toFixed(2)}
-                                            </p>
+                                                
+                                            </span></p>
                                         )}
                                         {membership === "Gold" && (
                                             <p className="prices" style={{ fontSize: '17px' }}>
+                                                <span className='value'>
                                                 10% Gold Membership Discount: ${(originalprice * 0.10).toFixed(2)}
-                                            </p>
+                                            </span></p>
                                         )}
                                         <p className="prices" style={{ fontSize: '17px' }} >
-                                            Total: ${totalAmount.toFixed(2)}
-                                        </p>
+                                            <span className='value'>Total: ${totalAmount.toFixed(2)}
+                                        </span></p>
                                     </div>
 
                                 </li>
