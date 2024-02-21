@@ -99,8 +99,10 @@
 }
 
 #employees {
-	justify-content: center;
-	text-align: center;
+    justify-content: center;
+    text-align: center;
+    width: 100% !important;
+    padding: 40px;
 }
 
 #employees label {
