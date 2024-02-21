@@ -45,7 +45,15 @@ function Navbar() {
     return (
 
         <div id="navigation" {...(isActive ? { active: "" } : {})} >
-
+            {!showToggleButton && (
+                <div className="toggle_button" onClick={toggleLinks}>
+                    {isActive ? (
+                        <img src={menuimage} alt="Close" style={{ width: '50%' }} className={isUserProfilePath ? "toggleimage hidden_navbar" : "toggleimage"} />
+                    ) : (
+                        <img src={menucross} alt="Menu" style={{ width: '70%' }} className={isUserProfilePath ? "toggleimage hidden_navbar" : "toggleimage"} />
+                    )}
+                </div>
+            )}
 
             {showToggleButton && (
                 <div className="toggle_button" onClick={toggleLinks}>
