@@ -12,6 +12,7 @@ function Login() {
     const [toggle, setToggle] = useState(false);
     const [error, setError] = useState(false);
     const [email, setEmail] = useState('');
+    const [loading, setLoading] = useState(false);
     const [password, setPassword] = useState('');
     const loginguser = localStorage.getItem('token');
     const nav = useNavigate();
@@ -50,6 +51,7 @@ function Login() {
     });
 
     const onSubmit = async () => {
+        setLoading(true)
         const data = { email, password };
 
         try {
@@ -64,8 +66,9 @@ function Login() {
 
             const token = resp.headers.get('Authorization');
             const result = await resp.json();
-
+            setLoading(false)
             if (resp.status === 200) {
+                setLoading(false)
                 localStorage.setItem('users', JSON.stringify(result));
                 localStorage.setItem('userid', result?.user_info?._id);
                 localStorage.setItem('user_name', result?.user_info?.fullName);
@@ -88,7 +91,9 @@ function Login() {
                 });
 
             }
+
         } catch (error) {
+            setLoading(false)
             console.log('Error show', error);
             toast.error("An error occurred. Please try again.", {
                 position: "top-right",
@@ -196,7 +201,7 @@ function Login() {
 
                             <div className="input_group" style={{ textDecoration: 'none', paddingTop: '1px' }}>
                                 <button className="button" type="button" onClick={onSubmit}>
-                                    sign in
+                                  {loading ? "Loading..." : "sign in"}
                                 </button>
                                 <span>
                                     Don't have an account? <Link to="/sign_up" className="anchor">

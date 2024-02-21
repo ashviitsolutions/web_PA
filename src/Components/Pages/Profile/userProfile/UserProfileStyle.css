@@ -8,11 +8,13 @@
 	height: 100%;
 	align-items: center;
 	margin-bottom: 5%;
+	width: 100%;
 }
 
 .notification__view {
 	margin: 20px;
 	justify-self: center;
+	width: 60%;
 }
 
 .notification__item {

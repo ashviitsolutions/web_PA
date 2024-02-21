@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 
 function Booking() {
 	const token = localStorage.getItem("token");
-	const user_id = localStorage.getItem("user_id");
+	const user_id = localStorage.getItem("userid");
 	const [data, setData] = useState(1);
 	const [count, setCount] = useState(0);
 	const [posts, setPosts] = useState([]);
@@ -20,6 +20,7 @@ function Booking() {
 	const username = localStorage.getItem("user_name");
 	const [toggleStates, setToggleStates] = useState([]);
 	const [isModalOpen, setModalOpen] = useState(false);
+	const [profile, setProfile] = useState()
 	const [providerId, setProviderId] = useState();
 	const [booking_id, setBookingData] = useState(null); // State to store the current booking data
 
@@ -41,6 +42,34 @@ function Booking() {
 
 		fetchPosts();
 	}, [data]);
+
+
+
+
+
+	useEffect(() => {
+		const fetchPosts = async () => {
+			try {
+				const response = await Hook.getProfile();
+
+
+
+				setProfile(response.data.favorites);
+
+
+
+			} catch (error) {
+				console.error("Error fetching data:", error);
+				setIsLoading(false);
+			}
+		};
+
+		fetchPosts();
+	}, []);
+
+
+	console.log("profile page", profile)
+
 
 	console.log("posts", posts)
 
@@ -179,7 +208,15 @@ function Booking() {
 									<div className="time_date">
 										<p>{booking.scheduled_date}</p>
 										<h3>{booking.scheduled_timing}</h3>
-										<button onClick={() => addToFavorite(booking.provider)} style={{ cursor: "pointer" }}>Add to Favorites</button>
+										{
+											profile.some((providerid) => providerid === booking.provider) ? (
+												<div style={{ cursor: "pointer", fontSize: "30px" }}>❤️‍</div>
+
+											) : (
+												<button onClick={() => addToFavorite(booking.provider)} style={{ cursor: "pointer" }}>Add to Favorites</button>
+											)
+										}
+
 
 										{
 											!booking.ratings[0] ? <button onClick={() => handleToggle(booking)}>Feedback</button> : <Rating

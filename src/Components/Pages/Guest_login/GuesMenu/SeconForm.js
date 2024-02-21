@@ -187,86 +187,86 @@ const SeconForm = ({ step, nextStep }) => {
         <>
             {gendercheck === "guest" ? (
                 <>
-                <div id="sec_wiz_2" className="sections sec_wiz_2">
-                    <p className="title">Gender Preference</p>
-                    <ul className="time_options">
-                        <li
-                            id="g_male"
-                            className={`gender time_option ${selectedGender1 === "male" ? "selected" : ""}`}
-                            onClick={() => handleGenderSelect1("male")}
-                        >
-                            Male
-                        </li>
-                        <li
-                            id="g_female"
-                            className={`gender time_option ${selectedGender1 === "female" ? "selected" : ""}`}
-                            onClick={() => handleGenderSelect1("female")}
-                        >
-                            Female
-                        </li>
-                        <li
-                            id="g_either"
-                            className={`gender time_option ${selectedGender1 === "either" ? "selected" : ""}`}
-                            onClick={() => handleGenderSelect1("either")}
-                        >
-                            Either
-                        </li>
-                    </ul>
+                    <div id="sec_wiz_2" className="sections sec_wiz_2">
+                        <p className="title">Gender Preference</p>
+                        <ul className="time_options">
+                            <li
+                                id="g_male"
+                                className={`gender time_option ${selectedGender1 === "male" ? "selected" : ""}`}
+                                onClick={() => handleGenderSelect1("male")}
+                            >
+                                Male
+                            </li>
+                            <li
+                                id="g_female"
+                                className={`gender time_option ${selectedGender1 === "female" ? "selected" : ""}`}
+                                onClick={() => handleGenderSelect1("female")}
+                            >
+                                Female
+                            </li>
+                            <li
+                                id="g_either"
+                                className={`gender time_option ${selectedGender1 === "either" ? "selected" : ""}`}
+                                onClick={() => handleGenderSelect1("either")}
+                            >
+                                Either
+                            </li>
+                        </ul>
                     </div>
                     <div id="sec_wiz_2" className="sections sec_wiz_2">
-                    <p className="title">Gender Preference</p>
-                    <ul className="time_options">
-                        <li
-                            id="g_male"
-                            className={`gender time_option ${selectedGender2 === "male" ? "selected" : ""}`}
-                            onClick={() => handleGenderSelect2("male")}
-                        >
-                            Male
-                        </li>
-                        <li
-                            id="g_female"
-                            className={`gender time_option ${selectedGender2 === "female" ? "selected" : ""}`}
-                            onClick={() => handleGenderSelect2("female")}
-                        >
-                            Female
-                        </li>
-                        <li
-                            id="g_either"
-                            className={`gender time_option ${selectedGender2 === "either" ? "selected" : ""}`}
-                            onClick={() => handleGenderSelect2("either")}
-                        >
-                            Either
-                        </li>
-                    </ul>
+                        <p className="title">Gender Preference</p>
+                        <ul className="time_options">
+                            <li
+                                id="g_male"
+                                className={`gender time_option ${selectedGender2 === "male" ? "selected" : ""}`}
+                                onClick={() => handleGenderSelect2("male")}
+                            >
+                                Male
+                            </li>
+                            <li
+                                id="g_female"
+                                className={`gender time_option ${selectedGender2 === "female" ? "selected" : ""}`}
+                                onClick={() => handleGenderSelect2("female")}
+                            >
+                                Female
+                            </li>
+                            <li
+                                id="g_either"
+                                className={`gender time_option ${selectedGender2 === "either" ? "selected" : ""}`}
+                                onClick={() => handleGenderSelect2("either")}
+                            >
+                                Either
+                            </li>
+                        </ul>
                     </div>
                 </>
             ) : (
                 <>
-                <div id="sec_wiz_2" className="sections sec_wiz_2">
-                    <p className="title">Gender Preference</p>
-                    <ul className="time_options">
-                        <li
-                            id="g_male"
-                            className={`gender time_option ${selectedGender === "male" ? "selected" : ""}`}
-                            onClick={() => handleGenderSelect("male")}
-                        >
-                            Male
-                        </li>
-                        <li
-                            id="g_female"
-                            className={`gender time_option ${selectedGender === "female" ? "selected" : ""}`}
-                            onClick={() => handleGenderSelect("female")}
-                        >
-                            Female
-                        </li>
-                        <li
-                            id="g_either"
-                            className={`gender time_option ${selectedGender === "either" ? "selected" : ""}`}
-                            onClick={() => handleGenderSelect("either")}
-                        >
-                            Either
-                        </li>
-                    </ul>
+                    <div id="sec_wiz_2" className="sections sec_wiz_2">
+                        <p className="title">Gender Preference</p>
+                        <ul className="time_options">
+                            <li
+                                id="g_male"
+                                className={`gender time_option ${selectedGender === "male" ? "selected" : ""}`}
+                                onClick={() => handleGenderSelect("male")}
+                            >
+                                Male
+                            </li>
+                            <li
+                                id="g_female"
+                                className={`gender time_option ${selectedGender === "female" ? "selected" : ""}`}
+                                onClick={() => handleGenderSelect("female")}
+                            >
+                                Female
+                            </li>
+                            <li
+                                id="g_either"
+                                className={`gender time_option ${selectedGender === "either" ? "selected" : ""}`}
+                                onClick={() => handleGenderSelect("either")}
+                            >
+                                Either
+                            </li>
+                        </ul>
                     </div>
                 </>
             )}
@@ -274,31 +274,37 @@ const SeconForm = ({ step, nextStep }) => {
                 <h3>Select Duration</h3>
             </div> */}
             <div id="sec_wiz_2" className="sections sec_wiz_2">
-            <p className="title">Select Duration</p>
-            <ul className="time_options">
-                <li
-                    id="min_45"
-                    className={`time_option ${selectedServiceTime === "60min" ? "selected" : ""}`}
-                    onClick={() => handleServiceTimeSelect("60min")}
-                >
-                    60 min
-                </li>
-                <li
-                    id="min_60"
-                    className={`time_option ${selectedServiceTime === "90min" ? "selected" : ""}`}
-                    onClick={() => handleServiceTimeSelect("90min")}
-                >
-                    90 min
-                </li>
-                <li
-                    id="min_90"
-                    className={`time_option ${selectedServiceTime === "120min" ? "selected" : ""}`}
-                    onClick={() => handleServiceTimeSelect("120min")}
-                >
-                    120 min
-                </li>
-            </ul>
+                <p className="title">Select Duration</p>
+                <ul className="time_options">
+                    <li
+                        id="min_45"
+                        className={`time_option ${selectedServiceTime === "60min" ? "selected" : ""}`}
+                        onClick={() => handleServiceTimeSelect("60min")}
+                    >
+                        60 min
+                    </li>
+                    <li
+                        id="min_60"
+                        className={`time_option ${selectedServiceTime === "90min" ? "selected" : ""}`}
+                        onClick={() => handleServiceTimeSelect("90min")}
+                    >
+                        90 min
+                    </li>
+                    <li
+                        id="min_90"
+                        className={`time_option ${selectedServiceTime === "120min" ? "selected" : ""}`}
+                        onClick={() => handleServiceTimeSelect("120min")}
+                    >
+                        120 min
+                    </li>
+                </ul>
             </div>
+
+
+
+
+
+
 
             <div id="sec_wiz_2" className="sections sec_wiz_2">
                 <div id="page_service_selects">
@@ -377,8 +383,8 @@ const SeconForm = ({ step, nextStep }) => {
                     }
 
 
-                
-            </div>
+
+                </div>
                 {
                     gendercheck === "guest" ? (
                         <p>Total Price(2 x {priceadon + priceservice}): ${totalPrice}</p>

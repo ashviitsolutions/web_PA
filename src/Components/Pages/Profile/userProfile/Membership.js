@@ -138,7 +138,7 @@ function Membership() {
 
 				console.log("membership", data);
 				setMembershipLevel(data.membershipType);
-				localStorage.setItem("membership" ,data.membershipType)
+				localStorage.setItem("membership", data.membershipType)
 				setStatus(data.status)
 
 				const daysToAdd = data.renewalDays;
@@ -201,28 +201,16 @@ function Membership() {
 
 
 							<div className="membership_buttons">
-								{membershipLevel == "Gold" && index == 1 ? (
-									<p>
-										Valid till {moment(option.renewalDays).format("MMM Do YYYY")}
-									</p>
-								) : membershipLevel == "Silver" && index == 0 ? (
-									<p>
-										Valid till {moment(option.renewalDays).format("MMM Do YYYY")}
-									</p>
-								) : (
-
-									<button disabled={status === 'active'} onClick={() => handleToggleModal(index)}>
+								{membershipLevel === "Gold" && index === 1 ? (
+									<p>Valid till {moment(option.renewalDays).format("MMM Do YYYY")}</p>
+								) : membershipLevel === "Silver" && index === 0 ? (
+									<p>Valid till {moment(option.renewalDays).format("MMM Do YYYY")}</p>
+								) : status !== "active" && (
+									<button onClick={() => handleToggleModal(index)}>
 										Join now
 									</button>
-
 								)}
 							</div>
-
-
-
-
-
-
 
 							{showModal[index] && (
 								<div className="model_card_gift_container">

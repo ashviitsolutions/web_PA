@@ -15,7 +15,7 @@ function Login() {
     const nav = useNavigate()
 
     const [showPassword, setShowPassword] = useState(false);
-
+    const [loading, setLoading] = useState(false);
     const handleTogglePassword = () => {
         setShowPassword(!showPassword);
     };
@@ -55,7 +55,7 @@ function Login() {
 
     const onSubmit = async (values, { resetForm }) => {
         console.log(values);
-
+        setLoading(true)
         try {
             const data = {
                 first_name: values.first_name,
@@ -73,8 +73,10 @@ function Login() {
             });
 
             console.log(res);
+            setLoading(false)
 
             if (res.status === 200) {
+                setLoading(false)
                 resetForm({ values: "" });
                 // Show success notification and navigate to '/login'
                 toast.success("Registration successful!", {
@@ -93,6 +95,7 @@ function Login() {
             }
 
         } catch (error) {
+            setLoading(false)
             console.error(error);
             toast.error("email or mobile number already used", {
                 position: "top-right",
@@ -215,7 +218,7 @@ function Login() {
 
 
                                     <div className="input_group" style={{ textDecoration: "none", marginTop: "-10px" }}>
-                                        <button type="submit" className="button">sign Up</button>
+                                        <button type="submit" className="button"> {loading ? "Loading..." : "sign Up "}</button>
                                         <span>already have an account? <Link to="/login" className="anchor">Sign In</Link> </span>
 
 

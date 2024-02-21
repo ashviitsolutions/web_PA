@@ -11,7 +11,7 @@ import ReactPaginate from "react-paginate";
 const Favorites = () => {
   const token = localStorage.getItem("token");
   const username = localStorage.getItem("user_name");
-  const user_id = localStorage.getItem("user_id");
+  const user_id = localStorage.getItem("userid");
   const [loading, setLoading] = useState(false);
   const [favorites, setFavorites] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);

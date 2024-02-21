@@ -20,6 +20,9 @@ const Conform = () => {
     const nav = useNavigate();
 
     const formData = useSelector((state) => state.counter.formData);
+    console.log("formData", formData)
+    console.log("formData", formData?.fifthform[0]?.name || "")
+    const customer_user = formData?.fifthform[0]?.name || ""
     const addressUser = formData.locationForm?.[0]?.address || "";
     // Check if the necessary form data exists before accessing its properties    
     const addon_id = formData.addon_id && formData.addon_id[0] ? formData.addon_id[0] : "";
@@ -62,6 +65,7 @@ const Conform = () => {
     const [giftCardAmount, setGiftCardAmount] = useState(0);
     const [user, setUser] = useState([]);
     const [membership, setMembershipLevel] = useState();
+    const [originalprice, setOriginalprice] = useState()
 
     let mebershiplevel = localStorage.getItem("membership")
 
@@ -100,25 +104,41 @@ const Conform = () => {
 
 
     useEffect(() => {
+        // Define default values for tip and tax rate
         const tip = 31.5;
         const taxRate = 0.06625;
+        // Initialize membership discount rate
         let membershipDiscountRate = 0;
 
-        if (membership == "Silver") {
-            // If silver membership is selected, apply 5% discounts
+        // Check if membership is Silver or Gold
+        if (membership === "Silver") {
+            // If Silver membership is selected, apply a 5% discount
             membershipDiscountRate = 0.05;
-        } else if (membership == "Gold") {
-            // If golden membership is selected, apply 10% discount
+        } else if (membership === "Gold") {
+            // If Gold membership is selected, apply a 10% discount
             membershipDiscountRate = 0.10;
         }
 
+        // Calculate tax amount
         const calculatedTax = (totalPrice * 100 * taxRate) / 100;
-        const totalAmount = (totalPrice * 1 + tip + calculatedTax) * (1 - membershipDiscountRate);
+        // Calculate total amount without membership discount
+        const totalAmountWithoutDiscount = totalPrice * 1 + tip + calculatedTax;
+        // Calculate total amount after applying membership discount
+        const totalAmount = totalAmountWithoutDiscount * (1 - membershipDiscountRate);
 
+        // Update state variables
         setTax(calculatedTax);
         setTip(tip);
         setTotalAmount(totalAmount);
+        setOriginalprice(totalAmountWithoutDiscount)
     }, [totalPrice, membership, formData.fifthform]);
+
+
+
+
+
+
+
 
 
 
@@ -177,7 +197,7 @@ const Conform = () => {
                     scheduled_timing: scheduled_timing,
                     address: address,
 
-                    instructions: "bring material",
+                    instructions: arrivalInstructions,
                     add_ons: addon_id,
 
 
@@ -295,19 +315,35 @@ const Conform = () => {
                                 Review
                             </label>
                             <ul className="review d-block">
-                                <li>
-                                    <span className="title">Date</span>
-                                    <span className="value">{formData.fourthform?.[0]?.date}</span>
-                                </li>
+                                <div>
+                                    <li>
+                                        <span className="title">Date</span>
+                                        <span className="value">{formData.fourthform?.[0]?.date}</span>
+                                    </li>
+                                    <li>
+                                        <span className="title">Time</span>
+                                        <span className="value">{formData.fourthform?.[0]?.time}</span>
+                                    </li>
+                                    <li>
+                                        <span className="title">Service Time</span>
+                                        <span className="value">{service_time}</span>
+                                    </li>
+                                </div>
+
                                 <li>
                                     <span className="title">Personal Details</span>
-                                    <span className="value">{addressUser}</span>
+                                    <spam className="value">Full Name : {customer_user}</spam>
+                                    <span className="value">Address : {addressUser}</span>
+                                    <span className="value">Gender : {gender}</span>
                                 </li>
                                 <li>
 
-                                    <span className="title">Massage Pressure</span>
-                                    <span className="value">{formData.thirdform?.[0]?.massage_pressure}</span>
-                                    <span className="title">service time: <small>{formData.secondform?.[0]?.service_time}</small> </span>
+                                    <span className="title">Booking Details</span>
+                                    <span className="value">Couples/Partners Massage {service_time} - {massage_for}
+                                    </span>
+                                    <span className="title">ArrivalInstructions : <small>{arrivalInstructions}</small> </span>
+                                    <span className="value">Booking Type: {location_type}</span>
+                                    <span className="title">ArrivalInstructions : <small>{arrivalInstructions}</small> </span>
                                 </li>
                                 <li>
                                     <div className="form-group row mb-3">
@@ -318,21 +354,29 @@ const Conform = () => {
                                             <button type="submit" className="button" >Apply!</button>
                                         </div>
                                     </div>
-                                    <span className="title">Choose Gift Card:</span>
 
-                                    {
-                                        user.map((cur, index) => (
-                                            <div className="gift-card-section" key={index}>
-                                                <label htmlFor={`use-gift-card-${index}`} className="ml-2"></label>
-                                                <div className="form-group row justify-content-center mb-0">
-                                                    <div className="col-md-12 px-3 mt-2">
-                                                        <input type="checkbox" id={`use-gift-card-${index}`} onChange={() => handleGiftCardChange(cur?.offerId?.offerValue)} />
-                                                        <label htmlFor={`use-gift-card-${index}`} className="ml-2">Use your ${cur?.offerId?.offerValue} gift card</label>
+                                    
+                                    <div>
+                                        {user.length > 0 ? (
+                                            <>
+                                                <span className="title">Choose Gift Card:</span>
+                                                {user.map((cur, index) => (
+                                                    <div className="gift-card-section" key={index}>
+                                                        <label htmlFor={`use-gift-card-${index}`} className="ml-2"></label>
+                                                        <div className="form-group row justify-content-center mb-0">
+                                                            <div className="col-md-12 px-3 mt-2">
+                                                                <input type="checkbox" id={`use-gift-card-${index}`} onChange={() => handleGiftCardChange(cur?.offerId?.offerValue)} />
+                                                                <label htmlFor={`use-gift-card-${index}`} className="ml-2">Use your ${cur?.offerId?.offerValue} gift card</label>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        ))
-                                    }
+                                                ))}
+                                            </>
+                                        ) : (
+                                            <span className="title">Gift Card not purchased</span>
+                                        )}
+                                    </div>
+
 
 
                                     <div className="price" style={{ display: 'block', lineHeight: '10px' }}>
@@ -345,10 +389,21 @@ const Conform = () => {
                                         <p className="prices" style={{ fontSize: '17px' }}>
                                             6.625% Taxes: ${tax.toFixed(2)}
                                         </p>
+                                        {membership === "Silver" && (
+                                            <p className="prices" style={{ fontSize: '17px' }}>
+                                                5% Silver Membership Discount: ${(originalprice * 0.05).toFixed(2)}
+                                            </p>
+                                        )}
+                                        {membership === "Gold" && (
+                                            <p className="prices" style={{ fontSize: '17px' }}>
+                                                10% Gold Membership Discount: ${(originalprice * 0.10).toFixed(2)}
+                                            </p>
+                                        )}
                                         <p className="prices" style={{ fontSize: '17px' }} >
                                             Total: ${totalAmount.toFixed(2)}
                                         </p>
                                     </div>
+
                                 </li>
                             </ul>
 

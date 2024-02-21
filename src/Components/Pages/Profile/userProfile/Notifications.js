@@ -28,8 +28,6 @@ const Notifications = () => {
       .get(`${IP}/get-all-notifications/${user_id}`, config)
       .then((res) => {
         console.log(res.data);
-
-        console.log("notification data", res)
         setNotifications(res.data);
         setLoading(false);
       })
@@ -68,17 +66,18 @@ const Notifications = () => {
             <div className="notification__item" key={n._id}>
               <div className="notification__titleView">
                 <h3>{n.title}</h3>
-                <h4>{moment(n.createdAt).format("LT")}</h4>
+                <h4>{moment(n.createdAt).format("MMMM Do YYYY, LT")}</h4>
               </div>
               <p>{n.content}</p>
               {n.bookedDate && n.bookedTime && (
                 <>
-                  <p>Booked Date: {n.bookedDate}</p>
-                  <p>Booked Time: {n.bookedTime}</p>
+                  <div className="d-flex" style={{ justifyContent: "space-between" }}>
+                    <p>Booked Date: {n.bookedTime}</p>
+                    <p>Booked Time: {n.bookedDate}</p>
+                  </div>
+
                 </>
               )}
-
-
             </div>
           ))
         ) : (
