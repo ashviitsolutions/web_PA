@@ -23,6 +23,7 @@ function Booking() {
 	const [providerId, setProviderId] = useState();
 	const [booking_id, setBookingData] = useState(null); // State to store the current booking data
 
+
 	useEffect(() => {
 		const fetchPosts = async () => {
 			try {

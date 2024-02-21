@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { IP } from '../../../../Constant';
@@ -22,10 +21,6 @@ const Conform = () => {
 
     const formData = useSelector((state) => state.counter.formData);
     const addressUser = formData.locationForm?.[0]?.address || "";
-
-
-    console.log("most of the data", totalPrice)
-
     // Check if the necessary form data exists before accessing its properties    
     const addon_id = formData.addon_id && formData.addon_id[0] ? formData.addon_id[0] : "";
     const location = formData.locationForm && formData.locationForm[0] ? formData.locationForm[0] : null;
@@ -56,85 +51,64 @@ const Conform = () => {
     const confirmpassword = formData.fifthform?.[0]?.confirmpassword || "";
     const password = formData.fifthform?.[0]?.password || "";
 
-    console.log("email dispatch", totalPrice, email, address, arrivalInstructions, confirmpassword, password)
-
+    const [selectedGiftCards, setSelectedGiftCards] = useState([]);
     const [paymentIntentId, setPaymentIntentId] = useState('');
     const [client_secret, setClientSecret] = useState();
     const [loading, setLoading] = useState(false);
-
-    // const [clientSecret, setClientSecret] = useState(null);
     const [totalAmount, setTotalAmount] = useState(0);
     const [tax, setTax] = useState(0);
     const [tip, setTip] = useState(0);
     const [error, setError] = useState(false);
+    const [giftCardAmount, setGiftCardAmount] = useState(0);
 
     useEffect(() => {
         const tip = 31.5;
         const taxRate = 0.06625;
         const calculatedTax = (totalPrice * 100 * taxRate) / 100;
-        const totalAmount = (totalPrice * 100 + tip * 100 + calculatedTax * 100) / 100;
-        const totalAmountInteger = Math.floor(totalAmount);
+        const totalAmount = totalPrice * 1 + tip + calculatedTax;
         setTax(calculatedTax);
         setTip(tip);
-        setTotalAmount(totalAmountInteger);
+        setTotalAmount(totalAmount);
     }, [totalPrice]);
 
+    const handleGiftCardChange = (amount) => {
+        // Calculate the total gift card amount including the new amount
+        const updatedSelectedGiftCards = [...selectedGiftCards];
+        const index = updatedSelectedGiftCards.indexOf(amount);
+        if (index === -1) {
+            // If the amount is not already selected, add it to the list
+            updatedSelectedGiftCards.push(amount);
+        } else {
+            // If the amount is already selected, remove it from the list
+            updatedSelectedGiftCards.splice(index, 1);
+        }
 
+        // Calculate the total gift card amount based on selected gift cards
+        const updatedGiftCardAmount = updatedSelectedGiftCards.reduce((acc, curr) => acc + curr, 0);
 
-
-    // const makePayment = async () => {
-    //     try {
-    //         const response = await axios.post(`${IP}/create-payment-intent`, {
-    //             amount: totalAmount, // Assuming the amount is in cents (i.e., $10.00)
-    //             returnUrl: 'http://localhost:3000/userProfile/payment/success/:paymentId'
-    //         });
-    //         setPaymentIntentId(response?.data?.paymentIntent?.id);
-    //         setClientSecret(response.data.client_secret)
-    //         console.log("data of paymemnt", response?.data?.paymentIntent?.id)
-    //         console.log("data of paymemnts", response?.data?.paymentIntent?.client_secret)
-    //     } catch (error) {
-    //         console.error('Error creating payment intent:', error);
-    //     }
-    // };
-
-
-    // Add totalAmount as a 
-
+        // Update the state with new selected gift cards and total gift card amount
+        setSelectedGiftCards(updatedSelectedGiftCards);
+        setGiftCardAmount(updatedGiftCardAmount);
+    };
 
     const makePayment = async () => {
         try {
             const response = await axios.post(`${IP}/create-payment-intent`, {
-                amount: totalAmount, // Assuming the amount is in cents (i.e., $10.00)
+                amount: totalAmount - giftCardAmount,
                 returnUrl: 'http://productivealliance.com/userProfile/payment/success/:paymentId'
             });
             setPaymentIntentId(response?.data?.paymentIntent?.id);
-            setClientSecret(response.data.client_secret) // Accessing client_secret from paymentIntent object
-            // console.log("data of payment", response?.data?.paymentIntent?.id);
-            // console.log("data of payment client_secret", response?.data?.paymentIntent?.client_secret);
+            setClientSecret(response.data.client_secret);
         } catch (error) {
             console.error('Error creating payment intent:', error);
         }
     };
 
-
-
-
-
-
     useEffect(() => {
         if (totalAmount) {
-            makePayment()
+            makePayment();
         }
-
-    }, [totalAmount])
-
-    console.log("clientSecret", client_secret);
-
-
-
-
-
-
+    }, [totalAmount, giftCardAmount]);
 
     const onSubmit = async (token) => {
         if (token) {
@@ -237,12 +211,43 @@ const Conform = () => {
                                     <span className="value">{addressUser}</span>
                                 </li>
                                 <li>
+
                                     <span className="title">Massage Pressure</span>
                                     <span className="value">{formData.thirdform?.[0]?.massage_pressure}</span>
+                                    <span className="title">service time: <small>{formData.secondform?.[0]?.service_time}</small> </span>
                                 </li>
                                 <li>
-                                    <span className="title">Appointments</span>
-                                    <span className="value"> <small>{formData.secondform?.[0]?.service_time}</small> </span>
+                                    <div className="form-group row mb-3">
+                                        <div className="col-4 mb-0 px-0 pr-2">
+                                            <input id="e-mail" type="text" placeholder="Apply membership" className="form-control input-box rm-border text-left" />
+                                        </div>
+                                        <div className="col-4 px-0">
+                                            <button type="submit" className="button" >Apply!</button>
+                                        </div>
+                                    </div>
+                                    <span className="title">Choose Gift Card:</span>
+                                    <div className="gift-card-section">
+                                        <label htmlFor="use-gift-card" className="ml-2"></label>
+                                        <div className="form-group row justify-content-center mb-0">
+                                            <div className="col-md-12 px-3 mt-2">
+                                                <input type="checkbox" id="use-gift-card-1" onChange={() => handleGiftCardChange(135)} />
+                                                <label htmlFor="use-gift-card-1" className="ml-2">Use your $135 gift card</label>
+                                            </div>
+                                        </div>
+                                        <div className="form-group row justify-content-center mb-0">
+                                            <div className="col-md-12 px-3 mt-2">
+                                                <input type="checkbox" id="use-gift-card-2" onChange={() => handleGiftCardChange(270)} />
+                                                <label htmlFor="use-gift-card-2" className="ml-2">Use your $270 gift card</label>
+                                            </div>
+                                        </div>
+                                        <div className="form-group row justify-content-center mb-0">
+                                            <div className="col-md-12 px-3 mt-2">
+                                                <input type="checkbox" id="use-gift-card-3" onChange={() => handleGiftCardChange(300)} />
+                                                <label htmlFor="use-gift-card-3" className="ml-2">Use your $300 gift card</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div className="price" style={{ display: 'block', lineHeight: '10px' }}>
                                         <p className="prices" style={{ fontSize: '17px' }}>
                                             Amount: ${formData.secondform?.[0]?.totalPrice}
@@ -259,19 +264,18 @@ const Conform = () => {
                                     </div>
                                 </li>
                             </ul>
+
                             <StripeCheckout
-                                amount={totalAmount * 100}
-                                token={onSubmit} // Pass onSubmit as a callback to the token prop
+                                amount={(totalAmount - giftCardAmount) * 100}
+                                token={onSubmit}
                                 client_secret={client_secret}
                                 currency="USD"
                                 stripeKey="pk_test_51MXmewLnVrUYOeK2PN2SexCsPAi8lsw8dIt7Pw04DUCsoCsv7a0VReRlGhbUuDOKYqbp1PEDWRWklwSvEsUD0NZ400sa7PXdfg"
                             >
                                 <div style={{ textAlign: 'center' }}>
-
-                                    <button className="button"> Proceed to Pay ${totalAmount}</button>
+                                    <button className="button"> Proceed to Pay ${(totalAmount - giftCardAmount).toFixed(2)}</button>
                                 </div>
                             </StripeCheckout>
-
                         </div>
                     </div>
                 </div>
@@ -282,4 +286,3 @@ const Conform = () => {
 };
 
 export default Conform;
-
