@@ -16,7 +16,7 @@ import { ToastContainer, toast } from "react-toastify";
 function Overview() {
 	const username = localStorage.getItem("user_name");
 	const token = localStorage.getItem("token");
-	const user_id = localStorage.getItem("user_id");
+	const user_id = localStorage.getItem("userid");
 	const [membershipLevel, setMembershipLevel] = useState("silver");
 	const [membership, setMembership] = useState(null);
 	const [name, setName] = useState("");

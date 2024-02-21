@@ -7,8 +7,10 @@ import { FallingLines } from "react-loader-spinner";
 import { IP } from "../../../../Constant";
 import axios from "../../../../axios";
 import { toast } from "react-toastify";
+import { useNavigate } from 'react-router-dom';
 
 function Booking() {
+	const nav = useNavigate()
 	const token = localStorage.getItem("token");
 	const user_id = localStorage.getItem("userid");
 	const [data, setData] = useState(1);
@@ -23,7 +25,7 @@ function Booking() {
 	const [profile, setProfile] = useState()
 	const [providerId, setProviderId] = useState();
 	const [booking_id, setBookingData] = useState(null); // State to store the current booking data
-
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		const fetchPosts = async () => {
@@ -98,8 +100,8 @@ function Booking() {
 
 	const handleSubmitRating = () => {
 
-
-		console.log("booking_id", booking_id)
+		setLoading(true)
+		// console.log("booking_id", booking_id)
 		axios
 			.post(`${IP}/user/addReviewToStore/${providerId}/${user_id}`, {
 				reviewerName: username,
@@ -110,6 +112,7 @@ function Booking() {
 			.then((res) => {
 				if (res.status === 200) {
 					setModalOpen(false);
+					setLoading(false)
 					toast.success("Your Review Successfully", {
 						position: "top-right",
 						autoClose: 2000,
@@ -119,6 +122,9 @@ function Booking() {
 						draggable: true,
 						progress: undefined,
 						theme: "light",
+						onClose: () => {
+							nav("/userProfile")
+						},
 					});
 				}
 			})
@@ -155,13 +161,16 @@ function Booking() {
 				console.log(res);
 				toast.success(res.data.message, {
 					position: "top-right",
-					autoClose: 3000,
+					autoClose: 2000,
 					hideProgressBar: false,
 					closeOnClick: true,
 					pauseOnHover: true,
 					draggable: true,
 					progress: undefined,
 					theme: "light",
+					onClose: () => {
+						nav("/userProfile")
+					},
 				});
 			})
 			.catch((err) => {
@@ -257,7 +266,7 @@ function Booking() {
 								onChange={handleFeedbackChange}
 							/>
 							<button type="submit" onClick={handleSubmitRating}>
-								Submit
+								{loading ? "Loading..." : "Submit"}
 							</button>
 						</div>
 					</div>
