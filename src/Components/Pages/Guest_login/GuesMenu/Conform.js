@@ -339,7 +339,7 @@ const Conform = () => {
                                 <li>
 
                                     <span className="title">Booking Details</span>
-                                    <span className="value">Couples/Partners Massage {service_time} - {massage_for}
+                                    <span className="value">{formData.servicename[0] || ""} {service_time} - {massage_for}
                                     </span>
                                     <span className="title">Arrival Instructions : <small>{arrivalInstructions}</small> </span>
                                     <span className="value">Booking Type: {location_type}</span>

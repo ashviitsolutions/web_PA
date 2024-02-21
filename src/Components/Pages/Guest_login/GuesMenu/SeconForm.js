@@ -34,6 +34,7 @@ const SeconForm = ({ step, nextStep }) => {
     const [formData, setFormData] = useState();
     const [genderPreferences, setGenderPreferences] = useState([]);
     const [errorMessage, setErrorMessage] = useState("");
+    const [servicename,setServicename]=useState()
 
 
 
@@ -130,8 +131,10 @@ const SeconForm = ({ step, nextStep }) => {
         setFormData({ ...formData, service_ids: id });
     };
 
-    const handlePrice = (price) => {
-        setPriceadon(price);
+    const handlePrice = (data) => {
+        console.log("servce proce",data.title)
+        setPriceadon(data.price);
+        setServicename(data.title);
     };
 
     const handleSelectItem = (itemId) => {
@@ -173,11 +176,12 @@ const SeconForm = ({ step, nextStep }) => {
             setErrorMessage("Please select a Gender , Service and Time before proceeding.");
             return;
         }
-        // Clear any previous error message
+        // Clear any previous error message  
         setErrorMessage("");
 
         dispatch(updateInputData({ formName: 'secondform', inputData: formData }));
         dispatch(updateInputData({ formName: 'addon_id', inputData: selectedItems }));
+        dispatch(updateInputData({ formName: 'servicename', inputData: servicename }));
         setTimeout(() => {
             nextStep();
         }, 2000);
@@ -314,7 +318,7 @@ const SeconForm = ({ step, nextStep }) => {
                             user.filter((filter) => filter.category === "on demand").map((cur, index) => {
                                 return (
 
-                                    <div className={`second_form_book ${service_ids === `${cur._id}` ? "selected" : ""}`} key={index} onClick={() => handlePrice(cur.price)}  >
+                                    <div className={`second_form_book ${service_ids === `${cur._id}` ? "selected" : ""}`} key={index} onClick={() => handlePrice(cur)}  >
                                         <div onClick={() => handleId(cur._id)} className="item" >
                                             <PreviewImage attachments={cur.attachments} />
                                             <div className="book-details" >
