@@ -345,7 +345,7 @@ const Conform = () => {
                                         <p className="prices" style={{ fontSize: '17px' }}>
                                             6.625% Taxes: ${tax.toFixed(2)}
                                         </p>
-                                        <p className="prices" style={{ fontSize: '17px' }} onClick={onSubmit}>
+                                        <p className="prices" style={{ fontSize: '17px' }} >
                                             Total: ${totalAmount.toFixed(2)}
                                         </p>
                                     </div>
