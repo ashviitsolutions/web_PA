@@ -467,7 +467,14 @@ a {
 		border-radius: 10px;
 		box-shadow: 2px 2px 15px -5px rgb(0 0 0 / 35%);
 	} */
-
+	.booking_tabs {
+		display: block !important;
+	}
+	
+	.booking_tabs li {
+		width: 100px !important;
+	}
+	.centerFlex img{width: 100%;}
 	.section {
 		width: 97% !important;
 		margin: auto;

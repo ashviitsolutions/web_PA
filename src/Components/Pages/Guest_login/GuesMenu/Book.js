@@ -64,7 +64,7 @@ const Book = () => {
   return (
     <>
       <div className="full_wrapper">
-        <div className="sidebar_tabs">
+        <div className="sidebar_tabs booking_tabs">
           <div className="container">
             <div className="row">
               <ul id="tabs_control">
