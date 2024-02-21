@@ -243,7 +243,7 @@ function Booking() {
 							<span className="close" onClick={() => setModalOpen(false)}>
 								&times;
 							</span>
-							<h3>Rate your experience abc</h3>
+							<h3>Rate your experience</h3>
 							<Rating
 								value={userRating}
 								count={5}
