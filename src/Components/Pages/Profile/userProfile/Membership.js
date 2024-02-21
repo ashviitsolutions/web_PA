@@ -138,6 +138,7 @@ function Membership() {
 
 				console.log("membership", data);
 				setMembershipLevel(data.membershipType);
+				localStorage.setItem("membership" ,data.membershipType)
 				setStatus(data.status)
 
 				const daysToAdd = data.renewalDays;

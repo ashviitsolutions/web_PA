@@ -60,36 +60,67 @@ const Conform = () => {
     const [tip, setTip] = useState(0);
     const [error, setError] = useState(false);
     const [giftCardAmount, setGiftCardAmount] = useState(0);
+    const [user, setUser] = useState([]);
+    const [membership, setMembershipLevel] = useState();
+
+    let mebershiplevel = localStorage.getItem("membership")
+
+    // membership
+
+    useEffect(() => {
+        const getUserMembership = async () => {
+            const token = localStorage.getItem("token");
+
+            try {
+                const response = await fetch(`${IP}/user/membership-details`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': token,
+                    },
+                });
+
+
+                const data = await response.json();
+
+
+                setMembershipLevel(data.membershipType);
+
+
+
+
+            } catch (error) {
+                console.error("Error:", error);
+            }
+        };
+
+        getUserMembership();
+    }, [totalPrice]);
+
+
 
     useEffect(() => {
         const tip = 31.5;
         const taxRate = 0.06625;
+        let membershipDiscountRate = 0;
+
+        if (membership == "Silver") {
+            // If silver membership is selected, apply 5% discounts
+            membershipDiscountRate = 0.05;
+        } else if (membership == "Gold") {
+            // If golden membership is selected, apply 10% discount
+            membershipDiscountRate = 0.10;
+        }
+
         const calculatedTax = (totalPrice * 100 * taxRate) / 100;
-        const totalAmount = totalPrice * 1 + tip + calculatedTax;
+        const totalAmount = (totalPrice * 1 + tip + calculatedTax) * (1 - membershipDiscountRate);
+
         setTax(calculatedTax);
         setTip(tip);
         setTotalAmount(totalAmount);
-    }, [totalPrice]);
+    }, [totalPrice, membership, formData.fifthform]);
 
-    const handleGiftCardChange = (amount) => {
-        // Calculate the total gift card amount including the new amount
-        const updatedSelectedGiftCards = [...selectedGiftCards];
-        const index = updatedSelectedGiftCards.indexOf(amount);
-        if (index === -1) {
-            // If the amount is not already selected, add it to the list
-            updatedSelectedGiftCards.push(amount);
-        } else {
-            // If the amount is already selected, remove it from the list
-            updatedSelectedGiftCards.splice(index, 1);
-        }
 
-        // Calculate the total gift card amount based on selected gift cards
-        const updatedGiftCardAmount = updatedSelectedGiftCards.reduce((acc, curr) => acc + curr, 0);
-
-        // Update the state with new selected gift cards and total gift card amount
-        setSelectedGiftCards(updatedSelectedGiftCards);
-        setGiftCardAmount(updatedGiftCardAmount);
-    };
 
     const makePayment = async () => {
         try {
@@ -109,6 +140,9 @@ const Conform = () => {
             makePayment();
         }
     }, [totalAmount, giftCardAmount]);
+
+
+
 
     const onSubmit = async (token) => {
         if (token) {
@@ -191,6 +225,65 @@ const Conform = () => {
         }
     };
 
+
+
+    //megift card
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const token = localStorage.getItem("token");
+                const config = {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: token,
+                    },
+                };
+
+                const res = await fetch(`${IP}/user/my-giftCards`, config);
+                const data = await res.json();
+                setUser(data?.data);
+
+
+            } catch (error) {
+
+            }
+        };
+
+        fetchData();
+    }, []);
+    console.log("user/my-giftCards", user);
+
+    const handleGiftCardChange = (amount) => {
+        if (amount > totalAmount) {
+            // Notify the user that deselecting this gift card would exceed the total amount
+            toast.error("Deselecting this gift card would exceed the total amount.", {
+                position: "top-right",
+                autoClose: 2000,
+            });
+            return; // Exit the function, preventing further execution
+        }
+
+        // Calculate the total gift card amount including the new amount
+        const updatedSelectedGiftCards = [...selectedGiftCards];
+        const index = updatedSelectedGiftCards.indexOf(amount);
+        if (index === -1) {
+            // If the amount is not already selected, add it to the list
+            updatedSelectedGiftCards.push(amount);
+        } else {
+            // If the amount is already selected, remove it from the list
+            updatedSelectedGiftCards.splice(index, 1);
+        }
+
+        // Calculate the total gift card amount based on selected gift cards
+        const updatedGiftCardAmount = updatedSelectedGiftCards.reduce((acc, curr) => acc + curr, 0);
+
+        // Update the state with new selected gift cards and total gift card amount
+        setSelectedGiftCards(updatedSelectedGiftCards);
+        setGiftCardAmount(updatedGiftCardAmount);
+    };
+
+
     return (
         <>
             <div className='container checkoutPage'>
@@ -219,34 +312,28 @@ const Conform = () => {
                                 <li>
                                     <div className="form-group row mb-3">
                                         <div className="col-4 mb-0 px-0 pr-2">
-                                            <input id="e-mail" type="text" placeholder="Apply membership" className="form-control input-box rm-border text-left" />
+                                            <input id="e-mail" type="text" placeholder="Have a coupon code ?" className="form-control input-box rm-border text-left" />
                                         </div>
                                         <div className="col-4 px-0">
                                             <button type="submit" className="button" >Apply!</button>
                                         </div>
                                     </div>
                                     <span className="title">Choose Gift Card:</span>
-                                    <div className="gift-card-section">
-                                        <label htmlFor="use-gift-card" className="ml-2"></label>
-                                        <div className="form-group row justify-content-center mb-0">
-                                            <div className="col-md-12 px-3 mt-2">
-                                                <input type="checkbox" id="use-gift-card-1" onChange={() => handleGiftCardChange(135)} />
-                                                <label htmlFor="use-gift-card-1" className="ml-2">Use your $135 gift card</label>
+
+                                    {
+                                        user.map((cur, index) => (
+                                            <div className="gift-card-section" key={index}>
+                                                <label htmlFor={`use-gift-card-${index}`} className="ml-2"></label>
+                                                <div className="form-group row justify-content-center mb-0">
+                                                    <div className="col-md-12 px-3 mt-2">
+                                                        <input type="checkbox" id={`use-gift-card-${index}`} onChange={() => handleGiftCardChange(cur?.offerId?.offerValue)} />
+                                                        <label htmlFor={`use-gift-card-${index}`} className="ml-2">Use your ${cur?.offerId?.offerValue} gift card</label>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div className="form-group row justify-content-center mb-0">
-                                            <div className="col-md-12 px-3 mt-2">
-                                                <input type="checkbox" id="use-gift-card-2" onChange={() => handleGiftCardChange(270)} />
-                                                <label htmlFor="use-gift-card-2" className="ml-2">Use your $270 gift card</label>
-                                            </div>
-                                        </div>
-                                        <div className="form-group row justify-content-center mb-0">
-                                            <div className="col-md-12 px-3 mt-2">
-                                                <input type="checkbox" id="use-gift-card-3" onChange={() => handleGiftCardChange(300)} />
-                                                <label htmlFor="use-gift-card-3" className="ml-2">Use your $300 gift card</label>
-                                            </div>
-                                        </div>
-                                    </div>
+                                        ))
+                                    }
+
 
                                     <div className="price" style={{ display: 'block', lineHeight: '10px' }}>
                                         <p className="prices" style={{ fontSize: '17px' }}>
