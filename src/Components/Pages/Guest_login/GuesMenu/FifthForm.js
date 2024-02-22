@@ -55,7 +55,7 @@ const FifthForm = ({ step, nextStep }) => {
 
   return (
     <>
-      <div className="review_page">
+      <div className="review_page1 checkkout">
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="name">Name:</label>

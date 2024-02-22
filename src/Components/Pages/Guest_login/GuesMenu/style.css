@@ -271,6 +271,16 @@
 	border: 1px solid #ccc;
 	border-radius: 5px;
 }
+.review_page1 input[type="text"],
+.review_page1 input[type="email"],
+.review_page1 input[type="password"],
+.review_page1 textarea,
+.review_page1 input[type="number"] {
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+}
 
 .half {
 	width: 48%;
@@ -371,6 +381,7 @@ a {
     position: absolute;
     right: 0;
     color: #0e70be;
+    opacity: 0.4;
 }
 .info_box {
     position: absolute;

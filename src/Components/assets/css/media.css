@@ -866,6 +866,41 @@
     {
         margin-top: 100px;
     }
+    .booking_tabs ul {
+        display: flex;
+        width: 100%;
+        /* padding: 0; */
+        margin: 0;
+        box-sizing: border-box;
+        /* padding: 0 10px !important; */
+    }
+    
+    .booking_tabs ul li {
+        margin: 0 !important;
+        padding: 3px !important;
+        font-size: 11px;
+    }
+    .selectable{
+        font-size: 10px;
+    }
+    .checkkout {
+        z-index: 0 !important;
+        display: block !important;
+        margin-top: 20px !important;
+    }
+    html{
+        height: -webkit-fill-available;
+    }
+    .review_page1 {
+        width: 90% !important;
+        margin: auto;
+        margin-top: 20px !important;
+        margin-bottom: 10px;
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 10px;
+        box-shadow: 2px 2px 15px -5px rgb(0 0 0 / 35%);
+    }
 
 }
 
