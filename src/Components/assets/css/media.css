@@ -891,16 +891,7 @@
     html{
         height: -webkit-fill-available;
     }
-    .review_page1 {
-        width: 90% !important;
-        margin: auto;
-        margin-top: 20px !important;
-        margin-bottom: 10px;
-        background-color: #fff;
-        padding: 10px;
-        border-radius: 10px;
-        box-shadow: 2px 2px 15px -5px rgb(0 0 0 / 35%);
-    }
+    
 
 }
 
