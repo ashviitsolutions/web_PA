@@ -90,7 +90,10 @@ function Corporatebooking() {
             <div className='new_book'>
                 <div className="review_page" id="corporate_form" style={{ marginTop: "300px" }}>
                     <form onSubmit={handleSubmit}>
-                        <div className="form-group">
+                        
+
+                        <div style={{ display: "flex", justifyContent: "space-between" }}>
+                        <div className="form-group half">
                             <label htmlFor="name">Name:</label>
                             <input
                                 type="text"
@@ -101,7 +104,7 @@ function Corporatebooking() {
                                 required
                             />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group half">
                             <label htmlFor="name">Company Name:</label>
                             <input
                                 type="text"
@@ -111,6 +114,7 @@ function Corporatebooking() {
                                 onChange={(e) => setCompanyName(e.target.value)}
                                 required
                             />
+                        </div>
                         </div>
                         <div className="form-group">
                             <label htmlFor="name">Your Service:</label>
@@ -123,6 +127,7 @@ function Corporatebooking() {
                                 required
                             />
                         </div>
+                        
 
                         <div style={{ display: "flex", justifyContent: "space-between" }}>
                             <div className="form-group half">
@@ -145,9 +150,12 @@ function Corporatebooking() {
                                     required
                                 />
                             </div>
-                        </div>
+                            </div>
+                            
 
-                        <div className="form-group">
+                        <div style={{ display: "flex", justifyContent: "space-between" }}>
+
+                        <div className="form-group half">
                             <label htmlFor="email">Email:</label>
                             <input
                                 type="email"
@@ -158,7 +166,7 @@ function Corporatebooking() {
                                 required
                             />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group half">
                             <label htmlFor="address">Contact No.:</label>
                             <input
                                 type="text"
@@ -169,7 +177,7 @@ function Corporatebooking() {
                                 required
                             />
                         </div>
-
+                        </div>
 
 
                         <div className="form-group">

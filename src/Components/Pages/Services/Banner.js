@@ -54,11 +54,6 @@ function Banner() {
 										book now
 									</button>
 								</Link>
-								<Link to="/services/private_events">
-									<button className="button negative" type="button">
-										Private events services
-									</button>
-								</Link>
 							</div>
 						</div>
 					</div>

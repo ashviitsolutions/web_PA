@@ -346,10 +346,11 @@ const Conform = () => {
                                 </li>
                                 <li>
                                     <div className="form-group row mb-3">
-                                        <div className="col-4 mb-0 px-0 pr-2">
+                                        <div className="col-7 mb-0 px-0 pr-2">
                                             <input id="e-mail" type="text" placeholder="Have a coupon code ?" className="form-control input-box rm-border text-left" />
                                         </div>
-                                        <div className="col-4 px-0">
+                                        <div className='col-1 px-0'>{" "}</div>
+                                        <div className="col-2 px-0">
                                             <button type="submit" className="button" >Apply!</button>
                                         </div>
                                     </div>

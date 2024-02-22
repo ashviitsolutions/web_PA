@@ -253,7 +253,7 @@
 }
 
 .review_page .form-group {
-	margin-bottom: 15px;
+    margin-bottom: 5px;
 }
 
 .review_page label {
@@ -273,7 +273,7 @@
 }
 
 .half {
-	width: 40%;
+	width: 48%;
 }
 
 .review_page button {
@@ -320,19 +320,23 @@
 }
 
 .book-details {
-	margin-top: 20px;
+    margin-top: 5px;
 }
 
 .book-title {
     font-size: 16px;
     margin-bottom: 10px;
     word-wrap: break-word;
+	text-align: center;
 }
 
 .book-price {
 	font-size: 13px;
 	color: #333;
 	font-weight: 700;
+	position: absolute;
+	bottom: -25px;
+	left: -3px;
 }
 
 .book-description {
@@ -358,9 +362,9 @@ a {
     text-decoration: none;
 }
 .info_icon {
-    top: 0;
+    bottom: -4px;
     font-size: 12px;
-    width: 20px;
+    width: 17px;
     border: solid 1px;
     border-radius: 50%;
     text-align: center;
@@ -388,8 +392,11 @@ a {
     overflow: auto;
 	animation: popeffect .5s ease-in-out;
 }
-.second_form_book:hover .info_box {
+/* .second_form_book:hover .info_box {
     display: block !important;
+} */
+.info_icon:hover .info_box{
+	display: block !important;
 }
 
 @keyframes popeffect {
@@ -527,7 +534,9 @@ a {
 	}
 	
 	.booking_tabs li {
-		width: 100px !important;
+		width: 75px !important;
+		font-size: 13px;
+		margin-top: -10px !important;
 	}
 	.centerFlex img{width: 100%;}
 	.section {

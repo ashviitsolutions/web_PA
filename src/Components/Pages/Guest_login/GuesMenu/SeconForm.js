@@ -325,10 +325,10 @@ const SeconForm = ({ step, nextStep }) => {
                                         <div onClick={() => handleId(cur._id)} className="item" >
                                             <PreviewImage attachments={cur.attachments} />
                                             <div className="book-details" >
-                                                <h2 className="book-title">{cur.title}</h2>
+                                                <h2 className="book-title">{cur.title} 
+                                                <div className="info_icon"><FontAwesomeIcon icon={faInfo}></FontAwesomeIcon></div></h2>
                                                 {/* <p className="book-description" dangerouslySetInnerHTML={{ __html: cur.description.slice(0, 50) }} /> */}
                                                 <p className="book-price">Price: ${cur.price}</p>
-                                                {/* <div className="info_icon"><FontAwesomeIcon icon={faInfo}></FontAwesomeIcon></div> */}
                                                 <div className="info_box" dangerouslySetInnerHTML={{__html: cur.description}}></div>
                                             </div>
                                         </div>
@@ -381,7 +381,7 @@ const SeconForm = ({ step, nextStep }) => {
                                             <h2 className="book-title">{cur.title}</h2>
                                             {/* <p className="book-description" dangerouslySetInnerHTML={{ __html: cur.description.slice(0, 50) }} /> */}
                                             <p className="book-price">Price: ${cur.price}</p>
-                                                {/* <div className="info_icon"><FontAwesomeIcon icon={faInfo}></FontAwesomeIcon></div> */}
+                                                <div className="info_icon"><FontAwesomeIcon icon={faInfo}></FontAwesomeIcon></div>
                                                 <div className="info_box" dangerouslySetInnerHTML={{__html: cur.description}}></div>
 
                                         </div>

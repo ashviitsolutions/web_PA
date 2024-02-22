@@ -167,6 +167,7 @@ function Contact() {
                                                                 name="message"
                                                                 rows="3"
                                                                 cols="80"
+                                                                placeholder="Type Your Enquiry Here"
                                                             />
                                                             <ErrorMessage name="message" component="div" className="error-message" />
                                                             <span className="highlight"></span>

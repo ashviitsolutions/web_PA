@@ -42,7 +42,7 @@ const ThirdForm = ({ nextStep }) => {
         "pain",
         "tension",
         "relaxation",
-        "headaches/migraines",
+        "migraine",
         "stress",
         "muscle pain",
         "injuries",
@@ -50,6 +50,7 @@ const ThirdForm = ({ nextStep }) => {
         "fatigue",
         "anxiety",
         "insomnia",
+        "numbness",
     ];
 
     const healthConditionsOptions = [
@@ -58,8 +59,13 @@ const ThirdForm = ({ nextStep }) => {
         "digestive disorder",
         "fibromyalgia",
         "plantar fasciitis",
+        "hypertension",
+        "blood circulation",
+        "Acne",
         "pregnancy",
         "sciatica",
+        "dadisease",
+        "nurological condition",
     ];
 
     const specialConsiderationOptions = [
@@ -148,7 +154,7 @@ const ThirdForm = ({ nextStep }) => {
                     <li key={option}>
                         <label>
                             <input
-                                type="radio"
+                                type="checkbox"
                                 name="specialConsideration"
                                 value={option}
                                 checked={specialConsideration === option}

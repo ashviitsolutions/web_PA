@@ -43,7 +43,7 @@ const FirstForm = ({ step, nextStep }) => {
 
             <div id="sec_wiz_1" className="section smallOne">
                 <div id="employees" style={{ textAlign: "center" }}>
-                    <label className="as_title" htmlFor="" >
+                    <label className="as_title whoIs" htmlFor="" >
                         Who Is it for?
                     </label>
                     <ul className="review option" style={{ display: "flex" }} id="review_option">

@@ -7067,7 +7067,7 @@ ul.true li::after {
   padding: 0;
   margin: 0;
   list-style: none;
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .selectable::after {
@@ -7086,6 +7086,10 @@ ul.true li::after {
   color: #333;
   cursor: pointer;
   user-select: none;
+}
+.selectable input[type="checkbox"] {
+  margin-top: 0px;
+  height: 12px;
 }
 
 .selectable li::after {
@@ -8101,6 +8105,7 @@ ul.true li::after {
   display: block;
   width: 100%;
   padding: 0;
+  text-align: center;
 }
 
 .time_options li {
@@ -8874,15 +8879,16 @@ img .img-responsive {
 .sign_in_forms a:hover {
   color: blue;
 }
-.new_book{
+.new_book {
   background: url('../img/pexels-sergey-torbik-7365442.jpg');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   /* background-attachment: fixed; */
   overflow: hidden;
-  padding: 50px 0;
-  backdrop-filter:blur(1);
+  padding: 20px 0;
+  -webkit-backdrop-filter: blur(1);
+  backdrop-filter: blur(1);
 }
 /* .new_book::before{
   position: absolute;
