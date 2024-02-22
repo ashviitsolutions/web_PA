@@ -8,6 +8,9 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { useRef } from "react";
 import PreviewImage from './PreviewImage'; // Update the path accordingly
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faInfo } from "@fortawesome/free-solid-svg-icons";
+
 
 
 
@@ -325,6 +328,8 @@ const SeconForm = ({ step, nextStep }) => {
                                                 <h2 className="book-title">{cur.title}</h2>
                                                 {/* <p className="book-description" dangerouslySetInnerHTML={{ __html: cur.description.slice(0, 50) }} /> */}
                                                 <p className="book-price">Price: ${cur.price}</p>
+                                                {/* <div className="info_icon"><FontAwesomeIcon icon={faInfo}></FontAwesomeIcon></div> */}
+                                                <div className="info_box" dangerouslySetInnerHTML={{__html: cur.description}}></div>
                                             </div>
                                         </div>
 
@@ -376,6 +381,9 @@ const SeconForm = ({ step, nextStep }) => {
                                             <h2 className="book-title">{cur.title}</h2>
                                             {/* <p className="book-description" dangerouslySetInnerHTML={{ __html: cur.description.slice(0, 50) }} /> */}
                                             <p className="book-price">Price: ${cur.price}</p>
+                                                {/* <div className="info_icon"><FontAwesomeIcon icon={faInfo}></FontAwesomeIcon></div> */}
+                                                <div className="info_box" dangerouslySetInnerHTML={{__html: cur.description}}></div>
+
                                         </div>
                                     </div>
 
