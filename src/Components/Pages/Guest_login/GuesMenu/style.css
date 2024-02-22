@@ -386,9 +386,25 @@ a {
     bottom: 0;
     opacity: .9;
     overflow: auto;
+	animation: popeffect .5s ease-in-out;
 }
 .second_form_book:hover .info_box {
     display: block !important;
+}
+
+@keyframes popeffect {
+	0%{
+		
+		top: 50px;
+		display: none;
+	}
+	100%{
+		width: auto;
+		height: auto;
+		top: 0;
+		left: 0;
+		display: block;
+	}	
 }
 @media (max-width: 982px) {
 	.second_form_book {
