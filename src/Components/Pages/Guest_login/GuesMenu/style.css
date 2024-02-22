@@ -419,6 +419,10 @@ a {
 .info_icon:hover .info_box{
 	display: block !important;
 }
+.nomp{
+	margin: 0 !important;
+	padding: 0 !important;
+}
 
 @keyframes popeffect {
 	0%{
@@ -434,10 +438,11 @@ a {
 		display: block;
 	}	
 }
+
 @media (max-width: 1475px) {
 	.second_form_book {
 		/* width: calc(30% - 20px);  */
-		flex-basis: 45%;
+		flex-basis: 22.5%;
 		margin: 10px;
 		border: 1px solid #ddd;
 		padding: 10px;
@@ -555,7 +560,7 @@ a {
 		display: block !important;
 	}
 	.review_page1{
-		width: 90% !important;
+		width: 90%  !important;
 	}
 	
 	.booking_tabs li {
@@ -584,4 +589,6 @@ a {
 		box-sizing: border-box;
 		cursor: pointer;
 	}
+	
+	
 }

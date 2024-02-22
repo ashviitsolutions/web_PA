@@ -118,7 +118,7 @@ function Service() {
 																	Read more
 																</button>
 															)}
-															<Link to={`/guest_login`} className="anchor" id="anchors" onClick={() => handleSubmit(user._id)}>
+															<Link to={`/guest_login`} className="anchor nomp" id="anchors" onClick={() => handleSubmit(user._id)}>
 																<button className='button small cta'>book now</button>
 															</Link>
 														</div>
