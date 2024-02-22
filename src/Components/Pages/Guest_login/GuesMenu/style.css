@@ -282,7 +282,7 @@
 	border-radius: 5px;
 }
 .review_page1 {
-	width: 90% !important;
+	width: 70% !important;
 	margin: auto;
 	margin-top: 20px !important;
 	margin-bottom: 10px;
@@ -434,7 +434,7 @@ a {
 		display: block;
 	}	
 }
-@media (max-width: 982px) {
+@media (max-width: 1475px) {
 	.second_form_book {
 		/* width: calc(30% - 20px);  */
 		flex-basis: 45%;
@@ -473,6 +473,7 @@ a {
 	.sidebar_tabs {
 		display: none !important;
 	}
+	.booking_tabs {display: block !important;}
 
 	.section {
 		width: 60%;
@@ -552,6 +553,9 @@ a {
 	} */
 	.booking_tabs {
 		display: block !important;
+	}
+	.review_page1{
+		width: 90% !important;
 	}
 	
 	.booking_tabs li {
