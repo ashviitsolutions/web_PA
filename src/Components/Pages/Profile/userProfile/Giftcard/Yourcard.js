@@ -75,6 +75,9 @@ function Yourcard() {
 
     console.log("user", user);
 
+
+
+
     const handleSend = async () => {
         setLoading(true);
         console.log("id giftcard", giftCardId)
@@ -99,7 +102,7 @@ function Yourcard() {
 
             if (res.status === 200) {
                 closeModal();
-                toast.success("Your Application was successful!", {
+                toast.success("Your Gift Card send  successful!", {
                     position: "top-right",
                     autoClose: 3000,
                     onClose: () => {
@@ -155,43 +158,43 @@ function Yourcard() {
                                                     {/* <p>Price: ${cur?.offerId?.price}</p> */}
                                                     <p>Card Value: ${cur?.offerId?.offerValue}</p>
                                                 </div>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    ))
-                        )}
                                 </div>
-                </div>
-                </div>
-
-                {isModalOpen && (
-                    <div className='modal_send_gift_card'>
-                        <div className='modal-content'>
-                            <span className='close' onClick={closeModal}>
-                                &times;
-                            </span>
-                            <h2>single massage</h2>
-                            <label>Email:</label>
-                            <input
-                                type='email'
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                placeholder='Enter recipient email'
-                            />
-                            <label>Message:</label>
-                            <textarea
-                                value={message}
-                                onChange={(e) => setMessage(e.target.value)}
-                                placeholder='Enter your message'
-                            />
-                            <button type='submit' onClick={handleSend}> {loading ? "Sending..." : "Send"}</button>
-                        </div>
+                            ))
+                        )}
                     </div>
-                )}
-                <ToastContainer />
-            </>
-            );
+                </div>
+            </div>
+
+            {isModalOpen && (
+                <div className='modal_send_gift_card'>
+                    <div className='modal-content'>
+                        <span className='close' onClick={closeModal}>
+                            &times;
+                        </span>
+                        <h2>single massage</h2>
+                        <label>Email:</label>
+                        <input
+                            type='email'
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder='Enter recipient email'
+                        />
+                        <label>Message:</label>
+                        <textarea
+                            value={message}
+                            onChange={(e) => setMessage(e.target.value)}
+                            placeholder='Enter your message'
+                        />
+                        <button type='submit' onClick={handleSend}> {loading ? "Sending..." : "Send"}</button>
+                    </div>
+                </div>
+            )}
+            <ToastContainer />
+        </>
+    );
 }
 
-            export default Yourcard;
+export default Yourcard;
