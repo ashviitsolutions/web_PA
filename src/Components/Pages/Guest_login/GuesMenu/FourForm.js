@@ -7,9 +7,10 @@ import Calendar from 'react-calendar';
 const FourForm = ({ nextStep }) => {
   const selector = useSelector((state) => state.counter.formData);
   console.log("selector", selector);
-  const [selectedTime, setSelectedTime] = useState(""); // State to store selected time
+  const [selectedTime, setSelectedTime] = useState([]); // State to store selected time
   const [selectedDate, setSelectedDate] = useState(new Date()); // State to store selected date
   const [errorMessage, setErrorMessage] = useState("");
+  const [currecttime,setSelectedTimeinterva]=useState([])
   const dispatch = useDispatch();
 
   const times = [
@@ -51,7 +52,7 @@ const FourForm = ({ nextStep }) => {
     console.log("closestTime", closestTimeIndex);
 
     // Set the selected time to the closest available time
-    setSelectedTime(formattedCurrentTime);
+    setSelectedTimeinterva(formattedCurrentTime);
   }, []);
 
 
@@ -102,6 +103,8 @@ const FourForm = ({ nextStep }) => {
     }, 2000);
   };
 
+  console.log("selectedTime",currecttime)
+
   return (
     <div id="sec_wiz_4" className="section">
       <div className="input_group" style={{ textAlign: "center" }}>
@@ -132,7 +135,8 @@ const FourForm = ({ nextStep }) => {
             .filter((time) => {
               // Parse time string to compare with current time
               const [timeHour, timeMinute, timePeriod] = time.match(/(\d+):(\d+) (\w+)/).slice(1);
-              const [currentHour, currentMinute, currentPeriod] = selectedTime.match(/(\d+):(\d+) (\w+)/).slice(1);
+              const [currentHour, currentMinute, currentPeriod] = currecttime.slice(1);
+              // const [currentHour, currentMinute, currentPeriod] = currecttime.match(/(\d+):(\d+) (\w+)/).slice(1);
 
               // Convert hours to 24-hour format for comparison
               let hour = parseInt(timeHour, 10);
