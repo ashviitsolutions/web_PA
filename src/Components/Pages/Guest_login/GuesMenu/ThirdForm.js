@@ -157,14 +157,15 @@ const ThirdForm = ({ nextStep }) => {
                                 type="checkbox"
                                 name="specialConsideration"
                                 value={option}
-                                checked={specialConsideration === option}
-                                onChange={() => setSpecialConsideration(option)}
+                                checked={specialConsideration.includes(option)}
+                                onChange={() => handleCheckboxChange(specialConsideration, setSpecialConsideration, option)}
                             />
                             {" "} {option}
                         </label>
                     </li>
                 ))}
             </ul>
+
 
             <label className="static mt-5 title" htmlFor="">
                 Massage body part

@@ -37,7 +37,7 @@ const SeconForm = ({ step, nextStep }) => {
     const [formData, setFormData] = useState();
     const [genderPreferences, setGenderPreferences] = useState([]);
     const [errorMessage, setErrorMessage] = useState("");
-    const [servicename,setServicename]=useState()
+    const [servicename, setServicename] = useState()
 
 
 
@@ -135,7 +135,7 @@ const SeconForm = ({ step, nextStep }) => {
     };
 
     const handlePrice = (data) => {
-        console.log("servce proce",data.title)
+        console.log("servce proce", data.title)
         setPriceadon(data.price);
         setServicename(data.title);
     };
@@ -288,21 +288,21 @@ const SeconForm = ({ step, nextStep }) => {
                         className={`time_option ${selectedServiceTime === "60min" ? "selected" : ""}`}
                         onClick={() => handleServiceTimeSelect("60min")}
                     >
-                        60 min
+                        60 minutes.
                     </li>
                     <li
                         id="min_60"
                         className={`time_option ${selectedServiceTime === "90min" ? "selected" : ""}`}
                         onClick={() => handleServiceTimeSelect("90min")}
                     >
-                        90 min
+                        90 minutes.
                     </li>
                     <li
                         id="min_90"
                         className={`time_option ${selectedServiceTime === "120min" ? "selected" : ""}`}
                         onClick={() => handleServiceTimeSelect("120min")}
                     >
-                        120 min
+                        120 minutes.
                     </li>
                 </ul>
             </div>
@@ -325,11 +325,11 @@ const SeconForm = ({ step, nextStep }) => {
                                         <div onClick={() => handleId(cur._id)} className="item" >
                                             <PreviewImage attachments={cur.attachments} />
                                             <div className="book-details" >
-                                                <h2 className="book-title">{cur.title} 
-                                                <div className="info_icon"><FontAwesomeIcon icon={faInfo}></FontAwesomeIcon></div></h2>
+                                                <h2 className="book-title">{cur.title}
+                                                    <div className="info_icon"><FontAwesomeIcon icon={faInfo}></FontAwesomeIcon></div></h2>
                                                 {/* <p className="book-description" dangerouslySetInnerHTML={{ __html: cur.description.slice(0, 50) }} /> */}
                                                 <p className="book-price">Price: ${cur.price}</p>
-                                                <div className="info_box" dangerouslySetInnerHTML={{__html: cur.description}}></div>
+                                                <div className="info_box" dangerouslySetInnerHTML={{ __html: cur.description }}></div>
                                             </div>
                                         </div>
 
@@ -381,8 +381,8 @@ const SeconForm = ({ step, nextStep }) => {
                                             <h2 className="book-title">{cur.title}</h2>
                                             {/* <p className="book-description" dangerouslySetInnerHTML={{ __html: cur.description.slice(0, 50) }} /> */}
                                             <p className="book-price">Price: ${cur.price}</p>
-                                                <div className="info_icon"><FontAwesomeIcon icon={faInfo}></FontAwesomeIcon></div>
-                                                <div className="info_box" dangerouslySetInnerHTML={{__html: cur.description}}></div>
+                                            <div className="info_icon"><FontAwesomeIcon icon={faInfo}></FontAwesomeIcon></div>
+                                            <div className="info_box" dangerouslySetInnerHTML={{ __html: cur.description }}></div>
 
                                         </div>
                                     </div>
