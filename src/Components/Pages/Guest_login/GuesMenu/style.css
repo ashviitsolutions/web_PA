@@ -315,10 +315,10 @@
 /* // second for */
 
 .second_form_book_container {
-	display: flex;
-	flex-wrap: wrap;
-	flex-direction: row;
-	justify-content: start;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
 }
 
 .second_form_book {
@@ -452,7 +452,7 @@ a {
 @media (max-width: 1475px) {
 	.second_form_book {
 		/* width: calc(30% - 20px);  */
-		flex-basis: 22.5%;
+		flex-basis: 20.5%;
 		margin: 10px;
 		border: 1px solid #ddd;
 		padding: 10px;
@@ -460,7 +460,11 @@ a {
 		/* Include padding and border in the total width */
 		cursor: pointer;
 	}
-
+	#sec_wiz_1 {
+		width: 40%;
+		height: 240px !important;
+		padding: 20px 0;
+	}
 	.book-title {
 		font-size: 12px;
 	}
@@ -549,7 +553,9 @@ a {
 		border-radius: 10px;
 		box-shadow: 2px 2px 15px -5px rgb(0 0 0 / 35%);
 	}
-
+	#sec_wiz_2, .sec_wiz_2 {
+		width: 60%;
+	}
 	.products .item_wrapper {
 		position: relative;
 		display: inline-block;
@@ -557,6 +563,9 @@ a {
 		margin: auto;
 		white-space: normal;
 		padding: 4px !important;
+	}
+	.review_page1{
+		width: 80% !important;
 	}
 }
 

@@ -98,7 +98,7 @@ function Corporatebooking() {
                             <input
                                 type="text"
                                 name="name"
-                                placeholder="Enter your full name"
+                                placeholder="your name"
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
                                 required
@@ -109,7 +109,7 @@ function Corporatebooking() {
                             <input
                                 type="text"
                                 name="companyName"
-                                placeholder="Enter company name"
+                                placeholder="company name"
                                 value={companyName}
                                 onChange={(e) => setCompanyName(e.target.value)}
                                 required
