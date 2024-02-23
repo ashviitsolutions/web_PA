@@ -7,7 +7,7 @@ import Calendar from 'react-calendar';
 const FourForm = ({ nextStep }) => {
   const selector = useSelector((state) => state.counter.formData);
   console.log("selector", selector);
-  const [selectedTime, setSelectedTime] = useState(""); // State to store selected time
+  const [selectedTime, setSelectedTime] = useState([]); // State to store selected time
   const [selectedDate, setSelectedDate] = useState(new Date()); // State to store selected date
   const [errorMessage, setErrorMessage] = useState("");
   const dispatch = useDispatch();
@@ -51,7 +51,7 @@ const FourForm = ({ nextStep }) => {
     console.log("closestTime", closestTimeIndex);
 
     // Set the selected time to the closest available time
-    setSelectedTime(closestTimeIndex);
+    setSelectedTime(formattedCurrentTime);
   }, []);
 
 
@@ -118,6 +118,8 @@ const FourForm = ({ nextStep }) => {
           />
         </div>
 
+
+        {/* Time selection dropdown */}
         {/* Time selection dropdown */}
         <select
           style={{ width: "auto", display: "inline-block", padding: "0px 15px" }}
@@ -126,12 +128,43 @@ const FourForm = ({ nextStep }) => {
           onChange={(e) => setSelectedTime(e.target.value)}
         >
           <option value="">Select Time</option>
-          {times.map((time) => (
-            <option key={time} value={time}>
-              {time}
-            </option>
-          ))}
+          {times
+            .filter((time) => {
+              // Parse time string to compare with current time
+              const [timeHour, timeMinute, timePeriod] = time.match(/(\d+):(\d+) (\w+)/).slice(1);
+              const [currentHour, currentMinute, currentPeriod] = selectedTime.match(/(\d+):(\d+) (\w+)/).slice(1);
+
+              // Convert hours to 24-hour format for comparison
+              let hour = parseInt(timeHour, 10);
+              if (timePeriod === "PM" && hour < 12) {
+                hour += 12;
+              }
+              let currentHour24 = parseInt(currentHour, 10);
+              if (currentPeriod === "PM" && currentHour24 < 12) {
+                currentHour24 += 12;
+              }
+
+              // Compare hours and minutes if the selected date is today
+              if (selectedDate.toDateString() === new Date().toDateString()) {
+                if (hour > currentHour24 || (hour === currentHour24 && parseInt(timeMinute, 10) > parseInt(currentMinute, 10))) {
+                  return true;
+                }
+              } else {
+                return true; // Show all time slots for future dates
+              }
+
+              return false;
+            })
+            .map((time) => (
+              <option key={time} value={time}>
+                {time}
+              </option>
+            ))}
         </select>
+
+
+
+
         <div className="error-message">{errorMessage}</div>
 
         {/* Button to submit */}

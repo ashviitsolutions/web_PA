@@ -10,7 +10,6 @@ const FourForm = ({ nextStep }) => {
   const [selectedTime, setSelectedTime] = useState([]); // State to store selected time
   const [selectedDate, setSelectedDate] = useState(new Date()); // State to store selected date
   const [errorMessage, setErrorMessage] = useState("");
-  const [currecttime,setSelectedTimeinterva]=useState([])
   const dispatch = useDispatch();
 
   const times = [
@@ -52,7 +51,7 @@ const FourForm = ({ nextStep }) => {
     console.log("closestTime", closestTimeIndex);
 
     // Set the selected time to the closest available time
-    setSelectedTimeinterva(formattedCurrentTime);
+    setSelectedTime(formattedCurrentTime);
   }, []);
 
 
@@ -103,8 +102,6 @@ const FourForm = ({ nextStep }) => {
     }, 2000);
   };
 
-  console.log("selectedTime",currecttime)
-
   return (
     <div id="sec_wiz_4" className="section">
       <div className="input_group" style={{ textAlign: "center" }}>
@@ -131,35 +128,7 @@ const FourForm = ({ nextStep }) => {
           onChange={(e) => setSelectedTime(e.target.value)}
         >
           <option value="">Select Time</option>
-          {times
-            .filter((time) => {
-              // Parse time string to compare with current time
-              const [timeHour, timeMinute, timePeriod] = time.match(/(\d+):(\d+) (\w+)/).slice(1);
-              const [currentHour, currentMinute, currentPeriod] = currecttime.slice(1);
-              // const [currentHour, currentMinute, currentPeriod] = currecttime.match(/(\d+):(\d+) (\w+)/).slice(1);
-
-              // Convert hours to 24-hour format for comparison
-              let hour = parseInt(timeHour, 10);
-              if (timePeriod === "PM" && hour < 12) {
-                hour += 12;
-              }
-              let currentHour24 = parseInt(currentHour, 10);
-              if (currentPeriod === "PM" && currentHour24 < 12) {
-                currentHour24 += 12;
-              }
-
-              // Compare hours and minutes if the selected date is today
-              if (selectedDate.toDateString() === new Date().toDateString()) {
-                if (hour > currentHour24 || (hour === currentHour24 && parseInt(timeMinute, 10) > parseInt(currentMinute, 10))) {
-                  return true;
-                }
-              } else {
-                return true; // Show all time slots for future dates
-              }
-
-              return false;
-            })
-            .map((time) => (
+          {times.map((time) => (
               <option key={time} value={time}>
                 {time}
               </option>
