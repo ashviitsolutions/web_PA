@@ -971,14 +971,11 @@ textarea {
 
 /* Style for the membership image */
 .image_membership img {
-	width: 100%;
-	/* Make the image fill the container width */
-	max-width: 500px;
-	/* Set a maximum width if needed */
-	height: auto;
-	/* Maintain the aspect ratio */
-	border-radius: 8px;
-	/* Add border-radius for rounded corners */
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 8px;
+    max-height: 250px;
 }
 
 /* Style for the active membership icon */

@@ -145,7 +145,7 @@ function BuyCard() {
 									<div className="content_container_gift_card">
 										<h3>{card.title}</h3>
 										<div className="content_container_gift_card_dis">
-											<p className="description">{card.description.slice(0, 60)}...</p>
+											<p className="description">{card.description}</p>
 										</div>
 										<div className="content_container_gift_card_para">
 											<div className="d-block">

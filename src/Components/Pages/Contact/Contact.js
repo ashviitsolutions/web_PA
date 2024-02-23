@@ -100,7 +100,7 @@ function Contact() {
                                 <div className="content">
                                     <div className="">
                                         <p>Write to us on</p>
-                                        <Link to="mailto:info@productivealliance.com"><span className="phones">{users.excerpt}</span></Link>
+                                        <Link to="mailto:info@productivealliance.com"><span className="phones">info@productivealliance.com</span></Link>
                                     </div>
                                 </div>
                             </div>
@@ -140,7 +140,7 @@ function Contact() {
                                                                 placeholder=""
                                                             />
                                                             <ErrorMessage name="contact_number" component="div" className="error-message" />
-                                                            <label htmlFor="">Your contact number</label>
+                                                            <label htmlFor="">Phone number</label>
                                                             <span className="highlight"></span>
                                                         </div>
                                                     </div>
@@ -153,7 +153,7 @@ function Contact() {
                                                                 placeholder=""
                                                             />
                                                             <ErrorMessage name="email" component="div" className="error-message" />
-                                                            <label htmlFor="">Your email</label>
+                                                            <label htmlFor="">Email address</label>
                                                             <span className="highlight"></span>
                                                         </div>
                                                     </div>
@@ -167,7 +167,7 @@ function Contact() {
                                                                 name="message"
                                                                 rows="3"
                                                                 cols="80"
-                                                                placeholder="Type Your Enquiry Here"
+                                                                placeholder="Type your message here"
                                                             />
                                                             <ErrorMessage name="message" component="div" className="error-message" />
                                                             <span className="highlight"></span>
