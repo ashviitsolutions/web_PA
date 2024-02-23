@@ -114,7 +114,7 @@ function Event_services() {
                                   Read more
                                 </button>
                               )}
-                              <Link to={`/services/corporate_events/booking/${user.title}`} className="anchor" id="anchors">
+                              <Link to={`/services/corporate_events/booking/${user.title}`} className="anchor nomp" id="anchors">
                                 <button className='button small cta'>Get Started</button>
                               </Link>
                             </div>

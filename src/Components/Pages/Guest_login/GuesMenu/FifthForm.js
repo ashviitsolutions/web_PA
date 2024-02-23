@@ -57,43 +57,47 @@ const FifthForm = ({ step, nextStep }) => {
     <>
       <div className="review_page1 checkkout">
         <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="name">Name:</label>
-            <input
-              type="text"
-              name="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div className="form-group half">
+              <label htmlFor="name">Name:</label>
+              <input
+                type="text"
+                name="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group half">
+              <label htmlFor="email">Email:</label>
+              <input
+                type="email"
+                name="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
           </div>
-          <div className="form-group">
-            <label htmlFor="email">Email:</label>
-            <input
-              type="email"
-              name="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="address">Address:</label>
-            <input
-              type="text"
-              name="address"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="hotelName">  Apt / Suite / Hotel Name &amp; room:</label>
-            <input
-              type="text"
-              name="hotelName"
-            />
-          </div>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div className="form-group half">
+              <label htmlFor="address">Address:</label>
+              <input
+                type="text"
+                name="address"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group half">
+              <label htmlFor="hotelName">  Apt / Suite / Hotel Name &amp; room:</label>
+              <input
+                type="text"
+                name="hotelName"
+              />
+            </div>
+            </div>
           <div className="form-group">
             <label htmlFor="bio">Arrival instructions for service provider:</label>
             <textarea
