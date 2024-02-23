@@ -38,14 +38,19 @@ const SeconForm = ({ step, nextStep }) => {
     const [genderPreferences, setGenderPreferences] = useState([]);
     const [errorMessage, setErrorMessage] = useState("");
     const [servicename, setServicename] = useState()
+    const [showInfo, setShowInfo] = useState({});
 
 
 
 
 
 
-
-
+    const handleInfoIconClick = (id) => {
+        setShowInfo(prevState => ({
+            ...prevState,
+            [id]: !prevState[id] // Toggle the state for the clicked card
+        }));
+    };
 
 
 
@@ -115,15 +120,6 @@ const SeconForm = ({ step, nextStep }) => {
 
 
 
-
-
-
-
-
-
-
-
-
     const handleServiceTimeSelect = (selectedTime) => {
         setFormData({ ...formData, service_time: selectedTime });
         setSelectedServiceTime(selectedTime);
@@ -139,6 +135,12 @@ const SeconForm = ({ step, nextStep }) => {
         setPriceadon(data.price);
         setServicename(data.title);
     };
+
+
+
+
+
+
 
     const handleSelectItem = (itemId) => {
         const itemIndex = selectedItems.indexOf(itemId);
@@ -325,11 +327,20 @@ const SeconForm = ({ step, nextStep }) => {
                                         <div onClick={() => handleId(cur._id)} className="item" >
                                             <PreviewImage attachments={cur.attachments} />
                                             <div className="book-details" >
-                                                <h2 className="book-title">{cur.title}
-                                                    <div className="info_icon"><FontAwesomeIcon icon={faInfo}></FontAwesomeIcon></div></h2>
+                                                <h2 className="book-title">{cur.title}</h2>
+                                                <div className="info_icon" onClick={() => handleInfoIconClick(cur._id)}>
+                                                    <FontAwesomeIcon icon={faInfo} />
+                                                </div>
                                                 {/* <p className="book-description" dangerouslySetInnerHTML={{ __html: cur.description.slice(0, 50) }} /> */}
                                                 <p className="book-price">Price: ${cur.price}</p>
-                                                <div className="info_box" dangerouslySetInnerHTML={{ __html: cur.description }}></div>
+
+
+
+
+
+                                                {showInfo[cur._id] && (
+                                                    <div className="info_box" dangerouslySetInnerHTML={{ __html: cur.description }}></div>
+                                                )}
                                             </div>
                                         </div>
 
@@ -381,8 +392,20 @@ const SeconForm = ({ step, nextStep }) => {
                                             <h2 className="book-title">{cur.title}</h2>
                                             {/* <p className="book-description" dangerouslySetInnerHTML={{ __html: cur.description.slice(0, 50) }} /> */}
                                             <p className="book-price">Price: ${cur.price}</p>
-                                            <div className="info_icon"><FontAwesomeIcon icon={faInfo}></FontAwesomeIcon></div>
-                                            <div className="info_box" dangerouslySetInnerHTML={{ __html: cur.description }}></div>
+                                            {/*  <div className="info_icon"><FontAwesomeIcon icon={faInfo}></FontAwesomeIcon></div>
+                            <div className="info_box" dangerouslySetInnerHTML={{ __html: cur.description }}></div> */}
+
+
+
+                                            <div className="info_icon" onClick={() => handleInfoIconClick(cur._id)}>
+                                                <FontAwesomeIcon icon={faInfo} />
+                                            </div>
+                                            {showInfo[cur._id] && (
+                                                <div className="info_box" dangerouslySetInnerHTML={{ __html: cur.description }}></div>
+                                            )}
+
+
+
 
                                         </div>
                                     </div>
