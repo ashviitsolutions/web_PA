@@ -107,7 +107,7 @@ function EditCoupon() {
             // Don't set amount_off and percent_off based on showAmountOff and showPercentOff here
 
             // Send request to update endpoint
-            const res = await axios.put(`${IP}/coupon/update/${id}`, bodyFormData, {
+            const res = await axios.put(`http://localhost:5000/api/coupon/update/${id}`, bodyFormData, {
                 headers: {
                     Authorization: token
                 }
@@ -146,7 +146,7 @@ function EditCoupon() {
 
 
     useEffect(() => {
-        fetch(`${IP}/coupon/fetch/${id}`)
+        fetch(`http://localhost:5000/api/coupon/fetch/${id}`)
             .then((res) => res.json())
             .then((data) => {
                 setUser(data);

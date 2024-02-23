@@ -46,7 +46,7 @@ function GetCoupon() {
         };
 
         fetchData();
-    }, [data, search, selectedType]);
+    }, [data, user, search, selectedType]);
 
     const handlePageClick = (data) => {
         setData(data.selected + 1);

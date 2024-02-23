@@ -67,20 +67,9 @@ function AddCoupon() {
   };
 
 
-  const [showPercentOff, setShowPercentOff] = useState(true);
-  const [showAmountOff, setShowAmountOff] = useState(true);
+  const [showPercentOff, setShowPercentOff] = useState('');
+  const [showAmountOff, setShowAmountOff] = useState("");
 
-  const handlePercentOffChange = (e) => {
-    // Handle the change for percent_off input
-    // Set showAmountOff to false
-    setShowAmountOff(!showAmountOff);
-  };
-
-  const handleAmountOffChange = (e) => {
-    // Handle the change for amount_off input
-    // Set showPercentOff to false
-    setShowPercentOff(!showPercentOff);
-  };
 
 
 
@@ -102,8 +91,8 @@ function AddCoupon() {
       bodyFormData.append("type", "coupon");
       bodyFormData.append("is_active", values.is_active);
       bodyFormData.append("max_redemptions", values.max_redemptions);
-      bodyFormData.append("amount_off", values.amount_off);
-      bodyFormData.append("percent_off", values.percent_off);
+      bodyFormData.append("amount_off", showAmountOff);
+      bodyFormData.append("percent_off", showPercentOff);
       bodyFormData.append("coupon_code", values.coupon_code);
       bodyFormData.append("expired_by", selectedDate);
       bodyFormData.append("couponImages", values.couponImages);
@@ -249,26 +238,26 @@ function AddCoupon() {
 
 
                       <div className="content mt-3">
-                        {showPercentOff && (
+                        {!showAmountOff && (
                           <div className="input_group" style={{ marginTop: '3rem' }}>
                             <input
                               className="input"
                               name="percent_off"
                               type="number"
-                              onChange={handlePercentOffChange}
+                              onChange={(e) => setShowPercentOff(e.target.value)}
                             />
                             <label htmlFor="">% off</label>
                             <span className="highlight"></span>
                           </div>
                         )}
 
-                        {showAmountOff && (
+                        {!showPercentOff && (
                           <div className="input_group" style={{ marginTop: '3rem' }}>
                             <input
                               className="input"
                               name="amount_off"
                               type="number"
-                              onChange={handleAmountOffChange}
+                              onChange={(e) => setShowAmountOff(e.target.value)}
                             />
                             <label htmlFor="">Amount off</label>
                             <span className="highlight"></span>
