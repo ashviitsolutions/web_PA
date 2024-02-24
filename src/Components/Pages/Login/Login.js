@@ -196,7 +196,7 @@ function Login() {
                                 </button>
                             </div>
                             <p style={{ background: 0, color: '#707070', cursor: "pointer" }} onClick={forGet}>
-                                forget password ?
+                                Forget password ?
                             </p>
 
                             <div className="input_group" style={{ textDecoration: 'none', paddingTop: '1px' }}>

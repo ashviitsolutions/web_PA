@@ -8,7 +8,6 @@
 
 
 
-
 @media (max-width:992px) {
     #bannerservices{
         position: relative;
@@ -18,5 +17,10 @@
     #bannerservices{
         display: block;
     }
+    #small_banner .head h3
+{
+    margin-top: 25px;
+}
+
 
 }

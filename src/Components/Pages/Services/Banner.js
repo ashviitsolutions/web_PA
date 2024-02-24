@@ -46,7 +46,7 @@ function Banner() {
 								<h1>{users.title}</h1>
 								<h3
 									dangerouslySetInnerHTML={{ __html: users.description }}
-									style={{ fontWeight: "500", fontSize: "15px" }}
+									style={{ fontWeight: "500", fontSize: "15px", }}
 								/>
 
 								<Link to="/guest_login">

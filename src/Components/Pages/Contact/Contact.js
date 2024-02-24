@@ -99,7 +99,7 @@ function Contact() {
                                 </div>
                                 <div className="content">
                                     <div className="">
-                                        <p>Write to us on</p>
+                                        <p>Write to us:</p>
                                         <Link to="mailto:info@productivealliance.com"><span className="phones">info@productivealliance.com</span></Link>
                                     </div>
                                 </div>

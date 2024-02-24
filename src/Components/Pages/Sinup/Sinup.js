@@ -47,7 +47,7 @@ function Login() {
             ),
 
         Confirm_Password: Yup.string()
-            .required("required conform_password")
+            .required("required conform password")
             .oneOf([Yup.ref("password"), ""], "password does not match"),
 
     });
@@ -116,7 +116,7 @@ function Login() {
                             onSubmit={onSubmit}
                         >
                             {({ errors, touched, }) => (
-                                <Form className="sign_in_form">
+                                <Form className="sign_in_form sign_up">
                                     <div className="heading">
                                         <h3 id='signtexxt'>Sign Up</h3>
                                     </div>
@@ -189,7 +189,7 @@ function Login() {
                                         {errors.password && touched.password ? (
                                             <div>{errors.password}</div>
                                         ) : null}
-                                        <label htmlFor="">password</label>
+                                        <label htmlFor="">Password</label>
                                         <button className='eye_button' type="button" onClick={handleTogglePassword}>
                                             {showPassword ? <img src={closeEye} alt='' /> : <img src={openEye} alt='' />}
                                         </button>
@@ -207,7 +207,7 @@ function Login() {
                                         {errors.Confirm_Password && touched.Confirm_Password ? (
                                             <div>{errors.Confirm_Password}</div>
                                         ) : null}
-                                        <label htmlFor="">confirm password</label>
+                                        <label htmlFor="">Confirm password</label>
                                         <button className='eye_button' type="button" onClick={handleTogglePassword}>
                                             {showPassword ? <img src={closeEye} alt='' /> : <img src={openEye} alt='' />}
                                         </button>
@@ -219,7 +219,7 @@ function Login() {
 
                                     <div className="input_group" style={{ textDecoration: "none", marginTop: "-10px" }}>
                                         <button type="submit" className="button"> {loading ? "Loading..." : "sign Up "}</button>
-                                        <span>already have an account? <Link to="/login" className="anchor">Sign In</Link> </span>
+                                        <span>already have an account? <Link to="/login" className="anchor">SignIn</Link> </span>
 
 
 
