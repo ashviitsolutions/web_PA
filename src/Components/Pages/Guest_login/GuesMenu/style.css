@@ -388,16 +388,17 @@ a {
 }
 
 .info_icon {
-	bottom: -4px;
-	font-size: 12px;
-	width: 17px;
-	border: solid 1px;
-	border-radius: 50%;
-	text-align: center;
-	position: absolute;
-	right: 0;
-	color: #0e70be;
-	opacity: 0.4;
+    bottom: -4px;
+    font-size: 12px;
+    width: 17px;
+    border: solid 1px;
+    border-radius: 50%;
+    text-align: center;
+    position: absolute;
+    right: 0;
+    color: #0e70be;
+    opacity: 0.4;
+    z-index: 2;
 }
 
 .info_box {
@@ -449,15 +450,15 @@ a {
 	}
 }
 
+
 @media (max-width: 1475px) {
 	.second_form_book {
-		/* width: calc(30% - 20px);  */
-		flex-basis: 20.5%;
+		/* width: calc(30% - 20px); */
+		flex-basis: 27.5%;
 		margin: 10px;
 		border: 1px solid #ddd;
 		padding: 10px;
 		box-sizing: border-box;
-		/* Include padding and border in the total width */
 		cursor: pointer;
 	}
 	#sec_wiz_1 {
@@ -618,6 +619,13 @@ a {
 		padding: 10px;
 		box-sizing: border-box;
 		cursor: pointer;
+	}
+	@media (max-width: 320px) {
+		.second_form_book {
+			/* width: calc(30% - 20px); */
+			flex-basis: 80%;
+		}
+			
 	}
 
 
