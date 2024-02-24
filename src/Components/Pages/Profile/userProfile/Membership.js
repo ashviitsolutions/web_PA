@@ -31,13 +31,13 @@ function Membership() {
 			GOLD: silver,
 			active: Activesilver,
 			title1: "Membership Flexibility",
-			para1: "5% discount on every service, Quaterly Subscription",
-			title2: "One 60-minute massage each month",
+			para1: "5% discount on every service. Quaterly Subscription.",
+			title2: "One 60-minute massage each month.",
 			para2:
-				"you're billed for one massage a month at the member rate, no initiation fee. Credits roll over and never expire",
+				"You are billed for one massage a month at the member rate, no initiation fee. Credits roll over and never expire.",
 			title3: "Preffered rate on all bookings",
 			para3:
-				"Book as many appointments as you like at the membership rate. Get a massage anywhere Productive Alliance is available",
+				"Book as many appointments as you like at the membership rate. Get a massage anywhere Productive Alliance is available.",
 		},
 		{
 			id: "price_1OMYiBLnVrUYOeK2LPEbMEvW",
@@ -49,12 +49,12 @@ function Membership() {
 			active: Activegold,
 			title1: "Membership Flexibility",
 			para1: "Annual Membership. 10% discount on all member services. Prioritize and select your favorite therapist.",
-			title2: "One 60-minute massage each month",
+			title2: "One 60-minute massage each month.",
 			para2:
-				"you're billed for one massage a month at the member rate, no initiation fee. Credits roll over and never expire",
+				"You are billed for one massage a month at the member rate, no initiation fee. Credits roll over and never expire.",
 			title3: "Preffered rate on all bookings",
 			para3:
-				"Book as many appointments as you like at the membership rate. Get a massage anywhere Productive Alliance is available",
+				"Book as many appointments as you like at the membership rate. Get a massage anywhere Productive Alliance is available.",
 		},
 		// Add more membership options as needed
 	];

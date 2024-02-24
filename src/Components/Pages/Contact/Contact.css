@@ -13,6 +13,9 @@
 #contact_us .contact-container .contact-item{
     flex-basis: 45%;
 }
+label{
+    text-transform: none !important;
+}
 
 @media (max-width:992px) {
     #contact_us .contact-container{

@@ -151,7 +151,7 @@ function Yourcard() {
                                         <div className="content_container_gift_card">
                                             <h3>{cur?.offerId?.title}</h3>
                                             <div className="content_container_gift_card_dis">
-                                                <p className="description">{cur?.offerId?.description.slice(0, 60)}...</p>
+                                                <p className="description">{/*{cur?.offerId?.description.slice(0, 60)}...*/}Send the gift card to your loved ones or use it to get discount.</p>
                                             </div>
                                             <div className="content_container_gift_card_para">
                                                 <div className="d-block">

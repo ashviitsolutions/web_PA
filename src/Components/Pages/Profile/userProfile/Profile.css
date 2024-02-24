@@ -971,14 +971,11 @@ textarea {
 
 /* Style for the membership image */
 .image_membership img {
-	width: 100%;
-	/* Make the image fill the container width */
-	max-width: 500px;
-	/* Set a maximum width if needed */
-	height: auto;
-	/* Maintain the aspect ratio */
-	border-radius: 8px;
-	/* Add border-radius for rounded corners */
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 8px;
+    max-height: 250px;
 }
 
 /* Style for the active membership icon */
@@ -1002,22 +999,31 @@ textarea {
 
 /* Style for the membership buttons */
 .membership_buttons {
-	margin-top: 10px;
-	position: absolute;
-	bottom: 12%;
-	left: 35%;
+    margin-top: 10px;
+    position: absolute;
+    bottom: 12%;
+    left: 35%;
+    width: 30%;
 }
 
 /* Button style (customize as needed) */
 .membership_buttons button {
-	padding: 3px 13px;
-	background-color: #03a9f4;
-	color: #fff;
-	border: none;
-	border-radius: 5px;
-	cursor: pointer;
-	margin-left: 40px;
-	margin-bottom: 10px;
+    padding: 3px 13px;
+    background-color: #03a9f4;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    /* margin-left: 40px; */
+    margin-bottom: 10px;
+}
+/* Membership expire paragraph */
+.membership_buttons p {
+    position: absolute;
+    font-size: 12px;
+    width: 200%;
+    left: -50%;
+    bottom: -5px;
 }
 
 /* Responsive styles (adjust breakpoints as needed) */
@@ -1044,7 +1050,11 @@ textarea {
 		cursor: pointer;
 		position: relative;
 		top: -50px; */
-		margin-left: 10px;
+		
+		margin: auto;
+		font-size: 12px;
+		margin-bottom: 10px;
+		
 	}
 }
 
@@ -1061,7 +1071,7 @@ textarea {
 	.model_card_gift_container {
 		width: 100%;
 		position: fixed;
-		top: 70%;
+		top: 60%;
 		left: 50%;
 		transform: translate(-50%, -50%);
 		background-color: #fff;
@@ -1069,9 +1079,9 @@ textarea {
 		border-radius: 8px;
 		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 		z-index: 1000;
-
 		height: auto;
 		margin: auto;
+		font-size: 10px;
 	}
 
 	.sidebar_tab {
