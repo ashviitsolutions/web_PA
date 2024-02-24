@@ -12,6 +12,8 @@ const FourForm = ({ nextStep }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const dispatch = useDispatch();
 
+  console.log("selectedDate currect", selectedDate)
+
   useEffect(() => {
     const currentTime = new Date();
     const currentHour = currentTime.getHours();
@@ -36,6 +38,10 @@ const FourForm = ({ nextStep }) => {
 
     setSelectedTime(formattedCurrentTime);
   }, []);
+
+
+
+
 
   const handleSubmit = () => {
     // If selectedTime is not set, set an error message and do not proceed
@@ -78,7 +84,10 @@ const FourForm = ({ nextStep }) => {
     let startMinute = currentMinute >= 30 ? 30 : 0;
 
     // If selected date is not today, start from 12 AM
-    if (selectedDate.getDate() !== currentTime.getDate()) {
+    if (
+      selectedDate !== currentTime
+
+    ) {
       startHour = 0;
       startMinute = 0;
     }
@@ -89,10 +98,13 @@ const FourForm = ({ nextStep }) => {
 
     for (let hour = startHour; hour <= 23; hour++) {
       for (let minute = startMinute; minute < 60; minute += 30) {
-        const formattedHour = hour % 12 === 0 ? 12 : hour % 12;
-        const formattedMinute = minute.toString().padStart(2, '0');
-        const timePeriod = hour >= 12 ? 'PM' : 'AM';
-        times.push(`${formattedHour}:${formattedMinute} ${timePeriod}`);
+        // Check if the time has already passed
+        if (hour > currentHour || (hour === currentHour && minute >= currentMinute)) {
+          const formattedHour = hour % 12 === 0 ? 12 : hour % 12;
+          const formattedMinute = minute.toString().padStart(2, '0');
+          const timePeriod = hour >= 12 ? 'PM' : 'AM';
+          times.push(`${formattedHour}:${formattedMinute} ${timePeriod}`);
+        }
       }
       startMinute = 0; // Reset startMinute after first hour
     }
@@ -100,7 +112,10 @@ const FourForm = ({ nextStep }) => {
     return times;
   };
 
+
+
   const timeOptions = generateTimeOptions();
+  console.log("timeOptions", timeOptions)
 
   return (
     <div id="sec_wiz_4" className="section">
@@ -127,10 +142,10 @@ const FourForm = ({ nextStep }) => {
         >
           <option value="">Select Time</option>
           {timeOptions.map((time) => (
-              <option key={time} value={time}>
-                {time}
-              </option>
-            ))}
+            <option key={time} value={time}>
+              {time}
+            </option>
+          ))}
         </select>
 
         <div className="error-message">{errorMessage}</div>
