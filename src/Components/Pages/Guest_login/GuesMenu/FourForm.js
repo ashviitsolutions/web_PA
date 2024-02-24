@@ -7,17 +7,10 @@ import Calendar from 'react-calendar';
 const FourForm = ({ nextStep }) => {
   const selector = useSelector((state) => state.counter.formData);
   console.log("selector", selector);
-  const [selectedTime, setSelectedTime] = useState([]); // State to store selected time
+  const [selectedTime, setSelectedTime] = useState(""); // State to store selected time
   const [selectedDate, setSelectedDate] = useState(new Date()); // State to store selected date
   const [errorMessage, setErrorMessage] = useState("");
   const dispatch = useDispatch();
-
-  const times = [
-    "8:00 AM", "8:30 AM", "9:00 AM", "9:30 AM", "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM",
-    "12:00 PM", "12:30 PM", "1:00 PM", "1:30 PM", "2:00 PM", "2:30 PM", "3:00 PM", "3:30 PM",
-    "4:00 PM", "4:30 PM", "5:00 PM", "5:30 PM", "6:00 PM", "6:30 PM", "7:00 PM", "7:30 PM",
-    "8:00 PM", "8:30 PM", "9:00 PM", "9:30 PM", "10:00 PM"
-  ];
 
   useEffect(() => {
     const currentTime = new Date();
@@ -41,35 +34,8 @@ const FourForm = ({ nextStep }) => {
     const formattedCurrentTime = `${formattedHour}:${formattedMinute} ${period}`;
     console.log("formattedCurrentTime", formattedCurrentTime);
 
-    // Find the closest available time in the times array
-    const closestTimeIndex = times.filter(time => time > formattedCurrentTime);
-
-    // const closestTime = times[closestTimeIndex];
-
-
-
-    console.log("closestTime", closestTimeIndex);
-
-    // Set the selected time to the closest available time
     setSelectedTime(formattedCurrentTime);
   }, []);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   const handleSubmit = () => {
     // If selectedTime is not set, set an error message and do not proceed
@@ -102,6 +68,40 @@ const FourForm = ({ nextStep }) => {
     }, 2000);
   };
 
+  const generateTimeOptions = () => {
+    const times = [];
+    const currentTime = new Date();
+    const currentHour = currentTime.getHours();
+    const currentMinute = currentTime.getMinutes();
+    const period = currentHour >= 12 ? 'PM' : 'AM';
+    let startHour = currentHour;
+    let startMinute = currentMinute >= 30 ? 30 : 0;
+
+    // If selected date is not today, start from 12 AM
+    if (selectedDate.getDate() !== currentTime.getDate()) {
+      startHour = 0;
+      startMinute = 0;
+    }
+
+    if (period === 'PM' && startHour !== 12) {
+      startHour += 12;
+    }
+
+    for (let hour = startHour; hour <= 23; hour++) {
+      for (let minute = startMinute; minute < 60; minute += 30) {
+        const formattedHour = hour % 12 === 0 ? 12 : hour % 12;
+        const formattedMinute = minute.toString().padStart(2, '0');
+        const timePeriod = hour >= 12 ? 'PM' : 'AM';
+        times.push(`${formattedHour}:${formattedMinute} ${timePeriod}`);
+      }
+      startMinute = 0; // Reset startMinute after first hour
+    }
+
+    return times;
+  };
+
+  const timeOptions = generateTimeOptions();
+
   return (
     <div id="sec_wiz_4" className="section">
       <div className="input_group" style={{ textAlign: "center" }}>
@@ -118,8 +118,6 @@ const FourForm = ({ nextStep }) => {
           />
         </div>
 
-
-        {/* Time selection dropdown */}
         {/* Time selection dropdown */}
         <select
           style={{ width: "auto", display: "inline-block", padding: "0px 15px" }}
@@ -128,15 +126,12 @@ const FourForm = ({ nextStep }) => {
           onChange={(e) => setSelectedTime(e.target.value)}
         >
           <option value="">Select Time</option>
-          {times.map((time) => (
+          {timeOptions.map((time) => (
               <option key={time} value={time}>
                 {time}
               </option>
             ))}
         </select>
-
-
-
 
         <div className="error-message">{errorMessage}</div>
 
