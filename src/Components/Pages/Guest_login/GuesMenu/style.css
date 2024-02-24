@@ -273,15 +273,15 @@
 	border-radius: 5px;
 }
 
-.review_page1 input[type="text"],
-.review_page1 input[type="email"],
-.review_page1 input[type="password"],
-.review_page1 textarea,
-.review_page1 input[type="number"] {
-	width: 100%;
-	padding: 10px;
-	border: 1px solid #ccc;
-	border-radius: 5px;
+.review_page1 input[type="text"], .review_page1 input[type="email"], .review_page1 input[type="password"], .review_page1 textarea, .review_page1 input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+.selectable label {
+    text-transform: capitalize !important;
 }
 
 .review_page1 {
@@ -432,6 +432,9 @@ a {
 .nomp {
 	margin: 0 !important;
 	padding: 0 !important;
+}
+.review_page1 label {
+    font-size: 11px;
 }
 
 @keyframes popeffect {

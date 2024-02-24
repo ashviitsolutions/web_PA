@@ -91,7 +91,7 @@ const FifthForm = ({ step, nextStep }) => {
               />
             </div>
             <div className="form-group half">
-              <label htmlFor="hotelName">  Apt / Suite / Hotel Name &amp; room:</label>
+              <label htmlFor="hotelName">  Apt / Hotel &amp; room:</label>
               <input
                 type="text"
                 name="hotelName"

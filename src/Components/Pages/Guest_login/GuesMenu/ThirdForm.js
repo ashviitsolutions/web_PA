@@ -41,11 +41,11 @@ const ThirdForm = ({ nextStep }) => {
     const areasOfConcernOptions = [
         "pain",
         "tension",
-        "relaxation",
+        "weekness",
         "migraine",
         "stress",
         "muscle pain",
-        "injuries",
+        "injury",
         "inflammation",
         "fatigue",
         "anxiety",
@@ -64,8 +64,8 @@ const ThirdForm = ({ nextStep }) => {
         "Acne",
         "pregnancy",
         "sciatica",
-        "dadisease",
-        "nurological condition",
+        "diabetes",
+        "neurological condition",
     ];
 
     const specialConsiderationOptions = [
@@ -97,7 +97,7 @@ const ThirdForm = ({ nextStep }) => {
     return (
         <div id="sec_wiz_3 thirdform" className="section">
             <label className="static title" htmlFor="">
-                Areas of Concern
+                Reasons for seeking relief
             </label>
             <ul className="selectable">
                 {areasOfConcernOptions.map((option) => (
