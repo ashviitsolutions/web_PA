@@ -966,10 +966,18 @@
 
     }
 
+
     #gmaillogin {
         justify-content: center;
         text-align: center;
 
+    }
+    .sign_in_forms {
+        margin-top: 0;
+    }
+    
+    .sign_in_forms .sign_in_icon {
+        height: 150px;
     }
     
 }

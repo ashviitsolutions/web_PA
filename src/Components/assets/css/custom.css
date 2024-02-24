@@ -8349,6 +8349,7 @@ img .img-responsive {
   font-size: 22px;
   /* text-transform: capitalize;
    */
+   text-transform: none !important;
   font-weight: 800;
   color: #0f1538;
   text-align: center;

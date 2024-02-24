@@ -134,7 +134,7 @@ function GuestLogin() {
                       <div className="as_guest gutter" style={{ textAlign: 'center' }}>
                         <div className="heading gutter" style={{ maxWidth: '400px', display: 'inline-block' }}>
                           <h3 style={{ fontSize: '18px' }}>Don't have an account ?</h3>
-                          <img src={Image} alt="" />
+                          <img className='sign_in_icon' src={Image} alt="" />
                           <div className="input_group">
                             <Link to="/select_location_type">
                               <button className="small button lazy" type="button">

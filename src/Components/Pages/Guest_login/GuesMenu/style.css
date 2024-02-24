@@ -613,19 +613,18 @@ a {
 
 	.second_form_book {
 		width: calc(50% - 20px);
-		flex-basis: 47%;
+		flex-basis: 46%;
 		margin: 4px;
 		border: 1px solid #ddd;
 		padding: 10px;
 		box-sizing: border-box;
 		cursor: pointer;
 	}
-	@media (max-width: 320px) {
-		.second_form_book {
-			/* width: calc(30% - 20px); */
-			flex-basis: 80%;
-		}
-			
+	#sec_wiz_2, .sec_wiz_2 {
+		width: 90%;
+	}
+	.time_options li {
+		font-size: 12px;
 	}
 
 
