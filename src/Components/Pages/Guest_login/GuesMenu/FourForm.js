@@ -10,9 +10,10 @@ const FourForm = ({ nextStep }) => {
   const [selectedTime, setSelectedTime] = useState(""); // State to store selected time
   const [selectedDate, setSelectedDate] = useState(new Date()); // State to store selected date
   const [errorMessage, setErrorMessage] = useState("");
+  const currentTime = new Date();
   const dispatch = useDispatch();
 
-  console.log("selectedDate currect", selectedDate)
+  console.log("selectedDate currect", currentTime)
 
   useEffect(() => {
     const currentTime = new Date();
@@ -74,6 +75,9 @@ const FourForm = ({ nextStep }) => {
     }, 2000);
   };
 
+
+
+
   const generateTimeOptions = () => {
     const times = [];
     const currentTime = new Date();
@@ -114,9 +118,16 @@ const FourForm = ({ nextStep }) => {
 
 
 
-  const timeOptions = generateTimeOptions();
+  const timeOptions = generateTimeOptions(selectedDate);
   console.log("timeOptions", timeOptions)
 
+
+  const times = [
+    "8:00 AM", "8:30 AM", "9:00 AM", "9:30 AM", "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM",
+    "12:00 PM", "12:30 PM", "1:00 PM", "1:30 PM", "2:00 PM", "2:30 PM", "3:00 PM", "3:30 PM",
+    "4:00 PM", "4:30 PM", "5:00 PM", "5:30 PM", "6:00 PM", "6:30 PM", "7:00 PM", "7:30 PM",
+    "8:00 PM", "8:30 PM", "9:00 PM", "9:30 PM", "10:00 PM"
+  ];
   return (
     <div id="sec_wiz_4" className="section">
       <div className="input_group" style={{ textAlign: "center" }}>
@@ -133,20 +144,48 @@ const FourForm = ({ nextStep }) => {
           />
         </div>
 
-        {/* Time selection dropdown */}
-        <select
-          style={{ width: "auto", display: "inline-block", padding: "0px 15px" }}
-          className="input"
-          value={selectedTime}
-          onChange={(e) => setSelectedTime(e.target.value)}
-        >
-          <option value="">Select Time</option>
-          {timeOptions.map((time) => (
-            <option key={time} value={time}>
-              {time}
-            </option>
-          ))}
-        </select>
+  
+
+
+
+
+
+        {
+          selectedDate.getFullYear() === currentTime.getFullYear() &&
+            selectedDate.getMonth() === currentTime.getMonth() &&
+            selectedDate.getDate() === currentTime.getDate() ? (
+            <select
+              style={{ width: "auto", display: "inline-block", padding: "0px 15px" }}
+              className="input"
+              value={selectedTime}
+              onChange={(e) => setSelectedTime(e.target.value)}
+            >
+              <option value="">Select Time</option>
+              {timeOptions.map((time) => (
+                <option key={time} value={time}>
+                  {time}
+                </option>
+              ))}
+            </select>
+          ) : (
+            <select
+              style={{ width: "auto", display: "inline-block", padding: "0px 15px" }}
+              className="input"
+              value={selectedTime}
+              onChange={(e) => setSelectedTime(e.target.value)}
+            >
+              <option value="">Select Time</option>
+              {times.map((time) => (
+                <option key={time} value={time}>
+                  {time}
+                </option>
+              ))}
+            </select>
+          )
+        }
+
+
+
 
         <div className="error-message">{errorMessage}</div>
 
