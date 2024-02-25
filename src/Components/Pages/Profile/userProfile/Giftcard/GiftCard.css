@@ -15,9 +15,10 @@
 }
 
 .gift_card_buy_item {
-	border: 1px solid #ccc;
-	border-radius: 8px;
-	overflow: hidden;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #ffffffb8;
 }
 .gift_image img {
     height: 160px;

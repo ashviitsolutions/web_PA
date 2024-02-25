@@ -332,7 +332,7 @@ const Profile = () => {
 					style={{
 						borderRadius: "100%",
 						display: "block",
-						boxShadow: "4px 4px 4px 0px lightgray", // Correct syntax
+						boxShadow: "4px 4px 4px 0px rgb(6 77 109)", // Correct syntax
 					}}
 					className="profileiconimage"
 					onClick={() => nav("/guest_login")}

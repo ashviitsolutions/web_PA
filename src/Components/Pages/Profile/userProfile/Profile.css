@@ -5,6 +5,9 @@
 
 .progressbar_userpannel {
 	width: 100%;
+	background: url(../../../assets/img/9496304.png);
+	background-size: 100% 100%;
+	background-attachment: fixed;
 }
 
 .parent {
@@ -134,10 +137,10 @@ ul#tabs_control li.active {
 }
 
 .overview {
-	background-color: #ffff;
+	/* background-color: #ffffff6e; */
+	padding: 10px 0;
 	width: 100%;
 	margin: auto;
-	margin-top: 10px;
 }
 
 .overview .overview_container {
