@@ -25,6 +25,7 @@ const FifthForm = ({ step, nextStep }) => {
   const [email, setEmail] = useState(useremail);
   const [arrivalInstructions, setArrivalInstructions] = useState("");
   const [name, setName] = useState(username);
+  // const [phone, setPhone] = useState(phone);
   const [password, setPassword] = useState("");
   const [confirmpassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(false);
@@ -39,6 +40,7 @@ const FifthForm = ({ step, nextStep }) => {
     setLoading(true)
     const formData = {
       name: name,
+      // phone: phone,
       email: email,
       address: address,
       arrivalInstructions: arrivalInstructions,
@@ -81,12 +83,12 @@ const FifthForm = ({ step, nextStep }) => {
           </div>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div className="form-group half">
-              <label htmlFor="address">Address:</label>
+            <label htmlFor="email">Phone:</label>
               <input
                 type="text"
-                name="address"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
+                name="phone"
+                // value={phone}
+                // onChange={(e) => setPhone(e.target.value)}
                 required
               />
             </div>
@@ -98,11 +100,21 @@ const FifthForm = ({ step, nextStep }) => {
               />
             </div>
             </div>
+            <div className="form-group">
+              <label htmlFor="address">Address:</label>
+              <input
+                type="text"
+                name="address"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                required
+              />
+            </div>
           <div className="form-group">
             <label htmlFor="bio">Arrival instructions for service provider:</label>
             <textarea
               name="bio"
-              rows="4"
+              rows="1"
               value={arrivalInstructions}
               onChange={(e) => setArrivalInstructions(e.target.value)}
             />
