@@ -4,15 +4,20 @@
 }
 
 .progressbar_userpannel {
-	width: 100%;
-	background: url(../../../assets/img/9496304.png);
-	background-size: 100% 100%;
-	background-attachment: fixed;
+    width: 100%;
+    background: url(../../../assets/img/9496304.png);
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    max-height: 100vh !important;
+    overflow-y: scroll;
 }
 
 .parent {
 	display: flex;
 	/* margin-top: 60px; */
+}
+.pagination li{
+	background: none !important;
 }
 
 .sidebar_tab {
