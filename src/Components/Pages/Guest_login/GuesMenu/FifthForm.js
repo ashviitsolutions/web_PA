@@ -83,7 +83,7 @@ const FifthForm = ({ step, nextStep }) => {
           </div>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div className="form-group half">
-            <label htmlFor="email">Phone:</label>
+            <label htmlFor="email">Phone No:</label>
               <input
                 type="text"
                 name="phone"
