@@ -505,7 +505,7 @@ ul#tabs_control li.active {
 
 /* //Footer */
 .user_profile_footer {
-	width: 95%;
+	width: 90%;
 	margin: auto;
 	background: #0f1d28;
 	min-height: 50px;
@@ -1222,7 +1222,7 @@ textarea {
 		width: 100%;
 	}
 	.user_profile_footer {
-		width: 95%;
+		/* width: 95%; */
 		margin: auto;
 		background: #0f1d28;
 		/* min-height: 50px; */

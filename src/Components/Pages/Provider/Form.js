@@ -220,7 +220,7 @@ function FormPage(props) {
                                                             type="text"
                                                             placeholder=""
                                                         />
-                                                        <label htmlFor="">first name</label>
+                                                        <label htmlFor="">First name</label>
                                                         {errors.first_name && touched.first_name ? (
                                                             <div>{errors.first_name}</div>
                                                         ) : null}
@@ -238,7 +238,7 @@ function FormPage(props) {
                                                         {errors.last_name && touched.last_name ? (
                                                             <div>{errors.last_name}</div>
                                                         ) : null}
-                                                        <label htmlFor="">last name</label>
+                                                        <label htmlFor="">Last name</label>
                                                         <span className="highlight"></span>
                                                     </div>
                                                 </div>
@@ -254,7 +254,7 @@ function FormPage(props) {
                                                     {errors.email && touched.email ? (
                                                         <div>{errors.email}</div>
                                                     ) : null}
-                                                    <label htmlFor="">email</label>
+                                                    <label htmlFor="">Email</label>
                                                     <span className="highlight"></span>
                                                 </div>
                                                 <div className="input_group">
@@ -267,7 +267,7 @@ function FormPage(props) {
                                                     {errors.phone && touched.phone ? (
                                                         <div>{errors.phone}</div>
                                                     ) : null}
-                                                    <label htmlFor="">phone</label>
+                                                    <label htmlFor="">Phone</label>
                                                     <span className="highlight"></span>
                                                 </div>
 
@@ -282,7 +282,7 @@ function FormPage(props) {
                                                     {errors.address && touched.address ? (
                                                         <div>{errors.address}</div>
                                                     ) : null}
-                                                    <label htmlFor="">address</label>
+                                                    <label htmlFor="">Address</label>
                                                     <span className="highlight"></span>
                                                 </div>
                                             </div>
@@ -299,7 +299,7 @@ function FormPage(props) {
                                                         {errors.zip && touched.zip ? (
                                                             <div>{errors.zip}</div>
                                                         ) : null}
-                                                        <label htmlFor="">zip code</label>
+                                                        <label htmlFor="">Zip code</label>
                                                         <span className="highlight"></span>
                                                     </div>
                                                 </div>
@@ -338,7 +338,7 @@ function FormPage(props) {
                                                         {errors.state && touched.state ? (
                                                             <div>{errors.zip}</div>
                                                         ) : null}
-                                                        <label htmlFor="">state</label>
+                                                        <label htmlFor="">State</label>
                                                         <span className="highlight"></span>
                                                     </div>
                                                 </div>
@@ -370,7 +370,7 @@ function FormPage(props) {
                                                 {errors.password && touched.password ? (
                                                     <div>{errors.password}</div>
                                                 ) : null}
-                                                <label htmlFor="">create password</label>
+                                                <label htmlFor="">Create password</label>
                                                 <button className='eye_button' type="button" onClick={handleTogglePassword}>
                                                 {showPassword ? <img src={closeEye} alt='' /> : <img src={openEye} alt='' />}
                                                 </button>
@@ -387,7 +387,7 @@ function FormPage(props) {
                                                 {errors.confirm_password && touched.confirm_password ? (
                                                     <div>{errors.confirm_password}</div>
                                                 ) : null}
-                                                <label htmlFor="">confirm Password</label>
+                                                <label htmlFor="">Confirm Password</label>
                                                 <button className='eye_button' type="button" onClick={handleTogglePassword}>
                                                 {showPassword ? <img src={closeEye} alt='' /> : <img src={openEye} alt='' />}
                                             </button>
@@ -425,7 +425,7 @@ function FormPage(props) {
                                             </div>
 
                                             <div className="faqbutton">
-                                                <button className="button lazy" type="submit">submit</button>
+                                                <button className="button lazy" type="submit" style={{maxWidth:"150px"}}>submit</button>
                                             </div>
 
                                         </div>
