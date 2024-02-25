@@ -111,7 +111,7 @@ const FifthForm = ({ step, nextStep }) => {
             !token && (
               <>
                 <div className="form-group">
-                  <label htmlFor="password">Password:</label>
+                  <label htmlFor="password">Create Password:</label>
                   <input
                     type="password"
                     name="password"

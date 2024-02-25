@@ -340,7 +340,7 @@ const Profile = () => {
 			</div>
 			{/* Toggle button for mobile view */}
 
-			<div className="progressbar_userpannel">
+			<div className="progressbar_userpannel profileSpace">
 				{form}
 				<div className="user_profile_footer">
 					<div className="footer_container">
