@@ -11,7 +11,7 @@ import CustomModal from "../../Modal";
 
 const RequestCard = (props) => {
   const token = localStorage.getItem("providertoken");
-  const { total } = props;
+  const { total, serviceTime, gendercheck, add_ons, add_ons_details } = props;
   const { _id } = props;
   var tip = props.tip ? props.tip : 0;
   var instructions = props.instructions ? props.instructions : '';
@@ -20,6 +20,76 @@ const RequestCard = (props) => {
 
   const [display, setDisplay] = useState(true);
   const [showModal, setShowModal] = useState(false); // State to control modal visibility
+
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  console.log("add_ons array multiple id", add_ons_details)
+
+  // useEffect(() => {
+  //   const time_status = props.serviceTime;
+  //   let basePrice = 70; // Initial base price
+
+  //   // Adjust base price based on service time
+  //   if (time_status === "90min") {
+  //     basePrice += 35;
+  //   } else if (time_status === "120min") {
+  //     basePrice += 70;
+  //   }
+
+  //   // Double the base price if gender is 'guest'
+  //   if (gendercheck === "guest") {
+  //     basePrice *= 2;
+  //   }
+
+  //   // Calculate total price including add-ons
+  //   let totalPriceWithAddons = basePrice;
+
+  //   // Add 14% of the base price for each item in add_ons array
+  //   if (add_ons && add_ons.length > 0) {
+  //     const addonPrice = basePrice * 0.14; // 14% of the base price
+  //     totalPriceWithAddons += addonPrice * add_ons.length;
+  //   }
+
+
+
+  //   setTotalPrice(totalPriceWithAddons);
+  // }, [serviceTime, gendercheck, add_ons]);
+
+
+
+
+  useEffect(() => {
+    const time_status = props.serviceTime;
+    let basePrice = 70; // Initial base price
+
+    // Adjust base price based on service time
+    if (time_status === "90min") {
+      basePrice += 35;
+    } else if (time_status === "120min") {
+      basePrice += 70;
+    }
+
+    // Double the base price if gender is 'guest'
+    if (gendercheck === "guest") {
+      basePrice *= 2;
+    }
+
+    // Calculate total price of add-ons
+    let totalAddonsPrice = 0;
+    if (add_ons_details && add_ons_details.length > 0) {
+      totalAddonsPrice = add_ons_details.reduce((acc, addon) => acc + addon.price, 0);
+    }
+
+    // Calculate total price including add-ons
+    let totalPriceWithAddons = basePrice + totalAddonsPrice;
+
+    // Add 14% of total add-ons price to totalPrice
+    totalPriceWithAddons += totalAddonsPrice * 0.14;
+
+    setTotalPrice(totalPriceWithAddons);
+  }, [serviceTime, gendercheck, add_ons_details]);
+
+
 
 
 
@@ -46,6 +116,16 @@ const RequestCard = (props) => {
     return null;
   }
 
+
+
+
+
+
+
+
+
+
+
   return (
 
     <div  >
@@ -54,7 +134,7 @@ const RequestCard = (props) => {
         <Card.Title
           className="px-3"
         >
-          {props.title}
+          {props.title} {props.serviceTime} - {props.massage_for}
         </Card.Title>
         <Card.Body>
           <Row>
@@ -78,7 +158,7 @@ const RequestCard = (props) => {
               {/* <div>${props.amt}</div>
               <div>+${tip} pre-tip</div>
               <div className="text-warning">Total = ${total}</div> */}
-              <div className="earn"><span><FontAwesomeIcon icon={faCoins} /></span> {props.amt}$</div>
+              <div className="earn"><span><FontAwesomeIcon icon={faCoins} /></span> {totalPrice}$</div>
             </div>
           </Row>
         </Card.Body>
@@ -108,6 +188,7 @@ const RequestCard = (props) => {
         locationType={props.locationType}
         newclient={props.newclient}
         paymentIntentId={props.paymentIntentId}
+        add_ons_details={props.add_ons_details}
       />
     </div>
   );

@@ -107,6 +107,7 @@ import Listprovider from './Components/Pages/Guest_login/Providerlocation/Listpr
 //protected routed
 import Protected from './PROVIDER/ProtectedRute/Protected';
 import Logout from './PROVIDER/components/Logout';
+import Notification from './PROVIDER/layouts/Notification';
 
 // BlogDetals 
 import Blogpage from './Components/Pages/Blog/Blogpage';
@@ -543,6 +544,14 @@ function App() {
             <Protected Component={ScheduledRequests} />
 
           </>} />
+          <Route path="/providers/notification" element={<>
+            <SideBarprovider />
+            <NavBarProvide />
+            <Protected Component={Notification} />
+
+          </>} />
+
+
           <Route path="/providers/events" element={<>
             <SideBarprovider />
             <NavBarProvide />

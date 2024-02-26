@@ -77,6 +77,9 @@ const SideBar = () => {
               <Link to="/providers/earnings">
                 <div className="menu-item">Earnings</div>
               </Link>
+              <Link to="/providers/notification">
+                <div className="menu-item">Notification</div>
+              </Link>
               {user !== 4 && (
                 <Link to="/providers/application-form">
                   <div className="menu-item">Application Form</div>

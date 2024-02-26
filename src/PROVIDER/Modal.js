@@ -22,7 +22,9 @@ function CustomModal(
     location,
     time,
     user_id,
+    add_ons_details,
     onClose,
+    gendercheck,
     date,
     show,
     onHide,
@@ -106,6 +108,46 @@ function CustomModal(
 
   const removedChekincardArray = JSON.parse(localStorage.getItem('removedChekincard')) || [];
   const showCheckInButton = !removedChekincardArray.includes(_id);
+  const [totalPrice, setTotalPrice] = useState(0);
+
+
+
+  useEffect(() => {
+    const time_status = serviceTime;
+    let basePrice = 70; // Initial base price
+
+    // Adjust base price based on service time
+    if (time_status === "90min") {
+      basePrice += 35;
+    } else if (time_status === "120min") {
+      basePrice += 70;
+    }
+
+    // Double the base price if gender is 'guest'
+    if (gendercheck === "guest") {
+      basePrice *= 2;
+    }
+
+    // Calculate total price of add-ons
+    let totalAddonsPrice = 0;
+    if (add_ons_details && add_ons_details.length > 0) {
+      totalAddonsPrice = add_ons_details.reduce((acc, addon) => acc + addon.price, 0);
+    }
+
+    // Calculate total price including add-ons
+    let totalPriceWithAddons = basePrice + totalAddonsPrice;
+
+    // Add 14% of total add-ons price to totalPrice
+    totalPriceWithAddons += totalAddonsPrice * 0.14;
+
+    setTotalPrice(totalPriceWithAddons);
+  }, [serviceTime, gendercheck, add_ons_details]);
+
+
+
+
+
+
 
   return (
     <BootstrapModal show={show} onHide={handleClose}>
@@ -115,6 +157,7 @@ function CustomModal(
       <BootstrapModal.Body>
         {/* Display user data in the modal */}
         <p className="title">{title} {serviceTime} - {massage_for}</p>
+        
         <div className="col-md-12 detailsTable">
           {/* booking details */}
           <div className="title detailTitle">
@@ -129,7 +172,7 @@ function CustomModal(
             </div>
             <div className="col-md-6 title">Duration and Earning</div>
             <div className="col-md-3">{serviceTime}</div>
-            <div className="col-md-3 title">135$</div>
+            <div className="col-md-3 title">{totalPrice}$</div>
             <div div className="col-md-6 title">
               Location:
             </div>
@@ -176,15 +219,6 @@ function CustomModal(
             </div>
             <div className="col-md-6">{massageBodyPart}</div>
 
-            {/* <div className="col-md-6">{massageBodyPart}</div>
-            <div div className="col-md-6 title">
-              Massage Pressure:
-            </div>
-            <div className="col-md-6">Light</div>
-            <div div className="col-md-6 title">
-              Any Other Remark:
-            </div>
-  <div className="col-md-6">No Remark</div> */}
           </div>
 
 

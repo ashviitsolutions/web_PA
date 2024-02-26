@@ -40,6 +40,7 @@ function LoginProvider() {
             if (resp.status === 200) {
                 const time = new Date().getTime();
                 localStorage.setItem('providertoken', token);
+                localStorage.setItem('provider_id', result?.user_info?._id);
                 localStorage.setItem('providerlogintime', time);
                 if (approvaltoken === 'approval') {
                     nav('/providers');

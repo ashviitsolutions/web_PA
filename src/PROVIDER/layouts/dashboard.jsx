@@ -40,25 +40,6 @@ const Dashboard = () => {
 
 
 
-
-  //request api
-  // useEffect(() => {
-  //   fetch(`${IP}/provider/requests`, {
-  //     headers: {
-  //       'Authorization': token
-  //     }
-  //   }).then(resp => {
-  //     return resp.json()
-  //   }).then(result => {
-  //     setreq(result)
-
-  //   }).catch(err => {
-  //     console.log(err)
-  //   })
-  // }, [])
-
-
-
   const fetchData = useCallback(() => {
     fetch(`${IP}/provider/requests`, {
       headers: {
@@ -68,7 +49,7 @@ const Dashboard = () => {
       return resp.json()
     }).then(result => {
       setreq(result)
-      console.log("request data",result)
+      console.log("request data", result)
     }).catch(err => {
       console.log(err)
     });
@@ -94,8 +75,8 @@ const Dashboard = () => {
         <div className="col-md-12">
           <h2 className="text-center mt-2">Earnings</h2>
           <Row>
-            <EarningsCard label="Net Income" amt={wallate?.total_withdrawn} />
-            <EarningsCard label="Pending Clearance" amt={wallate?.available_amount} />
+            <EarningsCard label="Net Income" amt={wallate?.total_withdrawn.toFixed(2)} />
+            <EarningsCard label="Pending Clearance" amt={wallate?.available_amount.toFixed(2)} />
 
           </Row>
         </div>
@@ -131,6 +112,11 @@ const Dashboard = () => {
                       serviceTime={cur.service_time}
                       specialConsiderations={cur.special_considerations}
                       paymentIntentId={cur.paymentIntentId}
+                      gendercheck={cur.gendercheck}
+                      add_ons={cur.add_ons}
+                      add_ons_details={cur.add_ons_details}
+                      massage_for={cur.massage_for}
+
                     />
 
                   </React.Fragment>

@@ -51,11 +51,11 @@ const Earnings = () => {
     <Container className="schudulecard">
       <h2 className="text-center mt-2" id="schudule-title">Earnings</h2>
       <Row>
-        <EarningsCard label="Net Income" amt={wallate?.total_withdrawn} />
-        <EarningsCard label="Pending Clearance" amt={wallate?.available_amount} />
+        <EarningsCard label="Net Income" amt={wallate?.total_withdrawn.toFixed(2)} />
+        <EarningsCard label="Pending Clearance" amt={wallate?.available_amount.toFixed(2)} />
 
       </Row>
-    
+
 
       <h5 className="mt-2">View Earning History</h5>
 

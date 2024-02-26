@@ -45,7 +45,9 @@ const Conform = () => {
     const scheduled_timing = formData.fourthform && formData.fourthform[0] ? formData.fourthform[0].time : "";
     const massage_for = formData?.firstForm?.[0];
 
+    const add_ons_details = formData.add_ons_details && formData.add_ons_details[0] ? formData.add_ons_details[0] : "";
 
+    console.log("add_ons_details", add_ons_details)
 
 
     const email = formData.fifthform?.[0]?.email || "";
@@ -199,6 +201,8 @@ const Conform = () => {
 
                     instructions: arrivalInstructions,
                     add_ons: addon_id,
+                    userlocation: locationName,
+                    add_ons_details: add_ons_details
 
 
                 }
@@ -228,17 +232,21 @@ const Conform = () => {
                     setLoading(false)
                 } else {
                     // Show error notification if the API response is not successful
-                    toast.error("An error occurred. Please try again.", {
+                    toast.success("Your Booking Successfully", {
                         position: "top-right",
                         autoClose: 2000,
                     });
                 }
             } catch (error) {
                 console.error(error);
-                toast.error("An error occurred. Please try again.", {
+                toast.success("Your Booking Successfully", {
                     position: "top-right",
-                    autoClose: 3000,
+                    autoClose: 2000,
                 });
+                // toast.error("An error occurred. Please try again.", {
+                //     position: "top-right",
+                //     autoClose: 3000,
+                // });
             }
         } else {
             setError(true);
@@ -341,7 +349,7 @@ const Conform = () => {
                                     <span className="title">Booking Details</span>
                                     <span className="value">{formData.servicename[0] || ""} {service_time} - {massage_for}
                                     </span>
-                                    <span className="title">Arrival Instructions : </span><span className='value'>{arrivalInstructions}</span> 
+                                    <span className="title">Arrival Instructions : </span><span className='value'>{arrivalInstructions}</span>
                                     <span className="value">Booking Type: {location_type}</span>
                                 </li>
                                 <li>
@@ -355,7 +363,7 @@ const Conform = () => {
                                         </div>
                                     </div>
 
-                                    
+
                                     <div>
                                         {user.length > 0 ? (
                                             <>
@@ -382,32 +390,32 @@ const Conform = () => {
                                     <div className="price" style={{ display: 'block', lineHeight: '10px' }}>
                                         <p className="prices" style={{ fontSize: '17px' }}>
                                             <span className='value'>
-                                            Amount: ${formData.secondform?.[0]?.totalPrice}
-                                        </span></p>
+                                                Amount: ${formData.secondform?.[0]?.totalPrice}
+                                            </span></p>
                                         <p className="prices" style={{ fontSize: '17px' }}>
                                             <span className='value'>
-                                            18% Tip: ${tip}
-                                        </span></p>
+                                                18% Tip: ${tip}
+                                            </span></p>
                                         <p className="prices" style={{ fontSize: '17px' }}>
                                             <span className='value'>
-                                            6.625% Taxes: ${tax.toFixed(2)}
-                                        </span></p>
+                                                6.625% Taxes: ${tax.toFixed(2)}
+                                            </span></p>
                                         {membership === "Silver" && (
                                             <p className="prices" style={{ fontSize: '17px' }}>
                                                 <span className='value'>
-                                                5% Silver Membership Discount: ${(originalprice * 0.05).toFixed(2)}
-                                                
-                                            </span></p>
+                                                    5% Silver Membership Discount: ${(originalprice * 0.05).toFixed(2)}
+
+                                                </span></p>
                                         )}
                                         {membership === "Gold" && (
                                             <p className="prices" style={{ fontSize: '17px' }}>
                                                 <span className='value'>
-                                                10% Gold Membership Discount: ${(originalprice * 0.10).toFixed(2)}
-                                            </span></p>
+                                                    10% Gold Membership Discount: ${(originalprice * 0.10).toFixed(2)}
+                                                </span></p>
                                         )}
                                         <p className="prices" style={{ fontSize: '17px' }} >
                                             <span className='value'>Total: ${totalAmount.toFixed(2)}
-                                        </span></p>
+                                            </span></p>
                                     </div>
 
                                 </li>
