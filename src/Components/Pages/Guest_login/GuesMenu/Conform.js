@@ -201,7 +201,7 @@ const Conform = () => {
 
                     instructions: arrivalInstructions,
                     add_ons: addon_id,
-                    userlocation: locationName,
+
                     add_ons_details: add_ons_details
 
 
@@ -225,7 +225,7 @@ const Conform = () => {
                         position: "top-right",
                         autoClose: 1000,
                         onClose: () => {
-                            nav(`/userProfile/payment/success/${paymentId}`);
+                            // nav(`/userProfile/payment/success/${paymentId}`);
                         },
 
                     });
@@ -239,14 +239,11 @@ const Conform = () => {
                 }
             } catch (error) {
                 console.error(error);
-                toast.success("Your Booking Successfully", {
+
+                toast.error("An error occurred. Please try again.", {
                     position: "top-right",
-                    autoClose: 2000,
+                    autoClose: 3000,
                 });
-                // toast.error("An error occurred. Please try again.", {
-                //     position: "top-right",
-                //     autoClose: 3000,
-                // });
             }
         } else {
             setError(true);
