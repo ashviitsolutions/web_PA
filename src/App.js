@@ -304,7 +304,7 @@ function App() {
             <Conform />
             <Footer />
           </>} />
-          <Route path="/userProfile/payment/success/:paymentId" element={<>
+          <Route path="/userProfile/payment/success" element={<>
             <Successpayment />
           </>} />
 
@@ -363,7 +363,7 @@ function App() {
 
 
           <Route
-            path="/payment/cancel"
+            path="/userProfile/payment/cancel"
             element={
               <>
                 <Navbar />

@@ -11,15 +11,17 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Conform = () => {
 
-    const { provider_id } = useParams();
+    const formData = useSelector((state) => state.counter.formData);
     const { totalPrice } = useParams();
+    const { provider_id } = useParams();
+
     const useremail = localStorage.getItem("user_email");
     const username = localStorage.getItem("user_name");
     const userid = localStorage.getItem("userid");
     const tokenuser = localStorage.getItem("token");
     const nav = useNavigate();
 
-    const formData = useSelector((state) => state.counter.formData);
+
     console.log("formData", formData)
     console.log("formData", formData?.fifthform[0]?.name || "")
     const customer_user = formData?.fifthform[0]?.name || ""
@@ -47,7 +49,7 @@ const Conform = () => {
 
     const add_ons_details = formData.add_ons_details && formData.add_ons_details[0] ? formData.add_ons_details[0] : "";
 
-    
+
 
 
     const email = formData.fifthform?.[0]?.email || "";
@@ -55,13 +57,13 @@ const Conform = () => {
     const arrivalInstructions = formData.fifthform?.[0]?.arrivalInstructions || "";
     const confirmpassword = formData.fifthform?.[0]?.confirmpassword || "";
     const password = formData.fifthform?.[0]?.password || "";
-    const mobile=formData.fifthform[0]?.mobile || "";
+    const mobile = formData.fifthform[0]?.mobile || "";
     console.log("mobile", mobile)
     const [selectedGiftCards, setSelectedGiftCards] = useState([]);
     const [paymentIntentId, setPaymentIntentId] = useState('');
     const [client_secret, setClientSecret] = useState();
     const [loading, setLoading] = useState(false);
-    const [totalAmount, setTotalAmount] = useState(0);
+
     const [tax, setTax] = useState(0);
     const [tip, setTip] = useState(0);
     const [error, setError] = useState(false);
@@ -70,9 +72,17 @@ const Conform = () => {
     const [membership, setMembershipLevel] = useState();
     const [originalprice, setOriginalprice] = useState()
 
-    let mebershiplevel = localStorage.getItem("membership")
 
-    // membership
+
+    const [totalAmount, setTotalAmount] = useState(0);
+    const [serviceDetails, setServiceDetails] = useState({
+        price: 0,
+        service_name: ""
+    });
+
+
+
+
 
     useEffect(() => {
         const getUserMembership = async () => {
@@ -130,6 +140,10 @@ const Conform = () => {
         const totalAmount = totalAmountWithoutDiscount * (1 - membershipDiscountRate);
 
         // Update state variables
+        setServiceDetails({
+            price: totalAmount,
+            service_name: formData.servicename[0] || ""
+        });
         setTax(calculatedTax);
         setTip(tip);
         setTotalAmount(totalAmount);
@@ -137,120 +151,54 @@ const Conform = () => {
     }, [totalPrice, membership, formData.fifthform]);
 
 
-
-
-
-
-
-
-
-
-    const makePayment = async () => {
+    const handleCheckout = async () => {
+        setLoading(true)
         try {
-            const response = await axios.post(`${IP}/create-payment-intent`, {
-                amount: totalAmount - giftCardAmount,
-                returnUrl: 'http://productivealliance.com/userProfile/payment/success/:paymentId'
+            const response = await axios.post(`${IP}/createCheckoutSession`, {
+                service_details: serviceDetails
             });
-            setPaymentIntentId(response?.data?.paymentIntent?.id);
-            setClientSecret(response.data.client_secret);
+            window.location.href = response.data.url;
+
+            // Save bookingData after successful payment
+            localStorage.setItem("bookingData", JSON.stringify({
+                ...(userid ? {
+                    user: userid,
+                    customer_email: email,
+                } : {
+                    email: email,
+                    password: password,
+                    confirm_password: confirmpassword
+                }),
+                location: locationName,
+                paymentIntentId: paymentIntentId,
+                location_type: location_type,
+                massage_for: massage_for,
+                service_id: service_id,
+                gender: gender,
+                provider_id: provider_id,
+                service_time: service_time,
+                health_conditions: health_conditions,
+                areas_of_concern: areas_of_concern,
+                special_considerations: special_considerations,
+                massage_body_part: massage_body_part,
+                massage_pressure: massage_pressure,
+                scheduled_date: scheduled_date,
+                scheduled_timing: scheduled_timing,
+                address: address,
+                mobile: mobile,
+                instructions: arrivalInstructions,
+                add_ons: addon_id,
+                add_ons_details: add_ons_details
+            }));
         } catch (error) {
-            console.error('Error creating payment intent:', error);
+            console.error('Error creating checkout session:', error);
+            setLoading(false)
         }
     };
 
-    useEffect(() => {
-        if (totalAmount) {
-            makePayment();
-        }
-    }, [totalAmount, giftCardAmount]);
 
 
 
-
-    const onSubmit = async (token) => {
-        if (token) {
-            try {
-                const formData = {
-                    ...(userid ? {
-                        user: userid,
-                        customer_email: email,
-                    }
-                        : {
-                            email: email,
-                            password: password,
-                            confirm_password: confirmpassword
-                        }
-
-                    ),
-                    location: locationName,
-                    paymentIntentId: paymentIntentId,
-                    location_type: location_type,
-                    massage_for: massage_for,
-                    service_id: service_id,
-                    gender: gender,
-                    provider_id: provider_id,
-
-                    service_time: service_time,
-                    health_conditions: health_conditions,
-                    areas_of_concern: areas_of_concern,
-                    special_considerations: special_considerations,
-                    massage_body_part: massage_body_part,
-                    massage_pressure: massage_pressure,
-                    scheduled_date: scheduled_date,
-                    scheduled_timing: scheduled_timing,
-                    address: address,
-                    mobile: mobile,
-
-                    instructions: arrivalInstructions,
-                    add_ons: addon_id,
-
-                    add_ons_details: add_ons_details
-
-
-                }
-                const paymentId = token.id;
-
-                const url = `${IP}/user/service_book`;
-                const config = {
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: tokenuser,
-                    },
-                };
-
-                const res = await axios.post(url, formData, config);
-
-                if (res.status === 200) {
-
-                    // Show success notification and navigate to payment success page
-                    toast.success("Your Booking Successfully", {
-                        position: "top-right",
-                        autoClose: 1000,
-                        onClose: () => {
-                            // nav(`/userProfile/payment/success/${paymentId}`);
-                        },
-
-                    });
-                    setLoading(false)
-                } else {
-                    // Show error notification if the API response is not successful
-                    toast.success("Your Booking Successfully", {
-                        position: "top-right",
-                        autoClose: 2000,
-                    });
-                }
-            } catch (error) {
-                console.error(error);
-
-                toast.error("An error occurred. Please try again.", {
-                    position: "top-right",
-                    autoClose: 3000,
-                });
-            }
-        } else {
-            setError(true);
-        }
-    };
 
 
 
@@ -305,14 +253,26 @@ const Conform = () => {
         // Calculate the total gift card amount based on selected gift cards
         const updatedGiftCardAmount = updatedSelectedGiftCards.reduce((acc, curr) => acc + curr, 0);
 
-        // Update the state with new selected gift cards and total gift card amount
+        // Calculate the adjusted service price after deducting the gift card amount
+        const adjustedServicePrice = totalAmount - updatedGiftCardAmount;
+
+        // Update the state with new selected gift cards and adjusted service price
         setSelectedGiftCards(updatedSelectedGiftCards);
         setGiftCardAmount(updatedGiftCardAmount);
+        setServiceDetails({
+            ...serviceDetails,
+            price: adjustedServicePrice,
+        });
     };
 
 
+
+
+
     return (
+
         <>
+
             <div className='container checkoutPage'>
                 <div className='row'>
                     <div className='col-md-4 centerFlex circle'><img src={vectorImg} alt='' className='col-md-12' /></div>
@@ -415,28 +375,40 @@ const Conform = () => {
                                         <p className="prices" style={{ fontSize: '17px' }} >
                                             <span className='value'>Total: ${totalAmount.toFixed(2)}
                                             </span></p>
+
                                     </div>
 
                                 </li>
                             </ul>
 
-                            <StripeCheckout
-                                amount={(totalAmount - giftCardAmount) * 100}
-                                token={onSubmit}
-                                client_secret={client_secret}
-                                currency="USD"
-                                stripeKey="pk_test_51MXmewLnVrUYOeK2PN2SexCsPAi8lsw8dIt7Pw04DUCsoCsv7a0VReRlGhbUuDOKYqbp1PEDWRWklwSvEsUD0NZ400sa7PXdfg"
-                            >
-                                <div style={{ textAlign: 'center' }}>
-                                    <button className="button"> Proceed to Pay ${(totalAmount - giftCardAmount).toFixed(2)}</button>
+                            {serviceDetails && (
+                                <div>
+
+                                    <div style={{ textAlign: 'center' }}>
+                                        <button className="button" onClick={handleCheckout}>{loading ? "Loading..." : `Proceed to Pay ${(totalAmount - giftCardAmount).toFixed(2)}`}</button>
+                                    </div>
                                 </div>
-                            </StripeCheckout>
+                            )}
+
                         </div>
                     </div>
                 </div>
             </div>
             {error && <p style={{ color: 'red', textAlign: 'center', marginTop: '10px' }}>{error}</p>}
         </>
+
+
+
+
+
+
+
+
+
+
+
+
+
     );
 };
 

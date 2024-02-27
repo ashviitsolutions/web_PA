@@ -53,6 +53,7 @@
     "redux-thunk": "^2.4.2",
     "slick-carousel": "^1.8.1",
     "socket.io-client": "^4.6.1",
+    "stripe": "^14.18.0",
     "styled-components": "^5.3.6",
     "web-vitals": "^2.1.4",
     "yup": "^1.0.0"
