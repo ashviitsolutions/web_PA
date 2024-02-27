@@ -210,7 +210,7 @@ const Conform = () => {
                 }
                 const paymentId = token.id;
 
-                const url = `http://localhost:5000/api/user/service_book`;
+                const url = `${IP}/user/service_book`;
                 const config = {
                     headers: {
                         "Content-Type": "application/json",
