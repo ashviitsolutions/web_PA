@@ -288,7 +288,7 @@
 
 #topbar {
   height: 3.6rem;
-  margin-top: 1rem;
+  /* margin-top: 1rem; */
   position: sticky;
   z-index: 1;
 }
