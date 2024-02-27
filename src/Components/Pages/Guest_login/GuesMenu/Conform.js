@@ -47,7 +47,7 @@ const Conform = () => {
 
     const add_ons_details = formData.add_ons_details && formData.add_ons_details[0] ? formData.add_ons_details[0] : "";
 
-    console.log("add_ons_details", add_ons_details)
+    
 
 
     const email = formData.fifthform?.[0]?.email || "";
@@ -55,7 +55,8 @@ const Conform = () => {
     const arrivalInstructions = formData.fifthform?.[0]?.arrivalInstructions || "";
     const confirmpassword = formData.fifthform?.[0]?.confirmpassword || "";
     const password = formData.fifthform?.[0]?.password || "";
-
+    const mobile=formData.fifthform[0]?.mobile || "";
+    console.log("mobile", mobile)
     const [selectedGiftCards, setSelectedGiftCards] = useState([]);
     const [paymentIntentId, setPaymentIntentId] = useState('');
     const [client_secret, setClientSecret] = useState();
@@ -198,6 +199,7 @@ const Conform = () => {
                     scheduled_date: scheduled_date,
                     scheduled_timing: scheduled_timing,
                     address: address,
+                    mobile: mobile,
 
                     instructions: arrivalInstructions,
                     add_ons: addon_id,
@@ -208,7 +210,7 @@ const Conform = () => {
                 }
                 const paymentId = token.id;
 
-                const url = `${IP}/user/service_book`;
+                const url = `http://localhost:5000/api/user/service_book`;
                 const config = {
                     headers: {
                         "Content-Type": "application/json",

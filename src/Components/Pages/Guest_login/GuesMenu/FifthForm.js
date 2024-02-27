@@ -25,7 +25,7 @@ const FifthForm = ({ step, nextStep }) => {
   const [email, setEmail] = useState(useremail);
   const [arrivalInstructions, setArrivalInstructions] = useState("");
   const [name, setName] = useState(username);
-  // const [phone, setPhone] = useState(phone);
+  const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
   const [confirmpassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(false);
@@ -40,7 +40,7 @@ const FifthForm = ({ step, nextStep }) => {
     setLoading(true)
     const formData = {
       name: name,
-      // phone: phone,
+      mobile: mobile,
       email: email,
       address: address,
       arrivalInstructions: arrivalInstructions,
@@ -83,12 +83,12 @@ const FifthForm = ({ step, nextStep }) => {
           </div>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div className="form-group half">
-            <label htmlFor="email">Phone No:</label>
+              <label htmlFor="mobile">Phone No:</label>
               <input
                 type="text"
-                name="phone"
-                // value={phone}
-                // onChange={(e) => setPhone(e.target.value)}
+                name="mobile"
+                value={mobile}
+                onChange={(e) => setMobile(e.target.value)}
                 required
               />
             </div>
@@ -99,17 +99,17 @@ const FifthForm = ({ step, nextStep }) => {
                 name="hotelName"
               />
             </div>
-            </div>
-            <div className="form-group">
-              <label htmlFor="address">Address:</label>
-              <input
-                type="text"
-                name="address"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
-                required
-              />
-            </div>
+          </div>
+          <div className="form-group">
+            <label htmlFor="address">Address:</label>
+            <input
+              type="text"
+              name="address"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              required
+            />
+          </div>
           <div className="form-group">
             <label htmlFor="bio">Arrival instructions for service provider:</label>
             <textarea
@@ -157,10 +157,10 @@ const FifthForm = ({ step, nextStep }) => {
           </button>
           <p style={{ float: "right" }}>Total Price: ${totalPrice}</p>
         </form>
-        
+
         <center>
-                <a className='small' href='/'>&larr; Back to Home</a>
-            </center>
+          <a className='small' href='/'>&larr; Back to Home</a>
+        </center>
       </div>
       <ToastContainer />
     </>
