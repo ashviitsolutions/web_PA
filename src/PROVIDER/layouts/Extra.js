@@ -1,181 +1,386 @@
+// import React, { useState } from "react";
+// import { Row, Button, Modal } from "react-bootstrap";
+// import axios from "axios";
+// import { useNavigate } from "react-router-dom";
+// import { IP } from "../../Constant";
+
+// const MyVerticallyCenteredModal = (props) => {
+//   const nav = useNavigate();
+//   const { user_id, _id, date } = props;
+//   // console.log("data console", user_id, _id, date)
+//   const [hour, setHour] = useState('');
+//   const [minute, setMinute] = useState('');
+//   const [am, setAm] = useState(true);
+//   const [pm, setPm] = useState(false);
+//   const token = localStorage.getItem("providertoken");
+//   const [loading, setLoading] = useState(false);
+
+//   const onSubmit = async (e) => {
+//     e.preventDefault();
+//     setLoading(true)
+
+//     try {
+//       const timeValue = `${hour}:${minute} ${am ? 'AM' : 'PM'}`;
+//       const formData = {
+//         service: user_id,
+//         id: _id,
+//         date: date,
+//         checkin: timeValue,
+//       };
+
+//       const res = await axios.put(`${IP}/provider/update/checkin`, formData, {
+//         headers: {
+//           'Authorization': token,
+//           'Accept': 'application/json',
+//           'Content-Type': 'application/json',
+//         },
+//       });
+
+//       if (res.status === 200) {
+//         // nav("/providers");
+
+//         // Retrieve existing array or initialize an empty array
+//         const removedChekincardArray = JSON.parse(localStorage.getItem('removedChekincard')) || [];
+
+//         // Push the new _id to the array
+//         removedChekincardArray.push(_id);
+
+//         // Save the updated array in localStorage
+//         localStorage.setItem('removedChekincard', JSON.stringify(removedChekincardArray));
+//         props.onHide();
+//         nav("/providers/events");
+//       }
+//     } catch (error) {
+//       console.error(error);
+//     }
+//   };
+
+//   return (
+//     <Modal
+//       {...props}
+//       size="lg"
+//       aria-labelledby="contained-modal-title-vcenter"
+//       centered
+//     >
+//       <Modal.Header closeButton>
+//         <Modal.Title id="contained-modal-title-vcenter">Enter Time</Modal.Title>
+//       </Modal.Header>
+//       <Modal.Body>
+//         <Row>
+//           <div className="col-4" style={{ alignSelf: 'center' }}>
+//             <input
+//               type="text"
+//               className="form-control"
+//               placeholder="Hour"
+//               onChange={(e) => setHour(e.target.value)}
+//             />
+//           </div>
+
+//           <div className="col-4" style={{ alignSelf: 'center' }}>
+//             <input
+//               type="text"
+//               className="form-control"
+//               placeholder="Minutes"
+//               onChange={(e) => setMinute(e.target.value)}
+//             />
+//           </div>
+
+//           <div className="col-4">
+//             <Button
+//               className={`form-control btn-sm mb-1 ${am ? 'active' : ''}`}
+//               onClick={() => { setAm(true); setPm(false); }}
+//             >
+//               A.M.
+//             </Button>
+//             <Button
+//               className={`form-control btn-sm ${pm ? 'active' : ''}`}
+//               onClick={() => { setAm(false); setPm(true); }}
+//             >
+//               P.M.
+//             </Button>
+//           </div>
+//         </Row>
+//       </Modal.Body>
+//       <Modal.Footer style={{ justifyContent: "center" }}>
+
+//         <Button onClick={onSubmit} disabled={loading}> {loading ? "Loading.." : "Done"}</Button>
+//       </Modal.Footer>
+//     </Modal>
+//   );
+// };
+
+// export default MyVerticallyCenteredModal;
+
+
+
+
 import React, { useState, useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import DateRangeIcon from '@mui/icons-material/DateRange';
-import { Button, Card, Row } from "react-bootstrap";
-import { faClock, faLocationDot } from "@fortawesome/free-solid-svg-icons";
-import MyVerticallyCenteredModal from "./MyVerticallyCenteredModal";
-import Checkouts from "./Checkout";
+import { FormGroup, Row } from "react-bootstrap";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import axios from "axios";
 import { IP } from "../../Constant";
-import Modal from "../Modal";
+import { useNavigate } from "react-router-dom";
 
-
-
-const ScheduledRequestCard = (props) => {
-  const { handleClose, user_id, _id, amount, title, date, location, time, instructions = props.instructions ? props.instructions : '' } = props;
-  const [user, setUser] = useState([]);
-  const [modalShow, setModalShow] = React.useState(false);
-  const [checkout, setCheckout] = React.useState(false);
-  const [isLoading, setIsLoading] = useState(true); // New state to track loading state
-
-
-
+const Checkout = (props) => {
+  const nav = useNavigate();
+  const { user_id, paymentIntentId, _id } = props;
+  const [hour, setHour] = useState('');
+  const [minute, setMinute] = useState('');
+  const [am, setAm] = useState(true);
+  const [pm, setPm] = useState(false);
+  const [loading, setLoading] = useState(false);
   const token = localStorage.getItem("providertoken");
 
-  // const tokenapi = localStorage.getItem("removedChekincard");
+  // console.log("paymentiod", props)
 
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true)
 
-  const removedChekincardArray = JSON.parse(localStorage.getItem('removedChekincard')) || [];
-  const showCheckInButton = !removedChekincardArray.includes(_id);
-
-
-
-  const formattedDate = new Date().toLocaleDateString();  // formatted as M/D/YYYY
-  const formattedScheduledDate = new Date(date).toLocaleDateString();  // format the date in the same way
-
-  const isDisabled = formattedDate !== formattedScheduledDate;
-
-
-  const handleCloseModal = () => {
-    setIsLoading(false);
-    handleClose(); // Call the function to close the modal
-  };
-
-
-  const handleClick = () => {
-
-    fetchData(_id);
-  };
-
-
-  const fetchData = async (id) => {
     try {
-      console.log('Fetching data for ID:', id);
-
-      const response = await fetch(`${IP}/provider/events/booking/${id}`, {
+      const timeValue = `${hour}:${minute}`;
+      const amOrPm = am ? 'am' : 'pm';
+      const bodyFormData = new FormData();
+      bodyFormData.append("service", user_id);
+      bodyFormData.append("id", _id);
+      bodyFormData.append("checkout", `${timeValue} ${amOrPm}`);
+      const res = await axios.put(`${IP}/provider/update/checkout`, bodyFormData, {
         headers: {
-          'Authorization': token
-        }
+          'Authorization': token,
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
       });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+      if (res.status === 200) {
+        // Remove _id from removedChekincard in localStorage
+        const removedChekincardArray = JSON.parse(localStorage.getItem('removedChekincard')) || [];
+        const updatedArray = removedChekincardArray.filter(itemId => itemId !== _id);
+        localStorage.setItem('removedChekincard', JSON.stringify(updatedArray));
+
+        // Run confirmAndCapturePayment after successful checkout submission
+        confirmAndCapturePayment();
+
+        // Redirect to providers page
+
+        props.onHide();
+        nav("/providers/earnings");
       }
-
-      const result = await response.json();
-      setUser(result.bookings);
-      console.log("scheduled api id based", result?.bookings);
-
     } catch (error) {
-      console.log('Error fetching data:', error.message);
-      // You can handle the error here, e.g., set an error state, show a message, etc.
+      console.error(error);
     }
   };
 
-  console.log("scheduled api id user", user);
-  useEffect(() => {
-    fetchData()
-  }, [])
+  const confirmAndCapturePayment = async () => {
+    try {
+      const response = await axios.post(`${IP}/payment/confirm`, {
+        paymentIntentId: paymentIntentId
+      });
+      console.log('Payment confirmation:', response.data);
+    } catch (error) {
+      console.error('Error confirming payment:', error);
+    }
+  };
+
+  // useEffect(() => {
+
+  //   onSubmit();
+  // }, []);
 
 
   return (
-    <>
-      {Array.isArray(user) && user.length > 0 && <Modal user={user} onClose={handleCloseModal} />}
-      <div>
-        <Card className="shadow-sm mb-2">
-          <Card.Title
-            className="px-3"
-          >
-            {props.title}
-          </Card.Title>
-          <Card.Body>
-            <Row>
-              <div className="col-md-8" onClick={handleClick}>
-                <div>
-                  <FontAwesomeIcon icon={faLocationDot} style={{ width: 20 }} />
-                  {props.location}
-                </div>
-                <div>
-                  <FontAwesomeIcon icon={faClock} style={{ width: 20 }} /> {props.time}
-                </div>
-                <div>
-                  <FontAwesomeIcon icon={faClock} style={{ width: 20 }} /> {props.date}
-                </div>
-                <div>
-                  {instructions !== '' ? <><strong className="mt-1">Instructions : </strong> {instructions} </> : ''}
-                </div>
-              </div>
-              <div className="col-md-4" style={{ textAlign: "right" }}>
-
-                <div className="text-warning">Total = ${amount}</div>
-              </div>
-            </Row>
-          </Card.Body>
-          <Card.Footer>
-
-            {showCheckInButton ? (
-              <Button className="mx-2 btn-sm" disabled={isDisabled} onClick={() => setModalShow(true)}
-                style={{ backgroundColor: isDisabled ? "dimgray" : null }}
-              >
-                Check In
-              </Button>
-            ) : (
-              <Button className="btn-sm" onClick={() => setCheckout(true)}>
-                Check Out
-              </Button>
-            )}
-
-          </Card.Footer>
-        </Card>
-        <MyVerticallyCenteredModal
-          show={modalShow}
-          onHide={() => setModalShow(false)}
-          user_id={props.user_id}
-          date={props.date}
-          _id={props._id}
-        />
-        <Checkouts
-          show={checkout}
-          onHide={() => setCheckout(false)}
-          user_id={props.user_id}
-          date={props.date}
-          _id={props._id}
-        />
-      </div>
-    </>
-
+    <Modal
+      {...props}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">Enter Checkout Time</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Row>
+          <div className="col-4" style={{ alignSelf: 'center' }}>
+            <input
+              type="text"
+              className="form-control"
+              id="hr"
+              placeholder="Hour"
+              onChange={(e) => setHour(e.target.value)}
+            />
+          </div>
+          <div className="col-4" style={{ alignSelf: 'center' }}>
+            <input
+              type="text"
+              className="form-control"
+              id="min"
+              placeholder="Minutes"
+              onChange={(e) => setMinute(e.target.value)}
+            />
+          </div>
+          <div className="col-4">
+            <Button className={`form-control btn-sm mb-1 ${am ? 'active' : ''}`} onClick={() => { setAm(true); setPm(false) }}>A.M.</Button>
+            <Button className={`form-control btn-sm ${pm ? 'active' : ''}`} onClick={() => { setAm(false); setPm(true) }}>P.M.</Button>
+          </div>
+        </Row>
+      </Modal.Body>
+      <Modal.Footer style={{ justifyContent: "center" }}>
+        <Button onClick={onSubmit} disabled={loading}> {loading ? "Loading.." : "Done"}</Button>
+      </Modal.Footer>
+    </Modal>
   );
 };
 
-export default ScheduledRequestCard;
+export default Checkout;
 
 
 
 
 
-{Array.isArray(request) && request.map((cur, index) => (
-  <React.Fragment key={index}>
-    <RequestCard
-      newclient="true"
-      title={cur.service}
-      location={cur.location}
-      address={cur.address}
-      time={cur.scheduled_time}
-      date={cur.scheduled_date}
-      amt={75}  // Update this with the actual logic for calculating amount
-      tip={15}  // Update this with the actual logic for calculating tip
-      instructions={cur.instructions}
-      total={cur.total}
-      _id={cur._id}
-      areasOfConcern={cur.areas_of_concern}
-      customerEmail={cur.customer_email}
-      gender={cur.gender}
-      healthConditions={cur.health_conditions}
-      locationType={cur.location_type}
-      massageBodyPart={cur.massage_body_part}
-      massageFor={cur.massage_for}
-      serviceTime={cur.service_time}
-      specialConsiderations={cur.special_considerations}
-    />
 
-  </React.Fragment>
-))}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import React from "react";
+// import { useState, useEffect } from "react";
+// import { FormGroup, Row } from "react-bootstrap";
+// import Button from "react-bootstrap/Button";
+// import Modal from "react-bootstrap/Modal";
+// import axios from "axios";
+// import { IP } from "../../Constant"
+// import { useNavigate } from "react-router-dom";
+
+// const Checkout = (props) => {
+//   const nav = useNavigate()
+//   const { user_id } = props;
+//   const { _id } = props;
+
+//   const [hour, setHour] = useState('')
+//   const [minute, setMinute] = useState('')
+//   const [am, setAm] = useState('')
+//   const [pm, setPm] = useState('')
+//   const token = localStorage.getItem("providertoken")
+
+
+
+
+
+
+//   const onSubmit = async (e) => {
+//     e.preventDefault()
+
+//     try {
+//       const timeValue = `${hour}:${minute}`;
+//       const amOrPm = am ? 'am' : 'pm';
+//       const bodyFormData = new FormData();
+//       bodyFormData.append("service", user_id);
+//       bodyFormData.append("id", _id);
+//       bodyFormData.append("checkout", `${timeValue} ${amOrPm}`);
+//       const res = await axios.put(`${IP}/provider/update/checkout`, bodyFormData, {
+//         headers: {
+//           'Authorization': token,
+//           'Accept': 'application/json',
+//           'Content-Type': 'application/json',
+//         },
+
+//       });
+//       // console.log(res);
+//       if (res.status === 200) {
+//         nav("/providers");
+//         if (res.status === 200) {
+//           // Remove _id from removedChekincard in localStorage
+//           const removedChekincardArray = JSON.parse(localStorage.getItem('removedChekincard')) || [];
+//           const updatedArray = removedChekincardArray.filter(itemId => itemId !== _id);
+//           localStorage.setItem('removedChekincard', JSON.stringify(updatedArray));
+
+//           nav("/providers");
+//           props.onHide();
+//         }
+
+//       }
+
+//     } catch (error) {
+//       console.error(error);
+//     }
+//   };
+
+
+//   useEffect(() => {
+//     onSubmit()
+//   }, [])
+
+
+
+//   return (
+//     <Modal
+//       {...props}
+//       size="lg"
+//       aria-labelledby="contained-modal-title-vcenter"
+//       centered
+//     >
+//       <Modal.Header closeButton>
+//         <Modal.Title id="contained-modal-title-vcenter">Enter Checkout Time</Modal.Title>
+//       </Modal.Header>
+//       <Modal.Body>
+//         <Row>
+//           <div className="col-4" style={{ alignSelf: 'center' }}>
+//             <input
+//               type="text"
+//               className="form-control"
+//               id="hr"
+//               placeholder="Hour"
+//               onChange={(e) => setHour(e.target.value)}
+
+//             />
+//           </div>
+
+//           <div className="col-4" style={{ alignSelf: 'center' }}>
+//             <input
+//               type="text"
+//               class="form-control"
+//               id="min"
+//               placeholder="Minutes"
+//               onChange={(e) => setMinute(e.target.value)}
+//             />
+//           </div>
+
+//           <div className="col-4">
+//             <Button className={`form-control btn-sm mb-1 ${am ? 'active' : ''}`} onClick={() => { setAm(true); setPm(false) }}>A.M.</Button>
+//             <Button className={`form-control btn-sm ${pm ? 'active' : ''}`} onClick={() => { setAm(false); setPm(true) }}>P.M.</Button>
+//           </div>
+
+//         </Row>
+//       </Modal.Body>
+//       <Modal.Footer style={{ justifyContent: "center" }}>
+//         <Button onClick={onSubmit}>Done</Button>
+//       </Modal.Footer>
+
+//     </Modal>
+//   );
+// };
+
+// export default Checkout;
+

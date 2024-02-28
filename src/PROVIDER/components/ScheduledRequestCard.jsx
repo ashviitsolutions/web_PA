@@ -13,18 +13,22 @@ const ScheduledRequestCard = (props) => {
     amount,
     title,
     date,
-    location,
+    serviceTime,
+    gendercheck,
+    add_ons_details,
+    add_ons,
     time,
     instructions = props.instructions ? props.instructions : '',
   } = props;
 
-  // console.log("card props",props)
+
+  console.log("add_ons_details props",add_ons_details)
 
   let badge = props.newclient ? <Badge pill bg="warning shadow-sm" style={{ width: '70px', position: 'absolute', top: '8px', right: '-12px', fontSize: '0.7rem' }}>New</Badge> : '';
   const [checkInShow, setCheckInShow] = useState(false);
 
   const [mainCardShow, setMainCardShow] = useState(true);
-
+  const [totalPrice, setTotalPrice] = useState(0);
 
 
   const [isLoading, setIsLoading] = useState(true);
@@ -55,6 +59,48 @@ const ScheduledRequestCard = (props) => {
     setCheckInShow(false);
     setMainCardShow(true);
   };
+
+
+
+  useEffect(() => {
+    const time_status = props.serviceTime;
+    let basePrice = 70; // Initial base price
+
+    // Adjust base price based on service time
+    if (time_status === "90min") {
+      basePrice += 35;
+    } else if (time_status === "120min") {
+      basePrice += 70;
+    }
+
+    // Double the base price if gender is 'guest'
+    if (gendercheck === "guest") {
+      basePrice *= 2;
+    }
+
+    // Calculate total price of add-ons
+    let totalAddonsPrice = 0;
+    if (add_ons_details && add_ons_details.length > 0) {
+      totalAddonsPrice = add_ons_details.reduce((acc, addon) => acc + addon.price, 0);
+    }
+
+    // Calculate total price including add-ons
+    let totalPriceWithAddons = basePrice + totalAddonsPrice;
+
+    // Add 14% of total add-ons price to totalPrice
+    totalPriceWithAddons += totalAddonsPrice * 0.14;
+
+    setTotalPrice(totalPriceWithAddons);
+  }, [serviceTime, gendercheck, add_ons_details]);
+
+
+
+
+
+
+
+
+
 
 
 
@@ -91,7 +137,7 @@ const ScheduledRequestCard = (props) => {
                   {/* <div>${props.amt}</div>
               <div>+${tip} pre-tip</div>
               <div className="text-warning">Total = ${total}</div> */}
-                  <div className="earn"><span><FontAwesomeIcon icon={faCoins} /></span> {props.amt}$</div>
+                  <div className="earn"><span><FontAwesomeIcon icon={faCoins} /></span> {totalPrice}$</div>
                 </div>
               </Row>
             </Card.Body>

@@ -25,37 +25,6 @@ const RequestCard = (props) => {
 
   console.log("add_ons array multiple id", add_ons_details)
 
-  // useEffect(() => {
-  //   const time_status = props.serviceTime;
-  //   let basePrice = 70; // Initial base price
-
-  //   // Adjust base price based on service time
-  //   if (time_status === "90min") {
-  //     basePrice += 35;
-  //   } else if (time_status === "120min") {
-  //     basePrice += 70;
-  //   }
-
-  //   // Double the base price if gender is 'guest'
-  //   if (gendercheck === "guest") {
-  //     basePrice *= 2;
-  //   }
-
-  //   // Calculate total price including add-ons
-  //   let totalPriceWithAddons = basePrice;
-
-  //   // Add 14% of the base price for each item in add_ons array
-  //   if (add_ons && add_ons.length > 0) {
-  //     const addonPrice = basePrice * 0.14; // 14% of the base price
-  //     totalPriceWithAddons += addonPrice * add_ons.length;
-  //   }
-
-
-
-  //   setTotalPrice(totalPriceWithAddons);
-  // }, [serviceTime, gendercheck, add_ons]);
-
-
 
 
   useEffect(() => {

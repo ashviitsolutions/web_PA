@@ -157,7 +157,7 @@ function CustomModal(
       <BootstrapModal.Body>
         {/* Display user data in the modal */}
         <p className="title">{title} {serviceTime} - {massage_for}</p>
-        
+
         <div className="col-md-12 detailsTable">
           {/* booking details */}
           <div className="title detailTitle">
