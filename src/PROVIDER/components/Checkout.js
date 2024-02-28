@@ -107,7 +107,7 @@ const Checkout = (props) => {
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">Enter Checkout Time   {hour} {minute} {am}</Modal.Title>
+        <Modal.Title id="contained-modal-title-vcenter">Enter Checkout Time </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Row>
