@@ -45,11 +45,13 @@ const Conform = () => {
     const special_considerations = formData.thirdform && formData.thirdform[0] ? formData.thirdform[0].special_considerations : "";
     const scheduled_date = formData.fourthform && formData.fourthform[0] ? formData.fourthform[0].date : "";
     const scheduled_timing = formData.fourthform && formData.fourthform[0] ? formData.fourthform[0].time : "";
-    const massage_for = formData?.firstForm?.[0];
+    const massage_for = formData?.firstForm?.[0] || "";
 
     const add_ons_details = formData.add_ons_details && formData.add_ons_details[0] ? formData.add_ons_details[0] : "";
 
+    const service_name = formData.servicename && formData.servicename[0] ? formData.servicename[0] : "";
 
+    console.log("service_name", service_name, massage_for)
 
 
     const email = formData.fifthform?.[0]?.email || "";
@@ -188,7 +190,8 @@ const Conform = () => {
                 mobile: mobile,
                 instructions: arrivalInstructions,
                 add_ons: addon_id,
-                add_ons_details: add_ons_details
+                add_ons_details: add_ons_details,
+                service_name: service_name
             }));
         } catch (error) {
             console.error('Error creating checkout session:', error);
@@ -324,7 +327,7 @@ const Conform = () => {
 
 
                                     <div>
-                                        {user.length > 0 ? (
+                                        {user?.length > 0 ? (
                                             <>
                                                 <span className="title">Choose Gift Card:</span>
                                                 {user.map((cur, index) => (
