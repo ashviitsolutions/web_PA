@@ -59,7 +59,7 @@ const Checkout = (props) => {
 
   const confirmAndCapturePayment = async () => {
     try {
-      const response = await axios.post(`${IP}/confirm-and-capture-payment`, {
+      const response = await axios.post(`${IP}/payment/confirm`, {
         paymentIntentId: paymentIntentId
       });
       console.log('Payment confirmation:', response.data);
