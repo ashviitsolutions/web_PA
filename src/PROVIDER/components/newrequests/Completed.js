@@ -13,10 +13,13 @@ const Completed = (props) => {
         amount,
         title,
         date,
-        location,
+        serviceTime,
+        gendercheck,
+        add_ons_details,
+        add_ons,
         time,
         instructions = props.instructions ? props.instructions : '',
-    } = props;
+      } = props;
 
     // console.log("card props",props)
 
@@ -25,7 +28,7 @@ const Completed = (props) => {
 
     const [mainCardShow, setMainCardShow] = useState(true);
 
-
+    const [totalPrice, setTotalPrice] = useState(0);
 
     const [isLoading, setIsLoading] = useState(true);
 
@@ -56,6 +59,36 @@ const Completed = (props) => {
         setMainCardShow(true);
     };
 
+    useEffect(() => {
+        const time_status = props.serviceTime;
+        let basePrice = 70; // Initial base price
+
+        // Adjust base price based on service time
+        if (time_status === "90min") {
+            basePrice += 35;
+        } else if (time_status === "120min") {
+            basePrice += 70;
+        }
+
+        // Double the base price if gender is 'guest'
+        if (gendercheck === "guest") {
+            basePrice *= 2;
+        }
+
+        // Calculate total price of add-ons
+        let totalAddonsPrice = 0;
+        if (add_ons_details && add_ons_details.length > 0) {
+            totalAddonsPrice = add_ons_details.reduce((acc, addon) => acc + addon.price, 0);
+        }
+
+        // Calculate total price including add-ons
+        let totalPriceWithAddons = basePrice + totalAddonsPrice;
+
+        // Add 14% of total add-ons price to totalPrice
+        totalPriceWithAddons += totalAddonsPrice * 0.14;
+
+        setTotalPrice(totalPriceWithAddons);
+    }, [serviceTime, gendercheck, add_ons_details]);
 
 
     return (
@@ -91,7 +124,7 @@ const Completed = (props) => {
                                     {/* <div>${props.amt}</div>
               <div>+${tip} pre-tip</div>
               <div className="text-warning">Total = ${total}</div> */}
-                                    <div className="earn"><span><FontAwesomeIcon icon={faCoins} /></span> {props.amt}$</div>
+                                    <div className="earn"><span><FontAwesomeIcon icon={faCoins} /></span> {totalPrice}$</div>
                                 </div>
                             </Row>
                         </Card.Body>

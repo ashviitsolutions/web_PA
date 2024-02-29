@@ -147,12 +147,18 @@ const Events = () => {
               <Completed
                 title={cur.service_id.title}
                 location={cur.address}
-                time={cur.scheduled_timing}
                 date={cur.scheduled_date}
+                time={cur.scheduled_timing}
                 amt={75}
                 tip={15}
                 instructions={cur.instructions}
                 amount={cur.amount_charged}
+                user_id={cur.service_id._id}
+                paymentIntentId={cur.paymentIntentId}
+                add_ons_details={cur.add_ons_details}
+                serviceTime={cur.service_time}
+                _id={cur._id}
+
               />
 
             </React.Fragment>
