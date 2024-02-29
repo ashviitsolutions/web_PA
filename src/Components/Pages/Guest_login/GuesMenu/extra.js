@@ -47,7 +47,7 @@ const Conform = () => {
 
     const add_ons_details = formData.add_ons_details && formData.add_ons_details[0] ? formData.add_ons_details[0] : "";
 
-    
+
 
 
     const email = formData.fifthform?.[0]?.email || "";
@@ -55,7 +55,7 @@ const Conform = () => {
     const arrivalInstructions = formData.fifthform?.[0]?.arrivalInstructions || "";
     const confirmpassword = formData.fifthform?.[0]?.confirmpassword || "";
     const password = formData.fifthform?.[0]?.password || "";
-    const mobile=formData.fifthform[0]?.mobile || "";
+    const mobile = formData.fifthform[0]?.mobile || "";
     console.log("mobile", mobile)
     const [selectedGiftCards, setSelectedGiftCards] = useState([]);
     const [paymentIntentId, setPaymentIntentId] = useState('');

@@ -73,6 +73,7 @@ function Login() {
                 localStorage.setItem('userid', result?.user_info?._id);
                 localStorage.setItem('user_name', result?.user_info?.fullName);
                 localStorage.setItem('user_email', result?.user_info?.email);
+                localStorage.setItem('mobile', result?.user_info?.mobile);
                 localStorage.setItem('token', token);
                 toast.success("Logged in successfully", {
                     position: "top-right",
@@ -201,7 +202,7 @@ function Login() {
 
                             <div className="input_group" style={{ textDecoration: 'none', paddingTop: '1px' }}>
                                 <button className="button" type="button" onClick={onSubmit}>
-                                  {loading ? "Loading..." : "sign in"}
+                                    {loading ? "Loading..." : "sign in"}
                                 </button>
                                 <span>
                                     Don't have an account? <Link to="/sign_up" className="anchor">

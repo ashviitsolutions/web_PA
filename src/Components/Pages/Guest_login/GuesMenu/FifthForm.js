@@ -13,6 +13,7 @@ const FifthForm = ({ step, nextStep }) => {
   const dispatch = useDispatch();
 
   const useremail = localStorage.getItem("user_email")
+  const mobiledata = localStorage.getItem("mobile")
   const username = localStorage.getItem("user_name")
   const userid = localStorage.getItem("userid")
   const token = localStorage.getItem("token")
@@ -25,7 +26,7 @@ const FifthForm = ({ step, nextStep }) => {
   const [email, setEmail] = useState(useremail);
   const [arrivalInstructions, setArrivalInstructions] = useState("");
   const [name, setName] = useState(username);
-  const [mobile, setMobile] = useState("");
+  const [mobile, setMobile] = useState(mobiledata);
   const [password, setPassword] = useState("");
   const [confirmpassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(false);

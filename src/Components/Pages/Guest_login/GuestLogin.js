@@ -66,9 +66,17 @@ function GuestLogin() {
         body: JSON.stringify(data),
       });
 
+      const token = resp.headers.get('Authorization');
+
       if (resp.status === 200) {
         const result = await resp.json();
         console.log('result', result);
+        localStorage.setItem('users', JSON.stringify(result));
+        localStorage.setItem('userid', result?.user_info?._id);
+        localStorage.setItem('user_name', result?.user_info?.fullName);
+        localStorage.setItem('user_email', result?.user_info?.email);
+        localStorage.setItem('mobile', result?.user_info?.mobile);
+        localStorage.setItem('token', token);
 
         toast.success('Password reset email sent. Check your inbox.', {
           position: 'top-right',
