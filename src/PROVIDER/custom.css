@@ -219,16 +219,17 @@
   margin-top: 150px;
   margin-left: 20px;
   border-radius: 10px 0 0 10px;
-  border-top: solid 1px white;
+  border-top: solid 1px #052d4e;
 }
 
 .menu-item {
   padding: 15px;
-  border-bottom: 1px solid lightgray;
-  border-left: 1px solid lightgray;
+  border-bottom: 1px solid #052d4e;
+  border-left: 1px solid #052d4e;
   border-radius: 10px 0 0 10px;
   color: lightgray;
   font-weight: bold;
+  background-color: #00000014;
 }
 
 .sidebar-menu a {
