@@ -19,7 +19,7 @@ const Completed = (props) => {
         add_ons,
         time,
         instructions = props.instructions ? props.instructions : '',
-      } = props;
+    } = props;
 
     // console.log("card props",props)
 
@@ -95,7 +95,7 @@ const Completed = (props) => {
         <>
             {mainCardShow && (
                 <div>
-                    <Card className="mb-2 pointer" onClick={handleCheckInClick} >
+                    <Card className="mb-2 pointer"  >
                         {badge}
                         <Card.Title
                             className="px-3"

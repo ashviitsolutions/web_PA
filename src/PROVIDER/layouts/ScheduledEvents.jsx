@@ -87,6 +87,7 @@ const ScheduledEvents = () => {
           paymentIntentId={cur.paymentIntentId}
           add_ons_details={cur.add_ons_details}
           serviceTime={cur.service_time}
+          gendercheck={cur.gendercheck}
           _id={cur._id}
         />
       ))}

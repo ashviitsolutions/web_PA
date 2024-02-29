@@ -23,7 +23,8 @@ const RequestCard = (props) => {
 
   const [totalPrice, setTotalPrice] = useState(0);
 
-  console.log("add_ons array multiple id", add_ons_details)
+  console.log("serviceTime", serviceTime)
+
 
 
 
