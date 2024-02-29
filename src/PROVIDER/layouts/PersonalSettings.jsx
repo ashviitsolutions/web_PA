@@ -228,7 +228,9 @@ const PersonalSettings = () => {
                 Questionnaire
               </Button>
             </div>
-            <div className="box shadow-sm mb-4">
+
+
+            { /*    <div className="box shadow-sm mb-4">
               <h4 className="text-center">Skills</h4>
               {skills.map((item) => (
                 <div className="skill-item">{item}</div>
@@ -240,7 +242,9 @@ const PersonalSettings = () => {
               <div className="title-data personal-info-title">{routing_number}</div>
               <div className="title">Account Number</div>
               <div className="title-data personal-info-title">{account_num}</div>
-            </div>
+              </div> */}
+
+
           </div>
           <div className="col-md-8 mb-4">{questions}</div>
         </Row>
