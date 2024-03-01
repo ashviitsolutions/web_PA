@@ -3,7 +3,6 @@ import { IP } from '../../../Constant';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import logo from "../../assets/img/logo_home_navbar.png";
 import "./Payment.css";
 
 function Success() {
@@ -58,16 +57,9 @@ function Success() {
   return (
     <>
       <div className='PaymentForm'>
-        <div className='receipt_head'><img src={logo} /></div>
-        <div className='container reciept_body'>
-          <h2>Payment Status</h2>
-          <p className='small'>Status: successful</p>
-          <p className='small'>Transaction ID: {session_id}</p>
-          <p className='small'>Redirecting... </p>
-          <p className='small'>Do not reload or press back button!</p>
-        </div>
-        <div className='receipt_footer'><p className='small'>Redirecting... </p>
-          <p className='small'>Do not reload or press back button!</p></div>
+        <h1>Payment Status</h1>
+        <p>Status: successful</p>
+        <p>Transaction ID: {session_id}</p>
       </div>
     </>
   );

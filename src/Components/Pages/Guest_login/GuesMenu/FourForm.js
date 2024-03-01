@@ -77,44 +77,40 @@ const FourForm = ({ nextStep }) => {
 
 
 
-
   const generateTimeOptions = () => {
     const times = [];
     const currentTime = new Date();
     const currentHour = currentTime.getHours();
     const currentMinute = currentTime.getMinutes();
-    const period = currentHour >= 12 ? 'PM' : 'AM';
-    let startHour = currentHour;
-    let startMinute = currentMinute >= 30 ? 30 : 0;
-
-    // If selected date is not today, start from 12 AM
-    if (
-      selectedDate !== currentTime
-
-    ) {
-      startHour = 0;
-      startMinute = 0;
+    let startHour = 8; // Start from 8 AM
+    let startMinute = 0; // Start from 0 minute
+  
+    // If the current time is after 8 AM, set the start time accordingly
+    if (currentHour > 8 || (currentHour === 8 && currentMinute >= 0)) {
+      startHour = currentHour;
+      startMinute = currentMinute >= 30 ? 30 : 0;
     }
-
-    if (period === 'PM' && startHour !== 12) {
-      startHour += 12;
-    }
-
-    for (let hour = startHour; hour <= 23; hour++) {
-      for (let minute = startMinute; minute < 60; minute += 30) {
-        // Check if the time has already passed
-        if (hour > currentHour || (hour === currentHour && minute >= currentMinute)) {
-          const formattedHour = hour % 12 === 0 ? 12 : hour % 12;
-          const formattedMinute = minute.toString().padStart(2, '0');
-          const timePeriod = hour >= 12 ? 'PM' : 'AM';
-          times.push(`${formattedHour}:${formattedMinute} ${timePeriod}`);
-        }
+  
+    // Loop from the start time until 9:30 PM
+    for (let hour = startHour; hour <= 21; hour++) { // Loop until 9 PM (21)
+      const maxMinute = hour === 21 ? 30 : 60; // Stop at 9:30 PM, for 10:00 PM, add explicitly outside the loop
+      for (let minute = startMinute; minute < maxMinute; minute += 30) {
+        const formattedHour = hour % 12 === 0 ? 12 : hour % 12;
+        const formattedMinute = minute.toString().padStart(2, '0');
+        const timePeriod = hour >= 12 ? 'PM' : 'AM';
+        times.push(`${formattedHour}:${formattedMinute} ${timePeriod}`);
       }
       startMinute = 0; // Reset startMinute after first hour
     }
-
+  
+    // Add 10:00 PM explicitly
+    times.push("10:00 PM");
+  
     return times;
   };
+  
+  
+  
 
 
 
