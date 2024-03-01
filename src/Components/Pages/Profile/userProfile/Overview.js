@@ -253,7 +253,7 @@ function Overview() {
 																	</div>
 																	<div className="billing float_wrapper">
 																		<p className="pull-left">
-																			$ {post?.service_id?.price}
+																			$ {post?.amount_charged}
 																		</p>
 																		<p className="paid pull-right">
 																			{post.service_status}
@@ -336,7 +336,7 @@ function Overview() {
 																	</div>
 																	<div className="billing float_wrapper">
 																		<p className="pull-left">
-																			$ {post?.service_id?.price}
+																			$ {post?.amount_charged}
 																		</p>
 																		<p className="paid pull-right">
 																			{post.service_status}
