@@ -2,6 +2,7 @@ import React , {useEffect} from 'react';
 
 import { useNavigate, useParams } from 'react-router-dom';
 import "./Payment.css"
+import logo from "../../assets/img/logo_home_navbar.png";
 
 
 

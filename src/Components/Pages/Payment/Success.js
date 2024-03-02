@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import "./Payment.css";
+import logo from "../../assets/img/logo_home_navbar.png";
 
 function Success() {
   const location = useLocation();
