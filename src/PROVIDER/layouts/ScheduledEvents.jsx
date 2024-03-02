@@ -77,6 +77,7 @@ const ScheduledEvents = () => {
           key={index}
           title={cur.service_id.title}
           location={cur.address}
+          getlocation={cur?.location?.coordinates}
           date={cur.scheduled_date}
           time={cur.scheduled_timing}
           amt={75}
@@ -89,6 +90,7 @@ const ScheduledEvents = () => {
           serviceTime={cur.service_time}
           gendercheck={cur.gendercheck}
           _id={cur._id}
+
         />
       ))}
     </Container>

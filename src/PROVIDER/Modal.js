@@ -147,9 +147,9 @@ function CustomModal(
 
   console.log("getdirection", getdirection)
 
-  const lat = getdirection[1] || "";
+  const lat = getdirection && getdirection.length >= 2 ? getdirection[1] : '';
+  const lon = getdirection && getdirection.length >= 1 ? getdirection[0] : '';
 
-  const lon = getdirection[0] || "";
 
   const zoom = 16; // 15 is ideal
 
@@ -188,7 +188,7 @@ function CustomModal(
               <a href={`https://maps.google.com/maps?q=${lat},${lon}&z=${zoom}`}
                 rel="noopener noreferrer"
                 target="_blank"
-                style={{color:"blue"}}
+                style={{ color: "blue" }}
                 className="btn btn-sm btn-link"><FontAwesomeIcon icon={faLocationDot} /> Get Direction</a>
             </div>
 
@@ -277,7 +277,7 @@ function CustomModal(
           <BootstrapModal.Footer>
 
             <Button variant="primary" onClick={onSubmit} disabled={loading}>
-              {loading ? "Accepting" : "Accept"}
+              {loading ? "Accepting..." : "Accept"}
 
             </Button>
             <Button className="nofillbtn btn-sm" onClick={removeItem} >

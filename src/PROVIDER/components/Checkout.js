@@ -138,7 +138,7 @@ const Checkout = (props) => {
         </Row>
       </Modal.Body>
       <Modal.Footer style={{ justifyContent: "center" }}>
-        <Button onClick={onSubmit} disabled={loading}> {loading ? "Loading.." : "Done"}</Button>
+        <Button onClick={onSubmit} disabled={loading}> {loading ? "Loading..." : "Done"}</Button>
       </Modal.Footer>
     </Modal>
   );

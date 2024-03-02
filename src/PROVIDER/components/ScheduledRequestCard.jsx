@@ -16,6 +16,7 @@ const ScheduledRequestCard = (props) => {
     serviceTime,
     gendercheck,
     add_ons_details,
+    getlocation,
     add_ons,
     time,
     instructions = props.instructions ? props.instructions : '',
@@ -97,7 +98,7 @@ const ScheduledRequestCard = (props) => {
 
 
 
-
+  console.log("getlocation", getlocation)
 
 
 
@@ -166,6 +167,7 @@ const ScheduledRequestCard = (props) => {
           onHide={handleCheckInModalClose}
           title={props.title}
           location={props.location}
+          getdirection={getlocation}
           time={props.time}
           date={props.date}
           _id={props._id}
