@@ -60,7 +60,7 @@ const Favorites = () => {
 
   return (
     <div className="container__view">
-      <Avatar name={username} />
+      {/* <Avatar name={username} /> */}
       <h3>Favorites</h3>
       {loading ? (
         <FallingLines
