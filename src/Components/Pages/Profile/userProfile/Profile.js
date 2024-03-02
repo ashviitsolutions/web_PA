@@ -287,14 +287,14 @@ const Profile = () => {
 					className="
         "
 				>
-					<ul id="tabs_control">
+					{/* <ul id="tabs_control">
 						<li id="">
 							<div
 								className="item"
 								style={{ fontSize: 10 }}
 								onClick={() => navigate("/termcondition")}
 							>
-								{/* <img src={image7} width={15} height={15} alt="..." /> */}
+								
 								<FontAwesomeIcon
 									icon={faFileContract}
 									style={{ marginRight: 10 }}
@@ -309,7 +309,7 @@ const Profile = () => {
 								style={{ fontSize: 10 }}
 								onClick={() => navigate("/cancelationpolicy")}
 							>
-								{/* <img src={image7} width={15} height={15} alt="..." /> */}
+								
 								<FontAwesomeIcon
 									icon={faRectangleXmark}
 									style={{ marginRight: 10 }}
@@ -317,7 +317,7 @@ const Profile = () => {
 								Cancellation Policy
 							</div>
 						</li>
-					</ul>
+					</ul> */}
 				</div>
 			</div>
 
@@ -345,10 +345,10 @@ const Profile = () => {
 				<div className="user_profile_footer">
 					<div className="footer_container">
 						<div className="footer_warapper">
-							<p>Copyright © 2021 productive alliance, All Rights Reserved.</p>
+							<p className="vsmall">Copyright © 2021 productive alliance, All Rights Reserved. <span className="cursor" onClick={() => navigate("/cancelationpolicy")}>Cancellation Policy.</span> <span className="cursor" onClick={() => navigate("/termcondition")}>Terms and conditions.</span></p>
 						</div>
 						<div className="footer_warapper">
-							<p id="ashvi_design">A design by Ashvi IT solution</p>
+							<p id="ashvi_design" className="vsmall">A design by Ashvi IT solution</p>
 						</div>
 					</div>
 				</div>

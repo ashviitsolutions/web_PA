@@ -165,7 +165,7 @@ function Membership() {
 		<div className="overview" id="invoices">
 			<div className="overview_container">
 
-				<Avatar name={username} />
+				{/* <Avatar name={username} /> */}
 				<div className="title">
 					<h3>Membership Level</h3>
 					<h3

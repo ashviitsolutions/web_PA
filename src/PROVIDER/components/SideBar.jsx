@@ -49,7 +49,7 @@ const SideBar = () => {
   return (
     <>
 
-      <div className="sidebar col-md-3" >
+      <div className="sidebar col-md-3 sticky" >
         <div className="sidebar-title">
           <Link className="navbar-brand" to="/providers">
             <img

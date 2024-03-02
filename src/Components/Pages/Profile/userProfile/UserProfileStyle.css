@@ -14,14 +14,14 @@
 .notification__view {
 	margin: 20px;
 	justify-self: center;
-	width: 60%;
+	width: 90%;
 }
 
 .notification__item {
-	width: 90%;
+	width: 100%;
 	height: auto;
 	border-radius: 10px;
-	margin: 20px 0;
+	margin: 20px auto;
 	padding: 20px;
 	box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }

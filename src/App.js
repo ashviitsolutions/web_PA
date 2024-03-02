@@ -533,10 +533,12 @@ function App() {
 
 
           <Route path="/providers" element={<>
-            {/* <Chatbot /> */}
-            <SideBarprovider />
-            <NavBarProvide />
-            <Protected Component={DashboardProvider} />
+            {/* <div className='profileSpace panelHeight'> */}
+              {/* <Chatbot /> */}
+              <SideBarprovider />
+              <NavBarProvide />
+              <Protected Component={DashboardProvider} />
+            {/* </div> */}
           </>} />
           <Route path="/providers/scheduled-requests" element={<>
             <SideBarprovider />

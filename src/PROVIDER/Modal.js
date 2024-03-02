@@ -193,10 +193,15 @@ function CustomModal(
             </div>
 
 
-            <div div className="col-md-6 title">
-              Date/Time:
+            <div div className="col-md-3 title">
+              Date:
             </div>
-            <div className="col-md-6">{formattedScheduledDate}/{time}</div>
+            <div className="col-md-3">{formattedScheduledDate}</div>
+
+            <div div className="col-md-3 title">
+              Time:
+            </div>
+            <div className="col-md-3">{time}</div>
           </div>
 
           {/* Customer details */}
@@ -218,19 +223,19 @@ function CustomModal(
             <div div className="col-md-6 title">
               Area of Concern:
             </div>
-            <div className="col-md-6">{areasOfConcern}</div>
+            <div className="col-md-6">{areasOfConcern.join(', ')}</div>
             <div div className="col-md-6 title">
               Health Issues:
             </div>
-            <div className="col-md-6">{healthConditions}</div>
+            <div className="col-md-6">{healthConditions.join(', ')}</div>
             <div div className="col-md-6 title">
               Special Concideration:
             </div>
-            <div className="col-md-6">{specialConsiderations}</div>
+            <div className="col-md-6">{specialConsiderations.join(', ')}</div>
             <div div className="col-md-6 title">
               Massage Body Part:
             </div>
-            <div className="col-md-6">{massageBodyPart}</div>
+            <div className="col-md-6">{massageBodyPart.join(', ')}</div>
 
           </div>
 

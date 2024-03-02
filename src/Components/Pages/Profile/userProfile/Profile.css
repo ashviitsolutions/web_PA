@@ -525,11 +525,21 @@ ul#tabs_control li.active {
 	justify-content: space-around;
 	text-align: center;
 }
+.cursor
+{
+	cursor: pointer;
+	color: lightblue;
+}
+.cursor:hover
+{
+	color: white;
+	transition: .2s ease-in;
+}
 
 .footer_warapper p {
 	color: #ffffff;
 	font-weight: 400;
-	font-size: 13px;
+	font-size: 10px;
 	letter-spacing: 0.5px;
 	padding-top: 16px;
 }

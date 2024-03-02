@@ -231,7 +231,14 @@
   font-weight: bold;
   background-color: #00000014;
 }
-
+.panelHeight {
+  max-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+.sticky{
+  position: sticky;
+}
 .sidebar-menu a {
   position: relative;
 }
@@ -399,6 +406,16 @@
   max-width: 90%;
   padding-left: 15rem;
 }
+.schedule-card2 {
+  max-width: 80% !important;
+  padding-left: 15rem;
+}
+.sticky
+
+/* .autoWidth
+{
+  width: auto !important;
+} */
 
 /* //application form */
 

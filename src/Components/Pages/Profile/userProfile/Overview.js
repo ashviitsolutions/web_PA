@@ -156,7 +156,7 @@ function Overview() {
 	return (
 		<>
 			<div className="inner">
-				<Avatar name={username} />
+				{/* <Avatar name={username} /> */}
 				{/* <div className="gutter">
 					<h3 className="profile_heading">{name || username}</h3>
 				</div> */}

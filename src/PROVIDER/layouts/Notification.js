@@ -49,9 +49,9 @@ const Notification = () => {
     };
 
     return (
-        <div className="schudulecard">
-            <Avatar name={username} />
-            <h3>Notifications</h3>
+        <div className="schudulecard profileSpace">
+            {/* <Avatar name={username} /> */}
+            <h3><center>Notifications</center></h3>
             <div className="notification__view">
                 {loading ? (
                     <FallingLines

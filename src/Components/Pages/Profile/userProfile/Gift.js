@@ -13,7 +13,8 @@ function Gift() {
 					{/* <div className='heading'>
             <h3>{username}</h3>
           </div> */}
-					<Avatar name={username} />
+					{/* <Avatar name={username} /> */}
+					<p>{" "}</p>
 					<div className="title">
 						<h3>Your GIFT CARDS</h3>
 					</div>
@@ -21,7 +22,7 @@ function Gift() {
 					<Yourcard />
 
 					<div className="title" id="buycard">
-						<h3>Buy GIFT CARDS</h3>
+						<h3>Gift Card Shop</h3>
 					</div>
 					<BuyCard />
 				</div>
