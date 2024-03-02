@@ -22,12 +22,6 @@ function Failed() {
   return (
     <>
       <div className='PaymentForm'>
-        
-        
-      
-
-      </div>
-      <div className='PaymentForm'>
         <div className='receipt_head'><img src={logo} /></div>
         <div className='container reciept_body'>
           <h2>Payment Status</h2>

@@ -56,11 +56,16 @@ function Success() {
 
   return (
     <>
-      <div className='PaymentForm'>
-        <h1>Payment Status</h1>
-        <p>Status: successful</p>
-        <p>Transaction ID: {session_id}</p>
-      </div>
+      <div className='receipt_head'><img src={logo} /></div>
+        <div className='container reciept_body'>
+          <h2>Payment Status</h2>
+          <p className='small'>Status: successful</p>
+          <p className='small'>Transaction ID: {session_id}</p>
+          <p className='small'>Redirecting... </p>
+          <p className='small'>Do not reload or press back button!</p>
+        </div>
+        <div className='receipt_footer'><p className='small'>Redirecting... </p>
+        <p className='small'>Do not reload or press back button!</p></div>
     </>
   );
 }
