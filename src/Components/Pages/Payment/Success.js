@@ -57,6 +57,7 @@ function Success() {
 
   return (
     <>
+    <div className='PaymentForm'>
       <div className='receipt_head'><img src={logo} /></div>
         <div className='container reciept_body'>
           <h2>Payment Status</h2>
@@ -67,6 +68,7 @@ function Success() {
         </div>
         <div className='receipt_footer'><p className='small'>Redirecting... </p>
         <p className='small'>Do not reload or press back button!</p></div>
+      </div>
     </>
   );
 }
