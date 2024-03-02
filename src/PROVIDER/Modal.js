@@ -30,6 +30,7 @@ function CustomModal(
     onHide,
     _id,
     newclient,
+    getdirection,
     sheduleEvent
   }
 ) {
@@ -144,9 +145,13 @@ function CustomModal(
   }, [serviceTime, gendercheck, add_ons_details]);
 
 
+  console.log("getdirection", getdirection)
 
+  const lat = getdirection[1] || "";
 
+  const lon = getdirection[0] || "";
 
+  const zoom = 16; // 15 is ideal
 
 
   return (
@@ -177,9 +182,17 @@ function CustomModal(
               Location:
             </div>
             <div className="col-md-6">{location}</div>
-            <div className="col-md-6 title">Direction</div>
+            <div className="col-md-6 title"> Direction </div>
+
             <div className="col-md-6">
-              <a href="#" className="btn btn-sm btn-link"><FontAwesomeIcon icon={faLocationDot} /> Get Direction</a></div>
+              <a href={`https://maps.google.com/maps?q=${lat},${lon}&z=${zoom}`}
+                rel="noopener noreferrer"
+                target="_blank"
+                style={{color:"blue"}}
+                className="btn btn-sm btn-link"><FontAwesomeIcon icon={faLocationDot} /> Get Direction</a>
+            </div>
+
+
             <div div className="col-md-6 title">
               Date/Time:
             </div>
