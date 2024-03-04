@@ -22,7 +22,7 @@ function Success() {
     if (session_id && formData) {
       const onSubmit = async () => {
         try {
-          const url = `${IP}/user/service_book?session_id=${session_id}`;
+          const url = `http://localhost:5000/api/user/service_book?session_id=${session_id}`;
           const config = {
             headers: {
               "Content-Type": "application/json",
@@ -42,23 +42,23 @@ function Success() {
 
       onSubmit();
     }
-  }, [session_id, formData, tokenuser]);
+  }, [session_id]);
 
   useEffect(() => {
     if (bookingCompleted) {
+      navigate('/userProfile');
+      // const redirectTimer = setTimeout(() => {
+      //   navigate('/userProfile');
+      // }, 1000);
 
-      const redirectTimer = setTimeout(() => {
-        navigate('/userProfile');
-      }, 3000);
-
-      return () => clearTimeout(redirectTimer);
+      // return () => clearTimeout(redirectTimer);
     }
-  }, [bookingCompleted, navigate]);
+  }, [bookingCompleted]);
 
   return (
     <>
-    <div className='PaymentForm'>
-      <div className='receipt_head'><img src={logo} /></div>
+      <div className='PaymentForm'>
+        <div className='receipt_head'><img src={logo} /></div>
         <div className='container reciept_body'>
           <h2>Payment Status</h2>
           <p className='small'>Status: successful</p>
@@ -67,7 +67,7 @@ function Success() {
           <p className='small'>Do not reload or press back button!</p>
         </div>
         <div className='receipt_footer'><p className='small'>Redirecting... </p>
-        <p className='small'>Do not reload or press back button!</p></div>
+          <p className='small'>Do not reload or press back button!</p></div>
       </div>
     </>
   );

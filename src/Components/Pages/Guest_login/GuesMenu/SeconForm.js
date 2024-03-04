@@ -77,9 +77,9 @@ const SeconForm = ({ step, nextStep }) => {
         let total = priceservice + priceadon;
         const time_status = selectedServiceTime;
 
-        if (time_status === "90min") {
+        if (time_status === "90 minutes") {
             total += 40;
-        } else if (time_status === "120min") {
+        } else if (time_status === "120 minutes") {
             total += 80;
         }
 
@@ -310,22 +310,22 @@ const SeconForm = ({ step, nextStep }) => {
                 <ul className="time_options">
                     <li
                         id="min_45"
-                        className={`time_option ${selectedServiceTime === "60min" ? "selected" : ""}`}
-                        onClick={() => handleServiceTimeSelect("60min")}
+                        className={`time_option ${selectedServiceTime === "60 minutes" ? "selected" : ""}`}
+                        onClick={() => handleServiceTimeSelect("60 minutes")}
                     >
                         60 minutes.
                     </li>
                     <li
                         id="min_60"
-                        className={`time_option ${selectedServiceTime === "90min" ? "selected" : ""}`}
-                        onClick={() => handleServiceTimeSelect("90min")}
+                        className={`time_option ${selectedServiceTime === "90 minutes" ? "selected" : ""}`}
+                        onClick={() => handleServiceTimeSelect("90 minutes")}
                     >
                         90 minutes.
                     </li>
                     <li
                         id="min_90"
-                        className={`time_option ${selectedServiceTime === "120min" ? "selected" : ""}`}
-                        onClick={() => handleServiceTimeSelect("120min")}
+                        className={`time_option ${selectedServiceTime === "120 minutes" ? "selected" : ""}`}
+                        onClick={() => handleServiceTimeSelect("120 minutes")}
                     >
                         120 minutes.
                     </li>
