@@ -15,6 +15,7 @@ function GuestLogin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [toggle, setToggle] = useState(false);
+  const [loading, setLoading] = useState(false);
   const nav = useNavigate();
   const loginguser = localStorage.getItem('token');
 
@@ -71,12 +72,9 @@ function GuestLogin() {
       if (resp.status === 200) {
         const result = await resp.json();
         console.log('result', result);
-        localStorage.setItem('users', JSON.stringify(result));
-        localStorage.setItem('userid', result?.user_info?._id);
-        localStorage.setItem('user_name', result?.user_info?.fullName);
-        localStorage.setItem('user_email', result?.user_info?.email);
-        localStorage.setItem('mobile', result?.user_info?.mobile);
-        localStorage.setItem('token', token);
+
+
+
 
         toast.success('Password reset email sent. Check your inbox.', {
           position: 'top-right',
@@ -105,6 +103,7 @@ function GuestLogin() {
 
 
   const onSubmit = async (e) => {
+    setLoading(true)
     e.preventDefault();
 
     const data = { email, password };
@@ -113,16 +112,22 @@ function GuestLogin() {
       const response = await axios.post(`${IP}/user/login`, data);
 
       if (response.status === 200) {
+        setLoading(false)
         const token = response.headers.authorization;
         const user = response.data;
 
         localStorage.setItem('users', JSON.stringify(user));
+        localStorage.setItem('userid', user?.user_info?._id);
+        localStorage.setItem('user_name', user?.user_info?.name);
+        localStorage.setItem('user_email', user?.user_info?.email);
+        localStorage.setItem('mobile', user?.user_info?.mobile);
         localStorage.setItem('token', token);
         nav('/select_location_type');
       } else {
         setToggle(true);
       }
     } catch (error) {
+      setLoading(false)
       console.error('Error fetching data:', error);
       setToggle(true);
     }
@@ -192,7 +197,7 @@ function GuestLogin() {
                         </p>
                         <div className="input_group">
                           <button className="button" type="submit">
-                            Sign In
+                            {loading ? "Loading..." : "sign in"}
                           </button>
                         </div>
                         <span>
