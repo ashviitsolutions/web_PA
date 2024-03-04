@@ -22,7 +22,7 @@ function Success() {
     if (session_id && formData) {
       const onSubmit = async () => {
         try {
-          const url = `${IP}/service_book?session_id=${session_id}`;
+          const url = `${IP}/user/service_book?session_id=${session_id}`;
           const config = {
             headers: {
               "Content-Type": "application/json",
@@ -44,16 +44,24 @@ function Success() {
     }
   }, [session_id]);
 
+  // useEffect(() => {
+  //   if (bookingCompleted) {
+  //     const redirectTimer = setTimeout(() => {
+  //       navigate('/userProfile');
+  //     }, 1000);
+
+  //     return () => clearTimeout(redirectTimer);
+  //   }
+  // }, [bookingCompleted, navigate]);
+
+
   useEffect(() => {
     if (bookingCompleted) {
-      navigate('/userProfile');
-      // const redirectTimer = setTimeout(() => {
-      //   navigate('/userProfile');
-      // }, 1000);
-
-      // return () => clearTimeout(redirectTimer);
+      setTimeout(() => {
+        navigate('/userProfile');
+      }, 1000); 
     }
-  }, [bookingCompleted]);
+  }, [bookingCompleted, navigate]);
 
   return (
     <>
