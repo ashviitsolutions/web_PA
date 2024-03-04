@@ -204,6 +204,7 @@ const Events = () => {
           {Array.isArray(request) && request.map((cur, index) => (
             <React.Fragment key={index}>
               <RequestCard
+                event='event_value'
                 newclient="true"
                 title={cur.service}
                 location={cur.location}

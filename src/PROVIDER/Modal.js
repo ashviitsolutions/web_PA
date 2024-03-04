@@ -24,6 +24,7 @@ function CustomModal(
     user_id,
     add_ons_details,
     onClose,
+    event,
     gendercheck,
     date,
     show,
@@ -34,6 +35,8 @@ function CustomModal(
     sheduleEvent
   }
 ) {
+
+  console.log("event", event)
 
 
 
@@ -68,14 +71,19 @@ function CustomModal(
       });
       console.log(res);
       if (res.status === 200) {
+        if (event === "event_value") {
+          nav("/providers");
+        } else {
+          nav("/providers/events");
+        }
         onHide();
-
-        nav("/providers/events");
       }
     } catch (error) {
       console.error(error);
+      setLoading(false)
     }
   };
+
 
   const removeItem = () => {
     localStorage.setItem('removedCard', _id); // set new _id

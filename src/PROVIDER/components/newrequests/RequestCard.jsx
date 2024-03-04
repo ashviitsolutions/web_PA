@@ -141,6 +141,7 @@ const RequestCard = (props) => {
         </Card.Footer>
       </Card>
       <CustomModal
+        event={props.event}
         show={showModal}
         onHide={closeModal}
         title={props.title}

@@ -53,7 +53,7 @@ const Dashboard = () => {
     }).catch(err => {
       console.log(err)
     });
-  }, [token, setreq]);
+  }, [token]);
 
   useEffect(() => {
     fetchData();
