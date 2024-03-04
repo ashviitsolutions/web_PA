@@ -216,28 +216,29 @@ function CustomModal(
           </div>
 
           {/* Health Datails details */}
+          {/* Health Datails details */}
           <div className="title detailTitle">
             <FontAwesomeIcon icon={faInfoCircle} /> Health/Massage Info
           </div>
           <div className="container row detailInfo">
-            <div div className="col-md-6 title">
+            <div className="col-md-6 title">
               Area of Concern:
             </div>
-            <div className="col-md-6">{areasOfConcern.join(', ')}</div>
-            <div div className="col-md-6 title">
+            <div className="col-md-6">{areasOfConcern ? areasOfConcern.join(', ') : ""}</div>
+            <div className="col-md-6 title">
               Health Issues:
             </div>
-            <div className="col-md-6">{healthConditions.join(', ')}</div>
-            <div div className="col-md-6 title">
-              Special Concideration:
+            <div className="col-md-6">{healthConditions ? healthConditions.join(', ') : ""}</div>
+            <div className="col-md-6 title">
+              Special Consideration:
             </div>
-            <div className="col-md-6">{specialConsiderations.join(', ')}</div>
-            <div div className="col-md-6 title">
+            <div className="col-md-6">{specialConsiderations ? specialConsiderations.join(', ') : ""}</div>
+            <div className="col-md-6 title">
               Massage Body Part:
             </div>
-            <div className="col-md-6">{massageBodyPart.join(', ')}</div>
-
+            <div className="col-md-6">{massageBodyPart ? massageBodyPart.join(', ') : ""}</div>
           </div>
+
 
 
 

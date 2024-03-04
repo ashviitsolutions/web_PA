@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Button, ButtonGroup, ToggleButton } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import EventsCard from "../components/events/EventsCard";
-import ScheduledRequestCard from "../components/ScheduledRequestCard";
+// import ScheduledRequestCard from "../components/ScheduledRequestCard";
 import { IP } from "../../Constant";
 import RequestCard from "../components/newrequests/RequestCard"
 import Completed from "../components/newrequests/Completed";
 // import ServicesCard from "../components/services/ServicesCard";
 // import ScheduledRequestCard from "../components/BookingCard";
 import ScheduledEvents from "./ScheduledEvents";
+import ScheduledRequestCard from "../components/ScheduledRequestCard";
 import { useNavigate } from "react-router-dom";
 
 
@@ -168,10 +169,32 @@ const Events = () => {
       )}
 
       {radioValue === '1' && (
-
-        <div>
-          <ScheduledEvents />
-        </div>
+        <>
+          {booking.map((cur, index) => (
+            <ScheduledRequestCard
+              key={index}
+              title={cur.service_id.title}
+              location={cur.address}
+              getlocation={cur?.location?.coordinates}
+              date={cur.scheduled_date}
+              time={cur.scheduled_timing}
+              amt={75}
+              tip={15}
+              instructions={cur.instructions}
+              amount={cur.amount_charged}
+              user_id={cur.service_id._id}
+              paymentIntentId={cur.paymentIntentId}
+              add_ons_details={cur.add_ons_details}
+              serviceTime={cur.service_time}
+              gendercheck={cur.gendercheck}
+              areasOfConcern={cur.areas_of_concern}
+              healthConditions={cur.health_conditions}
+              massageBodyPart={cur.massage_body_part}
+              specialConsiderations={cur.special_considerations}
+              _id={cur._id}
+            />
+          ))}
+        </>
 
 
       )}
@@ -202,6 +225,10 @@ const Events = () => {
                 serviceTime={cur.service_time}
                 specialConsiderations={cur.special_considerations}
                 paymentIntentId={cur.paymentIntentId}
+                gendercheck={cur.gendercheck}
+                add_ons={cur.add_ons}
+                add_ons_details={cur.add_ons_details}
+                massage_for={cur.massage_for}
               />
 
             </React.Fragment>

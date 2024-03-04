@@ -98,7 +98,7 @@ const ScheduledRequestCard = (props) => {
 
 
 
-  console.log("getlocation", getlocation)
+  // console.log("getlocation", getlocation)
 
 
 
@@ -168,6 +168,11 @@ const ScheduledRequestCard = (props) => {
           title={props.title}
           location={props.location}
           getdirection={getlocation}
+          specialConsiderations={props.specialConsiderations}
+          massageBodyPart={props.massageBodyPart}
+          healthConditions={props.healthConditions}
+          areasOfConcern={props.areasOfConcern}
+
           time={props.time}
           date={props.date}
           _id={props._id}
