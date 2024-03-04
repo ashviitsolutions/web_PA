@@ -80,6 +80,8 @@ const ScheduledEvents = () => {
           getlocation={cur?.location?.coordinates}
           date={cur.scheduled_date}
           time={cur.scheduled_timing}
+          locationType={cur.location_type}
+          massageFor={cur.massage_for}
           amt={75}
           tip={15}
           instructions={cur.instructions}

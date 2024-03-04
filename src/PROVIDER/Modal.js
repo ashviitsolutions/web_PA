@@ -36,7 +36,7 @@ function CustomModal(
   }
 ) {
 
-  console.log("event", event)
+  console.log("massage_for", massage_for)
 
 
 
@@ -153,10 +153,10 @@ function CustomModal(
   }, [serviceTime, gendercheck, add_ons_details]);
 
 
-  console.log("getdirection", getdirection)
 
-  const lat = getdirection && getdirection.length >= 2 ? getdirection[1] : '';
-  const lon = getdirection && getdirection.length >= 1 ? getdirection[0] : '';
+
+  const lat = getdirection && getdirection.length >= 2 ? getdirection[0] : '';
+  const lon = getdirection && getdirection.length >= 1 ? getdirection[1] : '';
 
 
   const zoom = 16; // 15 is ideal

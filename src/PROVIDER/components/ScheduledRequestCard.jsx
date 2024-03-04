@@ -23,7 +23,7 @@ const ScheduledRequestCard = (props) => {
   } = props;
 
 
-  console.log("add_ons_details serviceTime", serviceTime)
+  console.log("serviceTime", serviceTime)
 
   let badge = props.newclient ? <Badge pill bg="warning shadow-sm" style={{ width: '70px', position: 'absolute', top: '8px', right: '-12px', fontSize: '0.7rem' }}>New</Badge> : '';
   const [checkInShow, setCheckInShow] = useState(false);
@@ -169,10 +169,13 @@ const ScheduledRequestCard = (props) => {
           location={props.location}
           getdirection={getlocation}
           specialConsiderations={props.specialConsiderations}
+          massageFor={props.massage_for}
           massageBodyPart={props.massageBodyPart}
           healthConditions={props.healthConditions}
           areasOfConcern={props.areasOfConcern}
-
+          locationType={props.locationType}
+          serviceTime={serviceTime}
+          massage_for={props.massageFor}
           time={props.time}
           date={props.date}
           _id={props._id}

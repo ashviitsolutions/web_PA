@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Button, ButtonGroup, ToggleButton } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import EventsCard from "../components/events/EventsCard";
@@ -30,6 +30,29 @@ const Events = () => {
     { name: "New Events", value: "3" },
 
   ];
+
+  const [schule, setSchudule] = useState([]);
+
+
+  const fetchData = useCallback(() => {
+    fetch(`${IP}/provider/events/scheduled`, {
+      headers: {
+        Authorization: token,
+      },
+    })
+      .then((resp) => resp.json())
+      .then((result) => {
+        setSchudule(result.scheduled);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [token, setUser]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
 
 
 
@@ -170,7 +193,7 @@ const Events = () => {
 
       {radioValue === '1' && (
         <>
-          {booking.map((cur, index) => (
+          {schule.map((cur, index) => (
             <ScheduledRequestCard
               key={index}
               title={cur.service_id.title}
@@ -178,6 +201,8 @@ const Events = () => {
               getlocation={cur?.location?.coordinates}
               date={cur.scheduled_date}
               time={cur.scheduled_timing}
+              locationType={cur.location_type}
+              massageFor={cur.massage_for}
               amt={75}
               tip={15}
               instructions={cur.instructions}

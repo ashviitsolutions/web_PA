@@ -49,7 +49,7 @@ const Dashboard = () => {
       return resp.json()
     }).then(result => {
       setreq(result)
-      console.log("request data", result)
+      // console.log("request data", result)
     }).catch(err => {
       console.log(err)
     });
