@@ -22,7 +22,7 @@ function Success() {
     if (session_id && formData) {
       const onSubmit = async () => {
         try {
-          const url = `http://localhost:5000/api/user/service_book?session_id=${session_id}`;
+          const url = `${IP}/service_book?session_id=${session_id}`;
           const config = {
             headers: {
               "Content-Type": "application/json",

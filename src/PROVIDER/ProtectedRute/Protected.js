@@ -23,12 +23,12 @@ function Protected(props) {
         })
         .then((result) => {
           setUser(result.application_status);
-         
+
         });
     } catch (error) {
       console.log(error);
     }
-  
+
     let loginprotect = localStorage.getItem("providertoken");
     let approvaluser = localStorage.getItem("approvaluser");
     if (!loginprotect) {
@@ -40,7 +40,7 @@ function Protected(props) {
         nav("/providers/waiting");
       }
     }
-  
+
     const timeout = setTimeout(() => {
       localStorage.clear()
       nav("/providers/login");
@@ -48,7 +48,7 @@ function Protected(props) {
 
     return () => clearTimeout(timeout);
   }, [user]);
-  
+
   return (
     <div>
       <Component />
