@@ -219,7 +219,7 @@ const Conform = () => {
         }));
 
         try {
-            const response = await axios.post(`http://localhost:5000/api/createCheckoutSession`, {
+            const response = await axios.post(`${IP}/createCheckoutSession`, {
                 service_details: serviceDetails
             });
             window.location.href = response.data.url;
