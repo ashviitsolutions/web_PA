@@ -155,44 +155,46 @@ const Conform = () => {
 
     const handleCheckout = async () => {
         setLoading(true)
+        // Save bookingData after successful payment
+        localStorage.setItem("bookingData", JSON.stringify({
+            ...(userid ? {
+                user: userid,
+                customer_email: email,
+            } : {
+                email: email,
+                password: password,
+                confirm_password: confirmpassword
+            }),
+            location: locationName,
+            paymentIntentId: paymentIntentId,
+            location_type: location_type,
+            massage_for: massage_for,
+            service_id: service_id,
+            gender: gender,
+            provider_id: provider_id,
+            service_time: service_time,
+            health_conditions: health_conditions,
+            areas_of_concern: areas_of_concern,
+            special_considerations: special_considerations,
+            massage_body_part: massage_body_part,
+            massage_pressure: massage_pressure,
+            scheduled_date: scheduled_date,
+            scheduled_timing: scheduled_timing,
+            address: address,
+            mobile: mobile,
+            instructions: arrivalInstructions,
+            add_ons: addon_id,
+            add_ons_details: add_ons_details,
+            service_name: service_name
+        }));
+
         try {
             const response = await axios.post(`${IP}/createCheckoutSession`, {
                 service_details: serviceDetails
             });
             window.location.href = response.data.url;
 
-            // Save bookingData after successful payment
-            localStorage.setItem("bookingData", JSON.stringify({
-                ...(userid ? {
-                    user: userid,
-                    customer_email: email,
-                } : {
-                    email: email,
-                    password: password,
-                    confirm_password: confirmpassword
-                }),
-                location: locationName,
-                paymentIntentId: paymentIntentId,
-                location_type: location_type,
-                massage_for: massage_for,
-                service_id: service_id,
-                gender: gender,
-                provider_id: provider_id,
-                service_time: service_time,
-                health_conditions: health_conditions,
-                areas_of_concern: areas_of_concern,
-                special_considerations: special_considerations,
-                massage_body_part: massage_body_part,
-                massage_pressure: massage_pressure,
-                scheduled_date: scheduled_date,
-                scheduled_timing: scheduled_timing,
-                address: address,
-                mobile: mobile,
-                instructions: arrivalInstructions,
-                add_ons: addon_id,
-                add_ons_details: add_ons_details,
-                service_name: service_name
-            }));
+
         } catch (error) {
             console.error('Error creating checkout session:', error);
             setLoading(false)

@@ -6,20 +6,30 @@ import { useNavigate } from 'react-router-dom';
 import "./Payment.css";
 import logo from "../../assets/img/logo_home_navbar.png";
 
+
 function Success() {
+
   const location = useLocation();
   const navigate = useNavigate();
   const searchParams = new URLSearchParams(location.search);
   const session_id = searchParams.get('session_id');
   const tokenuser = localStorage.getItem("token");
-  const formData = JSON.parse(localStorage.getItem("bookingData")); // Parse JSON data
+
 
   const [bookingCompleted, setBookingCompleted] = useState(false);
+  const [booking, setBookinData] = useState();
 
-  console.log("booking data full", formData)
+
+
+  console.log("booking data formData", booking)
 
   useEffect(() => {
-    if (session_id && formData) {
+    const formData = JSON.parse(localStorage.getItem("bookingData"));
+    setBookinData(formData)
+  }, [])
+
+  useEffect(() => {
+    if (session_id && booking) {
       const onSubmit = async () => {
         try {
           const url = `${IP}/user/service_book?session_id=${session_id}`;
@@ -29,7 +39,7 @@ function Success() {
               Authorization: tokenuser,
             },
           };
-          const res = await axios.post(url, formData, config);
+          const res = await axios.post(url, booking, config);
 
           if (res.status === 200) {
             localStorage.removeItem("bookingData");
@@ -42,26 +52,24 @@ function Success() {
 
       onSubmit();
     }
-  }, [session_id]);
+  }, [session_id, booking]);
 
-  // useEffect(() => {
-  //   if (bookingCompleted) {
-  //     const redirectTimer = setTimeout(() => {
-  //       navigate('/userProfile');
-  //     }, 1000);
 
-  //     return () => clearTimeout(redirectTimer);
-  //   }
-  // }, [bookingCompleted, navigate]);
 
 
   useEffect(() => {
     if (bookingCompleted) {
-      setTimeout(() => {
+      const redirectTimer = setTimeout(() => {
         navigate('/userProfile');
-      }, 1000); 
+      }, 1000);
+
+      return () => clearTimeout(redirectTimer);
     }
   }, [bookingCompleted, navigate]);
+
+
+
+
 
   return (
     <>
