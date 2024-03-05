@@ -104,51 +104,7 @@ function Overview() {
 	const currentPending = filteredPending.slice(startIndex, endIndex);
 	const currenSchudule = filteredSchudule.slice(startIndex, endIndex);
 
-	const handlemembersh = () => {
-		navigator("/");
-	};
-	const addToFavorite = (id) => {
-		const config = {
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: token,
-			},
-		};
 
-		axios
-			.post(`${IP}/user/addTofavorites/${id}/${user_id}`, {}, config)
-			.then((res) => {
-				console.log(res);
-				toast.success(res.data.message, {
-					position: "top-right",
-					autoClose: 3000,
-					hideProgressBar: false,
-					closeOnClick: true,
-					pauseOnHover: true,
-					draggable: true,
-					progress: undefined,
-					theme: "light",
-				});
-			})
-			.catch((err) => {
-				console.log(err);
-				toast.success(
-					err.response.data.msg
-						? err.response.data.msg
-						: err.response.data.message,
-					{
-						position: "top-right",
-						autoClose: 3000,
-						hideProgressBar: false,
-						closeOnClick: true,
-						pauseOnHover: true,
-						draggable: true,
-						progress: undefined,
-						theme: "light",
-					}
-				);
-			});
-	};
 
 
 	console.log("schedule from overview", currenSchudule);

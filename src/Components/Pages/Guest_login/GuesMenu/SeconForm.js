@@ -43,6 +43,8 @@ const SeconForm = ({ step, nextStep }) => {
 
 
 
+    console.log("priceservice", priceservice, priceadon)
+
 
 
     const handleInfoIconClick = (id) => {
@@ -73,6 +75,14 @@ const SeconForm = ({ step, nextStep }) => {
     }, [selectedItems, service_ids, genderPreferences, selectedServiceTime, priceservice, priceadon]);
 
 
+
+
+
+
+
+
+
+
     useEffect(() => {
         let total = priceservice + priceadon;
         const time_status = selectedServiceTime;
@@ -83,13 +93,18 @@ const SeconForm = ({ step, nextStep }) => {
             total += 80;
         }
 
+        // Halve the priceservice if gendercheck is "partner"
         if (gendercheck === "partner") {
-            total *= 2;
+            const modifiedPriceService = priceservice / 2; // Halve the priceservice
+            total -= priceservice; // Subtract the original priceservice from total
+            total += modifiedPriceService; // Add the modified priceservice to total
+            total *= 2; // Double the total if gendercheck is "partner"
         }
 
         setTotalPrice(total);
         setFormData({ ...formData, totalPrice: total });
     }, [priceservice, priceadon, selectedServiceTime, gendercheck]);
+
 
 
 
