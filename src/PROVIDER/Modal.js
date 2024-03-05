@@ -20,6 +20,7 @@ import { useNavigate } from "react-router-dom";
 function CustomModal(
   { title, paymentIntentId, serviceTime, massage_for, gender, areasOfConcern, specialConsiderations, massageBodyPart, healthConditions, locationType,
     location,
+    amount_calculation,
     time,
     user_id,
     add_ons_details,
@@ -120,8 +121,8 @@ function CustomModal(
   const [totalPrice, setTotalPrice] = useState(0);
 
 
-
   useEffect(() => {
+    let tax = amount_calculation?.amount_tip
     const time_status = serviceTime;
     let basePrice = 70; // Initial base price
 
@@ -133,7 +134,7 @@ function CustomModal(
     }
 
     // Double the base price if gender is 'guest'
-    if (gendercheck === "guest") {
+    if (gendercheck === "partner") {
       basePrice *= 2;
     }
 
@@ -149,8 +150,11 @@ function CustomModal(
     // Add 14% of total add-ons price to totalPrice
     totalPriceWithAddons += totalAddonsPrice * 0.14;
 
+    // Add tax amount to totalPrice
+    totalPriceWithAddons += tax;
+
     setTotalPrice(totalPriceWithAddons);
-  }, [serviceTime, gendercheck, add_ons_details]);
+  }, [serviceTime, gendercheck, add_ons_details, amount_calculation?.amount_tip]);
 
 
 

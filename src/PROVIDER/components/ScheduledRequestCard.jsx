@@ -12,6 +12,7 @@ const ScheduledRequestCard = (props) => {
     _id,
     amount,
     title,
+    amount_calculation,
     date,
     serviceTime,
     gendercheck,
@@ -64,6 +65,7 @@ const ScheduledRequestCard = (props) => {
 
 
   useEffect(() => {
+    let tax = amount_calculation?.amount_tip
     const time_status = props.serviceTime;
     let basePrice = 70; // Initial base price
 
@@ -75,7 +77,7 @@ const ScheduledRequestCard = (props) => {
     }
 
     // Double the base price if gender is 'guest'
-    if (gendercheck === "guest") {
+    if (gendercheck === "partner") {
       basePrice *= 2;
     }
 
@@ -91,8 +93,11 @@ const ScheduledRequestCard = (props) => {
     // Add 14% of total add-ons price to totalPrice
     totalPriceWithAddons += totalAddonsPrice * 0.14;
 
+    // Add tax amount to totalPrice
+    totalPriceWithAddons += tax;
+
     setTotalPrice(totalPriceWithAddons);
-  }, [serviceTime, gendercheck, add_ons_details]);
+  }, [serviceTime, gendercheck, add_ons_details, amount_calculation?.amount_tip]);
 
 
 
@@ -182,6 +187,7 @@ const ScheduledRequestCard = (props) => {
           paymentIntentId={props.paymentIntentId}
           user_id={props.user_id}
           add_ons_details={props.add_ons_details}
+          amount_calculation={props.amount_calculation}
           onClose={handleCloseModal}
 
 

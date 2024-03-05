@@ -51,7 +51,7 @@ const Conform = () => {
 
     const service_name = formData.servicename && formData.servicename[0] ? formData.servicename[0] : "";
 
-    console.log("service_name", service_name, massage_for)
+    console.log("add_ons_details", add_ons_details)
 
 
     const email = formData.fifthform?.[0]?.email || "";
@@ -74,6 +74,11 @@ const Conform = () => {
     const [membership, setMembershipLevel] = useState();
     const [originalprice, setOriginalprice] = useState()
 
+    const [amountAddon, setAmountAddon] = useState(0);
+    const [amountMembershipDiscount, setAmountMembershipDiscount] = useState(0);
+    const [amountTax, setAmountTax] = useState(0);
+    const [amountTip, setAmountTip] = useState(0);
+
 
 
     const [totalAmount, setTotalAmount] = useState(0);
@@ -82,7 +87,11 @@ const Conform = () => {
         service_name: ""
     });
 
-
+    useEffect(() => {
+        // Calculate total price for addons
+        const totalAddonPrice = add_ons_details.reduce((total, addon) => total + addon.price, 0);
+        setAmountAddon(totalAddonPrice);
+    }, [add_ons_details]);
 
 
 
@@ -166,6 +175,17 @@ const Conform = () => {
                 confirm_password: confirmpassword
             }),
             location: locationName,
+
+            amount_calculation: {
+                amount_widthout_tax: totalPrice,
+                amount_tip: tip,
+            },
+
+
+            // amount_service:amount_service,
+
+
+
             paymentIntentId: paymentIntentId,
             location_type: location_type,
             massage_for: massage_for,

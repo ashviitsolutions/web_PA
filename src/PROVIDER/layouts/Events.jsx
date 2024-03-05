@@ -57,7 +57,7 @@ const Events = () => {
 
 
   useEffect(() => {
-    fetch(`${IP}/provider/events/completed`, {
+    fetch(`http://localhost:5000/api/provider/events/completed`, {
       headers: {
         Authorization: token,
       },
@@ -79,7 +79,7 @@ const Events = () => {
   console.log("boking completd", user);
 
   useEffect(() => {
-    fetch(`${IP}/provider/events/booked`, {
+    fetch(`http://localhost:5000/api/provider/events/booked`, {
       headers: {
         Authorization: token,
       },
@@ -119,7 +119,7 @@ const Events = () => {
 
 
   useEffect(() => {
-    fetch(`${IP}/provider/requests`, {
+    fetch(`http://localhost:5000/api/provider/requests`, {
       headers: {
         'Authorization': token
       }
@@ -181,6 +181,7 @@ const Events = () => {
                 paymentIntentId={cur.paymentIntentId}
                 add_ons_details={cur.add_ons_details}
                 serviceTime={cur.service_time}
+                amount_calculation={cur.amount_calculation}
                 _id={cur._id}
 
               />
@@ -216,6 +217,7 @@ const Events = () => {
               healthConditions={cur.health_conditions}
               massageBodyPart={cur.massage_body_part}
               specialConsiderations={cur.special_considerations}
+              amount_calculation={cur.amount_calculation}
               _id={cur._id}
             />
           ))}
@@ -255,6 +257,7 @@ const Events = () => {
                 add_ons={cur.add_ons}
                 add_ons_details={cur.add_ons_details}
                 massage_for={cur.massage_for}
+                amount_calculation={cur.amount_calculation}
               />
 
             </React.Fragment>

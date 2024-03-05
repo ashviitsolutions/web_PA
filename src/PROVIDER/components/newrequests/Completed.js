@@ -9,6 +9,7 @@ const Completed = (props) => {
     const {
         handleClose,
         user_id,
+        amount_calculation,
         _id,
         amount,
         title,
@@ -59,7 +60,9 @@ const Completed = (props) => {
         setMainCardShow(true);
     };
 
+
     useEffect(() => {
+        let tax = amount_calculation?.amount_tip
         const time_status = props.serviceTime;
         let basePrice = 70; // Initial base price
 
@@ -71,7 +74,7 @@ const Completed = (props) => {
         }
 
         // Double the base price if gender is 'guest'
-        if (gendercheck === "guest") {
+        if (gendercheck === "partner") {
             basePrice *= 2;
         }
 
@@ -87,8 +90,12 @@ const Completed = (props) => {
         // Add 14% of total add-ons price to totalPrice
         totalPriceWithAddons += totalAddonsPrice * 0.14;
 
+        // Add tax amount to totalPrice
+        totalPriceWithAddons += tax;
+
         setTotalPrice(totalPriceWithAddons);
-    }, [serviceTime, gendercheck, add_ons_details]);
+    }, [serviceTime, gendercheck, add_ons_details, amount_calculation?.amount_tip]);
+
 
 
     return (

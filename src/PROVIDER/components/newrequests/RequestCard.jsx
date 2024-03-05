@@ -11,7 +11,7 @@ import CustomModal from "../../Modal";
 
 const RequestCard = (props) => {
   const token = localStorage.getItem("providertoken");
-  const { total, serviceTime, gendercheck, add_ons, add_ons_details, location } = props;
+  const { total, serviceTime, gendercheck, add_ons, amount_calculation, add_ons_details, location } = props;
   const { _id } = props;
   var tip = props.tip ? props.tip : 0;
   var instructions = props.instructions ? props.instructions : '';
@@ -23,12 +23,13 @@ const RequestCard = (props) => {
 
   const [totalPrice, setTotalPrice] = useState(0);
 
-  // console.log("serviceTime", serviceTime)
+  console.log("amount_calculation", amount_calculation?.amount_tip)
 
 
 
 
   useEffect(() => {
+    let tax = amount_calculation?.amount_tip
     const time_status = props.serviceTime;
     let basePrice = 70; // Initial base price
 
@@ -40,7 +41,7 @@ const RequestCard = (props) => {
     }
 
     // Double the base price if gender is 'guest'
-    if (gendercheck === "guest") {
+    if (gendercheck === "partner") {
       basePrice *= 2;
     }
 
@@ -56,8 +57,11 @@ const RequestCard = (props) => {
     // Add 14% of total add-ons price to totalPrice
     totalPriceWithAddons += totalAddonsPrice * 0.14;
 
+    // Add tax amount to totalPrice
+    totalPriceWithAddons += tax;
+
     setTotalPrice(totalPriceWithAddons);
-  }, [serviceTime, gendercheck, add_ons_details]);
+  }, [serviceTime, gendercheck, add_ons_details, amount_calculation?.amount_tip]);
 
 
 
@@ -161,6 +165,7 @@ const RequestCard = (props) => {
         newclient={props.newclient}
         paymentIntentId={props.paymentIntentId}
         add_ons_details={props.add_ons_details}
+        amount_calculation={props.amount_calculation}
       />
     </div>
   );

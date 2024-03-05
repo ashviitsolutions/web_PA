@@ -95,6 +95,7 @@ const ScheduledEvents = () => {
           healthConditions={cur.health_conditions}
           massageBodyPart={cur.massage_body_part}
           specialConsiderations={cur.special_considerations}
+          amount_calculation={cur.amount_calculation}
           _id={cur._id}
 
         />
