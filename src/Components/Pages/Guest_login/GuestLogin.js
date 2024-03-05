@@ -115,10 +115,16 @@ function GuestLogin() {
         setLoading(false)
         const token = response.headers.authorization;
         const user = response.data;
+        if (response?.data?.user_info?.name) {
+          localStorage.setItem("user_name", response?.data.user_info?.name);
+        } else {
+          const fullName = `${response?.data.user_info?.first_name} ${response?.data?.last_name}`;
+          localStorage.setItem("user_name", fullName);
+        }
 
         localStorage.setItem('users', JSON.stringify(user));
         localStorage.setItem('userid', user?.user_info?._id);
-        localStorage.setItem('user_name', user?.user_info?.name);
+
         localStorage.setItem('user_email', user?.user_info?.email);
         localStorage.setItem('mobile', user?.user_info?.mobile);
         localStorage.setItem('token', token);
