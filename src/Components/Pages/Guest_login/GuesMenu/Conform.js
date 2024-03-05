@@ -129,7 +129,7 @@ const Conform = () => {
 
     useEffect(() => {
         // Define default values for tip and tax rate
-        const tip = 31.5;
+        // const tip = 31.5;
         const taxRate = 0.06625;
         // Initialize membership discount rate
         let membershipDiscountRate = 0;
@@ -145,6 +145,7 @@ const Conform = () => {
 
         // Calculate tax amount
         const calculatedTax = (totalPrice * 100 * taxRate) / 100;
+        const tip = totalPrice * 0.18;
         // Calculate total amount without membership discount
         const totalAmountWithoutDiscount = totalPrice * 1 + tip + calculatedTax;
         // Calculate total amount after applying membership discount
@@ -162,6 +163,15 @@ const Conform = () => {
     }, [totalPrice, membership, formData.fifthform]);
 
 
+
+
+    console.log("totalAmount", totalAmount)
+
+
+
+
+
+
     const handleCheckout = async () => {
         setLoading(true)
         // Save bookingData after successful payment
@@ -177,7 +187,7 @@ const Conform = () => {
             location: locationName,
 
             amount_calculation: {
-                amount_widthout_tax: totalPrice,
+                amount_widthout_tax: totalAmount,
                 amount_tip: tip,
             },
 
@@ -209,7 +219,7 @@ const Conform = () => {
         }));
 
         try {
-            const response = await axios.post(`${IP}/createCheckoutSession`, {
+            const response = await axios.post(`http://localhost:5000/api/createCheckoutSession`, {
                 service_details: serviceDetails
             });
             window.location.href = response.data.url;
@@ -378,7 +388,7 @@ const Conform = () => {
                                             </span></p>
                                         <p className="prices" style={{ fontSize: '17px' }}>
                                             <span className='value'>
-                                                18% Tip: ${tip}
+                                                18% Tip: ${tip.toFixed(2)}
                                             </span></p>
                                         <p className="prices" style={{ fontSize: '17px' }}>
                                             <span className='value'>

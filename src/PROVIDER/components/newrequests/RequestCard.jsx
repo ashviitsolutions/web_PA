@@ -132,7 +132,7 @@ const RequestCard = (props) => {
               {/* <div>${props.amt}</div>
               <div>+${tip} pre-tip</div>
               <div className="text-warning">Total = ${total}</div> */}
-              <div className="earn"><span><FontAwesomeIcon icon={faCoins} /></span> {totalPrice}$</div>
+              <div className="earn"><span><FontAwesomeIcon icon={faCoins} /></span> {totalPrice.toFixed(2)}$</div>
             </div>
           </Row>
         </Card.Body>
