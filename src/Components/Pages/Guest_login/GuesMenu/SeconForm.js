@@ -83,7 +83,7 @@ const SeconForm = ({ step, nextStep }) => {
             total += 80;
         }
 
-        if (gendercheck === "guest") {
+        if (gendercheck === "partner") {
             total *= 2;
         }
 
@@ -217,7 +217,7 @@ const SeconForm = ({ step, nextStep }) => {
 
     return (
         <>
-            {gendercheck === "guest" ? (
+            {gendercheck === "partner" ? (
                 <>
                     <div id="sec_wiz_2" className="sections sec_wiz_2">
                         <p className="title">Gender Preference</p>
