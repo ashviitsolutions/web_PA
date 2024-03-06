@@ -1,249 +1,360 @@
-import React, { useEffect, useState } from "react";
-import Hook from "../Hook/Hook";
+import React, { useState } from "react";
+import FirstForm from "./Overview";
+import SecondForm from "./Booking";
+import ThirdForm from "./Invoices";
+import FourForm from "./Event";
+import FifthForm from "./Gift";
+import Conform from "./Setting";
+import Logout from "./Logout";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import bookingimage from "../../../img/plus.png";
+import Membership from "./Membership";
+
 import "./Profile.css";
-import image1 from "../../../assets/img/tender-african-woman-smiling-enjoying-massage-with-closed-eyes-spa-resort.jpg";
-import Rating from "react-rating-stars-component";
-import ReactPaginate from "react-paginate";
-import { faDownload } from "@fortawesome/free-solid-svg-icons";
+import image1 from "../../../assets/img/profile/dashboard.png";
+import image2 from "../../../assets/img/profile/calendar.png";
+import image3 from "../../../assets/img/profile/invoice.png";
+import image4 from "../../../assets/img/profile/election-event-on-a-calendar-with-star-symbol.png";
+import image5 from "../../../assets/img/profile/gift-card.png";
+
+import image6 from "../../../assets/img/profile/settings.png";
+import image7 from "../../../assets/img/profile/exit.png";
+import menuimage from "../../../assets/img/close.png";
+import menucross from "../../../assets/img/menu.png";
+import "./Profile.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Avatar from "./Avatar";
-import { FallingLines } from "react-loader-spinner";
-import axios from "../../../../axios";
-import { toast } from "react-toastify";
+import {
+	faArrowRightFromBracket,
+	faBell,
+	faBorderAll,
+	faCalendarDays,
+	faFileContract,
+	faGift,
+	faHeadset,
+	faHeart,
+	faIdBadge,
+	faMoneyCheckDollar,
+	faRectangleXmark,
+	faSpa,
+} from "@fortawesome/free-solid-svg-icons";
+import Notifications from "./Notifications";
+import Favorites from "./Favorites";
+import Support from "./Support";
 
-function Booking() {
-	const token = localStorage.getItem("token");
-	const user_id = localStorage.getItem("user_id");
-	const [data, setData] = useState(1);
-	const [count, setCount] = useState(0);
-	const [posts, setPosts] = useState([]);
-	const [isLoading, setIsLoading] = useState(true);
-	const [userRating, setUserRating] = useState(0); // State for user rating
-	const [userFeedback, setUserFeedback] = useState(""); // State for user feedback
-	const username = localStorage.getItem("user_name");
-	const [toggleStates, setToggleStates] = useState([]); // State for toggle states
-	const [isModalOpen, setModalOpen] = useState(false);
-	const [providerId, setProviderId] = useState();
+const Profile = () => {
+	const [activeTab, setActiveTab] = useState(1);
+	const [now, setNow] = useState(0);
+	const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-	useEffect(() => {
-		const fetchPosts = async () => {
-			try {
-				const response = await Hook.getPost();
-				setPosts(response.data);
-				setCount(response?.data?.length);
-				setIsLoading(false);
-				// Initialize toggle state for each post to false
-				setToggleStates(new Array(response.data.length).fill(false));
-			} catch (error) {
-				console.error("Error fetching data:", error);
-				setIsLoading(false);
-			}
-		};
-
-		fetchPosts();
-	}, [data]);
-
-	const handlePageClick = (data) => {
-		setData(data.selected + 1);
+	const nextStep = () => {
+		setNow((prevStep) => (prevStep < 100 ? prevStep + 100 / 7 : prevStep));
+		setActiveTab(activeTab + 1);
 	};
 
-	const itemsPerPage = 10;
-	const startIndex = (data - 1) * itemsPerPage;
-	const endIndex = startIndex + itemsPerPage;
-
-	const handleRatingChange = (newRating) => {
-		setUserRating(newRating);
+	const previousStep = () => {
+		setNow((prevStep) => (prevStep > 0 ? prevStep - 100 / 7 : prevStep));
 	};
 
-	const handleFeedbackChange = (event) => {
-		setUserFeedback(event.target.value);
+	const nav = useNavigate();
+
+	const handleLogout = () => {
+		localStorage.clear();
+		nav("/");
 	};
 
-	const handleToggle = (index) => {
-		setModalOpen(true);
-		setProviderId(index)
-		// Create a copy of the toggleStates array and update the state for the clicked card
-		const newToggleStates = [...toggleStates];
-		newToggleStates[index] = !newToggleStates[index];
-		setToggleStates(newToggleStates);
+	let form;
+	switch (activeTab) {
+		case 1:
+			form = (
+				<FirstForm step={now} nextStep={nextStep} previousStep={previousStep} />
+			);
+			break;
+		case 2:
+			form = (
+				<SecondForm
+					step={now}
+					nextStep={nextStep}
+					previousStep={previousStep}
+				/>
+			);
+			break;
+		case 3:
+			form = (
+				<ThirdForm step={now} nextStep={nextStep} previousStep={previousStep} />
+			);
+			break;
+		case 4:
+			form = (
+				<Membership
+					step={now}
+					nextStep={nextStep}
+					previousStep={previousStep}
+				/>
+			);
+			break;
+		case 5:
+			form = (
+				<FifthForm step={now} nextStep={nextStep} previousStep={previousStep} />
+			);
+			break;
+		case 6:
+			form = (
+				<Conform step={now} nextStep={nextStep} previousStep={previousStep} />
+			);
+			break;
+		case 7:
+			form = (
+				<Logout step={now} nextStep={nextStep} previousStep={previousStep} />
+			);
+			break;
+		case 8:
+			form = <Notifications />;
+			break;
+		case 9:
+			form = <Favorites />;
+			break;
+		case 10:
+			form = <Support />;
+			break;
+		default:
+			break;
+	}
+
+	const handleSidebarToggle = () => {
+		setIsSidebarOpen((prevState) => !prevState);
 	};
-
-	console.log("Booking ID:", providerId);
-
-	const handleSubmitRating = () => {
-
-		// console.log("User Rating:", userRating);
-		// console.log("User Feedback:", userFeedback);
-		axios
-			.post(
-				`/user/addReviewToStore/${providerId}/${user_id} `,
-				{
-					reviewerName: username,
-					rating: userRating,
-					comments: userFeedback,
-				},
-
-				{ shouldAddAuth: true }
-			)
-			.then((res) => {
-				console.log(res);
-				toast.error(res.data.message, {
-					position: "top-right",
-					autoClose: 3000,
-					hideProgressBar: false,
-					closeOnClick: true,
-					pauseOnHover: true,
-					draggable: true,
-					progress: undefined,
-					theme: "light",
-				});
-			})
-			.catch((err) => {
-				console.log(err);
-				toast.error(err.response.data.message, {
-					position: "top-right",
-					autoClose: 3000,
-					hideProgressBar: false,
-					closeOnClick: true,
-					pauseOnHover: true,
-					draggable: true,
-					progress: undefined,
-					theme: "light",
-				});
-			});
+	// const toggleLinks = () => {
+	//   setIsActive((prevState) => !prevState);
+	// };
+	const handleBook = () => {
+		nav("/select_location");
 	};
-	// console.log("posts", posts);
+	const navigate = useNavigate();
 	return (
-		<div className="overview" id="invoices">
-			<div className="overview_container">
-				<Avatar name={username} />
-				{/* <div className="heading">
-					<h3>{username}</h3>
-				</div> */}
-				<div className="title">
-					<h3>BOOKING HISTORY</h3>
-				</div>
-				<div className="overview__containerMain">
-					{isLoading ? (
-						<FallingLines
-							color="#03a9f4"
-							width="150"
-							visible={true}
-							ariaLabel="falling-circles-loading"
-						/>
-					) : posts.length > 0 ? (
-						posts.filter((booking) => booking.service_status === "completed").map((booking, index) => (
-							<div className="overview_card" key={index}>
-								<div
-									className="overview_input"
-								// onClick={() => handleToggle(index)}
-								>
-									<div className="image_text">
-										<img src={image1} width={150} height={130} alt="..." />
-										<div className="text-item">
-											<h3>Appointment With {username}</h3>
-											<p>{booking.service_status}</p>
-											<p>{booking.address}</p>
-										</div>
-									</div>
-									<div className="time_date">
-										<p>{booking.scheduled_date}</p>
-										<h3>{booking.scheduled_timing}</h3>
-
-
-										<button onClick={() => handleToggle(booking.provider)}>
-											Feedback
-										</button>
-
-									</div>
-								</div>
-								{toggleStates[index] && (
-									<div className="rating-feedback-section">
-										<h3>Rate your experience</h3>
-										<Rating
-											value={userRating}
-											count={5}
-											onChange={handleRatingChange}
-											size={24}
-											activeColor="#007bff"
-										/>
-										<textarea
-											placeholder="Share your feedback"
-											value={userFeedback}
-											onChange={handleFeedbackChange}
-										/>
-										<button onClick={() => handleSubmitRating(booking.id)}>
-											Submit
-										</button>
-									</div>
-								)}
-							</div>
-						))
-					) : (
-						<h3 style={{ color: "#162b3c" }}>No bookings yet.</h3>
-					)}
-				</div>
-				{isModalOpen && (
-					<div className="modal_send_gift_card">
-						<div className="modal-content">
-							<span className="close" onClick={() => setModalOpen(false)}>
-								&times;
-							</span>
-							<h3>Rate your experience</h3>
-							<div
-								style={{
-									display: "flex",
-									justifyContent: "center",
-									margin: 10,
-								}}
-							>
-								<Rating
-									value={userRating}
-									count={5}
-									onChange={handleRatingChange}
-									size={24}
-									activeColor="#007bff"
+		<div className="parent">
+			{/* <div className={`sidebar_tab ${isSidebarOpen ? "mobile-view" : ""}`}>
+			 */}
+			<div className={`sidebar_tab ${isSidebarOpen && "mobile-view"}`}>
+				<div className="">
+					<ul id="tabs_control">
+						<li
+							id="tab_1"
+							className={activeTab === 1 && "active"}
+							onClick={() => setActiveTab(1)}
+						>
+							<div className="item" onClick={handleSidebarToggle}>
+								{/* <img
+								src={image1}
+								width={15}
+								height={15}
+								alt="..."
+								className={`${activeTab == 1 && "active__Img"}`}
+							/> */}
+								<FontAwesomeIcon
+									icon={faBorderAll}
+									style={{ marginRight: 10 }}
 								/>
+								Overview
 							</div>
-							<textarea
-								placeholder="Share your feedback"
-								value={userFeedback}
-								onChange={handleFeedbackChange}
-							/>
-							{/* <button onClick={() => handleSubmitRating(booking.id)}>
-									Submit
-								</button> */}
+						</li>
+						<li
+							id="tab_2"
+							className={activeTab === 2 ? "active" : ""}
+							onClick={() => setActiveTab(2)}
+						>
+							<div className="item" onClick={handleSidebarToggle}>
+								{/* <img src={image2} width={15} height={15} alt="..." /> */}
+								<FontAwesomeIcon
+									icon={faCalendarDays}
+									style={{ marginRight: 10 }}
+								/>
+								Reservations
+							</div>
+						</li>
+						{/* <li id="tab_3" className={activeTab === 3 ? 'active' : ''} onClick={() => setActiveTab(3)}>
+            <div className="item">
+              <img src={image3} width={15} height={15} alt="..." />
+              Invoices
+            </div>
+          </li> */}
+						<li
+							id="tab_4"
+							className={activeTab === 4 ? "active" : ""}
+							onClick={() => setActiveTab(4)}
+						>
+							<div className="item" onClick={handleSidebarToggle}>
+								{/* <img src={image4} width={15} height={15} alt="..." /> */}
+								<FontAwesomeIcon
+									icon={faMoneyCheckDollar}
+									style={{ marginRight: 10 }}
+								/>
+								Membership
+							</div>
+						</li>
+						<li
+							id="tab_5"
+							className={activeTab === 5 ? "active" : ""}
+							onClick={() => setActiveTab(5)}
+						>
+							<div className="item" onClick={handleSidebarToggle}>
+								{/* <img src={image5} width={15} height={15} alt="..." /> */}
+								<FontAwesomeIcon
+									icon={faGift}
+									size={15}
+									style={{ marginRight: 10 }}
+								/>
+								Gift Card
+							</div>
+						</li>
+						<li
+							id="tab_6"
+							className={activeTab === 6 ? "active" : ""}
+							onClick={() => setActiveTab(6)}
+						>
+							<div className="item" onClick={handleSidebarToggle}>
+								{/* <img src={image6} width={15} height={15} alt="..." />
+								 */}
+								<FontAwesomeIcon icon={faIdBadge} style={{ marginRight: 10 }} />
+								Profile
+							</div>
+						</li>
+						<li
+							id=""
+							className={activeTab === 8 ? "active" : ""}
+							onClick={() => setActiveTab(8)}
+						>
+							<div className="item" onClick={handleSidebarToggle}>
+								{/* <img src={image7} width={15} height={15} alt="..." /> */}
+								<FontAwesomeIcon icon={faBell} style={{ marginRight: 10 }} />
+								Notifications
+							</div>
+						</li>
+						<li
+							id=""
+							className={activeTab === 9 ? "active" : ""}
+							onClick={() => setActiveTab(9)}
+						>
+							<div className="item" onClick={handleSidebarToggle}>
+								{/* <img src={image7} width={15} height={15} alt="..." /> */}
+								<FontAwesomeIcon icon={faHeart} style={{ marginRight: 10 }} />
+								Favorites
+							</div>
+						</li>
+						<li
+							id=""
+							className={activeTab === 10 ? "active" : ""}
+							onClick={() => setActiveTab(10)}
+						>
+							<div className="item" onClick={handleSidebarToggle}>
+								{/* <img src={image7} width={15} height={15} alt="..." /> */}
+								<FontAwesomeIcon icon={faHeadset} style={{ marginRight: 10 }} />
+								Support
+							</div>
+						</li>
+						<li id="tab_7" className={activeTab === 7 ? "active" : ""}>
+							<div className="item" onClick={handleLogout}>
+								{/* <img src={image7} width={15} height={15} alt="..." /> */}
+								<FontAwesomeIcon
+									icon={faArrowRightFromBracket}
+									style={{ marginRight: 10 }}
+								/>
+								Logout
+							</div>
+						</li>
 
-							<button type="submit" onClick={() => handleSubmitRating()}>
-								Submit
-							</button>
+						<div className="userbooking">
+							<li id="tab_7">
+								<div className="item" onClick={handleBook}>
+									{/* <img src={image7} width={15} height={15} alt="..." /> */}
+									<FontAwesomeIcon icon={faSpa} style={{ marginRight: 10 }} />
+									Book now
+								</div>
+							</li>
+						</div>
+					</ul>
+					<div id="navigationuser">
+						<div className="toggle_buttons" onClick={handleSidebarToggle}>
+							{isSidebarOpen ? (
+								<img src={menuimage} alt="Close" className="toggleimages" />
+							) : (
+								<img src={menucross} alt="Menu" className="toggleimages" />
+							)}
 						</div>
 					</div>
-				)}
+				</div>
+				<div
+					className="
+        "
+				>
+					{/* <ul id="tabs_control">
+						<li id="">
+							<div
+								className="item"
+								style={{ fontSize: 10 }}
+								onClick={() => navigate("/termcondition")}
+							>
+								
+								<FontAwesomeIcon
+									icon={faFileContract}
+									style={{ marginRight: 10 }}
+								/>
+								Terms and Conditions
+							</div>
+						</li>
+
+						<li id="">
+							<div
+								className="item"
+								style={{ fontSize: 10 }}
+								onClick={() => navigate("/cancelationpolicy")}
+							>
+								
+								<FontAwesomeIcon
+									icon={faRectangleXmark}
+									style={{ marginRight: 10 }}
+								/>
+								Cancellation Policy
+							</div>
+						</li>
+					</ul> */}
+				</div>
 			</div>
-			<div className="pagination">
-				<ReactPaginate
-					pageCount={Math.ceil(count / itemsPerPage)}
-					pageRangeDisplayed={2}
-					marginPagesDisplayed={3}
-					previousLabel={"Previous"}
-					nextLabel={"Next"}
-					breakLabel={"..."}
-					onPageChange={handlePageClick}
-					containerClassName={"pagination justify-content-center py-3"}
-					pageClassName={"page-item"}
-					pageLinkClassName={"page-link"}
-					previousClassName={"page-item"}
-					previousLinkClassName={"page-link"}
-					nextClassName={"page-item"}
-					nextLinkClassName={"page-link"}
-					breakClassName={"page-item"}
-					breakLinkClassName={"page-link"}
-					activeClassName={"active"}
+
+			{/*Booking Image */}
+
+			<div id="imagebooking">
+				<img
+					width={40}
+					height={40}
+					src={bookingimage}
+					alt=""
+					style={{
+						borderRadius: "100%",
+						display: "block",
+						boxShadow: "4px 4px 4px 0px rgb(6 77 109)", // Correct syntax
+					}}
+					className="profileiconimage"
+					onClick={() => nav("/guest_login")}
 				/>
+			</div>
+			{/* Toggle button for mobile view */}
+
+			<div className="progressbar_userpannel profileSpace">
+				{form}
+				<div className="user_profile_footer">
+					<div className="footer_container">
+						<div className="footer_warapper">
+							<p className="vsmall">Copyright © 2021 productive alliance, All Rights Reserved. <span className="cursor" onClick={() => navigate("/cancelationpolicy")}>Cancellation Policy.</span> <span className="cursor" onClick={() => navigate("/termcondition")}>Terms and conditions.</span></p>
+						</div>
+						<div className="footer_warapper">
+							<p id="ashvi_design" className="vsmall">A design by Ashvi IT solution</p>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	);
-}
+};
 
-export default Booking;
+export default Profile;

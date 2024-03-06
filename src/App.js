@@ -39,6 +39,19 @@ import Silvermembership from './Components/Pages/Policy/Silvermembership';
 import Chatbot from './Components/Header/Chatbot';
 import Response from './Components/Pages/Profile/userProfile/Response/Response';
 
+//profile page
+import Overview from './Components/Pages/Profile/userProfile/Overview';
+import userBooking from './Components/Pages/Profile/userProfile/Booking';
+import userMembership from './Components/Pages/Profile/userProfile/Membership';
+import Favorites from './Components/Pages/Profile/userProfile/Favorites';
+import Support from './Components/Pages/Profile/userProfile/Support';
+import userProfile from './Components/Pages/Profile/userProfile/Profile';
+import userGift from './Components/Pages/Profile/userProfile/Gift';
+import Notifications from './Components/Pages/Profile/userProfile/Notifications';
+import Sidebaruser from './Components/Pages/Profile/userProfile/Sidebar';
+
+
+
 //Payment
 import Successpayment from "./Components/Pages/Payment/Success"
 
@@ -116,6 +129,7 @@ import Faq from './Components/Pages/FAQ/Faq';
 import Addblog from './Admins/Admin/Blogs/Addblog';
 import Editblog from './Admins/Admin/Blogs/Editblog';
 import Failed from './Components/Pages/Profile/userProfile/Response/Failed';
+import Setting from './Components/Pages/Profile/userProfile/Setting';
 function App() {
   const nav = useNavigate()
   useEffect(() => {
@@ -147,6 +161,7 @@ function App() {
 
   return (
     <>
+
       <Provider store={store}>
 
         <Routes>
@@ -282,9 +297,55 @@ function App() {
 
           </>} />
 
+          //user profile
+
+
           <Route path="/userProfile" element={<>
             <Navbar />
-            <UserRoutes Component={Profiles} />
+            <Sidebaruser />
+            <UserRoutes Component={Overview} />
+
+          </>} />
+          <Route path="/userProfile/notification" element={<>
+            <Navbar />
+            <Sidebaruser />
+            <UserRoutes Component={Notifications} />
+
+          </>} />
+          <Route path="/userProfile/profile" element={<>
+            <Navbar />
+            <Sidebaruser />
+            <UserRoutes Component={Setting} />
+
+          </>} />
+          <Route path="/userProfile/bookinghistory" element={<>
+            <Navbar />
+            <Sidebaruser />
+            <UserRoutes Component={userBooking} />
+
+          </>} />
+          <Route path="/userProfile/membership" element={<>
+            <Navbar />
+            <Sidebaruser />
+            <UserRoutes Component={userMembership} />
+
+          </>} />
+          <Route path="/userProfile/favorites" element={<>
+            <Navbar />
+            <Sidebaruser />
+            <UserRoutes Component={Favorites} />
+
+          </>} />
+          <Route path="/userProfile/support" element={<>
+            <Navbar />
+            <Sidebaruser />
+            <UserRoutes Component={Support} />
+
+          </>} />
+          <Route path="/userProfile/usergift" element={<>
+            <Navbar />
+            <Sidebaruser />
+            <UserRoutes Component={userGift} />
 
           </>} />
 
@@ -534,10 +595,10 @@ function App() {
 
           <Route path="/providers" element={<>
             {/* <div className='profileSpace panelHeight'> */}
-              {/* <Chatbot /> */}
-              <SideBarprovider />
-              <NavBarProvide />
-              <Protected Component={DashboardProvider} />
+            {/* <Chatbot /> */}
+            <SideBarprovider />
+            <NavBarProvide />
+            <Protected Component={DashboardProvider} />
             {/* </div> */}
           </>} />
           <Route path="/providers/scheduled-requests" element={<>
