@@ -49,6 +49,7 @@ import userProfile from './Components/Pages/Profile/userProfile/Profile';
 import userGift from './Components/Pages/Profile/userProfile/Gift';
 import Notifications from './Components/Pages/Profile/userProfile/Notifications';
 import Sidebaruser from './Components/Pages/Profile/userProfile/Sidebar';
+import Profilefooter from './Components/Pages/Profile/userProfile/Profilefooter';
 
 
 
@@ -304,48 +305,56 @@ function App() {
             <Navbar />
             <Sidebaruser />
             <UserRoutes Component={Overview} />
+            <Profilefooter/>
 
           </>} />
           <Route path="/userProfile/notification" element={<>
             <Navbar />
             <Sidebaruser />
             <UserRoutes Component={Notifications} />
+            <Profilefooter/>
 
           </>} />
           <Route path="/userProfile/profile" element={<>
             <Navbar />
             <Sidebaruser />
             <UserRoutes Component={Setting} />
+            <Profilefooter/>
 
           </>} />
           <Route path="/userProfile/bookinghistory" element={<>
             <Navbar />
             <Sidebaruser />
             <UserRoutes Component={userBooking} />
+            <Profilefooter/>
 
           </>} />
           <Route path="/userProfile/membership" element={<>
             <Navbar />
             <Sidebaruser />
             <UserRoutes Component={userMembership} />
+            <Profilefooter/>
 
           </>} />
           <Route path="/userProfile/favorites" element={<>
             <Navbar />
             <Sidebaruser />
             <UserRoutes Component={Favorites} />
+            <Profilefooter/>
 
           </>} />
           <Route path="/userProfile/support" element={<>
             <Navbar />
             <Sidebaruser />
             <UserRoutes Component={Support} />
+            <Profilefooter/>
 
           </>} />
           <Route path="/userProfile/usergift" element={<>
             <Navbar />
             <Sidebaruser />
             <UserRoutes Component={userGift} />
+            <Profilefooter/>
 
           </>} />
 

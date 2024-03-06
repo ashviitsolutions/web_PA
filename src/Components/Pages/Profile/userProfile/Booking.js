@@ -189,90 +189,95 @@ function Booking() {
 	};
 
 	return (
-		<div className="overview" id="invoices">
-			<div className="overview_container">
-				<div className="title">
-					<h3>BOOKING HISTORY</h3>
-				</div>
-				<div className="overview__containerMain">
-					{isLoading ? (
-						<FallingLines
-							color="#03a9f4"
-							width="150"
-							visible={true}
-							ariaLabel="falling-circles-loading"
-						/>
-					) : posts.length > 0 ? (
-						posts.map((booking, index) => (
-							<div className="overview_card" key={index}>
-								<div className="overview_input">
-									<div className="image_text">
-										<img src={image1} width={150} height={130} alt="..." />
-										<div className="text-item">
-											<h3>Appointment With {username}</h3>
-											<p>{booking.service_status}</p>
-											<p>{booking.address}</p>
-										</div>
-									</div>
-									<div className="time_date">
-										<p>{booking.scheduled_date}</p>
-										<h3>{booking.scheduled_timing}</h3>
-										{
-											profile.some((providerid) => providerid === booking.provider) ? (
-												<div style={{ cursor: "pointer", fontSize: "30px" }}>❤️‍</div>
-
-											) : (
-												<button onClick={() => addToFavorite(booking.provider)} style={{ cursor: "pointer" }}>Add to Favorites</button>
-											)
-										}
-
-
-										{
-											!booking.ratings[0] ? <button onClick={() => handleToggle(booking)}>Feedback</button> : <Rating
-												value={booking.ratings[0]}
-												count={5}
-
-												size={24}
-												activeColor="#007bff"
-											/>
-										}
-
-									</div>
-								</div>
-
-							</div>
-						))
-					) : (
-						<h3 style={{ color: "#162b3c" }}>No bookings yet.</h3>
-					)}
-				</div>
-				{isModalOpen && (
-					<div className="modal_send_gift_card">
-						<div className="modal-content">
-							<span className="close" onClick={() => setModalOpen(false)}>
-								&times;
-							</span>
-							<h3>Rate your experience</h3>
-							<Rating
-								value={userRating}
-								count={5}
-								onChange={handleRatingChange}
-								size={24}
-								activeColor="#007bff"
-							/>
-							<textarea
-								placeholder="Share your feedback"
-								value={userFeedback}
-								onChange={handleFeedbackChange}
-							/>
-							<button type="submit" onClick={handleSubmitRating}>
-								{loading ? "Loading..." : "Submit"}
-							</button>
+		<>
+			<div id="user_profile_page">
+				<div className="overview" id="invoices">
+					<div className="overview_container">
+						<div className="title">
+							<h3>BOOKING HISTORY</h3>
 						</div>
+						<div className="overview__containerMain">
+							{isLoading ? (
+								<FallingLines
+									color="#03a9f4"
+									width="150"
+									visible={true}
+									ariaLabel="falling-circles-loading"
+								/>
+							) : posts.length > 0 ? (
+								posts.map((booking, index) => (
+									<div className="overview_card" key={index}>
+										<div className="overview_input">
+											<div className="image_text">
+												<img src={image1} width={150} height={130} alt="..." />
+												<div className="text-item">
+													<h3>Appointment With {username}</h3>
+													<p>{booking.service_status}</p>
+													<p>{booking.address}</p>
+												</div>
+											</div>
+											<div className="time_date">
+												<p>{booking.scheduled_date}</p>
+												<h3>{booking.scheduled_timing}</h3>
+												{
+													profile.some((providerid) => providerid === booking.provider) ? (
+														<div style={{ cursor: "pointer", fontSize: "30px" }}>❤️‍</div>
+
+													) : (
+														<button onClick={() => addToFavorite(booking.provider)} style={{ cursor: "pointer" }}>Add to Favorites</button>
+													)
+												}
+
+
+												{
+													!booking.ratings[0] ? <button onClick={() => handleToggle(booking)}>Feedback</button> : <Rating
+														value={booking.ratings[0]}
+														count={5}
+
+														size={24}
+														activeColor="#007bff"
+													/>
+												}
+
+											</div>
+										</div>
+
+									</div>
+								))
+							) : (
+								<h3 style={{ color: "#162b3c" }}>No bookings yet.</h3>
+							)}
+						</div>
+						{isModalOpen && (
+							<div className="modal_send_gift_card">
+								<div className="modal-content">
+									<span className="close" onClick={() => setModalOpen(false)}>
+										&times;
+									</span>
+									<h3>Rate your experience</h3>
+									<Rating
+										value={userRating}
+										count={5}
+										onChange={handleRatingChange}
+										size={24}
+										activeColor="#007bff"
+									/>
+									<textarea
+										placeholder="Share your feedback"
+										value={userFeedback}
+										onChange={handleFeedbackChange}
+									/>
+									<button type="submit" onClick={handleSubmitRating}>
+										{loading ? "Loading..." : "Submit"}
+									</button>
+								</div>
+							</div>
+						)}
 					</div>
-				)}
+				</div>
 			</div>
-		</div>
+		</>
+
 	);
 }
 

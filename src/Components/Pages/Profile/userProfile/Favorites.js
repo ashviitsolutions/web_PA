@@ -59,84 +59,87 @@ const Favorites = () => {
 
 
   return (
-    <div className="container__view">
-      {/* <Avatar name={username} /> */}
-      <h3>Favorites</h3>
-      {loading ? (
-        <FallingLines
-          color="#03a9f4"
-          width="150"
-          visible={true}
-          ariaLabel="falling-circles-loading"
-        />
-      ) : currentItems.length === 0 ? (
-        <>
-          <img
-            src={image}
-            alt=""
-            style={{
-              borderRadius: "100%",
-              width: 200,
-              height: 200,
-              marginBottom: 20,
-            }}
+    <div id="user_profile_page">
+      <div className="container__view">
+        {/* <Avatar name={username} /> */}
+        <h3>Favorites</h3>
+        {loading ? (
+          <FallingLines
+            color="#03a9f4"
+            width="150"
+            visible={true}
+            ariaLabel="falling-circles-loading"
           />
-          <h4>You haven't marked any favorite providers</h4>
-        </>
-      ) : (
-        currentItems.map((cur) => (
-          <div className="favorite__item" key={cur._id}>
+        ) : currentItems.length === 0 ? (
+          <>
             <img
-              src={`http://45.13.132.197:5000/api/file/${cur.images}`}
+              src={image}
               alt=""
-              className="favorite__itemImage"
+              style={{
+                borderRadius: "100%",
+                width: 200,
+                height: 200,
+                marginBottom: 20,
+              }}
             />
-            <div className="">
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                }}
-              >
-                <h3>{cur.name}</h3>
-                <span className="favorite__itemRating">
-                  <StarRoundedIcon sx={{ color: "#03a9f4" }} />
-                  <p>{cur.averageRating}</p>
-                </span>
+            <h4>You haven't marked any favorite providers</h4>
+          </>
+        ) : (
+          currentItems.map((cur) => (
+            <div className="favorite__item" key={cur._id}>
+              <img
+                src={`http://45.13.132.197:5000/api/file/${cur.images}`}
+                alt=""
+                className="favorite__itemImage"
+              />
+              <div className="">
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <h3>{cur.name}</h3>
+                  <span className="favorite__itemRating">
+                    <StarRoundedIcon sx={{ color: "#03a9f4" }} />
+                    <p>{cur.averageRating}</p>
+                  </span>
+                </div>
+                <p style={{ opacity: 0.7 }}>
+                  Provider name - {cur.first_name} {cur.last_name}
+                </p>
+                <p>
+                  {cur.mailing_address.address}, {cur.mailing_address.postal_code}
+                </p>
               </div>
-              <p style={{ opacity: 0.7 }}>
-                Provider name - {cur.first_name} {cur.last_name}
-              </p>
-              <p>
-                {cur.mailing_address.address}, {cur.mailing_address.postal_code}
-              </p>
             </div>
-          </div>
-        ))
-      )}
-      <div className="pagination">
-        <ReactPaginate
-          pageCount={Math.ceil(count / itemsPerPage)}
-          pageRangeDisplayed={2}
-          marginPagesDisplayed={3}
-          previousLabel={"Previous"}
-          nextLabel={"Next"}
-          breakLabel={"..."}
-          onPageChange={handlePageClick}
-          containerClassName={"pagination justify-content-center py-3"}
-          pageClassName={"page-item"}
-          pageLinkClassName={"page-link"}
-          previousClassName={"page-item"}
-          previousLinkClassName={"page-link"}
-          nextClassName={"page-item"}
-          nextLinkClassName={"page-link"}
-          breakClassName={"page-item"}
-          breakLinkClassName={"page-link"}
-          activeClassName={"active"}
-        />
+          ))
+        )}
+        <div className="pagination">
+          <ReactPaginate
+            pageCount={Math.ceil(count / itemsPerPage)}
+            pageRangeDisplayed={2}
+            marginPagesDisplayed={3}
+            previousLabel={"Previous"}
+            nextLabel={"Next"}
+            breakLabel={"..."}
+            onPageChange={handlePageClick}
+            containerClassName={"pagination justify-content-center py-3"}
+            pageClassName={"page-item"}
+            pageLinkClassName={"page-link"}
+            previousClassName={"page-item"}
+            previousLinkClassName={"page-link"}
+            nextClassName={"page-item"}
+            nextLinkClassName={"page-link"}
+            breakClassName={"page-item"}
+            breakLinkClassName={"page-link"}
+            activeClassName={"active"}
+          />
+        </div>
       </div>
     </div>
+
   );
 };
 

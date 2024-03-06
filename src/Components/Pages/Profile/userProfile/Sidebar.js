@@ -236,7 +236,7 @@ const Sidebar = () => {
             </div>
             {/* Toggle button for mobile view */}
 
-            <div className="progressbar_userpannel profileSpace">
+          {/*  <div className="progressbar_userpannel profileSpace">
 
                 <div className="user_profile_footer">
                     <div className="footer_container">
@@ -248,7 +248,7 @@ const Sidebar = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+                </div> */}
         </div>
     );
 };

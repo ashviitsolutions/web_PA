@@ -51,66 +51,69 @@ const Notifications = () => {
   };
 
   return (
-    <div className="container__view">
-      {/* <Avatar name={username} /> */}
-      <h3>Notifications</h3>
-      <div className="notification__view">
-        {loading ? (
-          <FallingLines
-            color="#03a9f4"
-            width="150"
-            visible={true}
-            ariaLabel="falling-circles-loading"
+    <div id="user_profile_page">
+      <div className="container__view">
+        {/* <Avatar name={username} /> */}
+        <h3>Notifications</h3>
+        <div className="notification__view">
+          {loading ? (
+            <FallingLines
+              color="#03a9f4"
+              width="150"
+              visible={true}
+              ariaLabel="falling-circles-loading"
+            />
+          ) : displayedNotifications.length > 0 ? (
+            displayedNotifications.map((n) => (
+              <div className="notification__item" key={n._id}>
+                <Link to={n.link}>
+                  <div className="notification__titleView">
+                    <h3>{n.title}</h3>
+                    <h4>Date: {moment(n.createdAt).format("MMMM Do YYYY")}, Time: {moment(n.createdAt).format("LT")}</h4>
+                  </div>
+                  <p>{n.content}</p>
+                  {n.bookedDate && n.bookedTime && (
+                    <>
+                      <div className="d-flex" style={{ justifyContent: "space-between" }}>
+                        <p>Booked Date: {moment(n.bookedDate).format("MMMM Do YYYY")}</p>
+                        <p>Booked Time: {moment(n.bookedTime, "HH:mm:ss").format("LT")}</p>
+
+                      </div>
+
+                    </>
+                  )}
+                </Link>
+              </div>
+
+            ))
+          ) : (
+            <h2>No New Notifications</h2>
+          )}
+        </div>
+        <div className="pagination">
+          <ReactPaginate
+            pageCount={pageCount}
+            pageRangeDisplayed={2}
+            marginPagesDisplayed={3}
+            previousLabel={"Previous"}
+            nextLabel={"Next"}
+            breakLabel={"..."}
+            onPageChange={changePage}
+            containerClassName={"pagination justify-content-center py-3"}
+            pageClassName={"page-item"}
+            pageLinkClassName={"page-link"}
+            previousClassName={"page-item"}
+            previousLinkClassName={"page-link"}
+            nextClassName={"page-item"}
+            nextLinkClassName={"page-link"}
+            breakClassName={"page-item"}
+            breakLinkClassName={"page-link"}
+            activeClassName={"active"}
           />
-        ) : displayedNotifications.length > 0 ? (
-          displayedNotifications.map((n) => (
-            <div className="notification__item" key={n._id}>
-              <Link to={n.link}>
-                <div className="notification__titleView">
-                  <h3>{n.title}</h3>
-                  <h4>Date: {moment(n.createdAt).format("MMMM Do YYYY")}, Time: {moment(n.createdAt).format("LT")}</h4>
-                </div>
-                <p>{n.content}</p>
-                {n.bookedDate && n.bookedTime && (
-                  <>
-                    <div className="d-flex" style={{ justifyContent: "space-between" }}>
-                      <p>Booked Date: {moment(n.bookedDate).format("MMMM Do YYYY")}</p>
-                      <p>Booked Time: {moment(n.bookedTime, "HH:mm:ss").format("LT")}</p>
-
-                    </div>
-
-                  </>
-                )}
-              </Link>
-            </div>
-
-          ))
-        ) : (
-          <h2>No New Notifications</h2>
-        )}
-      </div>
-      <div className="pagination">
-        <ReactPaginate
-          pageCount={pageCount}
-          pageRangeDisplayed={2}
-          marginPagesDisplayed={3}
-          previousLabel={"Previous"}
-          nextLabel={"Next"}
-          breakLabel={"..."}
-          onPageChange={changePage}
-          containerClassName={"pagination justify-content-center py-3"}
-          pageClassName={"page-item"}
-          pageLinkClassName={"page-link"}
-          previousClassName={"page-item"}
-          previousLinkClassName={"page-link"}
-          nextClassName={"page-item"}
-          nextLinkClassName={"page-link"}
-          breakClassName={"page-item"}
-          breakLinkClassName={"page-link"}
-          activeClassName={"active"}
-        />
+        </div>
       </div>
     </div>
+
   );
 };
 

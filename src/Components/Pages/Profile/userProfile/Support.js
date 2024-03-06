@@ -56,6 +56,7 @@ const Support = () => {
 	};
 
 	return (
+		<div id="user_profile_page">
 		<div className="container__view" style={{ marginTop: 30 }}>
 			<div className="row supportSection">
 				<div className="col-md-4">
@@ -82,6 +83,8 @@ const Support = () => {
 				</div>
 			</div>
 		</div>
+		</div>
+		
 	);
 };
 
