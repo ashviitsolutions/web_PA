@@ -111,7 +111,7 @@ function Overview() {
 	console.log("completed posts", currentPending);
 	return (
 		<>
-			<div id="user_profile_page">
+			<div id="user_profile_pages">
 				<div className="inner">
 
 					<div className="gutter">

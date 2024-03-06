@@ -162,7 +162,7 @@ function Membership() {
 
 
 	return (
-		<div id="user_profile_page">
+		<div id="user_profile_pages">
 		<div className="overview" id="invoices">
 			<div className="overview_container">
 

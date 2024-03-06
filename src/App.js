@@ -303,9 +303,9 @@ function App() {
 
           <Route path="/userProfile" element={<>
             <Navbar />
-            <Sidebaruser />
-            <UserRoutes Component={Overview} />
-            <Profilefooter/>
+         
+            <UserRoutes Component={userProfile} />
+      
 
           </>} />
           <Route path="/userProfile/notification" element={<>

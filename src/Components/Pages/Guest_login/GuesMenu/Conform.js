@@ -210,7 +210,7 @@ const Conform = () => {
     };
 
     // localStorage.setItem("bookingData", JSON.stringify(bookingData));
-   // Assuming the bookingData object is available here
+    // Assuming the bookingData object is available here
     useEffect(() => {
         const sendBookingData = async () => {
             try {
@@ -250,6 +250,11 @@ const Conform = () => {
 
     const handleCheckout = async () => {
         setLoading(true)
+
+        if (!booking_id) {
+            setLoading(false)
+            return false
+        }
 
         try {
             const response = await axios.post(`${IP}/createCheckoutSession`, {
@@ -336,7 +341,7 @@ const Conform = () => {
 
 
 
- 
+
 
 
 

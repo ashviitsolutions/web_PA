@@ -51,7 +51,7 @@ const Notifications = () => {
   };
 
   return (
-    <div id="user_profile_page">
+    <div id="user_profile_pages">
       <div className="container__view">
         {/* <Avatar name={username} /> */}
         <h3>Notifications</h3>

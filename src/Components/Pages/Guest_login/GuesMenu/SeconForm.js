@@ -117,22 +117,38 @@ const SeconForm = ({ step, nextStep }) => {
         setGenderPreferences([selectedGenderValue]);
     };
 
-    const handleGenderSelect1 = (selectedGenderValue) => {
-        if (!genderPreferences.includes(selectedGenderValue)) {
-            setFormData({ ...formData, gender: selectedGenderValue });
-            setSelectedGender1(selectedGenderValue);
-            setGenderPreferences([...genderPreferences, selectedGenderValue]);
-        }
-    };
+    // const handleGenderSelect1 = (selectedGenderValue) => {
+    //     if (!genderPreferences.includes(selectedGenderValue)) {
+    //         setFormData({ ...formData, gender: selectedGenderValue });
+    //         setSelectedGender1(selectedGenderValue);
+    //         setGenderPreferences([...genderPreferences, selectedGenderValue]);
+    //     }
+    // };
 
-    const handleGenderSelect2 = (selectedGenderValue) => {
-        if (!genderPreferences.includes(selectedGenderValue)) {
-            setFormData({ ...formData, gender: selectedGenderValue });
-            setSelectedGender2(selectedGenderValue);
-            setGenderPreferences([...genderPreferences, selectedGenderValue]);
-        }
-    };
+    // const handleGenderSelect2 = (selectedGenderValue) => {
+    //     if (!genderPreferences.includes(selectedGenderValue)) {
+    //         setFormData({ ...formData, gender: selectedGenderValue });
+    //         setSelectedGender2(selectedGenderValue);
+    //         setGenderPreferences([...genderPreferences, selectedGenderValue]);
+    //     }
+    // };
 
+    // const handleGenderSelect1 = (selectedGenderValue) => {
+    //     if (!genderPreferences.includes(selectedGenderValue)) {
+    //         setFormData({ ...formData, gender: selectedGenderValue });
+    //         setSelectedGender1(selectedGenderValue);
+    //         setGenderPreferences(prevPreferences => [...prevPreferences, selectedGenderValue]);
+    //     }
+    // };
+    
+    // const handleGenderSelect2 = (selectedGenderValue) => {
+    //     if (!genderPreferences.includes(selectedGenderValue)) {
+    //         setFormData({ ...formData, gender: selectedGenderValue });
+    //         setSelectedGender2(selectedGenderValue);
+    //         setGenderPreferences(prevPreferences => [...prevPreferences, selectedGenderValue]);
+    //     }
+    // };
+    
 
 
     const handleServiceTimeSelect = (selectedTime) => {
@@ -207,19 +223,52 @@ const SeconForm = ({ step, nextStep }) => {
     //     }, 2000);
     // };
 
+    // const handleSubmit = async () => {
+    //     if (!selectedGender || !selectedGender1 || !selectedGender2 || !selectedServiceTime || !service_ids) {
+    //         setErrorMessage("Please select a Gender, Service, and Time before proceeding.");
+    //         return;
+    //     }
+    //     // Clear any previous error message  
+    //     setErrorMessage("");
+
+    //     // Extract add-on IDs and their prices
+    //     const selectedAddonsData = user
+    //         .filter(item => selectedItems.includes(item._id)) // Filter selected add-ons
+    //         .map(item => ({ id: item._id, title: item.title, price: item.price })); // Map to an array of objects with ID, title, and price
+
+    //     // Dispatch selected add-on IDs and prices
+    //     dispatch(updateInputData({ formName: 'secondform', inputData: formData }));
+    //     dispatch(updateInputData({ formName: 'addon_id', inputData: selectedItems }));
+    //     dispatch(updateInputData({ formName: 'add_ons_details', inputData: selectedAddonsData }));
+    //     dispatch(updateInputData({ formName: 'servicename', inputData: servicename }));
+    //     setTimeout(() => {
+    //         nextStep();
+    //     }, 2000);
+    // };
+
     const handleSubmit = async () => {
-        if (!selectedGender || !selectedGender1 || !selectedGender2 || !selectedServiceTime || !service_ids) {
-            setErrorMessage("Please select a Gender, Service, and Time before proceeding.");
-            return;
+        if (gendercheck === "partner") {
+            // If gendercheck is "partner", ensure both genders are selected
+            if ((!selectedGender1 || !selectedGender2) || (!selectedServiceTime || !service_ids)) {
+                setErrorMessage("Please select both genders, a service, and a time before proceeding.");
+                return;
+            }
+        } else {
+            // If gendercheck is not "partner", ensure only one gender is selected
+            if (!selectedGender || (!selectedServiceTime || !service_ids)) {
+                setErrorMessage("Please select a gender, a service, and a time before proceeding.");
+                return;
+            }
         }
+    
         // Clear any previous error message  
         setErrorMessage("");
-
+    
         // Extract add-on IDs and their prices
         const selectedAddonsData = user
             .filter(item => selectedItems.includes(item._id)) // Filter selected add-ons
             .map(item => ({ id: item._id, title: item.title, price: item.price })); // Map to an array of objects with ID, title, and price
-
+    
         // Dispatch selected add-on IDs and prices
         dispatch(updateInputData({ formName: 'secondform', inputData: formData }));
         dispatch(updateInputData({ formName: 'addon_id', inputData: selectedItems }));
@@ -229,6 +278,19 @@ const SeconForm = ({ step, nextStep }) => {
             nextStep();
         }, 2000);
     };
+    
+    const handleGenderSelect1 = (selectedGenderValue) => {
+        setSelectedGender1(selectedGenderValue);
+        setGenderPreferences(prevPreferences => [selectedGenderValue, ...prevPreferences.filter(gender => gender !== selectedGenderValue)]);
+    };
+    
+    const handleGenderSelect2 = (selectedGenderValue) => {
+        setSelectedGender2(selectedGenderValue);
+        setGenderPreferences(prevPreferences => [selectedGenderValue, ...prevPreferences.filter(gender => gender !== selectedGenderValue)]);
+    };
+    
+    
+    
 
     return (
         <>
