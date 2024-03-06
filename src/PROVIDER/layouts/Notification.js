@@ -75,8 +75,8 @@ const Notification = () => {
                                 {n.bookedDate && n.bookedTime && (
                                     <>
                                         <div className="d-flex" style={{ justifyContent: "space-between" }}>
-                                            <p>Booked Date: {n.bookedTime}</p>
-                                            <p>Booked Time: {n.bookedDate}</p>
+                                            <p>Booked Date: {n.bookedDate}</p>
+                                            <p>Booked Time: {n.bookedTime}</p>
                                         </div>
 
                                     </>
