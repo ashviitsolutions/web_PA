@@ -13,23 +13,32 @@ function Success() {
   const navigate = useNavigate();
   const searchParams = new URLSearchParams(location.search);
   const session_id = searchParams.get('session_id');
+  const id = searchParams.get('booking_id');
   const tokenuser = localStorage.getItem("token");
+  const [data, setData] = useState(null);
 
 
-  const [bookingCompleted, setBookingCompleted] = useState(false);
-  const [booking, setBookinData] = useState();
-
-
-
-  console.log("booking data formData", booking)
 
   useEffect(() => {
-    const formData = JSON.parse(localStorage.getItem("bookingData"));
-    setBookinData(formData)
-  }, [])
+    const fetchBooking = async () => {
+      try {
+        const response = await axios.get(`${IP}/user/pendingbooking/${id}`);
+        setData(response.data);
+      } catch (error) {
+        // setError(error.message);
+      }
+    };
+
+    fetchBooking();
+  }, [id]);
+
+
+  // console.log("data", data)
+
+
 
   useEffect(() => {
-    if (session_id && booking) {
+    if (session_id && data) {
       const onSubmit = async () => {
         try {
           const url = `${IP}/user/service_book?session_id=${session_id}`;
@@ -39,11 +48,10 @@ function Success() {
               Authorization: tokenuser,
             },
           };
-          const res = await axios.post(url, booking, config);
+          const res = await axios.post(url, data, config);
 
           if (res.status === 200) {
-            localStorage.removeItem("bookingData");
-            setBookingCompleted(true);
+            navigate('/userProfile');
           }
         } catch (error) {
           console.error(error);
@@ -52,22 +60,7 @@ function Success() {
 
       onSubmit();
     }
-  }, [session_id, booking]);
-
-
-
-
-  useEffect(() => {
-    if (bookingCompleted) {
-      const redirectTimer = setTimeout(() => {
-        navigate('/userProfile');
-      }, 1000);
-
-      return () => clearTimeout(redirectTimer);
-    }
-  }, [bookingCompleted, navigate]);
-
-
+  }, [session_id, data]);
 
 
 

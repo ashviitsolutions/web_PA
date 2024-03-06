@@ -15,10 +15,10 @@ const Conform = () => {
     const { totalPrice } = useParams();
     const { provider_id } = useParams();
 
-    const useremail = localStorage.getItem("user_email");
+    const booking_id = localStorage.getItem("booking_id");
     const username = localStorage.getItem("user_name");
     const userid = localStorage.getItem("userid");
-    const tokenuser = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
     const nav = useNavigate();
 
 
@@ -73,6 +73,7 @@ const Conform = () => {
     const [user, setUser] = useState([]);
     const [membership, setMembershipLevel] = useState();
     const [originalprice, setOriginalprice] = useState()
+    const [bookingid, setBookingId] = useState(null)
 
     const [amountAddon, setAmountAddon] = useState(0);
     const [amountMembershipDiscount, setAmountMembershipDiscount] = useState(0);
@@ -165,8 +166,83 @@ const Conform = () => {
 
 
 
-    console.log("totalAmount", totalAmount)
+    var bookingData = {
+        ...(userid ? {
+            user: userid,
+            customer_email: email,
+        } : {
+            email: email,
+            password: password,
+            confirm_password: confirmpassword
+        }),
+        location: locationName,
 
+        amount_calculation: {
+            amount_widthout_tax: totalAmount,
+            amount_tip: tip,
+        },
+
+
+        // amount_service:amount_service,
+
+
+
+        paymentIntentId: paymentIntentId,
+        location_type: location_type,
+        massage_for: massage_for,
+        service_id: service_id,
+        gender: gender,
+        provider_id: provider_id,
+        service_time: service_time,
+        health_conditions: health_conditions,
+        areas_of_concern: areas_of_concern,
+        special_considerations: special_considerations,
+        massage_body_part: massage_body_part,
+        massage_pressure: massage_pressure,
+        scheduled_date: scheduled_date,
+        scheduled_timing: scheduled_timing,
+        address: address,
+        mobile: mobile,
+        instructions: arrivalInstructions,
+        add_ons: addon_id,
+        add_ons_details: add_ons_details,
+        service_name: service_name
+    };
+
+    // localStorage.setItem("bookingData", JSON.stringify(bookingData));
+   // Assuming the bookingData object is available here
+    useEffect(() => {
+        const sendBookingData = async () => {
+            try {
+                if (bookingData) {
+                    const response = await fetch(`${IP}/user/pendingbooking`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            Authorization: token,
+                        },
+                        body: JSON.stringify(bookingData)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Failed to send booking data');
+                    }
+
+                    const responseData = await response.json();
+
+                    // setBookingId(responseData?._id)
+                    localStorage.setItem("booking_id", responseData?._id)
+                    console.log('Booking data sent successfully:', responseData);
+                    console.log('Booking data sent responseData?._id:', responseData?._id);
+                }
+            } catch (error) {
+                console.error('Error sending booking data:', error.message);
+            }
+        };
+
+        // Call the function to send booking data
+        sendBookingData();
+    }, [bookingData]);
 
 
 
@@ -174,53 +250,11 @@ const Conform = () => {
 
     const handleCheckout = async () => {
         setLoading(true)
-        // Save bookingData after successful payment
-        localStorage.setItem("bookingData", JSON.stringify({
-            ...(userid ? {
-                user: userid,
-                customer_email: email,
-            } : {
-                email: email,
-                password: password,
-                confirm_password: confirmpassword
-            }),
-            location: locationName,
-
-            amount_calculation: {
-                amount_widthout_tax: totalAmount,
-                amount_tip: tip,
-            },
-
-
-            // amount_service:amount_service,
-
-
-
-            paymentIntentId: paymentIntentId,
-            location_type: location_type,
-            massage_for: massage_for,
-            service_id: service_id,
-            gender: gender,
-            provider_id: provider_id,
-            service_time: service_time,
-            health_conditions: health_conditions,
-            areas_of_concern: areas_of_concern,
-            special_considerations: special_considerations,
-            massage_body_part: massage_body_part,
-            massage_pressure: massage_pressure,
-            scheduled_date: scheduled_date,
-            scheduled_timing: scheduled_timing,
-            address: address,
-            mobile: mobile,
-            instructions: arrivalInstructions,
-            add_ons: addon_id,
-            add_ons_details: add_ons_details,
-            service_name: service_name
-        }));
 
         try {
             const response = await axios.post(`${IP}/createCheckoutSession`, {
-                service_details: serviceDetails
+                service_details: serviceDetails,
+                booking_id
             });
             window.location.href = response.data.url;
 
@@ -299,6 +333,11 @@ const Conform = () => {
             price: adjustedServicePrice,
         });
     };
+
+
+
+ 
+
 
 
 
