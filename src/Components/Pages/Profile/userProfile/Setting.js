@@ -152,7 +152,7 @@ function Setting() {
 
 	return (
 		<>
-			<div id="user_profile_page">
+			<div className="progressbar_userpannel profileSpace">
 				<div id="profile_page">
 					<div className="profile__avatar">
 						<p className="profile__avatarInitial">

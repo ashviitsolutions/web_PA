@@ -58,7 +58,7 @@ const Profilefooter = () => {
         <div id="user_profile_page">
 
 
-            <div className="progressbar_userpannel profileSpace">
+            <div className="">
 
                 <div className="user_profile_footer">
                     <div className="footer_container">

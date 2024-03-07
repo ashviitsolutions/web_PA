@@ -162,7 +162,7 @@ function Membership() {
 
 
 	return (
-		<div id="user_profile_page">
+		<div className="progressbar_userpannel profileSpace">
 		<div className="overview" id="invoices">
 			<div className="overview_container">
 

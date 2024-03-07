@@ -111,7 +111,7 @@ function Overview() {
 	console.log("completed posts", currentPending);
 	return (
 		<>
-			<div id="user_profile_page">
+			<div className="progressbar_userpannel profileSpace">
 				<div className="inner">
 
 					<div className="gutter">

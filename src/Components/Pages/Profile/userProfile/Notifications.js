@@ -51,7 +51,7 @@ const Notifications = () => {
   };
 
   return (
-    <div id="user_profile_page">
+    <div className="progressbar_userpannel profileSpace">
       <div className="container__view">
         {/* <Avatar name={username} /> */}
         <h3>Notifications</h3>
