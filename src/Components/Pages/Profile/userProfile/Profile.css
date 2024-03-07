@@ -1235,11 +1235,9 @@ textarea {
 	}
 
 	#imagebooking {
-		/* position: fixed;
-		top: 500px;
-		right: 10px;
-		z-index: 100; */
-		display: none;
+		/* display: none; */
+		top: 80% !important;
+		right: 20px;
 	}
 
 	/* #imagebooking img {
