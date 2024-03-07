@@ -74,6 +74,8 @@ function Login() {
                 localStorage.setItem('user_name', result?.user_info?.name);
                 localStorage.setItem('user_email', result?.user_info?.email);
                 localStorage.setItem('mobile', result?.user_info?.mobile);
+                localStorage.setItem("first_name", result?.user_info?.first_name);
+                localStorage.setItem("last_name", result?.user_info?.last_name);
                 localStorage.setItem('token', token);
                 toast.success("Logged in successfully", {
                     position: "top-right",
