@@ -54,7 +54,7 @@ const Conform = () => {
 
     const service_name = formData.servicename && formData.servicename[0] ? formData.servicename[0] : "";
 
-    console.log("add_ons_details", add_ons_details)
+
 
 
 
@@ -68,6 +68,8 @@ const Conform = () => {
     // const servicename = formData.servicename && formData.servicename[0] ? formData.servicename[0] || "";
     const servicename = formData.servicename && formData.servicename[0] ? formData.servicename[0] : "";
 
+
+    console.log("add_ons_details", email)
 
     // const email = formData.fifthform?.[0]?.email || "";
     // const address = formData.fifthform?.[0]?.address || "";
@@ -256,7 +258,7 @@ const Conform = () => {
 
                     const responseData = await response.json();
 
-                    // setBookingId(responseData?._id)
+                    setBookingId(responseData?._id)
                     localStorage.setItem("booking_id", responseData?._id)
                     console.log('Booking data sent successfully:', responseData);
                     console.log('Booking data sent responseData?._id:', responseData?._id);
@@ -268,31 +270,62 @@ const Conform = () => {
 
         // Call the function to send booking data
         sendBookingData();
-    }, [bookingData]);
+    }, []);
 
 
 
+
+
+    // const handleCheckout = async () => {
+    //     setLoading(true)
+
+    //     if (!booking_id || !bookingid) {
+    //         setLoading(false)
+    //         return false
+    //     }
+
+    //     try {
+    //         const response = await axios.post(`${IP}/createCheckoutSession`, {
+    //             service_details: serviceDetails,
+    //             booking_id: bookingid || booking_id
+    //         });
+    //         window.location.href = response.data.url;
+
+
+    //     } catch (error) {
+    //         console.error('Error creating checkout session:', error);
+    //         setLoading(false)
+    //     }
+    // };
+
+
+
+
+
+
+
+    //megift card
 
 
     const handleCheckout = async () => {
-        setLoading(true)
+        setLoading(true);
 
-        if (!booking_id) {
-            setLoading(false)
-            return false
+        if (!booking_id && !bookingid) {
+            setLoading(false);
+            return false;
         }
+
+        const bookingId = bookingid || booking_id;
 
         try {
             const response = await axios.post(`${IP}/createCheckoutSession`, {
                 service_details: serviceDetails,
-                booking_id
+                booking_id: bookingId
             });
             window.location.href = response.data.url;
-
-
         } catch (error) {
             console.error('Error creating checkout session:', error);
-            setLoading(false)
+            setLoading(false);
         }
     };
 
@@ -302,7 +335,9 @@ const Conform = () => {
 
 
 
-    //megift card
+
+
+
 
     useEffect(() => {
         const fetchData = async () => {
