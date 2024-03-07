@@ -23,9 +23,9 @@ const Conform = () => {
 
 
     console.log("formData", formData)
-    console.log("formData", formData?.fifthform[0]?.name || "")
-    const customer_user = formData?.fifthform[0]?.name || ""
-    const addressUser = formData.locationForm?.[0]?.address || "";
+
+    // const customer_user = formData?.fifthform[0]?.name || ""
+    // const addressUser = formData.locationForm?.[0]?.address || "";
     // Check if the necessary form data exists before accessing its properties    
     const addon_id = formData.addon_id && formData.addon_id[0] ? formData.addon_id[0] : "";
     const location = formData.locationForm && formData.locationForm[0] ? formData.locationForm[0] : null;
@@ -33,6 +33,8 @@ const Conform = () => {
     const locationName = location ? location.location : null;
 
 
+    const customer_user = formData.fifthform && formData.fifthform[0] ? formData.fifthform[0].name : "";
+    const addressUser = formData.locationForm && formData.locationForm[0] ? formData.locationForm[0].address : "";
     const location_type = formData.location && formData.location[0] ? formData.location[0].location_type : "";
     const gender = formData.secondform && formData.secondform[0] ? formData.secondform[0].gender : "";
     //   const totalPrice = formData.secondform && formData.secondform[0] ? formData.secondform[0].totalPrice : "";
@@ -45,7 +47,8 @@ const Conform = () => {
     const special_considerations = formData.thirdform && formData.thirdform[0] ? formData.thirdform[0].special_considerations : "";
     const scheduled_date = formData.fourthform && formData.fourthform[0] ? formData.fourthform[0].date : "";
     const scheduled_timing = formData.fourthform && formData.fourthform[0] ? formData.fourthform[0].time : "";
-    const massage_for = formData?.firstForm?.[0] || "";
+    // const massage_for = formData?.firstForm?.[0] || "";
+    const massage_for = formData.firstForm && formData.firstForm[0] ? formData.firstForm[0] : "";
 
     const add_ons_details = formData.add_ons_details && formData.add_ons_details[0] ? formData.add_ons_details[0] : "";
 
@@ -54,13 +57,25 @@ const Conform = () => {
     console.log("add_ons_details", add_ons_details)
 
 
-    const email = formData.fifthform?.[0]?.email || "";
-    const address = formData.fifthform?.[0]?.address || "";
-    const arrivalInstructions = formData.fifthform?.[0]?.arrivalInstructions || "";
-    const confirmpassword = formData.fifthform?.[0]?.confirmpassword || "";
-    const password = formData.fifthform?.[0]?.password || "";
-    const mobile = formData.fifthform[0]?.mobile || "";
-    console.log("mobile", mobile)
+
+    const email = formData.fifthform && formData.fifthform[0] ? formData.fifthform[0].email : "";
+    const address = formData.fifthform && formData.fifthform[0] ? formData.fifthform[0].address : "";
+    const arrivalInstructions = formData.fifthform && formData.fifthform[0] ? formData.fifthform[0].confirmpassword : "";
+    const confirmpassword = formData.fifthform && formData.fifthform[0] ? formData.fifthform[0].email : "";
+    const password = formData.fifthform && formData.fifthform[0] ? formData.fifthform[0].password : "";
+    const mobile = formData.fifthform && formData.fifthform[0] ? formData.fifthform[0].mobile : "";
+
+    // const servicename = formData.servicename && formData.servicename[0] ? formData.servicename[0] || "";
+    const servicename = formData.servicename && formData.servicename[0] ? formData.servicename[0] : "";
+
+
+    // const email = formData.fifthform?.[0]?.email || "";
+    // const address = formData.fifthform?.[0]?.address || "";
+    // const arrivalInstructions = formData.fifthform?.[0]?.arrivalInstructions || "";
+    // const confirmpassword = formData.fifthform?.[0]?.confirmpassword || "";
+    // const password = formData.fifthform?.[0]?.password || "";
+    // const mobile = formData.fifthform[0]?.mobile || "";
+    console.log("servicename", servicename)
     const [selectedGiftCards, setSelectedGiftCards] = useState([]);
     const [paymentIntentId, setPaymentIntentId] = useState('');
     const [client_secret, setClientSecret] = useState();
@@ -88,10 +103,21 @@ const Conform = () => {
         service_name: ""
     });
 
+    // useEffect(() => {
+    //     // Calculate total price for addons
+    //     const totalAddonPrice = add_ons_details.reduce((total, addon) => total + addon.price, 0);
+    //     setAmountAddon(totalAddonPrice);
+    // }, [add_ons_details]);
+
     useEffect(() => {
         // Calculate total price for addons
-        const totalAddonPrice = add_ons_details.reduce((total, addon) => total + addon.price, 0);
-        setAmountAddon(totalAddonPrice);
+        if (Array.isArray(add_ons_details)) {
+            const totalAddonPrice = add_ons_details.reduce((total, addon) => total + addon.price, 0);
+            setAmountAddon(totalAddonPrice);
+        } else {
+            // If add_ons_details is not an array, set the total addon price to 0
+            setAmountAddon(0);
+        }
     }, [add_ons_details]);
 
 
@@ -155,7 +181,7 @@ const Conform = () => {
         // Update state variables
         setServiceDetails({
             price: totalAmount,
-            service_name: formData.servicename[0] || ""
+            service_name: servicename
         });
         setTax(calculatedTax);
         setTip(tip);
@@ -385,7 +411,7 @@ const Conform = () => {
                                 <li>
 
                                     <span className="title">Booking Details</span>
-                                    <span className="value">{formData.servicename[0] || ""} {service_time} - {massage_for}
+                                    <span className="value">{servicename} {service_time} - {massage_for}
                                     </span>
                                     <span className="title">Arrival Instructions : </span><span className='value'>{arrivalInstructions}</span>
                                     <span className="value">Booking Type: {location_type}</span>

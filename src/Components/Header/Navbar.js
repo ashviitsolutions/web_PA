@@ -13,7 +13,18 @@ function Navbar() {
 
     const location = useLocation();
 
-    const isUserProfilePath = location.pathname === '/userProfile';
+    // const isUserProfilePath = location.pathname === '/userProfile';
+    const isUserProfilePath = [
+        '/userProfile',
+        '/userProfile/membership',
+        '/userProfile/bookinghistory',
+        '/userProfile/usergift',
+        '/userProfile/profile',
+        '/userProfile/notification',
+        '/userProfile/favorites',
+        '/userProfile/support'
+    ].includes(location.pathname);
+
 
 
     const nav = useNavigate()

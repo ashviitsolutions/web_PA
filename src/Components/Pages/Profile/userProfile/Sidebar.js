@@ -54,7 +54,6 @@ const Sidebar = () => {
     const navigate = useNavigate();
     return (
         <div className="parent">
-
             <div className={`sidebar_tab ${isSidebarOpen && "mobile-view"}`}>
                 <div className="">
                     <ul id="tabs_control">
@@ -236,7 +235,7 @@ const Sidebar = () => {
             </div>
             {/* Toggle button for mobile view */}
 
-          {/*  <div className="progressbar_userpannel profileSpace">
+            {/*  <div className="progressbar_userpannel profileSpace">
 
                 <div className="user_profile_footer">
                     <div className="footer_container">
