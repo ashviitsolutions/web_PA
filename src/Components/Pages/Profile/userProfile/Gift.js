@@ -8,7 +8,7 @@ function Gift() {
 
 	return (
 		<>
-			<div id="user_profile_pages">
+			<div id="user_profile_page">
 				<div id="gift">
 					<div className="overview_container">
 						{/* <div className='heading'>
