@@ -37,6 +37,9 @@ const Conform = () => {
     const addressUser = formData.locationForm && formData.locationForm[0] ? formData.locationForm[0].address : "";
     const location_type = formData.location && formData.location[0] ? formData.location[0].location_type : "";
     const gender = formData.secondform && formData.secondform[0] ? formData.secondform[0].gender : "";
+    const gender1 = formData.secondform && formData.secondform[0] ? formData.secondform[0].gender[0] : "";
+    const gender2 = formData.secondform && formData.secondform[0] ? formData.secondform[0].gender[1] : "";
+
     //   const totalPrice = formData.secondform && formData.secondform[0] ? formData.secondform[0].totalPrice : "";
     const service_id = formData.secondform && formData.secondform[0] ? formData.secondform[0].service_ids : "";
     const service_time = formData.secondform && formData.secondform[0] ? formData.secondform[0].service_time : "";
@@ -60,7 +63,7 @@ const Conform = () => {
 
     const email = formData.fifthform && formData.fifthform[0] ? formData.fifthform[0].email : "";
     const address = formData.fifthform && formData.fifthform[0] ? formData.fifthform[0].address : "";
-    const arrivalInstructions = formData.fifthform && formData.fifthform[0] ? formData.fifthform[0].confirmpassword : "";
+    const arrivalInstructions = formData.fifthform && formData.fifthform[0] ? formData.fifthform[0].arrivalInstructions : "";
     const confirmpassword = formData.fifthform && formData.fifthform[0] ? formData.fifthform[0].email : "";
     const password = formData.fifthform && formData.fifthform[0] ? formData.fifthform[0].password : "";
     const mobile = formData.fifthform && formData.fifthform[0] ? formData.fifthform[0].mobile : "";
@@ -68,8 +71,9 @@ const Conform = () => {
     // const servicename = formData.servicename && formData.servicename[0] ? formData.servicename[0] || "";
     const servicename = formData.servicename && formData.servicename[0] ? formData.servicename[0] : "";
 
+    const gendercheck = formData?.firstForm && formData.firstForm.length > 0 ? formData.firstForm[0] : "";
 
-    console.log("add_ons_details", email)
+    console.log("gendercheck", gendercheck)
 
     // const email = formData.fifthform?.[0]?.email || "";
     // const address = formData.fifthform?.[0]?.address || "";
@@ -441,7 +445,16 @@ const Conform = () => {
                                     <span className="title">Personal Details</span>
                                     <spam className="value">Full Name : {customer_user}</spam>
                                     <span className="value">Address : {addressUser}</span>
-                                    <span className="value">Gender : {gender}</span>
+
+                                    {
+                                        gendercheck === "partner" ? (
+                                            <>
+                                                <span className="value">Gender : Partner 1 : {gender1} Partner 2 : {gender2} </span>
+
+                                            </>
+                                        ) : <span className="value">Gender : {gender}</span>
+                                    }
+
                                 </li>
                                 <li>
 
@@ -449,6 +462,7 @@ const Conform = () => {
                                     <span className="value">{servicename} {service_time} - {massage_for}
                                     </span>
                                     <span className="title">Arrival Instructions : </span><span className='value'>{arrivalInstructions}</span>
+
                                     <span className="value">Booking Type: {location_type}</span>
                                 </li>
                                 <li>

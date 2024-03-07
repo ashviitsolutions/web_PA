@@ -162,8 +162,8 @@ const FifthForm = ({ step, nextStep }) => {
             </div>
           </div>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
-            
-          <div className="form-group half">
+
+            <div className="form-group half">
               <label htmlFor="address">Full Address:</label>
               <input
                 type="text"
@@ -183,10 +183,10 @@ const FifthForm = ({ step, nextStep }) => {
                 required
               />
             </div>
-            
+
           </div>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <div className="form-group half">
+            <div className="form-group half">
               <label htmlFor="email">Email:</label>
               <input
                 type="email"

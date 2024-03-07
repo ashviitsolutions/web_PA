@@ -66,9 +66,13 @@ function Login() {
 
             const token = resp.headers.get('Authorization');
             const result = await resp.json();
+            console.log("result login",result)
+
             setLoading(false)
             if (resp.status === 200) {
                 setLoading(false)
+                const fullName = `${result?.user_info?.first_name} ${result?.user_info?.last_name}`;
+                localStorage.setItem("user_name", fullName);
                 localStorage.setItem('users', JSON.stringify(result));
                 localStorage.setItem('userid', result?.user_info?._id);
                 localStorage.setItem('user_name', result?.user_info?.name);
