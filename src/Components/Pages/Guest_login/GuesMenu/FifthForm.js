@@ -162,6 +162,17 @@ const FifthForm = ({ step, nextStep }) => {
             </div>
           </div>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
+            
+          <div className="form-group half">
+              <label htmlFor="address">Full Address:</label>
+              <input
+                type="text"
+                name="address"
+                value={address}
+                // onChange={(e) => setAddress(e.target.value)}
+                required
+              />
+            </div>
             <div className="form-group half">
               <label htmlFor="mobile">Phone No:</label>
               <input
@@ -172,7 +183,10 @@ const FifthForm = ({ step, nextStep }) => {
                 required
               />
             </div>
-            <div className="form-group half">
+            
+          </div>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <div className="form-group half">
               <label htmlFor="email">Email:</label>
               <input
                 type="email"
@@ -182,23 +196,11 @@ const FifthForm = ({ step, nextStep }) => {
                 required
               />
             </div>
-          </div>
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div className="form-group half">
               <label htmlFor="hotelName">  Apt / Hotel &amp; room:</label>
               <input
                 type="text"
                 name="hotelName"
-              />
-            </div>
-            <div className="form-group half">
-              <label htmlFor="address">Full Address:</label>
-              <input
-                type="text"
-                name="address"
-                value={address}
-                // onChange={(e) => setAddress(e.target.value)}
-                required
               />
             </div>
           </div>

@@ -285,7 +285,7 @@
 }
 
 .review_page1 {
-	width: 70% !important;
+	width: 60% !important;
 	margin: auto;
 	margin-top: 20px !important;
 	margin-bottom: 10px;
@@ -293,6 +293,10 @@
 	padding: 10px;
 	border-radius: 10px;
 	box-shadow: 2px 2px 15px -5px rgb(0 0 0 / 35%);
+}
+.review_page1 .eye_button
+{
+	top: -35px;
 }
 
 .half {
@@ -629,6 +633,10 @@ a {
 	.time_options li {
 		font-size: 12px;
 	}
+	.review_page1 .eye_button
+{
+	left: 75% !important;
+}
 
 
 }
