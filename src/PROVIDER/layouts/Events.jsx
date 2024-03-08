@@ -25,9 +25,9 @@ const Events = () => {
 
   const token = localStorage.getItem("providertoken");
   const radios = [
-    { name: "Booked Events", value: "1" },
-    { name: "Completed Events", value: "2" },
-    { name: "New Events", value: "3" },
+    { name: "Upcoming", value: "1" },
+    { name: "Finished", value: "2" },
+    { name: "New Requests", value: "3" },
 
   ];
 
@@ -57,7 +57,7 @@ const Events = () => {
 
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/provider/events/completed`, {
+    fetch(`${IP}/provider/events/completed`, {
       headers: {
         Authorization: token,
       },
@@ -79,7 +79,7 @@ const Events = () => {
   console.log("boking completd", user);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/provider/events/booked`, {
+    fetch(`${IP}/provider/events/booked`, {
       headers: {
         Authorization: token,
       },
@@ -119,7 +119,7 @@ const Events = () => {
 
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/provider/requests`, {
+    fetch(`${IP}/provider/requests`, {
       headers: {
         'Authorization': token
       }
