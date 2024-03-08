@@ -138,7 +138,7 @@ const Events = () => {
 
   return (
     <div className="schudulecard">
-      <h2 className="text-center mt-2" id="schudule-title">Events</h2>
+      <h2 className="text-center mt-2" id="schudule-title">Appointments</h2>
       <div className="mb-4">
         <div className="text-center">
           <ButtonGroup className="my-4">
