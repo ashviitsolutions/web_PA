@@ -255,13 +255,13 @@ const Conform = () => {
         location: locationName,
 
         amount_calculation: {
-            amount_widthout_tax: totalPrice,
+            amount_widthout_tax: totalAmount,
             amount_service: 135,
             amount_addon: amountAddon,
             amount_tip: tip,
             amount_tax: tax,
             amount_membership_discount: originalprice,
-            total_amount: totalAmount,
+            total_amount: totalPrice,
         },
 
 
