@@ -40,7 +40,7 @@ const RequestCard = (props) => {
       basePrice += 70;
     }
 
-    // Double the base price if gender is 'guest'
+    // Double the base price if gender is 'partner'
     if (gendercheck === "partner") {
       basePrice *= 2;
     }

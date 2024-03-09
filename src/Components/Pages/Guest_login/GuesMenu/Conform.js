@@ -178,7 +178,7 @@ const Conform = () => {
 
         // Calculate tax amount
         const calculatedTax = (totalPrice * 100 * taxRate) / 100;
-        const tip = totalPrice * 0.18;
+        const tip = 135 * 0.18;
         // Calculate total amount without membership discount
         const totalAmountWithoutDiscount = totalPrice * 1 + tip + calculatedTax;
         // Calculate total amount after applying membership discount
@@ -443,21 +443,7 @@ const Conform = () => {
                                         <span className="title">Service Name</span>
                                         <span className="value">{service_time}</span>
                                     </li>
-                                    <li>
-                                        <span className="title">Add-ons</span>
-                                        {add_ons_details ? (
-                                            <span className="value">
-                                                {add_ons_details.map((addon, index) => (
-                                                    <span key={index}>
-                                                        {addon.title}
-                                                        {index !== add_ons_details.length - 1 ? ', ' : ''}
-                                                    </span>
-                                                ))}
-                                            </span>
-                                        ) : (
-                                            <span className="value">No add-ons selected</span>
-                                        )}
-                                    </li>
+                                  
                                 </div>
 
                                 <li>
@@ -481,20 +467,20 @@ const Conform = () => {
                                     <span className="value">{servicename} {service_time} - {massage_for}
                                     </span>
                                     <li>
-                                    <span className="title">Add-ons</span>
-                                    {add_ons_details ? (
-                                        <span className="value">
-                                            {add_ons_details.map((addon, index) => (
-                                                <span key={index}>
-                                                    {addon.title}
-                                                    {index !== add_ons_details.length - 1 ? ', ' : ''}
-                                                </span>
-                                            ))}
-                                        </span>
-                                    ) : (
-                                        <span className="value">No add-ons selected</span>
-                                    )}
-                                </li>
+                                        <span className="title">Add-ons</span>
+                                        {add_ons_details ? (
+                                            <span className="value">
+                                                {add_ons_details.map((addon, index) => (
+                                                    <span key={index}>
+                                                        {addon.title}
+                                                        {index !== add_ons_details.length - 1 ? ', ' : ''}
+                                                    </span>
+                                                ))}
+                                            </span>
+                                        ) : (
+                                            <span className="value">No add-ons selected</span>
+                                        )}
+                                    </li>
                                     <span className="title">Arrival Instructions : </span><span className='value'>{arrivalInstructions}</span>
 
                                     <span className="value">Booking Type: {location_type}</span>
