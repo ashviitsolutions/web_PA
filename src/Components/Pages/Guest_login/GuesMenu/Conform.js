@@ -73,7 +73,7 @@ const Conform = () => {
 
     const gendercheck = formData?.firstForm && formData.firstForm.length > 0 ? formData.firstForm[0] : "";
 
-    console.log("gendercheck", gendercheck)
+    console.log("add_ons_details", add_ons_details)
 
     // const email = formData.fifthform?.[0]?.email || "";
     // const address = formData.fifthform?.[0]?.address || "";
@@ -439,6 +439,25 @@ const Conform = () => {
                                         <span className="title">Service Time</span>
                                         <span className="value">{service_time}</span>
                                     </li>
+                                    <li>
+                                        <span className="title">Service Name</span>
+                                        <span className="value">{service_time}</span>
+                                    </li>
+                                    <li>
+                                        <span className="title">Add-ons</span>
+                                        {add_ons_details ? (
+                                            <span className="value">
+                                                {add_ons_details.map((addon, index) => (
+                                                    <span key={index}>
+                                                        {addon.title}
+                                                        {index !== add_ons_details.length - 1 ? ', ' : ''}
+                                                    </span>
+                                                ))}
+                                            </span>
+                                        ) : (
+                                            <span className="value">No add-ons selected</span>
+                                        )}
+                                    </li>
                                 </div>
 
                                 <li>
@@ -461,6 +480,21 @@ const Conform = () => {
                                     <span className="title">Booking Details</span>
                                     <span className="value">{servicename} {service_time} - {massage_for}
                                     </span>
+                                    <li>
+                                    <span className="title">Add-ons</span>
+                                    {add_ons_details ? (
+                                        <span className="value">
+                                            {add_ons_details.map((addon, index) => (
+                                                <span key={index}>
+                                                    {addon.title}
+                                                    {index !== add_ons_details.length - 1 ? ', ' : ''}
+                                                </span>
+                                            ))}
+                                        </span>
+                                    ) : (
+                                        <span className="value">No add-ons selected</span>
+                                    )}
+                                </li>
                                     <span className="title">Arrival Instructions : </span><span className='value'>{arrivalInstructions}</span>
 
                                     <span className="value">Booking Type: {location_type}</span>

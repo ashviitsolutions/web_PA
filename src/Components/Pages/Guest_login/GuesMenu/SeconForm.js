@@ -140,7 +140,7 @@ const SeconForm = ({ step, nextStep }) => {
     //         setGenderPreferences(prevPreferences => [...prevPreferences, selectedGenderValue]);
     //     }
     // };
-    
+
     // const handleGenderSelect2 = (selectedGenderValue) => {
     //     if (!genderPreferences.includes(selectedGenderValue)) {
     //         setFormData({ ...formData, gender: selectedGenderValue });
@@ -148,7 +148,7 @@ const SeconForm = ({ step, nextStep }) => {
     //         setGenderPreferences(prevPreferences => [...prevPreferences, selectedGenderValue]);
     //     }
     // };
-    
+
 
 
     const handleServiceTimeSelect = (selectedTime) => {
@@ -260,15 +260,15 @@ const SeconForm = ({ step, nextStep }) => {
                 return;
             }
         }
-    
+
         // Clear any previous error message  
         setErrorMessage("");
-    
+
         // Extract add-on IDs and their prices
         const selectedAddonsData = user
             .filter(item => selectedItems.includes(item._id)) // Filter selected add-ons
             .map(item => ({ id: item._id, title: item.title, price: item.price })); // Map to an array of objects with ID, title, and price
-    
+
         // Dispatch selected add-on IDs and prices
         dispatch(updateInputData({ formName: 'secondform', inputData: formData }));
         dispatch(updateInputData({ formName: 'addon_id', inputData: selectedItems }));
@@ -278,19 +278,19 @@ const SeconForm = ({ step, nextStep }) => {
             nextStep();
         }, 2000);
     };
-    
+
     const handleGenderSelect1 = (selectedGenderValue) => {
         setSelectedGender1(selectedGenderValue);
         setGenderPreferences(prevPreferences => [selectedGenderValue, ...prevPreferences.filter(gender => gender !== selectedGenderValue)]);
     };
-    
+
     const handleGenderSelect2 = (selectedGenderValue) => {
         setSelectedGender2(selectedGenderValue);
         setGenderPreferences(prevPreferences => [selectedGenderValue, ...prevPreferences.filter(gender => gender !== selectedGenderValue)]);
     };
-    
-    
-    
+
+
+
 
     return (
         <>
