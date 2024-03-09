@@ -29,7 +29,7 @@ const RequestCard = (props) => {
 
 
   useEffect(() => {
-    let tax = amount_calculation?.amount_tip
+    let tax = amount_calculation?.amount_tip;
     const time_status = props.serviceTime;
     let basePrice = 70; // Initial base price
 

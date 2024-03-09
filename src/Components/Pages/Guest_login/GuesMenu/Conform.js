@@ -100,6 +100,8 @@ const Conform = () => {
     const [amountMembershipDiscount, setAmountMembershipDiscount] = useState(0);
     const [amountTax, setAmountTax] = useState(0);
     const [amountTip, setAmountTip] = useState(0);
+    const [amount_addon, setAddsAmount] = useState(0)
+    const [bokingValue, setBookingData] = useState()
 
 
 
@@ -220,16 +222,17 @@ const Conform = () => {
         const adds_onprice = (totalPrice - 135);
         const tip = (servicePricewithmemberhsip + adds_onprice) * 0.18;
         const Tax = (servicePricewithmemberhsip + adds_onprice) * taxRate;
-        const totalAmount = servicePricewithmemberhsip + adds_onprice + tip + Tax;
+        const totalAmounts = servicePricewithmemberhsip + adds_onprice + tip + Tax;
 
         // Update state variables
         setServiceDetails({
-            price: totalAmount,
+            price: totalAmounts,
             service_name: servicename
         });
         setTax(Tax);
         setTip(tip);
-        setTotalAmount(totalAmount);
+        setTotalAmount(totalAmounts);
+        setAddsAmount(adds_onprice);
         setOriginalprice(servicePricewithmemberhsip)
     }, [totalPrice, membership, formData.fifthform]);
 
@@ -252,9 +255,15 @@ const Conform = () => {
         location: locationName,
 
         amount_calculation: {
-            amount_widthout_tax: totalAmount,
+            amount_widthout_tax: totalPrice,
+            amount_service: 135,
+            amount_addon: amountAddon,
             amount_tip: tip,
+            amount_tax: tax,
+            amount_membership_discount: originalprice,
+            total_amount: totalAmount,
         },
+
 
 
         // amount_service:amount_service,
@@ -283,40 +292,60 @@ const Conform = () => {
         service_name: service_name
     };
 
-    // localStorage.setItem("bookingData", JSON.stringify(bookingData));
-    // Assuming the bookingData object is available here
+
+
+
+
+    console.log("data all get", bookingData)
+
+
+
+
+
+
+
     useEffect(() => {
         const sendBookingData = async () => {
             try {
-                if (bookingData) {
-                    const response = await fetch(`${IP}/user/pendingbooking`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            Authorization: token,
-                        },
-                        body: JSON.stringify(bookingData)
-                    });
-
-                    if (!response.ok) {
-                        throw new Error('Failed to send booking data');
-                    }
-
-                    const responseData = await response.json();
-
-                    setBookingId(responseData?._id)
-                    localStorage.setItem("booking_id", responseData?._id)
-                    console.log('Booking data sent successfully:', responseData);
-                    console.log('Booking data sent responseData?._id:', responseData?._id);
+                // Check if bookingData exists
+                if (!bookingData?.amount_calculation?.amount_tip) {
+                    throw new Error('Booking data is missing.');
                 }
+
+                const response = await fetch(`${IP}/user/pendingbooking`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: token,
+                    },
+                    body: JSON.stringify(bookingData)
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to send booking data');
+                }
+
+                const responseData = await response.json();
+
+                if (!responseData || !responseData._id) {
+                    throw new Error('Invalid response from the server.');
+                }
+
+                // Set the booking ID in state and local storage
+                setBookingId(responseData._id);
+                localStorage.setItem("booking_id", responseData._id);
+                console.log('Booking data sent successfully:', responseData);
             } catch (error) {
                 console.error('Error sending booking data:', error.message);
+                // Handle error here (e.g., show a notification to the user)
             }
         };
 
         // Call the function to send booking data
         sendBookingData();
-    }, []);
+    }, [bookingData?.amount_calculation?.amount_tip]); // Trigger when bookingData changes
+
+
 
 
 
