@@ -160,6 +160,46 @@ const Conform = () => {
 
 
 
+
+
+    // useEffect(() => {
+    //     // Define default values for tip and tax rate
+    //     // const tip = 31.5;
+    //     const taxRate = 0.06625;
+    //     // Initialize membership discount rate
+    //     let membershipDiscountRate = 0;
+
+    //     // Check if membership is Silver or Gold
+    //     if (membership === "Silver") {
+    //         // If Silver membership is selected, apply a 5% discount
+    //         membershipDiscountRate = 0.05;
+    //     } else if (membership === "Gold") {
+    //         // If Gold membership is selected, apply a 10% discount
+    //         membershipDiscountRate = 0.10;
+    //     }
+
+    //     // Calculate tax amount
+    //     const calculatedTax = (totalPrice * 100 * taxRate) / 100;
+    //     // const tip = 135 * 0.18;
+    //     const tip = totalPrice * 0.18;
+    //     // Calculate total amount without membership discount
+    //     const totalAmountWithoutDiscount = totalPrice * 1 + tip + calculatedTax;
+    //     // Calculate total amount after applying membership discount
+    //     const totalAmount = totalAmountWithoutDiscount * (1 - membershipDiscountRate);
+
+    //     // Update state variables
+    //     setServiceDetails({
+    //         price: totalAmount,
+    //         service_name: servicename
+    //     });
+    //     setTax(calculatedTax);
+    //     setTip(tip);
+    //     setTotalAmount(totalAmount);
+    //     setOriginalprice(totalAmountWithoutDiscount)
+    // }, [totalPrice, membership, formData.fifthform]);
+
+
+
     useEffect(() => {
         // Define default values for tip and tax rate
         // const tip = 31.5;
@@ -176,24 +216,26 @@ const Conform = () => {
             membershipDiscountRate = 0.10;
         }
 
-        // Calculate tax amount
-        const calculatedTax = (totalPrice * 100 * taxRate) / 100;
-        const tip = 135 * 0.18;
-        // Calculate total amount without membership discount
-        const totalAmountWithoutDiscount = totalPrice * 1 + tip + calculatedTax;
-        // Calculate total amount after applying membership discount
-        const totalAmount = totalAmountWithoutDiscount * (1 - membershipDiscountRate);
+        const servicePricewithmemberhsip = 135 * (1 - membershipDiscountRate);
+        const adds_onprice = (totalPrice - 135);
+        const tip = (servicePricewithmemberhsip + adds_onprice) * 0.18;
+        const Tax = (servicePricewithmemberhsip + adds_onprice) * taxRate;
+        const totalAmount = servicePricewithmemberhsip + adds_onprice + tip + Tax;
 
         // Update state variables
         setServiceDetails({
             price: totalAmount,
             service_name: servicename
         });
-        setTax(calculatedTax);
+        setTax(Tax);
         setTip(tip);
         setTotalAmount(totalAmount);
-        setOriginalprice(totalAmountWithoutDiscount)
+        setOriginalprice(servicePricewithmemberhsip)
     }, [totalPrice, membership, formData.fifthform]);
+
+
+
+
 
 
 
@@ -443,7 +485,7 @@ const Conform = () => {
                                         <span className="title">Service Name</span>
                                         <span className="value">{service_time}</span>
                                     </li>
-                                  
+
                                 </div>
 
                                 <li>
@@ -523,7 +565,7 @@ const Conform = () => {
                                     <div className="price" style={{ display: 'block', lineHeight: '10px' }}>
                                         <p className="prices" style={{ fontSize: '17px' }}>
                                             <span className='value'>
-                                                Amount: ${formData.secondform?.[0]?.totalPrice}
+                                                Amount: ${totalPrice}
                                             </span></p>
                                         <p className="prices" style={{ fontSize: '17px' }}>
                                             <span className='value'>
@@ -536,14 +578,14 @@ const Conform = () => {
                                         {membership === "Silver" && (
                                             <p className="prices" style={{ fontSize: '17px' }}>
                                                 <span className='value'>
-                                                    5% Silver Membership Discount: ${(originalprice * 0.05).toFixed(2)}
+                                                    5% Silver Membership Discount: ${6.75}
 
                                                 </span></p>
                                         )}
                                         {membership === "Gold" && (
                                             <p className="prices" style={{ fontSize: '17px' }}>
                                                 <span className='value'>
-                                                    10% Gold Membership Discount: ${(originalprice * 0.10).toFixed(2)}
+                                                    10% Gold Membership Discount: ${13.50}
                                                 </span></p>
                                         )}
                                         <p className="prices" style={{ fontSize: '17px' }} >
