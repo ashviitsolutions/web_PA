@@ -27,7 +27,7 @@ function NavBar() {
               alt="React Bootstrap logo"
             />
           </Link>
-          <NotificationsActiveIcon className="notificationmobile" onClick={handleToggle} />
+          {/* <NotificationsActiveIcon className="notificationmobile" onClick={handleToggle} /> */}
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-navs">
             <Nav className="me-auto" id="links">
@@ -54,7 +54,7 @@ function NavBar() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      {
+      {/* {
         toggle ? (
           <Nav >
             <div className="notificationdroupdown">
@@ -75,7 +75,7 @@ function NavBar() {
 
           </Nav>
         ) : null
-      }
+      } */}
     </>
 
 

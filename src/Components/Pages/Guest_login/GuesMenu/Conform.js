@@ -499,20 +499,39 @@ const Conform = () => {
                             <ul className="review d-block">
                                 <div>
                                     <li>
-                                        <span className="title">Date</span>
+                                        <span className="title">Date of service:</span>
                                         <span className="value">{formData.fourthform?.[0]?.date}</span>
                                     </li>
                                     <li>
-                                        <span className="title">Time</span>
+                                        <span className="title">Time of service:</span>
                                         <span className="value">{formData.fourthform?.[0]?.time}</span>
                                     </li>
                                     <li>
-                                        <span className="title">Service Time</span>
+                                        <span className="title">Duration of service:</span>
                                         <span className="value">{service_time}</span>
                                     </li>
                                     <li>
-                                        <span className="title">Service Name</span>
-                                        <span className="value">{service_time}</span>
+                                        <span className="title">Name of service:</span>
+                                        <span className="value">{servicename} ({massage_for}) </span>
+                                    </li>
+                                    <li>
+                                        <span className="title">Addons:</span>
+                                        {add_ons_details ? (
+                                            <span className="value">
+                                                {add_ons_details.map((addon, index) => (
+                                                    <span key={index}>
+                                                        {addon.title}
+                                                        {index !== add_ons_details.length - 1 ? ', ' : ''}
+                                                    </span>
+                                                ))}
+                                            </span>
+                                        ) : (
+                                            <span className="value">No add-ons selected</span>
+                                        )}
+                                    </li>
+                                    <li>
+                                        <span className="title">Booking type:</span>
+                                        <span className="value">Massage on demand</span>
                                     </li>
 
                                 </div>
@@ -525,14 +544,14 @@ const Conform = () => {
                                     {
                                         gendercheck === "partner" ? (
                                             <>
-                                                <span className="value">Gender : Partner 1 : {gender1} Partner 2 : {gender2} </span>
+                                                <span className="value">Gender Preference : Partner 1 : {gender1} Partner 2 : {gender2} </span>
 
                                             </>
                                         ) : <span className="value">Gender : {gender}</span>
                                     }
 
                                 </li>
-                                <li>
+                                {/* <li>
 
                                     <span className="title">Booking Details</span>
                                     <span className="value">{servicename} {service_time} - {massage_for}
@@ -555,7 +574,7 @@ const Conform = () => {
                                     <span className="title">Arrival Instructions : </span><span className='value'>{arrivalInstructions}</span>
 
                                     <span className="value">Booking Type: {location_type}</span>
-                                </li>
+                                </li> */}
                                 <li>
                                     <div className="form-group row mb-3">
                                         <div className="col-7 mb-0 px-0 pr-2">
