@@ -62,33 +62,30 @@ const Completed = (props) => {
 
 
     useEffect(() => {
-        let tax = amount_calculation?.amount_tip
+        let tax = amount_calculation?.amount_tip;
+        let addonsprice = amount_calculation?.amount_addon;
         const time_status = props.serviceTime;
         let basePrice = 70; // Initial base price
 
         // Adjust base price based on service time
-        if (time_status === "90min") {
+        if (time_status === "90 minutes") {
             basePrice += 35;
-        } else if (time_status === "120min") {
+        } else if (time_status === "120 minutes") {
             basePrice += 70;
         }
 
-        // Double the base price if gender is 'guest'
+        // Double the base price if gender is 'partner'
         if (gendercheck === "partner") {
             basePrice *= 2;
         }
 
-        // Calculate total price of add-ons
-        let totalAddonsPrice = 0;
-        if (add_ons_details && add_ons_details.length > 0) {
-            totalAddonsPrice = add_ons_details.reduce((acc, addon) => acc + addon.price, 0);
-        }
-
-        // Calculate total price including add-ons
-        let totalPriceWithAddons = basePrice + totalAddonsPrice;
-
         // Add 14% of total add-ons price to totalPrice
-        totalPriceWithAddons += totalAddonsPrice * 0.14;
+        let totalPriceAddons = addonsprice;
+
+        const calculateaadon = totalPriceAddons * 0.14;
+
+        //total value after adding adsonprice
+        let totalPriceWithAddons = basePrice + calculateaadon;
 
         // Add tax amount to totalPrice
         totalPriceWithAddons += tax;
