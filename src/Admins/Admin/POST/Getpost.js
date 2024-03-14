@@ -3,6 +3,7 @@ import React, { useEffect, useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import ReactPaginate from 'react-paginate';
 import "./style.css"
+import { FallingLines } from 'react-loader-spinner';
 // import { useNavigate } from 'react-router-dom';
 import { IP } from '../../../Constant';
 
@@ -34,6 +35,8 @@ function Getpost() {
   // const nav=useNavigate()
   const [search, setSearch] = useState("")
   // const [Delete, setDelete] = useState([])
+  const [pageNumber, setPageNumber] = useState(1);
+  const [loading, setLoading] = useState(null);
 
 
 
@@ -49,26 +52,56 @@ function Getpost() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`${IP}/post/fetch?type=${selectedType || search}`);
+        setLoading(true); // Set loading to true before fetching data
+        const res = await fetch(`${IP}/post/fetch?page=${pageNumber}&limit=5`);
         const data = await res.json();
-        setUser(data);
+        setUser(prevData => [...prevData, ...data]);
+        // setUser(data);
         console.log("get post data", data)
         setCount(data.length);
       } catch (error) {
+        console.error('Error fetching posts:', error);
+      } finally {
+        setLoading(false); // Set loading to false after fetching data
       }
     };
 
     fetchData();
-  }, [data, search, selectedType]);
+  }, [pageNumber]);
 
 
-  const handlePageClick = (data) => {
-    setData(data.selected + 1);
-  };
+  // useEffect(() => {
+  //   setLoading(false);
+  //   setPageNumber(1); 
+  // }, [selectedType]);
 
-  const memoizedUser = useMemo(() => {
-    return user.slice((data - 1) * 10, data * 10);
-  }, [user, data]);
+
+  const handleInfiniteScroll = async () => {
+    try {
+
+      if (
+        window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight
+      ) {
+        setPageNumber((prev) => prev + 1);
+        setLoading(true)
+      }
+
+    } catch (error) {
+
+    }
+  }
+
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleInfiniteScroll);
+    return () => window.removeEventListener("scroll", handleInfiniteScroll)
+  }, [])
+
+  const filteredUser = user.filter(post => {
+    const isTypeMatched = !selectedType || post.type._id === selectedType;
+    const isSearched = !search || post.title.toLowerCase().includes(search.toLowerCase());
+    return isTypeMatched && isSearched;
+  });
 
 
 
@@ -109,6 +142,7 @@ function Getpost() {
 
   return (
     <>
+
       <div id="content">
         <div className="container-fluid">
           <div className="row">
@@ -175,13 +209,7 @@ function Getpost() {
 
 
 
-                {memoizedUser.filter((values) => {
-                  if (search === "") {
-                    return values;
-                  } else if (values.type.name.toLowerCase().includes(search.toLocaleLowerCase())) {
-                    return values
-                  }
-                }).map((cur, index) => {
+                {filteredUser?.map((cur, index) => {
                   return (
                     <tr key={index}>
                       <td>
@@ -216,30 +244,17 @@ function Getpost() {
                 })}
 
               </table>
+              {loading && (
+                <div style={{ textAlign: "center" }}>
+                  <FallingLines
+                    color="#03a9f4"
+                    width="150"
+                    visible={true}
+                    ariaLabel="falling-circles-loading"
+                  />
+                </div>
+              )}
 
-              <div className='pagination'  >
-                <ReactPaginate
-                  itemsPerPage={10}
-                  previousLabel={'Previous'}
-                  nextLabel={'Next'}
-                  breakLabel={"..."}
-                  pageCount={Math.ceil(count / 10)}
-                  marginPagesDisplayed={3}
-                  pageRangeDisplayed={2}
-                  onPageChange={handlePageClick}
-                  // css apply on pagination
-                  containerClassName={'pagination justify-content-center py-3'}
-                  pageClassName={'page-item'}
-                  pageLinkClassName={'page-link'}
-                  previousClassName={'page-item'}
-                  previousLinkClassName={'page-link'}
-                  nextClassName={'page-item'}
-                  nextLinkClassName={'page-link'}
-                  breakClassName={'page-item'}
-                  breakLinkClassName={'page-link'}
-                  activeClassName={'active'}
-                />
-              </div>
             </div>
           </div>
         </div>

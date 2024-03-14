@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { IP } from "../../../Constant";
 import CustomModal from "./Model";
+import { FallingLines } from "react-loader-spinner";
 import moment from "moment";
 
 function Event() {
@@ -14,25 +15,78 @@ function Event() {
     const [display, setDisplay] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [selectedEventData, setSelectedEventData] = useState(null); // New state to store selected event data
+    const [pageNumber, setPageNumber] = useState(1);
+    const [loading, setLoading] = useState(null);
+
+
+
 
     const fetchData = useCallback(() => {
-        fetch(`${IP}/user/allbookings`, {
+        setLoading(true);
+        fetch(`${IP}/user/allbookings?page=${pageNumber}&limit=10`, {
             headers: {
                 'Authorization': token
             }
-        }).then(resp => resp.json())
+        })
+            .then(resp => {
+                if (!resp.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return resp.json();
+            })
             .then(result => {
-                setRequest(result);
+                setRequest(prevData => [...prevData, ...result]);
                 console.log("booking data data", result);
+                setLoading(false);
             })
             .catch(err => {
-                console.log(err);
+                console.error('Error fetching data:', err);
+            }
+            ).finally(() => {
+                setLoading(false); // Set loading to false after fetching data
             });
-    }, [token]);
+    }, [pageNumber, token]);
 
     useEffect(() => {
         fetchData();
     }, [fetchData]);
+
+
+
+
+    const handleInfiniteScroll = async () => {
+        try {
+
+            if (
+                window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight
+            ) {
+                setPageNumber((prev) => prev + 1);
+                setLoading(true)
+            }
+
+        } catch (error) {
+
+        }
+    }
+
+
+    useEffect(() => {
+        window.addEventListener("scroll", handleInfiniteScroll);
+        return () => window.removeEventListener("scroll", handleInfiniteScroll)
+    }, [])
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     const handleFilter = () => {
         // Filter data based on selected dates, status, and search text
@@ -62,12 +116,13 @@ function Event() {
 
     return (
         <>
+
             <div id="content">
                 <div className="container-fluid">
                     <div className="row">
                         <div className="">
                             <div className="headings">
-                                <h3>Events</h3>
+                                <h3 >Events</h3>
                                 <span className="toggle_sidebar" ></span>
                             </div>
                         </div>
@@ -128,7 +183,18 @@ function Event() {
                                         </div>
                                     </div>
                                 ))}
+
                             </div>
+                            {loading && (
+                                <div style={{ textAlign: "center" }}>
+                                    <FallingLines
+                                        color="#03a9f4"
+                                        width="150"
+                                        visible={true}
+                                        ariaLabel="falling-circles-loading"
+                                    />
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
