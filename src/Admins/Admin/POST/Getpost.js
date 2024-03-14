@@ -53,7 +53,7 @@ function Getpost() {
     const fetchData = async () => {
       try {
         setLoading(true); // Set loading to true before fetching data
-        const res = await fetch(`${IP}/post/fetch?page=${pageNumber}&limit=5`);
+        const res = await fetch(`${IP}/post/fetch?page=${pageNumber}&limit=10`);
         const data = await res.json();
         setUser(prevData => [...prevData, ...data]);
         // setUser(data);

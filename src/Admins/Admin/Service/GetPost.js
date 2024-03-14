@@ -3,7 +3,8 @@ import React, { useEffect, useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import ReactPaginate from 'react-paginate';
 import { IP } from '../../../Constant';
-import "./style.css"
+import "./style.css";
+import { FallingLines } from 'react-loader-spinner';
 
 const PreviewImage = ({ attachments }) => {
     const [imageObjectURL, setImageObjectURL] = useState(null);
@@ -33,7 +34,7 @@ function Getpost() {
     const [search, setSearch] = useState("")
     //   const [Delete, setDelete] = useState([])
 
-
+    const [loading, setLoading] = useState(null);
 
     const [type, setType] = useState([]);
     const [selectedType, setSelectedType] = useState("");
@@ -46,13 +47,15 @@ function Getpost() {
     console.log("selectedType", selectedType)
 
     useEffect(() => {
+        setLoading(true);
         const fetchData = async () => {
             try {
-                const res = await fetch(`${IP}/service/view-services/${search}`);
+                const res = await fetch(`${IP}/service/view-services`);
                 const data = await res.json();
-                setUser(data);
+                setUser(prevData => [...prevData, ...data]);
                 setCount(data.length);
-                console.log("get data", data)
+                // console.log("get data", data)
+                setLoading(false); // Set loading to true before fetching data
             } catch (error) {
             }
         };
@@ -65,9 +68,17 @@ function Getpost() {
         setData(data.selected + 1);
     };
 
-    const memoizedUser = useMemo(() => {
-        return user.slice((data - 1) * 10, data * 10);
-    }, [user, data]);
+
+    const filteredAndMemoizedUser = useMemo(() => {
+        const filteredUser = user.filter(post => {
+            console.log("filteredUser", post);
+            const isCategoryMatched = !selectedType || (post.category === selectedType);
+            const isSearched = !search || post.title.toLowerCase().includes(search.toLowerCase());
+            return isCategoryMatched && isSearched;
+        });
+        return filteredUser.slice((data - 1) * 10, data * 10);
+    }, [user, data, selectedType, search]);
+
 
 
 
@@ -172,13 +183,7 @@ function Getpost() {
 
 
 
-                                {memoizedUser.filter((values) => {
-                                    if (search === "") {
-                                        return values;
-                                    } else if (values.title.toLowerCase().includes(search.toLocaleLowerCase())) {
-                                        return values
-                                    }
-                                }).map((cur, index) => {
+                                {filteredAndMemoizedUser.map((cur, index) => {
                                     return (
                                         <tr key={index}>
                                             <td>
@@ -217,7 +222,16 @@ function Getpost() {
                                 })}
 
                             </table>
-
+                            {loading && (
+                                <div style={{ textAlign: "center" }}>
+                                    <FallingLines
+                                        color="#03a9f4"
+                                        width="150"
+                                        visible={true}
+                                        ariaLabel="falling-circles-loading"
+                                    />
+                                </div>
+                            )}
                             <div className='pagination'  >
                                 <ReactPaginate
                                     itemsPerPage={10}

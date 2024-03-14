@@ -1,358 +1,256 @@
-// import React from 'react'
-// import Sidebar from '../../Sidebar/Sidebar'
 
-// function addPost() {
-//   return (
-//     <>
-//     <Sidebar/>
-//     <div id="content">
-//     <div class="container-fluid">
-//     <div class="row">
-//         <div class="">
-//             <div class="heading float_wrapper">
-//                 <div class="gutter pull-left" style={{paddingLeft:0}}>
-//                     <h3>Add post</h3>
-//                 </div>
-//                 <span class="toggle_sidebar" ></span>
-//             </div>
-//         </div>
-//     </div>
-
-//     <div class="row">
-//         <div class="col-sm-8">
-//             <div class="gutter">
-//                 <div class="card layer1">
-//                     <div class="inner">
-//                         <label class="card_label" for="">General Information</label>
-     
-//                         <div class="input_group">
-//                             <input class="input" type="text" name="title" value="" required=""/>
-//                             <label for="">title</label>
-//                             <span class="highlight"></span>
-//                         </div>
-          
-//                         <div class="input_group">
-//                             <textarea class="input" name="excerpt" rows="2"></textarea>
-//                             <label for="">Excerpt</label>
-//                             <span class="highlight"></span>
-//                         </div>
-              
-//                         <div class="input_group">
-//                             <label for="" class="static">Description</label>
-//                             <textarea id="ckeditorIdDescription" class="input" name="excerpt" rows="6"></textarea>
-//                         </div>
-                
-//                         <div class="input_group">
-//                             <input class="input" type="number" name="title" value="" required=""/>
-//                             <label for="">price in USD</label>
-//                             <span class="highlight"></span>
-//                         </div>
-                 
-//                     </div>
-//                 </div>
-//             </div>
-//         </div>
-//         <div class="col-sm-4">
-//             <div class="gutter">
-//                 <div class="card layer1">
-//                     <div class="inner">
-//                         <label class="card_label" for="">Post Actions</label>
-//                         <div class="input_group">
-//                             <button id="publish_btn" class="primary square button" type="button" name="button">publish</button>
-//                         </div>
-//                     </div>
-//                 </div>
-             
-//                 <div class="card layer1">
-//                     <div class="inner">
-//                         <label class="card_label" for="">Select Marketplace</label>
-//                         <div class="input_group">
-//                             <select name="" id="" class="input" multiple="true" style={{minHeight: "200px"}}>
-//                                 <option value="">on demand</option>
-//                                 <option value="">corporate events</option>
-//                                 <option value="">private events</option>
-//                             </select>
-//                         </div>
-//                     </div>
-//                 </div>
-          
-//                 <div class="card layer1">
-//                     <div class="inner">
-//                         <label for="" class="card_label">Attachments</label>
-//                         <input id="attachment_ids" class="input hidden" type="text" name="attachment_ids" value=""/>
-//                         <div id="post_attachments" class="input_group float_wrapper">
-//                             <div class="attachment_wrapper">
-//                                 <input type="file" class="hidden" id="select_file_html"/>
-//                                 <div thumbnail="medium" class="image_placeholder" >
-//                                 </div>
-//                             </div>
-//                         </div>
-//                     </div>
-//                 </div>
-//             </div>
-//         </div>
-//     </div>
-// </div>
-// </div>
-//     </>
-//   )
-// }
-
-// export default addPost
-
-
-
-import React from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
-import Sidebar from '../../Sidebar/Sidebar'
+import ReactPaginate from 'react-paginate';
+import { IP } from '../../../Constant';
+import "./style.css"
 
-function GetPost() {
+const PreviewImage = ({ attachments }) => {
+    const [imageObjectURL, setImageObjectURL] = useState(null);
+
+    useEffect(() => {
+        const fetchImage = async () => {
+            const res = await fetch(`${IP}/file/${attachments}`);
+            const imageBlob = await res.blob();
+            const objectURL = URL.createObjectURL(imageBlob);
+            setImageObjectURL(objectURL);
+        };
+
+        fetchImage();
+    }, [attachments]);
+
+    return (
+        <div  >
+            {imageObjectURL && <img src={imageObjectURL} alt="Preview" className="previewimage" />}
+        </div>
+    );
+};
+
+
+
+
+function Getpost() {
+    const [search, setSearch] = useState("")
+    //   const [Delete, setDelete] = useState([])
+
+
+
+    const [type, setType] = useState([]);
+    const [selectedType, setSelectedType] = useState("");
+
+    const [user, setUser] = useState([]);
+    const [data, setData] = useState(1);
+    const [count, setCount] = useState(0);
+
+    // alert(selectedType)
+    console.log("selectedType", selectedType)
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const res = await fetch(`${IP}/service/view-services/${search}`);
+                const data = await res.json();
+                setUser(data);
+                setCount(data.length);
+                console.log("get data", data)
+            } catch (error) {
+            }
+        };
+
+        fetchData();
+    }, [data, search, selectedType]);
+
+
+    const handlePageClick = (data) => {
+        setData(data.selected + 1);
+    };
+
+    const memoizedUser = useMemo(() => {
+        return user.slice((data - 1) * 10, data * 10);
+    }, [user, data]);
+
+
+
+    useEffect(() => {
+        fetch(`${IP}/service/market_place`)
+            .then((res) => res.json())
+            .then((data) => {
+                setType(data);
+            })
+            .catch((error) => {
+                console.log(error)
+            });
+    }, []);
+
+    //   const handleDelete = (id) => {
+    //     let token = localStorage.getItem("tokenadmin");
+    //     fetch(`http://45.13.132.197:4000/api/service/delete/${id}`, {
+    //       method: "DELETE",
+    //       headers: {
+    //         Authorization: token,
+    //         'Content-Type': 'multipart/form-data'
+    //       }
+    //     })
+    // <button onClick={(id)=>handleDelete(cur._id)}>Delete</button>
+
+    //       .then((res) => res.json())
+    //       .then((data) => {
+    //         setDelete(data);
+    //         console.log(data);
+
+    //       })
+    //       .catch((error) => {
+    //         console.log(error);
+    //       });
+    //   };
+
     return (
         <>
-        <Sidebar/>
-        <div id="content">
-            <div className="container-fluid">
-                <div className="row">
-                    <div className="">
-                        <div className="heading float_wrapper">
-                            <div className="gutter pull-left" style={{paddingLeft:"0"}}>
-                                <h3>all services</h3>
-                                <p>list of all add services available throughout the system</p>
-                            </div>
-                            <div className="gutter pull-left">
-                                <Link to="/services/add_service">
-                                    <button style={{minHeight:"35px"}} className="button small primary" type="button" name="button">Add New</button>
-                                </Link>
-                            </div>
-                            <span className="toggle_sidebar" ></span>
-                        </div>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="gutter">
-                        <div className="card layer1 filters">
-                            <div className="input_group">
-                                <select name="" id="" className="input">
-                                    <option value="">status</option>
-                                    <option value="">draft</option>
-                                    <option value="">published</option>
-                                    <option value="">trashed</option>
-                                </select>
-                                <span className="highlight"></span>
-                            </div>
-                            <div className="input_group">
-                                <select name="" id="" className="input">
-                                    <option value="">select type</option>
-                                    <option value="">Home</option>
-                                    <option value="">Banner</option>
-                                    <option value="">Offer Post</option>
-                                    <option value="">Join Our Team</option>
-                                    <option value="">Corporate Events</option>
-                                    <option value="">Private Events</option>
-                                    <option value="">Massage On Demand</option>
-                                    <option value="">Policies</option>
-                                    <option value="">Become a Member</option>
-                                </select>
-                                <span className="highlight"></span>
-                            </div>
-                            <div className="input_group">
-                                <input type="date" className="input" placeholder="Start Date" />
-                                <span className="highlight"></span>
-                            </div>
-                            <div className="input_group pull-right" style={{maxWidth: "20%"}}>
-                                <input type="text" className="input" placeholder="search here.." />
-                                <span className="highlight"></span>
+            <div id="content">
+                <div className="container-fluid">
+                    <div className="row">
+                        <div className="">
+                            <div className="headings float_wrapper">
+                                <div className="gutter pull-left" >
+                                    <h3>All Service</h3>
+                                    <p>list of all add posts</p>
+                                </div>
+                                <div className="gutter pull-left">
+                                    <Link to="/admin/services/add_service">
+                                        <button className="button small primary"
+                                            type="button" name="button">Add New</button>
+                                    </Link>
+                                </div>
+                                <span className="toggle_sidebar" ></span>
                             </div>
                         </div>
                     </div>
-                </div>
+                    <div className="row">
+                        <div className="gutter">
+                            <div className="card layer1 filters">
 
-                <div className="row">
-                    <div className="gutter">
-                        <table className="table-responsive ultra_responsive">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        <div className="md-checkbox">
-                                            <input id="i3" type="checkbox" />
-                                            <label for="i3"></label>
-                                        </div>
-                                    </th>
-                                    <th>Title</th>
-                                    <th>Excerpt</th>
-                                    <th>Created at</th>
-                                    <th>Created by</th>
-                                </tr>
-                            </thead>
-                            <tbody id="post_container">
-                                <tr className="wrapper" id="tr_post_77">
-                                    <td>
-                                        <div className="md-checkbox">
-                                            <input id="i3" type="checkbox" />
-                                            <label for="i3"></label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className="content">
-                                            <Link to="/services/edit_post">
-                                                <span className="title">some title here</span>
-                                            </Link>
-                                            <div className="controls">
-                                                <Link  className="trash_btn anchor_lite" to="#">trash</Link>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>Lorem Ipsum Dolor Sit Amet, Consectetur Adipisicing Elit</td>
-                                    <td>2022-11-08 01:08:20</td>
-                                    <td>admin</td>
-                                </tr>
-                                <tr className="wrapper" id="tr_post_76">
-                                    <td>
-                                        <div className="md-checkbox">
-                                            <input id="i3" type="checkbox" />
-                                            <label for="i3"></label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className="content">
-                                            <Link to="/services/edit_post">
-                                                <span className="title">some title here</span>
-                                            </Link>
-                                            <div className="controls">
-                                                <Link  className="trash_btn anchor_lite" to="#">trash</Link>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>Lorem Ipsum Dolor Sit Amet, Consectetur Adipisicing Elit</td>
-                                    <td>2022-11-08 01:50:37</td>
-                                    <td>admin</td>
-                                </tr>
-                                <tr className="wrapper" id="tr_post_71">
-                                    <td>
-                                        <div className="md-checkbox">
-                                            <input id="i3" type="checkbox" />
-                                            <label for="i3"></label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className="content">
-                                            <Link to="/services/edit_post">
-                                                <span className="title">some title here</span>
-                                            </Link>
-                                            <div className="controls">
-                                                <Link  className="trash_btn anchor_lite" to="#">trash</Link>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>Lorem Ipsum Dolor Sit Amet, Consectetur Adipisicing Elit</td>
-                                    <td>2022-11-08 01:06:41</td>
-                                    <td>admin</td>
-                                </tr>
-                                <tr className="wrapper" id="tr_post_69">
-                                    <td>
-                                        <div className="md-checkbox">
-                                            <input id="i3" type="checkbox" />
-                                            <label for="i3"></label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className="content">
-                                            <Link to="/services/edit_post">
-                                                <span className="title">some title here</span>
-                                            </Link>
-                                            <div className="controls">
-                                                <Link  className="trash_btn anchor_lite" to="#">trash</Link>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>For A Long Time</td>
-                                    <td>2022-11-08 12:49:59</td>
-                                    <td>admin</td>
-                                </tr>
-                                <tr className="wrapper" id="tr_post_68">
-                                    <td>
-                                        <div className="md-checkbox">
-                                            <input id="i3" type="checkbox" />
-                                            <label for="i3"></label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className="content">
-                                            <Link to="/services/edit_post">
-                                                <span className="title">some title here</span>
-                                            </Link>
-                                            <div className="controls">
-                                                <Link  className="trash_btn anchor_lite" to="#">trash</Link>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>In Quality</td>
-                                    <td>2022-11-08 12:49:40</td>
-                                    <td>admin</td>
-                                </tr>
-                                <tr className="wrapper" id="tr_post_67">
-                                    <td>
-                                        <div className="md-checkbox">
-                                            <input id="i3" type="checkbox" />
-                                            <label for="i3"></label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className="content">
-                                            <Link to="/services/edit_post">
-                                                <span className="title">some title here</span>
-                                            </Link>
-                                            <div className="controls">
-                                                <Link  className="trash_btn anchor_lite" to="#">trash</Link>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>For Every Occasion</td>
-                                    <td>2022-11-08 12:49:22</td>
-                                    <td>admin</td>
-                                </tr>
-                                <tr className="wrapper" id="tr_post_66">
-                                    <td>
-                                        <div className="md-checkbox">
-                                            <input id="i3" type="checkbox" />
-                                            <label for="i3"></label>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className="content">
-                                            <Link to="/services/edit_post">
-                                                <span className="title">some title here</span>
-                                            </Link>
-                                            <div className="controls">
-                                                <Link  className="trash_btn anchor_lite" to="#">trash</Link>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>In Trends</td>
-                                    <td>2022-11-08 12:47:06</td>
-                                    <td>admin</td>
-                                </tr>
-                            </tbody>
+                                <div className="input_group">
+                                    <select
+                                        id="select-type"
+                                        value={selectedType}
+                                        onChange={(e) => setSelectedType(e.target.value)}
+                                        className="input"
+                                    >
 
+                                        <option value="">select type</option>
+                                        {type.map((cur) => (
+                                            <option key={cur._id} value={cur._id}>
+                                                {cur}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    <span className="highlight"></span>
+                                </div>
 
-                        </table>
+                                <div className="input_group pull-right" >
+                                    <input type="text" className="input" placeholder="search here.."
+                                        value={search}
+                                        onChange={(e) => setSearch(e.target.value)} />
+                                    <span className="highlight"></span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div className="pagination_wrapper">
-                        <ul className="pagination pull-right">
-                            <li checked>Prev</li>
-                            <li checked>1</li>
-                            <li>2</li>
-                            <li>3</li>
-                            <li>4</li>
-                            <li checked>Next</li>
-                        </ul>
-                    </div>
+                    <div className="row">
+                        <div className="gutter">
+                            <table className="table-responsive ultra_responsive">
+                                <thead>
+                                    <tr>
+                                        <th>Image</th>
+                                        <th>Title/Description</th>
+                                        <th>Price/Type</th>
+                                    </tr>
+                                </thead>
+
+
+
+
+
+
+                                {memoizedUser.filter((values) => {
+                                    if (search === "") {
+                                        return values;
+                                    } else if (values.title.toLowerCase().includes(search.toLocaleLowerCase())) {
+                                        return values
+                                    }
+                                }).map((cur, index) => {
+                                    return (
+                                        <tr key={index}>
+                                            <td>
+                                                <div className="card layer1">
+                                                    <div className="inner">
+                                                        <label htmlFor="" className="card_label"></label>
+                                                        <div className='preview' style={{ width: "100%", height: "20vh", backgroundSize: "cover" }}>
+                                                            <PreviewImage className="PreviewImage" attachments={cur.attachments} />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div className="content">
+                                                    <span className="title " id='headingtitle'>{cur.title}</span>
+                                                    <small> <p className="description" dangerouslySetInnerHTML={{ __html: cur.description.slice(0, 250) }} /></small>
+                                                </div>
+                                            </td>
+
+
+                                            <td>
+                                                <div className='typefield ' >
+                                                    <span style={{ display: "block" }}> {cur.category}</span>
+                                                    <div className="content mt-3" >
+                                                        <span className="title " id='headingtitle'><span id='pricevalue'>Price: </span>{cur.price}<span id='pricevalue'> USD</span></span>
+
+                                                    </div>
+                                                    <Link to={`/admin/services/edit_post/${cur._id}`} >
+                                                        <span className="Edit mt-3">Edit Page</span>
+                                                    </Link>
+                                                </div>
+                                            </td>
+
+                                        </tr>
+                                    )
+                                })}
+
+                            </table>
+
+                            <div className='pagination'  >
+                                <ReactPaginate
+                                    itemsPerPage={10}
+                                    previousLabel={'Previous'}
+                                    nextLabel={'Next'}
+                                    breakLabel={"..."}
+                                    pageCount={Math.ceil(count / 10)}
+                                    marginPagesDisplayed={3}
+                                    pageRangeDisplayed={2}
+                                    onPageChange={handlePageClick}
+                                    // css apply on pagination
+                                    containerClassName={'pagination justify-content-center py-3'}
+                                    pageClassName={'page-item'}
+                                    pageLinkClassName={'page-link'}
+                                    previousClassName={'page-item'}
+                                    previousLinkClassName={'page-link'}
+                                    nextClassName={'page-item'}
+                                    nextLinkClassName={'page-link'}
+                                    breakClassName={'page-item'}
+                                    breakLinkClassName={'page-link'}
+                                    activeClassName={'active'}
+                                />
+                            </div>
+                        </div>
                     </div>
                 </div>
+
             </div>
+
+
+
         </>
     )
 }
 
-export default GetPost
-// <button onClick={() => handleDelete(cur._id)}>Delete</button>
+export default Getpost
