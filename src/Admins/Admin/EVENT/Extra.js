@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { IP } from "../../../Constant";
 import CustomModal from "./Model";
-import { FallingLines } from "react-loader-spinner";
 import moment from "moment";
 
 function Event() {
@@ -14,79 +13,25 @@ function Event() {
 
     const [display, setDisplay] = useState(true);
     const [showModal, setShowModal] = useState(false);
-    const [selectedEventData, setSelectedEventData] = useState(null); // New state to store selected event data
-    const [pageNumber, setPageNumber] = useState(1);
-    const [loading, setLoading] = useState(null);
-
-
-
 
     const fetchData = useCallback(() => {
-        setLoading(true);
-        fetch(`${IP}/user/allbookings?page=${pageNumber}&limit=10`, {
+        fetch(`${IP}/user/allbookings`, {
             headers: {
                 'Authorization': token
             }
-        })
-            .then(resp => {
-                if (!resp.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return resp.json();
-            })
+        }).then(resp => resp.json())
             .then(result => {
-                setRequest(prevData => [...prevData, ...result]);
+                setRequest(result);
                 console.log("booking data data", result);
-                setLoading(false);
             })
             .catch(err => {
-                console.error('Error fetching data:', err);
-            }
-            ).finally(() => {
-                setLoading(false); // Set loading to false after fetching data
+                console.log(err);
             });
-    }, [pageNumber, token]);
+    }, [token]);
 
     useEffect(() => {
         fetchData();
     }, [fetchData]);
-
-
-
-
-    const handleInfiniteScroll = async () => {
-        try {
-
-            if (
-                window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight
-            ) {
-                setPageNumber((prev) => prev + 1);
-                setLoading(true)
-            }
-
-        } catch (error) {
-
-        }
-    }
-
-
-    useEffect(() => {
-        window.addEventListener("scroll", handleInfiniteScroll);
-        return () => window.removeEventListener("scroll", handleInfiniteScroll)
-    }, [])
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     const handleFilter = () => {
         // Filter data based on selected dates, status, and search text
@@ -103,26 +48,30 @@ function Event() {
 
     const filteredRequest = handleFilter();
 
-    // Model logic
+    //model logic
 
-    const openModal = (eventData) => { // Modified openModal to accept eventData
-        setSelectedEventData(eventData); // Set the selected event data
+    const openModal = () => {
         setShowModal(true);
     };
 
     const closeModal = () => {
-        setShowModal(false); // Close modal
+        setShowModal(true);
     };
+
 
     return (
         <>
-
             <div id="content">
                 <div className="container-fluid">
+
+
+
+
+
                     <div className="row">
                         <div className="">
                             <div className="headings">
-                                <h3 >Events</h3>
+                                <h3>Events</h3>
                                 <span className="toggle_sidebar" ></span>
                             </div>
                         </div>
@@ -144,7 +93,7 @@ function Event() {
                                         <option value="">status</option>
                                         <option value="pending">pending</option>
                                         <option value="completed">completed</option>
-                                        <option value="scheduled">scheduled</option>
+                                        <option value="schedule">schedule</option>
                                     </select>
                                     <span class="highlight"></span>
                                 </div>
@@ -156,11 +105,15 @@ function Event() {
                             </div>
                         </div>
                     </div>
+
+
+
+
                     <div className="row">
                         <div className="gutter">
                             <div className="bookings">
                                 {filteredRequest.map((event, index) => (
-                                    <div className="item_wrapper" key={index} onClick={() => openModal(event)}>
+                                    <div className="item_wrapper" key={index} onClick={openModal}>
                                         <div className="item card layer2">
                                             <div className="first_half">
                                                 <h3>{event.service_name} {event.service_time} - {event.massage_for}</h3>
@@ -181,54 +134,54 @@ function Event() {
                                                 }
                                             </div>
                                         </div>
+
+
+
+
+                                        <CustomModal
+                                            event={event.event}
+                                            show={showModal}
+                                            onHide={closeModal}
+                                            title={event.service_name}
+                                            address={event.address}
+                                            time={event.scheduled_timing}
+                                            date={event.scheduled_date}
+                                            _id={event._id}
+                                          
+                                            status={event.service_status}
+                                            getdirection={event.location}
+
+
+
+                                            total={event.total}
+
+                                            areasOfConcern={event.areas_of_concern}
+                                            customerEmail={event.customer_email}
+                                            gender={event.gender}
+                                            healthConditions={event.health_conditions}
+                                            locationType={event.location_type}
+                                            massageBodyPart={event.massage_body_part}
+                                            massageFor={event.massage_for}
+                                            serviceTime={event.service_time}
+                                            specialConsiderations={event.special_considerations}
+                                            paymentIntentId={event.paymentIntentId}
+                                            gendercheck={event.gendercheck}
+                                            add_ons={event.add_ons}
+                                            add_ons_details={event.add_ons_details}
+                                            massage_for={event.massage_for}
+                                            amount_calculation={event.amount_calculation}
+
+                                        />
+
                                     </div>
                                 ))}
-
                             </div>
-                            {loading && (
-                                <div style={{ textAlign: "center" }}>
-                                    <FallingLines
-                                        color="#03a9f4"
-                                        width="150"
-                                        visible={true}
-                                        ariaLabel="falling-circles-loading"
-                                    />
-                                </div>
-                            )}
                         </div>
                     </div>
                 </div>
+
+
             </div>
-            {selectedEventData && (
-                <CustomModal
-                    event={selectedEventData.event}
-                    show={showModal}
-                    onHide={closeModal}
-                    title={selectedEventData.service_name}
-                    address={selectedEventData.address}
-                    time={selectedEventData.scheduled_timing}
-                    date={selectedEventData.scheduled_date}
-                    _id={selectedEventData._id}
-                    status={selectedEventData.service_status}
-                    getdirection={selectedEventData.location}
-                    total={selectedEventData.total}
-                    areasOfConcern={selectedEventData.areas_of_concern}
-                    customerEmail={selectedEventData.customer_email}
-                    gender={selectedEventData.gender}
-                    healthConditions={selectedEventData.health_conditions}
-                    locationType={selectedEventData.location_type}
-                    massageBodyPart={selectedEventData.massage_body_part}
-                    massageFor={selectedEventData.massage_for}
-                    serviceTime={selectedEventData.service_time}
-                    specialConsiderations={selectedEventData.special_considerations}
-                    paymentIntentId={selectedEventData.paymentIntentId}
-                    gendercheck={selectedEventData.gendercheck}
-                    add_ons={selectedEventData.add_ons}
-                    add_ons_details={selectedEventData.add_ons_details}
-                    massage_for={selectedEventData.massage_for}
-                    amount_calculation={selectedEventData.amount_calculation}
-                />
-            )}
         </>
     );
 }

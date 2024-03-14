@@ -42,11 +42,11 @@ function Mobile() {
                         <div className="nav-icon" style={{ color: "#ffff" }}>
                             <CloseIcon onClick={toggle} />
                         </div>
-                        <div className="infobox_big avatar" id={IsOpen ? 'avtar' : null}>
-                            <img src={images} alt="..." style={{ height: "50px", marginTop: "10px" }} />
-                            <div className="items" style={{ marginTop: "5px" }}>
+                        <div className="infobox_big avatar" id='avtar'>
+                            <img src={images} alt="..." style={{ height: "50px" }} />
+                            <div className="items" style={{ marginTop: "5px", textAlign: "center" }}>
                                 <span className="title">admin</span>
-                                <span className="excerpt">7654171126</span>
+
 
                             </div>
                             <span className="toggle_sidebar close" ></span>
@@ -62,25 +62,27 @@ function Mobile() {
                             <div className="items">
                                 <Link to="/admin/events">
                                     <TodayIcon style={{ color: "#fff" }} />
-                                    <span className="title">Events</span>
+                                    <span className="title">Bookings</span>
                                 </Link>
                             </div>
-                            {<div className="items">
-                                <Link to="/admin/bookings">
-                                    <BeenhereIcon style={{ color: "#fff" }} />
-                                    <span className="title">bookings</span>
-                                </Link>
-                            </div>}
-                            {/* <div className="items">
-                                <Link to="/admin/messages">
-                                    <MessageIcon style={{ color: "#fff" }} />
-                                    <span className="title">messages</span>
-                                </Link>
-                </div> */}
+                            {/*  <div className="items">
+                          <Link to="/admin/bookings">
+                            <BeenhereIcon style={{ color: "#fff" }} />
+                            <span className="title">bookings</span>
+                          </Link>
+              </div> */}
+
+                            {/*  <div className="items">
+                          <Link to="/admin/messages">
+                            <MessageIcon style={{ color: "#fff" }} />
+                            <span className="title">messages</span>
+                          </Link>
+                        </div>
+                       */}
                             <div className="items">
                                 <Link to="/admin/payments">
                                     <PaidIcon style={{ color: "#fff" }} />
-                                    <span className="title">payments</span>
+                                    <span className="title">Statement</span>
                                 </Link>
                             </div>
                             <div className="items">
@@ -107,13 +109,13 @@ function Mobile() {
                                     <span className="title">posts</span>
                                 </Link>
                             </div>
-
                             <div className="items">
-                            <Link to="/admin/blogs">
-                              <MedicalServicesIcon style={{ color: "#fff" }} />
-                              <span className="title">Blogs</span>
-                            </Link>
-                          </div>
+                                <Link to="/admin/blogs">
+                                    <MedicalServicesIcon style={{ color: "#fff" }} />
+                                    <span className="title">Blogs</span>
+                                </Link>
+                            </div>
+
                             <div className="items">
                                 <Link to="/admin/contractors">
                                     <HailIcon style={{ color: "#fff" }} />

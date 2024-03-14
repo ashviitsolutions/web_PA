@@ -49,15 +49,15 @@ function Sidebar() {
             <div className="items">
               <Link to="/admin/events">
                 <TodayIcon style={{ color: "#fff" }} />
-                <span className="title">Events</span>
+                <span className="title">Bookings</span>
               </Link>
             </div>
-            <div className="items">
+            {/*  <div className="items">
               <Link to="/admin/bookings">
                 <BeenhereIcon style={{ color: "#fff" }} />
                 <span className="title">bookings</span>
               </Link>
-            </div>
+  </div> */}
 
             {/*  <div className="items">
               <Link to="/admin/messages">
@@ -69,7 +69,7 @@ function Sidebar() {
             <div className="items">
               <Link to="/admin/payments">
                 <PaidIcon style={{ color: "#fff" }} />
-                <span className="title">payments</span>
+                <span className="title">Statement</span>
               </Link>
             </div>
             <div className="items">
