@@ -12,6 +12,7 @@ import closeEye from "../../../../Components/assets/img/codicon_eye-closed.png"
 
 function Login() {
     const [toggle, setToggle] = useState(false)
+    const [loading, setLoading] = useState(false);
     const loginguser = localStorage.getItem("tokenadmin")
     const nav = useNavigate()
 
@@ -46,6 +47,7 @@ function Login() {
     });
     const onSubmit = async (values, { resetForm }) => {
         console.log(values)
+        setLoading(true)
         resetForm({ values: "" });
         let data = { "email": values.email, "password": values.password }
         try {
@@ -65,6 +67,7 @@ function Login() {
 
 
             if (resp.status === 200) {
+                setLoading(false)
                 localStorage.setItem("usersadmin", JSON.stringify(result));
                 localStorage.setItem("tokenadmin", token);
                 nav("/admin/dashboard")
@@ -73,6 +76,7 @@ function Login() {
             }
 
         } catch (error) {
+            setLoading(false)
             console.log("Error show", error)
 
         }
@@ -149,7 +153,7 @@ function Login() {
                                             <div className="input_group">
                                                 <button className="button lazy primary" type="submit"
 
-                                                >sign in</button>
+                                                >{loading ? "Loading..." : "sign in"}</button>
                                                 {
                                                     toggle ? (
                                                         <div id="notification_holder">
