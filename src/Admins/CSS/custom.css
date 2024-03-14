@@ -34,8 +34,8 @@
     position: relative;
     display: block;
     width: 100%;
-    height: 450px;
-    /* background-image: url('../img/curved11-small.jpg'); */
+    height: 350px;
+    /* background-image: url(../img/curved11-small.jpg); */
     background-position: top;
     background-repeat: no-repeat;
     background-size: cover;

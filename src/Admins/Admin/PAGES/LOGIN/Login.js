@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 import openEye from "../../../../Components/assets/img/iconoir_eye.png"
 import closeEye from "../../../../Components/assets/img/codicon_eye-closed.png"
+import logo from "../../../../Components/assets/img/logo_home_navbar.png"
 
 function Login() {
     const [toggle, setToggle] = useState(false)
@@ -88,8 +89,9 @@ function Login() {
                     <div className="row">
                         <div className="col-sm-4 col-sm-offset-4">
                             <div className="head" style={{ textAlign: "center" }}>
-                                <h3>welcome !</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.</p>
+                                <img src={logo} style={{maxWidth:"350px", width: "100%"}} />
+                                {/* <h3>welcome !</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.</p> */}
                             </div>
                         </div>
                     </div>
@@ -109,8 +111,8 @@ function Login() {
                                         <div className="card_wrapper">
                                             <div className="input_group">
                                                 <div className="headinghomes">
-                                                    <h3 style={{ fontWeight: "700" }}>Sign in</h3>
-                                                    <p>enter your credentials to enter</p>
+                                                    <h3 style={{ fontWeight: "700" }}>Admin Login</h3>
+                                                    <p>enter your credentials to login</p>
                                                 </div>
                                             </div>
                                             <div className="input_group">
@@ -172,7 +174,10 @@ function Login() {
                         </Formik>
 
                     </div>
+                    
                 </div>
+                
+                <p style={{textAlign:"center", width:"100%", margin: "20px 0"}} ><a className='small' href='/'>&larr; Back to Home</a></p>
             </div>
         </div>
     )
