@@ -5,6 +5,7 @@ import { IP } from '../../../Constant';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import avtar from "../../img/avtar.jpg"
 import ReactPaginate from 'react-paginate';
+import { FallingLines } from 'react-loader-spinner';
 
 const PreviewImage = ({ attachments }) => {
     const [imageObjectURL, setImageObjectURL] = useState(null);
@@ -46,45 +47,92 @@ const PreviewImage = ({ attachments }) => {
 function Contractors() {
     const [data, setData] = useState(1);
     const [count, setCount] = useState(0);
+    const [searchText, setSearchText] = useState("");
+    const [pageNumber, setPageNumber] = useState(1);
 
+    const [endDate, setEndDate] = useState("");
+    const [startDate, setStartDate] = useState("");
+    const [loading, setLoading] = useState(null);
     let token = localStorage.getItem("tokenadmin");
     const [user, setUser] = useState([]);
+    const [status, setStatus] = useState("");
+
+
 
 
     useEffect(() => {
-        fetch(`${IP}/contractor/list`, {
+        setLoading(true);
+        fetch(`${IP}/contractor/list?page=${pageNumber}&limit=5`, {
             headers: {
                 'Authorization': token
             }
         }).then(resp => {
             return resp.json()
         }).then(result => {
-            setUser(result);
-            setCount(result.length);
-            console.log("contractor", result)
+            if (result.msg) {
+                // Handle the case where no providers are found
+                console.log(result.msg);
+            } else {
+                // Update the user state with the fetched contractors
+                setUser(prevData => [...prevData, ...result]);
+                setCount(result.length);
+                setLoading(false);
+                console.log("contractor", result)
+            }
         }).catch(err => {
             console.log(err)
-        })
+        }).finally(() => {
+            setLoading(false); // Set loading to false after fetching data
+        });
+    }, [pageNumber]);
 
-    }, [data])
 
-    const handlePageClick = (data) => {
-        setData(data.selected + 1);
+
+
+
+
+
+    const handleInfiniteScroll = async () => {
+        try {
+
+            if (
+                window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight
+            ) {
+                setPageNumber((prev) => prev + 1);
+                setLoading(true)
+            }
+
+        } catch (error) {
+
+        }
+    }
+
+
+    useEffect(() => {
+        window.addEventListener("scroll", handleInfiniteScroll);
+        return () => window.removeEventListener("scroll", handleInfiniteScroll)
+    }, [])
+
+
+
+
+
+    const handleFilter = () => {
+        // Filter data based on selected dates, status, and search text
+        const filteredData = user.filter(contractor => {
+            const isStatusMatched = !status || contractor.application_status_text === status;
+            const isWithinDateRange = (!startDate || new Date(contractor.createdAt) >= new Date(startDate)) &&
+                (!endDate || new Date(contractor.createdAt) <= new Date(endDate));
+            const isSearched = !searchText || (contractor.first_name.toLowerCase().includes(searchText.toLowerCase()) || contractor.last_name.toLowerCase().includes(searchText.toLowerCase()) || contractor.email.toLowerCase().includes(searchText.toLowerCase()));
+            return isWithinDateRange && isStatusMatched && isSearched;
+        });
+        return filteredData;
     };
 
-    // const memoizedUser = useMemo(() => {
-    //     return user.slice((data - 1) * 10, data * 10);
-    // }, [user, data]);
 
-    const memoizedUser = useMemo(() => {
-        if (Array.isArray(user)) {
-            return user.slice((data - 1) * 10, data * 10);
-        } else {
-            // Handle the case when user is not an array
-            console.error("User is not an array");
-            return []; // or handle it in a way that makes sense for your use case
-        }
-    }, [user, data]);
+
+    const memoizedUser = handleFilter();
+    console.log("Memoized User:", memoizedUser);
 
     return (
         <>
@@ -110,21 +158,39 @@ function Contractors() {
                     <div className="row">
                         <div className="gutter">
                             <div className="card layer1 filters">
-                                <div className="input_group">
-                                    <select name="" id="" className="input">
-                                        <option value="">status</option>
-                                        <option value="">active</option>
-                                        <option value="">banned</option>
-                                        <option value="">trashed</option>
-                                    </select>
-                                    <span className="highlight"></span>
-                                </div>
-                                <div className="input_group">
-                                    <input type="date" className="input" placeholder="Created At" />
-                                    <span className="highlight"></span>
+
+                                <div class="row">
+                                    <div class="gutter">
+                                        <div class="card layer1 filters">
+                                            <div class="input_group">
+                                                <input type="date" class="input" placeholder="Start Date" onChange={e => setStartDate(e.target.value)} value={startDate} />
+                                                <span class="highlight"></span>
+                                            </div>
+                                            <span class="highlight"> From </span>
+                                            <div class="input_group">
+                                                <input type="date" class="input" placeholder="End Date" onChange={e => setEndDate(e.target.value)} value={endDate} />
+                                                <span class="highlight"></span>
+                                            </div>
+                                            <div class="input_group">
+                                                <select name="" id="" class="input" onChange={e => setStatus(e.target.value)} value={status}>
+                                                    <option value="">status</option>
+                                                    <option value="Newly registered">Newly registered</option>
+                                                    <option value="call interview done, verification pending">call interview done, verification pending</option>
+                                                    <option value="Application form submitted,call interview pending">Application form submitted,call interview pending</option>
+                                                    <option value="Congratulations! your process has been completed">Congratulations! your process has been completed</option>
+                                                </select>
+                                                <span class="highlight"></span>
+                                            </div>
+
+                                            <div class="input_group pull-right" style={{ maxWidth: "20%" }}>
+                                                <input type="text" class="input" placeholder="search here.." onChange={e => setSearchText(e.target.value)} value={searchText} />
+                                                <span class="highlight"></span>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className="input_group pull-right" style={{ maxWidth: "20%" }}>
-                                    <input type="text" className="input" placeholder="search here.." />
+                                    <input type="text" className="input" placeholder="search here.." onChange={e => setSearchText(e.target.value)} value={searchText} />
                                     <span className="highlight"></span>
                                 </div>
                             </div>
@@ -185,30 +251,18 @@ function Contractors() {
                                 ))}
 
                             </table>
+                            {loading && (
+                                <div style={{ textAlign: "center" }}>
+                                    <FallingLines
+                                        color="#03a9f4"
+                                        width="150"
+                                        visible={true}
+                                        ariaLabel="falling-circles-loading"
+                                    />
+                                </div>
+                            )}
                         </div>
-                        <div className='pagination'  >
-                            <ReactPaginate
-                                itemsPerPage={10}
-                                previousLabel={'Previous'}
-                                nextLabel={'Next'}
-                                breakLabel={"..."}
-                                pageCount={Math.ceil(count / 10)}
-                                marginPagesDisplayed={3}
-                                pageRangeDisplayed={2}
-                                onPageChange={handlePageClick}
-                                // css apply on pagination
-                                containerClassName={'pagination justify-content-center py-3'}
-                                pageClassName={'page-item'}
-                                pageLinkClassName={'page-link'}
-                                previousClassName={'page-item'}
-                                previousLinkClassName={'page-link'}
-                                nextClassName={'page-item'}
-                                nextLinkClassName={'page-link'}
-                                breakClassName={'page-item'}
-                                breakLinkClassName={'page-link'}
-                                activeClassName={'active'}
-                            />
-                        </div>
+
                     </div>
                 </div>
             </div>

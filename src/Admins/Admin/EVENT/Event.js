@@ -23,7 +23,7 @@ function Event() {
 
     const fetchData = useCallback(() => {
         setLoading(true);
-        fetch(`${IP}/user/allbookings?page=${pageNumber}&limit=10`, {
+        fetch(`${IP}/user/allbookings?page=${pageNumber}&limit=5`, {
             headers: {
                 'Authorization': token
             }
