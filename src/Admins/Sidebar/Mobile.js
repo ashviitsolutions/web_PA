@@ -12,6 +12,12 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import HailIcon from '@mui/icons-material/Hail';
 import images from "../img/logo.png"
 // import { useNavigate } from 'react-router-dom';
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
+import DiscountIcon from '@mui/icons-material/Discount';
+import BabyChangingStationIcon from '@mui/icons-material/BabyChangingStation';
+import PostAddIcon from '@mui/icons-material/PostAdd';
+import PagesIcon from '@mui/icons-material/Pages';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
@@ -54,7 +60,7 @@ function Mobile() {
                         <div className="nav" style={{ marginTop: "10px" }}>
 
                             <div className="items">
-                                <Link to="/admin/dashboard">
+                                <Link to="/admin">
                                     <DashboardIcon style={{ color: "#fff" }} />
                                     <span className="title">dashboard</span>
                                 </Link>
@@ -66,52 +72,52 @@ function Mobile() {
                                 </Link>
                             </div>
                             {/*  <div className="items">
-                          <Link to="/admin/bookings">
-                            <BeenhereIcon style={{ color: "#fff" }} />
-                            <span className="title">bookings</span>
-                          </Link>
-              </div> */}
+              <Link to="/admin/bookings">
+                <BeenhereIcon style={{ color: "#fff" }} />
+                <span className="title">bookings</span>
+              </Link>
+  </div> */}
 
                             {/*  <div className="items">
-                          <Link to="/admin/messages">
-                            <MessageIcon style={{ color: "#fff" }} />
-                            <span className="title">messages</span>
-                          </Link>
-                        </div>
-                       */}
+              <Link to="/admin/messages">
+                <MessageIcon style={{ color: "#fff" }} />
+                <span className="title">messages</span>
+              </Link>
+            </div>
+           */}
                             <div className="items">
                                 <Link to="/admin/payments">
-                                    <PaidIcon style={{ color: "#fff" }} />
+                                    <AccountBalanceIcon style={{ color: "#fff" }} />
                                     <span className="title">Statement</span>
                                 </Link>
                             </div>
                             <div className="items">
                                 <Link to="/admin/gift">
-                                    <PaidIcon style={{ color: "#fff" }} />
+                                    <CardGiftcardIcon style={{ color: "#fff" }} />
                                     <span className="title">Gift Card</span>
                                 </Link>
                             </div>
                             <div className="items">
                                 <Link to="/admin/coupon ">
-                                    <PaidIcon style={{ color: "#fff" }} />
+                                    <DiscountIcon style={{ color: "#fff" }} />
                                     <span className="title">Coupon</span>
                                 </Link>
                             </div>
                             <div className="items">
                                 <Link to="/admin/services">
-                                    <MedicalServicesIcon style={{ color: "#fff" }} />
+                                    <BabyChangingStationIcon style={{ color: "#fff" }} />
                                     <span className="title">services</span>
                                 </Link>
                             </div>
                             <div className="items">
                                 <Link to="/admin/post">
-                                    <MedicalServicesIcon style={{ color: "#fff" }} />
+                                    <PostAddIcon style={{ color: "#fff" }} />
                                     <span className="title">posts</span>
                                 </Link>
                             </div>
                             <div className="items">
                                 <Link to="/admin/blogs">
-                                    <MedicalServicesIcon style={{ color: "#fff" }} />
+                                    <PagesIcon style={{ color: "#fff" }} />
                                     <span className="title">Blogs</span>
                                 </Link>
                             </div>

@@ -6,6 +6,8 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 import { IP } from '../../../Constant';
+import { FallingLines } from "react-loader-spinner";
+import moment from "moment";
 
 const PreviewImage = ({ attachments }) => {
     const [imageObjectURL, setImageObjectURL] = useState(null);
@@ -36,40 +38,89 @@ function Blogs() {
     const [search, setSearch] = useState("")
     // const [Delete, setDelete] = useState([])
 
+    const [startDate, setStartDate] = useState("");
+    const [endDate, setEndDate] = useState("");
+    const [status, setStatus] = useState("");
+    const [searchText, setSearchText] = useState("");
 
+ // New state to store selected event data
+    const [pageNumber, setPageNumber] = useState(1);
+    const [loading, setLoading] = useState(null);
 
     const [type, setType] = useState([]);
-    const [selectedType, setSelectedType] = useState("");
+
 
     const [user, setUser] = useState([]);
-    const [data, setData] = useState(1);
-    const [count, setCount] = useState(0);
+
+  
 
     // alert(selectedType)
 
     useEffect(() => {
+        setLoading(true)
         const fetchData = async () => {
             try {
-                const res = await fetch(`${IP}/blog/blogs`);
+                const res = await fetch(`${IP}/blog/blogs?page=${pageNumber}&limit=5`);
                 const data = await res.json();
-                setUser(data);
+                console.log("data get", data)
+                const userdata = data.posts;
+                setUser(prevData => [...prevData, ...userdata]);
                 console.log("get post data", data)
-                setCount(data.length);
+               
+                setLoading(false)
             } catch (error) {
             }
         };
 
         fetchData();
-    }, [data, search, selectedType]);
+    }, [pageNumber]);
 
 
-    const handlePageClick = (data) => {
-        setData(data.selected + 1);
+
+
+    const handleInfiniteScroll = async () => {
+        try {
+
+            if (
+                window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight
+            ) {
+                setPageNumber((prev) => prev + 1);
+                setLoading(true)
+            }
+
+        } catch (error) {
+
+        }
+    }
+
+
+    useEffect(() => {
+        window.addEventListener("scroll", handleInfiniteScroll);
+        return () => window.removeEventListener("scroll", handleInfiniteScroll)
+    }, [])
+
+
+
+
+
+    const handleFilter = () => {
+        // Filter data based on selected dates, status, and search text
+        const filteredData = user.filter(event => {
+            const eventDate = moment(event.updatedAt);
+            const isWithinDateRange = (!startDate || eventDate.isSameOrAfter(startDate)) &&
+                (!endDate || eventDate.isSameOrBefore(endDate));
+            const isStatusMatched = !status || event.service_status === status;
+            const isSearched = !searchText || (event.title && event.title.toLowerCase().includes(searchText.toLowerCase()));
+            // const isSearched = !searchText || event.name.toLowerCase().includes(searchText.toLowerCase());
+            return isWithinDateRange && isStatusMatched && isSearched;
+        });
+        return filteredData;
     };
 
-    const memoizedUser = useMemo(() => {
-        return user.slice((data - 1) * 10, data * 10);
-    }, [user, data]);
+    const memoizedUser = handleFilter();
+
+
+
 
 
 
@@ -82,6 +133,20 @@ function Blogs() {
             .catch((error) => {
             });
     }, []);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     const handleDelete = (id) => {
         let token = localStorage.getItem("tokenadmin");
@@ -134,17 +199,24 @@ function Blogs() {
                             </div>
                         </div>
                     </div>
-                    <div className="row">
-                        <div className="gutter">
-                            <div className="card layer1 filters">
+                    <div class="row">
+                        <div class="gutter">
+                            <div class="card layer1 filters">
+                                <span class="highlight"> from </span>
+                                <div class="input_group">
+                                    <input type="date" class="input" placeholder="Start Date" onChange={e => setStartDate(e.target.value)} value={startDate} />
+                                    <span class="highlight"></span>
+                                </div>
+                                <span class="highlight"> to </span>
+                                <div class="input_group">
+                                    <input type="date" class="input" placeholder="End Date" onChange={e => setEndDate(e.target.value)} value={endDate} />
+                                    <span class="highlight"></span>
+                                </div>
 
 
-
-                                <div className="input_group pull-right" >
-                                    <input type="text" className="input" placeholder="search here.."
-                                        value={search}
-                                        onChange={(e) => setSearch(e.target.value)} />
-                                    <span className="highlight"></span>
+                                <div class="input_group pull-right" style={{ maxWidth: "20%" }}>
+                                    <input type="text" class="input" placeholder="search here.." onChange={e => setSearchText(e.target.value)} value={searchText} />
+                                    <span class="highlight"></span>
                                 </div>
                             </div>
                         </div>
@@ -204,29 +276,16 @@ function Blogs() {
 
                             </table>
 
-                            <div className='pagination'  >
-                                <ReactPaginate
-                                    itemsPerPage={10}
-                                    previousLabel={'Previous'}
-                                    nextLabel={'Next'}
-                                    breakLabel={"..."}
-                                    pageCount={Math.ceil(count / 10)}
-                                    marginPagesDisplayed={3}
-                                    pageRangeDisplayed={2}
-                                    onPageChange={handlePageClick}
-                                    // css apply on pagination
-                                    containerClassName={'pagination justify-content-center py-3'}
-                                    pageClassName={'page-item'}
-                                    pageLinkClassName={'page-link'}
-                                    previousClassName={'page-item'}
-                                    previousLinkClassName={'page-link'}
-                                    nextClassName={'page-item'}
-                                    nextLinkClassName={'page-link'}
-                                    breakClassName={'page-item'}
-                                    breakLinkClassName={'page-link'}
-                                    activeClassName={'active'}
-                                />
-                            </div>
+                            {loading && (
+                                <div style={{ textAlign: "center" }}>
+                                    <FallingLines
+                                        color="#03a9f4"
+                                        width="150"
+                                        visible={true}
+                                        ariaLabel="falling-circles-loading"
+                                    />
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

@@ -305,56 +305,56 @@ function App() {
             <Navbar />
             <Sidebaruser />
             <UserRoutes Component={Overview} />
-            <Profilefooter/>
+            <Profilefooter />
 
           </>} />
           <Route path="/userProfile/notification" element={<>
             <Navbar />
             <Sidebaruser />
             <UserRoutes Component={Notifications} />
-            <Profilefooter/>
+            <Profilefooter />
 
           </>} />
           <Route path="/userProfile/profile" element={<>
             <Navbar />
             <Sidebaruser />
             <UserRoutes Component={Setting} />
-            <Profilefooter/>
+            <Profilefooter />
 
           </>} />
           <Route path="/userProfile/bookinghistory" element={<>
             <Navbar />
             <Sidebaruser />
             <UserRoutes Component={userBooking} />
-            <Profilefooter/>
+            <Profilefooter />
 
           </>} />
           <Route path="/userProfile/membership" element={<>
             <Navbar />
             <Sidebaruser />
             <UserRoutes Component={userMembership} />
-            <Profilefooter/>
+            <Profilefooter />
 
           </>} />
           <Route path="/userProfile/favorites" element={<>
             <Navbar />
             <Sidebaruser />
             <UserRoutes Component={Favorites} />
-            <Profilefooter/>
+            <Profilefooter />
 
           </>} />
           <Route path="/userProfile/support" element={<>
             <Navbar />
             <Sidebaruser />
             <UserRoutes Component={Support} />
-            <Profilefooter/>
+            <Profilefooter />
 
           </>} />
           <Route path="/userProfile/usergift" element={<>
             <Navbar />
             <Sidebaruser />
             <UserRoutes Component={userGift} />
-            <Profilefooter/>
+            <Profilefooter />
 
           </>} />
 
@@ -585,7 +585,7 @@ function App() {
             <Sidebar />
             <Protect Component={Message} />
           </>} />
-          <Route path="/admin/dashboard" element={<>
+          <Route path="/admin" element={<>
             <Sidebar />
             <Protect Component={Dashboard} />
           </>} />

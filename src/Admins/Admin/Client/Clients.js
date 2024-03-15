@@ -3,42 +3,103 @@ import { Link } from 'react-router-dom';
 import './style.css';
 import { IP } from '../../../Constant';
 import ReactPaginate from 'react-paginate';
+import { FallingLines } from "react-loader-spinner";
+import moment from "moment";
 
 function Clients() {
-    const [data, setData] = useState(0);
-    const [count, setCount] = useState(0);
     const [user, setUser] = useState([]);
-
+    const [pageNumber, setPageNumber] = useState(1);
+    const [loading, setLoading] = useState(null);
+    const [startDate, setStartDate] = useState("");
+    const [endDate, setEndDate] = useState("");
+    const [status, setStatus] = useState("");
+    const [searchText, setSearchText] = useState("");
     const token = localStorage.getItem('tokenadmin');
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const res = await fetch(`${IP}/admin/allusers`, {
-                    method: 'GET',
-                    headers: {
-                        Authorization: token,
-                    },
-                });
-                const data = await res.json();
-                setUser(data);
-                setCount(data.length);
-            } catch (error) {
-                console.log(error);
+        setLoading(true);
+        fetch(`${IP}/admin/allusers?page=${pageNumber}&limit=10`, {
+            headers: {
+                'Authorization': token
             }
-        };
+        }).then(resp => resp.json())
+            .then(result => {
+                if (result && result.users && result.users.length > 0) {
+                    // setUser(result.users);
+                    const userdata = result.users;
+                    setUser(prevData => [...prevData, ...userdata]);
+                    setLoading(false);
+                    console.log("Users fetched:", result.users);
+                } else if (result && result.msg) {
+                    console.log(result.msg);
+                } else {
+                    console.log("Invalid response format:", result);
+                }
+            }).catch(err => {
+                console.log(err);
+            }).finally(() => {
+                setLoading(false);
+            });
+    }, [pageNumber]);
 
-        fetchData();
-    }, []);
 
-    const handlePageClick = (selected) => {
-        setData(selected.selected);
+
+
+    const handleInfiniteScroll = async () => {
+        try {
+
+            if (
+                window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight
+            ) {
+                setPageNumber((prev) => prev + 1);
+                setLoading(true)
+            }
+
+        } catch (error) {
+
+        }
+    }
+
+
+    useEffect(() => {
+        window.addEventListener("scroll", handleInfiniteScroll);
+        return () => window.removeEventListener("scroll", handleInfiniteScroll)
+    }, [])
+
+
+
+
+
+
+
+
+
+    const handleFilter = () => {
+        // Filter data based on selected dates, status, and search text
+        const filteredData = user.filter(event => {
+            const eventDate = moment(event.updatedAt);
+            const isWithinDateRange = (!startDate || eventDate.isSameOrAfter(startDate)) &&
+                (!endDate || eventDate.isSameOrBefore(endDate));
+            const isStatusMatched = !status || event.service_status === status;
+            const isSearched = !searchText || (event.name && event.name.toLowerCase().includes(searchText.toLowerCase()));
+            // const isSearched = !searchText || event.name.toLowerCase().includes(searchText.toLowerCase());
+            return isWithinDateRange && isStatusMatched && isSearched;
+        });
+        return filteredData;
     };
 
-    const itemsPerPage = 10;
-    const startIndex = data * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    console.log('user', user);
+    const memoizedUser = handleFilter();
+
+
+
+    // const memoizedUser = handleFilter();
+    console.log("Memoized User:", memoizedUser);
+
+
+
+
+
+
     return (
         <>
             <div id="content">
@@ -61,25 +122,22 @@ function Clients() {
                             </div>
                         </div>
                     </div>
-                    <div className="row">
-                        <div className="gutter">
-                            <div className="card layer1 filters">
-                                <div className="input_group">
-                                    <select name="" id="" className="input">
-                                        <option value="">status</option>
-                                        <option value="">active</option>
-                                        <option value="">banned</option>
-                                        <option value="">trashed</option>
-                                    </select>
-                                    <span className="highlight"></span>
+                    <div class="row">
+                        <div class="gutter">
+                            <div class="card layer1 filters">
+                                <div class="input_group">
+                                    <input type="date" class="input" placeholder="Start Date" onChange={e => setStartDate(e.target.value)} value={startDate} />
+                                    <span class="highlight"></span>
                                 </div>
-                                <div className="input_group">
-                                    <input type="date" className="input" placeholder="Created At" />
-                                    <span className="highlight"></span>
+                                <span class="highlight"> From </span>
+                                <div class="input_group">
+                                    <input type="date" class="input" placeholder="End Date" onChange={e => setEndDate(e.target.value)} value={endDate} />
+                                    <span class="highlight"></span>
                                 </div>
-                                <div className="input_group pull-right" style={{ maxWidth: '20%' }}>
-                                    <input type="text" className="input" placeholder="search here.." />
-                                    <span className="highlight"></span>
+
+                                <div class="input_group pull-right" style={{ maxWidth: "20%" }}>
+                                    <input type="text" class="input" placeholder="search here.." onChange={e => setSearchText(e.target.value)} value={searchText} />
+                                    <span class="highlight"></span>
                                 </div>
                             </div>
                         </div>
@@ -97,7 +155,7 @@ function Clients() {
                                     </tr>
                                 </thead>
                                 <tbody id="post_container">
-                                    {user.slice(startIndex, endIndex).map((client, index) => (
+                                    {memoizedUser.map((client, index) => (
                                         <tr className="wrapper" key={index} id={`tr_post_${client.id}`}>
                                             <td>
                                                 <div className="content">
@@ -118,29 +176,21 @@ function Clients() {
                                         </tr>
                                     ))}
                                 </tbody>
+
                             </table>
+
+                            {loading && (
+                                <div style={{ textAlign: "center" }}>
+                                    <FallingLines
+                                        color="#03a9f4"
+                                        width="150"
+                                        visible={true}
+                                        ariaLabel="falling-circles-loading"
+                                    />
+                                </div>
+                            )}
                         </div>
-                        <div className="pagination">
-                            <ReactPaginate
-                                pageCount={Math.ceil(count / itemsPerPage)}
-                                pageRangeDisplayed={2}
-                                marginPagesDisplayed={3}
-                                previousLabel={'Previous'}
-                                nextLabel={'Next'}
-                                breakLabel={'...'}
-                                onPageChange={handlePageClick}
-                                containerClassName={'pagination justify-content-center py-3'}
-                                pageClassName={'page-item'}
-                                pageLinkClassName={'page-link'}
-                                previousClassName={'page-item'}
-                                previousLinkClassName={'page-link'}
-                                nextClassName={'page-item'}
-                                nextLinkClassName={'page-link'}
-                                breakClassName={'page-item'}
-                                breakLinkClassName={'page-link'}
-                                activeClassName={'active'}
-                            />
-                        </div>
+
                     </div>
                 </div>
             </div>

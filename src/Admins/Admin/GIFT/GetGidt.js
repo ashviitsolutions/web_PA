@@ -2,7 +2,7 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import { IP } from '../../../Constant';
-
+import { FallingLines } from "react-loader-spinner";
 const PreviewImage = ({ attachments }) => {
     const [imageObjectURL, setImageObjectURL] = useState(null);
 
@@ -30,42 +30,65 @@ function GetGift() {
     const [selectedType, setSelectedType] = useState("");
     const [user, setUser] = useState([]);
     const [data, setData] = useState(1);
-    const [count, setCount] = useState(0);
+
+    const [pageNumber, setPageNumber] = useState(1);
+    const [loading, setLoading] = useState(null);
+
+
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const res = await fetch(`${IP}/coupon/fetch`);
-                const data = await res.json();
-                setUser(data);
-                console.log("get gift card data", data)
-                setCount(data.length);
-            } catch (error) {
-                console.log(error);
+        setLoading(true);
+        fetch(`${IP}/coupon/fetch?page=${pageNumber}&limit=20`).then(resp => resp.json())
+            .then(result => {
+                if (result && result.coupons && result.coupons.length > 0) {
+                    // setUser(result.users);
+                    const userdata = result.coupons;
+                    setUser(prevData => [...prevData, ...userdata]);
+                    setLoading(false);
+                    console.log("Users fetched:", result.users);
+                } else if (result && result.msg) {
+                    console.log(result.msg);
+                } else {
+                    console.log("Invalid response format:", result);
+                }
+            }).catch(err => {
+                console.log(err);
+            }).finally(() => {
+                setLoading(false);
+            });
+    }, [pageNumber]);
+
+
+
+
+
+
+
+
+
+
+
+    const handleInfiniteScroll = async () => {
+        try {
+
+            if (
+                window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight
+            ) {
+                setPageNumber((prev) => prev + 1);
+                setLoading(true)
             }
-        };
 
-        fetchData();
-    }, [data, search, selectedType]);
 
-    const handlePageClick = (data) => {
-        setData(data.selected + 1);
-    };
+        } catch (error) {
+            setLoading(false)
+        }
+    }
 
-    const itemsPerPage = 10;
-    const startIndex = (data - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    const displayedUser = user
-        .filter((values) => {
-            if (search === "") {
-                return true;
-            } else if (values.title.toLowerCase().includes(search.toLowerCase())) {
-                return true;
-            }
-            return false;
-        })
-        .slice(startIndex, endIndex);
 
+    useEffect(() => {
+        window.addEventListener("scroll", handleInfiniteScroll);
+        return () => window.removeEventListener("scroll", handleInfiniteScroll)
+    }, [])
 
 
 
@@ -74,8 +97,8 @@ function GetGift() {
         const filteredData = user.filter(item => item.type === 'gift_card');
 
         // Data ka desired portion slice karo
-        return filteredData.slice((data - 1) * 10, data * 10);
-    }, [user, data]);
+        return filteredData;
+    }, [user]);
 
     return (
         <>
@@ -102,22 +125,7 @@ function GetGift() {
                     <div className="row">
                         <div className="gutter">
                             <div className="card layer1 filters">
-                                <div className="input_group">
-                                    <select
-                                        id="select-type"
-                                        value={selectedType}
-                                        onChange={(e) => setSelectedType(e.target.value)}
-                                        className="input"
-                                    >
-                                        <option value="">select type</option>
-                                        {type.map((cur) => (
-                                            <option key={cur._id} value={cur._id}>
-                                                {cur}
-                                            </option>
-                                        ))}
-                                    </select>
-                                    <span className="highlight"></span>
-                                </div>
+
                                 <div className="input_group pull-right">
                                     <input
                                         type="text"
@@ -142,13 +150,7 @@ function GetGift() {
                                     </tr>
                                 </thead>
 
-                                {memoizedUser.filter((values) => {
-                                    if (search === "") {
-                                        return values;
-                                    } else if (values.title.toLowerCase().includes(search.toLocaleLowerCase())) {
-                                        return values
-                                    }
-                                }).map((cur, index) => {
+                                {memoizedUser.map((cur, index) => {
                                     return (
                                         <tr key={index}>
                                             <td>
@@ -201,27 +203,16 @@ function GetGift() {
                                     );
                                 })}
                             </table>
-                            <div className="pagination">
-                                <ReactPaginate
-                                    pageCount={Math.ceil(count / itemsPerPage)}
-                                    pageRangeDisplayed={2}
-                                    marginPagesDisplayed={3}
-                                    previousLabel={"Previous"}
-                                    nextLabel={"Next"}
-                                    breakLabel={"..."}
-                                    onPageChange={handlePageClick}
-                                    containerClassName={"pagination justify-content-center py-3"}
-                                    pageClassName={"page-item"}
-                                    pageLinkClassName={"page-link"}
-                                    previousClassName={"page-item"}
-                                    previousLinkClassName={"page-link"}
-                                    nextClassName={"page-item"}
-                                    nextLinkClassName={"page-link"}
-                                    breakClassName={"page-item"}
-                                    breakLinkClassName={"page-link"}
-                                    activeClassName={"active"}
-                                />
-                            </div>
+                            {loading && (
+                                <div style={{ textAlign: "center" }}>
+                                    <FallingLines
+                                        color="#03a9f4"
+                                        width="150"
+                                        visible={true}
+                                        ariaLabel="falling-circles-loading"
+                                    />
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
