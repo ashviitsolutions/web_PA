@@ -97,12 +97,14 @@ const Conform = () => {
     const [bookingid, setBookingId] = useState(null)
 
     const [amountAddon, setAmountAddon] = useState(0);
-    const [amountMembershipDiscount, setAmountMembershipDiscount] = useState(0);
-    const [amountTax, setAmountTax] = useState(0);
-    const [amountTip, setAmountTip] = useState(0);
-    const [amount_addon, setAddsAmount] = useState(0)
-    const [bokingValue, setBookingData] = useState()
 
+
+    const [amount_addon, setAddsAmount] = useState(0)
+
+    const [price_provider, setTotalPrice] = useState()
+    const [provider_addon, setProvuideraddon] = useState()
+    const [serviceprice, setProvider_service] = useState()
+    const [meberhsip_provider_price, setMembership] = useState()
 
 
     const [totalAmount, setTotalAmount] = useState(0);
@@ -164,48 +166,13 @@ const Conform = () => {
 
 
 
-    // useEffect(() => {
-    //     // Define default values for tip and tax rate
-    //     // const tip = 31.5;
-    //     const taxRate = 0.06625;
-    //     // Initialize membership discount rate
-    //     let membershipDiscountRate = 0;
-
-    //     // Check if membership is Silver or Gold
-    //     if (membership === "Silver") {
-    //         // If Silver membership is selected, apply a 5% discount
-    //         membershipDiscountRate = 0.05;
-    //     } else if (membership === "Gold") {
-    //         // If Gold membership is selected, apply a 10% discount
-    //         membershipDiscountRate = 0.10;
-    //     }
-
-    //     // Calculate tax amount
-    //     const calculatedTax = (totalPrice * 100 * taxRate) / 100;
-    //     // const tip = 135 * 0.18;
-    //     const tip = totalPrice * 0.18;
-    //     // Calculate total amount without membership discount
-    //     const totalAmountWithoutDiscount = totalPrice * 1 + tip + calculatedTax;
-    //     // Calculate total amount after applying membership discount
-    //     const totalAmount = totalAmountWithoutDiscount * (1 - membershipDiscountRate);
-
-    //     // Update state variables
-    //     setServiceDetails({
-    //         price: totalAmount,
-    //         service_name: servicename
-    //     });
-    //     setTax(calculatedTax);
-    //     setTip(tip);
-    //     setTotalAmount(totalAmount);
-    //     setOriginalprice(totalAmountWithoutDiscount)
-    // }, [totalPrice, membership, formData.fifthform]);
-
 
 
     useEffect(() => {
         // Define default values for tip and tax rate
         // const tip = 31.5;
         const taxRate = 0.06625;
+
         // Initialize membership discount rate
         let membershipDiscountRate = 0;
 
@@ -239,6 +206,54 @@ const Conform = () => {
 
 
 
+    console.log("amount provider check", price_provider, provider_addon)
+
+
+    useEffect(() => {
+        let tax = tip;
+        let addonsprice = amount_addon;
+        const time_status = service_time;
+        const memberhsip = originalprice;
+        let basePrice = 70; // Initial base price
+        let membershipDiscountRate = 0;
+        // console.log("amount_addon amount_addonamount_addon", amount_addon)
+
+        // Adjust base price based on service time
+        if (time_status === "90 minutes") {
+            basePrice += 35;
+        } else if (time_status === "120 minutes") {
+            basePrice += 70;
+        }
+
+        // Double the base price if gender is 'partner'
+        if (massage_for === "partner") {
+            basePrice *= 2;
+        }
+
+        if (membership === "Silver") {
+            // If Silver membership is selected, apply a 5% discount
+            membershipDiscountRate = 0.05;
+        } else if (membership === "Gold") {
+            // If Gold membership is selected, apply a 10% discount
+            membershipDiscountRate = 0.10;
+        }
+        // Add 14% of total add-ons price to totalPrice
+        let totalPriceAddons = addonsprice;
+
+        const calculateaadon = totalPriceAddons * 0.14;
+
+        //total value after adding adsonprice
+        let totalPriceWithAddons = basePrice + calculateaadon;
+
+        // Add tax amount to totalPrice
+        totalPriceWithAddons += tax;
+        setProvuideraddon(calculateaadon)
+        setMembership(memberhsip)
+        setProvider_service(basePrice)
+        setTotalPrice(totalPriceWithAddons);
+    }, [service_time, massage_for, amount_addon]);
+
+
 
 
 
@@ -263,6 +278,19 @@ const Conform = () => {
             amount_membership_discount: originalprice,
             total_amount: totalPrice,
         },
+
+
+        provider_amount_calculation: {
+            service_price: serviceprice,
+
+            amount_addon: provider_addon,
+            gift_cart_amount: giftCardAmount,
+
+            amount_tip: tip,
+            amount_membership_discount: originalprice,
+            total_amount: price_provider,
+        },
+
 
 
 
@@ -308,7 +336,7 @@ const Conform = () => {
         const sendBookingData = async () => {
             try {
                 // Check if bookingData exists
-                if (!bookingData?.amount_calculation?.amount_tip) {
+                if (!bookingData?.amount_calculation?.amount_tip || !loading) {
                     throw new Error('Booking data is missing.');
                 }
 
@@ -343,38 +371,7 @@ const Conform = () => {
 
         // Call the function to send booking data
         sendBookingData();
-    }, [bookingData?.amount_calculation?.amount_tip]); // Trigger when bookingData changes
-
-
-
-
-
-
-
-    // const handleCheckout = async () => {
-    //     setLoading(true)
-
-    //     if (!booking_id || !bookingid) {
-    //         setLoading(false)
-    //         return false
-    //     }
-
-    //     try {
-    //         const response = await axios.post(`${IP}/createCheckoutSession`, {
-    //             service_details: serviceDetails,
-    //             booking_id: bookingid || booking_id
-    //         });
-    //         window.location.href = response.data.url;
-
-
-    //     } catch (error) {
-    //         console.error('Error creating checkout session:', error);
-    //         setLoading(false)
-    //     }
-    // };
-
-
-
+    }, [bookingData?.amount_calculation?.amount_tip, provider_addon, giftCardAmount, loading]); // Trigger when bookingData changes
 
 
 

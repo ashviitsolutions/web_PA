@@ -64,37 +64,6 @@ const ScheduledRequestCard = (props) => {
 
 
 
-  useEffect(() => {
-    let tax = amount_calculation?.amount_tip;
-    let addonsprice = amount_calculation?.amount_addon;
-    const time_status = props.serviceTime;
-    let basePrice = 70; // Initial base price
-
-    // Adjust base price based on service time
-    if (time_status === "90 minutes") {
-      basePrice += 35;
-    } else if (time_status === "120 minutes") {
-      basePrice += 70;
-    }
-
-    // Double the base price if gender is 'partner'
-    if (gendercheck === "partner") {
-      basePrice *= 2;
-    }
-
-    // Add 14% of total add-ons price to totalPrice
-    let totalPriceAddons = addonsprice;
-
-    const calculateaadon = totalPriceAddons * 0.14;
-
-    //total value after adding adsonprice
-    let totalPriceWithAddons = basePrice + calculateaadon;
-
-    // Add tax amount to totalPrice
-    totalPriceWithAddons += tax;
-
-    setTotalPrice(totalPriceWithAddons);
-  }, [serviceTime, gendercheck, add_ons_details, amount_calculation?.amount_tip]);
 
 
 
@@ -140,7 +109,7 @@ const ScheduledRequestCard = (props) => {
                   {/* <div>${props.amt}</div>
               <div>+${tip} pre-tip</div>
               <div className="text-warning">Total = ${total}</div> */}
-                  <div className="earn"><span><FontAwesomeIcon icon={faCoins} /></span> {totalPrice.toFixed(2)}$</div>
+                  <div className="earn"><span><FontAwesomeIcon icon={faCoins} /></span> {amount_calculation?.total_amount?.toFixed(2)}$</div>
                 </div>
               </Row>
             </Card.Body>

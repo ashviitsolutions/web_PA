@@ -448,11 +448,11 @@ function App() {
 
 
 
+
           <Route path="/admin" element={<>
-
-            <Protect Component={Sidebar} />
+            <Sidebar />
+            <Protect Component={Dashboard} />
           </>} />
-
 
 
           <Route path="/admin/blogs" element={<>
@@ -585,10 +585,7 @@ function App() {
             <Sidebar />
             <Protect Component={Message} />
           </>} />
-          <Route path="/admin" element={<>
-            <Sidebar />
-            <Protect Component={Dashboard} />
-          </>} />
+
 
 
 

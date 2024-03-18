@@ -181,7 +181,7 @@ const Events = () => {
                 paymentIntentId={cur.paymentIntentId}
                 add_ons_details={cur.add_ons_details}
                 serviceTime={cur.service_time}
-                amount_calculation={cur.amount_calculation}
+                amount_calculation={cur.provider_amount_calculation}
                 _id={cur._id}
 
               />
@@ -217,7 +217,8 @@ const Events = () => {
               healthConditions={cur.health_conditions}
               massageBodyPart={cur.massage_body_part}
               specialConsiderations={cur.special_considerations}
-              amount_calculation={cur.amount_calculation}
+
+              amount_calculation={cur.provider_amount_calculation}
               _id={cur._id}
             />
           ))}

@@ -34,33 +34,36 @@ function Success() {
   }, [id]);
 
 
-  // console.log("data", data)
+  console.log("data fetch by id", data)
 
 
 
   useEffect(() => {
-    if (session_id && data) {
-      const onSubmit = async () => {
-        try {
-          const url = `${IP}/user/service_book?session_id=${session_id}`;
-          const config = {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: tokenuser,
-            },
-          };
-          const res = await axios.post(url, data, config);
+    if (!session_id || !data) {
+      return
 
-          if (res.status === 200) {
-            navigate('/userProfile');
-          }
-        } catch (error) {
-          console.error(error);
-        }
-      };
-
-      onSubmit();
     }
+
+    const onSubmit = async () => {
+      try {
+        const url = `${IP}/user/service_book?session_id=${session_id}`;
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: tokenuser,
+          },
+        };
+        const res = await axios.post(url, data, config);
+
+        if (res.status === 200) {
+          navigate('/userProfile');
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    onSubmit();
   }, [session_id, data]);
 
 
@@ -70,11 +73,11 @@ function Success() {
       <div className='PaymentForm'>
         {/* <div className='receipt_head'><img src={logo} /></div> */}
         <FallingLines
-								color="#03a9f4"
-								width="150"
-								visible={true}
-								ariaLabel="falling-circles-loading"
-							/>
+          color="#03a9f4"
+          width="150"
+          visible={true}
+          ariaLabel="falling-circles-loading"
+        />
         <div className='container reciept_body'>
           <h2>Processing Request...</h2>
           {/* <p className='small'>Status: successful</p> */}
@@ -85,7 +88,7 @@ function Success() {
         <div className='receipt_footer'><p className='small'>Payment successful </p>
           <p className='small'>Do not reload or press back button!</p>
           <p><img src={logo} className='receipt_logo' /></p>
-          </div>
+        </div>
       </div>
     </>
   );

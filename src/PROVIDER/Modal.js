@@ -121,37 +121,6 @@ function CustomModal(
   const [totalPrice, setTotalPrice] = useState(0);
 
 
-  useEffect(() => {
-    let tax = amount_calculation?.amount_tip;
-    let addonsprice = amount_calculation?.amount_addon;
-    const time_status = serviceTime;
-    let basePrice = 70; // Initial base price
-
-    // Adjust base price based on service time
-    if (time_status === "90 minutes") {
-      basePrice += 35;
-    } else if (time_status === "120 minutes") {
-      basePrice += 70;
-    }
-
-    // Double the base price if gender is 'partner'
-    if (gendercheck === "partner") {
-      basePrice *= 2;
-    }
-
-    // Add 14% of total add-ons price to totalPrice
-    let totalPriceAddons = addonsprice;
-
-    const calculateaadon = totalPriceAddons * 0.14;
-
-    //total value after adding adsonprice
-    let totalPriceWithAddons = basePrice + calculateaadon;
-
-    // Add tax amount to totalPrice
-    totalPriceWithAddons += tax;
-
-    setTotalPrice(totalPriceWithAddons);
-  }, [serviceTime, gendercheck, add_ons_details, amount_calculation?.amount_tip]);
 
 
 
@@ -186,7 +155,7 @@ function CustomModal(
             </div>
             <div className="col-md-6 title">Duration and Earning</div>
             <div className="col-md-3">{serviceTime}</div>
-            <div className="col-md-3 title">{totalPrice.toFixed(2)}$</div>
+            <div className="col-md-3 title">{amount_calculation?.total_amount?.toFixed(2)}$</div>
             <div div className="col-md-6 title">
               Location:
             </div>

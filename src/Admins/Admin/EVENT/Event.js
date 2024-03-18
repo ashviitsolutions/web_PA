@@ -173,7 +173,7 @@ function Event() {
                                             <div className="second_half">
                                                 <span>Date: {moment(event.createdAt).format("MMMM Do YYYY")}, Time: {moment(event.createdAt).format("LT")}</span>
 
-                                                <span className="colored">Total = {event?.amount_calculation?.amount_widthout_tax.toFixed(2)}</span>
+                                                <span className="colored">Total = {event?.provider_amount_calculation?.total_amount.toFixed(2)}</span>
                                                 {
                                                     event.service_status === "pending" && (
                                                         <button className="button primary square">Assign Event</button>
@@ -226,7 +226,7 @@ function Event() {
                     add_ons={selectedEventData.add_ons}
                     add_ons_details={selectedEventData.add_ons_details}
                     massage_for={selectedEventData.massage_for}
-                    amount_calculation={selectedEventData.amount_calculation}
+                    amount_calculation={selectedEventData.provider_amount_calculation}
                 />
             )}
         </>

@@ -35,9 +35,9 @@ function CustomModal({
   getdirection,
   sheduleEvent,
 }) {
-  console.log("massage_for", getdirection.coordinates);
+  console.log("amount_calculation ", amount_calculation);
 
-  const getlocation= getdirection.coordinates
+  const getlocation = getdirection.coordinates
   const token = localStorage.getItem("providertoken");
   const [checkInShow, setCheckInShow] = useState(false);
   const [checkOutShow, setCheckOutShow] = useState(false);
@@ -97,31 +97,7 @@ function CustomModal({
 
   const formattedScheduledDate = new Date(date).toLocaleDateString();
 
-  useEffect(() => {
-    let tax = amount_calculation?.amount_tip;
-    let addonsprice = amount_calculation?.amount_addon;
-    const time_status = serviceTime;
-    let basePrice = 70;
 
-    if (time_status === "90 minutes") {
-      basePrice += 35;
-    } else if (time_status === "120 minutes") {
-      basePrice += 70;
-    }
-
-    if (gendercheck === "partner") {
-      basePrice *= 2;
-    }
-
-    let totalPriceAddons = addonsprice;
-    const calculateaadon = totalPriceAddons * 0.14;
-
-    let totalPriceWithAddons = basePrice + calculateaadon;
-
-    totalPriceWithAddons += tax;
-
-    setTotalPrice(totalPriceWithAddons);
-  }, [serviceTime, gendercheck, add_ons_details, amount_calculation?.amount_tip]);
 
   const lat = getlocation && getlocation.length >= 2 ? getlocation[0] : "";
   const lon = getlocation && getlocation.length >= 1 ? getlocation[1] : "";
@@ -135,23 +111,26 @@ function CustomModal({
       <BootstrapModal.Body>
         <p className="title">{title} {serviceTime} - {massage_for}</p>
 
-        <span className="title">Addons: </span>
-        {add_ons_details ? (
-          <span className="title">
-            {add_ons_details.map((addon, index) => (
-              <span key={index}>
-                {addon.title}
-                {index !== add_ons_details.length - 1 ? ', ' : ''}
-              </span>
-            ))}
-          </span>
-        ) : (
-          <span className="title">No add-ons selected</span>
-        )}
+
 
         <div className="col-md-12 detailsTable">
           <span className="title">Payment status: {status} </span>
+          <div className="title detailTitle">
+            <FontAwesomeIcon icon={faInfoCircle} /> Addons Info
+          </div>
 
+          {add_ons_details ? (
+            <span className="title">
+              {add_ons_details.map((addon, index) => (
+                <span key={index}>
+                  {addon.title}
+                  {index !== add_ons_details.length - 1 ? ', ' : ''}
+                </span>
+              ))}
+            </span>
+          ) : (
+            <span className="title">No add-ons selected</span>
+          )}
           <div className="title detailTitle">
             <FontAwesomeIcon icon={faInfoCircle} /> Booking Info
           </div>
@@ -164,7 +143,7 @@ function CustomModal({
             </div>
             <div className="col-md-6 title">Duration and Earning</div>
             <div className="col-md-3">{serviceTime}</div>
-            <div className="col-md-3 title">{totalPrice.toFixed(2)}$</div>
+            <div className="col-md-3 title">{amount_calculation?.total_amount?.toFixed(2)}$</div>
             <div div className="col-md-6 title">
               Location:
             </div>

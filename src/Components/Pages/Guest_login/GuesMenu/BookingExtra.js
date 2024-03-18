@@ -298,7 +298,7 @@ const ConformForm = ({ totalAmount, onSubmit }) => {
             return;
         }
 
-        const paymentIntent = await axios.post('http://localhost:5000/api/create-payment-intent', {
+        const paymentIntent = await axios.post('${IP}/create-payment-intent', {
             amount: totalAmount,
             returnUrl: 'http://localhost:3000/userProfile/payment/success/:paymentId'
         });
