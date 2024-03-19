@@ -6,9 +6,11 @@ import { faInfoCircle, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { IP } from "../../../Constant";
 import { useNavigate } from "react-router-dom";
+import Provider from "./Provider";
 
 function CustomModal({
   title,
+  booking_status,
   serviceTime,
   massage_for,
   gender,
@@ -43,6 +45,8 @@ function CustomModal({
   const [checkOutShow, setCheckOutShow] = useState(false);
   const [loading, setLoading] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [mainCardShow, setMainCardShow] = useState(true);
+
   const nav = useNavigate();
 
   const handleClose = () => {
@@ -82,17 +86,15 @@ function CustomModal({
     }
   };
 
-  const removeItem = () => {
-    localStorage.setItem("removedCard", _id);
-    onHide(); // Call onHide to close the modal
-  };
 
   const handleCheckInClick = () => {
     setCheckInShow(true);
+    setMainCardShow(false);
   };
 
-  const handleCheckOutClick = () => {
-    setCheckOutShow(true);
+  const handleCheckInModalClose = () => {
+    setCheckInShow(false);
+    setMainCardShow(true);
   };
 
   const formattedScheduledDate = new Date(date).toLocaleDateString();
@@ -202,42 +204,36 @@ function CustomModal({
             <div className="col-md-6">{massageBodyPart ? massageBodyPart.join(', ') : ""}</div>
           </div>
 
-          {sheduleEvent && (
-            <div class="alert alert-success" role="alert">
-              <p className="title">Check-In to Start!</p>
-              <p>Be on time to start your service, click on <b>check in!</b></p>
-            </div>
-          )}
 
-          {newclient && (
-            <div class="alert alert-warning" role="alert">
-              <p className="title">Accept before anyone else does!</p>
-              <p>This service request might have sent to multiple providers near to client location, accept the service before anyone else does!</p>
-            </div>
-          )}
         </div>
       </BootstrapModal.Body>
-      {newclient && (
+      {booking_status === "pending" && (
         <BootstrapModal.Footer>
-          <Button variant="primary" onClick={onSubmit} disabled={loading}>
-            {loading ? "Accepting..." : "Accept"}
-          </Button>
-          <Button className="nofillbtn btn-sm" onClick={removeItem}>
-            Reject
+          <Button
+            className="mx-2 btn-sm"
+
+            onClick={handleCheckInClick}
+
+          >
+            Assign Event
           </Button>
         </BootstrapModal.Footer>
       )}
 
-      {sheduleEvent && (
-        <BootstrapModal.Footer>
-          <Button className="mx-2 btn-sm" onClick={handleCheckInClick}>
-            Check In
-          </Button>
-          <Button className="btn-sm" onClick={handleCheckOutClick}>
-            Check Out
-          </Button>
-        </BootstrapModal.Footer>
+
+
+
+
+      {checkInShow && (
+        <Provider
+          show={checkInShow}
+          onHide={handleCheckInModalClose}
+          user_id={_id}
+          date={date}
+          _id={_id}
+        />
       )}
+
     </BootstrapModal>
   );
 }

@@ -201,6 +201,7 @@ function Event() {
             </div>
             {selectedEventData && (
                 <CustomModal
+                   booking_status={selectedEventData.service_status}
                     event={selectedEventData.event}
                     show={showModal}
                     onHide={closeModal}

@@ -4,6 +4,8 @@ import { IP } from '../../../Constant';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import avtar from "../../img/avtar.jpg"
 import ReactPaginate from 'react-paginate';
+import { FallingLines } from 'react-loader-spinner';
+import "./Payment.css"
 
 
 const PreviewImage = ({ attachments }) => {
@@ -43,50 +45,114 @@ const PreviewImage = ({ attachments }) => {
 
 
 function Payments() {
-  const [data, setData] = useState(1);
+
   const [count, setCount] = useState(0);
+  const [data, setData] = useState(1);
+  const [searchText, setSearchText] = useState("");
+  const [pageNumber, setPageNumber] = useState(1);
+
+  const [endDate, setEndDate] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [loading, setLoading] = useState(null);
+
+  const [user, setUser] = useState([]);
+  const [status, setStatus] = useState("");
 
   let token = localStorage.getItem("tokenadmin");
-  const [user, setUser] = useState([]);
+
+
+
+
+
 
 
   useEffect(() => {
-    fetch(`${IP}/contractor/get`, {
+    setLoading(true);
+    fetch(`${IP}/contractor/get?page=${pageNumber}&limit=10`, {
       headers: {
         'Authorization': token
       }
-    }).then(resp => {
-      return resp.json()
-    }).then(result => {
-      // Filter the result based on the application_status condition
-      const filteredResult = result.filter(item => item.application_status >= 3);
+    })
+      .then(resp => resp.json())
+      .then(result => {
+        if (result.msg) {
+          // Handle the case where no providers are found
+          console.log(result.msg);
+        } else {
+          setUser(prevData => {
+            // Check for duplicates and concatenate only unique entries
+            const newData = result.filter(newItem => !prevData.some(oldItem => oldItem._id === newItem._id));
+            return [...prevData, ...newData];
+          });
+          setCount(result.length);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      })
+      .finally(() => {
+        setLoading(false); // Set loading to false after fetching data
+      });
+  }, [pageNumber]);
 
-      setUser(filteredResult);
-      setCount(filteredResult.length);
-      console.log("contractor", filteredResult);
-    }).catch(err => {
-      console.log(err);
+
+
+
+
+
+  console.log("contractor", user)
+
+
+
+  const handleInfiniteScroll = async () => {
+    try {
+
+      if (
+        window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight
+      ) {
+        setPageNumber((prev) => prev + 1);
+        setLoading(true)
+      }
+
+    } catch (error) {
+
+    }
+  }
+
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleInfiniteScroll);
+    return () => window.removeEventListener("scroll", handleInfiniteScroll)
+  }, [])
+
+
+
+
+
+  const handleFilter = () => {
+    // Filter data based on selected dates, status, and search text
+    const filteredData = user.filter(contractor => {
+      const isStatusMatched = !status || contractor.application_status_text === status;
+      const isWithinDateRange = (!startDate || new Date(contractor.createdAt) >= new Date(startDate)) &&
+        (!endDate || new Date(contractor.createdAt) <= new Date(endDate));
+      const isSearched = !searchText || (contractor.first_name.toLowerCase().includes(searchText.toLowerCase()) || contractor.last_name.toLowerCase().includes(searchText.toLowerCase()) || contractor.email.toLowerCase().includes(searchText.toLowerCase()));
+      return isWithinDateRange && isStatusMatched && isSearched;
     });
-  }, [data]);
-
-
-  const handlePageClick = (data) => {
-    setData(data.selected + 1);
+    return filteredData;
   };
 
-  // const memoizedUser = useMemo(() => {
-  //     return user.slice((data - 1) * 10, data * 10);
-  // }, [user, data]);
 
-  const memoizedUser = useMemo(() => {
-    if (Array.isArray(user)) {
-      return user.slice((data - 1) * 10, data * 10);
-    } else {
-      // Handle the case when user is not an array
-      console.error("User is not an array");
-      return []; // or handle it in a way that makes sense for your use case
-    }
-  }, [user, data]);
+
+
+
+
+
+
+
+
+
+
+  const memoizedUser = handleFilter();
 
   return (
     <>
@@ -103,136 +169,90 @@ function Payments() {
           <div class="row">
             <div class="gutter">
               <div class="card layer1 filters">
+                <span class="highlight"> from </span>
                 <div class="input_group">
-                  <input type="date" class="input" placeholder="Start Date" />
+                  <input type="date" class="input" placeholder="Start Date" onChange={e => setStartDate(e.target.value)} value={startDate} />
                   <span class="highlight"></span>
                 </div>
+                <span class="highlight"> to </span>
                 <div class="input_group">
-                  <input type="date" class="input" placeholder="End Date" />
+                  <input type="date" class="input" placeholder="End Date" onChange={e => setEndDate(e.target.value)} value={endDate} />
                   <span class="highlight"></span>
                 </div>
-                <div class="input_group">
-                  <select name="" id="" class="input">
-                    <option value="">status</option>
-                    <option value="">pending</option>
-                    <option value="">completed</option>
-                  </select>
-                  <span class="highlight"></span>
-                </div>
-                <div class="input_group">
-                  <select name="" id="" class="input">
-                    <option value="">select event type</option>
-                    <option value="">private events</option>
-                    <option value="">corporate events</option>
-                  </select>
-                  <span class="highlight"></span>
-                </div>
-                <div class="input_group">
-                  <select name="" id="" class="input">
-                    <option value="">service</option>
-                    <option value="">service a</option>
-                    <option value="">service b</option>
-                    <option value="">service c</option>
-                    <option value="">service d</option>
-                    <option value="">service e</option>
-                  </select>
-                  <span class="highlight"></span>
-                </div>
+
+
                 <div class="input_group pull-right" style={{ maxWidth: "20%" }}>
-                  <input type="text" class="input" placeholder="search here.." />
+                  <input type="text" class="input" placeholder="search here.." onChange={e => setSearchText(e.target.value)} value={searchText} />
                   <span class="highlight"></span>
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="row">
-            <div class="gutter">
-              <div class="card" style={{ padding: "25px 15px" }}>
-                <h3 class="pull-right" style={{ margin: "0", fontSize: "17px" }}>Pending : $800</h3>
-                <h3 class="pull-right" style={{ margin: "0", fontSize: "17px", marginLight: "20px" }}>Total Earning : $450</h3>
-              </div>
-            </div>
-          </div>
 
 
+          <table className="payments-table">
+            <thead>
+              <tr>
+                <th>Provider</th>
+                <th>Contacts</th>
+                <th>No. of services</th>
+                <th>services value</th>
+                <th>Addon sales</th>
 
-          {memoizedUser.map((cur, index) => (
+                <th>Addon Value</th>
+                <th>Gratuity</th>
+                <th>Total Value</th>
+                <th>Total Commission</th>
+              </tr>
+            </thead>
+            <tbody>
+              {memoizedUser.map((cur, index) => (
+                <tr key={index}>
 
-            <div class="row">
-              <div class="gutter">
-                <div class="bookings">
-                  <div class="item_wrapper">
-                    <div class="item card layer1">
-                      <div class="first_half">
-                        <h3>{`${cur.first_name} ${cur.last_name}`} </h3>
-                        <span class="address">jersey city NJ 07305</span>
-                        <span class="time">Sun, 08 november 2022</span>
-                        <span class="tag"> <b>Parking Type</b> Parking lot</span>
-                        <span class="tag"> <b>Instruction</b> free parking</span>
-                      </div>
-                      <div class="second_half">
-                        <span>$70</span>
-                        <span>+15 pre-tip</span>
-                        <span class="colored">Total = ${cur?.wallet?.available_amount}</span>
-                        <button class="button primary square">Release Payment</button>
-                      </div>
+                  <td className="block-td">
+                    <span>{`${cur.first_name} ${cur.last_name}`}</span>
+                    <span>{cur?.mailing_address?.address}</span>
+                  </td>
+
+
+                  <td >
+                    <div className="block-td">
+                      <span>{cur.email}</span>
+                      <span>{cur.phone}</span>
                     </div>
-                  </div>
-                </div>
-              </div>
+                  </td>
+
+                  <td>15</td>
+                  <td>{cur?.wallet?.available_amount?.toFixed(2)}$</td>
+                  <td>15</td>
+                  <td>{cur?.wallet?.available_amount?.toFixed(2)}$</td>
+                  <td>{cur?.wallet?.available_amount?.toFixed(2)}$</td>
+                  <td>{cur?.wallet?.available_amount?.toFixed(2)}$</td>
+
+                  <td>{cur?.wallet?.available_amount?.toFixed(2)}$</td>
+
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+
+          {loading && (
+            <div style={{ textAlign: "center" }}>
+              <FallingLines
+                color="#03a9f4"
+                width="150"
+                visible={true}
+                ariaLabel="falling-circles-loading"
+              />
             </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          ))}
-
-
-
+          )}
 
 
 
         </div>
-        <div className='pagination'  >
-          <ReactPaginate
-            itemsPerPage={10}
-            previousLabel={'Previous'}
-            nextLabel={'Next'}
-            breakLabel={"..."}
-            pageCount={Math.ceil(count / 10)}
-            marginPagesDisplayed={3}
-            pageRangeDisplayed={2}
-            onPageChange={handlePageClick}
-            // css apply on pagination
-            containerClassName={'pagination justify-content-center py-3'}
-            pageClassName={'page-item'}
-            pageLinkClassName={'page-link'}
-            previousClassName={'page-item'}
-            previousLinkClassName={'page-link'}
-            nextClassName={'page-item'}
-            nextLinkClassName={'page-link'}
-            breakClassName={'page-item'}
-            breakLinkClassName={'page-link'}
-            activeClassName={'active'}
-          />
-        </div>
+
       </div>
     </>
   )

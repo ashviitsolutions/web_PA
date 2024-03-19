@@ -155,43 +155,33 @@ function Contractors() {
                             </div>
                         </div>
                     </div>
-                    <div className="row">
-                        <div className="gutter">
-                            <div className="card layer1 filters">
-
-                                <div class="row">
-                                    <div class="gutter">
-                                        <div class="card layer1 filters">
-                                            <div class="input_group">
-                                                <input type="date" class="input" placeholder="Start Date" onChange={e => setStartDate(e.target.value)} value={startDate} />
-                                                <span class="highlight"></span>
-                                            </div>
-                                            <span class="highlight"> From </span>
-                                            <div class="input_group">
-                                                <input type="date" class="input" placeholder="End Date" onChange={e => setEndDate(e.target.value)} value={endDate} />
-                                                <span class="highlight"></span>
-                                            </div>
-                                            <div class="input_group">
-                                                <select name="" id="" class="input" onChange={e => setStatus(e.target.value)} value={status}>
-                                                    <option value="">status</option>
-                                                    <option value="Newly registered">Newly registered</option>
-                                                    <option value="call interview done, verification pending">call interview done, verification pending</option>
-                                                    <option value="Application form submitted,call interview pending">Application form submitted,call interview pending</option>
-                                                    <option value="Congratulations! your process has been completed">Congratulations! your process has been completed</option>
-                                                </select>
-                                                <span class="highlight"></span>
-                                            </div>
-
-                                            <div class="input_group pull-right" style={{ maxWidth: "20%" }}>
-                                                <input type="text" class="input" placeholder="search here.." onChange={e => setSearchText(e.target.value)} value={searchText} />
-                                                <span class="highlight"></span>
-                                            </div>
-                                        </div>
-                                    </div>
+                    <div class="row">
+                        <div class="gutter">
+                            <div class="card layer1 filters">
+                                <span class="highlight"> from </span>
+                                <div class="input_group">
+                                    <input type="date" class="input" placeholder="Start Date" onChange={e => setStartDate(e.target.value)} value={startDate} />
+                                    <span class="highlight"></span>
                                 </div>
-                                <div className="input_group pull-right" style={{ maxWidth: "20%" }}>
-                                    <input type="text" className="input" placeholder="search here.." onChange={e => setSearchText(e.target.value)} value={searchText} />
-                                    <span className="highlight"></span>
+                                <span class="highlight"> to </span>
+                                <div class="input_group">
+                                    <input type="date" class="input" placeholder="End Date" onChange={e => setEndDate(e.target.value)} value={endDate} />
+                                    <span class="highlight"></span>
+                                </div>
+                                <div class="input_group">
+                                    <select name="" id="" class="input" onChange={e => setStatus(e.target.value)} value={status}>
+                                        <option value="">status</option>
+                                        <option value="Newly registered">Newly registered</option>
+                                        <option value="call interview done, verification pending">call interview done, verification pending</option>
+                                        <option value="Application form submitted,call interview pending">Application form submitted,call interview pending</option>
+                                        <option value="Congratulations! your process has been completed">Congratulations! your process has been completed</option>
+                                    </select>
+                                    <span class="highlight"></span>
+                                </div>
+
+                                <div class="input_group pull-right" style={{ maxWidth: "20%" }}>
+                                    <input type="text" class="input" placeholder="search here.." onChange={e => setSearchText(e.target.value)} value={searchText} />
+                                    <span class="highlight"></span>
                                 </div>
                             </div>
                         </div>
