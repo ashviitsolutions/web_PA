@@ -100,6 +100,9 @@ import Booking from './Admins/Admin/BOOKING/Booking';
 import Event from './Admins/Admin/EVENT/Event';
 import Message from './Admins/Admin/MESSAGE/Message';
 
+
+import Details from './Admins/Admin/PAYMENT/Details';
+
 //Dashboard
 import Dashboard from './Admins/Admin/DASHBOARD/Dashboard';
 
@@ -571,6 +574,11 @@ function App() {
             <Sidebar />
             <Protect Component={Payments} />
           </>} />
+          <Route path="/admin/payments/details/:id" element={<>
+            <Sidebar />
+            <Protect Component={Details} />
+          </>} />
+          
           <Route path="/admin/bookings" element={<>
             <Sidebar />
             <Protect Component={Booking} />

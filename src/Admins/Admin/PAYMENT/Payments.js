@@ -6,45 +6,15 @@ import avtar from "../../img/avtar.jpg"
 import ReactPaginate from 'react-paginate';
 import { FallingLines } from 'react-loader-spinner';
 import "./Payment.css"
+import { useNavigate } from 'react-router-dom';
 
 
-const PreviewImage = ({ attachments }) => {
-  const [imageObjectURL, setImageObjectURL] = useState(null);
 
-  useEffect(() => {
-    const fetchImage = async () => {
-      const res = await fetch(`${IP}/file/${attachments}`);
-      const imageBlob = await res.blob();
-      const objectURL = URL.createObjectURL(imageBlob);
-      setImageObjectURL(objectURL);
-      console.log("image", res);
-    };
-
-    fetchImage();
-  }, [attachments]);
-
-  return (
-    <div>
-      {imageObjectURL && (
-        <img
-          src={imageObjectURL || avtar}
-          alt="No Image uploaded"
-          className="previewimage"
-          style={{
-            borderRadius: "10px",
-            height: "80px",
-            marginTop: "10px",
-            marginLeft: "70px",
-          }}
-        />
-      )}
-    </div>
-  );
-};
 
 
 
 function Payments() {
+  const navigate = useNavigate()
 
   const [count, setCount] = useState(0);
   const [data, setData] = useState(1);
@@ -61,14 +31,16 @@ function Payments() {
   let token = localStorage.getItem("tokenadmin");
 
 
-
+  const handleRowClick = (id) => {
+    navigate(`/admin/payments/details/${id}`);
+  };
 
 
 
 
   useEffect(() => {
     setLoading(true);
-    fetch(`${IP}/contractor/get?page=${pageNumber}&limit=10`, {
+    fetch(`${IP}/provider/services-by-provider?page=${pageNumber}&limit=10`, {
       headers: {
         'Authorization': token
       }
@@ -154,6 +126,9 @@ function Payments() {
 
   const memoizedUser = handleFilter();
 
+
+
+
   return (
     <>
       <div id="content">
@@ -208,29 +183,30 @@ function Payments() {
             </thead>
             <tbody>
               {memoizedUser.map((cur, index) => (
-                <tr key={index}>
+                <tr key={index} onClick={() => handleRowClick(cur._id)}>
 
                   <td className="block-td">
-                    <span>{`${cur.first_name} ${cur.last_name}`}</span>
-                    <span>{cur?.mailing_address?.address}</span>
+                    <span>{`${cur?.provider_details?.first_name} ${cur?.provider_details?.last_name}`}</span>
+                    <span>{cur?.provider_details?.mailing_address?.address}</span>
                   </td>
 
 
                   <td >
                     <div className="block-td">
-                      <span>{cur.email}</span>
-                      <span>{cur.phone}</span>
+                      <span>{cur?.provider_details?.email}</span>
+                      <span>{cur?.provider_details?.phone}</span>
                     </div>
                   </td>
 
-                  <td>15</td>
-                  <td>{cur?.wallet?.available_amount?.toFixed(2)}$</td>
-                  <td>15</td>
-                  <td>{cur?.wallet?.available_amount?.toFixed(2)}$</td>
-                  <td>{cur?.wallet?.available_amount?.toFixed(2)}$</td>
-                  <td>{cur?.wallet?.available_amount?.toFixed(2)}$</td>
+                  <td>{cur.total_services}</td>
+                  <td>{cur?.total_service_price?.toFixed(2)}$</td>
+                  <td>{cur.total_add_ons}</td>
+                  <td>{cur?.total_tip_amount?.toFixed(2)}$</td>
+                  <td>{cur?.total_tip_amount?.toFixed(2)}$</td>
+                  <td>{cur?.total_admin_amount?.toFixed(2)}$</td>
 
-                  <td>{cur?.wallet?.available_amount?.toFixed(2)}$</td>
+
+                  <td>{cur?.total_provider_amount?.toFixed(2)}$</td>
 
                 </tr>
               ))}

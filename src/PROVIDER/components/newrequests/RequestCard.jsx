@@ -23,7 +23,7 @@ const RequestCard = (props) => {
 
   const [totalPrice, setTotalPrice] = useState(0);
 
-  console.log("amount_calculation", amount_calculation?.amount_tip)
+  console.log("amount_calculation", amount_calculation)
 
 
 
