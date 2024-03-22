@@ -2,11 +2,12 @@ import React, { useState, useEffect, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { IP } from '../../../Constant';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import avtar from "../../img/avtar.jpg"
+import Details from "./Details"
 import ReactPaginate from 'react-paginate';
 import { FallingLines } from 'react-loader-spinner';
 import "./Payment.css"
 import { useNavigate } from 'react-router-dom';
+
 
 
 
@@ -31,16 +32,19 @@ function Payments() {
   let token = localStorage.getItem("tokenadmin");
 
 
-  const handleRowClick = (id) => {
-    navigate(`/admin/payments/details/${id}`);
+  const handleRowClick = (cur) => {
+    console.log("cur,", cur); // Check the structure of cur
+    navigate(`/admin/payments/details/${cur.provider_details._id}`, { state: { cur } });
   };
+
+
 
 
 
 
   useEffect(() => {
     setLoading(true);
-    fetch(`${IP}/provider/services-by-provider?page=${pageNumber}&limit=10`, {
+    fetch(`http://localhost:5000/api/provider/services-by-provider?page=${pageNumber}&limit=10`, {
       headers: {
         'Authorization': token
       }
@@ -114,16 +118,6 @@ function Payments() {
   };
 
 
-
-
-
-
-
-
-
-
-
-
   const memoizedUser = handleFilter();
 
 
@@ -183,7 +177,7 @@ function Payments() {
             </thead>
             <tbody>
               {memoizedUser.map((cur, index) => (
-                <tr key={index} onClick={() => handleRowClick(cur._id)}>
+                <tr key={index} onClick={() => handleRowClick(cur)}>
 
                   <td className="block-td">
                     <span>{`${cur?.provider_details?.first_name} ${cur?.provider_details?.last_name}`}</span>
