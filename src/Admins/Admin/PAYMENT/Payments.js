@@ -34,7 +34,7 @@ function Payments() {
 
 
   const handleRowClick = (cur) => {
-    console.log("cur,", cur); // Check the structure of cur
+    console.log("cur", cur); // Check the structure of cur
     navigate(`/admin/payments/details/${cur.provider_details._id}`, { state: { cur } });
   };
 

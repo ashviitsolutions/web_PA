@@ -1,18 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { FallingLines } from 'react-loader-spinner';
+import Release from './Release';
 import moment from "moment";
 
 function Details() {
     const location = useLocation();
     const apidata = location.state.cur;
-
+    const [showModal, setShowModal] = useState(false);
     const [endDate, setEndDate] = useState('');
     const [startDate, setStartDate] = useState('');
     const [loading, setLoading] = useState(null);
+    const [filteredServices, setFilteredServices] = useState([]);
 
-    console.log("cur value", apidata);
+    const handleReleasePaymentClick = () => {
+        setShowModal(true);
+    };
 
+
+
+    console.log("apidata , ", apidata)
     return (
         <>
             <div id="content">
@@ -25,26 +32,12 @@ function Details() {
                             </div>
                         </div>
                         <div className="col-auto mt-3">
-                            <button className="btn btn-primary">Release Payment</button>
+                            <button className="btn btn-primary" onClick={handleReleasePaymentClick}>Release Payment</button>
                         </div>
                     </div>
 
-                    <div className="row">
-                        <div className="gutter">
-                            <div className="card layer1 filters">
-                                <span className="highlight"> from </span>
-                                <div className="input_group">
-                                    <input type="date" className="input" placeholder="Start Date" onChange={e => setStartDate(e.target.value)} value={startDate} />
-                                    <span className="highlight"></span>
-                                </div>
-                                <span className="highlight"> to </span>
-                                <div className="input_group">
-                                    <input type="date" className="input" placeholder="End Date" onChange={e => setEndDate(e.target.value)} value={endDate} />
-                                    <span className="highlight"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
+
 
                     <table className="payments-table">
                         <thead>
@@ -110,6 +103,9 @@ function Details() {
                             />
                         </div>
                     )}
+
+
+
                 </div>
             </div>
         </>
