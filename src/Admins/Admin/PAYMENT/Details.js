@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { FallingLines } from 'react-loader-spinner';
+import moment from "moment";
 
 function Details() {
     const location = useLocation();
@@ -48,7 +49,7 @@ function Details() {
                     <table className="payments-table">
                         <thead>
                             <tr>
-                               
+
                                 <th>Date</th>
                                 <th>Time</th>
                                 <th>Service Name</th>
@@ -61,12 +62,14 @@ function Details() {
                         <tbody>
                             {apidata && apidata.services.map((service, index) => (
                                 <tr key={index}>
-                                   
-                                    <td>
-                                        <span>22/03/2024</span>
+
+                                    <td >
+
+                                        <span>{moment(service.createdAt).format("MMMM Do YYYY")}</span>
                                     </td>
-                                    <td>
-                                        <span>12:20pm</span>
+                                    <td >
+
+                                        <span>{moment(service.createdAt).format("LT")}</span>
                                     </td>
                                     <td className="block-td">
                                         <span>{service.service_name}</span>

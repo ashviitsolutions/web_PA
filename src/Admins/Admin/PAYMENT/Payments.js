@@ -7,6 +7,7 @@ import ReactPaginate from 'react-paginate';
 import { FallingLines } from 'react-loader-spinner';
 import "./Payment.css"
 import { useNavigate } from 'react-router-dom';
+import moment from "moment";
 
 
 
@@ -44,7 +45,7 @@ function Payments() {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:5000/api/provider/services-by-provider?page=${pageNumber}&limit=10`, {
+    fetch(`${IP}/provider/services-by-provider?page=${pageNumber}&limit=10`, {
       headers: {
         'Authorization': token
       }
@@ -163,6 +164,8 @@ function Payments() {
           <table className="payments-table">
             <thead>
               <tr>
+                <th>Date</th>
+                <th>Time</th>
                 <th>Provider</th>
                 <th>Contacts</th>
                 <th>No. of services</th>
@@ -178,6 +181,20 @@ function Payments() {
             <tbody>
               {memoizedUser.map((cur, index) => (
                 <tr key={index} onClick={() => handleRowClick(cur)}>
+
+
+
+                  <td >
+
+                    <span>{moment(cur.createdAt).format("MMMM Do YYYY")}</span>
+                  </td>
+                  <td >
+
+                    <span>{moment(cur.createdAt).format("LT")}</span>
+                  </td>
+
+
+
 
                   <td className="block-td">
                     <span>{`${cur?.provider_details?.first_name} ${cur?.provider_details?.last_name}`}</span>
