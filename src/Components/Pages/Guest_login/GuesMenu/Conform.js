@@ -324,10 +324,32 @@ const Conform = () => {
 
 
 
-    console.log("data all get", bookingData)
+    // console.log("data all get", bookingData)
 
 
 
+
+    const handleCheckout = async () => {
+        setLoading(true);
+
+        if (!booking_id && !bookingid) {
+            setLoading(false);
+            return false;
+        }
+
+        const bookingId = bookingid || booking_id;
+
+        try {
+            const response = await axios.post(`${IP}/createCheckoutSession`, {
+                service_details: serviceDetails,
+                booking_id: bookingId
+            });
+            window.location.href = response.data.url;
+        } catch (error) {
+            console.error('Error creating checkout session:', error);
+            setLoading(false);
+        }
+    };
 
 
 
@@ -336,7 +358,7 @@ const Conform = () => {
         const sendBookingData = async () => {
             try {
                 // Check if bookingData exists
-                if (!bookingData?.amount_calculation?.amount_tip || !loading) {
+                if (!loading) {
                     throw new Error('Booking data is missing.');
                 }
 
@@ -378,28 +400,6 @@ const Conform = () => {
 
     //megift card
 
-
-    const handleCheckout = async () => {
-        setLoading(true);
-
-        if (!booking_id && !bookingid) {
-            setLoading(false);
-            return false;
-        }
-
-        const bookingId = bookingid || booking_id;
-
-        try {
-            const response = await axios.post(`${IP}/createCheckoutSession`, {
-                service_details: serviceDetails,
-                booking_id: bookingId
-            });
-            window.location.href = response.data.url;
-        } catch (error) {
-            console.error('Error creating checkout session:', error);
-            setLoading(false);
-        }
-    };
 
 
 
