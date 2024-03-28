@@ -358,9 +358,9 @@ const Conform = () => {
         const sendBookingData = async () => {
             try {
                 // Check if bookingData exists
-                if (!loading) {
-                    throw new Error('Booking data is missing.');
-                }
+                // if (!loading) {
+                //     throw new Error('Booking data is missing.');
+                // }
 
                 const response = await fetch(`${IP}/user/pendingbooking`, {
                     method: 'POST',
