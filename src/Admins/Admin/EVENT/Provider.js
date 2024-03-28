@@ -7,6 +7,7 @@ import { IP } from "../../../Constant";
 import { useNavigate } from "react-router-dom";
 
 const Provider = (props) => {
+    const nav = useNavigate()
     let token = localStorage.getItem("tokenadmin");
     const [providers, setProviders] = useState([]);
     const [filteredProviders, setFilteredProviders] = useState([]);
@@ -19,6 +20,8 @@ const Provider = (props) => {
         // Fetch providers from the server
         fetchProviders();
     }, [pageNumber]);
+
+    console.log("selectedProvider", props._id)
 
     const fetchProviders = async () => {
         try {
@@ -70,6 +73,58 @@ const Provider = (props) => {
         return () => window.removeEventListener("scroll", handleInfiniteScroll);
     }, []);
 
+
+
+
+
+
+    const onSubmit = async (e) => {
+        e.preventDefault();
+        setLoading(true)
+
+        try {
+            const bodyFormData = new FormData();
+            bodyFormData.append("bookingId", props._id);
+            bodyFormData.append("response", "accept");
+            bodyFormData.append("service_status", "scheduled");
+            bodyFormData.append("response", "accept");
+            bodyFormData.append("providerId", selectedProvider._id);
+            const res = await axios.post(
+                `${IP}/user/send_booking`,
+                bodyFormData,
+                {
+                    headers: {
+                        Authorization: token,
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                    },
+                }
+            );
+            console.log(res);
+
+            if (res.status == 200) {
+                nav("/admin")
+                setLoading(false)
+            }
+
+        } catch (error) {
+            console.error(error);
+            setLoading(false);
+        }
+    };
+
+
+
+
+
+
+
+
+
+
+
+
+
     return (
         <Modal
             {...props}
@@ -106,12 +161,12 @@ const Provider = (props) => {
                             </div>
                         </div>
                     ))}
-                    
+
                 </Row>
                 {loading && <div>Loading...</div>}
             </Modal.Body>
             <Modal.Footer style={{ justifyContent: "center" }}>
-                <Button>Assign Event</Button>
+                <Button onClick={onSubmit}>   {loading ? "Loading..." : "Assign Event"}</Button>
             </Modal.Footer>
         </Modal>
     );

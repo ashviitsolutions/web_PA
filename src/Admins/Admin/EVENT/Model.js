@@ -22,9 +22,9 @@ function CustomModal({
   location,
   amount_calculation,
   time,
-  user_id,
+  providerId,
   add_ons_details,
-  onClose,
+  bookingId,
   event,
   gendercheck,
   date,
@@ -42,48 +42,13 @@ function CustomModal({
   const getlocation = getdirection.coordinates
   const token = localStorage.getItem("providertoken");
   const [checkInShow, setCheckInShow] = useState(false);
-  const [checkOutShow, setCheckOutShow] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [totalPrice, setTotalPrice] = useState(0);
   const [mainCardShow, setMainCardShow] = useState(true);
 
   const nav = useNavigate();
 
   const handleClose = () => {
     onHide();
-  };
-
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      const bodyFormData = new FormData();
-      bodyFormData.append("_id", _id);
-      bodyFormData.append("response", "accept");
-      const res = await axios.put(
-        `${IP}/provider/service_response`,
-        bodyFormData,
-        {
-          headers: {
-            Authorization: token,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      console.log(res);
-      if (res.status === 200) {
-        if (event === "event_value") {
-          nav("/providers");
-        } else {
-          nav("/providers/events");
-        }
-        onHide(); // Call onHide to close the modal
-      }
-    } catch (error) {
-      console.error(error);
-      setLoading(false);
-    }
   };
 
 
