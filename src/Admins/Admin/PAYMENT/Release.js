@@ -1,60 +1,108 @@
-import React, { useState } from "react";
-import { Button } from "react-bootstrap";
-import BootstrapModal from "react-bootstrap/Modal";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faInfoCircle, faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useParams, useNavigate } from 'react-router-dom';
+import { IP } from '../../../Constant';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useLocation } from 'react-router-dom';
+// import './PaymentForm.css'; 
+
+const PaymentForm = () => {
+    const location = useLocation();
+    const serviceinfo = location.state.apidata.services;
+
+    const nav = useNavigate()
+    const { providerId } = useParams()
+    const [paymentId, setPaymentId] = useState('');
+    const [amount, setAmount] = useState('');
+    const [additionalInfo, setAdditionalInfo] = useState('');
+    // const [providerId, setProviderId] = useState('');
+    const [file, setFile] = useState(null);
 
 
-function Release({ show, onHide }) {
-    const [checkInShow, setCheckInShow] = useState(false);
+    console.log("providerId admin page release", serviceinfo)
 
-    const handleClose = () => {
-        onHide();
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            let token = localStorage.getItem("tokenadmin");
+
+            // Create the request body object
+            const requestBody = {
+                paymentId,
+                amount,
+                serviceinfo,
+                additionalInfo,
+                providerId
+            };
+
+            // Make the POST request to the server
+            const response = await axios.post(`${IP}/service/approve-payment/${providerId}`, requestBody, {
+                headers: {
+                    'Authorization': token
+                }
+            });
+
+            // Handle the response
+            if (response.status === 200) {
+                // Show success notification and navigate to '/admin/Gift'
+                toast.success("Payment processed successfully!", {
+                    position: "top-right",
+                    autoClose: 3000,
+                    onClose: () => {
+                        nav("/admin/services");
+                    },
+                });
+            } else {
+                // Show error notification if the API response is not successful
+                toast.error("An error occurred. Please try again.", {
+                    position: "top-right",
+                    autoClose: 3000,
+                });
+            }
+        } catch (error) {
+            console.error('Error:', error.response.data);
+            // Show error notification if an error occurs
+            toast.error("An error occurred. Please try again.", {
+                position: "top-right",
+                autoClose: 3000,
+            });
+        }
     };
 
-    const handleCheckInClick = () => {
-        setCheckInShow(true);
-    };
 
-    const handleCheckInModalClose = () => {
-        setCheckInShow(false);
+    const handleFileChange = (e) => {
+        setFile(e.target.files[0]);
     };
 
     return (
-        <BootstrapModal show={show} onHide={handleClose}>
-            <BootstrapModal.Header closeButton>
-                <BootstrapModal.Title>Booking Details</BootstrapModal.Title>
-            </BootstrapModal.Header>
-            <BootstrapModal.Body>
-                <p className="title">Booking Title - Service Time - Massage For</p>
-                {/* Other details */}
-                <div className="col-md-12 detailsTable">
-                    <div className="title detailTitle">
-                        <FontAwesomeIcon icon={faInfoCircle} /> Addons Info
+        <>
+            <div className="payment-form-container">
+                <h2>Payment Approval Form</h2>
+                <form onSubmit={handleSubmit} className="payment-form">
+                    <div className="form-group">
+                        <label>Payment ID:</label>
+                        <input type="text" value={paymentId} onChange={(e) => setPaymentId(e.target.value)} />
                     </div>
-                    <span className="title">Addon 1, Addon 2, Addon 3</span>
-                    {/* Other details */}
-                    <div className="title detailTitle">
-                        <FontAwesomeIcon icon={faInfoCircle} /> Booking Info
+                    <div className="form-group">
+                        <label>Amount:</label>
+                        <input type="text" value={amount} onChange={(e) => setAmount(e.target.value)} />
                     </div>
-                    <div className="container row detailInfo">
-                        <div className="col-md-6 title">
-                            Booking Type
-                        </div>
-                        <div className="col-md-6">Location Type</div>
-                        {/* Other details */}
+                    <div className="form-group">
+                        <label>Additional Info:</label>
+                        <input type="text" value={additionalInfo} onChange={(e) => setAdditionalInfo(e.target.value)} />
                     </div>
-                    {/* Other details */}
-                </div>
-            </BootstrapModal.Body>
-            <BootstrapModal.Footer>
-                <Button className="mx-2 btn-sm" onClick={handleCheckInClick}>
-                    Assign Event
-                </Button>
-            </BootstrapModal.Footer>
+                    <div className="form-group">
+                        <label>Attachment:</label>
+                        <input type="file" onChange={handleFileChange} />
+                    </div>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+            <ToastContainer />
+        </>
 
-        </BootstrapModal>
     );
-}
+};
 
-export default Release;
+export default PaymentForm;

@@ -3,18 +3,20 @@ import { useLocation } from 'react-router-dom';
 import { FallingLines } from 'react-loader-spinner';
 import Release from './Release';
 import moment from "moment";
+import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 function Details() {
+    const { id } = useParams()
+    const navigator = useNavigate()
     const location = useLocation();
     const apidata = location.state.cur;
-    const [showModal, setShowModal] = useState(false);
-    const [endDate, setEndDate] = useState('');
-    const [startDate, setStartDate] = useState('');
+
     const [loading, setLoading] = useState(null);
-    const [filteredServices, setFilteredServices] = useState([]);
+
 
     const handleReleasePaymentClick = () => {
-        setShowModal(true);
+        navigator(`/admin/payments/details/Release/${id}`, { state: { apidata } });
     };
 
 
@@ -81,8 +83,8 @@ function Details() {
                                                     <span>{addon.price}$</span>
                                                 </div>
                                             ))}
-                                            <span>{apidata.total_add_on_price}$</span>
-                                            <span>{service?.provider_amount_calculation?.amount_addon?.toFixed(2)}$</span>
+                                            <span>Charges: {apidata.total_add_on_price}$</span>
+                                            <span>Comm; {service?.provider_amount_calculation?.amount_addon?.toFixed(2)}$</span>
                                         </td>
                                     </td>
                                     <td>{apidata.total_tip_amount?.toFixed(2)}$</td>

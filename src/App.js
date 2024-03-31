@@ -38,6 +38,7 @@ import Cancelationpolicy from './Components/Pages/Policy/Cancelationpolicy';
 import Silvermembership from './Components/Pages/Policy/Silvermembership';
 import Chatbot from './Components/Header/Chatbot';
 import Response from './Components/Pages/Profile/userProfile/Response/Response';
+import Release from './Admins/Admin/PAYMENT/Release';
 
 //profile page
 import Overview from './Components/Pages/Profile/userProfile/Overview';
@@ -578,7 +579,14 @@ function App() {
             <Sidebar />
             <Protect Component={Details} />
           </>} />
-          
+
+          <Route path="/admin/payments/details/Release/:providerId" element={<>
+            <Sidebar />
+            <Protect Component={Release} />
+          </>} />
+
+
+
           <Route path="/admin/bookings" element={<>
             <Sidebar />
             <Protect Component={Booking} />

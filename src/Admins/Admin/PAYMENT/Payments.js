@@ -179,6 +179,11 @@ function Payments() {
               </tr>
             </thead>
             <tbody>
+              {memoizedUser.length === 0 && (
+                <tr>
+                  <td colSpan="11">No data found</td>
+                </tr>
+              )}
               {memoizedUser.map((cur, index) => (
                 <tr key={index} onClick={() => handleRowClick(cur)}>
 
@@ -218,6 +223,8 @@ function Payments() {
 
 
                   <td>{cur?.total_provider_amount?.toFixed(2)}$</td>
+
+
 
                 </tr>
               ))}
