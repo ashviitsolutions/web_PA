@@ -14,7 +14,7 @@ import images from "../../Components/assets/img/logo_home_navbar.png"
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
 import DiscountIcon from '@mui/icons-material/Discount';
-import BabyChangingStationIcon from '@mui/icons-material/BabyChangingStation';
+import SpaIcon from '@mui/icons-material/Spa';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import PagesIcon from '@mui/icons-material/Pages';
 
@@ -92,7 +92,7 @@ function Sidebar() {
             </div>
             <div className="items">
               <Link to="/admin/services">
-                <BabyChangingStationIcon style={{ color: "#fff" }} />
+                <SpaIcon style={{ color: "#fff" }} />
                 <span className="title">services</span>
               </Link>
             </div>

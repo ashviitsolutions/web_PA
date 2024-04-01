@@ -81,12 +81,12 @@ const PaymentForm = () => {
                 <h2>Payment Approval Form</h2>
                 <form onSubmit={handleSubmit} className="payment-form">
                     <div className="form-group">
-                        <label>Payment ID:</label>
+                        <label>Payment ref no:</label>
                         <input type="text" value={paymentId} onChange={(e) => setPaymentId(e.target.value)} />
                     </div>
                     <div className="form-group">
                         <label>Amount:</label>
-                        <input type="text" value={amount} onChange={(e) => setAmount(e.target.value)} />
+                        <input type="text" value={amount} onChange={(e) => setAmount(e.target.value)}  disabled />
                     </div>
                     <div className="form-group">
                         <label>Additional Info:</label>

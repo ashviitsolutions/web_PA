@@ -66,27 +66,26 @@ function Details() {
 
                                         <span>{moment(service.createdAt).format("LT")}</span>
                                     </td>
-                                    <td className="block-td">
-                                        <span>{service.service_name}</span>
-                                        <span>Single/Partner</span>
-                                        <span>Duration: {service.service_time}</span>
-                                        <span>Charges: {apidata.total_service_price}$</span>
-                                        <span>Comm. {service.provider_amount_calculation.service_price}$</span>
+                                    <td className="">
+                                        <p><span>{service.service_name}</span></p>
+                                        <p><span>Single/Partner</span></p>
+                                        <p><span>Duration: {service.service_time}</span></p>
+                                        <p><span>Charges: {apidata.total_service_price}$</span></p>
+                                        <p><span>Comm. {service.provider_amount_calculation.service_price}$</span></p>
                                     </td>
 
 
-                                    <td>
-                                        <td className="block-td">
+                                    
+                                        <td className="">
                                             {service.add_ons_details.map((addon, idx) => (
                                                 <div key={idx}>
-                                                    <span>{addon.title}</span>
-                                                    <span>{addon.price}$</span>
+                                                    <p><span>{addon.title}</span> <span>({addon.price}$)</span></p>
                                                 </div>
                                             ))}
-                                            <span>Charges: {apidata.total_add_on_price}$</span>
-                                            <span>Comm; {service?.provider_amount_calculation?.amount_addon?.toFixed(2)}$</span>
+                                            <p><span>Charges: {apidata.total_add_on_price}$</span></p>
+                                            <p><span>Comm. {service?.provider_amount_calculation?.amount_addon?.toFixed(2)}$</span></p>
                                         </td>
-                                    </td>
+                                    
                                     <td>{apidata.total_tip_amount?.toFixed(2)}$</td>
                                     <td>{apidata.total_admin_amount}$</td>
                                     <td>{apidata.total_provider_amount}$</td>

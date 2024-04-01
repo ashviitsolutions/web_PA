@@ -201,16 +201,16 @@ function Payments() {
 
 
 
-                  <td className="block-td">
+                  <td className="">
                     <span>{`${cur?.provider_details?.first_name} ${cur?.provider_details?.last_name}`}</span>
                     <span>{cur?.provider_details?.mailing_address?.address}</span>
                   </td>
 
 
                   <td >
-                    <div className="block-td">
-                      <span>{cur?.provider_details?.email}</span>
-                      <span>{cur?.provider_details?.phone}</span>
+                    <div className="">
+                      <p><span>{cur?.provider_details?.email}</span></p>
+                      <p><span>{cur?.provider_details?.phone}</span></p>
                     </div>
                   </td>
 
