@@ -39,7 +39,7 @@ function Blog() {
       try {
         const res = await fetch(`${IP}/blog/blogs`);
         const data = await res.json();
-        setRecnet(data.slice(0, 5));
+        setRecnet(data.posts.slice(0, 5));
         setImagerecent(data.attachments)
         console.log("get post data", data);
       } catch (error) {

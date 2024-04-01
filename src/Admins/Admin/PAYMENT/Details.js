@@ -44,7 +44,7 @@ function Details() {
                     <table className="payments-table">
                         <thead>
                             <tr>
-
+                                <td>check box</td>
                                 <th>Date</th>
                                 <th>Time</th>
                                 <th>Service Name</th>
@@ -57,6 +57,10 @@ function Details() {
                         <tbody>
                             {apidata && apidata.services.map((service, index) => (
                                 <tr key={index}>
+
+                                    <td>
+                                        <input type="checkbox" />
+                                    </td>
 
                                     <td >
 
@@ -75,17 +79,17 @@ function Details() {
                                     </td>
 
 
-                                    
-                                        <td className="">
-                                            {service.add_ons_details.map((addon, idx) => (
-                                                <div key={idx}>
-                                                    <p><span>{addon.title}</span> <span>({addon.price}$)</span></p>
-                                                </div>
-                                            ))}
-                                            <p><span>Charges: {apidata.total_add_on_price}$</span></p>
-                                            <p><span>Comm. {service?.provider_amount_calculation?.amount_addon?.toFixed(2)}$</span></p>
-                                        </td>
-                                    
+
+                                    <td className="">
+                                        {service.add_ons_details.map((addon, idx) => (
+                                            <div key={idx}>
+                                                <p><span>{addon.title}</span> <span>({addon.price}$)</span></p>
+                                            </div>
+                                        ))}
+                                        <p><span>Charges: {apidata.total_add_on_price}$</span></p>
+                                        <p><span>Comm. {service?.provider_amount_calculation?.amount_addon?.toFixed(2)}$</span></p>
+                                    </td>
+
                                     <td>{apidata.total_tip_amount?.toFixed(2)}$</td>
                                     <td>{apidata.total_admin_amount}$</td>
                                     <td>{apidata.total_provider_amount}$</td>

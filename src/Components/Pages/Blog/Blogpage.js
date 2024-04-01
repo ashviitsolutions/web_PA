@@ -16,7 +16,7 @@ function Blogpage() {
 			try {
 				const res = await fetch(`${IP}/blog/blogs?${id}`);
 				const data = await res.json();
-				setUsers(data);
+				setUsers(data.posts);
 				console.log("get post data", data);
 			} catch (error) {
 				console.error("Error fetching data:", error);
