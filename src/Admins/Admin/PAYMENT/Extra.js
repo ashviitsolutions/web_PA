@@ -1,217 +1,108 @@
-// import React, { useEffect, useState } from 'react';
-// import { IP } from '../../../Constant';
-// function Payments() {
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useParams, useNavigate } from 'react-router-dom';
+import { IP } from '../../../Constant';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useLocation } from 'react-router-dom';
+// import './PaymentForm.css'; 
 
-//     const [data, setData] = useState(0);
-//     const [count, setCount] = useState(0);
-//     const [user, setUser] = useState([]);
+const PaymentForm = () => {
+    const location = useLocation();
+    const serviceinfo = location.state.apidata.services;
 
-//     const token = localStorage.getItem("tokenadmin");
-
-//     useEffect(() => {
-//         const fetchData = async () => {
-//             try {
-//                 const res = await fetch(`${IP}/contractor/get`, {
-//                     method: 'GET',
-//                     headers: {
-//                         Authorization: token
-//                     }
-//                 });
-//                 const data = await res.json();
-//                 setUser(data);
-//                 console.log("data", data)
-//                 setCount(data.length);
-//             } catch (error) {
-//                 console.log(error);
-//             }
-//         };
-
-//         fetchData();
-//     }, []);
-
-//     return (
-//         <>
-//             <div id="content">
-//                 <div class="container-fluid">
-//                     <div class="row">
-//                         <div class="">
-//                             <div class="headings">
-//                                 <h3>Payments</h3>
-//                                 <span class="toggle_sidebar" ></span>
-//                             </div>
-//                         </div>
-//                     </div>
-//                     <div class="row">
-//                         <div class="gutter">
-//                             <div class="card layer1 filters">
-//                                 <div class="input_group">
-//                                     <input type="date" class="input" placeholder="Start Date" />
-//                                     <span class="highlight"></span>
-//                                 </div>
-//                                 <div class="input_group">
-//                                     <input type="date" class="input" placeholder="End Date" />
-//                                     <span class="highlight"></span>
-//                                 </div>
-//                                 <div class="input_group">
-//                                     <select name="" id="" class="input">
-//                                         <option value="">status</option>
-//                                         <option value="">pending</option>
-//                                         <option value="">completed</option>
-//                                     </select>
-//                                     <span class="highlight"></span>
-//                                 </div>
-//                                 <div class="input_group">
-//                                     <select name="" id="" class="input">
-//                                         <option value="">select event type</option>
-//                                         <option value="">private events</option>
-//                                         <option value="">corporate events</option>
-//                                     </select>
-//                                     <span class="highlight"></span>
-//                                 </div>
-//                                 <div class="input_group">
-//                                     <select name="" id="" class="input">
-//                                         <option value="">service</option>
-//                                         <option value="">service a</option>
-//                                         <option value="">service b</option>
-//                                         <option value="">service c</option>
-//                                         <option value="">service d</option>
-//                                         <option value="">service e</option>
-//                                     </select>
-//                                     <span class="highlight"></span>
-//                                 </div>
-//                                 <div class="input_group pull-right" style={{ maxWidth: "20%" }}>
-//                                     <input type="text" class="input" placeholder="search here.." />
-//                                     <span class="highlight"></span>
-//                                 </div>
-//                             </div>
-//                         </div>
-//                     </div>
-
-//                     <div class="row">
-//                         <div class="gutter">
-//                             <div class="card" style={{ padding: "25px 15px" }}>
-//                                 <h3 class="pull-right" style={{ margin: "0", fontSize: "17px" }}>Pending : $800</h3>
-//                                 <h3 class="pull-right" style={{ margin: "0", fontSize: "17px", marginLight: "20px" }}>Total Earning : $450</h3>
-//                             </div>
-//                         </div>
-//                     </div>
-
-//                     <div className="row">
-//                         <div className="gutter">
-//                             <div className="bookings">
-//                                 <div className="item_wrapper">
-//                                     {user.map((payment, index) => (
-//                                         <div className="item card layer1" key={index}>
-//                                             <div className="first_half">
-//                                                 <h3>{payment.title}</h3>
-//                                                 <span className="address">{payment.address}</span>
-//                                                 <span className="time">{payment.date}</span>
-//                                                 <span className="tag"><b>Parking Type</b> {payment.parkingType}</span>
-//                                                 <span className="tag"><b>Instruction</b> {payment.instructions}</span>
-//                                             </div>
-//                                             <div className="second_half">
-//                                                 <span>${payment.price}</span>
-//                                                 <span>+{payment.preTip} pre-tip</span>
-//                                                 <span className="colored">Total = ${payment.total}</span>
-//                                                 {payment.buttonLabel && (
-//                                                     <button className={`button ${payment.buttonType} square`}>{payment.buttonLabel}</button>
-//                                                 )}
-//                                             </div>
-//                                         </div>
-//                                     ))}
-//                                 </div>
-//                             </div>
-//                         </div>
-//                     </div>
-//                 </div>
-//             </div>
-//         </>
-//     )
-// }
-
-// export default Payments
+    const nav = useNavigate()
+    const { providerId } = useParams()
+    const [paymentId, setPaymentId] = useState('');
+    const [amount, setAmount] = useState('');
+    const [additionalInfo, setAdditionalInfo] = useState('');
+    // const [providerId, setProviderId] = useState('');
+    const [file, setFile] = useState(null);
 
 
+    console.log("providerId admin page release", serviceinfo)
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            let token = localStorage.getItem("tokenadmin");
+
+            // Create the request body object
+            const requestBody = {
+                paymentId,
+                amount,
+                serviceinfo,
+                additionalInfo,
+                providerId
+            };
+
+            // Make the POST request to the server
+            const response = await axios.post(`${IP}/service/approve-payment/${providerId}`, requestBody, {
+                headers: {
+                    'Authorization': token
+                }
+            });
+
+            // Handle the response
+            if (response.status === 200) {
+                // Show success notification and navigate to '/admin/Gift'
+                toast.success("Payment processed successfully!", {
+                    position: "top-right",
+                    autoClose: 3000,
+                    onClose: () => {
+                        nav("/admin/services");
+                    },
+                });
+            } else {
+                // Show error notification if the API response is not successful
+                toast.error("An error occurred. Please try again.", {
+                    position: "top-right",
+                    autoClose: 3000,
+                });
+            }
+        } catch (error) {
+            console.error('Error:', error.response.data);
+            // Show error notification if an error occurs
+            toast.error("An error occurred. Please try again.", {
+                position: "top-right",
+                autoClose: 3000,
+            });
+        }
+    };
 
 
+    const handleFileChange = (e) => {
+        setFile(e.target.files[0]);
+    };
 
-//     // <div class="row">
-//     // <div class="gutter">
-//     //   <div class="bookings">
-//     //     <div class="item_wrapper">
-//     //       <div class="item card layer1">
-//     //         <div class="first_half">
-//     //           <h3>couple deep tissue massage for elias</h3>
-//     //           <span class="address">jersey city NJ 07305</span>
-//     //           <span class="time">Sun, 08 november 2022</span>
-//     //           <span class="tag"> <b>Parking Type</b> Parking lot</span>
-//     //           <span class="tag"> <b>Instruction</b> free parking</span>
-//     //         </div>
-//     //         <div class="second_half">
-//     //           <span>$70</span>
-//     //           <span>+15 pre-tip</span>
-//     //           <span class="colored">Total = $85</span>
-//     //           <button class="button primary square">Release Payment</button>
-//     //         </div>
-//     //       </div>
-//     //     </div>
-//     //   </div>
-//     // </div>
-//     // </div>
+    return (
+        <>
+            <div className="payment-form-container">
+                <h2>Payment Approval Form</h2>
+                <form onSubmit={handleSubmit} className="payment-form">
+                    <div className="form-group">
+                        <label>Payment ref no:</label>
+                        <input type="text" value={paymentId} onChange={(e) => setPaymentId(e.target.value)} />
+                    </div>
+                    <div className="form-group">
+                        <label>Amount:</label>
+                        <input type="text" value={amount} onChange={(e) => setAmount(e.target.value)}  disabled />
+                    </div>
+                    <div className="form-group">
+                        <label>Additional Info:</label>
+                        <input type="text" value={additionalInfo} onChange={(e) => setAdditionalInfo(e.target.value)} />
+                    </div>
+                    <div className="form-group">
+                        <label>Attachment:</label>
+                        <input type="file" onChange={handleFileChange} />
+                    </div>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+            <ToastContainer />
+        </>
 
+    );
+};
 
-
-
-
-
-
-
-
-
-
-
-
-//     < div class="row" >
-//         <div class="gutter">
-//             <div class="bookings">
-//                 <div class="item_wrapper">
-//                     <div class="item card layer1">
-//                         <React.Fragment key={index}>
-//                             <tbody id="post_container">
-//                                 <tr className="wrapper" id="tr_post_77">
-//                                     <td>
-//                                         <div className="avatar_wrap">
-//                                             <div className="inner">
-//                                                 <div className='preview' style={{
-//                                                     width: "50%",
-//                                                     //  height:"80px",
-//                                                     backgroundSize: "cover",
-
-//                                                 }}>
-//                                                     <PreviewImage className="avatar" attachments={cur.images} />
-//                                                 </div>
-//                                             </div>
-//                                         </div>
-//                                     </td>
-//                                     <td>
-//                                         <div className="content">
-//                                             <span className="title" >{`${cur.first_name} ${cur.last_name}`} </span>
-//                                             <span className="title" style={{ display: "block", fontSize: "12px" }}>{cur.email}</span>
-//                                         </div>
-//                                     </td>
-
-
-//                                 </tr>
-//                             </tbody>
-//                         </React.Fragment>
-//                         <div class="second_half">
-//                             <span>$70</span>
-//                             <span>+15 pre-tip</span>
-//                             <span class="colored">Total = ${cur?.wallet?.available_amount}</span>
-//                             <button class="button primary square">Release Payment</button>
-//                         </div>
-//                     </div>
-//                 </div>
-//             </div>
-//         </div>
-// </div >
+export default PaymentForm;

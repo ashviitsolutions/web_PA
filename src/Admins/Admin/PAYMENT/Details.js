@@ -13,15 +13,31 @@ function Details() {
     const apidata = location.state.cur;
 
     const [loading, setLoading] = useState(null);
+    const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
 
-
-    const handleReleasePaymentClick = () => {
-        navigator(`/admin/payments/details/Release/${id}`, { state: { apidata } });
+    const handleCheckboxChange = (event, checkboxId) => {
+        if (event.target.checked) {
+            setSelectedCheckboxes(prevState => [...prevState, checkboxId]);
+        } else {
+            setSelectedCheckboxes(prevState => prevState.filter(id => id !== checkboxId));
+        }
     };
 
 
 
+
+
+
+
+
+
+
+    const handleReleasePaymentClick = () => {
+        navigator(`/admin/payments/details/Release/${id}`, { state: { selectedCheckboxes } });
+    };
+
     console.log("apidata , ", apidata)
+    console.log("selectedCheckboxes , ", selectedCheckboxes)
     return (
         <>
             <div id="content">
@@ -37,9 +53,6 @@ function Details() {
                             <button className="btn btn-primary" onClick={handleReleasePaymentClick}>Release Payment</button>
                         </div>
                     </div>
-
-
-
 
                     <table className="payments-table">
                         <thead>
@@ -57,17 +70,13 @@ function Details() {
                         <tbody>
                             {apidata && apidata.services.map((service, index) => (
                                 <tr key={index}>
-
                                     <td>
-                                        <input type="checkbox" />
+                                        <input type="checkbox" onChange={(event) => handleCheckboxChange(event, service._id)} />
                                     </td>
-
-                                    <td >
-
+                                    <td>
                                         <span>{moment(service.createdAt).format("MMMM Do YYYY")}</span>
                                     </td>
-                                    <td >
-
+                                    <td>
                                         <span>{moment(service.createdAt).format("LT")}</span>
                                     </td>
                                     <td className="">
@@ -77,9 +86,6 @@ function Details() {
                                         <p><span>Charges: {apidata.total_service_price}$</span></p>
                                         <p><span>Comm. {service.provider_amount_calculation.service_price}$</span></p>
                                     </td>
-
-
-
                                     <td className="">
                                         {service.add_ons_details.map((addon, idx) => (
                                             <div key={idx}>
@@ -89,7 +95,6 @@ function Details() {
                                         <p><span>Charges: {apidata.total_add_on_price}$</span></p>
                                         <p><span>Comm. {service?.provider_amount_calculation?.amount_addon?.toFixed(2)}$</span></p>
                                     </td>
-
                                     <td>{apidata.total_tip_amount?.toFixed(2)}$</td>
                                     <td>{apidata.total_admin_amount}$</td>
                                     <td>{apidata.total_provider_amount}$</td>
@@ -108,9 +113,6 @@ function Details() {
                             />
                         </div>
                     )}
-
-
-
                 </div>
             </div>
         </>

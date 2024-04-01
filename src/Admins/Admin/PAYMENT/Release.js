@@ -9,7 +9,7 @@ import { useLocation } from 'react-router-dom';
 
 const PaymentForm = () => {
     const location = useLocation();
-    const serviceinfo = location.state.apidata.services;
+    const serviceinfo = location.state.selectedCheckboxes;
 
     const nav = useNavigate()
     const { providerId } = useParams()
@@ -50,7 +50,7 @@ const PaymentForm = () => {
                     position: "top-right",
                     autoClose: 3000,
                     onClose: () => {
-                        nav("/admin/services");
+                        nav("/admin/payments");
                     },
                 });
             } else {
@@ -86,7 +86,7 @@ const PaymentForm = () => {
                     </div>
                     <div className="form-group">
                         <label>Amount:</label>
-                        <input type="text" value={amount} onChange={(e) => setAmount(e.target.value)}  disabled />
+                        <input type="text" value={amount} onChange={(e) => setAmount(e.target.value)} />
                     </div>
                     <div className="form-group">
                         <label>Additional Info:</label>
