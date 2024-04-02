@@ -580,7 +580,7 @@ function App() {
             <Protect Component={Details} />
           </>} />
 
-          <Route path="/admin/payments/details/Release/:providerId" element={<>
+          <Route path="/admin/payments/details/Release/:providerId/:amount" element={<>
             <Sidebar />
             <Protect Component={Release} />
           </>} />

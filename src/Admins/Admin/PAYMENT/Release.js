@@ -12,9 +12,9 @@ const PaymentForm = () => {
     const serviceinfo = location.state.selectedCheckboxes;
 
     const nav = useNavigate()
-    const { providerId } = useParams()
+    const { providerId ,amount } = useParams()
     const [paymentId, setPaymentId] = useState('');
-    const [amount, setAmount] = useState('');
+    // const [amount, setAmount] = useState('');
     const [additionalInfo, setAdditionalInfo] = useState('');
     // const [providerId, setProviderId] = useState('');
     const [file, setFile] = useState(null);
@@ -86,7 +86,7 @@ const PaymentForm = () => {
                     </div>
                     <div className="form-group">
                         <label>Amount:</label>
-                        <input type="text" value={amount} onChange={(e) => setAmount(e.target.value)} />
+                        <input type="text" value={amount} />
                     </div>
                     <div className="form-group">
                         <label>Additional Info:</label>

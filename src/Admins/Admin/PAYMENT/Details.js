@@ -11,9 +11,13 @@ function Details() {
     const navigator = useNavigate()
     const location = useLocation();
     const apidata = location.state.cur;
+    const releaseAmount = apidata.total_provider_amount;
+
 
     const [loading, setLoading] = useState(null);
-    const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
+    // const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
+    const [selectedCheckboxes, setSelectedCheckboxes] = useState(apidata ? apidata.services.map(service => service._id) : []);
+
 
     const handleCheckboxChange = (event, checkboxId) => {
         if (event.target.checked) {
@@ -33,10 +37,10 @@ function Details() {
 
 
     const handleReleasePaymentClick = () => {
-        navigator(`/admin/payments/details/Release/${id}`, { state: { selectedCheckboxes } });
+        navigator(`/admin/payments/details/Release/${id}/${releaseAmount}`, { state: { selectedCheckboxes } });
     };
 
-    console.log("apidata , ", apidata)
+    console.log("releaseAmount , ", releaseAmount)
     console.log("selectedCheckboxes , ", selectedCheckboxes)
     return (
         <>
@@ -71,7 +75,7 @@ function Details() {
                             {apidata && apidata.services.map((service, index) => (
                                 <tr key={index}>
                                     <td>
-                                        <input type="checkbox" onChange={(event) => handleCheckboxChange(event, service._id)} />
+                                        <input type="checkbox" onChange={(event) => handleCheckboxChange(event, service._id)} checked={selectedCheckboxes.includes(service._id)} />
                                     </td>
                                     <td>
                                         <span>{moment(service.createdAt).format("MMMM Do YYYY")}</span>
