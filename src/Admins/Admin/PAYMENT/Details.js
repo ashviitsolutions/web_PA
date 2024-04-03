@@ -121,6 +121,21 @@ function Details() {
                                     <td>{service?.provider_amount_calculation?.total_amount?.toFixed(2)}$</td>
                                 </tr>
                             ))}
+                            <tr>
+                                <td colSpan={4} style={{textAlign:"right"}}><strong>Total</strong></td>
+                                <td>250$</td>
+                                <td>{totalAdminPrice.toFixed(2)}$</td>
+                                <td>{totalPrice.toFixed(2)}$</td>
+                            </tr>
+                            <tr>
+                                <td colSpan={4} style={{textAlign:"right"}}><strong>Profit Calculation</strong></td>
+                                <td  colSpan={3} style={{textAlign:"right"}}>
+                                    <p>Amount with Tax = {totalAdminPrice.toFixed(2)}$</p>
+                                    <p>- Tax(es) = 250$</p>
+                                    <p>- Paid to Provider(s) Including Gratuity = 300$</p>
+                                    <p><strong>Profit = 400$</strong></p>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
 
