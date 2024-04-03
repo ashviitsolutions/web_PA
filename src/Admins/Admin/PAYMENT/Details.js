@@ -18,7 +18,7 @@ function Details() {
     const [totalPrice, setTotalPrice] = useState(apidata ? apidata.total_provider_amount : 0);
     const [totalAdminPrice, setAdminPrice] = useState(apidata ? apidata.total_admin_amount : 0);
 
-    const handleCheckboxChange = (event, checkboxId, servicePrice, addonCommission, amount_tip , adminAmount) => {
+    const handleCheckboxChange = (event, checkboxId, servicePrice, addonCommission, amount_tip, adminAmount) => {
         let updatedTotalPrice = totalPrice;
         let updatedAdminTotalPrice = totalAdminPrice;
         if (event.target.checked) {
@@ -29,7 +29,7 @@ function Details() {
             setSelectedCheckboxes(prevState => prevState.filter(id => id !== checkboxId));
             if (selectedCheckboxes.length === 1) { // Last checkbox unchecked
                 updatedTotalPrice = 0; // Reset total price to 0
-                updatedAdminTotalPrice=0;
+                updatedAdminTotalPrice = 0;
             } else {
                 updatedTotalPrice -= servicePrice + addonCommission + amount_tip;
                 updatedAdminTotalPrice -= adminAmount;
@@ -53,11 +53,13 @@ function Details() {
                         <div className="col">
                             <div className="headings">
                                 <h3>Payments</h3>
-                                <p>{apidata.provider_details.first_name} {apidata.provider_details.first_name}</p>
-                                <p>{apidata.provider_details.email}</p>
-                                <p>{apidata.provider_details.phone}</p>
                                 <span className="toggle_sidebar"></span>
                             </div>
+                        </div>
+                        <div className="col-auto mt-6">
+                            <p>{apidata.provider_details.first_name} {apidata.provider_details.first_name}</p>
+                            <p>{apidata.provider_details.email}</p>
+                            <p>{apidata.provider_details.phone}</p>
                         </div>
                         <div className="col-auto mt-3">
                             <button className="btn btn-primary" onClick={handleReleasePaymentClick}>Release Payment</button>
@@ -69,7 +71,6 @@ function Details() {
                             <tr>
                                 <td>check box</td>
                                 <th>Date</th>
-                                <th>Time</th>
                                 <th>Service Name</th>
                                 <th>Addons</th>
                                 <th>Gratuity(14%)</th>
@@ -89,17 +90,16 @@ function Details() {
                                                 service.provider_amount_calculation.amount_tip,
 
                                                 service.amount_calculation.total_amount,
-                                               
-                                                
+
+
                                             )} checked={selectedCheckboxes.includes(service._id)}
                                         />
                                     </td>
-                                    <td>
-                                        <span>{moment(service.createdAt).format("MMMM Do YYYY")}</span>
-                                    </td>
-                                    <td>
+                                    <td className="">
+                                        <p><span>{moment(service.createdAt).format("MMMM Do YYYY")}</span></p>
                                         <span>{moment(service.createdAt).format("LT")}</span>
                                     </td>
+
                                     <td className="">
                                         <p><span>{service.service_name}</span></p>
                                         <p><span>Single/Partner</span></p>
