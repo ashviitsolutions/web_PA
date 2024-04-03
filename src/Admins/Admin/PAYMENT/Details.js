@@ -73,7 +73,7 @@ function Details() {
                                 <th>Date</th>
                                 <th>Service Name</th>
                                 <th>Addons</th>
-                                <th>Gratuity(14%)</th>
+                                <th>Gratuity(18%)</th>
                                 <th>Total Charges</th>
                                 <th>Total Pay</th>
                             </tr>
@@ -104,7 +104,7 @@ function Details() {
                                         <p><span>{service.service_name}</span></p>
                                         <p><span>Single/Partner</span></p>
                                         <p><span>Duration: {service.service_time}</span></p>
-                                        <p><span>Charges: {apidata.total_service_price}$</span></p>
+                                        <p><span>Charges: {service.amount_calculation.amount_service}$</span></p>
                                         <p><span>Comm. {service.provider_amount_calculation.service_price}$</span></p>
                                     </td>
                                     <td className="">
@@ -113,12 +113,12 @@ function Details() {
                                                 <p><span>{addon.title}</span> <span>({addon.price}$)</span></p>
                                             </div>
                                         ))}
-                                        <p><span>Charges: {apidata.total_add_on_price}$</span></p>
+                                        <p><span>Charges: {service.amount_calculation.amount_addon}$</span></p>
                                         <p><span>Comm. {service?.provider_amount_calculation?.amount_addon?.toFixed(2)}$</span></p>
                                     </td>
-                                    <td>{apidata.total_tip_amount?.toFixed(2)}$</td>
-                                    <td>{totalAdminPrice.toFixed(2)}$</td>
-                                    <td>{totalPrice.toFixed(2)}$</td>
+                                    <td>{service?.provider_amount_calculation?.amount_tip?.toFixed(2)}$</td>
+                                    <td>{service.amount_calculation.amount_widthout_tax.toFixed(2)}$</td>
+                                    <td>{service?.provider_amount_calculation?.total_amount?.toFixed(2)}$</td>
                                 </tr>
                             ))}
                         </tbody>
