@@ -12,7 +12,7 @@ const PaymentForm = () => {
     const serviceinfo = location.state.selectedCheckboxes;
 
     const nav = useNavigate()
-    const { providerId ,amount } = useParams()
+    const { providerId, amount } = useParams()
     const [paymentId, setPaymentId] = useState('');
     // const [amount, setAmount] = useState('');
     const [additionalInfo, setAdditionalInfo] = useState('');
@@ -86,7 +86,7 @@ const PaymentForm = () => {
                     </div>
                     <div className="form-group">
                         <label>Amount:</label>
-                        <input type="text" value={amount} />
+                        <input type="text" value={parseFloat(amount).toFixed(2)} disabled />
                     </div>
                     <div className="form-group">
                         <label>Additional Info:</label>

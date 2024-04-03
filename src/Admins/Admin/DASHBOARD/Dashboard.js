@@ -36,7 +36,7 @@ function Dashboard() {
         fetchData();
     }, []);
 
-console.log(data)
+    console.log(data)
 
     return (
         <>
@@ -50,6 +50,9 @@ console.log(data)
                             </div>
                         </div>
                     </div>
+
+
+
                     <div className="row">
                         <div className="">
                             <div className="container-fluid">
@@ -80,8 +83,8 @@ console.log(data)
                                         <div className="gutter">
                                             <div className="card dash_card layer2">
                                                 <div className="content">
-                                                    <span className="head">order history</span>
-                                                    <span className="value">{user.total_completed_bookings}</span>
+                                                    <span className="head">Total Sale</span>
+                                                    <span className="value">$3879</span>
                                                 </div>
                                                 <span className="icon" style={{ backgroundImage: `url(${image3})` }}></span>
                                             </div>
@@ -91,7 +94,7 @@ console.log(data)
                                         <div className="gutter">
                                             <div className="card dash_card layer2">
                                                 <div className="content">
-                                                    <span className="head">pending payments</span>
+                                                    <span className="head">Net Profit</span>
                                                     <span className="value">$3879</span>
                                                 </div>
                                                 <span className="icon" style={{ backgroundImage: `url(${image4})` }}></span>
@@ -103,62 +106,31 @@ console.log(data)
                         </div>
                     </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
                     <div className="row">
-
-
-                        <div className="col-sm-5">
-                            <div className="gutter">
-                                <div className="card layer2">
-                                    <table className="table-responsive ultra_responsive">
-                                        <thead>
-                                            <tr>
-                                                <th>User Email</th>
-                                                <th>Scheduled Time</th>
-                                                <th>Contact Number</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {Array.isArray(data) && data.length > 0 ? (
-                                                data.map((cur, index) => (
-                                                    <tr key={index}>
-                                                        <td>{cur.customer_email}</td>
-                                                        <td>{cur.scheduledTime}</td>
-                                                        <td>{cur.contactNumber}</td>
-                                                        <td>{cur.status}</td>
-                                                    </tr>
-                                                ))
-                                            ) : (
-                                                <tr>
-                                                    <td colSpan="4">No user data available.</td>
-                                                </tr>
-                                            )}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                        <div className='text-center mt-3 '>
+                            <h5>Registration</h5>
                         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-                        <div className="col-sm-7">
+                        <div className="col-sm-12">
                             <div className="container-fluid">
 
 
                                 <div className="summary_collections">
                                     <div className="container-fluid">
                                         <div className="row">
-                                            <div className="col-sm-4">
+                                            <div className="col-sm-3">
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image5})` }}></span>
@@ -167,86 +139,87 @@ console.log(data)
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-sm-4">
+                                            <div className="col-sm-3">
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image6})` }}></span>
                                                         <h3>{user.total_bookings_today
                                                         }</h3>
-                                                        <p>Total Booking today</p>
+                                                        <p>Total Providers</p>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-sm-4">
+
+                                            <div className="col-sm-3">
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image7})` }}></span>
                                                         <h3>6</h3>
-                                                        <p>service cancelled</p>
+                                                        <p>Provides Request </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="col-sm-3">
+                                                <div className="gutter">
+                                                    <div className="card layer2">
+                                                        <span className="icon" style={{ backgroundImage: `url(${image7})` }}></span>
+                                                        <h3>6</h3>
+                                                        <p>Net Profit</p>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+
+
+
+
                                         <div className="row">
-                                            <div className="col-sm-4">
+                                            <div className='text-center mt-3 '>
+                                                <h5>Services</h5>
+                                            </div>
+
+                                            <div className="col-sm-3">
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image5})` }}></span>
                                                         <h3>{user.total_completed_bookings_today}</h3>
-                                                        <p>Total Booking</p>
+                                                        <p>Total Request</p>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-sm-4">
+                                            <div className="col-sm-3">
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image6})` }}></span>
                                                         <h3>{user.total_pending_bookings
                                                         }</h3>
-                                                        <p>Total Pending Booking</p>
+                                                        <p>Attended</p>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-sm-4">
+                                            <div className="col-sm-3">
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image7})` }}></span>
                                                         <h3>{user.total_pending_bookings_today}</h3>
-                                                        <p>Total Pending Booking Today</p>
+                                                        <p>Unassigned</p>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div className="row">
-                                            <div className="col-sm-4">
-                                                <div className="gutter">
-                                                    <div className="card layer2">
-                                                        <span className="icon" style={{ backgroundImage: `url(${image5})` }}></span>
-                                                        <h3>{user.total_scheduled_bookings}</h3>
-                                                        <p>Total Scheduled Booking</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="col-sm-4">
-                                                <div className="gutter">
-                                                    <div className="card layer2">
-                                                        <span className="icon" style={{ backgroundImage: `url(${image6})` }}></span>
-                                                        <h3>{user.total_scheduled_bookings_today
-                                                        }</h3>
-                                                        <p>Total Scheduled Booking Today</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="col-sm-4">
+                                            <div className="col-sm-3">
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image7})` }}></span>
                                                         <h3>{user.total_pending_bookings_today}</h3>
-                                                        <p>Total Pending Booking Today</p>
+                                                        <p>Checkout</p>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+
+
+
+
                                     </div>
                                 </div>
                             </div>
