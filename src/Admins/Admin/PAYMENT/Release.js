@@ -79,13 +79,13 @@ const PaymentForm = () => {
     return (
         <>
 
-          
+
             <div className="payment-form-container">
-            <div className="container">
-            <p>{apidata.provider_details.first_name} {apidata.provider_details.first_name}</p>
-            <p>{apidata.provider_details.email}</p>
-            <p>{apidata.provider_details.phone}</p>
-        </div>
+                <div className="container">
+                    <p>{apidata.provider_details.first_name} {apidata.provider_details.first_name}</p>
+                    <p>{apidata.provider_details.email}</p>
+                    <p>{apidata.provider_details.phone}</p>
+                </div>
                 <h2>Payment Approval Form</h2>
 
                 <form onSubmit={handleSubmit} className="payment-form">

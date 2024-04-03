@@ -11,6 +11,18 @@ import image7 from "../../img/no-data.png"
 function Dashboard() {
     const [user, setUser] = useState([]);
     const [data, setData] = useState([]);
+
+    const [request, setRequest] = useState([]);
+    const [startDate, setStartDate] = useState("");
+    const [endDate, setEndDate] = useState("");
+    const [status, setStatus] = useState("");
+    const [searchText, setSearchText] = useState("");
+
+    const [display, setDisplay] = useState(true);
+    const [showModal, setShowModal] = useState(false);
+    const [selectedEventData, setSelectedEventData] = useState(null); // New state to store selected event data
+    const [pageNumber, setPageNumber] = useState(1);
+    const [loading, setLoading] = useState(null);
     const token = localStorage.getItem("tokenadmin");
     console.log(token)
 
@@ -51,78 +63,36 @@ function Dashboard() {
                         </div>
                     </div>
 
-
-
-                    <div className="row">
-                        <div className="">
-                            <div className="container-fluid">
-                                <div className="row">
-                                    <div className="col-sm-3">
-                                        <div className="gutter">
-                                            <div className="card dash_card layer2">
-                                                <div className="content">
-                                                    <span className="head">Total Services</span>
-                                                    <span className="value">100</span>
-                                                </div>
-                                                <span className="icon" style={{ backgroundImage: `url(${image1})` }}></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-sm-3">
-                                        <div className="gutter">
-                                            <div className="card dash_card layer2">
-                                                <div className="content">
-                                                    <span className="head">Today Total payments</span>
-                                                    <span className="value">{user.todays_total_payment}</span>
-                                                </div>
-                                                <span className="icon" style={{ backgroundImage: `url(${image2})` }}></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-sm-3">
-                                        <div className="gutter">
-                                            <div className="card dash_card layer2">
-                                                <div className="content">
-                                                    <span className="head">Total Sale</span>
-                                                    <span className="value">$3879</span>
-                                                </div>
-                                                <span className="icon" style={{ backgroundImage: `url(${image3})` }}></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-sm-3">
-                                        <div className="gutter">
-                                            <div className="card dash_card layer2">
-                                                <div className="content">
-                                                    <span className="head">Net Profit</span>
-                                                    <span className="value">$3879</span>
-                                                </div>
-                                                <span className="icon" style={{ backgroundImage: `url(${image4})` }}></span>
-                                            </div>
-                                        </div>
-                                    </div>
+                    <div class="row mb-5">
+                        <div class="gutter">
+                            <div class="card layer1 filters">
+                                <span class="highlight"> from </span>
+                                <div class="input_group">
+                                    <input type="date" class="input" placeholder="Start Date" onChange={e => setStartDate(e.target.value)} value={startDate} />
+                                    <span class="highlight"></span>
                                 </div>
+                                <span class="highlight"> to </span>
+                                <div class="input_group">
+                                    <input type="date" class="input" placeholder="End Date" onChange={e => setEndDate(e.target.value)} value={endDate} />
+                                    <span class="highlight"></span>
+                                </div>
+
                             </div>
                         </div>
                     </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
                     <div className="row">
-                        <div className='text-center mt-3 '>
-                            <h5>Registration</h5>
+
+                        <div className="header_dashbord">
+                            <div className='content_dashboard'>
+                                <h5>Finance</h5>
+                            </div>
+                            <div className='content_dashboard'>
+                                <h5>Registration</h5>
+                            </div>
                         </div>
+
                         <div className="col-sm-12">
                             <div className="container-fluid">
 
@@ -130,6 +100,25 @@ function Dashboard() {
                                 <div className="summary_collections">
                                     <div className="container-fluid">
                                         <div className="row">
+                                            <div className="col-sm-3">
+                                                <div className="gutter">
+                                                    <div className="card layer2">
+                                                        <span className="icon" style={{ backgroundImage: `url(${image4})` }}></span>
+                                                        <h3>2000$</h3>
+                                                        <p>Total Sale</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="col-sm-3">
+                                                <div className="gutter">
+                                                    <div className="card layer2">
+                                                        <span className="icon" style={{ backgroundImage: `url(${image4})` }}></span>
+                                                        <h3>2000$</h3>
+                                                        <p>Net Profit</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                             <div className="col-sm-3">
                                                 <div className="gutter">
                                                     <div className="card layer2">
@@ -142,29 +131,9 @@ function Dashboard() {
                                             <div className="col-sm-3">
                                                 <div className="gutter">
                                                     <div className="card layer2">
-                                                        <span className="icon" style={{ backgroundImage: `url(${image6})` }}></span>
-                                                        <h3>{user.total_bookings_today
-                                                        }</h3>
-                                                        <p>Total Providers</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div className="col-sm-3">
-                                                <div className="gutter">
-                                                    <div className="card layer2">
-                                                        <span className="icon" style={{ backgroundImage: `url(${image7})` }}></span>
+                                                        <span className="icon" style={{ backgroundImage: `url(${image5})` }}></span>
                                                         <h3>6</h3>
-                                                        <p>Provides Request </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="col-sm-3">
-                                                <div className="gutter">
-                                                    <div className="card layer2">
-                                                        <span className="icon" style={{ backgroundImage: `url(${image7})` }}></span>
-                                                        <h3>6</h3>
-                                                        <p>Net Profit</p>
+                                                        <p>New Providers</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -181,8 +150,8 @@ function Dashboard() {
                                             <div className="col-sm-3">
                                                 <div className="gutter">
                                                     <div className="card layer2">
-                                                        <span className="icon" style={{ backgroundImage: `url(${image5})` }}></span>
-                                                        <h3>{user.total_completed_bookings_today}</h3>
+                                                        <span className="icon" style={{ backgroundImage: `url(${image1})` }}></span>
+                                                        <h3>{user.total_pending_bookings}</h3>
                                                         <p>Total Request</p>
                                                     </div>
                                                 </div>
@@ -190,8 +159,8 @@ function Dashboard() {
                                             <div className="col-sm-3">
                                                 <div className="gutter">
                                                     <div className="card layer2">
-                                                        <span className="icon" style={{ backgroundImage: `url(${image6})` }}></span>
-                                                        <h3>{user.total_pending_bookings
+                                                        <span className="icon" style={{ backgroundImage: `url(${image3})` }}></span>
+                                                        <h3>{user.total_scheduled_bookings
                                                         }</h3>
                                                         <p>Attended</p>
                                                     </div>
@@ -200,9 +169,9 @@ function Dashboard() {
                                             <div className="col-sm-3">
                                                 <div className="gutter">
                                                     <div className="card layer2">
-                                                        <span className="icon" style={{ backgroundImage: `url(${image7})` }}></span>
-                                                        <h3>{user.total_pending_bookings_today}</h3>
-                                                        <p>Unassigned</p>
+                                                        <span className="icon" style={{ backgroundImage: `url(${image2})` }}></span>
+                                                        <h3>{user.total_bookings}</h3>
+                                                        <p>Total Bookings</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -210,7 +179,7 @@ function Dashboard() {
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image7})` }}></span>
-                                                        <h3>{user.total_pending_bookings_today}</h3>
+                                                        <h3>{user.total_completed_bookings}</h3>
                                                         <p>Checkout</p>
                                                     </div>
                                                 </div>

@@ -5,7 +5,7 @@ import { FallingLines } from "react-loader-spinner";
 import moment from "moment";
 
 function Event() {
-    const token = localStorage.getItem("providertoken");
+    const token = localStorage.getItem("tokenadmin");
     const [request, setRequest] = useState([]);
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
@@ -130,11 +130,12 @@ function Event() {
                     <div class="row">
                         <div class="gutter">
                             <div class="card layer1 filters">
+                                <span class="highlight"> from </span>
                                 <div class="input_group">
                                     <input type="date" class="input" placeholder="Start Date" onChange={e => setStartDate(e.target.value)} value={startDate} />
                                     <span class="highlight"></span>
                                 </div>
-                                <span class="highlight"> From </span>
+                                <span class="highlight"> to </span>
                                 <div class="input_group">
                                     <input type="date" class="input" placeholder="End Date" onChange={e => setEndDate(e.target.value)} value={endDate} />
                                     <span class="highlight"></span>
@@ -201,7 +202,7 @@ function Event() {
             </div>
             {selectedEventData && (
                 <CustomModal
-                   booking_status={selectedEventData.service_status}
+                    booking_status={selectedEventData.service_status}
                     event={selectedEventData.event}
                     show={showModal}
                     onHide={closeModal}
