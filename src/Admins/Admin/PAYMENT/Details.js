@@ -16,21 +16,27 @@ function Details() {
     const [loading, setLoading] = useState(null);
     const [selectedCheckboxes, setSelectedCheckboxes] = useState(apidata ? apidata.services.map(service => service._id) : []);
     const [totalPrice, setTotalPrice] = useState(apidata ? apidata.total_provider_amount : 0);
+    const [totalAdminPrice, setAdminPrice] = useState(apidata ? apidata.total_admin_amount : 0);
 
-    const handleCheckboxChange = (event, checkboxId, servicePrice, addonCommission, amount_tip) => {
+    const handleCheckboxChange = (event, checkboxId, servicePrice, addonCommission, amount_tip , adminAmount) => {
         let updatedTotalPrice = totalPrice;
+        let updatedAdminTotalPrice = totalAdminPrice;
         if (event.target.checked) {
             setSelectedCheckboxes(prevState => [...prevState, checkboxId]);
             updatedTotalPrice += servicePrice + addonCommission + amount_tip;
+            updatedAdminTotalPrice += adminAmount;
         } else {
             setSelectedCheckboxes(prevState => prevState.filter(id => id !== checkboxId));
             if (selectedCheckboxes.length === 1) { // Last checkbox unchecked
                 updatedTotalPrice = 0; // Reset total price to 0
+                updatedAdminTotalPrice=0;
             } else {
                 updatedTotalPrice -= servicePrice + addonCommission + amount_tip;
+                updatedAdminTotalPrice -= adminAmount;
             }
         }
         setTotalPrice(updatedTotalPrice);
+        setAdminPrice(updatedAdminTotalPrice);
     };
 
 
@@ -80,7 +86,11 @@ function Details() {
                                                 event, service._id,
                                                 service.provider_amount_calculation.service_price,
                                                 service.provider_amount_calculation.amount_addon,
-                                                service.provider_amount_calculation.amount_tip
+                                                service.provider_amount_calculation.amount_tip,
+
+                                                service.amount_calculation.total_amount,
+                                               
+                                                
                                             )} checked={selectedCheckboxes.includes(service._id)}
                                         />
                                     </td>
@@ -107,7 +117,7 @@ function Details() {
                                         <p><span>Comm. {service?.provider_amount_calculation?.amount_addon?.toFixed(2)}$</span></p>
                                     </td>
                                     <td>{apidata.total_tip_amount?.toFixed(2)}$</td>
-                                    <td>{apidata.total_admin_amount}$</td>
+                                    <td>{totalAdminPrice.toFixed(2)}$</td>
                                     <td>{totalPrice.toFixed(2)}$</td>
                                 </tr>
                             ))}

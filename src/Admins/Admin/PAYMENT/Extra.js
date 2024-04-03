@@ -1,108 +1,133 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom';
-import { IP } from '../../../Constant';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-// import './PaymentForm.css'; 
+import { FallingLines } from 'react-loader-spinner';
+import Release from './Release';
+import moment from "moment";
+import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
-const PaymentForm = () => {
+function Details() {
+    const { id } = useParams()
+    const navigator = useNavigate()
     const location = useLocation();
-    const serviceinfo = location.state.apidata.services;
+    const apidata = location.state.cur;
+    const releaseAmount = apidata.total_provider_amount;
 
-    const nav = useNavigate()
-    const { providerId } = useParams()
-    const [paymentId, setPaymentId] = useState('');
-    const [amount, setAmount] = useState('');
-    const [additionalInfo, setAdditionalInfo] = useState('');
-    // const [providerId, setProviderId] = useState('');
-    const [file, setFile] = useState(null);
+    const [loading, setLoading] = useState(null);
+    const [selectedCheckboxes, setSelectedCheckboxes] = useState(apidata ? apidata.services.map(service => service._id) : []);
+    const [totalPrice, setTotalPrice] = useState(apidata ? apidata.total_provider_amount : 0);
 
-
-    console.log("providerId admin page release", serviceinfo)
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            let token = localStorage.getItem("tokenadmin");
-
-            // Create the request body object
-            const requestBody = {
-                paymentId,
-                amount,
-                serviceinfo,
-                additionalInfo,
-                providerId
-            };
-
-            // Make the POST request to the server
-            const response = await axios.post(`${IP}/service/approve-payment/${providerId}`, requestBody, {
-                headers: {
-                    'Authorization': token
-                }
-            });
-
-            // Handle the response
-            if (response.status === 200) {
-                // Show success notification and navigate to '/admin/Gift'
-                toast.success("Payment processed successfully!", {
-                    position: "top-right",
-                    autoClose: 3000,
-                    onClose: () => {
-                        nav("/admin/services");
-                    },
-                });
+    const handleCheckboxChange = (event, checkboxId, servicePrice, addonCommission, amount_tip) => {
+        let updatedTotalPrice = totalPrice;
+        if (event.target.checked) {
+            setSelectedCheckboxes(prevState => [...prevState, checkboxId]);
+            updatedTotalPrice += servicePrice + addonCommission + amount_tip;
+        } else {
+            setSelectedCheckboxes(prevState => prevState.filter(id => id !== checkboxId));
+            if (selectedCheckboxes.length === 1) { // Last checkbox unchecked
+                updatedTotalPrice = 0; // Reset total price to 0
             } else {
-                // Show error notification if the API response is not successful
-                toast.error("An error occurred. Please try again.", {
-                    position: "top-right",
-                    autoClose: 3000,
-                });
+                updatedTotalPrice -= servicePrice + addonCommission + amount_tip;
             }
-        } catch (error) {
-            console.error('Error:', error.response.data);
-            // Show error notification if an error occurs
-            toast.error("An error occurred. Please try again.", {
-                position: "top-right",
-                autoClose: 3000,
-            });
         }
+        setTotalPrice(updatedTotalPrice);
     };
 
 
-    const handleFileChange = (e) => {
-        setFile(e.target.files[0]);
+
+    const handleReleasePaymentClick = () => {
+        navigator(`/admin/payments/details/Release/${id}/${totalPrice}`, { state: { selectedCheckboxes } });
     };
 
     return (
         <>
-            <div className="payment-form-container">
-                <h2>Payment Approval Form</h2>
-                <form onSubmit={handleSubmit} className="payment-form">
-                    <div className="form-group">
-                        <label>Payment ref no:</label>
-                        <input type="text" value={paymentId} onChange={(e) => setPaymentId(e.target.value)} />
+            <div id="content">
+                <div className="container-fluid">
+                    <div className="row">
+                        <div className="col">
+                            <div className="headings">
+                                <h3>Payments</h3>
+                                <p>{apidata.provider_details.first_name} {apidata.provider_details.first_name}</p>
+                                <p>{apidata.provider_details.email}</p>
+                                <p>{apidata.provider_details.phone}</p>
+                                <span className="toggle_sidebar"></span>
+                            </div>
+                        </div>
+                        <div className="col-auto mt-3">
+                            <button className="btn btn-primary" onClick={handleReleasePaymentClick}>Release Payment</button>
+                        </div>
                     </div>
-                    <div className="form-group">
-                        <label>Amount:</label>
-                        <input type="text" value={amount} onChange={(e) => setAmount(e.target.value)}  disabled />
-                    </div>
-                    <div className="form-group">
-                        <label>Additional Info:</label>
-                        <input type="text" value={additionalInfo} onChange={(e) => setAdditionalInfo(e.target.value)} />
-                    </div>
-                    <div className="form-group">
-                        <label>Attachment:</label>
-                        <input type="file" onChange={handleFileChange} />
-                    </div>
-                    <button type="submit">Submit</button>
-                </form>
+
+                    <table className="payments-table">
+                        <thead>
+                            <tr>
+                                <td>check box</td>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Service Name</th>
+                                <th>Addons</th>
+                                <th>Gratuity(14%)</th>
+                                <th>Total Charges</th>
+                                <th>Total Pay</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {apidata && apidata.services.map((service, index) => (
+                                <tr key={index}>
+                                    <td>
+                                        <input type="checkbox"
+                                            onChange={(event) => handleCheckboxChange(
+                                                event, service._id,
+                                                service.provider_amount_calculation.service_price,
+                                                service.provider_amount_calculation.amount_addon,
+                                                service.provider_amount_calculation.amount_tip
+                                            )} checked={selectedCheckboxes.includes(service._id)}
+                                        />
+                                    </td>
+                                    <td>
+                                        <span>{moment(service.createdAt).format("MMMM Do YYYY")}</span>
+                                    </td>
+                                    <td>
+                                        <span>{moment(service.createdAt).format("LT")}</span>
+                                    </td>
+                                    <td className="">
+                                        <p><span>{service.service_name}</span></p>
+                                        <p><span>Single/Partner</span></p>
+                                        <p><span>Duration: {service.service_time}</span></p>
+                                        <p><span>Charges: {apidata.total_service_price}$</span></p>
+                                        <p><span>Comm. {service.provider_amount_calculation.service_price}$</span></p>
+                                    </td>
+                                    <td className="">
+                                        {service.add_ons_details.map((addon, idx) => (
+                                            <div key={idx}>
+                                                <p><span>{addon.title}</span> <span>({addon.price}$)</span></p>
+                                            </div>
+                                        ))}
+                                        <p><span>Charges: {apidata.total_add_on_price}$</span></p>
+                                        <p><span>Comm. {service?.provider_amount_calculation?.amount_addon?.toFixed(2)}$</span></p>
+                                    </td>
+                                    <td>{apidata.total_tip_amount?.toFixed(2)}$</td>
+                                    <td>{apidata.total_admin_amount}$</td>
+                                    <td>{totalPrice.toFixed(2)}$</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+
+                    {loading && (
+                        <div style={{ textAlign: "center" }}>
+                            <FallingLines
+                                color="#03a9f4"
+                                width="150"
+                                visible={true}
+                                ariaLabel="falling-circles-loading"
+                            />
+                        </div>
+                    )}
+                </div>
             </div>
-            <ToastContainer />
         </>
-
     );
-};
+}
 
-export default PaymentForm;
+export default Details;
