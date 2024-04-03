@@ -10,7 +10,7 @@ import { useLocation } from 'react-router-dom';
 const PaymentForm = () => {
     const location = useLocation();
     const serviceinfo = location.state.selectedCheckboxes;
-
+    const apidata = location.state.apidata;
     const nav = useNavigate()
     const { providerId, amount } = useParams()
     const [paymentId, setPaymentId] = useState('');
@@ -21,6 +21,7 @@ const PaymentForm = () => {
 
 
     console.log("providerId admin page release", serviceinfo)
+    console.log("providerId admin", apidata)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -77,8 +78,16 @@ const PaymentForm = () => {
 
     return (
         <>
+
+          
             <div className="payment-form-container">
+            <div className="container">
+            <p>{apidata.provider_details.first_name} {apidata.provider_details.first_name}</p>
+            <p>{apidata.provider_details.email}</p>
+            <p>{apidata.provider_details.phone}</p>
+        </div>
                 <h2>Payment Approval Form</h2>
+
                 <form onSubmit={handleSubmit} className="payment-form">
                     <div className="form-group">
                         <label>Payment ref no:</label>

@@ -26,11 +26,40 @@ function Payments() {
   const [endDate, setEndDate] = useState("");
   const [startDate, setStartDate] = useState("");
   const [loading, setLoading] = useState(null);
-
+  const [totalTip, setTotalTip] = useState(0);
   const [user, setUser] = useState([]);
   const [status, setStatus] = useState("");
 
   let token = localStorage.getItem("tokenadmin");
+
+
+
+
+  console.log("user ", user)
+
+
+
+
+  useEffect(() => {
+    let updatedTotalTip = 0;
+    user.forEach(provider => {
+      provider.services.forEach(service => {
+        updatedTotalTip += service.amount_calculation.amount_tip || 0;
+      });
+    });
+    setTotalTip(updatedTotalTip);
+  }, [user]);
+
+
+
+
+
+
+
+
+
+
+
 
 
   const handleRowClick = (cur) => {
@@ -77,7 +106,7 @@ function Payments() {
 
 
 
-  console.log("contractor", user)
+
 
 
 
@@ -218,7 +247,7 @@ function Payments() {
                   <td>{cur?.total_service_price?.toFixed(2)}$</td>
                   <td>{cur.total_add_ons}</td>
                   <td>{cur?.total_tip_amount?.toFixed(2)}$</td>
-                  <td>{cur?.total_tip_amount?.toFixed(2)}$</td>
+                  <td>{totalTip}$</td>
                   <td>{cur?.total_admin_amount?.toFixed(2)}$</td>
 
 

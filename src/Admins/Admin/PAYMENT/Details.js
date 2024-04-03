@@ -3,12 +3,11 @@ import { useLocation } from 'react-router-dom';
 import { FallingLines } from 'react-loader-spinner';
 import Release from './Release';
 import moment from "moment";
-import { useNavigate } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function Details() {
-    const { id } = useParams()
-    const navigator = useNavigate()
+    const { id } = useParams();
+    const navigator = useNavigate();
     const location = useLocation();
     const apidata = location.state.cur;
     const releaseAmount = apidata.total_provider_amount;
@@ -17,33 +16,52 @@ function Details() {
     const [selectedCheckboxes, setSelectedCheckboxes] = useState(apidata ? apidata.services.map(service => service._id) : []);
     const [totalPrice, setTotalPrice] = useState(apidata ? apidata.total_provider_amount : 0);
     const [totalAdminPrice, setAdminPrice] = useState(apidata ? apidata.total_admin_amount : 0);
+    const [totalAmounttax, setTotalAmounttax] = useState(0);
+    const [totalTip, setTotalTip] = useState(0);
+
+    useEffect(() => {
+        // Calculate total amount tax whenever selected checkboxes change
+        let updatedTotalAmountTax = 0;
+        let updatedGratuatity = 0;
+        selectedCheckboxes.forEach(checkboxId => {
+            const selectedService = apidata.services.find(service => service._id === checkboxId);
+            if (selectedService) {
+                updatedTotalAmountTax += selectedService.amount_calculation?.amount_tax || 0;
+                updatedGratuatity += selectedService.amount_calculation?.amount_tip || 0;
+            }
+        });
+        setTotalAmounttax(updatedTotalAmountTax);
+        setTotalTip(updatedGratuatity)
+    }, [selectedCheckboxes, apidata.services]);
+
+
+
 
     const handleCheckboxChange = (event, checkboxId, servicePrice, addonCommission, amount_tip, adminAmount) => {
         let updatedTotalPrice = totalPrice;
         let updatedAdminTotalPrice = totalAdminPrice;
+
         if (event.target.checked) {
             setSelectedCheckboxes(prevState => [...prevState, checkboxId]);
             updatedTotalPrice += servicePrice + addonCommission + amount_tip;
             updatedAdminTotalPrice += adminAmount;
         } else {
             setSelectedCheckboxes(prevState => prevState.filter(id => id !== checkboxId));
-            if (selectedCheckboxes.length === 1) { // Last checkbox unchecked
-                updatedTotalPrice = 0; // Reset total price to 0
-                updatedAdminTotalPrice = 0;
-            } else {
-                updatedTotalPrice -= servicePrice + addonCommission + amount_tip;
-                updatedAdminTotalPrice -= adminAmount;
-            }
+            updatedTotalPrice -= servicePrice + addonCommission + amount_tip;
+            updatedAdminTotalPrice -= adminAmount;
         }
+
         setTotalPrice(updatedTotalPrice);
         setAdminPrice(updatedAdminTotalPrice);
     };
 
-
-
+    // const handleReleasePaymentClick = () => {
+    //     navigator(`/admin/payments/details/Release/${id}/${totalPrice}`, { state: { selectedCheckboxes , apidata } });
+    // };
     const handleReleasePaymentClick = () => {
-        navigator(`/admin/payments/details/Release/${id}/${totalPrice}`, { state: { selectedCheckboxes } });
+        navigator(`/admin/payments/details/Release/${id}/${totalPrice}`, { state: { selectedCheckboxes, apidata } });
     };
+    
 
     return (
         <>
@@ -88,10 +106,8 @@ function Details() {
                                                 service.provider_amount_calculation.service_price,
                                                 service.provider_amount_calculation.amount_addon,
                                                 service.provider_amount_calculation.amount_tip,
-
                                                 service.amount_calculation.total_amount,
-
-
+                                                service.amount_calculation?.amount_tax,
                                             )} checked={selectedCheckboxes.includes(service._id)}
                                         />
                                     </td>
@@ -122,18 +138,18 @@ function Details() {
                                 </tr>
                             ))}
                             <tr>
-                                <td colSpan={4} style={{textAlign:"right"}}><strong>Total</strong></td>
-                                <td>250$</td>
+                                <td colSpan={4} style={{ textAlign: "right" }}><strong>Total</strong></td>
+                                <td>{totalTip.toFixed(2)}$</td>
                                 <td>{totalAdminPrice.toFixed(2)}$</td>
                                 <td>{totalPrice.toFixed(2)}$</td>
                             </tr>
                             <tr>
-                                <td colSpan={4} style={{textAlign:"right"}}><strong>Profit Calculation</strong></td>
-                                <td  colSpan={3} style={{textAlign:"right"}}>
+                                <td colSpan={4} style={{ textAlign: "right" }}><strong>Profit Calculation</strong></td>
+                                <td colSpan={3} style={{ textAlign: "right" }}>
                                     <p>Amount with Tax = {totalAdminPrice.toFixed(2)}$</p>
-                                    <p>- Tax(es) = 250$</p>
-                                    <p>- Paid to Provider(s) Including Gratuity = 300$</p>
-                                    <p><strong>Profit = 400$</strong></p>
+                                    <p>- Tax(es) = {totalAmounttax}$</p>
+                                    <p>- Paid to Provider(s) Including Gratuity = {totalPrice.toFixed(2)}$</p>
+                                    <p><strong>Profit = {totalAdminPrice.toFixed(2) - totalAmounttax.toFixed(2) - totalPrice.toFixed(2)}$</strong></p>
                                 </td>
                             </tr>
                         </tbody>
