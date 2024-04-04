@@ -7,14 +7,15 @@ import image4 from "../../img/pending.png"
 import image5 from "../../img/rating.png"
 import image6 from "../../img/customer-service.png"
 import image7 from "../../img/no-data.png"
+import { FallingLines } from "react-loader-spinner";
 
 function Dashboard() {
     const [user, setUser] = useState([]);
     const [data, setData] = useState([]);
 
     const [request, setRequest] = useState([]);
-    const [startDate, setStartDate] = useState("");
-    const [endDate, setEndDate] = useState("");
+    const [startDate, setStartDate] = useState(new Date().toISOString().split('T')[0]);
+    const [endDate, setEndDate] = useState(new Date().toISOString().split('T')[0]);
     const [status, setStatus] = useState("");
     const [searchText, setSearchText] = useState("");
 
@@ -26,10 +27,13 @@ function Dashboard() {
     const token = localStorage.getItem("tokenadmin");
     console.log(token)
 
+
+
     useEffect(() => {
         const fetchData = async () => {
+            setLoading(true)
             try {
-                const res = await fetch(`${IP}/admin/dashboard`, {
+                const res = await fetch(`${IP}/admin/dashboard?startDate=${startDate}&endDate=${endDate}`, {
                     method: 'GET',
                     headers: {
                         // 'Authorization': `Bearer ${token}`
@@ -38,7 +42,8 @@ function Dashboard() {
                 });
                 const data = await res.json();
                 setUser(data);
-                setData(data.recent_pending_bookings)
+                setData(data);
+                setLoading(false)
                 console.log("dashboard data", data);
             } catch (error) {
                 console.log(error);
@@ -46,13 +51,15 @@ function Dashboard() {
         };
 
         fetchData();
-    }, []);
+    }, [startDate, endDate, token]);
+
 
     console.log(data)
 
     return (
         <>
             <div id='content'>
+            
                 <div className="container-fluid">
                     <div className="row">
                         <div className="">
@@ -63,7 +70,7 @@ function Dashboard() {
                         </div>
                     </div>
 
-                    {/*   <div class="row mb-5">
+                    <div class="row mb-5">
                         <div class="gutter">
                             <div class="card layer1 filters">
                                 <span class="highlight"> from </span>
@@ -80,7 +87,7 @@ function Dashboard() {
                             </div>
                         </div>
                     </div>
-    */}
+
 
                     <div className="row">
 
@@ -198,6 +205,16 @@ function Dashboard() {
                         </div>
                     </div>
                 </div>
+                {loading && (
+                    <div style={{ textAlign: "center" }}>
+                        <FallingLines
+                            color="#03a9f4"
+                            width="150"
+                            visible={true}
+                            ariaLabel="falling-circles-loading"
+                        />
+                    </div>
+                )}
             </div>
 
         </>
