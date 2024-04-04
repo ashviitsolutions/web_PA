@@ -104,7 +104,9 @@ function Dashboard() {
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image4})` }}></span>
-                                                        <h3>2000$</h3>
+
+                                                        <h3>{user.totalAdminPrice ? user.totalAdminPrice.toFixed(2) : 0}$</h3>
+
                                                         <p>Total Sale</p>
                                                     </div>
                                                 </div>
@@ -113,7 +115,8 @@ function Dashboard() {
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image4})` }}></span>
-                                                        <h3>2000$</h3>
+                                                        <h3>{user.ProfitAmount ? user.ProfitAmount.toFixed(2) : 0}$</h3>
+
                                                         <p>Net Profit</p>
                                                     </div>
                                                 </div>
@@ -132,7 +135,7 @@ function Dashboard() {
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image5})` }}></span>
-                                                        <h3>6</h3>
+                                                        <h3>{user.total_providers}</h3>
                                                         <p>New Providers</p>
                                                     </div>
                                                 </div>
