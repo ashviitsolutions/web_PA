@@ -63,7 +63,7 @@ function Dashboard() {
                         </div>
                     </div>
 
-                    <div class="row mb-5">
+                    {/*   <div class="row mb-5">
                         <div class="gutter">
                             <div class="card layer1 filters">
                                 <span class="highlight"> from </span>
@@ -80,7 +80,7 @@ function Dashboard() {
                             </div>
                         </div>
                     </div>
-
+    */}
 
                     <div className="row">
 
