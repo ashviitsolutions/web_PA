@@ -79,14 +79,14 @@ const PaymentForm = () => {
     return (
         <>
 
-
+            <div className='vspace70'>&nbsp;</div>
             <div className="payment-form-container">
-                <div className="container">
-                    <p>{apidata.provider_details.first_name} {apidata.provider_details.first_name}</p>
-                    <p>{apidata.provider_details.email}</p>
-                    <p>{apidata.provider_details.phone}</p>
+                <div className="container provDet center">
+                    <h2>Payment Approval Form</h2>
+                    <p className='title'>Provider Name: {apidata.provider_details.first_name} {apidata.provider_details.first_name}</p>
+                    <p className='sub'>email - {apidata.provider_details.email}</p>
+                    <p className='sub'>phone- {apidata.provider_details.phone}</p>
                 </div>
-                <h2>Payment Approval Form</h2>
 
                 <form onSubmit={handleSubmit} className="payment-form">
                     <div className="form-group">

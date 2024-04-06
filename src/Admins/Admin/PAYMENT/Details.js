@@ -74,20 +74,20 @@ function Details() {
                                 <span className="toggle_sidebar"></span>
                             </div>
                         </div>
-                        <div className="col-auto mt-6">
-                            <p>{apidata.provider_details.first_name} {apidata.provider_details.first_name}</p>
-                            <p>{apidata.provider_details.email}</p>
-                            <p>{apidata.provider_details.phone}</p>
+                        <div className="col-auto mt-6 provDet">
+                            <p className='main title'>{apidata.provider_details.first_name} {apidata.provider_details.first_name}</p>
+                            <p className='sub'>{apidata.provider_details.email}</p>
+                            <p className='sub'>{apidata.provider_details.phone}</p>
                         </div>
                         <div className="col-auto mt-3">
                             <button className="btn btn-primary" onClick={handleReleasePaymentClick}>Release Payment</button>
                         </div>
                     </div>
 
-                    <table className="payments-table">
+                    <table className="payments-table provDet">
                         <thead>
                             <tr>
-                                <td>check box</td>
+                                <th>check box</th>
                                 <th>Date</th>
                                 <th>Service Name</th>
                                 <th>Addons</th>
@@ -111,26 +111,25 @@ function Details() {
                                             )} checked={selectedCheckboxes.includes(service._id)}
                                         />
                                     </td>
-                                    <td className="">
+                                    <td className="sub title">
                                         <p><span>{moment(service.createdAt).format("MMMM Do YYYY")}</span></p>
                                         <span>{moment(service.createdAt).format("LT")}</span>
                                     </td>
 
                                     <td className="">
-                                        <p><span>{service.service_name}</span></p>
-                                        <p><span>Single/Partner</span></p>
-                                        <p><span>Duration: {service.service_time}</span></p>
-                                        <p><span>Charges: {service.amount_calculation.amount_service}$</span></p>
-                                        <p><span>Comm. {service.provider_amount_calculation.service_price}$</span></p>
+                                        <p className='title'><span>{service.service_name}</span></p>
+                                        <p className='sub'><span>Duration: {service.service_time}</span></p>
+                                        <p className='sub title'><span>Charges: {service.amount_calculation.amount_service}$</span></p>
+                                        <p className='sub title'><span>Comm. {service.provider_amount_calculation.service_price}$</span></p>
                                     </td>
-                                    <td className="">
+                                    <td className="sub">
                                         {service.add_ons_details.map((addon, idx) => (
                                             <div key={idx}>
-                                                <p><span>{addon.title}</span> <span>({addon.price}$)</span></p>
+                                                <p><span className=''>{addon.title}</span> <span>({addon.price}$)</span></p>
                                             </div>
                                         ))}
-                                        <p><span>Charges: {service.amount_calculation.amount_addon}$</span></p>
-                                        <p><span>Comm. {service?.provider_amount_calculation?.amount_addon?.toFixed(2)}$</span></p>
+                                        <p className='title'><span>Charges: {service.amount_calculation.amount_addon}$</span></p>
+                                        <p className='title'><span>Comm. {service?.provider_amount_calculation?.amount_addon?.toFixed(2)}$</span></p>
                                     </td>
                                     <td>{service?.provider_amount_calculation?.amount_tip?.toFixed(2)}$</td>
                                     <td>{service.amount_calculation.amount_widthout_tax.toFixed(2)}$</td>
@@ -145,11 +144,13 @@ function Details() {
                             </tr>
                             <tr>
                                 <td colSpan={4} style={{ textAlign: "right" }}><strong>Profit Calculation</strong></td>
-                                <td colSpan={3} style={{ textAlign: "right" }}>
-                                    <p>Amount with Tax = {totalAdminPrice.toFixed(2)}$</p>
-                                    <p>- Tax(es) = {totalAmounttax}$</p>
-                                    <p>- Paid to Provider(s) Including Gratuity = {totalPrice.toFixed(2)}$</p>
-                                    <p><strong>Profit = {totalAdminPrice.toFixed(2) - totalAmounttax.toFixed(2) - totalPrice.toFixed(2)}$</strong></p>
+                                <td colSpan={3} style={{ textAlign: "right" }} className='provDet'>
+                                    <div className='sub'>
+                                        <p>Amount with Tax = {totalAdminPrice.toFixed(2)}$</p>
+                                        <p>- Tax(es) = {totalAmounttax}$</p>
+                                        <p>- Paid to Provider(s) Including Gratuity = {totalPrice.toFixed(2)}$</p>
+                                        <p><strong>Profit = {totalAdminPrice.toFixed(2) - totalAmounttax.toFixed(2) - totalPrice.toFixed(2)}$</strong></p>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>

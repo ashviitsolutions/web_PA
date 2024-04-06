@@ -148,15 +148,22 @@ const Provider = (props) => {
                         />
                     </div>
                 </Row>
-                <Row>
+                <Row className="providerSelector">
                     {/* Display filtered providers */}
                     {filteredProviders.map(provider => (
-                        <div key={provider.id} className="col-4">
+                        <div key={provider.id} className="col-12">
                             <div className="card">
-                                <div className="card-body">
-                                    <h5 className="card-title">{`${provider.first_name} ${provider.last_name}`}</h5>
-                                    <p className="card-text">{provider?.mailing_address?.address}</p>
-                                    <Button className="mx-2 btn-sm" onClick={() => handleProviderSelection(provider)}>Select</Button>
+                                <div className="card-body row">
+                                    <div className="col-2">
+                                        <img src="https://w7.pngwing.com/pngs/81/570/png-transparent-profile-logo-computer-icons-user-user-blue-heroes-logo-thumbnail.png" className="col-12 providerSelectorImg" />
+                                    </div>
+                                    <div className="col-8">
+                                        <h5 className="card-title">{`${provider.first_name} ${provider.last_name}`}</h5>
+                                        <p className="card-text">{provider?.mailing_address?.address}</p>
+                                    </div>
+                                    <div className="col-2">
+                                        <Button className="mx-12 btn-sm col-12" onClick={() => handleProviderSelection(provider)}>Select</Button>
+                                    </div>
                                 </div>
                             </div>
                         </div>

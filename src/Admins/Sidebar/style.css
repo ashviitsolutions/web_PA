@@ -177,6 +177,20 @@
 .active{
     display: block;
 }
+.providerSelector {
+    height: 400px !important;
+    overflow-y: scroll;
+}
+.providerSelector .card{
+    height: 120px;
+}
+.providerSelector .card-title, button{
+    margin-top: 15px;
+}
+.providerSelectorImg{
+    max-width: 80px;
+    border-radius: 50%;
+}
 @media only screen and (min-width:320px) and (max-width:770px){
     .nav-icon{
         position: relative;

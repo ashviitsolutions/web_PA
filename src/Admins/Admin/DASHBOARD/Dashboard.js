@@ -7,6 +7,7 @@ import image4 from "../../img/pending.png"
 import image5 from "../../img/rating.png"
 import image6 from "../../img/customer-service.png"
 import image7 from "../../img/no-data.png"
+import money from "../../img/earn-money.png"
 import { FallingLines } from "react-loader-spinner";
 import { useNavigate } from 'react-router-dom';
 
@@ -138,7 +139,7 @@ function Dashboard() {
                                             <div className="col-sm-3">
                                                 <div className="gutter">
                                                     <div className="card layer2">
-                                                        <span className="icon" style={{ backgroundImage: `url(${image4})` }}></span>
+                                                        <span className="icon" style={{ backgroundImage: `url(${money})` }}></span>
                                                         <h3>{user.ProfitAmount ? user.ProfitAmount.toFixed(2) : 0}$</h3>
 
                                                         <p>Net Profit</p>

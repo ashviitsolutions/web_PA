@@ -160,7 +160,7 @@ function Payments() {
           <div class="row">
             <div class="">
               <div class="headings">
-                <h3>Payments</h3>
+                <h3>Statement of Providers</h3>
                 <span class="toggle_sidebar" ></span>
               </div>
             </div>
@@ -193,18 +193,16 @@ function Payments() {
           <table className="payments-table">
             <thead>
               <tr>
-                <th>Date</th>
-                <th>Time</th>
+                <th>Date/Time</th>
                 <th>Provider</th>
-                <th>Contacts</th>
-                <th>No. of services</th>
-                <th>services value</th>
+                <th>Services count</th>
+                <th>Services value</th>
                 <th>Addon sales</th>
 
                 <th>Addon Value</th>
                 <th>Gratuity</th>
-                <th>Total Value</th>
-                <th>Total Commission</th>
+                <th>Total Charge</th>
+                <th>Total commission</th>
               </tr>
             </thead>
             <tbody>
@@ -214,34 +212,34 @@ function Payments() {
                 </tr>
               )}
               {memoizedUser.map((cur, index) => (
-                <tr key={index} onClick={() => handleRowClick(cur)}>
+                <tr key={index}>
 
 
 
-                  <td >
+                  <td className='sub ' >
 
                     <span>{moment(cur.createdAt).format("MMMM Do YYYY")}</span>
-                  </td>
-                  <td >
-
-                    <span>{moment(cur.createdAt).format("LT")}</span>
+                    <p><span>{moment(cur.createdAt).format("LT")}</span></p>
                   </td>
 
 
 
 
-                  <td className="">
-                    <span>{`${cur?.provider_details?.first_name} ${cur?.provider_details?.last_name}`}</span>
-                    <span>{cur?.provider_details?.mailing_address?.address}</span>
+                  <td className="provDet">
+                    <p className='title cursor2' onClick={() => handleRowClick(cur)} title='click on provider to view details'><span>{`${cur?.provider_details?.first_name} ${cur?.provider_details?.last_name}`}</span></p>
+                    <span className='sub'>{cur?.provider_details?.mailing_address?.address}</span>
+                    
+                    <p className='sub'>email: <span>{cur?.provider_details?.email}</span></p>
+                      <p className='sub'>phone: <span>{cur?.provider_details?.phone}</span></p>
                   </td>
 
 
-                  <td >
+                  {/* <td >
                     <div className="">
                       <p><span>{cur?.provider_details?.email}</span></p>
                       <p><span>{cur?.provider_details?.phone}</span></p>
                     </div>
-                  </td>
+                  </td> */}
 
                   <td>{cur.total_services}</td>
                   <td>{cur?.total_service_price?.toFixed(2)}$</td>

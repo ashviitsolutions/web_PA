@@ -34,6 +34,25 @@
 .block-td span {
   display: block;
 }
+.provDet {
+  padding: 15px;
+}
+
+.provDet p {
+  margin: 0;
+}
+.sub {
+  font-size: 12px;
+}
+.cursor2{
+  cursor: pointer;
+}
+.center{
+  text-align: center;
+}
+.vspace70{
+  height: 70px;
+}
 
 
 
@@ -48,6 +67,7 @@
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  margin-left: 41%;
 }
 
 .payment-form-container .payment-form {
