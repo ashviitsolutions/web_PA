@@ -8,21 +8,19 @@ import image5 from "../../img/rating.png"
 import image6 from "../../img/customer-service.png"
 import image7 from "../../img/no-data.png"
 import { FallingLines } from "react-loader-spinner";
+import { useNavigate } from 'react-router-dom';
+
+
 
 function Dashboard() {
+    const nav = useNavigate();
     const [user, setUser] = useState([]);
     const [data, setData] = useState([]);
 
     const [request, setRequest] = useState([]);
     const [startDate, setStartDate] = useState(new Date().toISOString().split('T')[0]);
     const [endDate, setEndDate] = useState(new Date().toISOString().split('T')[0]);
-    const [status, setStatus] = useState("");
-    const [searchText, setSearchText] = useState("");
 
-    const [display, setDisplay] = useState(true);
-    const [showModal, setShowModal] = useState(false);
-    const [selectedEventData, setSelectedEventData] = useState(null); // New state to store selected event data
-    const [pageNumber, setPageNumber] = useState(1);
     const [loading, setLoading] = useState(null);
     const token = localStorage.getItem("tokenadmin");
     console.log(token)
@@ -56,10 +54,29 @@ function Dashboard() {
 
     console.log(data)
 
+    const handleCardClick = (event_status) => {
+
+        nav(`/admin/events`, { state: { event_status, startDate, endDate } });
+
+    };
+
+    const handleVender = (vender_status) => {
+
+        nav(`/admin/contractors`, { state: { vender_status, startDate, endDate } });
+
+    };
+
+    const handleClient = () => {
+
+        nav(`/admin/clients`, { state: {startDate, endDate } });
+
+    };
+
+
     return (
         <>
             <div id='content'>
-            
+
                 <div className="container-fluid">
                     <div className="row">
                         <div className="">
@@ -129,16 +146,16 @@ function Dashboard() {
                                                 </div>
                                             </div>
 
-                                            <div className="col-sm-3">
+                                            <div className="col-sm-3" onClick={handleClient} >
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image5})` }}></span>
                                                         <h3>{user.total_clients}</h3>
-                                                        <p>Total Clients</p>
+                                                        <p>New Clients</p>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-sm-3">
+                                            <div className="col-sm-3" onClick={() => handleVender('Newly registered')}>
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image5})` }}></span>
@@ -157,16 +174,16 @@ function Dashboard() {
                                                 <h5>Services</h5>
                                             </div>
 
-                                            <div className="col-sm-3">
+                                            <div className="col-sm-3" onClick={() => handleCardClick('pending')}>
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image1})` }}></span>
                                                         <h3>{user.total_pending_bookings}</h3>
-                                                        <p>Total Request</p>
+                                                        <p>New Request</p>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-sm-3">
+                                            <div className="col-sm-3" onClick={() => handleCardClick('scheduled')}>
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image3})` }}></span>
@@ -176,7 +193,7 @@ function Dashboard() {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-sm-3">
+                                            <div className="col-sm-3" onClick={() => handleCardClick('completed')}>
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image2})` }}></span>
@@ -185,7 +202,7 @@ function Dashboard() {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-sm-3">
+                                            <div className="col-sm-3" onClick={() => handleCardClick('completed')}>
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image7})` }}></span>

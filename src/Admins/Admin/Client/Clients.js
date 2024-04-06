@@ -5,13 +5,17 @@ import { IP } from '../../../Constant';
 import ReactPaginate from 'react-paginate';
 import { FallingLines } from "react-loader-spinner";
 import moment from "moment";
+import { useLocation } from 'react-router-dom';
 
 function Clients() {
+    const location = useLocation();
+    const startDates = location.state ? location.state.startDate : "";
+    const endDates = location.state ? location.state.endDate : "";
     const [user, setUser] = useState([]);
     const [pageNumber, setPageNumber] = useState(1);
     const [loading, setLoading] = useState(null);
-    const [startDate, setStartDate] = useState("");
-    const [endDate, setEndDate] = useState("");
+    const [startDate, setStartDate] = useState(startDates); // Initialize with startDates
+    const [endDate, setEndDate] = useState(endDates); // Initialize with endDates
     const [status, setStatus] = useState("");
     const [searchText, setSearchText] = useState("");
     const token = localStorage.getItem('tokenadmin');
@@ -24,17 +28,21 @@ function Clients() {
             }
         }).then(resp => resp.json())
             .then(result => {
-                if (result && result.users && result.users.length > 0) {
-                    // setUser(result.users);
-                    const userdata = result.users;
-                    setUser(prevData => [...prevData, ...userdata]);
-                    setLoading(false);
-                    console.log("Users fetched:", result.users);
-                } else if (result && result.msg) {
-                    console.log(result.msg);
-                } else {
-                    console.log("Invalid response format:", result);
-                }
+                // if (result && result.users && result.users.length > 0) {
+                //     const userdata = result;
+                //     setUser(prevData => [...prevData, ...userdata]);
+                //     setLoading(false);
+                //     console.log("Users fetched:", userdata);
+                // } else if (result && result.msg) {
+                //     console.log(result.msg);
+                // } else {
+                //     console.log("Invalid response format:", result);
+                //     // setUser(prevData => [...prevData, ...result]);
+                //     // Handle the case where the response doesn't match the expected format
+                // }
+
+                setUser(prevData => [...prevData, ...result]);
+                setLoading(false);
             }).catch(err => {
                 console.log(err);
             }).finally(() => {
@@ -42,59 +50,44 @@ function Clients() {
             });
     }, [pageNumber]);
 
-
-
+    // Handle date change
+    useEffect(() => {
+        // Update startDate and endDate when startDates or endDates change
+        setStartDate(startDates);
+        setEndDate(endDates);
+    }, [startDates, endDates]);
 
     const handleInfiniteScroll = async () => {
         try {
-
             if (
                 window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight
             ) {
-                setPageNumber((prev) => prev + 1);
+                setPageNumber(prev => prev + 1);
                 setLoading(true)
             }
-
         } catch (error) {
-
+            console.error(error);
         }
     }
-
 
     useEffect(() => {
         window.addEventListener("scroll", handleInfiniteScroll);
         return () => window.removeEventListener("scroll", handleInfiniteScroll)
-    }, [])
-
-
-
-
-
-
-
-
+    }, []);
 
     const handleFilter = () => {
         // Filter data based on selected dates, status, and search text
-        const filteredData = user.filter(event => {
-            const eventDate = moment(event.updatedAt);
-            const isWithinDateRange = (!startDate || eventDate.isSameOrAfter(startDate)) &&
-                (!endDate || eventDate.isSameOrBefore(endDate));
-            const isStatusMatched = !status || event.service_status === status;
-            const isSearched = !searchText || (event.name && event.name.toLowerCase().includes(searchText.toLowerCase()));
-            // const isSearched = !searchText || event.name.toLowerCase().includes(searchText.toLowerCase());
+        const filteredData = user.filter(contractor => {
+            const isStatusMatched = !status || contractor.application_status_text === status;
+            const isWithinDateRange = (!startDate || new Date(contractor.createdAt) >= new Date(startDate)) &&
+                (!endDate || new Date(contractor.createdAt) <= new Date(endDate));
+            const isSearched = !searchText || (contractor.first_name.toLowerCase().includes(searchText.toLowerCase()) || contractor.last_name.toLowerCase().includes(searchText.toLowerCase()) || contractor.email.toLowerCase().includes(searchText.toLowerCase()));
             return isWithinDateRange && isStatusMatched && isSearched;
         });
         return filteredData;
     };
 
     const memoizedUser = handleFilter();
-
-
-
-    // const memoizedUser = handleFilter();
-    console.log("Memoized User:", memoizedUser);
-
 
 
 

@@ -52,7 +52,7 @@ function Login() {
         resetForm({ values: "" });
         let data = { "email": values.email, "password": values.password }
         try {
-            const resp = await fetch(`${IP}/admin/login`, {
+            const resp = await fetch(`http://localhost:5000/api/admin/login`, {
                 method: "POST",
                 headers: {
                     'Accept': 'application/json',

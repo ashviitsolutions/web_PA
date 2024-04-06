@@ -3,8 +3,14 @@ import { IP } from "../../../Constant";
 import CustomModal from "./Model";
 import { FallingLines } from "react-loader-spinner";
 import moment from "moment";
+import { useLocation } from 'react-router-dom';
 
 function Event() {
+
+    const location = useLocation();
+    const event_status = location.state ? location.state.event_status : "";
+    const startDates = location.state ? location.state.startDate : "";
+    const endDates = location.state ? location.state.endDate : "";
     const token = localStorage.getItem("tokenadmin");
     const [request, setRequest] = useState([]);
     const [startDate, setStartDate] = useState("");
@@ -19,11 +25,17 @@ function Event() {
     const [loading, setLoading] = useState(null);
 
 
+    useEffect(() => {
+        setStatus(event_status);
+        setStartDate(startDates);
+        setEndDate(endDates);
+    }, [event_status, endDates, endDates]);
+
 
 
     const fetchData = useCallback(() => {
         setLoading(true);
-        fetch(`${IP}/user/allbookings?page=${pageNumber}&limit=10`, {
+        fetch(`${IP}/user/allbookings?page=${pageNumber}&limit=20`, {
             headers: {
                 'Authorization': token
             }
@@ -89,8 +101,9 @@ function Event() {
 
 
     const handleFilter = () => {
-        // Filter data based on selected dates, status, and search text
+        console.log("Filtering with status:", status);
         const filteredData = request.filter(event => {
+            console.log("Event status:", event.service_status);
             const eventDate = moment(event.scheduled_date);
             const isWithinDateRange = (!startDate || eventDate.isSameOrAfter(startDate)) &&
                 (!endDate || eventDate.isSameOrBefore(endDate));
@@ -100,6 +113,7 @@ function Event() {
         });
         return filteredData;
     };
+
 
     const filteredRequest = handleFilter();
 
@@ -159,33 +173,37 @@ function Event() {
                     </div>
                     <div className="row">
                         <div className="gutter">
-                            <div className="bookings">
-                                {filteredRequest.map((event, index) => (
-                                    <div className="item_wrapper" key={index} onClick={() => openModal(event)}>
-                                        <div className="item card layer2">
-                                            <div className="first_half">
-                                                <h3>{event.service_name} {event.service_time} - {event.massage_for}</h3>
-                                                <span className="address">{event.address}</span>
-                                                <span className="address"><b></b>{event.scheduled_date}</span>
-                                                <span className="address"><b></b>{event.scheduled_timing}</span>
-                                                <span className="tag"><b>Booking status: </b>{event.service_status}</span>
-                                                <span className="tag"><b></b> {event.instructions !== '' ? <><strong className="mt-1">Instructions : </strong> {event.instructions} </> : ''}</span>
-                                            </div>
-                                            <div className="second_half">
-                                                <span>Date: {moment(event.createdAt).format("MMMM Do YYYY")}, Time: {moment(event.createdAt).format("LT")}</span>
-
-                                                <span className="colored">Total = {event?.provider_amount_calculation?.total_amount.toFixed(2)}</span>
-                                                {
-                                                    event.service_status === "pending" && (
-                                                        <button className="button primary square">Assign Event</button>
-                                                    )
-                                                }
-                                            </div>
+                        <div className="bookings">
+                        {filteredRequest.length === 0 ? (
+                            <p>No bookings found.</p>
+                        ) : (
+                            filteredRequest.map((event, index) => (
+                                <div className="item_wrapper" key={index} onClick={() => openModal(event)}>
+                                    <div className="item card layer2">
+                                        <div className="first_half">
+                                            <h3>{event.service_name} {event.service_time} - {event.massage_for}</h3>
+                                            <span className="address">{event.address}</span>
+                                            <span className="address"><b></b>{event.scheduled_date}</span>
+                                            <span className="address"><b></b>{event.scheduled_timing}</span>
+                                            <span className="tag"><b>Booking status: </b>{event.service_status}</span>
+                                            <span className="tag"><b></b> {event.instructions !== '' ? <><strong className="mt-1">Instructions : </strong> {event.instructions} </> : ''}</span>
+                                        </div>
+                                        <div className="second_half">
+                                            <span>Date: {moment(event.createdAt).format("MMMM Do YYYY")}, Time: {moment(event.createdAt).format("LT")}</span>
+                    
+                                            <span className="colored">Total = {event?.provider_amount_calculation?.total_amount.toFixed(2)}</span>
+                                            {
+                                                event.service_status === "pending" && (
+                                                    <button className="button primary square">Assign Event</button>
+                                                )
+                                            }
                                         </div>
                                     </div>
-                                ))}
-
-                            </div>
+                                </div>
+                            ))
+                        )}
+                    </div>
+                    
                             {loading && (
                                 <div style={{ textAlign: "center" }}>
                                     <FallingLines

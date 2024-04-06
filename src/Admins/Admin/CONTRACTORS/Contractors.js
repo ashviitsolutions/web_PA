@@ -6,6 +6,7 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import avtar from "../../img/avtar.jpg"
 import ReactPaginate from 'react-paginate';
 import { FallingLines } from 'react-loader-spinner';
+import { useLocation } from 'react-router-dom';
 
 const PreviewImage = ({ attachments }) => {
     const [imageObjectURL, setImageObjectURL] = useState(null);
@@ -45,6 +46,10 @@ const PreviewImage = ({ attachments }) => {
 
 
 function Contractors() {
+    const location = useLocation();
+    const vender_status = location.state ? location.state.vender_status : "";
+    const startDates = location.state ? location.state.startDate : "";
+    const endDates = location.state ? location.state.endDate : "";
     const [data, setData] = useState(1);
     const [count, setCount] = useState(0);
     const [searchText, setSearchText] = useState("");
@@ -56,6 +61,22 @@ function Contractors() {
     let token = localStorage.getItem("tokenadmin");
     const [user, setUser] = useState([]);
     const [status, setStatus] = useState("");
+
+
+
+
+    useEffect(() => {
+        setStatus(vender_status);
+        setStartDate(startDates);
+        setEndDate(endDates);
+    }, [vender_status, endDates, endDates]);
+
+
+
+
+
+
+
 
 
 
