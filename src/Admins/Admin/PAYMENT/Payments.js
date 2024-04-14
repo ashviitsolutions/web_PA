@@ -23,8 +23,9 @@ function Payments() {
   const [searchText, setSearchText] = useState("");
   const [pageNumber, setPageNumber] = useState(1);
 
-  const [endDate, setEndDate] = useState("");
-  const [startDate, setStartDate] = useState("");
+  const [startDate, setStartDate] = useState(moment().format('YYYY-MM-DD'));
+  const [endDate, setEndDate] = useState(moment().format('YYYY-MM-DD'));
+  
   const [loading, setLoading] = useState(null);
   const [totalTip, setTotalTip] = useState(0);
   const [user, setUser] = useState([]);
@@ -37,6 +38,11 @@ function Payments() {
 
   console.log("user ", user)
 
+  useEffect(() => {
+
+    setStartDate(startDate);
+    setEndDate(endDate);
+}, [startDate, endDate]);
 
 
 
@@ -135,18 +141,29 @@ function Payments() {
 
 
 
+
   const handleFilter = () => {
-    // Filter data based on selected dates, status, and search text
-    const filteredData = user.filter(contractor => {
-      const isStatusMatched = !status || contractor.application_status_text === status;
-      const isWithinDateRange = (!startDate || new Date(contractor.createdAt) >= new Date(startDate)) &&
-        (!endDate || new Date(contractor.createdAt) <= new Date(endDate));
-      const isSearched = !searchText || (contractor.first_name.toLowerCase().includes(searchText.toLowerCase()) || contractor.last_name.toLowerCase().includes(searchText.toLowerCase()) || contractor.email.toLowerCase().includes(searchText.toLowerCase()));
-      return isWithinDateRange && isStatusMatched && isSearched;
+    console.log("startDate:", startDate);
+    console.log("endDate:", endDate);
+  
+    const filteredData = user.filter(event => {
+      console.log("eventDate:", event.services[0].createdAt); // Accessing the first element's createdAt property
+  
+      const eventDate = moment(event.services[0].createdAt, 'YYYY-MM-DD'); // Adjust the format based on the actual format of eventDate
+      
+      const isWithinDateRange = (!startDate || moment(startDate).isSameOrBefore(eventDate, 'day')) &&
+        (!endDate || moment(endDate).isSameOrAfter(eventDate, 'day'));
+      
+      const isSearched = !searchText || event.provider_details.first_name.toLowerCase().includes(searchText.toLowerCase());
+      
+      return isWithinDateRange && isSearched;
     });
+    
     return filteredData;
   };
-
+  
+  
+  
 
   const memoizedUser = handleFilter();
 
@@ -228,9 +245,9 @@ function Payments() {
                   <td className="provDet">
                     <p className='title cursor2' onClick={() => handleRowClick(cur)} title='click on provider to view details'><span>{`${cur?.provider_details?.first_name} ${cur?.provider_details?.last_name}`}</span></p>
                     <span className='sub'>{cur?.provider_details?.mailing_address?.address}</span>
-                    
+
                     <p className='sub'>email: <span>{cur?.provider_details?.email}</span></p>
-                      <p className='sub'>phone: <span>{cur?.provider_details?.phone}</span></p>
+                    <p className='sub'>phone: <span>{cur?.provider_details?.phone}</span></p>
                   </td>
 
 
@@ -245,7 +262,7 @@ function Payments() {
                   <td>{cur?.total_service_price?.toFixed(2)}$</td>
                   <td>{cur.total_add_ons}</td>
                   <td>{cur?.total_tip_amount?.toFixed(2)}$</td>
-                  <td>{totalTip}$</td>
+                  <td>{totalTip.toFixed(2)}$</td>
                   <td>{cur?.total_admin_amount?.toFixed(2)}$</td>
 
 

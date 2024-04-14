@@ -32,10 +32,13 @@ function Dashboard() {
         const fetchData = async () => {
             setLoading(true)
             try {
-                const res = await fetch(`${IP}/admin/dashboard?startDate=${startDate}&endDate=${endDate}`, {
+                // Add one day to the endDate
+                const nextDay = new Date(endDate);
+                nextDay.setDate(nextDay.getDate() + 1);
+                
+                const res = await fetch(`${IP}/admin/dashboard?startDate=${startDate}&endDate=${nextDay.toISOString().split('T')[0]}`, {
                     method: 'GET',
                     headers: {
-                        // 'Authorization': `Bearer ${token}`
                         Authorization: token
                     }
                 });
@@ -48,9 +51,10 @@ function Dashboard() {
                 console.log(error);
             }
         };
-
+    
         fetchData();
     }, [startDate, endDate, token]);
+    
 
 
     console.log(data)
