@@ -544,7 +544,7 @@ const Conform = () => {
                                                 <span className="value">Gender Preference : Partner 1 : {gender1} Partner 2 : {gender2} </span>
 
                                             </>
-                                        ) : <span className="value">Gender : {gender}</span>
+                                        ) : <span className="value">Gender Preference : {gender}</span>
                                     }
 
                                 </li>

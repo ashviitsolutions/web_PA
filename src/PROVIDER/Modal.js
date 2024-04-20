@@ -151,7 +151,7 @@ function CustomModal(
               Booking Type
             </div>
             <div div className="col-md-6">
-              {locationType}
+              On Demand - {locationType}
             </div>
             <div className="col-md-6 title">Duration and Earning</div>
             <div className="col-md-3">{serviceTime}</div>
