@@ -196,8 +196,7 @@ function Overview() {
 																			<div className="avatar"></div>
 																			{post.service_status === "pending" ? (
 																				<p>
-																					Your booking is yet to be Accepted by
-																					one of Our Providers!
+																					Your request is being reviewed by our service providers, once accepted we will notify you.!
 																				</p>
 																			) : (
 																				<p>
@@ -279,12 +278,11 @@ function Overview() {
 																			<div className="avatar"></div>
 																			{post.service_status === "pending" ? (
 																				<p>
-																					Your booking is yet to be Accepted by
-																					one of Our Providers!
+																				Your request is being reviewed by our service providers, once accepted we will notify you!
 																				</p>
 																			) : (
 																				<p>
-																					Appointment with <b>{post?.providerInfo?.first_name} {post?.providerInfo?.last_name}</b>
+																					Appointment with <b>{post?.providerInfo?.first_name}</b>
 																				</p>
 																			)}
 																		</div>
