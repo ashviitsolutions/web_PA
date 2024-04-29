@@ -7,9 +7,9 @@ import image4 from "../../img/pending.png"
 import image5 from "../../img/rating.png"
 import image6 from "../../img/customer-service.png"
 import image7 from "../../img/no-data.png"
-import image8 from "../../img/icons8-gift-card-50.png"
-import image9 from "../../img/icons8-membership-50.png"
-import image10 from "../../img/icons8-feedback-50.png"
+import image8 from "../../img/gift-card.png"
+import image9 from "../../img/member-card.png"
+import image10 from "../../img/feedback.png"
 import money from "../../img/earn-money.png"
 import { FallingLines } from "react-loader-spinner";
 import { useNavigate } from 'react-router-dom';
@@ -230,7 +230,7 @@ function Dashboard() {
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image8})` }}></span>
                                                         <h3>{user.total_pending_bookings}</h3>
-                                                        <p>New Gift card</p>
+                                                        <p>New Gift card Puchases</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -240,7 +240,7 @@ function Dashboard() {
                                                         <span className="icon" style={{ backgroundImage: `url(${image9})` }}></span>
                                                         <h3>{user.total_scheduled_bookings
                                                         }</h3>
-                                                        <p>New memberhsip</p>
+                                                        <p>New Memberhsips</p>
                                                     </div>
                                                 </div>
                                             </div>
