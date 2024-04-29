@@ -19,6 +19,8 @@ function Details() {
     const [totalAmounttax, setTotalAmounttax] = useState(0);
     const [totalTip, setTotalTip] = useState(0);
 
+    console.log("provider pay", apidata)
+
     useEffect(() => {
         // Calculate total amount tax whenever selected checkboxes change
         let updatedTotalAmountTax = 0;
@@ -38,30 +40,41 @@ function Details() {
 
 
     const handleCheckboxChange = (event, checkboxId, servicePrice, addonCommission, amount_tip, adminAmount) => {
-        let updatedTotalPrice = totalPrice;
-        let updatedAdminTotalPrice = totalAdminPrice;
+        setSelectedCheckboxes(prevState => {
+            if (event.target.checked) {
+                return [...prevState, checkboxId];
+            } else {
+                return prevState.filter(id => id !== checkboxId);
+            }
+        });
 
-        if (event.target.checked) {
-            setSelectedCheckboxes(prevState => [...prevState, checkboxId]);
-            updatedTotalPrice += servicePrice + addonCommission + amount_tip;
-            updatedAdminTotalPrice += adminAmount;
-        } else {
-            setSelectedCheckboxes(prevState => prevState.filter(id => id !== checkboxId));
-            updatedTotalPrice -= servicePrice + addonCommission + amount_tip;
-            updatedAdminTotalPrice -= adminAmount;
-        }
+        setTotalPrice(prevPrice => {
+            if (event.target.checked) {
+                return prevPrice + servicePrice + addonCommission + amount_tip;
+            } else {
+                return prevPrice - servicePrice - addonCommission - amount_tip;
+            }
+        });
 
-        setTotalPrice(updatedTotalPrice);
-        setAdminPrice(updatedAdminTotalPrice);
+        setAdminPrice(prevAdminPrice => {
+            if (event.target.checked) {
+                return prevAdminPrice + adminAmount;
+            } else {
+                return prevAdminPrice - adminAmount;
+            }
+        });
     };
+
 
     // const handleReleasePaymentClick = () => {
     //     navigator(`/admin/payments/details/Release/${id}/${totalPrice}`, { state: { selectedCheckboxes , apidata } });
     // };
     const handleReleasePaymentClick = () => {
-        navigator(`/admin/payments/details/Release/${id}/${totalPrice}`, { state: { selectedCheckboxes, apidata } });
+        const releaseTotalPrice = selectedCheckboxes.length > 0 ? totalPrice : 0;
+        navigator(`/admin/payments/details/Release/${id}/${releaseTotalPrice}`, { state: { selectedCheckboxes, apidata } });
     };
-    
+
+
 
     return (
         <>
@@ -140,18 +153,31 @@ function Details() {
                                 <td colSpan={4} style={{ textAlign: "right" }}><strong>Total</strong></td>
                                 <td>{totalTip.toFixed(2)}$</td>
                                 <td>{totalAdminPrice.toFixed(2)}$</td>
-                                <td>{totalPrice.toFixed(2)}$</td>
+                                {selectedCheckboxes.length > 0 && (
+                                    <td>{totalPrice.toFixed(2)}$</td>
+
+
+                                )}
+
                             </tr>
                             <tr>
                                 <td colSpan={4} style={{ textAlign: "right" }}><strong>Profit Calculation</strong></td>
-                                <td colSpan={3} style={{ textAlign: "right" }} className='provDet'>
-                                    <div className='sub'>
-                                        <p>Amount with Tax = {totalAdminPrice.toFixed(2)}$</p>
-                                        <p>- Tax(es) = {totalAmounttax}$</p>
-                                        <p>- Paid to Provider(s) Including Gratuity = {totalPrice.toFixed(2)}$</p>
-                                        <p><strong>Profit = {totalAdminPrice.toFixed(2) - totalAmounttax.toFixed(2) - totalPrice.toFixed(2)}$</strong></p>
-                                    </div>
-                                </td>
+                                {selectedCheckboxes.length > 0 && (
+                                    <td colSpan={3} style={{ textAlign: "right" }} className='provDet'>
+                                        <div className='sub'>
+                                            <p>Gross amount = {totalAdminPrice.toFixed(2)}$</p>
+                                            <p>- Tax(es) = {totalAmounttax.toFixed(2)}$</p>
+                                            <p>- Provider Pay = {totalPrice.toFixed(2)}$</p>
+                                            <p>
+                                                <strong>
+                                                    Net Profit = {Math.max(totalAdminPrice - totalAmounttax - totalPrice, 0).toFixed(2)}$
+                                                </strong>
+                                            </p>
+                                        </div>
+                                    </td>
+                                )}
+
+
                             </tr>
                         </tbody>
                     </table>

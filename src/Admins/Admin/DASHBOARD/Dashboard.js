@@ -7,6 +7,9 @@ import image4 from "../../img/pending.png"
 import image5 from "../../img/rating.png"
 import image6 from "../../img/customer-service.png"
 import image7 from "../../img/no-data.png"
+import image8 from "../../img/icons8-gift-card-50.png"
+import image9 from "../../img/icons8-membership-50.png"
+import image10 from "../../img/icons8-feedback-50.png"
 import money from "../../img/earn-money.png"
 import { FallingLines } from "react-loader-spinner";
 import { useNavigate } from 'react-router-dom';
@@ -35,7 +38,7 @@ function Dashboard() {
                 // Add one day to the endDate
                 const nextDay = new Date(endDate);
                 nextDay.setDate(nextDay.getDate() + 1);
-                
+
                 const res = await fetch(`${IP}/admin/dashboard?startDate=${startDate}&endDate=${nextDay.toISOString().split('T')[0]}`, {
                     method: 'GET',
                     headers: {
@@ -51,10 +54,10 @@ function Dashboard() {
                 console.log(error);
             }
         };
-    
+
         fetchData();
     }, [startDate, endDate, token]);
-    
+
 
 
     console.log(data)
@@ -73,7 +76,7 @@ function Dashboard() {
 
     const handleClient = () => {
 
-        nav(`/admin/clients`, { state: {startDate, endDate } });
+        nav(`/admin/clients`, { state: { startDate, endDate } });
 
     };
 
@@ -216,6 +219,41 @@ function Dashboard() {
                                                     </div>
                                                 </div>
                                             </div>
+
+
+
+
+
+
+                                            <div className="col-sm-4" onClick={() => handleCardClick('pending')}>
+                                                <div className="gutter">
+                                                    <div className="card layer2">
+                                                        <span className="icon" style={{ backgroundImage: `url(${image8})` }}></span>
+                                                        <h3>{user.total_pending_bookings}</h3>
+                                                        <p>New Gift card</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="col-sm-4" onClick={() => handleCardClick('scheduled')}>
+                                                <div className="gutter">
+                                                    <div className="card layer2">
+                                                        <span className="icon" style={{ backgroundImage: `url(${image9})` }}></span>
+                                                        <h3>{user.total_scheduled_bookings
+                                                        }</h3>
+                                                        <p>New memberhsip</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="col-sm-4" onClick={() => handleCardClick('completed')}>
+                                                <div className="gutter">
+                                                    <div className="card layer2">
+                                                        <span className="icon" style={{ backgroundImage: `url(${image10})` }}></span>
+                                                        <h3>{user.total_bookings}</h3>
+                                                        <p>New Feedbacks</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                         
                                         </div>
 
 
