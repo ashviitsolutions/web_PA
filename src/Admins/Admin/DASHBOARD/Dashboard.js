@@ -225,7 +225,7 @@ function Dashboard() {
 
 
 
-                                            <div className="col-sm-4" onClick={() => handleCardClick('pending')}>
+                                            <div className="col-sm-4" onClick={handleClient}>
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image8})` }}></span>
@@ -234,7 +234,7 @@ function Dashboard() {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-sm-4" onClick={() => handleCardClick('scheduled')}>
+                                            <div className="col-sm-4" onClick={handleClient}>
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image9})` }}></span>
@@ -244,7 +244,7 @@ function Dashboard() {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-sm-4" onClick={() => handleCardClick('completed')}>
+                                            <div className="col-sm-4" onClick={handleClient}>
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image10})` }}></span>
