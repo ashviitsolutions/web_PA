@@ -69,6 +69,13 @@ function Dashboard() {
 
     };
 
+
+    const handleCardClient = (event_status) => {
+
+        nav(`/admin/${event_status}`);
+
+    };
+
     const handleVender = (vender_status) => {
 
         nav(`/admin/contractors`, { state: { vender_status, startDate, endDate } });
@@ -226,7 +233,7 @@ function Dashboard() {
 
 
 
-                                            <div className="col-sm-4">
+                                            <div className="col-sm-4" onClick={() => handleCardClient('gift')}>
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image8})` }}></span>
@@ -235,7 +242,7 @@ function Dashboard() {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-sm-4">
+                                            <div className="col-sm-4" onClick={() => handleCardClient('gift')}>
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image9})` }}></span>
@@ -245,7 +252,7 @@ function Dashboard() {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-sm-4">
+                                            <div className="col-sm-4" onClick={() => handleCardClient('clients')}>
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image10})` }}></span>
