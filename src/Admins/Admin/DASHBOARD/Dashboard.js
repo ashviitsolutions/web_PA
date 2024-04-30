@@ -39,13 +39,14 @@ function Dashboard() {
                 const nextDay = new Date(endDate);
                 nextDay.setDate(nextDay.getDate() + 1);
 
-                const res = await fetch(`${IP}/admin/dashboard?startDate=${startDate}&endDate=${nextDay.toISOString().split('T')[0]}`, {
+                const res = await fetch(`http://localhost:5000/api/admin/dashboard?startDate=${startDate}&endDate=${nextDay.toISOString().split('T')[0]}`, {
                     method: 'GET',
                     headers: {
                         Authorization: token
                     }
                 });
                 const data = await res.json();
+                console.log("data dashbaord",data)
                 setUser(data);
                 setData(data);
                 setLoading(false)
@@ -229,7 +230,7 @@ function Dashboard() {
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image8})` }}></span>
-                                                        <h3>{user.total_pending_bookings}</h3>
+                                                        <h3>{user.total_giftcards}</h3>
                                                         <p>New Gift card</p>
                                                     </div>
                                                 </div>
@@ -238,7 +239,7 @@ function Dashboard() {
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image9})` }}></span>
-                                                        <h3>{user.total_scheduled_bookings
+                                                        <h3>{user.total_memberships
                                                         }</h3>
                                                         <p>New memberhsip</p>
                                                     </div>
@@ -248,7 +249,7 @@ function Dashboard() {
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image10})` }}></span>
-                                                        <h3>{user.total_bookings}</h3>
+                                                        <h3>{user.providerReviewsCount}</h3>
                                                         <p>New Feedbacks</p>
                                                     </div>
                                                 </div>
