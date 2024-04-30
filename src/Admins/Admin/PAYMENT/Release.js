@@ -14,7 +14,8 @@ const PaymentForm = () => {
     const nav = useNavigate()
     const { providerId, amount } = useParams()
     const [paymentId, setPaymentId] = useState('');
-    // const [amount, setAmount] = useState('');
+    const endDate=location.state.endDate;
+    const startDate=location.state.startDate
     const [additionalInfo, setAdditionalInfo] = useState('');
     // const [providerId, setProviderId] = useState('');
     const [file, setFile] = useState(null);
@@ -86,6 +87,8 @@ const PaymentForm = () => {
                     <p className='title'>Provider Name: {apidata.provider_details.first_name} {apidata.provider_details.first_name}</p>
                     <p className='sub'>email - {apidata.provider_details.email}</p>
                     <p className='sub'>phone- {apidata.provider_details.phone}</p>
+                    <p className='sub'>{startDate}</p> to
+                    <p className='sub'>{endDate}</p>
                 </div>
 
                 <form onSubmit={handleSubmit} className="payment-form">

@@ -10,6 +10,8 @@ function Details() {
     const navigator = useNavigate();
     const location = useLocation();
     const apidata = location.state.cur;
+    const endDate=location.state.endDate;
+    const startDate=location.state.startDate
     const releaseAmount = apidata.total_provider_amount;
 
     const [loading, setLoading] = useState(null);
@@ -71,7 +73,7 @@ function Details() {
     // };
     const handleReleasePaymentClick = () => {
         const releaseTotalPrice = selectedCheckboxes.length > 0 ? totalPrice : 0;
-        navigator(`/admin/payments/details/Release/${id}/${releaseTotalPrice}`, { state: { selectedCheckboxes, apidata } });
+        navigator(`/admin/payments/details/Release/${id}/${releaseTotalPrice}`, { state: { selectedCheckboxes, apidata ,endDate ,startDate } });
     };
 
 
@@ -84,6 +86,7 @@ function Details() {
                         <div className="col">
                             <div className="headings">
                                 <h3>Payments</h3>
+                            
                                 <span className="toggle_sidebar"></span>
                             </div>
                         </div>
@@ -91,6 +94,8 @@ function Details() {
                             <p className='main title'>{apidata.provider_details.first_name} {apidata.provider_details.first_name}</p>
                             <p className='sub'>{apidata.provider_details.email}</p>
                             <p className='sub'>{apidata.provider_details.phone}</p>
+                            <p className='sub'>{startDate}</p> to
+                            <p className='sub'>{endDate}</p>
                         </div>
                         <div className="col-auto mt-3">
                             <button className="btn btn-primary" onClick={handleReleasePaymentClick}>Release Payment</button>
