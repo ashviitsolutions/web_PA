@@ -66,7 +66,8 @@ import EditGift from "./Admins/Admin/GIFT/EditGift"
 import AddCoupon from './Admins/Admin/Coupon/AddCoupon ';
 import GetCoupon from './Admins/Admin/Coupon/GetCoupon';
 import EditCoupon from './Admins/Admin/Coupon/EditCoupon';
-
+import Giftcard from './Admins/Admin/Alldata/Giftcard';
+import Memberhsip from './Admins/Admin/Alldata/Memberhsip';
 //Blogs section
 
 import Blogs from './Admins/Admin/Blogs/Blogs';
@@ -135,6 +136,7 @@ import Addblog from './Admins/Admin/Blogs/Addblog';
 import Editblog from './Admins/Admin/Blogs/Editblog';
 import Failed from './Components/Pages/Profile/userProfile/Response/Failed';
 import Setting from './Components/Pages/Profile/userProfile/Setting';
+import Review from './Admins/Admin/Alldata/Review';
 function App() {
   const nav = useNavigate()
   useEffect(() => {
@@ -462,6 +464,23 @@ function App() {
           <Route path="/admin/blogs" element={<>
             <Sidebar />
             <Protect Component={Blogs} />
+          </>} />
+
+
+          <Route path="/admin/gift-all" element={<>
+            <Sidebar />
+            <Protect Component={Giftcard} />
+          </>} />
+
+          <Route path="/admin/memberhsip-all" element={<>
+            <Sidebar />
+            <Protect Component={Memberhsip} />
+          </>} />
+
+
+          <Route path="/admin/review" element={<>
+            <Sidebar />
+            <Protect Component={Review} />
           </>} />
 
 
