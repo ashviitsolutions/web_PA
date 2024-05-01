@@ -171,9 +171,10 @@ function Memberhsip() {
               <table className="table-responsive ultra_responsive">
                 <thead>
                   <tr>
-                    <th>Image</th>
-                    <th>Title/Description</th>
-                    <th>Membership Type</th>
+                    <th>Plan</th> {/* membership picture and plan name */}
+                    <th>Purchased by</th> {/* customer name, email and contact who purchased it */}
+                    <th>Price</th> {/* price of memberhsip */}
+                    <th>Date</th> {/* date of purchase */}
                   </tr>
                 </thead>
 
@@ -227,6 +228,7 @@ function Memberhsip() {
                   );
                 })}
               </table>
+              {/* add grand total of price column */}
               {loading && (
                 <div style={{ textAlign: "center" }}>
                   <FallingLines

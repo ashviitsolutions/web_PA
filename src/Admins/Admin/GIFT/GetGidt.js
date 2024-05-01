@@ -109,7 +109,7 @@ function GetGift() {
                             <div className="headings float_wrapper">
                                 <div className="gutter pull-left">
                                     <h3>All Gift Card</h3>
-                                    <p>list of all add posts</p>
+                                    <p>list of all gift card</p>
                                 </div>
                                 <div className="gutter pull-left">
                                     <Link to="/admin/gift/addgift">

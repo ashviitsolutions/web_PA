@@ -135,7 +135,7 @@ function Giftcard() {
               <div className="headings float_wrapper">
                 <div className="gutter pull-left">
                   <h3>All Gift Card</h3>
-                  <p>list of all add posts</p>
+                  <p>List of all gift card sales</p>
                 </div>
 
                 <span className="toggle_sidebar"></span>
@@ -175,9 +175,10 @@ function Giftcard() {
               <table className="table-responsive ultra_responsive">
                 <thead>
                   <tr>
-                    <th>Image</th>
-                    <th>Title/Description</th>
-                    <th>Price/Type</th>
+                    <th>Gift Card</th> {/* gift card image and title will go in this column */}
+                    <th>Purchased by</th> {/* customer name, email, mobile */}
+                    <th>Price</th> {/* price of gift card */}
+                    <th>Purchased on</th> {/* date of gift card purchase */}
                   </tr>
                 </thead>
 
@@ -229,6 +230,7 @@ function Giftcard() {
                   );
                 })}
               </table>
+              {/* add grand total of price column */}
               {loading && (
                 <div style={{ textAlign: "center" }}>
                   <FallingLines

@@ -173,9 +173,11 @@ function Review() {
               <table className="table-responsive ultra_responsive">
                 <thead>
                   <tr>
-                    <th>Image</th>
-                    <th>Title/Description</th>
-                    <th>Service name</th>
+                    <th>Review</th> {/* review text along with stars given */}
+                    <th>Review for Service</th> {/* service name for which review have given */}
+                    <th>For provider</th> {/* name of provider to whome review has given */}
+                    <th>Reviewer</th> {/* client name, email, mobile */}
+                    <th>Date</th> {/* date of review posted */}
                   </tr>
                 </thead>
 
