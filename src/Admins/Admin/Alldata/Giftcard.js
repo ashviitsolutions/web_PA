@@ -4,6 +4,7 @@ import ReactPaginate from 'react-paginate';
 import { IP } from '../../../Constant';
 import { FallingLines } from "react-loader-spinner";
 import { useLocation } from 'react-router-dom';
+import moment from 'moment';
 
 
 const PreviewImage = ({ attachments }) => {
@@ -226,6 +227,8 @@ function Giftcard() {
 
                         </div>
                       </td>
+
+                      <td>{moment(cur.createdAt).format('YYYY-MM-DD')}</td>
                     </tr>
                   );
                 })}

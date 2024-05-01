@@ -4,7 +4,7 @@ import ReactPaginate from 'react-paginate';
 import { IP } from '../../../Constant';
 import { FallingLines } from "react-loader-spinner";
 import { useLocation } from 'react-router-dom';
-
+import moment from 'moment/moment';
 
 const PreviewImage = ({ attachments }) => {
   const [imageObjectURL, setImageObjectURL] = useState(null);
@@ -179,20 +179,20 @@ function Memberhsip() {
                 </thead>
 
                 {memoizedUser.map((cur, index) => {
-
-                  console.log("ma data define",cur)
+                  let price = "";
+                  if (cur.membershipType === "Silver") {
+                    price = "60"; // Set price to 60 for silver membership
+                  } else if (cur.membershipType === "Gold") {
+                    price = "119"; // Set price to 119 for gold membership
+                  }
+                
                   return (
                     <tr key={index}>
                       <td>
                         <div className="card layer1">
                           <div className="inner">
                             <label htmlFor="" className="card_label"></label>
-                            <div
-                              className="preview"
-                              style={{ width: "100%", height: "20vh", backgroundSize: "cover" }}
-                            >
-                              <PreviewImage className="PreviewImage" attachments={cur.attachments} />
-                            </div>
+                            <p>{cur.membershipType}</p>
                           </div>
                         </div>
                       </td>
@@ -201,12 +201,7 @@ function Memberhsip() {
                           <span className="title" id="headingtitle">
                             {cur.userName}
                           </span>
-                          <span className="title" id="headingtitle">
-
-                          </span>
                           <small>
-
-
                             <p className="description">{cur.userEmail}</p>
                           </small>
                         </div>
@@ -214,19 +209,18 @@ function Memberhsip() {
                       <td>
                         <div className="typefield">
                           <span style={{ display: "block" }}>{cur.category}</span>
-
                           <div className="content mt-3">
                             <span className="title" id="headingtitle">
-                              <span id="pricevalue"> </span>
-                              {cur.membershipType}
+                              <span id="pricevalue">{price}</span>
                             </span>
                           </div>
-
                         </div>
                       </td>
+                      <td>{moment(cur.createdAt).format('YYYY-MM-DD')}</td>
                     </tr>
                   );
                 })}
+                
               </table>
               {/* add grand total of price column */}
               {loading && (
