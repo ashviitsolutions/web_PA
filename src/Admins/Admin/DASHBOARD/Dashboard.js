@@ -13,7 +13,7 @@ import image10 from "../../img/feedback.png"
 import money from "../../img/earn-money.png"
 import { FallingLines } from "react-loader-spinner";
 import { useNavigate } from 'react-router-dom';
-
+import moment from 'moment';
 
 
 function Dashboard() {
@@ -22,8 +22,11 @@ function Dashboard() {
     const [data, setData] = useState([]);
 
     const [request, setRequest] = useState([]);
-    const [startDate, setStartDate] = useState(new Date().toISOString().split('T')[0]);
-    const [endDate, setEndDate] = useState(new Date().toISOString().split('T')[0]);
+    const [startDate, setStartDate] = useState(moment().format('YYYY-MM-DD'));
+    const [endDate, setEndDate] = useState(moment().format('YYYY-MM-DD'));
+
+    // const [startDate, setStartDate] = useState(moment().format('YYYY-MM-DD'));
+    // const [endDate, setEndDate] = useState(moment().format('YYYY-MM-DD'));
 
     const [loading, setLoading] = useState(null);
     const token = localStorage.getItem("tokenadmin");
@@ -89,6 +92,11 @@ function Dashboard() {
 
     };
 
+    useEffect(() => {
+
+        setStartDate(startDate);
+        setEndDate(endDate);
+    }, [startDate, endDate]);
 
     return (
         <>
