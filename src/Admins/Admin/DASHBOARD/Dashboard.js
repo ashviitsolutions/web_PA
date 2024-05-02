@@ -19,6 +19,7 @@ import moment from 'moment';
 function Dashboard() {
     const nav = useNavigate();
     const [user, setUser] = useState([]);
+    const [giftcard, setGift] = useState([]);
     const [data, setData] = useState([]);
 
     const [request, setRequest] = useState([]);
@@ -64,6 +65,42 @@ function Dashboard() {
 
 
 
+
+
+
+
+
+
+
+
+    useEffect(() => {
+        setLoading(true);
+        fetch(`${IP}/coupon/get-all-giftcard`)
+            .then(resp => resp.json())
+            .then(result => {
+                if (result.data && result.data.length > 0) {
+                    const userdata = result.data;
+                    setGift(userdata);
+                }
+            })
+            .catch(err => {
+                console.log(err);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+    }, []);
+
+
+
+
+
+
+
+
+
+
+
     console.log(data)
 
     const handleCardClick = (event_status) => {
@@ -97,6 +134,27 @@ function Dashboard() {
         setStartDate(startDate);
         setEndDate(endDate);
     }, [startDate, endDate]);
+
+
+
+    const handleFilter = () => {
+       
+        const filteredData = giftcard.filter(event => {
+          console.log("eventDate:", event.createdAt); // Accessing the first element's createdAt property
+      
+          const eventDate = moment(event.createdAt, 'YYYY-MM-DD'); // Adjust the format based on the actual format of eventDate
+          
+          const isWithinDateRange = (!startDate || moment(startDate).isSameOrBefore(eventDate, 'day')) &&
+            (!endDate || moment(endDate).isSameOrAfter(eventDate, 'day'));
+          
+          
+          return isWithinDateRange;
+        });
+        
+        return filteredData;
+      };
+    
+      const memoizedUser = handleFilter();
 
     return (
         <>
@@ -246,7 +304,7 @@ function Dashboard() {
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image8})` }}></span>
-                                                        <h3>{user.total_pending_bookings}</h3>
+                                                        <h3>{<h3>{memoizedUser.length}</h3>}</h3>
                                                         <p>New Gift card</p>
                                                     </div>
                                                 </div>
