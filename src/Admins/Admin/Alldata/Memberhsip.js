@@ -48,12 +48,12 @@ function Memberhsip() {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`${IP}/user/get-all-membership-details?page=${pageNumber}&limit=10`).then(resp => resp.json())
+    fetch(`${IP}/user/get-all-membership-details`).then(resp => resp.json())
       .then(result => {
         console.log("result memberhsip", result)
         if (result && result.length > 0) {
           console.log("response format:", result);
-          setUser(prevData => [...prevData, ...result]);
+          setUser(result);
           setLoading(false);
 
         }
@@ -62,7 +62,7 @@ function Memberhsip() {
       }).finally(() => {
         setLoading(false);
       });
-  }, [pageNumber]);
+  }, []);
 
 
 

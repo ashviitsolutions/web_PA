@@ -114,19 +114,37 @@ function Giftcard() {
     return () => window.removeEventListener("scroll", handleInfiniteScroll)
   }, []);
 
+  // const handleFilter = () => {
+  //   // Filter data based on selected dates, status, and search text
+  //   const filteredData = user.filter(contractor => {
+
+  //     const isWithinDateRange = (!startDate || new Date(contractor.createdAt) >= new Date(startDate)) &&
+  //       (!endDate || new Date(contractor.createdAt) <= new Date(endDate));
+  //     const isSearched = !searchText || (contractor.userName.toLowerCase().includes(searchText.toLowerCase()) || contractor.userEmail.toLowerCase().includes(searchText.toLowerCase()));
+  //     return isWithinDateRange && isSearched;
+  //   });
+  //   return filteredData;
+  // };
+
   const handleFilter = () => {
-    // Filter data based on selected dates, status, and search text
-    const filteredData = user.filter(contractor => {
-    
-      const isWithinDateRange = (!startDate || new Date(contractor.createdAt) >= new Date(startDate)) &&
-        (!endDate || new Date(contractor.createdAt) <= new Date(endDate));
-      const isSearched = !searchText || (contractor.userName.toLowerCase().includes(searchText.toLowerCase()) || contractor.userEmail.toLowerCase().includes(searchText.toLowerCase()));
+    console.log("startDate:", startDate);
+    console.log("endDate:", endDate);
+  
+    const filteredData = user.filter(event => {
+      console.log("eventDate:", event.createdAt); // Accessing the first element's createdAt property
+  
+      const eventDate = moment(event.createdAt, 'YYYY-MM-DD'); // Adjust the format based on the actual format of eventDate
+      
+      const isWithinDateRange = (!startDate || moment(startDate).isSameOrBefore(eventDate, 'day')) &&
+        (!endDate || moment(endDate).isSameOrAfter(eventDate, 'day'));
+      
+      const isSearched = !searchText || event.provider_details.first_name.toLowerCase().includes(searchText.toLowerCase());
+      
       return isWithinDateRange && isSearched;
     });
+    
     return filteredData;
   };
-
-
 
   const memoizedUser = handleFilter();
 
