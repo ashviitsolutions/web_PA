@@ -93,22 +93,17 @@ function Review() {
     setEndDate(endDates);
   }, [startDates, endDates]);
 
-  const handleInfiniteScroll = async () => {
-    try {
-      if (
-        window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight
-      ) {
-        setPageNumber(prev => prev + 1);
-        setLoading(true)
-      }
-    } catch (error) {
-      console.error(error);
+  const handleInfiniteScroll = () => {
+    if (window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight) {
+      setPageNumber(prevPageNumber => prevPageNumber + 1);
     }
-  }
+  };
 
   useEffect(() => {
-    window.addEventListener("scroll", handleInfiniteScroll);
-    return () => window.removeEventListener("scroll", handleInfiniteScroll)
+    window.addEventListener('scroll', handleInfiniteScroll);
+    return () => {
+      window.removeEventListener('scroll', handleInfiniteScroll);
+    };
   }, []);
 
   const handleFilter = () => {
@@ -133,8 +128,8 @@ function Review() {
             <div className="">
               <div className="headings float_wrapper">
                 <div className="gutter pull-left">
-                  <h3>All Gift Card</h3>
-                  <p>list of all add posts</p>
+                  <h3>All Customer review</h3>
+                  <p>list of all add review</p>
                 </div>
 
                 <span className="toggle_sidebar"></span>
