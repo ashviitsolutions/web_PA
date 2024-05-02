@@ -40,11 +40,12 @@ function Giftcard() {
   const [status, setStatus] = useState("");
   const [searchText, setSearchText] = useState("");
 
+  console.log("date range", startDate, endDate)
 
 
   useEffect(() => {
     setLoading(true);
-    fetch(`${IP}/coupon//get-all-giftcard?page=${pageNumber}&limit=10`).then(resp => resp.json())
+    fetch(`http://localhost:5000/api/coupon/get-all-giftcard?page=${pageNumber}&limit=10`).then(resp => resp.json())
       .then(result => {
         // console.log("result",result)
         if (result.data && result.data.length > 0) {
@@ -88,42 +89,44 @@ function Giftcard() {
 
 
 
-    // Handle date change
-    useEffect(() => {
-      // Update startDate and endDate when startDates or endDates change
-      setStartDate(startDates);
-      setEndDate(endDates);
+  // Handle date change
+  useEffect(() => {
+    // Update startDate and endDate when startDates or endDates change
+    setStartDate(startDates);
+    setEndDate(endDates);
   }, [startDates, endDates]);
 
   const handleInfiniteScroll = async () => {
-      try {
-          if (
-              window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight
-          ) {
-              setPageNumber(prev => prev + 1);
-              setLoading(true)
-          }
-      } catch (error) {
-          console.error(error);
+    try {
+      if (
+        window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight
+      ) {
+        setPageNumber(prev => prev + 1);
+        setLoading(true)
       }
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   useEffect(() => {
-      window.addEventListener("scroll", handleInfiniteScroll);
-      return () => window.removeEventListener("scroll", handleInfiniteScroll)
+    window.addEventListener("scroll", handleInfiniteScroll);
+    return () => window.removeEventListener("scroll", handleInfiniteScroll)
   }, []);
 
   const handleFilter = () => {
-      // Filter data based on selected dates, status, and search text
-      const filteredData = user.filter(contractor => {
-          const isStatusMatched = !status || contractor.application_status_text === status;
-          const isWithinDateRange = (!startDate || new Date(contractor.createdAt) >= new Date(startDate)) &&
-              (!endDate || new Date(contractor.createdAt) <= new Date(endDate));
-          const isSearched = !searchText || (contractor.userName.toLowerCase().includes(searchText.toLowerCase()) || contractor.userEmail.toLowerCase().includes(searchText.toLowerCase()));
-          return isWithinDateRange  && isSearched;
-      });
-      return filteredData;
+    // Filter data based on selected dates, status, and search text
+    const filteredData = user.filter(contractor => {
+    
+      const isWithinDateRange = (!startDate || new Date(contractor.createdAt) >= new Date(startDate)) &&
+        (!endDate || new Date(contractor.createdAt) <= new Date(endDate));
+      const isSearched = !searchText || (contractor.userName.toLowerCase().includes(searchText.toLowerCase()) || contractor.userEmail.toLowerCase().includes(searchText.toLowerCase()));
+      return isWithinDateRange && isSearched;
+    });
+    return filteredData;
   };
+
+
 
   const memoizedUser = handleFilter();
 
