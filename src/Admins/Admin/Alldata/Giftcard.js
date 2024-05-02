@@ -60,7 +60,7 @@ function Giftcard() {
       }).finally(() => {
         setLoading(false);
       });
-  }, [pageNumber]);
+  }, []);
 
 
 

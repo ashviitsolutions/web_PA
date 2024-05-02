@@ -48,7 +48,7 @@ function Review() {
       .then(result => {
         console.log("result", result)
         if (result && result.length > 0) {
-          setUser(prevData => [...prevData, ...result]);
+          setUser(result);
           setLoading(false);
 
         }
@@ -106,19 +106,22 @@ function Review() {
     };
   }, []);
 
+  
   const handleFilter = () => {
     // Filter data based on selected dates, status, and search text
-    const filteredData = user.filter(contractor => {
-      const isStatusMatched = !status || contractor.application_status_text === status;
-      const isWithinDateRange = (!startDate || new Date(contractor.createdAt) >= new Date(startDate)) &&
-        (!endDate || new Date(contractor.createdAt) <= new Date(endDate));
-      const isSearched = !searchText || (contractor.userName.toLowerCase().includes(searchText.toLowerCase()) || contractor.userEmail.toLowerCase().includes(searchText.toLowerCase()));
-      return isWithinDateRange && isSearched;
+    const filteredData = user.filter(cur => {
+        const isWithinDateRange = (!startDate || new Date(cur.createdAt) >= new Date(startDate)) &&
+            (!endDate || new Date(cur.createdAt) <= new Date(endDate));
+        const isSearched = !searchText || (cur.reviewerName.toLowerCase().includes(searchText.toLowerCase()) || cur.userEmail.toLowerCase().includes(searchText.toLowerCase()));
+        return isWithinDateRange && isSearched;
     });
     return filteredData;
-  };
+};
+
 
   const memoizedUser = handleFilter();
+
+  console.log("memoizedUser",memoizedUser)
 
   return (
     <>
@@ -177,7 +180,7 @@ function Review() {
                   </tr>
                 </thead>
 
-                {memoizedUser.map((cur, index) => {
+                {user.map((cur, index) => {
                   return (
                     <tr key={index}>
                       <td>
