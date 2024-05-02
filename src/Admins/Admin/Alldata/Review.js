@@ -210,7 +210,7 @@ function Review() {
 
                       <td>
                         <div className="typefield">
-                          <span style={{ display: "block" }}>Munna Kumar</span>
+                          <span style={{ display: "block" }}>{cur.providerName}</span>
                         </div>
                       </td>
 
