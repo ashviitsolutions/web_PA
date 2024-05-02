@@ -5,6 +5,11 @@ import { IP } from '../../../Constant';
 import { FallingLines } from "react-loader-spinner";
 import { useLocation } from 'react-router-dom';
 import moment from 'moment/moment';
+import Activegold from "../../../Components/assets/img/active_gold2.png";
+import Activesilver from "../../../Components/assets/img/active_silver2.png";
+import gold from "../../../Components/assets/img/membership_gold2.png";
+import silver from "../../../Components/assets/img/membeship_silver21.png";
+import "./Alldata.css"
 
 const PreviewImage = ({ attachments }) => {
   const [imageObjectURL, setImageObjectURL] = useState(null);
@@ -45,7 +50,7 @@ function Memberhsip() {
     setLoading(true);
     fetch(`${IP}/user/get-all-membership-details?page=${pageNumber}&limit=10`).then(resp => resp.json())
       .then(result => {
-        console.log("result memberhsip",result)
+        console.log("result memberhsip", result)
         if (result && result.length > 0) {
           console.log("response format:", result);
           setUser(prevData => [...prevData, ...result]);
@@ -81,46 +86,46 @@ function Memberhsip() {
 
 
 
-    // Handle date change
-    useEffect(() => {
-      // Update startDate and endDate when startDates or endDates change
-      setStartDate(startDates);
-      setEndDate(endDates);
+  // Handle date change
+  useEffect(() => {
+    // Update startDate and endDate when startDates or endDates change
+    setStartDate(startDates);
+    setEndDate(endDates);
   }, [startDates, endDates]);
 
   const handleInfiniteScroll = async () => {
-      try {
-          if (
-              window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight
-          ) {
-              setPageNumber(prev => prev + 1);
-              setLoading(true)
-          }
-      } catch (error) {
-          console.error(error);
+    try {
+      if (
+        window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight
+      ) {
+        setPageNumber(prev => prev + 1);
+        setLoading(true)
       }
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   useEffect(() => {
-      window.addEventListener("scroll", handleInfiniteScroll);
-      return () => window.removeEventListener("scroll", handleInfiniteScroll)
+    window.addEventListener("scroll", handleInfiniteScroll);
+    return () => window.removeEventListener("scroll", handleInfiniteScroll)
   }, []);
 
   const handleFilter = () => {
-      // Filter data based on selected dates, status, and search text
-      const filteredData = user.filter(contractor => {
-          const isStatusMatched = !status || contractor.application_status_text === status;
-          const isWithinDateRange = (!startDate || new Date(contractor.createdAt) >= new Date(startDate)) &&
-              (!endDate || new Date(contractor.createdAt) <= new Date(endDate));
-          const isSearched = !searchText || (contractor.userName.toLowerCase().includes(searchText.toLowerCase()) || contractor.userEmail.toLowerCase().includes(searchText.toLowerCase()));
-          return isWithinDateRange  && isSearched;
-      });
-      return filteredData;
+    // Filter data based on selected dates, status, and search text
+    const filteredData = user.filter(contractor => {
+      const isStatusMatched = !status || contractor.application_status_text === status;
+      const isWithinDateRange = (!startDate || new Date(contractor.createdAt) >= new Date(startDate)) &&
+        (!endDate || new Date(contractor.createdAt) <= new Date(endDate));
+      const isSearched = !searchText || (contractor.userName.toLowerCase().includes(searchText.toLowerCase()) || contractor.userEmail.toLowerCase().includes(searchText.toLowerCase()));
+      return isWithinDateRange && isSearched;
+    });
+    return filteredData;
   };
 
   const memoizedUser = handleFilter();
 
-  
+
 
   return (
     <>
@@ -130,8 +135,8 @@ function Memberhsip() {
             <div className="">
               <div className="headings float_wrapper">
                 <div className="gutter pull-left">
-                  <h3>All Gift Card</h3>
-                  <p>list of all add posts</p>
+                  <h3>All Memberhsip</h3>
+                  <p>list of all purchased memberhsip</p>
                 </div>
 
                 <span className="toggle_sidebar"></span>
@@ -180,19 +185,28 @@ function Memberhsip() {
 
                 {memoizedUser.map((cur, index) => {
                   let price = "";
+                  let membershipImage = null; // Initialize membership image variable
+
                   if (cur.membershipType === "Silver") {
-                    price = "60"; // Set price to 60 for silver membership
+                    price = "29"; // Set price to 60 for silver membership
+                    membershipImage = <img src={silver} alt="Silver Membership" />;
                   } else if (cur.membershipType === "Gold") {
                     price = "119"; // Set price to 119 for gold membership
+                    membershipImage = <img src={gold} alt="Gold Membership" />;
                   }
-                
+
                   return (
                     <tr key={index}>
                       <td>
                         <div className="card layer1">
                           <div className="inner">
                             <label htmlFor="" className="card_label"></label>
-                            <p>{cur.membershipType}</p>
+                            <div
+                              className="preview_admin"
+                            // style={{ width: "100%", height: "20vh", backgroundSize: "cover" }}
+                            >
+                              {membershipImage} {/* Display membership image */}
+                            </div>
                           </div>
                         </div>
                       </td>
@@ -220,7 +234,8 @@ function Memberhsip() {
                     </tr>
                   );
                 })}
-                
+
+
               </table>
               {/* add grand total of price column */}
               {loading && (
