@@ -4,6 +4,7 @@ import ReactPaginate from 'react-paginate';
 import { IP } from '../../../Constant';
 import { FallingLines } from "react-loader-spinner";
 import { useLocation } from 'react-router-dom';
+import moment from 'moment';
 
 
 const PreviewImage = ({ attachments }) => {
@@ -45,7 +46,7 @@ function Review() {
     setLoading(true);
     fetch(`${IP}/user/reviews?page=${pageNumber}&limit=10`).then(resp => resp.json())
       .then(result => {
-        console.log("result",result)
+        console.log("result", result)
         if (result && result.length > 0) {
           setUser(prevData => [...prevData, ...result]);
           setLoading(false);
@@ -85,41 +86,41 @@ function Review() {
 
 
 
-    // Handle date change
-    useEffect(() => {
-      // Update startDate and endDate when startDates or endDates change
-      setStartDate(startDates);
-      setEndDate(endDates);
+  // Handle date change
+  useEffect(() => {
+    // Update startDate and endDate when startDates or endDates change
+    setStartDate(startDates);
+    setEndDate(endDates);
   }, [startDates, endDates]);
 
   const handleInfiniteScroll = async () => {
-      try {
-          if (
-              window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight
-          ) {
-              setPageNumber(prev => prev + 1);
-              setLoading(true)
-          }
-      } catch (error) {
-          console.error(error);
+    try {
+      if (
+        window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight
+      ) {
+        setPageNumber(prev => prev + 1);
+        setLoading(true)
       }
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   useEffect(() => {
-      window.addEventListener("scroll", handleInfiniteScroll);
-      return () => window.removeEventListener("scroll", handleInfiniteScroll)
+    window.addEventListener("scroll", handleInfiniteScroll);
+    return () => window.removeEventListener("scroll", handleInfiniteScroll)
   }, []);
 
   const handleFilter = () => {
-      // Filter data based on selected dates, status, and search text
-      const filteredData = user.filter(contractor => {
-          const isStatusMatched = !status || contractor.application_status_text === status;
-          const isWithinDateRange = (!startDate || new Date(contractor.createdAt) >= new Date(startDate)) &&
-              (!endDate || new Date(contractor.createdAt) <= new Date(endDate));
-          const isSearched = !searchText || (contractor.userName.toLowerCase().includes(searchText.toLowerCase()) || contractor.userEmail.toLowerCase().includes(searchText.toLowerCase()));
-          return isWithinDateRange  && isSearched;
-      });
-      return filteredData;
+    // Filter data based on selected dates, status, and search text
+    const filteredData = user.filter(contractor => {
+      const isStatusMatched = !status || contractor.application_status_text === status;
+      const isWithinDateRange = (!startDate || new Date(contractor.createdAt) >= new Date(startDate)) &&
+        (!endDate || new Date(contractor.createdAt) <= new Date(endDate));
+      const isSearched = !searchText || (contractor.userName.toLowerCase().includes(searchText.toLowerCase()) || contractor.userEmail.toLowerCase().includes(searchText.toLowerCase()));
+      return isWithinDateRange && isSearched;
+    });
+    return filteredData;
   };
 
   const memoizedUser = handleFilter();
@@ -185,46 +186,42 @@ function Review() {
                   return (
                     <tr key={index}>
                       <td>
-                        <div className="card layer1">
-                          <div className="inner">
-                            <label htmlFor="" className="card_label"></label>
-                            <div
-                              className="preview"
-                              style={{ width: "100%", height: "20vh", backgroundSize: "cover" }}
-                            >
-                              <PreviewImage className="PreviewImage" attachments={cur.attachments} />
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
                         <div className="content">
                           <span className="title" id="headingtitle">
-                            {cur.reviewerName}  &
-                          </span>  
-                          <span className="title" id="headingtitle">
-                                {cur.userEmail}
+                            {cur.comments}  &
                           </span>
-                          <small>
-
-
-                            <p className="description">{cur.comments}</p>
-                          </small>
                         </div>
                       </td>
+
                       <td>
                         <div className="typefield">
-                          <span style={{ display: "block" }}>{cur.category}</span>
+                         
 
                           <div className="content mt-3">
                             <span className="title" id="headingtitle">
                               <span id="pricevalue">Couples/Partners Massage </span>
-                             
+
                             </span>
                           </div>
 
                         </div>
                       </td>
+
+
+                      <td>
+                        <div className="typefield">
+                          <span style={{ display: "block" }}>Munna Kumar</span>
+                        </div>
+                      </td>
+
+
+                      <td>
+                        <div className="typefield">
+                          <span style={{ display: "block" }}>{cur.reviewerName}</span>
+
+                        </div>
+                      </td>
+                      <td>{moment(cur.createdAt).format('YYYY-MM-DD')}</td>
                     </tr>
                   );
                 })}
