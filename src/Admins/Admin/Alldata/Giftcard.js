@@ -51,7 +51,7 @@ function Giftcard() {
         if (result.data && result.data.length > 0) {
           console.log("response format:", result.data);
           const userdata = result.data;
-          setUser(prevData => [...prevData, ...userdata]);
+          setUser(userdata);
           setLoading(false);
 
         }
