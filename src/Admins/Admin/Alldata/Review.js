@@ -44,7 +44,7 @@ function Review() {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`${IP}/user/reviews?page=${pageNumber}&limit=10`).then(resp => resp.json())
+    fetch(`${IP}/user/reviews`).then(resp => resp.json())
       .then(result => {
         console.log("result", result)
         if (result && result.length > 0) {
@@ -57,7 +57,7 @@ function Review() {
       }).finally(() => {
         setLoading(false);
       });
-  }, [pageNumber]);
+  }, []);
 
 
 
@@ -190,11 +190,11 @@ function Review() {
 
                       <td>
                         <div className="typefield">
-                         
+
 
                           <div className="content mt-3">
                             <span className="title" id="headingtitle">
-                              <span id="pricevalue">Couples/Partners Massage </span>
+                              <span id="pricevalue">{cur.serviceName}</span>
 
                             </span>
                           </div>
