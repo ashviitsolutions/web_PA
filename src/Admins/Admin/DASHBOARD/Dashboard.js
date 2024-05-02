@@ -276,7 +276,7 @@ function Dashboard() {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-sm-3" onClick={() => handleCardClick('completed')}>
+                                            <div className="col-sm-3" onClick={() => handleCardClick('')}>
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image2})` }}></span>
