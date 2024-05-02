@@ -45,7 +45,7 @@ function Giftcard() {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:5000/api/coupon/get-all-giftcard?page=${pageNumber}&limit=10`).then(resp => resp.json())
+    fetch(`${IP}/coupon/get-all-giftcard?page=${pageNumber}&limit=10`).then(resp => resp.json())
       .then(result => {
         // console.log("result",result)
         if (result.data && result.data.length > 0) {
