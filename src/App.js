@@ -137,6 +137,7 @@ import Editblog from './Admins/Admin/Blogs/Editblog';
 import Failed from './Components/Pages/Profile/userProfile/Response/Failed';
 import Setting from './Components/Pages/Profile/userProfile/Setting';
 import Review from './Admins/Admin/Alldata/Review';
+import Statemement from './Admins/Admin/Alldata/Statemement';
 function App() {
   const nav = useNavigate()
   useEffect(() => {
@@ -481,6 +482,11 @@ function App() {
           <Route path="/admin/review" element={<>
             <Sidebar />
             <Protect Component={Review} />
+          </>} />
+
+          <Route path="/admin/all-statement" element={<>
+            <Sidebar />
+            <Protect Component={Statemement} />
           </>} />
 
 

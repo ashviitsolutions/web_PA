@@ -207,7 +207,7 @@ function Dashboard() {
                                 <div className="summary_collections">
                                     <div className="container-fluid">
                                         <div className="row">
-                                            <div className="col-sm-3">
+                                            <div className="col-sm-3" onClick={() => handleCardClient('all-statement')}>
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image4})` }}></span>
@@ -218,7 +218,7 @@ function Dashboard() {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-sm-3">
+                                            <div className="col-sm-3" onClick={() => handleCardClient('all-statement')}>
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${money})` }}></span>
