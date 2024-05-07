@@ -366,9 +366,9 @@ function Statemement() {
 
 
                                     <td>{cur?.total_admin_amount?.toFixed(2)}$</td>
-                                    <td>{cur?.total_tip_amount?.toFixed(2)}$</td>
-                                    <td>{cur?.total_provider_amount?.toFixed(2)}$</td>
-                                    <td>{cur?.total_tip_amount?.toFixed(2)}$</td>
+                                    <td>{cur?.services.total_tip_amount?.toFixed(2)}$</td>
+                                    <td>{cur?.total_provider_amount?.amount_calculation?.amount_tax?.toFixed(2)}$</td>
+                                    <td>{Math.max(cur.total_admin_amount  - cur?.total_provider_amount?.amount_calculation?.amount_tax?.toFixed(2) - cur.total_provider_amount, 0).toFixed(2)}$</td>
 
 
                                 </tr>

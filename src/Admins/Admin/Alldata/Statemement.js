@@ -73,7 +73,7 @@ function Statemement() {
 
     const handleRowClick = (cur) => {
         console.log("cur", cur); // Check the structure of cur
-        navigate(`/admin/payments/details/${cur.provider_details._id}`, { state: { cur, startDate, endDate } });
+        // navigate(`/admin/payments/details/${cur.provider_details._id}`, { state: { cur, startDate, endDate } });
     };
 
 
@@ -342,7 +342,8 @@ function Statemement() {
                                                 <td>{cur?.total_admin_amount?.toFixed(2)}$</td>
                                                 <td>{cur?.total_tip_amount?.toFixed(2)}$</td>
                                                 <td>{cur?.total_provider_amount?.toFixed(2)}$</td>
-                                                <td>{cur?.total_tip_amount?.toFixed(2)}$</td>
+                                                <td>{Math.max(cur?.total_admin_amount - (cur?.total_tip_amount || 0) - cur?.total_provider_amount, 0).toFixed(2)}$</td>
+
 
 
                                             </tr>
