@@ -306,8 +306,8 @@ function Statemement() {
                                                 <td className="provDet">
                                                     <p className='title cursor2' onClick={() => handleRowClick(cur)} title='click on provider to view details'><span>{`${cur?.provider_details?.first_name} ${cur?.provider_details?.last_name}`}</span></p>
                                                     <span className='sub'>{cur?.provider_details?.mailing_address?.address}</span>
-                                                    <p className='sub'>email: <span>{cur?.provider_details?.email}</span></p>
-                                                    <p className='sub'>phone: <span>{cur?.provider_details?.phone}</span></p>
+                                                    <p className='sub'><span>{cur?.provider_details?.email}</span></p>
+                                                    <p className='sub'><span>{cur?.provider_details?.phone}</span></p>
                                                 </td>
                                                 <td>
                                                     {cur.services.map((service, index) => (
@@ -331,8 +331,8 @@ function Statemement() {
                                                             <p className='title cursor2' onClick={() => handleRowClick(cur)} title='click on provider to view details'>
                                                                 <span>{`${userDetail.name}`}</span>
                                                             </p>
-                                                            <p className='sub'>email: <span>{userDetail.email}</span></p>
-                                                            <p className='sub'>phone: <span>{userDetail.mobile}</span></p>
+                                                            <p className='sub'><span>{userDetail.email}</span></p>
+                                                            <p className='sub'><span>{userDetail.mobile}</span></p>
                                                         </React.Fragment>
                                                     ))}
                                                 </td>
@@ -372,7 +372,7 @@ function Statemement() {
                                                 <td className="provDet">
                                                     <p className='title cursor2'>{membership.userDetails.name}</p>
                                                     <span className='sub'>{membership.userDetails.email}</span>
-                                                    <p className='sub'>email: <span>{membership.userDetails.mobile}</span></p>
+                                                    <p className='sub'><span>{membership.userDetails.mobile}</span></p>
 
                                                 </td>
 
