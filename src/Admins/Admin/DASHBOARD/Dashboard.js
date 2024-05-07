@@ -17,13 +17,29 @@ import moment from 'moment';
 
 
 function Dashboard() {
+
+    const [users, setUsers] = useState([]);
+    const [status, setStatus] = useState("services");
+    const [alldata, setAlladata] = useState("services");
+
+    const [membershipDetails, setMembershipDetails] = useState([]);
+    const [giftcarddetails, setGiftcarddetails] = useState([]);
+
+
+
+
+
+
+
     const nav = useNavigate();
     const [user, setUser] = useState([]);
     const [giftcard, setGift] = useState([]);
     const [data, setData] = useState([]);
 
     const [request, setRequest] = useState([]);
-    const [startDate, setStartDate] = useState(moment().format('YYYY-MM-DD'));
+    // const [startDate, setStartDate] = useState(moment().format('YYYY-MM-DD'));
+    // const [endDate, setEndDate] = useState(moment().format('YYYY-MM-DD'));
+    const [startDate, setStartDate] = useState(moment().subtract(7, 'day').format('YYYY-MM-DD'));
     const [endDate, setEndDate] = useState(moment().format('YYYY-MM-DD'));
 
     // const [startDate, setStartDate] = useState(moment().format('YYYY-MM-DD'));
@@ -50,7 +66,7 @@ function Dashboard() {
                     }
                 });
                 const data = await res.json();
-                console.log("data dashbaord",data)
+                console.log("data dashbaord", data)
                 setUser(data);
                 setData(data);
                 setLoading(false)
@@ -66,7 +82,11 @@ function Dashboard() {
 
 
 
-
+    useEffect(() => {
+        const today = moment().format('YYYY-MM-DD');
+        setStartDate(moment(today).subtract(7, 'day').format('YYYY-MM-DD'));
+        setEndDate(today);
+    }, []);
 
 
 
@@ -113,7 +133,7 @@ function Dashboard() {
     const handleCardClient = (event_status) => {
 
         // nav(`/admin/${event_status},{ state: {startDate, endDate } }`);
-        nav(`/admin/${event_status}`, { state: {startDate, endDate } });
+        nav(`/admin/${event_status}`, { state: { startDate, endDate } });
 
     };
 
@@ -138,23 +158,182 @@ function Dashboard() {
 
 
     const handleFilter = () => {
-       
+
         const filteredData = giftcard.filter(event => {
-          console.log("eventDate:", event.createdAt); // Accessing the first element's createdAt property
-      
-          const eventDate = moment(event.createdAt, 'YYYY-MM-DD'); // Adjust the format based on the actual format of eventDate
-          
-          const isWithinDateRange = (!startDate || moment(startDate).isSameOrBefore(eventDate, 'day')) &&
-            (!endDate || moment(endDate).isSameOrAfter(eventDate, 'day'));
-          
-          
-          return isWithinDateRange;
+            console.log("eventDate:", event.createdAt); // Accessing the first element's createdAt property
+
+            const eventDate = moment(event.createdAt, 'YYYY-MM-DD'); // Adjust the format based on the actual format of eventDate
+
+            const isWithinDateRange = (!startDate || moment(startDate).isSameOrBefore(eventDate, 'day')) &&
+                (!endDate || moment(endDate).isSameOrAfter(eventDate, 'day'));
+
+
+            return isWithinDateRange;
         });
-        
+
         return filteredData;
-      };
-    
-      const memoizedUser = handleFilter();
+    };
+
+    const memoizedUser = handleFilter();
+
+
+
+
+
+
+    // amount calculation
+
+    useEffect(() => {
+        setLoading(true);
+        fetch(`${IP}/provider/get-all-statemnet`)
+            .then(resp => resp.json())
+            .then(result => {
+                setUsers(result.allData.servicesByProvider);
+                setMembershipDetails(result.allData.membershipDetails);
+                setGiftcarddetails(result.allData.giftcarddetails);
+                setAlladata(result.finalcalculation)
+                console.log("real resuklt data", result)
+
+            })
+            .catch(err => console.error("Error fetching data:", err))
+            .finally(() => setLoading(false));
+    }, []);
+
+
+
+
+
+
+    const handleFilters = () => {
+        const filteredData = users.filter(event => {
+            const eventDate = moment(event.services[0].createdAt, 'YYYY-MM-DD');
+            const isWithinDateRange = (!startDate || moment(startDate).isSameOrBefore(eventDate, 'day')) &&
+                (!endDate || moment(endDate).isSameOrAfter(eventDate, 'day'));
+            return isWithinDateRange;
+        });
+
+        // Calculate aggregated values from filtered data
+        let totalServices = 0;
+        let totalServicePrice = 0;
+        let totalAddOns = 0;
+        let totalAddOnPrice = 0;
+        let totalTipAmount = 0;
+
+        let totalAdminAmount = 0;
+        let totalProviderAmount = 0;
+        let amount_tax = 0;
+
+        filteredData.forEach(cur => {
+            totalServices += cur.total_services || 0;
+            totalServicePrice += cur.total_service_price || 0;
+            totalAddOns += cur.total_add_ons || 0;
+            totalAddOnPrice += cur.total_add_on_price || 0;
+            amount_tax += cur.service?.amount_calculation?.amount_tax || 0; // Add conditional check
+            totalAdminAmount += cur.total_admin_amount || 0;
+            totalProviderAmount += cur.total_provider_amount || 0;
+
+            // Calculate total tip amount for each user
+            cur.services.forEach(service => {
+                amount_tax += service?.amount_calculation?.amount_tax || 0; // Add conditional check
+            });
+        });
+
+        return {
+            filteredData,
+            aggregatedValues: {
+                totalServices,
+                totalServicePrice,
+                totalAddOns,
+                totalAddOnPrice,
+                amount_tax,
+                totalTipAmount,
+                totalAdminAmount,
+                totalProviderAmount
+            }
+        };
+    };
+
+
+
+    const { filteredData: memoizedUsers, aggregatedValues } = handleFilters();
+
+    console.log("aggregatedValues", aggregatedValues)
+
+
+
+
+
+
+
+
+
+
+
+    const handleMemberhsip = () => {
+        const filteredData = membershipDetails.filter(event => {
+            console.log("eventDate:", event.createdAt); // Accessing the first element's createdAt property
+
+            const eventDate = moment(event.createdAt, 'YYYY-MM-DD'); // Adjust the format based on the actual format of eventDate
+
+            const isWithinDateRange = (!startDate || moment(startDate).isSameOrBefore(eventDate, 'day')) &&
+                (!endDate || moment(endDate).isSameOrAfter(eventDate, 'day'));
+
+
+            return isWithinDateRange;
+        });
+
+        // Calculate total membership price from filtered data
+        let totalMembershipPrice = 0;
+
+        filteredData.forEach(cur => {
+            totalMembershipPrice += cur.membershipPrice;
+        });
+
+        return { filteredData, totalMembershipPrice };
+    };
+
+    const { filteredData, totalMembershipPrice } = handleMemberhsip();
+
+
+
+    // giftcard filter
+
+    const handleGiftcard = () => {
+        const filteredGiftData = giftcarddetails.filter(event => {
+            console.log("eventDate:", event.giftCards[0].createdAt); // Accessing the first element's createdAt property
+
+            const eventDate = moment(event.giftCards[0].createdAt, 'YYYY-MM-DD'); // Adjust the format based on the actual format of eventDate
+
+            const isWithinDateRange = (!startDate || moment(startDate).isSameOrBefore(eventDate, 'day')) &&
+                (!endDate || moment(endDate).isSameOrAfter(eventDate, 'day'));
+
+
+            return isWithinDateRange;
+        });
+
+        // Calculate total gift price from filtered data
+        let totalGiftPrice = 0;
+
+        filteredGiftData.forEach(cur => {
+            cur.giftCards.forEach(card => {
+                totalGiftPrice += card.offerCurrentValue;
+            });
+        });
+
+        return { filteredGiftData, totalGiftPrice };
+    };
+
+    const { filteredGiftData, totalGiftPrice } = handleGiftcard();
+
+
+
+
+
+
+
+
+
+
 
     return (
         <>
@@ -212,7 +391,7 @@ function Dashboard() {
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image4})` }}></span>
 
-                                                        <h3>{user.totalAdminPrice ? user.totalAdminPrice.toFixed(2) : 0}$</h3>
+                                                        <h3>{Math.max(aggregatedValues.totalAdminAmount + totalMembershipPrice + totalGiftPrice - aggregatedValues.amount_tax - aggregatedValues.totalProviderAmount, 0).toFixed(2)}$</h3>
 
                                                         <p>Total Sale</p>
                                                     </div>
@@ -222,7 +401,7 @@ function Dashboard() {
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${money})` }}></span>
-                                                        <h3>{user.ProfitAmount ? user.ProfitAmount.toFixed(2) : 0}$</h3>
+                                                        <h3>{Math.max(aggregatedValues.totalAdminAmount + totalMembershipPrice + totalGiftPrice - aggregatedValues.amount_tax - aggregatedValues.totalProviderAmount, 0).toFixed(2)}$$</h3>
 
                                                         <p>Net Profit</p>
                                                     </div>
@@ -328,7 +507,7 @@ function Dashboard() {
                                                     </div>
                                                 </div>
                                             </div>
-                                         
+
                                         </div>
 
 

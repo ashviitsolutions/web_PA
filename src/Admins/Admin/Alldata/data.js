@@ -102,6 +102,33 @@ function Statemement() {
 
 
 
+    // const handleFilter = () => {
+
+    //     const filteredData = user.filter(event => {
+    //         console.log("eventDate:", event.services[0].createdAt); // Accessing the first element's createdAt property
+
+    //         const eventDate = moment(event.services[0].createdAt, 'YYYY-MM-DD'); // Adjust the format based on the actual format of eventDate
+
+    //         const isWithinDateRange = (!startDate || moment(startDate).isSameOrBefore(eventDate, 'day')) &&
+    //             (!endDate || moment(endDate).isSameOrAfter(eventDate, 'day'));
+
+    //         const isSearched = !searchText || event.provider_details.first_name.toLowerCase().includes(searchText.toLowerCase());
+
+    //         return isWithinDateRange && isSearched;
+    //     });
+
+    //     return filteredData;
+    // };
+
+    // const memoizedUser = handleFilter();
+
+
+
+
+
+    // memberhsip filter
+
+
 
 
     const handleFilter = () => {
@@ -238,7 +265,7 @@ function Statemement() {
                     <div class="row">
                         <div class="">
                             <div class="headings">
-                                <h3>Statement</h3>
+                                <h3>Statement of Providers</h3>
                                 <span class="toggle_sidebar" ></span>
                             </div>
                         </div>
@@ -289,141 +316,119 @@ function Statemement() {
                         </thead>
                         <tbody>
 
-                            {
-                                (status === "services" || status === "") && (
-                                    <>
-                                        {memoizedUser.length === 0 && (
-                                            <tr>
-                                                <td colSpan="11">No data found</td>
-                                            </tr>
-                                        )}
-                                        {memoizedUser.map((cur, index) => (
-                                            <tr key={index}>
-                                                <td className='sub ' >
-                                                    <span>{moment(cur.createdAt).format("MMMM Do YYYY")}</span>
-                                                    <p><span>{moment(cur.createdAt).format("LT")}</span></p>
-                                                </td>
-                                                <td className="provDet">
-                                                    <p className='title cursor2' onClick={() => handleRowClick(cur)} title='click on provider to view details'><span>{`${cur?.provider_details?.first_name} ${cur?.provider_details?.last_name}`}</span></p>
-                                                    <span className='sub'>{cur?.provider_details?.mailing_address?.address}</span>
-                                                    <p className='sub'>email: <span>{cur?.provider_details?.email}</span></p>
-                                                    <p className='sub'>phone: <span>{cur?.provider_details?.phone}</span></p>
-                                                </td>
-                                                <td>
-                                                    {cur.services.map((service, index) => (
-                                                        <React.Fragment key={index}>
-                                                            <p> {service.service_name}</p>
-
-                                                        </React.Fragment>
-                                                    ))}
-                                                </td>
 
 
-                                                <td className="provDet">
-                                                    {cur.user_details.reduce((uniqueUsers, userDetail) => {
-                                                        const isDuplicate = uniqueUsers.some(u => u.name === userDetail.name && u.email === userDetail.email);
-                                                        if (!isDuplicate) {
-                                                            uniqueUsers.push(userDetail);
-                                                        }
-                                                        return uniqueUsers;
-                                                    }, []).map((userDetail, index) => (
-                                                        <React.Fragment key={index}>
-                                                            <p className='title cursor2' onClick={() => handleRowClick(cur)} title='click on provider to view details'>
-                                                                <span>{`${userDetail.name}`}</span>
-                                                            </p>
-                                                            <p className='sub'>email: <span>{userDetail.email}</span></p>
-                                                            <p className='sub'>phone: <span>{userDetail.mobile}</span></p>
-                                                        </React.Fragment>
-                                                    ))}
-                                                </td>
+                            {memoizedUser.length === 0 && (
+                                <tr>
+                                    <td colSpan="11">No data found</td>
+                                </tr>
+                            )}
+                            {memoizedUser.map((cur, index) => (
+                                <tr key={index}>
+                                    <td className='sub ' >
+                                        <span>{moment(cur.createdAt).format("MMMM Do YYYY")}</span>
+                                        <p><span>{moment(cur.createdAt).format("LT")}</span></p>
+                                    </td>
+                                    <td className="provDet">
+                                        <p className='title cursor2' onClick={() => handleRowClick(cur)} title='click on provider to view details'><span>{`${cur?.provider_details?.first_name} ${cur?.provider_details?.last_name}`}</span></p>
+                                        <span className='sub'>{cur?.provider_details?.mailing_address?.address}</span>
+                                        <p className='sub'>email: <span>{cur?.provider_details?.email}</span></p>
+                                        <p className='sub'>phone: <span>{cur?.provider_details?.phone}</span></p>
+                                    </td>
+                                    <td>
+                                        {cur.services.map((service, index) => (
+                                            <React.Fragment key={index}>
+                                                <p> {service.service_name}</p>
 
-
-
-                                                <td>{cur?.total_admin_amount?.toFixed(2)}$</td>
-                                                <td>{cur?.total_tip_amount?.toFixed(2)}$</td>
-                                                <td>{cur?.total_provider_amount?.toFixed(2)}$</td>
-                                                <td>{cur?.total_tip_amount?.toFixed(2)}$</td>
-
-
-                                            </tr>
-
-
+                                            </React.Fragment>
                                         ))}
-
-                                    </>
-                                )
-                            }
-
-                            {
-                                (status === "membership" || status === "") && (
-                                    <>
-                                        {/* Membership Data */}
-                                        {filteredData.map((membership, index) => (
-                                            <tr key={`membership-${index}`}>
-                                                <td className='sub'>
-                                                    <span>{moment(membership.createdAt).format("MMMM Do YYYY")}</span>
-                                                    <p><span>{moment(membership.createdAt).format("LT")}</span></p>
-                                                </td>
-                                                <td>-</td>
-                                                <td>Membership Purchase</td>
+                                    </td>
 
 
-
-                                                <td className="provDet">
-                                                    <p className='title cursor2'>{membership.userDetails.name}</p>
-                                                    <span className='sub'>{membership.userDetails.email}</span>
-                                                    <p className='sub'>email: <span>{membership.userDetails.mobile}</span></p>
-
-                                                </td>
-
-
-                                                <td>{membership.membershipPrice.toFixed(2)}$</td>
-                                                <td>_</td>
-                                                <td>_</td>
-                                                <td>{membership.membershipPrice.toFixed(2)}$</td>
-                                            </tr>
+                                    <td className="provDet">
+                                        {cur.user_details.reduce((uniqueUsers, userDetail) => {
+                                            const isDuplicate = uniqueUsers.some(u => u.name === userDetail.name && u.email === userDetail.email);
+                                            if (!isDuplicate) {
+                                                uniqueUsers.push(userDetail);
+                                            }
+                                            return uniqueUsers;
+                                        }, []).map((userDetail, index) => (
+                                            <React.Fragment key={index}>
+                                                <p className='title cursor2' onClick={() => handleRowClick(cur)} title='click on provider to view details'>
+                                                    <span>{`${userDetail.name}`}</span>
+                                                </p>
+                                                <p className='sub'>email: <span>{userDetail.email}</span></p>
+                                                <p className='sub'>phone: <span>{userDetail.mobile}</span></p>
+                                            </React.Fragment>
                                         ))}
-
-                                    </>
-                                )
-                            }
-
-
-                            {
-                                (status === "giftcard" || status === "") && (
-                                    <>
-                                        {/* Giftcard Data */}
-                                        {filteredGiftData.map((giftData, index) => (
-                                            giftData.giftCards.map((giftCard, cardIndex) => (
-                                                <tr key={`giftcard-${index}-${cardIndex}`}>
-                                                    <td className='sub'>
-                                                        <span>{moment(giftCard.createdAt).format("MMMM Do YYYY")}</span>
-                                                        <p><span>{moment(giftCard.createdAt).format("LT")}</span></p>
-                                                    </td>
-                                                    <td>_</td>
-                                                    <td>Giftcard Purchase</td>
-                                                    <td className="provDet">
-                                                        <p className='title cursor2'>
-                                                            <span>{giftData.name}</span>
-                                                        </p>
-                                                        <p className='sub'>{giftData.email}</p>
-                                                        <p className='sub'>{giftData.mobile}</p>
-                                                    </td>
-                                                    <td>{giftData.totalOfferValueForUser}$</td>
-                                                    <td>_</td>
-                                                    <td>_</td>
-                                                    <td>{giftData.totalOfferValueForUser}$</td>
-                                                </tr>
-                                            ))
-                                        ))}
-                                    </>
-                                )
-                            }
+                                    </td>
 
 
 
+                                    <td>{cur?.total_admin_amount?.toFixed(2)}$</td>
+                                    <td>{cur?.total_tip_amount?.toFixed(2)}$</td>
+                                    <td>{cur?.total_provider_amount?.toFixed(2)}$</td>
+                                    <td>{cur?.total_tip_amount?.toFixed(2)}$</td>
 
 
+                                </tr>
+
+
+                            ))}
+
+
+                            {/* Membership Data */}
+                            {filteredData.map((membership, index) => (
+                                <tr key={`membership-${index}`}>
+                                    <td className='sub'>
+                                        <span>{moment(membership.createdAt).format("MMMM Do YYYY")}</span>
+                                        <p><span>{moment(membership.createdAt).format("LT")}</span></p>
+                                    </td>
+                                    <td>-</td>
+                                    <td>Membership Purchase</td>
+
+
+
+                                    <td className="provDet">
+                                        <p className='title cursor2'>{membership.userDetails.name}</p>
+                                        <span className='sub'>{membership.userDetails.email}</span>
+                                        <p className='sub'>email: <span>{membership.userDetails.mobile}</span></p>
+
+                                    </td>
+
+
+                                    <td>{membership.membershipPrice.toFixed(2)}$</td>
+                                    <td>_</td>
+                                    <td>_</td>
+                                    <td>{membership.membershipPrice.toFixed(2)}$</td>
+                                </tr>
+                            ))}
+
+
+                            {/* Giftcard Data */}
+                            {filteredGiftData.map((giftData, index) => (
+                                giftData.giftCards.map((giftCard, cardIndex) => (
+                                    <tr key={`giftcard-${index}-${cardIndex}`}>
+                                        <td className='sub'>
+                                            <span>{moment(giftCard.createdAt).format("MMMM Do YYYY")}</span>
+                                            <p><span>{moment(giftCard.createdAt).format("LT")}</span></p>
+                                        </td>
+                                        <td>_</td>
+                                        <td>Giftcard Purchase</td>
+                                        <td className="provDet">
+                                            <p className='title cursor2'>
+                                                <span>{giftData.name}</span>
+                                            </p>
+                                            <p className='sub'>{giftData.email}</p>
+                                            <p className='sub'>{giftData.mobile}</p>
+                                        </td>
+                                        <td>{giftData.totalOfferValueForUser}$</td>
+                                        <td>_</td>
+                                        <td>_</td>
+                                        <td>{giftData.totalOfferValueForUser}$</td>
+                                    </tr>
+                                ))
+                            ))}
 
 
 
@@ -433,42 +438,14 @@ function Statemement() {
                                 {memoizedUser.length > 0 && (
                                     <td colSpan={3} style={{ textAlign: "right" }} className='provDet'>
                                         <div className='sub'>
-                                            {
-                                                (status === "services" || status === "") && (
-                                                    <>
-                                                        <p>Service Amount = {aggregatedValues.totalAdminAmount.toFixed(2)}$</p>
-                                                        <p>- Tax(es) = {aggregatedValues.amount_tax.toFixed(2)}$</p>
-                                                        <p>- Provider Pay = {aggregatedValues.totalProviderAmount.toFixed(2)}$</p>
-                                                    </>
-
-
-                                                )
-                                            }
-
-                                            {
-                                                (status === "membership" || status === "") && (
-                                                    <p>Membership amount = {totalMembershipPrice.toFixed(2)}$</p>
-                                                )
-                                            }
-
-
-                                            {
-                                                (status === "giftcard" || status === "") && (
-                                                    <p>Giftcard amount = {totalGiftPrice.toFixed(2)}$</p>
-                                                )
-                                            }
-
-
-
+                                            <p>Service Amount = {aggregatedValues.totalAdminAmount.toFixed(2)}$</p>
+                                            <p>Membership amount = {totalMembershipPrice.toFixed(2)}$</p>
+                                            <p>Giftcard amount = {totalGiftPrice.toFixed(2)}$</p>
+                                            <p>- Tax(es) = {aggregatedValues.amount_tax.toFixed(2)}$</p>
+                                            <p>- Provider Pay = {aggregatedValues.totalProviderAmount.toFixed(2)}$</p>
                                             <p>
                                                 <strong>
-                                                    Net Profit = {(
-                                                        (status === "services" || status === "") ? aggregatedValues.totalAdminAmount : 0 +
-                                                            (status === "membership" || status === "") ? (totalMembershipPrice || 0) : 0 +
-                                                                (status === "giftcard" || status === "") ? (totalGiftPrice || 0) : 0 -
-                                                                aggregatedValues.amount_tax -
-                                                        aggregatedValues.totalProviderAmount
-                                                    ).toFixed(2)}$
+                                                    Net Profit = {Math.max(aggregatedValues.totalAdminAmount + totalMembershipPrice + totalGiftPrice - aggregatedValues.amount_tax - aggregatedValues.totalProviderAmount, 0).toFixed(2)}$
                                                 </strong>
                                             </p>
                                         </div>
