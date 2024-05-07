@@ -10,6 +10,8 @@ import Provider from "./Provider";
 
 function CustomModal({
   title,
+  startDate,
+  endDate,
   booking_status,
   serviceTime,
   massage_for,
@@ -74,8 +76,12 @@ function CustomModal({
     <BootstrapModal show={show} onHide={handleClose}>
       <BootstrapModal.Header closeButton>
         <BootstrapModal.Title>Booking Details</BootstrapModal.Title>
+
+
       </BootstrapModal.Header>
+
       <BootstrapModal.Body>
+        <p className="title">Date range: {startDate} to {endDate}</p>
         <p className="title">{title} {serviceTime} - {massage_for}</p>
 
 
@@ -196,6 +202,8 @@ function CustomModal({
           user_id={_id}
           date={date}
           _id={_id}
+          startDate={startDate}
+          endDate={endDate}
         />
       )}
 

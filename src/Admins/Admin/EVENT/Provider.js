@@ -133,8 +133,10 @@ const Provider = (props) => {
             centered
         >
             <Modal.Header closeButton>
+
                 <Modal.Title id="contained-modal-title-vcenter">Select provider</Modal.Title>
             </Modal.Header>
+            <p className="title">Date range: {props.startDate} to {props.endDate}</p>
             <Modal.Body onScroll={handleInfiniteScroll}>
                 <Row>
                     <div className="col-12" style={{ alignSelf: 'center' }}>

@@ -13,8 +13,8 @@ function Event() {
     const endDates = location.state ? location.state.endDate : "";
     const token = localStorage.getItem("tokenadmin");
     const [request, setRequest] = useState([]);
-    const [startDate, setStartDate] = useState("");
-    const [endDate, setEndDate] = useState("");
+    // const [startDate, setStartDate] = useState("");
+    // const [endDate, setEndDate] = useState("");
     const [status, setStatus] = useState("");
     const [searchText, setSearchText] = useState("");
 
@@ -23,13 +23,19 @@ function Event() {
     const [selectedEventData, setSelectedEventData] = useState(null); // New state to store selected event data
     const [pageNumber, setPageNumber] = useState(1);
     const [loading, setLoading] = useState(null);
-
+    const [startDate, setStartDate] = useState(moment().subtract(7, 'day').format('YYYY-MM-DD'));
+    const [endDate, setEndDate] = useState(moment().format('YYYY-MM-DD'));
 
     useEffect(() => {
         setStatus(event_status);
-        setStartDate(startDates);
-        setEndDate(endDates);
+        const today = moment().format('YYYY-MM-DD');
+        setStartDate(moment(today).subtract(7, 'day').format('YYYY-MM-DD'));
+        setEndDate(today);
     }, [event_status, endDates, endDates]);
+
+
+
+
 
 
 
@@ -173,37 +179,37 @@ function Event() {
                     </div>
                     <div className="row">
                         <div className="gutter">
-                        <div className="bookings">
-                        {filteredRequest.length === 0 ? (
-                            <p>No bookings found.</p>
-                        ) : (
-                            filteredRequest.map((event, index) => (
-                                <div className="item_wrapper" key={index} onClick={() => openModal(event)}>
-                                    <div className="item card layer2">
-                                        <div className="first_half">
-                                            <h3>{event.service_name} {event.service_time} - {event.massage_for}</h3>
-                                            <span className="address">{event.address}</span>
-                                            <span className="address"><b></b>{event.scheduled_date}</span>
-                                            <span className="address"><b></b>{event.scheduled_timing}</span>
-                                            <span className="tag"><b>Booking status: </b>{event.service_status}</span>
-                                            <span className="tag"><b></b> {event.instructions !== '' ? <><strong className="mt-1">Instructions : </strong> {event.instructions} </> : ''}</span>
+                            <div className="bookings">
+                                {filteredRequest.length === 0 ? (
+                                    <p>No bookings found.</p>
+                                ) : (
+                                    filteredRequest.map((event, index) => (
+                                        <div className="item_wrapper" key={index} onClick={() => openModal(event)}>
+                                            <div className="item card layer2">
+                                                <div className="first_half">
+                                                    <h3>{event.service_name} {event.service_time} - {event.massage_for}</h3>
+                                                    <span className="address">{event.address}</span>
+                                                    <span className="address"><b></b>{event.scheduled_date}</span>
+                                                    <span className="address"><b></b>{event.scheduled_timing}</span>
+                                                    <span className="tag"><b>Booking status: </b>{event.service_status}</span>
+                                                    <span className="tag"><b></b> {event.instructions !== '' ? <><strong className="mt-1">Instructions : </strong> {event.instructions} </> : ''}</span>
+                                                </div>
+                                                <div className="second_half">
+                                                    <span>Date: {moment(event.createdAt).format("MMMM Do YYYY")}, Time: {moment(event.createdAt).format("LT")}</span>
+
+                                                    <span className="colored">Total = {event?.provider_amount_calculation?.total_amount.toFixed(2)}</span>
+                                                    {
+                                                        event.service_status === "pending" && (
+                                                            <button className="button primary square">Assign Event</button>
+                                                        )
+                                                    }
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div className="second_half">
-                                            <span>Date: {moment(event.createdAt).format("MMMM Do YYYY")}, Time: {moment(event.createdAt).format("LT")}</span>
-                    
-                                            <span className="colored">Total = {event?.provider_amount_calculation?.total_amount.toFixed(2)}</span>
-                                            {
-                                                event.service_status === "pending" && (
-                                                    <button className="button primary square">Assign Event</button>
-                                                )
-                                            }
-                                        </div>
-                                    </div>
-                                </div>
-                            ))
-                        )}
-                    </div>
-                    
+                                    ))
+                                )}
+                            </div>
+
                             {loading && (
                                 <div style={{ textAlign: "center" }}>
                                     <FallingLines
@@ -220,6 +226,8 @@ function Event() {
             </div>
             {selectedEventData && (
                 <CustomModal
+                    startDate={startDate}
+                    endDate={endDate}
                     booking_status={selectedEventData.service_status}
                     event={selectedEventData.event}
                     show={showModal}
