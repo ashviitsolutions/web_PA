@@ -17,7 +17,7 @@ import moment from 'moment';
 
 
 function Dashboard() {
-
+    const [finalAmounts, setFinalAmount] = useState(0)
     const [users, setUsers] = useState([]);
     const [status, setStatus] = useState("services");
     const [alldata, setAlladata] = useState("services");
@@ -129,6 +129,11 @@ function Dashboard() {
 
     };
 
+
+
+
+
+    
 
     const handleCardClient = (event_status) => {
 
@@ -328,6 +333,17 @@ function Dashboard() {
 
 
 
+    useEffect(() => {
+
+        const totalAdminAmount = parseFloat(aggregatedValues.totalAdminAmount || 0);
+        const totalProviderAmount = parseFloat(aggregatedValues.totalProviderAmount || 0);
+        const amount_tax = parseFloat(aggregatedValues.amount_tax || 0);
+        const totalMembership = parseFloat(totalMembershipPrice || 0);
+        const totalGift = parseFloat(totalGiftPrice || 0);
+        const finalAmount = (totalAdminAmount + totalMembership + totalGift) - (amount_tax + totalProviderAmount);
+        setFinalAmount(finalAmount);
+
+    }, [aggregatedValues.totalAdminAmount, aggregatedValues.totalProviderAmount, aggregatedValues.amount_tax]);
 
 
 
@@ -391,7 +407,7 @@ function Dashboard() {
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image4})` }}></span>
 
-                                                        <h3>{Math.max(aggregatedValues.totalAdminAmount + totalMembershipPrice + totalGiftPrice - aggregatedValues.amount_tax - aggregatedValues.totalProviderAmount, 0).toFixed(2)}$</h3>
+                                                        <h3>{Math.max(aggregatedValues.totalAdminAmount + totalMembershipPrice + totalGiftPrice + aggregatedValues.amount_tax, 0).toFixed(2)}$</h3>
 
                                                         <p>Total Sale</p>
                                                     </div>
@@ -401,7 +417,7 @@ function Dashboard() {
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${money})` }}></span>
-                                                        <h3>{Math.max(aggregatedValues.totalAdminAmount + totalMembershipPrice + totalGiftPrice - aggregatedValues.amount_tax - aggregatedValues.totalProviderAmount, 0).toFixed(2)}$$</h3>
+                                                        <h3>{finalAmounts.toFixed(2)}$</h3>
 
                                                         <p>Net Profit</p>
                                                     </div>

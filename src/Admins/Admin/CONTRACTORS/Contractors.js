@@ -48,15 +48,16 @@ const PreviewImage = ({ attachments }) => {
 function Contractors() {
     const location = useLocation();
     const vender_status = location.state ? location.state.vender_status : "";
-    const startDates = location.state ? location.state.startDate : "";
-    const endDates = location.state ? location.state.endDate : "";
+
+    const endDates = location.state.endDate;
+    const startDates = location.state.startDate
     const [data, setData] = useState(1);
     const [count, setCount] = useState(0);
     const [searchText, setSearchText] = useState("");
     const [pageNumber, setPageNumber] = useState(1);
 
-    const [endDate, setEndDate] = useState("");
-    const [startDate, setStartDate] = useState("");
+    const [endDate, setEndDate] = useState(endDates);
+    const [startDate, setStartDate] = useState(startDates);
     const [loading, setLoading] = useState(null);
     let token = localStorage.getItem("tokenadmin");
     const [user, setUser] = useState([]);
@@ -66,7 +67,7 @@ function Contractors() {
 
 
     useEffect(() => {
-        setStatus(vender_status);
+        // setStatus(vender_status);
         setStartDate(startDates);
         setEndDate(endDates);
     }, [vender_status, endDates, endDates]);
@@ -83,7 +84,7 @@ function Contractors() {
 
     useEffect(() => {
         setLoading(true);
-        fetch(`${IP}/contractor/list?page=${pageNumber}&limit=5`, {
+        fetch(`${IP}/contractor/list`, {
             headers: {
                 'Authorization': token
             }
@@ -105,7 +106,7 @@ function Contractors() {
         }).finally(() => {
             setLoading(false); // Set loading to false after fetching data
         });
-    }, [pageNumber]);
+    }, []);
 
 
 

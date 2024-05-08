@@ -31,6 +31,7 @@ function Statemement() {
 
     const [membershipDetails, setMembershipDetails] = useState([]);
     const [giftcarddetails, setGiftcarddetails] = useState([]);
+    const [finalAmounts, setFinalAmount] = useState(0)
 
 
 
@@ -158,7 +159,7 @@ function Statemement() {
 
     const { filteredData: memoizedUser, aggregatedValues } = handleFilter();
 
-    console.log("aggregatedValues", aggregatedValues)
+
 
 
 
@@ -227,6 +228,50 @@ function Statemement() {
     };
 
     const { filteredGiftData, totalGiftPrice } = handleGiftcard();
+
+
+    console.log("filter totalMembershipPrice", totalMembershipPrice)
+    console.log("filter totalMembershipPrice", totalGiftPrice)
+    console.log("aggregatedValues", aggregatedValues)
+
+    const totalAdminAmount = parseFloat(aggregatedValues.totalAdminAmount || 0);
+    const totalProviderAmount = parseFloat(aggregatedValues.totalProviderAmount || 0);
+    const amount_tax = parseFloat(aggregatedValues.amount_tax || 0);
+    const totalMembership = parseFloat(totalMembershipPrice || 0);
+    const totalGift = parseFloat(totalGiftPrice || 0);
+    const finalAmount = (totalAdminAmount + totalMembership + totalGift) - (amount_tax + totalProviderAmount);
+
+
+
+    useEffect(() => {
+        if (status === "") {
+            const totalAdminAmount = parseFloat(aggregatedValues.totalAdminAmount || 0);
+            const totalProviderAmount = parseFloat(aggregatedValues.totalProviderAmount || 0);
+            const amount_tax = parseFloat(aggregatedValues.amount_tax || 0);
+            const totalMembership = parseFloat(totalMembershipPrice || 0);
+            const totalGift = parseFloat(totalGiftPrice || 0);
+            const finalAmount = (totalAdminAmount + totalMembership + totalGift) - (amount_tax + totalProviderAmount);
+            setFinalAmount(finalAmount);
+        } else if (status === "services") {
+            const totalAdminAmount = parseFloat(aggregatedValues.totalAdminAmount || 0);
+            const totalProviderAmount = parseFloat(aggregatedValues.totalProviderAmount || 0);
+            const amount_tax = parseFloat(aggregatedValues.amount_tax || 0);
+
+            const finalAmount = (totalAdminAmount) - (amount_tax + totalProviderAmount);
+            setFinalAmount(finalAmount);
+        } else if (status === "membership") {
+         
+            const totalMembership = parseFloat(totalMembershipPrice || 0);
+           
+            const finalAmount = (totalMembership);
+            setFinalAmount(finalAmount);
+        } else if (status === "giftcard") {
+            const totalGift = parseFloat(totalGiftPrice || 0);
+           
+            const finalAmount = (totalGift);
+            setFinalAmount(finalAmount);
+        }
+    }, [status, aggregatedValues.totalAdminAmount, aggregatedValues.totalProviderAmount, aggregatedValues.amount_tax]);
 
 
 
@@ -423,59 +468,54 @@ function Statemement() {
 
 
 
-
-
-
-
-
-
                             <tr>
                                 <td colSpan={4} style={{ textAlign: "right" }}><strong>Profit Calculation</strong></td>
-                                {memoizedUser.length > 0 && (
-                                    <td colSpan={3} style={{ textAlign: "right" }} className='provDet'>
-                                        <div className='sub'>
-                                            {
-                                                (status === "services" || status === "") && (
-                                                    <>
-                                                        <p>Service Amount = {aggregatedValues.totalAdminAmount.toFixed(2)}$</p>
-                                                        <p>- Tax(es) = {aggregatedValues.amount_tax.toFixed(2)}$</p>
-                                                        <p>- Provider Pay = {aggregatedValues.totalProviderAmount.toFixed(2)}$</p>
-                                                    </>
+
+                                <td colSpan={3} style={{ textAlign: "right" }} className='provDet'>
+                                    <div className='sub'>
+                                        {
+                                            (status === "services" || status === "") && (
+                                                <>
+                                                    <p>Service Amount = {aggregatedValues.totalAdminAmount.toFixed(2)}$</p>
+                                                    <p>- Tax(es) = {aggregatedValues.amount_tax.toFixed(2)}$</p>
+                                                    <p>- Provider Pay = {aggregatedValues.totalProviderAmount.toFixed(2)}$</p>
+                                                </>
 
 
-                                                )
-                                            }
+                                            )
+                                        }
 
-                                            {
-                                                (status === "membership" || status === "") && (
-                                                    <p>Membership amount = {totalMembershipPrice.toFixed(2)}$</p>
-                                                )
-                                            }
-
-
-                                            {
-                                                (status === "giftcard" || status === "") && (
-                                                    <p>Giftcard amount = {totalGiftPrice.toFixed(2)}$</p>
-                                                )
-                                            }
+                                        {
+                                            (status === "membership" || status === "") && (
+                                                <p>Membership amount = {totalMembershipPrice.toFixed(2)}$</p>
+                                            )
+                                        }
 
 
+                                        {
+                                            (status === "giftcard" || status === "") && (
+                                                <p>Giftcard amount = {totalGiftPrice.toFixed(2)}$</p>
+                                            )
+                                        }
 
-                                            <p>
-                                                <strong>
-                                                    Net Profit = {(
-                                                        (status === "services" || status === "") ? aggregatedValues.totalAdminAmount : 0 +
-                                                            (status === "membership" || status === "") ? (totalMembershipPrice || 0) : 0 +
-                                                                (status === "giftcard" || status === "") ? (totalGiftPrice || 0) : 0 -
-                                                                aggregatedValues.amount_tax -
-                                                        aggregatedValues.totalProviderAmount
-                                                    ).toFixed(2)}$
-                                                </strong>
-                                            </p>
-                                        </div>
-                                    </td>
-                                )}
+
+                                        <p>
+                                            <strong>
+                                                Net Profit = {finalAmounts.toFixed(2)}$
+                                            </strong>
+                                        </p>
+
+
+                                    </div>
+                                </td>
+
                             </tr>
+
+
+
+
+
+
 
                         </tbody>
                     </table>

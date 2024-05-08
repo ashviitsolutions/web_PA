@@ -9,6 +9,8 @@ function Event() {
 
     const location = useLocation();
     const event_status = location.state ? location.state.event_status : "";
+    // const endDates = location.state.endDate;
+    // const startDates = location.state.startDate
     const startDates = location.state ? location.state.startDate : "";
     const endDates = location.state ? location.state.endDate : "";
     const token = localStorage.getItem("tokenadmin");
@@ -23,14 +25,13 @@ function Event() {
     const [selectedEventData, setSelectedEventData] = useState(null); // New state to store selected event data
     const [pageNumber, setPageNumber] = useState(1);
     const [loading, setLoading] = useState(null);
-    const [startDate, setStartDate] = useState(moment().subtract(7, 'day').format('YYYY-MM-DD'));
-    const [endDate, setEndDate] = useState(moment().format('YYYY-MM-DD'));
+    const [startDate, setStartDate] = useState(startDates);
+    const [endDate, setEndDate] = useState(endDates);
 
     useEffect(() => {
-        setStatus(event_status);
-        const today = moment().format('YYYY-MM-DD');
-        setStartDate(moment(today).subtract(7, 'day').format('YYYY-MM-DD'));
-        setEndDate(today);
+        setStatus(event_status)
+        setStartDate(startDate);
+        setEndDate(endDate);
     }, [event_status, endDates, endDates]);
 
 
@@ -41,7 +42,7 @@ function Event() {
 
     const fetchData = useCallback(() => {
         setLoading(true);
-        fetch(`${IP}/user/allbookings?page=${pageNumber}&limit=20`, {
+        fetch(`${IP}/user/allbookings`, {
             headers: {
                 'Authorization': token
             }
@@ -63,7 +64,7 @@ function Event() {
             ).finally(() => {
                 setLoading(false); // Set loading to false after fetching data
             });
-    }, [pageNumber, token]);
+    }, []);
 
     useEffect(() => {
         fetchData();
@@ -110,7 +111,7 @@ function Event() {
         console.log("Filtering with status:", status);
         const filteredData = request.filter(event => {
             console.log("Event status:", event.service_status);
-            const eventDate = moment(event.scheduled_date);
+            const eventDate = moment(event.createdAt);
             const isWithinDateRange = (!startDate || eventDate.isSameOrAfter(startDate)) &&
                 (!endDate || eventDate.isSameOrBefore(endDate));
             const isStatusMatched = !status || event.service_status === status;
