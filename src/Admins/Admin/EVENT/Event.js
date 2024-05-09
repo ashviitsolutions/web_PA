@@ -13,6 +13,8 @@ function Event() {
     // const startDates = location.state.startDate
     const startDates = location.state ? location.state.startDate : "";
     const endDates = location.state ? location.state.endDate : "";
+    const Startdate = localStorage.getItem("startDate")
+    const Enddate = localStorage.getItem("endDate")
     const token = localStorage.getItem("tokenadmin");
     const [request, setRequest] = useState([]);
     // const [startDate, setStartDate] = useState("");
@@ -25,8 +27,8 @@ function Event() {
     const [selectedEventData, setSelectedEventData] = useState(null); // New state to store selected event data
     const [pageNumber, setPageNumber] = useState(1);
     const [loading, setLoading] = useState(null);
-    const [startDate, setStartDate] = useState(startDates);
-    const [endDate, setEndDate] = useState(endDates);
+    const [startDate, setStartDate] = useState(startDates || Startdate);
+    const [endDate, setEndDate] = useState(endDates || Enddate);
 
     useEffect(() => {
         setStatus(event_status)
