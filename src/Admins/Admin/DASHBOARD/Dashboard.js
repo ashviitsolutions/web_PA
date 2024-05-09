@@ -29,8 +29,8 @@ function Dashboard() {
     const Startdate = localStorage.getItem("startDate")
     const Enddate = localStorage.getItem("endDate")
 
-    const [startDate, setStartDate] = useState(() => localStorage.getItem("startDate") || moment().subtract(7, 'day').format('YYYY-MM-DD'));
-    const [endDate, setEndDate] = useState(() => localStorage.getItem("endDate") || moment().format('YYYY-MM-DD'));
+    const [startDate, setStartDate] = useState(Startdate || moment().subtract(7, 'day').format('YYYY-MM-DD'));
+    const [endDate, setEndDate] = useState(Enddate || moment().format('YYYY-MM-DD'));
 
 
     const nav = useNavigate();
@@ -89,8 +89,8 @@ function Dashboard() {
         const today = moment().format('YYYY-MM-DD');
         setStartDate(moment(today).subtract(7, 'day').format('YYYY-MM-DD'));
         setEndDate(today);
-        localStorage.setItem("startDate", moment(today).subtract(7, 'day').format('YYYY-MM-DD'));
-        localStorage.setItem("endDate", today);
+        // localStorage.setItem("startDate", moment(today).subtract(7, 'day').format('YYYY-MM-DD'));
+        // localStorage.setItem("endDate", today);
     }, []); // Empty dependency array means this effect will only run once after the initial render
 
 
