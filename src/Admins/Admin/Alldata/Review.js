@@ -5,6 +5,7 @@ import { IP } from '../../../Constant';
 import { FallingLines } from "react-loader-spinner";
 import { useLocation } from 'react-router-dom';
 import moment from 'moment';
+import Rating from "react-rating-stars-component";
 
 
 const PreviewImage = ({ attachments }) => {
@@ -29,6 +30,7 @@ const PreviewImage = ({ attachments }) => {
 };
 
 function Review() {
+  const [userRating, setUserRating] = useState(0);
   const location = useLocation();
   const startDates = location.state ? location.state.startDate : "";
   const endDates = location.state ? location.state.endDate : "";
@@ -40,7 +42,9 @@ function Review() {
   const [status, setStatus] = useState("");
   const [searchText, setSearchText] = useState("");
 
-
+  const handleRatingChange = (newRating) => {
+    setUserRating(newRating);
+  };
 
   useEffect(() => {
     setLoading(true);
@@ -106,22 +110,22 @@ function Review() {
     };
   }, []);
 
-  
+
   const handleFilter = () => {
     // Filter data based on selected dates, status, and search text
     const filteredData = user.filter(cur => {
-        const isWithinDateRange = (!startDate || new Date(cur.createdAt) >= new Date(startDate)) &&
-            (!endDate || new Date(cur.createdAt) <= new Date(endDate));
-        const isSearched = !searchText || (cur.reviewerName.toLowerCase().includes(searchText.toLowerCase()) || cur.userEmail.toLowerCase().includes(searchText.toLowerCase()));
-        return isWithinDateRange && isSearched;
+      const isWithinDateRange = (!startDate || new Date(cur.createdAt) >= new Date(startDate)) &&
+        (!endDate || new Date(cur.createdAt) <= new Date(endDate));
+      const isSearched = !searchText || (cur.reviewerName.toLowerCase().includes(searchText.toLowerCase()) || cur.userEmail.toLowerCase().includes(searchText.toLowerCase()));
+      return isWithinDateRange && isSearched;
     });
     return filteredData;
-};
+  };
 
 
   const memoizedUser = handleFilter();
 
-  console.log("memoizedUser",memoizedUser)
+  console.log("memoizedUser", memoizedUser)
 
   return (
     <>
@@ -188,6 +192,7 @@ function Review() {
                           <span className="title" id="headingtitle">
                             {cur.comments}  &
                           </span>
+                          
                         </div>
                       </td>
 
@@ -198,8 +203,15 @@ function Review() {
                           <div className="content mt-3">
                             <span className="title" id="headingtitle">
                               <span id="pricevalue">{cur.serviceName}</span>
-
+                              <Rating
+                              value={cur.rating}
+                              count={5}
+    
+                              size={24}
+                              activeColor="#007bff"
+                            />
                             </span>
+                            
                           </div>
 
                         </div>
