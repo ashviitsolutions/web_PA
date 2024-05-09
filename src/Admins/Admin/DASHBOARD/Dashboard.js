@@ -26,7 +26,8 @@ function Dashboard() {
     const [giftcarddetails, setGiftcarddetails] = useState([]);
 
 
-
+    const Startdate = localStorage.getItem("startDate")
+    const Enddate = localStorage.getItem("endDate")
 
 
 
@@ -36,14 +37,11 @@ function Dashboard() {
     const [giftcard, setGift] = useState([]);
     const [data, setData] = useState([]);
 
-    const [request, setRequest] = useState([]);
-    // const [startDate, setStartDate] = useState(moment().format('YYYY-MM-DD'));
-    // const [endDate, setEndDate] = useState(moment().format('YYYY-MM-DD'));
-    const [startDate, setStartDate] = useState(moment().subtract(7, 'day').format('YYYY-MM-DD'));
-    const [endDate, setEndDate] = useState(moment().format('YYYY-MM-DD'));
 
-    // const [startDate, setStartDate] = useState(moment().format('YYYY-MM-DD'));
-    // const [endDate, setEndDate] = useState(moment().format('YYYY-MM-DD'));
+    const [startDate, setStartDate] = useState(Startdate);
+    const [endDate, setEndDate] = useState(Enddate);
+
+
 
     const [loading, setLoading] = useState(null);
     const token = localStorage.getItem("tokenadmin");
@@ -86,8 +84,13 @@ function Dashboard() {
         const today = moment().format('YYYY-MM-DD');
         setStartDate(moment(today).subtract(7, 'day').format('YYYY-MM-DD'));
         setEndDate(today);
-    }, []);
-
+    }, []); // Empty dependency array means this effect will only run once after the initial render
+    
+    useEffect(() => {
+        localStorage.setItem("startDate", startDate);
+        localStorage.setItem("endDate", endDate);
+    }, [startDate, endDate]);
+     // Empty dependency array means this effect will only run once after the initial render
 
 
 
@@ -133,7 +136,7 @@ function Dashboard() {
 
 
 
-    
+
 
     const handleCardClient = (event_status) => {
 
