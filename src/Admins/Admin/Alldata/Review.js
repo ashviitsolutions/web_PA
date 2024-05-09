@@ -187,11 +187,18 @@ function Review() {
                 {user.map((cur, index) => {
                   return (
                     <tr key={index}>
-                      <td>
+                      <td className='reviewTab'>
                         <div className="content">
                           <span className="title" id="headingtitle">
                             {cur.comments}  &
                           </span>
+                          <Rating
+                              value={cur.rating}
+                              count={5}
+    
+                              size={24}
+                              activeColor="#007bff"
+                            />
                           
                         </div>
                       </td>
@@ -203,13 +210,7 @@ function Review() {
                           <div className="content mt-3">
                             <span className="title" id="headingtitle">
                               <span id="pricevalue">{cur.serviceName}</span>
-                              <Rating
-                              value={cur.rating}
-                              count={5}
-    
-                              size={24}
-                              activeColor="#007bff"
-                            />
+                              
                             </span>
                             
                           </div>
