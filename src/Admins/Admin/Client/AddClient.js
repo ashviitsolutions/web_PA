@@ -12,6 +12,7 @@ function AddClient() {
     const initialValues = {
         name: '',
         email: '',
+        mobile: '',
         password: '',
         Confirm_Password: '',
     };
@@ -39,6 +40,7 @@ function AddClient() {
             const bodyFormData = new FormData();
             bodyFormData.append("name", values.name);
             bodyFormData.append("email", values.email);
+            bodyFormData.append("mobile", values.mobile);
             bodyFormData.append("password", values.password);
             bodyFormData.append("confirm_password", values.Confirm_Password);
 
@@ -97,6 +99,12 @@ function AddClient() {
                                                         <Field className="input" name="email" type="text" />
                                                         <label htmlFor="">Email</label>
                                                         {errors.email && touched.email && <div>{errors.email}</div>}
+                                                        <span className="highlight"></span>
+                                                    </div>
+                                                    <div className="input_group">
+                                                        <Field className="input" name="mobile" type="text" />
+                                                        <label htmlFor="">Mobile</label>
+                                                        {errors.mobile && touched.mobile && <div>{errors.mobile}</div>}
                                                         <span className="highlight"></span>
                                                     </div>
                                                     <div className="input_group">

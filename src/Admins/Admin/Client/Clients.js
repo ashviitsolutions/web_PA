@@ -11,11 +11,13 @@ function Clients() {
     const location = useLocation();
     const startDates = location.state ? location.state.startDate : "";
     const endDates = location.state ? location.state.endDate : "";
+    const Startdate = localStorage.getItem("startDate")
+    const Enddate = localStorage.getItem("endDate")
     const [user, setUser] = useState([]);
     const [pageNumber, setPageNumber] = useState(1);
     const [loading, setLoading] = useState(null);
-    const [startDate, setStartDate] = useState(startDates); // Initialize with startDates
-    const [endDate, setEndDate] = useState(endDates); // Initialize with endDates
+    const [startDate, setStartDate] = useState(startDates || Startdate); // Initialize with startDates
+    const [endDate, setEndDate] = useState(endDates || Enddate); // Initialize with endDates
     const [status, setStatus] = useState("");
     const [searchText, setSearchText] = useState("");
     const token = localStorage.getItem('tokenadmin');
@@ -50,12 +52,35 @@ function Clients() {
             });
     }, [pageNumber]);
 
-    // Handle date change
+
+
+
+
+    // // Handle date change
+    // useEffect(() => {
+    //     // Update startDate and endDate when startDates or endDates change
+    //     setStartDate(startDates);
+    //     setEndDate(endDates);
+    // }, [startDates, endDates]);
+
+
+
+
     useEffect(() => {
-        // Update startDate and endDate when startDates or endDates change
-        setStartDate(startDates);
-        setEndDate(endDates);
-    }, [startDates, endDates]);
+        localStorage.setItem("startDate", startDate);
+        localStorage.setItem("endDate", endDate);
+    }, [startDate, endDate]);
+
+
+    useEffect(() => {
+     
+        setStartDate(Startdate);
+        setEndDate(Enddate);
+    }, [endDates, endDates]);// Empty dependency array means this effect will only run once after the initial render
+
+
+
+
 
     const handleInfiniteScroll = async () => {
         try {
@@ -153,7 +178,7 @@ function Clients() {
                                             <td>
                                                 <div className="content">
                                                     <Link to={`/admin/clients/edit_client/${client.id}`}>
-                                                        <span className="title">{client.name}</span>
+                                                        <span className="title">{client.first_name} {client.last_name}</span>
                                                     </Link>
                                                 </div>
                                             </td>

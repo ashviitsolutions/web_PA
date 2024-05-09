@@ -32,8 +32,8 @@ function Event() {
 
     useEffect(() => {
         setStatus(event_status)
-        setStartDate(startDate);
-        setEndDate(endDate);
+        setStartDate(Startdate);
+        setEndDate(Enddate);
     }, [event_status, endDates, endDates]);
 
 
