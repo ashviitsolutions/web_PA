@@ -38,12 +38,16 @@ function Blogs() {
     const [search, setSearch] = useState("")
     // const [Delete, setDelete] = useState([])
 
-    const [startDate, setStartDate] = useState("");
-    const [endDate, setEndDate] = useState("");
+    const Startdate = localStorage.getItem("startDate")
+    const Enddate = localStorage.getItem("endDate")
+
+    const [startDate, setStartDate] = useState(Startdate || moment().subtract(7, 'day').format('YYYY-MM-DD'));
+    const [endDate, setEndDate] = useState(Enddate || moment().format('YYYY-MM-DD'));
+
     const [status, setStatus] = useState("");
     const [searchText, setSearchText] = useState("");
 
- // New state to store selected event data
+    // New state to store selected event data
     const [pageNumber, setPageNumber] = useState(1);
     const [loading, setLoading] = useState(null);
 
@@ -52,7 +56,7 @@ function Blogs() {
 
     const [user, setUser] = useState([]);
 
-  
+
 
     // alert(selectedType)
 
@@ -66,7 +70,7 @@ function Blogs() {
                 const userdata = data.posts;
                 setUser(prevData => [...prevData, ...userdata]);
                 console.log("get post data", data)
-               
+
                 setLoading(false)
             } catch (error) {
             }
@@ -119,6 +123,19 @@ function Blogs() {
 
     const memoizedUser = handleFilter();
 
+
+    useEffect(() => {
+        localStorage.setItem("startDate", startDate);
+        localStorage.setItem("endDate", endDate);
+    }, [startDate, endDate]);
+
+    useEffect(() => {
+        const today = moment().format('YYYY-MM-DD');
+        setStartDate(moment(today).subtract(7, 'day').format('YYYY-MM-DD'));
+        setEndDate(today);
+        // localStorage.setItem("startDate", moment(today).subtract(7, 'day').format('YYYY-MM-DD'));
+        // localStorage.setItem("endDate", today);
+    }, []); // Empty dependency array means this effect will only run once after the initial render
 
 
 

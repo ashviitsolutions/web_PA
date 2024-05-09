@@ -29,7 +29,7 @@ function Payments() {
   const [loading, setLoading] = useState(null);
   const [totalTip, setTotalTip] = useState(0);
   const [user, setUser] = useState([]);
-  const [status, setStatus] = useState("");
+  
 
   let token = localStorage.getItem("tokenadmin");
 
