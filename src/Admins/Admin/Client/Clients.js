@@ -6,9 +6,11 @@ import ReactPaginate from 'react-paginate';
 import { FallingLines } from "react-loader-spinner";
 import moment from "moment";
 import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function Clients() {
     const location = useLocation();
+    const navigate = useNavigate()
     const startDates = location.state ? location.state.startDate : "";
     const endDates = location.state ? location.state.endDate : "";
     const Startdate = localStorage.getItem("startDate")
@@ -30,18 +32,7 @@ function Clients() {
             }
         }).then(resp => resp.json())
             .then(result => {
-                // if (result && result.users && result.users.length > 0) {
-                //     const userdata = result;
-                //     setUser(prevData => [...prevData, ...userdata]);
-                //     setLoading(false);
-                //     console.log("Users fetched:", userdata);
-                // } else if (result && result.msg) {
-                //     console.log(result.msg);
-                // } else {
-                //     console.log("Invalid response format:", result);
-                //     // setUser(prevData => [...prevData, ...result]);
-                //     // Handle the case where the response doesn't match the expected format
-                // }
+
 
                 setUser(prevData => [...prevData, ...result]);
                 setLoading(false);
@@ -56,12 +47,7 @@ function Clients() {
 
 
 
-    // // Handle date change
-    // useEffect(() => {
-    //     // Update startDate and endDate when startDates or endDates change
-    //     setStartDate(startDates);
-    //     setEndDate(endDates);
-    // }, [startDates, endDates]);
+
 
 
 
@@ -73,7 +59,7 @@ function Clients() {
 
 
     useEffect(() => {
-     
+
         setStartDate(Startdate);
         setEndDate(Enddate);
     }, [endDates, endDates]);// Empty dependency array means this effect will only run once after the initial render
@@ -115,6 +101,11 @@ function Clients() {
     const memoizedUser = handleFilter();
 
 
+    const handleRowClick = (client) => {
+        console.log("cur", client); // Check the structure of cur
+        navigate(`/admin/clients/edit_client/${client._id}`, { state: { client} });
+      };
+    
 
 
 
@@ -177,16 +168,16 @@ function Clients() {
                                         <tr className="wrapper" key={index} id={`tr_post_${client.id}`}>
                                             <td>
                                                 <div className="content">
-                                                    <Link to={`/admin/clients/edit_client/${client.id}`}>
+                                                   
                                                         <span className="title">{client.first_name} {client.last_name}</span>
-                                                    </Link>
+                                                  
                                                 </div>
                                             </td>
                                             <td>
-                                                <div className="content">
-                                                    <Link to={`/admin/clients/edit_client/${client.id}`}>
+                                                <div className="content" onClick={() => handleRowClick(client)}>
+                                                
                                                         <span className="title">{client.email}</span>
-                                                    </Link>
+                                                   
                                                 </div>
                                             </td>
                                             <td>{client.createdAt}</td>
@@ -194,6 +185,7 @@ function Clients() {
                                         </tr>
                                     ))}
                                 </tbody>
+
 
                             </table>
 

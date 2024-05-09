@@ -7,9 +7,13 @@ import { IP } from '../../../Constant';
 import { useParams } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useLocation } from 'react-router-dom';
 
 function EditClient() {
     const { id } = useParams()
+    const navigator = useNavigate();
+    const location = useLocation();
+    const apidata = location.state.client;
     const [user, setUser] = useState([]);
     const [error, setError] = useState(null); // Added state for error
     const navigate = useNavigate();
@@ -17,8 +21,10 @@ function EditClient() {
     const token = localStorage.getItem('tokenadmin');
 
     const initialValues = {
-        name: '',
+        first_name: '',
+        last_name: '',
         email: '',
+        mobile: '',
         password: '',
         Confirm_Password: '',
     };
@@ -38,18 +44,24 @@ function EditClient() {
             .oneOf([Yup.ref('password'), ''], 'Passwords must match'),
     });
 
+
+
+
     const onSubmit = async (values, { resetForm }) => {
         console.log(values);
         resetForm({ values: '' });
 
         try {
+
             const bodyFormData = new FormData();
-            bodyFormData.append("name", values.name);
+            bodyFormData.append("first_name", values.first_name);
+            bodyFormData.append("last_name", values.last_name);
             bodyFormData.append("email", values.email);
+            bodyFormData.append("mobile", values.mobile);
             bodyFormData.append("password", values.password);
             bodyFormData.append("confirm_password", values.Confirm_Password);
 
-            const res = await axios.post(`http://45.13.132.197:5000/api/admin/update/${id}`, bodyFormData, {
+            const res = await axios.post(`${IP}/admin/update/${id}`, bodyFormData, {
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: token,
@@ -84,39 +96,24 @@ function EditClient() {
 
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const res = await fetch(`${IP}/admin/allusers/${id}`, {
-                    method: 'GET',
-                    headers: {
-                        Authorization: token,
-                    },
-                });
-                const data = await res.json();
-                setUser(data);
-                const updatedSavedValues = {
-                    name: data.name,
-                    email: data.email,
-
-                };
-                setFormValue(updatedSavedValues);
-                console.log("edite data", user)
-
-            } catch (error) {
-                console.log(error);
-            }
+        const updatedSavedValues = {
+            first_name: apidata.first_name,
+            last_name: apidata.last_name,
+            email: apidata.email,
+            mobile: apidata.mobile
         };
+        setFormValue(updatedSavedValues);
+    }, [apidata])
 
-        fetchData();
-    }, []);
 
+    console.log("edite data", apidata)
     return (
         <>
             <div id="content">
                 <div className="container-fluid">
                     <div className="row">
                         <Formik
-                            initialValues={formValue || initialValues}
+                            initialValues={formValue || initialValues} // Use formValue if it exists, otherwise use initialValues
                             validationSchema={SignupSchema}
                             onSubmit={onSubmit}
                             enableReinitialize
@@ -140,15 +137,27 @@ function EditClient() {
                                                             Personal Information
                                                         </label>
                                                         <div className="input_group">
-                                                            <Field className="input" name="name" type="text" />
-                                                            <label htmlFor="">Name</label>
-                                                            {errors.name && touched.name && <div>{errors.name}</div>}
+                                                            <Field className="input" name="first_name" type="text" />
+                                                            <label htmlFor="">First Name</label>
+                                                            {errors.first_name && touched.first_name && <div>{errors.first_name}</div>}
+                                                            <span className="highlight"></span>
+                                                        </div>
+                                                        <div className="input_group">
+                                                            <Field className="input" name="last_name" type="text" />
+                                                            <label htmlFor="">Last Name</label>
+                                                            {errors.last_name && touched.last_name && <div>{errors.last_name}</div>}
                                                             <span className="highlight"></span>
                                                         </div>
                                                         <div className="input_group">
                                                             <Field className="input" name="email" type="text" />
                                                             <label htmlFor="">Email</label>
                                                             {errors.email && touched.email && <div>{errors.email}</div>}
+                                                            <span className="highlight"></span>
+                                                        </div>
+                                                        <div className="input_group">
+                                                            <Field className="input" name="mobile" type="text" />
+                                                            <label htmlFor="">Mobile</label>
+                                                            {errors.mobile && touched.mobile && <div>{errors.mobile}</div>}
                                                             <span className="highlight"></span>
                                                         </div>
                                                         <div className="input_group">

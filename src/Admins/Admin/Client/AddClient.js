@@ -10,7 +10,8 @@ function AddClient() {
     const navigate = useNavigate();
 
     const initialValues = {
-        name: '',
+        first_name: '',
+        last_name: '',
         email: '',
         mobile: '',
         password: '',
@@ -38,13 +39,14 @@ function AddClient() {
 
         try {
             const bodyFormData = new FormData();
-            bodyFormData.append("name", values.name);
+            bodyFormData.append("first_name", values.first_name);
+            bodyFormData.append("last_name", values.last_name);
             bodyFormData.append("email", values.email);
             bodyFormData.append("mobile", values.mobile);
             bodyFormData.append("password", values.password);
             bodyFormData.append("confirm_password", values.Confirm_Password);
 
-            const res = await axios.post("http://45.13.132.197:5000/api/user/register", bodyFormData, {
+            const res = await axios.post(`${IP}/user/register`, bodyFormData, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -76,7 +78,7 @@ function AddClient() {
                                 <div className="">
                                     <div className="headings float_wrapper">
                                         <div className="gutter pull-left" style={{ paddingLeft: '0' }}>
-                                            <h3>Add Client</h3>
+                                            <h3>Edit Client</h3>
                                         </div>
                                         <span className="toggle_sidebar"></span>
                                     </div>
@@ -90,9 +92,15 @@ function AddClient() {
                                                         Personal Information
                                                     </label>
                                                     <div className="input_group">
-                                                        <Field className="input" name="name" type="text" />
-                                                        <label htmlFor="">Name</label>
-                                                        {errors.name && touched.name && <div>{errors.name}</div>}
+                                                        <Field className="input" name="first_name" type="text" />
+                                                        <label htmlFor="">First Name</label>
+                                                        {errors.first_name && touched.first_name && <div>{errors.first_name}</div>}
+                                                        <span className="highlight"></span>
+                                                    </div>
+                                                    <div className="input_group">
+                                                        <Field className="input" name="last_name" type="text" />
+                                                        <label htmlFor="">Last Name</label>
+                                                        {errors.last_name && touched.last_name && <div>{errors.last_name}</div>}
                                                         <span className="highlight"></span>
                                                     </div>
                                                     <div className="input_group">
