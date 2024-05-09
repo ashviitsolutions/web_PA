@@ -171,18 +171,46 @@ function Statemement() {
 
 
 
+    // const handleMemberhsip = () => {
+    //     const filteredData = membershipDetails.filter(event => {
+    //         console.log("eventDate:", event.createdAt); // Accessing the first element's createdAt property
+
+    //         const eventDate = moment(event.createdAt, 'YYYY-MM-DD'); // Adjust the format based on the actual format of eventDate
+
+    //         const isWithinDateRange = (!startDate || moment(startDate).isSameOrBefore(eventDate, 'day')) &&
+    //             (!endDate || moment(endDate).isSameOrAfter(eventDate, 'day'));
+
+    //         const isSearched = !searchText || event?.userDetails?.name.toLowerCase().includes(searchText.toLowerCase());
+
+    //         return isWithinDateRange && isSearched;
+    //     });
+
+    //     // Calculate total membership price from filtered data
+    //     let totalMembershipPrice = 0;
+
+    //     filteredData.forEach(cur => {
+    //         totalMembershipPrice += cur.membershipPrice;
+    //     });
+
+    //     return { filteredData, totalMembershipPrice };
+    // };
+    
+    
     const handleMemberhsip = () => {
         const filteredData = membershipDetails.filter(event => {
-            console.log("eventDate:", event.createdAt); // Accessing the first element's createdAt property
+            // Ensure that event and userDetails are not undefined before accessing their properties
+            if (event && event.userDetails && event.userDetails.name) {
+                const eventDate = moment(event.createdAt, 'YYYY-MM-DD');
 
-            const eventDate = moment(event.createdAt, 'YYYY-MM-DD'); // Adjust the format based on the actual format of eventDate
+                const isWithinDateRange = (!startDate || moment(startDate).isSameOrBefore(eventDate, 'day')) &&
+                    (!endDate || moment(endDate).isSameOrAfter(eventDate, 'day'));
 
-            const isWithinDateRange = (!startDate || moment(startDate).isSameOrBefore(eventDate, 'day')) &&
-                (!endDate || moment(endDate).isSameOrAfter(eventDate, 'day'));
+                const isSearched = !searchText || event.userDetails.name.toLowerCase().includes(searchText.toLowerCase());
 
-            const isSearched = !searchText || event.userDetails.name.toLowerCase().includes(searchText.toLowerCase());
-
-            return isWithinDateRange && isSearched;
+                return isWithinDateRange && isSearched;
+            } else {
+                return false; // Return false for items where userDetails or name is undefined
+            }
         });
 
         // Calculate total membership price from filtered data
@@ -260,14 +288,14 @@ function Statemement() {
             const finalAmount = (totalAdminAmount) - (amount_tax + totalProviderAmount);
             setFinalAmount(finalAmount);
         } else if (status === "membership") {
-         
+
             const totalMembership = parseFloat(totalMembershipPrice || 0);
-           
+
             const finalAmount = (totalMembership);
             setFinalAmount(finalAmount);
         } else if (status === "giftcard") {
             const totalGift = parseFloat(totalGiftPrice || 0);
-           
+
             const finalAmount = (totalGift);
             setFinalAmount(finalAmount);
         }
