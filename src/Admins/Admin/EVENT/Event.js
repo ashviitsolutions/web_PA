@@ -44,7 +44,7 @@ function Event() {
 
     const fetchData = useCallback(() => {
         setLoading(true);
-        fetch(`${IP}/user/allbookings`, {
+        fetch(`${IP}/bookings/allbookings`, {
             headers: {
                 'Authorization': token
             }
@@ -126,6 +126,8 @@ function Event() {
 
 
     const filteredRequest = handleFilter();
+
+    console.log("user booking data", filteredRequest)
 
     // Model logic
 
