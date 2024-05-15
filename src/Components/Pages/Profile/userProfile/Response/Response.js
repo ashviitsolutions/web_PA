@@ -48,9 +48,6 @@ function Response() {
   };
 
 
-
-
-
   useEffect(() => {
     const handleAddMembership = async () => {
       setIsLoading(true);
