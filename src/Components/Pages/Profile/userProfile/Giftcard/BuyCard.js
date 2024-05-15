@@ -20,7 +20,8 @@ function BuyCard() {
 			try {
 				const res = await fetch(`${IP}/coupon/fetch`);
 				const data = await res.json();
-				const filteredGiftCards = data.filter((d) => d.type === "gift_card");
+				console.log("giftcard filter data", data)
+				const filteredGiftCards = data?.coupons?.filter((d) => d.type === "gift_card");
 				setUser(filteredGiftCards);
 			} catch (error) {
 				console.error("Error fetching gift cards:", error);
@@ -48,6 +49,16 @@ function BuyCard() {
 		};
 		fetchData();
 	}, [user]);
+
+
+
+	console.log("user gioftc card", user)
+
+
+
+
+
+
 
 
 
@@ -114,12 +125,12 @@ function BuyCard() {
 			};
 			const response = await axios.post(`${IP}/payment/add-giftcard-payment`, paymentData, config);
 			if (response.status === 200) {
-				nav(`/userProfile/payment/success/${paymentId}`);
+				nav(`/userProfile`);
 			}
 			console.log("Payment successful:", response.data);
 		} catch (error) {
 			console.error("Error processing payment:", error);
-			nav(`/userProfile/payment/success/${`failed`}`);
+			nav(`/userProfile`);
 		}
 	};
 
