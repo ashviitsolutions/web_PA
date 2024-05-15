@@ -46,18 +46,19 @@ const PreviewImage = ({ attachments }) => {
 
 
 function Contractors() {
+    const Startdate = localStorage.getItem("startDate")
+    const Enddate = localStorage.getItem("endDate")
     const location = useLocation();
     const vender_status = location.state ? location.state.vender_status : "";
-
-    const endDates = location.state.endDate;
-    const startDates = location.state.startDate
+    const startDates = location.state ? location.state.startDate : "";
+    const endDates = location.state ? location.state.endDate : "";
     const [data, setData] = useState(1);
     const [count, setCount] = useState(0);
     const [searchText, setSearchText] = useState("");
     const [pageNumber, setPageNumber] = useState(1);
 
-    const [endDate, setEndDate] = useState(endDates);
-    const [startDate, setStartDate] = useState(startDates);
+    const [startDate, setStartDate] = useState(startDates || Startdate); // Initialize with startDates
+    const [endDate, setEndDate] = useState(endDates || Enddate); 
     const [loading, setLoading] = useState(null);
     let token = localStorage.getItem("tokenadmin");
     const [user, setUser] = useState([]);
@@ -66,14 +67,25 @@ function Contractors() {
 
 
 
+    // useEffect(() => {
+    //     // setStatus(vender_status);
+    //     setStartDate(startDates);
+    //     setEndDate(endDates);
+    // }, [vender_status, endDates, endDates]);
+
+
+
     useEffect(() => {
-        // setStatus(vender_status);
-        setStartDate(startDates);
-        setEndDate(endDates);
-    }, [vender_status, endDates, endDates]);
+        localStorage.setItem("startDate", startDate);
+        localStorage.setItem("endDate", endDate);
+    }, [startDate, endDate]);
 
 
+    useEffect(() => {
 
+        setStartDate(Startdate);
+        setEndDate(Enddate);
+    },  [vender_status, endDates, endDates]);// Empty dependency array means this effect will only run once after the initial render
 
 
 

@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { IP } from '../../../Constant';
 
 function AddClient() {
-    const [error, setError] = useState(null); // Added state for error
+    const [error, setError] = useState(null);
     const navigate = useNavigate();
 
     const initialValues = {
@@ -20,7 +20,8 @@ function AddClient() {
 
     const SignupSchema = Yup.object().shape({
         email: Yup.string().email('Please enter a valid email address').required('Email is required'),
-        name: Yup.string().required('Name is required'),
+        first_name: Yup.string().required('First Name is required'),
+        last_name: Yup.string().required('Last Name is required'),
         password: Yup.string()
             .required('Password is required')
             .min(8, 'Password must be at least 8 characters')
@@ -34,33 +35,20 @@ function AddClient() {
     });
 
     const onSubmit = async (values, { resetForm }) => {
-        console.log(values);
-        resetForm({ values: '' });
+        console.log("Form submitted with values:", values);
+        resetForm();
 
         try {
-            const bodyFormData = new FormData();
-            bodyFormData.append("first_name", values.first_name);
-            bodyFormData.append("last_name", values.last_name);
-            bodyFormData.append("email", values.email);
-            bodyFormData.append("mobile", values.mobile);
-            bodyFormData.append("password", values.password);
-            bodyFormData.append("confirm_password", values.Confirm_Password);
-
-            const res = await axios.post(`${IP}/user/register`, bodyFormData, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-
-            });
+            const res = await axios.post(`${IP}/user/register`, values);
 
             if (res.status === 200) {
                 navigate('/admin/clients');
             } else {
-                setError('An error occurred. Please try again.'); // Set error message
+                setError('An error occurred. Please try again.');
             }
         } catch (error) {
             console.error(error);
-            setError('An error occurred. Please try again.'); // Set error message
+            setError('An error occurred. Please try again.');
         }
     };
 
@@ -133,7 +121,7 @@ function AddClient() {
                                                         )}
                                                         <span className="highlight"></span>
                                                     </div>
-                                                    {error && <div className="error">{error}</div>} {/* Display error message */}
+                                                    {error && <div className="error">{error}</div>}
                                                     <div className="input_group">
                                                         <button type="submit" className="button primary square lazy">
                                                             Save Client

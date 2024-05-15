@@ -10,25 +10,33 @@ import { IP } from "../../../../Constant";
 function Setting() {
 	const token = localStorage.getItem("token");
 	const nav = useNavigate();
+
 	const username = localStorage.getItem("user_name");
-	const [posts, setPosts] = useState([]);
-	const [name, setName] = useState(username);
-	const [email, setEmail] = useState("");
-	const [phone, setPhone] = useState("");
-	const [password, setPassword] = useState("");
-	const [confirmPassword, setConfirmPassword] = useState("");
+
 	const [toggle, setToggle] = useState(false);
 	const [message, setMessage] = useState("");
 	const [passwordError, setPasswordError] = useState("");
+
+
+
+
+	const [first_name, setFirstname] = useState("");
+	const [last_name, setLastname] = useState("");
+	const [email, setEmail] = useState("");
+	const [mobile, setMobile] = useState("");
+
+	const [new_password, setNew_password] = useState("");
+	const [old_password, setOld_password] = useState("");
+	const [confirm_password, setConfirmPassword] = useState("");
 
 	useEffect(() => {
 		const fetchPosts = async () => {
 			try {
 				const response = await Hook.getProfile();
-				setPosts(response.data);
+				setFirstname(response.data.first_name);
+				setLastname(response.data.last_name);
 				setEmail(response.data.email);
-				setPhone(response.data.phone);
-				setName(response.data.name);
+				setMobile(response.data.mobile);
 				localStorage.setItem("user_id", response.data._id);
 				console.log("get setting", response.data);
 			} catch (error) {
@@ -39,73 +47,19 @@ function Setting() {
 		fetchPosts();
 	}, []);
 
-	const handleHandle = () => {
-		setToggle(!toggle);
-	};
 
-	const isPasswordValid = () => {
-		return password.length >= 8;
-	};
 
-	const handleUpdatePassword = () => {
-		if (!isPasswordValid()) {
-			setPasswordError("Password must be at least 8 characters");
-			return;
-		}
 
-		const data = {
-			password: password,
-			confirm_password: confirmPassword,
-		};
-
-		fetch(`${IP}/user/change-pass`, {
-			method: "PUT",
-			headers: {
-				Authorization: token,
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(data),
-		})
-			.then((response) => {
-				if (response.status === 200) {
-					setToggle(false);
-
-					toast.success("Your Application successfully!", {
-						position: "top-right",
-						autoClose: 3000,
-						onClose: () => {
-							nav(`/userProfile`);
-						},
-					});
-					return response.json();
-				} else {
-					toast.error("An error occurred. Please try again.", {
-						position: "top-right",
-						autoClose: 2000,
-					});
-					throw new Error("Password update failed");
-				}
-			})
-			.then((data) => {
-				setMessage("Password updated successfully");
-				setPasswordError("");
-				// You can perform any additional actions upon a successful update here
-			})
-			.catch((error) => {
-				toast.error("An error occurred. Please try again.", {
-					position: "top-right",
-					autoClose: 2000,
-				});
-				setMessage("Password update failed");
-				// Handle the error or show an error message to the user
-			});
-	};
 
 	const handleUpdateData = () => {
 		const data = {
-			name: name,
+			first_name: first_name,
+			last_name: last_name,
 			email: email,
-			phone: phone,
+			mobile: mobile,
+			new_password: new_password,
+			old_password: old_password,
+			confirm_password: confirm_password
 		};
 
 		fetch(`${IP}/user/update`, {
@@ -119,36 +73,36 @@ function Setting() {
 			.then((response) => {
 				if (response.status === 200) {
 					setToggle(false);
-					toast.success("Your profile Update successfully!", {
-						position: "top-right",
-						autoClose: 3000,
-						onClose: () => {
-							nav(`/userProfile`);
-						},
-					});
+					setMessage("Profile updated successfully");
+
+					setTimeout(() => {
+						setMessage("");
+					}, 1000); // Remove message after 2 seconds
+
+					setPasswordError("");
 					return response.json();
 				} else {
-					toast.error("An error occurred. Please try again.", {
-						position: "top-right",
-						autoClose: 2000,
-					});
-					throw new Error("Password update failed");
+					setMessage("Profile update failed");
+
+					setTimeout(() => {
+						setMessage("");
+					}, 1000); // Remove message after 2 seconds
+
+					setPasswordError("");
 				}
 			})
-			.then((data) => {
-				setMessage("Password updated successfully");
-				setPasswordError("");
-				// You can perform any additional actions upon a successful update here
-			})
 			.catch((error) => {
-				toast.error("An error occurred. Please try again.", {
-					position: "top-right",
-					autoClose: 2000,
-				});
-				setMessage("Password update failed");
+				setMessage("Profile update failed");
+
+				setTimeout(() => {
+					setMessage("");
+				}, 1000); // Remove message after 2 seconds
+
+				setPasswordError("");
 				// Handle the error or show an error message to the user
 			});
 	};
+
 
 	return (
 		<>
@@ -157,7 +111,11 @@ function Setting() {
 					<div className="profile__avatar">
 						<p className="profile__avatarInitial">
 							{username.slice(0, 1).toUpperCase()}
+
 						</p>
+					</div>
+					<div className="gutter">
+						<p className="profile_heading">{message}</p>
 					</div>
 					<div
 						className="profile__divs"
@@ -169,9 +127,7 @@ function Setting() {
 						}}
 					>
 						<div className="settings_form">
-							{/* <div className="gutter">
-				<h3 className="profile_heading">{username}</h3>
-			</div> */}
+
 
 							<div className="gutter">
 								<h3 className="small_heading">Profile Setting</h3>
@@ -180,14 +136,27 @@ function Setting() {
 							<div className="profile_info">
 								<div className="input_group">
 									<label htmlFor="" className="static">
-										Your Name
+										Your First Name
 									</label>
 									<input
 										type="text"
 										className="input"
-										value={name}
+										value={first_name}
 										required
-										onChange={(e) => setName(e.target.value)}
+										onChange={(e) => setFirstname(e.target.value)}
+									/>
+									<span className="highlight"></span>
+								</div>
+								<div className="input_group">
+									<label htmlFor="" className="static">
+										Your Last Name
+									</label>
+									<input
+										type="text"
+										className="input"
+										value={last_name}
+										required
+										onChange={(e) => setLastname(e.target.value)}
 									/>
 									<span className="highlight"></span>
 								</div>
@@ -210,10 +179,10 @@ function Setting() {
 									</label>
 									<input
 										type="number"
-										value={phone}
+										value={mobile}
 										className="input"
 										required
-										onChange={(e) => setPhone(e.target.value)}
+										onChange={(e) => setMobile(e.target.value)}
 									/>
 									<span className="highlight"></span>
 								</div>
@@ -230,9 +199,7 @@ function Setting() {
 							</div>
 						</div>
 						<div className="settings_form">
-							{/* <div className="gutter">
-				<h3 className="profile_heading">{username}</h3>
-			</div> */}
+
 
 							<div className="gutter">
 								<h3 className="small_heading">Change Password</h3>
@@ -247,10 +214,10 @@ function Setting() {
 										</label>
 										<input
 											type="password"
-											// value={confirmPassword}
+											value={old_password}
 											className="input"
 											required
-										// onChange={(e) => setConfirmPassword(e.target.value)}
+											onChange={(e) => setOld_password(e.target.value)}
 										/>
 										<span className="highlight"></span>
 									</div>
@@ -260,10 +227,10 @@ function Setting() {
 										</label>
 										<input
 											type="password"
-											value={password}
+											value={new_password}
 											className="input"
 											required
-											onChange={(e) => setPassword(e.target.value)}
+											onChange={(e) => setNew_password(e.target.value)}
 										/>
 										<span className="highlight"></span>
 										<p className="error-message">{passwordError}</p>
@@ -274,7 +241,7 @@ function Setting() {
 										</label>
 										<input
 											type="password"
-											value={confirmPassword}
+											value={confirm_password}
 											className="input"
 											required
 											onChange={(e) => setConfirmPassword(e.target.value)}
@@ -285,7 +252,7 @@ function Setting() {
 										<button
 											type="submit"
 											className="button__small"
-											onClick={handleUpdatePassword}
+											onClick={handleUpdateData}
 										>
 											Update
 										</button>
