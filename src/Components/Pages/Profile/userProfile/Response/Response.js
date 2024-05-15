@@ -39,6 +39,18 @@ function Response() {
   // Find the matching membership option based on the provided membershipType
   const selectedMembership = membershipOptions.find(option => option.id === membershipId);
 
+
+
+  const addDays = (date, days) => {
+    const result = new Date(date);
+    result.setDate(result.getDate() + days);
+    return result.toISOString().split('T')[0]; // Convert date to YYYY-MM-DD format
+  };
+
+
+
+
+
   useEffect(() => {
     const handleAddMembership = async () => {
       setIsLoading(true);
@@ -62,6 +74,16 @@ function Response() {
             throw new Error("Invalid membership type");
         }
 
+        const currentDate = new Date(); // Get the current date object
+        if (isNaN(currentDate.getTime())) {
+          throw new Error('Error: Invalid current date.'); // Check if the date is valid
+        }
+        const currentDateISOString = currentDate.toISOString().split('T')[0]; // Convert the date to ISO string
+        const nextRenewalDate = new Date(addDays(currentDateISOString, renewalDays));
+        nextRenewalDate.setHours(0, 0, 0, 0); // Set time to midnight
+
+        console.log("nextRenewalDate", nextRenewalDate)
+
         const response = await fetch(`${IP}/payment/add-membership-record?session_id=${session_id}`, {
           method: 'POST',
           headers: {
@@ -73,7 +95,7 @@ function Response() {
             userId,
             status: "active",
             stripeCustomerId: session_id,
-            lastRenewalPaymentDate: renewalDate,
+            lastRenewalPaymentDate: nextRenewalDate,
           }),
         });
 
@@ -94,6 +116,7 @@ function Response() {
     // Call the handleAddMembership function
     handleAddMembership();
   }, [session_id, userId, membershipId, renewalDate]);
+
 
 
 

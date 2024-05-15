@@ -141,10 +141,10 @@ function Membership() {
 				localStorage.setItem("membership", data.membershipType)
 				setStatus(data.status)
 
-				const daysToAdd = data.renewalDays;
-				const result = new Date(data.lastRenewalPaymentDate);
-				result.setDate(result.getDate() + daysToAdd);
-				setMembershipEndDate(result);
+				// const daysToAdd = data.renewalDays;
+				// const result = new Date(data.lastRenewalPaymentDate);
+				// result.setDate(result.getDate() + daysToAdd);
+				setMembershipEndDate(data.lastRenewalPaymentDate);
 			} catch (error) {
 				console.error("Error:", error);
 			}
@@ -156,128 +156,128 @@ function Membership() {
 
 
 
-	console.log(membershipLevel, membershipEndDate);
+	// console.log(lastRenewalPaymentDate);
 
 
 
 
 	return (
 		<div className="progressbar_userpannel profileSpace">
-		<div className="overview" id="invoices">
-			<div className="overview_container">
+			<div className="overview" id="invoices">
+				<div className="overview_container">
 
-				{/* <Avatar name={username} /> */}
-				<div className="title">
-					<h3>Membership Level</h3>
-					<h3
-						style={{ fontSize: 30 }}
-						className={`${membershipLevel == "gold" ? "gold__text" : "silver__text"
-							}`}
-					>
-						{membershipLevel}
-					</h3>
-					<p>Become a Member/Your Membership</p>
-				</div>
-				<div className="memberships">
-					{membershipOptions.map((option, index) => (
-						<div className="membership_containers" key={index}>
+					{/* <Avatar name={username} /> */}
+					<div className="title">
+						<h3>Membership Level</h3>
+						<h3
+							style={{ fontSize: 30 }}
+							className={`${membershipLevel == "gold" ? "gold__text" : "silver__text"
+								}`}
+						>
+							{membershipLevel}
+						</h3>
+						<p>Become a Member/Your Membership</p>
+					</div>
+					<div className="memberships">
+						{membershipOptions.map((option, index) => (
+							<div className="membership_containers" key={index}>
 
-							<div className="image_membership">
-								<img src={option.GOLD} alt="..." />
+								<div className="image_membership">
+									<img src={option.GOLD} alt="..." />
 
-								{index == 1 && membershipLevel == "Gold" && (
-									<div className="active_membership_icons">
-										<img src={option.active} alt="..." />
-									</div>
-								)}
-
-								{index == 0 && membershipLevel == "Silver" && (
-									<div className="active_membership_icons">
-										<img src={option.active} alt="..." />
-									</div>
-								)}
-							</div>
-
-
-
-
-							<div className="membership_buttons">
-								{membershipLevel === "Gold" && index === 1 ? (
-									<p>Valid till {moment(option.renewalDays).format("MMM Do YYYY")}</p>
-								) : membershipLevel === "Silver" && index === 0 ? (
-									<p>Valid till {moment(option.renewalDays).format("MMM Do YYYY")}</p>
-								) : status !== "active" && (
-									<button onClick={() => handleToggleModal(index)}>
-										Join now
-									</button>
-								)}
-							</div>
-
-							{showModal[index] && (
-								<div className="model_card_gift_container">
-									<span className="close" onClick={closeModal}>
-										&times;
-									</span>
-									<div className="model_card_gift">
-										<h3>{option.name}</h3>
-										<div className="membership_model_item">
-											<FontAwesomeIcon
-												icon={faUniversalAccess}
-												color="#03a9f4"
-												size="2xl"
-											/>
-											<div>
-												<p>
-													<strong>{option.title1}</strong>
-												</p>
-												<p>{option.para1}</p>
-											</div>
+									{index == 1 && membershipLevel == "Gold" && (
+										<div className="active_membership_icons">
+											<img src={option.active} alt="..." />
 										</div>
-										<div className="membership_model_item">
-											<FontAwesomeIcon
-												icon={faClock}
-												color="#03a9f4"
-												size="2xl"
-											/>
-											<div>
-												<p>
-													<strong>{option.title2}</strong>
-												</p>
-												<p>{option.para2}</p>
-											</div>
-										</div>
-										<div className="membership_model_item">
-											<FontAwesomeIcon
-												icon={faTags}
-												color="#03a9f4"
-												size="2xl"
-											/>
-											<div>
-												<p>
-													<strong>{option.title3}</strong>
-												</p>
-												<p>{option.para3}</p>
-											</div>
-										</div>
-									</div>
-									<div className="membership_update_button">
-										<button
-											className="button"
-											onClick={() => handleSubmit(selectedMembership.id, index)}
-										>
-											{loading === index ? "Loading..." : "Join now"}
-										</button>
+									)}
 
-									</div>
+									{index == 0 && membershipLevel == "Silver" && (
+										<div className="active_membership_icons">
+											<img src={option.active} alt="..." />
+										</div>
+									)}
 								</div>
-							)}
-						</div>
-					))}
+
+
+
+
+								<div className="membership_buttons">
+									{membershipLevel === "Gold" && index === 1 ? (
+										<p>Valid till {moment(membershipEndDate).format("MMM Do YYYY")}</p>
+									) : membershipLevel === "Silver" && index === 0 ? (
+										<p>Valid till {moment(membershipEndDate).format("MMM Do YYYY")}</p>
+									) : status !== "active" && (
+										<button onClick={() => handleToggleModal(index)}>
+											Join now
+										</button>
+									)}
+								</div>
+
+								{showModal[index] && (
+									<div className="model_card_gift_container">
+										<span className="close" onClick={closeModal}>
+											&times;
+										</span>
+										<div className="model_card_gift">
+											<h3>{option.name}</h3>
+											<div className="membership_model_item">
+												<FontAwesomeIcon
+													icon={faUniversalAccess}
+													color="#03a9f4"
+													size="2xl"
+												/>
+												<div>
+													<p>
+														<strong>{option.title1}</strong>
+													</p>
+													<p>{option.para1}</p>
+												</div>
+											</div>
+											<div className="membership_model_item">
+												<FontAwesomeIcon
+													icon={faClock}
+													color="#03a9f4"
+													size="2xl"
+												/>
+												<div>
+													<p>
+														<strong>{option.title2}</strong>
+													</p>
+													<p>{option.para2}</p>
+												</div>
+											</div>
+											<div className="membership_model_item">
+												<FontAwesomeIcon
+													icon={faTags}
+													color="#03a9f4"
+													size="2xl"
+												/>
+												<div>
+													<p>
+														<strong>{option.title3}</strong>
+													</p>
+													<p>{option.para3}</p>
+												</div>
+											</div>
+										</div>
+										<div className="membership_update_button">
+											<button
+												className="button"
+												onClick={() => handleSubmit(selectedMembership.id, index)}
+											>
+												{loading === index ? "Loading..." : "Join now"}
+											</button>
+
+										</div>
+									</div>
+								)}
+							</div>
+						))}
+					</div>
 				</div>
 			</div>
 		</div>
-		</div>
-		
+
 	);
 }
 
