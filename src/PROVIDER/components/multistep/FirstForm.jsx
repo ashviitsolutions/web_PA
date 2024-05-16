@@ -449,22 +449,7 @@ const FirstForm = (props) => {
 
 
 
-          { /* <Form.Group className="mb-3 mt-3">
-            <Row>
-              <div className="col-md-12 mb-2">
-                <Form.Label htmlFor="current_address">Current Address</Form.Label>
-                <Form.Control
-                  required
-                  as="textarea"
-                  id="current_address"
-                  placeholder="Current Address"
-                  style={{ height: "100px" }}
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
-                />
-              </div>
-            </Row>
-  </Form.Group> */}
+         
 
 
           <Form.Group className="mb-3 mt-3">
