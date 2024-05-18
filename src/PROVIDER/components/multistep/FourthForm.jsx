@@ -1,15 +1,19 @@
 import { faDownload, faFilePdf } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React,{useState} from "react";
-import { Button, Form, Row } from "react-bootstrap";
+import React, { useState } from "react";
+import { Button, Form, Row, Alert } from "react-bootstrap";
 import { IP } from "../../../Constant";
+
 const ThirdForm = (props) => {
   const [pdfFile, setPdfFile] = useState(null);
-  const token = localStorage.getItem("providertoken")
+  const [uploadStatus, setUploadStatus] = useState("");
+  const token = localStorage.getItem("providertoken");
+
   let saveAndContinue = (e) => {
     e.preventDefault();
     props.nextStep();
   };
+
   let previousStep = (e) => {
     e.preventDefault();
     props.previousStep();
@@ -18,6 +22,7 @@ const ThirdForm = (props) => {
   const handleFileChange = (e) => {
     setPdfFile(e.target.files[0]);
   };
+
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -30,12 +35,18 @@ const ThirdForm = (props) => {
         },
         body: formData
       });
-      console.log("imgae pdf",response);
+      
+      if (response.ok) {
+        setUploadStatus("Upload successful!");
+      } else {
+        setUploadStatus("Upload failed. Please try again.");
+      }
     } catch (error) {
       console.error(error);
+      setUploadStatus("An error occurred during the upload. Please try again.");
     }
   };
-    
+
   return (
     <div>
       <Form className="col-md-8 mx-auto" onSubmit={handleFormSubmit}>
@@ -49,32 +60,23 @@ const ThirdForm = (props) => {
               <FontAwesomeIcon icon={faFilePdf} />{" "}
               <span>Membership Contract &nbsp;</span>{" "}
               <FontAwesomeIcon icon={faDownload} />
-
             </div>
             <div className="text-center">
               <Form.Group className="mb-3 mt-3 col-md-4 mx-auto">
-              <Form.Control type="file" accept=".pdf" onChange={handleFileChange} />
+                <Form.Control type="file" accept=".pdf" onChange={handleFileChange} />
               </Form.Group>
             </div>
           </div>
+         
           <div className="text-center"><Button type="submit">Upload</Button></div>
-
         </div>
 
         <Row style={{ justifyContent: "space-between", padding: "10px" }}>
-         {/* <Button
-            style={{ width: "auto" }}
-            variant="primary"
-            onClick={previousStep}
-            type="submit"
-          >
-            Previous
-  </Button>  */}
           <Button
             className="button small"
             variant="primary"
             onClick={saveAndContinue}
-            type="submit"
+            type="button"
           >
             Next
           </Button>

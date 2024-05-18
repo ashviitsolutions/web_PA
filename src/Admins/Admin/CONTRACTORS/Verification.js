@@ -29,7 +29,7 @@ function Verification(props) {
       });
       console.log(res);
       if (res.status === 200) {
-        nav("/admin/contractors/view_contractor");
+        nav("/admin/contractors");
       }
 
     } catch (error) {
