@@ -13,6 +13,7 @@ function LoginProvider() {
     const [toggle, setToggle] = useState(false);
     const token = localStorage.getItem('providertoken');
     const approvaltoken = localStorage.getItem('approvaluser');
+    const [loading, setLoading] = useState(false);
     const nav = useNavigate();
 
     const [showPassword, setShowPassword] = useState(false);
@@ -23,6 +24,7 @@ function LoginProvider() {
 
 
     const onSubmit = async () => {
+        setLoading(true)
         try {
             const data = { email, password };
             const resp = await fetch(`${IP}/provider/login`, {
@@ -38,6 +40,7 @@ function LoginProvider() {
             const result = await resp.json();
 
             if (resp.status === 200) {
+                setLoading(false)
                 const time = new Date().getTime();
                 localStorage.setItem('providertoken', token);
                 localStorage.setItem('provider_id', result?.user_info?._id);
@@ -52,6 +55,7 @@ function LoginProvider() {
             }
             console.log('provider Login', result);
         } catch (error) {
+            setLoading(false)
             console.log('Error show', error);
         }
     };
@@ -145,7 +149,8 @@ function LoginProvider() {
                                 style={{ textDecoration: 'none', paddingTop: '1px' }}
                             >
                                 <button className="button" type="button" onClick={onSubmit}>
-                                    Sign In
+
+                                    {loading ? "Loading..." : "sign in"}
                                 </button>
                                 {toggle ? (
                                     <div id="notification_holder" style={{ paddingRight: '20px' }}>

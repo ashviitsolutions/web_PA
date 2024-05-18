@@ -89,8 +89,7 @@ function Dashboard() {
         const today = moment().format('YYYY-MM-DD');
         setStartDate(moment(today).subtract(7, 'day').format('YYYY-MM-DD'));
         setEndDate(today);
-        // localStorage.setItem("startDate", moment(today).subtract(7, 'day').format('YYYY-MM-DD'));
-        // localStorage.setItem("endDate", today);
+
     }, []); // Empty dependency array means this effect will only run once after the initial render
 
 
@@ -410,8 +409,14 @@ function Dashboard() {
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image4})` }}></span>
 
-                                                        <h3>{Math.max(aggregatedValues.totalAdminAmount + totalMembershipPrice + totalGiftPrice + aggregatedValues.amount_tax, 0).toFixed(2)}$</h3>
-
+                                                        {/*  <h3>{Math.max(aggregatedValues.totalAdminAmount + totalMembershipPrice + totalGiftPrice + aggregatedValues.amount_tax, 0).toFixed(2)}$</h3> */}
+                                                        <h3>    {(
+                                                            Math.max(
+                                                                aggregatedValues.totalAdminAmount + totalMembershipPrice + totalGiftPrice + aggregatedValues.amount_tax,
+                                                                0
+                                                            ) || 0
+                                                        ).toFixed(2)}$
+                                                        </h3>
                                                         <p>Total Sale</p>
                                                     </div>
                                                 </div>

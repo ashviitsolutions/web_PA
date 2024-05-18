@@ -7,6 +7,7 @@ import avtar from "../../img/avtar.jpg"
 import ReactPaginate from 'react-paginate';
 import { FallingLines } from 'react-loader-spinner';
 import { useLocation } from 'react-router-dom';
+import moment from 'moment';
 
 const PreviewImage = ({ attachments }) => {
     const [imageObjectURL, setImageObjectURL] = useState(null);
@@ -58,7 +59,7 @@ function Contractors() {
     const [pageNumber, setPageNumber] = useState(1);
 
     const [startDate, setStartDate] = useState(startDates || Startdate); // Initialize with startDates
-    const [endDate, setEndDate] = useState(endDates || Enddate); 
+    const [endDate, setEndDate] = useState(endDates || Enddate);
     const [loading, setLoading] = useState(null);
     let token = localStorage.getItem("tokenadmin");
     const [user, setUser] = useState([]);
@@ -81,13 +82,19 @@ function Contractors() {
     }, [startDate, endDate]);
 
 
+    // useEffect(() => {
+
+    //     setStartDate(Startdate);
+    //     setEndDate(Enddate);
+    // }, [vender_status, endDates, endDates]);// Empty dependency array means this effect will only run once after the initial render
+
+
     useEffect(() => {
+        const today = moment().format('YYYY-MM-DD');
+        setStartDate(moment(Startdate).subtract(7, 'day').format('YYYY-MM-DD'));
+        setEndDate(today);
 
-        setStartDate(Startdate);
-        setEndDate(Enddate);
-    },  [vender_status, endDates, endDates]);// Empty dependency array means this effect will only run once after the initial render
-
-
+    }, [vender_status, endDates, endDates]); // Empty dependency array means this effect will only run once after the initial render
 
 
 
@@ -108,10 +115,10 @@ function Contractors() {
                 console.log(result.msg);
             } else {
                 // Update the user state with the fetched contractors
-                setUser(prevData => [...prevData, ...result]);
+                setUser(result);
                 setCount(result.length);
                 setLoading(false);
-                console.log("contractor", result)
+                // console.log("contractor", result)
             }
         }).catch(err => {
             console.log(err)
@@ -126,37 +133,22 @@ function Contractors() {
 
 
 
-    const handleInfiniteScroll = async () => {
-        try {
-
-            if (
-                window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight
-            ) {
-                setPageNumber((prev) => prev + 1);
-                setLoading(true)
-            }
-
-        } catch (error) {
-
-        }
-    }
-
-
-    useEffect(() => {
-        window.addEventListener("scroll", handleInfiniteScroll);
-        return () => window.removeEventListener("scroll", handleInfiniteScroll)
-    }, [])
 
 
 
 
 
     const handleFilter = () => {
+        console.log("start date and end date", startDate, endDate)
+
         // Filter data based on selected dates, status, and search text
         const filteredData = user.filter(contractor => {
+            console.log("createAt date", contractor.createdAt)
             const isStatusMatched = !status || contractor.application_status_text === status;
-            const isWithinDateRange = (!startDate || new Date(contractor.createdAt) >= new Date(startDate)) &&
-                (!endDate || new Date(contractor.createdAt) <= new Date(endDate));
+            const eventDate = moment(contractor.createdAt, 'YYYY-MM-DD'); // Adjust the format based on the actual format of eventDate
+
+            const isWithinDateRange = (!startDate || moment(startDate).isSameOrBefore(eventDate, 'day')) &&
+                (!endDate || moment(endDate).isSameOrAfter(eventDate, 'day'));
             const isSearched = !searchText || (contractor.first_name.toLowerCase().includes(searchText.toLowerCase()) || contractor.last_name.toLowerCase().includes(searchText.toLowerCase()) || contractor.email.toLowerCase().includes(searchText.toLowerCase()));
             return isWithinDateRange && isStatusMatched && isSearched;
         });
