@@ -38,7 +38,7 @@ function GetGift() {
 
     useEffect(() => {
         setLoading(true);
-        fetch(`${IP}/coupon/fetch?page=${pageNumber}&limit=20`).then(resp => resp.json())
+        fetch(`${IP}/coupon/fetch?page=${pageNumber}&limit=10`).then(resp => resp.json())
             .then(result => {
                 if (result && result.coupons && result.coupons.length > 0) {
                     // setUser(result.users);
@@ -52,6 +52,7 @@ function GetGift() {
                     console.log("Invalid response format:", result);
                 }
             }).catch(err => {
+                setLoading(false);
                 console.log(err);
             }).finally(() => {
                 setLoading(false);
@@ -60,7 +61,7 @@ function GetGift() {
 
 
 
-
+    console.log("admin giftcard", user)
 
 
 
@@ -91,14 +92,20 @@ function GetGift() {
     }, [])
 
 
-
     const memoizedUser = useMemo(() => {
-        // Coupon category ka data filter karo
-        const filteredData = user.filter(item => item.type === 'gift_card');
+        const filteredData = user.filter(item => {
+            const matchesType = item.type === 'gift_card';
+            const matchesSearch = !search || (
+                (item.title && item.title.toLowerCase().includes(search.toLowerCase())) ||
+                (item.price && item.price.toString().toLowerCase().includes(search.toLowerCase())) ||
+                (item.offerValue && item.offerValue.toString().toLowerCase().includes(search.toLowerCase()))
+            );
+            return matchesType && matchesSearch;
+        });
 
-        // Data ka desired portion slice karo
         return filteredData;
-    }, [user]);
+    }, [user, search]);
+
 
     return (
         <>
@@ -185,13 +192,13 @@ function GetGift() {
                                                     <div className="content mt-3">
                                                         <span className="title" id="headingtitle">
                                                             <span id="pricevalue">Price: </span>
-                                                            {cur.amount_off} <span id="pricevalue"> USD</span>
+                                                            {cur.price} <span id="pricevalue"> USD</span>
                                                         </span>
                                                     </div>
                                                     <div className="content mt-3">
                                                         <span className="title" id="headingtitle">
                                                             <span id="pricevalue">Value of Price: </span>
-                                                            {cur.amount_off} <span id="pricevalue"> USD</span>
+                                                            {cur.offerValue} <span id="pricevalue"> USD</span>
                                                         </span>
                                                     </div>
                                                     <Link to={`/admin/gift/editgift/${cur._id}`}>
@@ -203,17 +210,18 @@ function GetGift() {
                                     );
                                 })}
                             </table>
-                            {loading && (
-                                <div style={{ textAlign: "center" }}>
-                                    <FallingLines
-                                        color="#03a9f4"
-                                        width="150"
-                                        visible={true}
-                                        ariaLabel="falling-circles-loading"
-                                    />
-                                </div>
-                            )}
+                           
                         </div>
+                        {loading && (
+                            <div style={{ textAlign: "center" }}>
+                                <FallingLines
+                                    color="#03a9f4"
+                                    width="150"
+                                    visible={true}
+                                    ariaLabel="falling-circles-loading"
+                                />
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

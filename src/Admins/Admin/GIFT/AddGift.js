@@ -36,26 +36,29 @@ function AddGift() {
   const initialValues = {
     title: "",
     type: "",
-    couponImages: "",
+    attachments: "",
     description: "",
+    price: "",
     offerValue: "",
-    percent_off: "",
     is_active: "",
     max_redemptions: ""
   };
 
+
+
   const SignupSchema = Yup.object().shape({
     // title: Yup.string().required("Title is required"),
     // type: Yup.string().required("Type is required"),
-    // couponImages: Yup.string().required("Coupon Images is required"),
+    // attachments: Yup.string().required("Coupon Images is required"),
     // description: Yup.string().required("Description is required"),
-    // amount_off: Yup.number().required("Amount Off is required"),
-    // percent_off: Yup.number().required("Percent Off is required"),
+    // offerValue: Yup.number().required("Amount Off is required"),
+    // price: Yup.number().required("Percent Off is required"),
     // is_active: Yup.boolean().required("Is Active is required"),
     // max_redemptions: Yup.number().required("Max Redemptions is required")
   });
 
   const onSubmit = async (values, { setValues, resetForm }) => {
+    console.log(values);
     try {
       const bodyFormData = new FormData();
       bodyFormData.append("title", values.title);
@@ -63,27 +66,29 @@ function AddGift() {
       bodyFormData.append("is_active", values.is_active);
       bodyFormData.append("max_redemptions", values.max_redemptions);
       bodyFormData.append("offerValue", values.offerValue);
-      bodyFormData.append("price", values.percent_off);
+      bodyFormData.append("price", values.price);
       bodyFormData.append("expired_by", selectedDate);
-      bodyFormData.append("couponImages", values.couponImages);
+      bodyFormData.append("couponImages", values.attachments);
       bodyFormData.append("description", values.description);
       let token = localStorage.getItem("tokenadmin");
       if (!token) {
         throw new Error("Token not found in local storage");
       }
-
+      console.log(token);
       const res = await axios.post(`${IP}/coupon/create`, bodyFormData, {
         headers: {
-          Authorization: token,
-        },
+          //   Authorization: `${token}`
+          Authorization: token
+        }
       });
+      console.log(res);
 
       if (res.status === 200) {
         setValues({});
         resetForm();
 
         // Show success notification and navigate to '/admin/Gift'
-        toast.success("Gift card created successfully!", {
+        toast.success("Gift card Created successfully!", {
           position: "top-right",
           autoClose: 3000,
           onClose: () => {
@@ -99,7 +104,6 @@ function AddGift() {
       }
     } catch (error) {
       console.error(error);
-      // Show error notification for exceptions
       toast.error("An error occurred. Please try again.", {
         position: "top-right",
         autoClose: 3000,
@@ -107,12 +111,6 @@ function AddGift() {
     }
   };
 
-
-  const config = {
-    readonly: false,
-    height: 400,
-
-  }
 
 
 
@@ -193,11 +191,11 @@ function AddGift() {
                       <div class="input_group" style={{ marginTop: "3rem" }}>
                         <Field
                           className="input"
-                          name="offerValue"
+                          name="price"
                           type="number"
                         />
-                        {errors.offerValue && touched.offerValue ? (
-                          <div>{errors.offerValue}</div>
+                        {errors.price && touched.price ? (
+                          <div>{errors.price}</div>
                         ) : null}
                         <label htmlFor="">Price</label>
                         <span class="highlight"></span>
@@ -207,11 +205,11 @@ function AddGift() {
                       <div class="input_group" style={{ marginTop: "3rem" }}>
                         <Field
                           className="input"
-                          name="percent_off"
+                          name="offerValue"
                           type="number"
                         />
-                        {errors.percent_off && touched.percent_off ? (
-                          <div>{errors.percent_off}</div>
+                        {errors.offerValue && touched.offerValue ? (
+                          <div>{errors.offerValue}</div>
                         ) : null}
                         <label htmlFor="">Value in USD</label>
                         <span class="highlight"></span>
@@ -261,11 +259,11 @@ function AddGift() {
 
                         <div className="card layer1">
                           <div className="inner">
-                            <label className="card_label" htmlFor="couponImages">Attachments</label>
+                            <label className="card_label" htmlFor="attachments">Attachments</label>
                             <input
-                              name="couponImages"
+                              name='attachments'
                               type="file"
-                              placeholder="Excerpt"
+                              // placeholder="Excerpt"
                               onChange={(e) => {
                                 let reader = new FileReader();
                                 let file = e.target.files[0];
@@ -275,11 +273,12 @@ function AddGift() {
                                 };
 
                                 reader.readAsDataURL(file);
-                                setFieldValue('couponImages', file); // Change this line to setFieldValue('couponImage', file)
-                              }}
+                                setFieldValue('attachments', file)
+                              }
+                              }
                             />
-                            {errors.couponImages && touched.couponImages ? (
-                              <div>{errors.couponImages}</div>
+                            {errors.attachments && touched.attachments ? (
+                              <div>{errors.attachments}</div>
                             ) : null}
                           </div>
                           <div className="preview">

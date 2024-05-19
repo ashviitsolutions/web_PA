@@ -31,6 +31,7 @@ function EditGift() {
     const [formValue, setFormValue] = useState(null)
     const [selectedDate, setSelectedDate] = useState(null);
     const [img, setImg] = useState();
+    const [images, setImages] = useState([])
 
     const handleDateChange = (date) => {
         setSelectedDate(date);
@@ -41,10 +42,10 @@ function EditGift() {
     const initialValues = {
         title: "",
         type: "",
-        couponImages: "",
+        attachments: "",
         description: "",
-        amount_off: "",
-        percent_off: "",
+        price: "",
+        offerValue: "",
         is_active: "",
         max_redemptions: ""
     };
@@ -63,10 +64,10 @@ function EditGift() {
             bodyFormData.append("type", "gift_card");
             bodyFormData.append("is_active", values.is_active);
             bodyFormData.append("max_redemptions", values.max_redemptions);
-            bodyFormData.append("offerValue", values.amount_off);
-            bodyFormData.append("price", values.percent_off);
+            bodyFormData.append("offerValue", values.offerValue);
+            bodyFormData.append("price", values.price);
             bodyFormData.append("expired_by", selectedDate);
-            bodyFormData.append("couponImages", values.couponImages);
+            bodyFormData.append("attachments", values.attachments);
             bodyFormData.append("description", values.description);
             let token = localStorage.getItem("tokenadmin");
             if (!token) {
@@ -86,7 +87,7 @@ function EditGift() {
                 resetForm();
 
                 // Show success notification and navigate to '/admin/Gift'
-                toast.success("Gift card created successfully!", {
+                toast.success("Gift card Updated successfully!", {
                     position: "top-right",
                     autoClose: 3000,
                     onClose: () => {
@@ -118,14 +119,15 @@ function EditGift() {
                 const res = await fetch(`${IP}/coupon/fetch/${id}`);
                 const data = await res.json();
                 setUser(data);
+                setImages(data.attachments)
                 const updatedSavedValues = {
                     title: data.title,
                     type: data.type,
-                    couponImages: data.attachments,
+                    attachments: data.attachments,
                     description: data.description,
 
                     offerValue: data.offerValue,
-                    price: data.percent_off,
+                    price: data.price,
 
                     is_active: data.is_active,
                     max_redemptions: data.max_redemptions,
@@ -145,7 +147,15 @@ function EditGift() {
 
 
 
-
+    useEffect(() => {
+        const fetchImage = async () => {
+            const res = await fetch(`${IP}/file/${images}`);
+            const imageBlob = await res.blob();
+            const imageObjectURL = URL.createObjectURL(imageBlob);
+            setImg(imageObjectURL);
+        };
+        fetchImage();
+    }, [images]);
 
 
     return (
@@ -219,11 +229,11 @@ function EditGift() {
                                             <div class="input_group" style={{ marginTop: "3rem" }}>
                                                 <Field
                                                     className="input"
-                                                    name="amount_off"
+                                                    name="price"
                                                     type="number"
                                                 />
-                                                {errors.amount_off && touched.amount_off ? (
-                                                    <div>{errors.amount_off}</div>
+                                                {errors.price && touched.price ? (
+                                                    <div>{errors.price}</div>
                                                 ) : null}
                                                 <label htmlFor="">Price</label>
                                                 <span class="highlight"></span>
@@ -233,11 +243,11 @@ function EditGift() {
                                             <div class="input_group" style={{ marginTop: "3rem" }}>
                                                 <Field
                                                     className="input"
-                                                    name="percent_off"
+                                                    name="offerValue"
                                                     type="number"
                                                 />
-                                                {errors.percent_off && touched.percent_off ? (
-                                                    <div>{errors.percent_off}</div>
+                                                {errors.offerValue && touched.offerValue ? (
+                                                    <div>{errors.offerValue}</div>
                                                 ) : null}
                                                 <label htmlFor="">Value in USD</label>
                                                 <span class="highlight"></span>
@@ -287,11 +297,11 @@ function EditGift() {
 
                                                 <div className="card layer1">
                                                     <div className="inner">
-                                                        <label className="card_label" htmlFor="couponImages">Attachments</label>
+                                                        <label className="card_label" htmlFor="attachments">Attachments</label>
                                                         <input
-                                                            name='couponImages'
+                                                            name='attachments'
                                                             type="file"
-                                                            placeholder="Excerpt"
+                                                            // placeholder="Excerpt"
                                                             onChange={(e) => {
                                                                 let reader = new FileReader();
                                                                 let file = e.target.files[0];
@@ -301,18 +311,19 @@ function EditGift() {
                                                                 };
 
                                                                 reader.readAsDataURL(file);
-                                                                setFieldValue('couponImages', file)
+                                                                setFieldValue('attachments', file)
                                                             }
                                                             }
                                                         />
-                                                        {errors.couponImages && touched.couponImages ? (
-                                                            <div>{errors.couponImages}</div>
+                                                        {errors.attachments && touched.attachments ? (
+                                                            <div>{errors.attachments}</div>
                                                         ) : null}
                                                     </div>
                                                     <div className='preview' style={{ width: "100%" }}>
                                                         <PreviewImage imagePreviewUrl={imagePreviewUrl || img} />
 
                                                     </div>
+
 
                                                 </div>
 
