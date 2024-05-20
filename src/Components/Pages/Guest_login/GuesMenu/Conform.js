@@ -11,6 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Conform = () => {
 
+
     const formData = useSelector((state) => state.counter.formData);
     const { totalPrice } = useParams();
     const { provider_id } = useParams();
@@ -24,12 +25,9 @@ const Conform = () => {
 
     console.log("formData", formData)
 
-    // const customer_user = formData?.fifthform[0]?.name || ""
-    // const addressUser = formData.locationForm?.[0]?.address || "";
-    // Check if the necessary form data exists before accessing its properties    
+
     const addon_id = formData.addon_id && formData.addon_id[0] ? formData.addon_id[0] : "";
     const location = formData.locationForm && formData.locationForm[0] ? formData.locationForm[0] : null;
-    // Check if location is defined before trying to access its properties
     const locationName = location ? location.location : null;
 
 
@@ -75,12 +73,6 @@ const Conform = () => {
 
     console.log("add_ons_details", add_ons_details)
 
-    // const email = formData.fifthform?.[0]?.email || "";
-    // const address = formData.fifthform?.[0]?.address || "";
-    // const arrivalInstructions = formData.fifthform?.[0]?.arrivalInstructions || "";
-    // const confirmpassword = formData.fifthform?.[0]?.confirmpassword || "";
-    // const password = formData.fifthform?.[0]?.password || "";
-    // const mobile = formData.fifthform[0]?.mobile || "";
     console.log("servicename", servicename)
     const [selectedGiftCards, setSelectedGiftCards] = useState([]);
     const [paymentIntentId, setPaymentIntentId] = useState('');
@@ -97,7 +89,8 @@ const Conform = () => {
     const [bookingid, setBookingId] = useState(null)
 
     const [amountAddon, setAmountAddon] = useState(0);
-
+    const [coupon, setCoupon] = useState("")
+    const [coupon_amount, setCouponAmount] = useState(0)
 
     const [amount_addon, setAddsAmount] = useState(0)
 
@@ -113,11 +106,13 @@ const Conform = () => {
         service_name: ""
     });
 
-    // useEffect(() => {
-    //     // Calculate total price for addons
-    //     const totalAddonPrice = add_ons_details.reduce((total, addon) => total + addon.price, 0);
-    //     setAmountAddon(totalAddonPrice);
-    // }, [add_ons_details]);
+    const amount_off = coupon_amount.amount_off
+    const percent_off = coupon_amount.percent_off
+
+    console.log("coupon amount charge", amount_off)
+    console.log("percent_off amount charge", percent_off)
+
+
 
     useEffect(() => {
         // Calculate total price for addons
@@ -172,9 +167,12 @@ const Conform = () => {
         // Define default values for tip and tax rate
         // const tip = 31.5;
         const taxRate = 0.06625;
+        const percent_offRate = 0.06625;
+
 
         // Initialize membership discount rate
         let membershipDiscountRate = 0;
+        let couponDiscountRate = 0;
 
         // Check if membership is Silver or Gold
         if (membership === "Silver") {
@@ -185,11 +183,16 @@ const Conform = () => {
             membershipDiscountRate = 0.10;
         }
 
+        if (amount_off) {
+            couponDiscountRate = amount_off;
+        }
+
         const servicePricewithmemberhsip = 135 * (1 - membershipDiscountRate);
         const adds_onprice = (totalPrice - 135);
         const tip = (servicePricewithmemberhsip + adds_onprice) * 0.18;
         const Tax = (servicePricewithmemberhsip + adds_onprice) * taxRate;
-        const totalAmounts = servicePricewithmemberhsip + adds_onprice + tip + Tax;
+        const percent_ofDis = (servicePricewithmemberhsip * percent_offRate) / 100;
+        const totalAmounts = servicePricewithmemberhsip + adds_onprice + tip + Tax - couponDiscountRate - percent_ofDis;
 
         // Update state variables
         setServiceDetails({
@@ -201,7 +204,7 @@ const Conform = () => {
         setTotalAmount(totalAmounts);
         setAddsAmount(adds_onprice);
         setOriginalprice(servicePricewithmemberhsip)
-    }, [totalPrice, membership, formData.fifthform]);
+    }, [totalPrice, membership, formData.fifthform, amount_off, percent_off]);
 
 
 
@@ -322,13 +325,6 @@ const Conform = () => {
 
 
 
-
-
-    // console.log("data all get", bookingData)
-
-
-
-
     const handleCheckout = async () => {
         setLoading(true);
 
@@ -357,10 +353,6 @@ const Conform = () => {
     useEffect(() => {
         const sendBookingData = async () => {
             try {
-                // Check if bookingData exists
-                // if (!loading) {
-                //     throw new Error('Booking data is missing.');
-                // }
 
                 const response = await fetch(`${IP}/user/pendingbooking`, {
                     method: 'POST',
@@ -394,21 +386,6 @@ const Conform = () => {
         // Call the function to send booking data
         sendBookingData();
     }, [bookingData?.amount_calculation?.amount_tip, provider_addon, giftCardAmount, loading]); // Trigger when bookingData changes
-
-
-
-
-    //megift card
-
-
-
-
-
-
-
-
-
-
 
 
     useEffect(() => {
@@ -473,6 +450,21 @@ const Conform = () => {
     };
 
 
+
+    const onCoupon = async () => {
+        console.log("coupon amount charge", coupon)
+
+        try {
+            const res = await axios.post(`${IP}/coupon/check_coupon`, { code: coupon });
+            console.log(res);
+
+            if (res.status === 200) {
+                setCouponAmount(res.data); // Assuming the coupon amount is returned in the response data
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
 
 
@@ -575,11 +567,17 @@ const Conform = () => {
                                 <li>
                                     <div className="form-group row mb-3">
                                         <div className="col-7 mb-0 px-0 pr-2">
-                                            <input id="e-mail" type="text" placeholder="Have a coupon code ?" className="form-control input-box rm-border text-left" />
+                                            <input id="e-mail" type="text"
+                                                onChange={(e) => setCoupon(e.target.value)}
+                                                value={coupon}
+
+                                                placeholder="Have a coupon code ?"
+                                                className="form-control input-box rm-border text-left"
+                                            />
                                         </div>
                                         <div className='col-1 px-0'>{" "}</div>
                                         <div className="col-2 px-0">
-                                            <button type="submit" className="button" >Apply!</button>
+                                            <button type="submit" className="button" onClick={onCoupon} >Apply!</button>
                                         </div>
                                     </div>
 
@@ -620,6 +618,29 @@ const Conform = () => {
                                             <span className='value'>
                                                 6.625% Taxes: ${tax.toFixed(2)}
                                             </span></p>
+
+
+
+                                        {amount_off && (
+                                            <p className="prices" style={{ fontSize: '17px' }}>
+                                                <span className='value'>
+                                                    Coupon Discount:${amount_off.toFixed(2)}
+
+                                                </span></p>
+                                        )}
+                                        {percent_off && (
+                                            <p className="prices" style={{ fontSize: '17px' }}>
+                                                <span className='value'>
+                                                %Coupon Discount: ${percent_off / 100}%
+                                                </span></p>
+                                        )}
+
+
+
+
+
+
+
                                         {membership === "Silver" && (
                                             <p className="prices" style={{ fontSize: '17px' }}>
                                                 <span className='value'>

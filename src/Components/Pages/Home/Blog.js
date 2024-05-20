@@ -12,7 +12,7 @@ function Blog() {
       try {
         const res = await fetch(`${IP}/blog/blogs`);
         const data = await res.json();
-        console.log("data",data)
+        console.log("data", data)
         setUsers(data?.posts?.slice(0, 3));
         setImage(data[0].attachments)
         console.log("get post data", data);

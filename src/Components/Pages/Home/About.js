@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { IP } from "../../../Constant";
+import { useDispatch, useSelector } from 'react-redux';
+import { updateInputData } from '../Redux/counterSlice';
+import { fetchPostData } from '../../Hooks/Hooks';
+import Loader from '../Loader';
 
 // import Image1 from "../../assets/img/treatment-finger-keep-hand-161477.jpeg"
 import Image2 from "../../assets/img/meditate.svg";
@@ -10,41 +14,50 @@ import Image4 from "../../assets/img/sahasrara.svg";
 function About() {
   const postIds = ["63fa025b06e32e1493232788"];
 
-  const [users, setUsers] = useState([]);
-  const [images, setImages] = useState([]);
-  const [img, setImg] = useState("");
+  // const users = useSelector((state) => state?.counter?.formData?.home_about);
+  const img = useSelector((state) => state?.counter?.formData?.home_about_image);
+  const formData = useSelector((state) => state?.counter?.formData);
+  const users = formData.home_about && formData.home_about[0] ? formData.home_about[0] : "";
+  const dispatch = useDispatch();
 
+  console.log("user about data", users)
+
+  // useEffect hook to fetch data and navigate
   useEffect(() => {
-    async function fetchData() {
-      const responses = await Promise.all(
-        postIds.map(async (id) => {
-          const res = await fetch(`${IP}/post/fetch/${id}`);
-          return res.json();
-        })
-      );
-      setUsers(responses[0]);
-      setImages(responses.flatMap((response) => response.attachments));
-    }
-    fetchData();
-  }, []);
+    const getDataAndNavigate = async () => {
+      try {
+        // Fetch data for all specified IDs
+        const responses = await Promise.all(
+          postIds.map(async (id) => {
+            const data = await fetchPostData(id);
+            return data;
+          })
+        );
+        const fetchedUser = responses[0];
+        dispatch(updateInputData({ formName: 'home_about', inputData: fetchedUser }));
 
-  useEffect(() => {
-    async function fetchImages() {
-      const imageObjects = await Promise.all(
-        images.map(async (image) => {
-          const res = await fetch(`${IP}/file/${image}`);
-          const imageBlob = await res.blob();
-          return URL.createObjectURL(imageBlob);
-        })
-      );
-      setImg(imageObjects); // Set the first image URL as the state value
-    }
-    if (images.length > 0) {
-      fetchImages();
-    }
-  }, [images]);
+        // If fetched user has attachments, fetch and update image URL
+        if (fetchedUser && fetchedUser.attachments) {
+          const imageResponse = await fetch(`${IP}/file/${fetchedUser.attachments}`);
+          const imageBlob = await imageResponse.blob();
+          const imageURL = URL.createObjectURL(imageBlob);
+          dispatch(updateInputData({ formName: 'home_about_image', inputData: imageURL }));
+        }
+      } catch (error) {
+        // Handle errors by logging them to the console
+        console.error('Error fetching data and navigating:', error);
+      }
+    };
 
-  const navigate = useNavigate();
+    // Call the asynchronous function to fetch data and navigate
+    getDataAndNavigate();
+  }, [dispatch]); // Dependencies array to ensure useEffect runs only once
+
+
+  if (!users) {
+    return <Loader />
+  }
+
 
   return (
     <>

@@ -1,8 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useHistory from React Router
+import { useNavigate } from 'react-router-dom';
 import { IP } from '../../../Constant';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateInputData } from '../Redux/counterSlice';
+import { fetchPostData } from '../../Hooks/Hooks';
+import Loader from '../Loader';
 
 function Yoga() {
+  const [img, setImg] = useState('');
+
+  const users = useSelector((state) => state?.counter?.formData?.home_service);
+  const formData = useSelector((state) => state?.counter?.formData);
+  const image = formData.home_service_image && formData.home_service_image[0] ? formData.home_service_image[0] : "";
+  const dispatch = useDispatch();
+
+
   const [activeCardIndex, setActiveCardIndex] = useState(null);
   const postIds = ['63f898655a71849662bd1755', '63f89bb15a71849662bd1a8b', '63f89c1e5a71849662bd1ac2'];
   const url = [
@@ -20,37 +32,53 @@ function Yoga() {
     }
   ];
 
-  const [users, setUsers] = useState([]);
-  const [img, setImg] = useState('');
 
   useEffect(() => {
     async function fetchData() {
-      const responses = await Promise.all(
-        postIds.map(async id => {
-          const res = await fetch(`${IP}/post/fetch/${id}`);
-          return res.json();
-        })
-      );
-      setUsers(responses);
-      setImg(
-        await Promise.all(
-          responses.flatMap(response => response.attachments).map(async image => {
-            const res = await fetch(`${IP}/file/${image}`);
-            const imageBlob = await res.blob();
-            return URL.createObjectURL(imageBlob);
+      try {
+        const responses = await Promise.all(
+          postIds.map(async (id) => {
+            const data = await fetchPostData(id);
+            return data;
           })
-        )
-      );
+        );
+
+        dispatch(updateInputData({ formName: 'home_service', inputData: responses }));
+        setImg(
+          await Promise.all(
+            responses.flatMap(response => response.attachments).map(async image => {
+              const res = await fetch(`${IP}/file/${image}`);
+              const imageBlob = await res.blob();
+              return URL.createObjectURL(imageBlob);
+            })
+          )
+        );
+      } catch (error) {
+        console.error('Error fetching data and images:', error);
+      }
     }
     fetchData();
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    if (img.length > 0) {
+      dispatch(updateInputData({ formName: 'home_service_image', inputData: img }));
+    }
+  }, [img, dispatch]);
+
+
+
 
   const handleReadMoreClick = (index) => {
     setActiveCardIndex(index);
   };
 
-  const history = useNavigate(); // Get the history object
+  const history = useNavigate();
 
+
+  if (!users) {
+    return <Loader />
+  }
   return (
     <>
       <div id="types" className='marketplace'>
@@ -59,23 +87,25 @@ function Yoga() {
             <div className="col-sm-12 col-sm-offset-1">
               <div className="container-fluid">
                 <div className="row">
-                  {users.map((user, index) => (
+                  {Array.isArray(users) && users.length > 0 && users[0] && users[0].map((user, index) => (
                     <div className="col-sm-4 col-xs-12" key={user._id}>
                       <div className="item_wrapper">
                         <div className="item">
                           <div
                             className="bg"
                             style={{
-                              backgroundImage: `url(${img[index]})`,
+                              backgroundImage: `url(${image[index]})`,
                               borderRadius: '7px',
                             }}
                           ></div>
                           <div className="content">
                             <h3>{user.title}</h3>
                             <p dangerouslySetInnerHTML={{
-                              __html: index === activeCardIndex
-                                ? user.description
-                                : user.description.slice(0, 200) + (user.description.length > 180 ? "...." : "")
+                              __html: user.description ? (
+                                index === activeCardIndex
+                                  ? user.description
+                                  : user.description.slice(0, 200) + (user.description.length > 180 ? "...." : "")
+                              ) : ''
                             }} />
 
                             {index === activeCardIndex ? (

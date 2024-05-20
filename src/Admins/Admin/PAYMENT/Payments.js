@@ -25,11 +25,11 @@ function Payments() {
 
   const [startDate, setStartDate] = useState(moment().format('YYYY-MM-DD'));
   const [endDate, setEndDate] = useState(moment().format('YYYY-MM-DD'));
-  
+
   const [loading, setLoading] = useState(null);
   const [totalTip, setTotalTip] = useState(0);
   const [user, setUser] = useState([]);
-  
+
 
   let token = localStorage.getItem("tokenadmin");
 
@@ -42,7 +42,7 @@ function Payments() {
 
     setStartDate(startDate);
     setEndDate(endDate);
-}, [startDate, endDate]);
+  }, [startDate, endDate]);
 
 
 
@@ -70,7 +70,7 @@ function Payments() {
 
   const handleRowClick = (cur) => {
     console.log("cur", cur); // Check the structure of cur
-    navigate(`/admin/payments/details/${cur.provider_details._id}`, { state: { cur ,startDate ,endDate} });
+    navigate(`/admin/payments/details/${cur.provider_details._id}`, { state: { cur, startDate, endDate } });
   };
 
 
@@ -145,25 +145,25 @@ function Payments() {
   const handleFilter = () => {
     console.log("startDate:", startDate);
     console.log("endDate:", endDate);
-  
+
     const filteredData = user.filter(event => {
       console.log("eventDate:", event.services[0].createdAt); // Accessing the first element's createdAt property
-  
+
       const eventDate = moment(event.services[0].createdAt, 'YYYY-MM-DD'); // Adjust the format based on the actual format of eventDate
-      
+
       const isWithinDateRange = (!startDate || moment(startDate).isSameOrBefore(eventDate, 'day')) &&
         (!endDate || moment(endDate).isSameOrAfter(eventDate, 'day'));
-      
+
       const isSearched = !searchText || event.provider_details.first_name.toLowerCase().includes(searchText.toLowerCase());
-      
+
       return isWithinDateRange && isSearched;
     });
-    
+
     return filteredData;
   };
-  
-  
-  
+
+
+
 
   const memoizedUser = handleFilter();
 
