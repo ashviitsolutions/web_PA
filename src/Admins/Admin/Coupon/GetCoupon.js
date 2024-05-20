@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import ReactPaginate from 'react-paginate';
-import { IP } from '../../../Constant';
 import { FallingLines } from "react-loader-spinner";
+import { IP } from '../../../Constant';
 
 const PreviewImage = ({ attachments }) => {
     const [imageObjectURL, setImageObjectURL] = useState(null);
@@ -27,76 +26,55 @@ const PreviewImage = ({ attachments }) => {
 
 function GetCoupon() {
     const [search, setSearch] = useState("");
-    const [type, setType] = useState([]);
-    const [selectedType, setSelectedType] = useState("");
     const [user, setUser] = useState([]);
-    const [data, setData] = useState(1);
-
     const [pageNumber, setPageNumber] = useState(1);
-    const [loading, setLoading] = useState(null);
-
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        setLoading(true);
-        fetch(`${IP}/coupon/fetch?page=${pageNumber}&limit=20`).then(resp => resp.json())
-            .then(result => {
-                if (result && result.coupons && result.coupons.length > 0) {
-                    // setUser(result.users);
-                    const userdata = result.coupons;
-                    setUser(prevData => [...prevData, ...userdata]);
-                    setLoading(false);
-                    console.log("Users fetched:", result.users);
-                } else if (result && result.msg) {
-                    console.log(result.msg);
+        const fetchCoupons = async () => {
+            setLoading(true);
+            try {
+                const response = await fetch(`${IP}/coupon/fetch?page=${pageNumber}&limit=10`);
+                const result = await response.json();
+                if (result && result.coupons) {
+                    setUser(prevData => [...prevData, ...result.coupons]);
                 } else {
-                    console.log("Invalid response format:", result);
+                    console.error('Invalid response format:', result);
                 }
-            }).catch(err => {
-                console.log(err);
-            }).finally(() => {
+            } catch (error) {
+                console.error('Error fetching coupons:', error);
+            } finally {
                 setLoading(false);
-            });
+            }
+        };
+
+        fetchCoupons();
     }, [pageNumber]);
 
-
-
-
-
-
-
-
-
-
-
-    const handleInfiniteScroll = async () => {
-        try {
-
-            if (
-                window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight
-            ) {
-                setPageNumber((prev) => prev + 1);
-                setLoading(true)
-            }
-
-
-        } catch (error) {
-            setLoading(false)
+    const handleInfiniteScroll = useCallback(() => {
+        if (window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight) {
+            setPageNumber(prev => prev + 1);
         }
-    }
-
+    }, []);
 
     useEffect(() => {
         window.addEventListener("scroll", handleInfiniteScroll);
-        return () => window.removeEventListener("scroll", handleInfiniteScroll)
-    }, [])
+        return () => window.removeEventListener("scroll", handleInfiniteScroll);
+    }, [handleInfiniteScroll]);
 
     const memoizedUser = useMemo(() => {
-        // Coupon category ka data filter karo
-        const filteredData = user.filter(item => item.type === 'coupon');
+        return user.filter(item => {
+            const matchesType = item.type === 'coupon';
+            const matchesSearch = !search || (
+                (item.title && item.title.toLowerCase().includes(search.toLowerCase())) ||
+                (item.price && item.price.toString().toLowerCase().includes(search.toLowerCase())) ||
+                (item.offerValue && item.offerValue.toString().toLowerCase().includes(search.toLowerCase()))
+            );
+            return matchesType && matchesSearch;
+        });
+    }, [user, search]);
 
-        // Data ka desired portion slice karo
-        return filteredData;
-    }, [user]);
+    console.log("filter data", memoizedUser)
 
     return (
         <>
@@ -107,11 +85,11 @@ function GetCoupon() {
                             <div className="headings float_wrapper">
                                 <div className="gutter pull-left">
                                     <h3>All Coupon Cards</h3>
-                                    <p>list of all add posts</p>
+                                    <p>List of all add posts</p>
                                 </div>
                                 <div className="gutter pull-left">
                                     <Link to="/admin/coupon/addcoupon">
-                                        <button className="button small primary" type="button" name="button">
+                                        <button className="button small primary" type="button">
                                             Add New
                                         </button>
                                     </Link>
@@ -123,7 +101,6 @@ function GetCoupon() {
                     <div className="row">
                         <div className="gutter">
                             <div className="card layer1 filters">
-
                                 <div className="input_group pull-right">
                                     <input
                                         type="text"
@@ -147,13 +124,13 @@ function GetCoupon() {
                                         <th>Price/Type</th>
                                     </tr>
                                 </thead>
-                                {memoizedUser.map((cur, index) => {
-                                    return (
+                                <tbody>
+                                    {memoizedUser.map((cur, index) => (
                                         <tr key={index}>
                                             <td>
                                                 <div className="card layer1">
                                                     <div className="inner">
-                                                        <label htmlFor="" className="card_label"></label>
+                                                        <label className="card_label"></label>
                                                         <div
                                                             className='preview'
                                                             style={{ width: "100%", height: "20vh", backgroundSize: "cover" }}
@@ -166,12 +143,12 @@ function GetCoupon() {
                                             <td>
                                                 <div className="content">
                                                     <span className="title" id='headingtitle'>{cur.title}</span>
-                                                    <small> <p className="description" dangerouslySetInnerHTML={{ __html: cur.description }} /></small>
+                                                    <small><p className="description" dangerouslySetInnerHTML={{ __html: cur.description }} /></small>
                                                 </div>
                                             </td>
                                             <td>
                                                 <div className='typefield'>
-                                                    <span style={{ display: "block" }}> {cur.category}</span>
+                                                    <span style={{ display: "block" }}>{cur.category}</span>
                                                     <div className="content mt-3">
                                                         <span className="title" id='headingtitle'><span id='pricevalue'>Coupon code: </span>{cur.coupon_code}</span>
                                                     </div>
@@ -181,23 +158,20 @@ function GetCoupon() {
                                                                 <span id='pricevalue'>off: {cur.percent_off}% </span>
                                                             </span>
                                                         )}
-
                                                         {cur.amount_off && (
                                                             <span className="title" id='headingtitle'>
                                                                 <span id='pricevalue'>off: {cur.amount_off}$ </span>
                                                             </span>
                                                         )}
                                                     </div>
-
-
                                                     <Link to={`/admin/coupon/editcoupon/${cur._id}`}>
                                                         <span className="Edit mt-3">Edit Page</span>
                                                     </Link>
                                                 </div>
                                             </td>
                                         </tr>
-                                    )
-                                })}
+                                    ))}
+                                </tbody>
                             </table>
                             {loading && (
                                 <div style={{ textAlign: "center" }}>

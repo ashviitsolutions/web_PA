@@ -26,7 +26,7 @@ function Clients() {
 
     useEffect(() => {
         setLoading(true);
-        fetch(`${IP}/admin/allusers?page=${pageNumber}&limit=10`, {
+        fetch(`${IP}/admin/allusers`, {
             headers: {
                 'Authorization': token
             }
@@ -41,7 +41,7 @@ function Clients() {
             }).finally(() => {
                 setLoading(false);
             });
-    }, [pageNumber]);
+    }, []);
 
 
 
@@ -86,12 +86,19 @@ function Clients() {
         return () => window.removeEventListener("scroll", handleInfiniteScroll)
     }, []);
 
+
+
     const handleFilter = () => {
+        console.log("start date and end date", startDate, endDate)
+
         // Filter data based on selected dates, status, and search text
         const filteredData = user.filter(contractor => {
+            console.log("createAt date", contractor.createdAt)
             const isStatusMatched = !status || contractor.application_status_text === status;
-            const isWithinDateRange = (!startDate || new Date(contractor.createdAt) >= new Date(startDate)) &&
-                (!endDate || new Date(contractor.createdAt) <= new Date(endDate));
+            const eventDate = moment(contractor.createdAt, 'YYYY-MM-DD'); // Adjust the format based on the actual format of eventDate
+
+            const isWithinDateRange = (!startDate || moment(startDate).isSameOrBefore(eventDate, 'day')) &&
+                (!endDate || moment(endDate).isSameOrAfter(eventDate, 'day'));
             const isSearched = !searchText || (contractor.first_name.toLowerCase().includes(searchText.toLowerCase()) || contractor.last_name.toLowerCase().includes(searchText.toLowerCase()) || contractor.email.toLowerCase().includes(searchText.toLowerCase()));
             return isWithinDateRange && isStatusMatched && isSearched;
         });
@@ -99,6 +106,16 @@ function Clients() {
     };
 
     const memoizedUser = handleFilter();
+
+    console.log("memoizedUser ",memoizedUser)
+
+
+
+
+
+
+
+
 
 
     const handleRowClick = (client) => {

@@ -30,18 +30,18 @@ function EditClient() {
     };
 
     const SignupSchema = Yup.object().shape({
-        email: Yup.string().email('Please enter a valid email address').required('Email is required'),
-        name: Yup.string().required('Name is required'),
-        password: Yup.string()
-            // .required('Password is required')
-            .min(8, 'Password must be at least 8 characters')
-            .matches(
-                /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-                'Must contain 8 characters, one uppercase, one lowercase, one number and one special character'
-            ),
-        Confirm_Password: Yup.string()
-            // .required('Confirm password is required')
-            .oneOf([Yup.ref('password'), ''], 'Passwords must match'),
+        // email: Yup.string().email('Please enter a valid email address').required('Email is required'),
+        // name: Yup.string().required('Name is required'),
+        // password: Yup.string()
+        //     // .required('Password is required')
+        //     .min(8, 'Password must be at least 8 characters')
+        //     .matches(
+        //         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+        //         'Must contain 8 characters, one uppercase, one lowercase, one number and one special character'
+        //     ),
+        // Confirm_Password: Yup.string()
+        //     // .required('Confirm password is required')
+        //     .oneOf([Yup.ref('password'), ''], 'Passwords must match'),
     });
 
 
