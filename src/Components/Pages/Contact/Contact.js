@@ -7,35 +7,55 @@ import { toast } from 'react-toastify';
 import Faq from '../Home/Faq';
 import { IP } from '../../../Constant';
 import './Contact.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateInputData } from '../Redux/counterSlice';
+import { fetchPostData } from '../../Hooks/Hooks';
+import Loader from '../Loader';
 
 function Contact() {
     const postIds = ['64007afb61c43a17d60e95b4'];
-    const [users, setUsers] = useState([]);
-    const [img, setImg] = useState('');
-    const [loading, setLoading] = useState(false); // State variable for loading indicator
+    const [loading, setLoading] = useState(false);
+    const users = useSelector((state) => state?.counter?.formData?.contact_banner);
+    const img = useSelector((state) => state?.counter?.formData?.contact_banner_image);
+    const dispatch = useDispatch();
 
+
+
+    // useEffect hook to fetch data and navigate
     useEffect(() => {
-        async function fetchData() {
+        const getDataAndNavigate = async () => {
             try {
-                const responses = await Promise.all(postIds.map(async id => {
-                    const res = await fetch(`${IP}/post/fetch/${id}`);
-                    return res.json();
-                }));
-                setUsers(responses[0]);
-                const imageUrls = await Promise.all(
-                    responses.flatMap(response => response.attachments).map(async image => {
-                        const res = await fetch(`${IP}/file/${image}`);
-                        const imageBlob = await res.blob();
-                        return URL.createObjectURL(imageBlob);
+                // Fetch data for all specified IDs
+                const responses = await Promise.all(
+                    postIds.map(async (id) => {
+                        const data = await fetchPostData(id);
+                        return data;
                     })
                 );
-                setImg(imageUrls[0]);
+                const fetchedUser = responses[0];
+                dispatch(updateInputData({ formName: 'contact_banner', inputData: fetchedUser }));
+
+                // If fetched user has attachments, fetch and update image URL
+                if (fetchedUser && fetchedUser.attachments) {
+                    const imageResponse = await fetch(`${IP}/file/${fetchedUser.attachments}`);
+                    const imageBlob = await imageResponse.blob();
+                    const imageURL = URL.createObjectURL(imageBlob);
+                    dispatch(updateInputData({ formName: 'contact_banner_image', inputData: imageURL }));
+                }
             } catch (error) {
-                console.error('Error fetching data:', error);
+                // Handle errors by logging them to the console
+                console.error('Error fetching data and navigating:', error);
             }
-        }
-        fetchData();
-    }, []);
+        };
+
+        // Call the asynchronous function to fetch data and navigate
+        getDataAndNavigate();
+    }, [dispatch]); // Dependencies array to ensure useEffect runs only once
+
+
+    // if (!users) {
+    // 	return <Loader />
+    // }
 
     const initialValues = {
         name: '',
@@ -159,7 +179,7 @@ function Contact() {
                                                     </div>
                                                     <div className="col-sm-12">
                                                         <div className="input_group">
-                                                           
+
                                                             <Field
                                                                 as="textarea"
                                                                 id="textareacontactpage"

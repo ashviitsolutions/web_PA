@@ -49,9 +49,9 @@ function Banner() {
 	}, [dispatch]); // Dependencies array to ensure useEffect runs only once
 
 
-	if (!users) {
-		return <Loader />
-	}
+	// if (!users) {
+	// 	return <Loader />
+	// }
 
 	// Render the component JSX
 	return (
