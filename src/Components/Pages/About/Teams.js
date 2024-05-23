@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import Member from '../Services/Submenu/Member'
 import { IP } from '../../../Constant';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { updateInputData } from '../Redux/counterSlice';
 function Teams() {
   const postIds = ['63fa03a606e32e1493232825', '653fb043ea0362647dc676da', '63fa03e106e32e1493232845'];
 
-  const [users, setUsers] = useState([]);
+  // const [users, setUsers] = useState([]);
   const [img, setImg] = useState('');
+
+  const dispatch = useDispatch();
+  const formData = useSelector((state) => state?.counter?.formData);
+  const users = formData.about_team && formData.about_team[0] ? formData.about_team[0] : "";
+  const imgs = formData.about_team_image && formData.about_team_image[0] ? formData.about_team_image[0] : "";
 
   useEffect(() => {
     async function fetchData() {
@@ -17,7 +23,8 @@ function Teams() {
 
         })
       );
-      setUsers(responses);
+      // setUsers(responses);
+      dispatch(updateInputData({ formName: 'about_team', inputData: responses }));
       setImg(
         await Promise.all(
           responses.flatMap(response => response.attachments).map(async image => {
@@ -30,6 +37,14 @@ function Teams() {
     }
     fetchData();
   }, [])
+
+  
+  useEffect(() => {
+    if (img.length > 0) {
+      dispatch(updateInputData({ formName: 'about_team_image', inputData: img }));
+    }
+  }, [img, dispatch]);
+
   return (
     <>
       <div id='types' className='type'>
@@ -45,14 +60,14 @@ function Teams() {
             </div>
 
             <div className="row justify-content-center" >
-              {users.map((user, index) => (
+            {Array.isArray(users) && users.length > 0 && users.map((user, index) => (
                 <div className="col-sm-4" key={user._id}>
                   <div className="item_wrapper" >
                     <div className="className_brief item card layer1">
                       <div
                         className="bg"
                         style={{
-                          backgroundImage: `url(${img[index]})`,
+                          backgroundImage: `url(${imgs[index]})`,
                           borderRadius: '7px',
                         }}
                       ></div>

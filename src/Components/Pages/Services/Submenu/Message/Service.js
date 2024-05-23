@@ -7,13 +7,16 @@ import { updateInputData } from '../../../Redux/counterSlice';
 
 
 
+
 function Service() {
 
 	const dispatch = useDispatch();
-	const selector = useSelector((state) => state.counter.formData);
+	const formData = useSelector((state) => state?.counter?.formData);
+	const selector = useSelector((state) => state.counter.selector);
+	const users = formData.massagdemand_service && formData.massagdemand_service[0] ? formData.massagdemand_service[0] : "";
+	const imgs = formData.service_on_demand_image && formData.service_on_demand_image[0] ? formData.service_on_demand_image[0] : "";
 
-
-	console.log("selector", selector)
+	console.log("selector", users)
 
 	const [activeCardIndex, setActiveCardIndex] = useState(null);
 
@@ -21,8 +24,8 @@ function Service() {
 		setActiveCardIndex(index);
 	};
 
-	const [users, setUsers] = useState([]);
-	const [img, setImg] = useState("");
+	// const [users, setUsers] = useState([]);
+	const [img, setImg] = useState(imgs);
 
 	console.log(" image vaklue ", img);
 
@@ -31,7 +34,8 @@ function Service() {
 			try {
 				const res = await fetch(`${IP}/service/category?type=on demand`);
 				const data = await res.json();
-				setUsers(data);
+				// setUsers(data);
+				dispatch(updateInputData({ formName: 'massagdemand_service', inputData: data }));
 				const imageUrls = data.map(async (item) => {
 					const res = await fetch(`${IP}/file/${item.attachments}`);
 					const imageBlob = await res.blob();
@@ -57,6 +61,11 @@ function Service() {
 	};
 
 
+	useEffect(() => {
+		if (img.length > 0) {
+			dispatch(updateInputData({ formName: 'service_on_demand_image', inputData: img }));
+		}
+	}, [img, dispatch]);
 
 
 
@@ -77,14 +86,14 @@ function Service() {
 						<div className="col-sm-12 col-sm-offset-1">
 							<div className="container-fluid">
 								<div className="row">
-									{users.map((user, index) => (
+									{Array.isArray(users) && users.length > 0 && users.map((user, index) => (
 										<div className="col-sm-4 col-xs-12" key={user._id}>
 											<div className="item_wrapper">
 												<div className="item " id="items">
 													<div
 														className="bg"
 														style={{
-															backgroundImage: `url(${IP}/file/${user.attachments})`,
+															backgroundImage: `url(${imgs[index]})`,
 															borderRadius: "7px",
 														}}
 													></div>

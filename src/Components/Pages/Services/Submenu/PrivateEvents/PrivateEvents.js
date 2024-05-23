@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { IP } from '../../../../../Constant';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { updateInputData } from '../../../Redux/counterSlice';
 
 
 
 function PrivateEvents() {
+  const dispatch = useDispatch();
+  const formData = useSelector((state) => state?.counter?.formData);
+  const users = formData.private_services && formData.private_services[0] ? formData.private_services[0] : "";
+  const imgs = formData.private_services_image && formData.private_services_image[0] ? formData.private_services_image[0] : "";
   const [activeCardIndex, setActiveCardIndex] = useState(null);
 
   const handleReadMoreClick = (index) => {
     setActiveCardIndex(index);
   };
 
-  const [users, setUsers] = useState([]);
+  // const [users, setUsers] = useState([]);
   const [img, setImg] = useState('');
 
   useEffect(() => {
@@ -20,7 +25,8 @@ function PrivateEvents() {
       try {
         const res = await fetch(`${IP}/service/category?type=private events`);
         const data = await res.json();
-        setUsers(data);
+        // setUsers(data);
+        dispatch(updateInputData({ formName: 'private_services', inputData: data }));
         const imageUrls = data.map(async (item) => {
           const res = await fetch(`${IP}/file/${item.attachments}`);
           const imageBlob = await res.blob();
@@ -38,6 +44,11 @@ function PrivateEvents() {
   }, []);
 
 
+  useEffect(() => {
+    if (img.length > 0) {
+      dispatch(updateInputData({ formName: 'private_services_image', inputData: img }));
+    }
+  }, [img, dispatch]);
 
   return (
     <>
@@ -56,14 +67,14 @@ function PrivateEvents() {
             <div className="col-sm-12 col-sm-offset-1">
               <div className="container-fluid">
                 <div className="row">
-                  {users.map((user, index) => (
+                  {Array.isArray(users) && users.length > 0 && users.map((user, index) => (
                     <div className="col-sm-4 col-xs-12" key={user._id}>
                       <div className="item_wrapper">
                         <div className="item">
                           <div
                             className="bg"
                             style={{
-                              backgroundImage: `url(${img[index]})`,
+                              backgroundImage: `url(${imgs[index]})`,
                               borderRadius: '7px',
                             }}
                           ></div>

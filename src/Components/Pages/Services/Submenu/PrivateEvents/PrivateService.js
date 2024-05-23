@@ -5,15 +5,22 @@ import PrivateEvents from './PrivateEvents'
 import Faq from '../../../Home/Faq'
 import Worklist from '../Coroporate/Worklist'
 import { IP } from '../../../../../Constant'
+import { useDispatch, useSelector } from 'react-redux';
+import { updateInputData } from '../../../Redux/counterSlice';
 
 function Private_Events() {
-
-
   const postIds = ['640abb35ad080eddce521a04', '640abc38ad080eddce521ad7'];
-  const [users1, setUsers1] = useState([]);
+  const dispatch = useDispatch();
+  const formData = useSelector((state) => state?.counter?.formData);
+  const users1 = formData.private_service_banner1 && formData.private_service_banner1[0] ? formData.private_service_banner1[0] : "";
+  const users2 = formData.private_service_banner2 && formData.private_service_banner2[0] ? formData.private_service_banner2[0] : "";
+  // const imgs1 = formData.service_private_image && formData.service_private_image[0] ? formData.service_private_image[0] : "";
+  const imgs = formData.private_event_image && formData.private_event_image[0] ? formData.private_event_image[0] : "";
+  // const imgs = formData.service_private_image && formData.service_private_image[0] ? formData.service_private_image[0] : "";
+  // const [users1, setUsers1] = useState([]);
   const [img, setImg] = useState('');
 
-  const [users2, setUsers2] = useState([]);
+  // const [users2, setUsers2] = useState([]);
 
 
 
@@ -28,8 +35,9 @@ function Private_Events() {
 
         })
       );
-      setUsers1(responses[0]);
-      setUsers2(responses[1]);
+
+      dispatch(updateInputData({ formName: 'private_service_banner1', inputData: responses[0] }));
+      dispatch(updateInputData({ formName: 'private_service_banner2', inputData: responses[1] }));
       setImg(
         await Promise.all(
           responses.flatMap(response => response.attachments).map(async image => {
@@ -44,10 +52,18 @@ function Private_Events() {
   }, []);
 
 
+  useEffect(() => {
+    if (img.length > 0) {
+      dispatch(updateInputData({ formName: 'private_event_image', inputData: img }));
+    }
+  }, [img, dispatch]);
+
+
+
   return (
     <>
       <div id="small_banner" style={{
-        backgroundImage: `url(${img[0]})`,
+        backgroundImage: `url(${imgs[0]})`,
         borderRadius: '7px',
       }}>
         <div className="container">
@@ -56,7 +72,7 @@ function Private_Events() {
               <div className="head">
 
                 <h1>{users1.title}</h1>
-                <h3 dangerouslySetInnerHTML={{ __html: users1.description }}   />
+                <h3 dangerouslySetInnerHTML={{ __html: users1.description }} />
               </div>
             </div>
           </div>
@@ -68,15 +84,15 @@ function Private_Events() {
           <div className="row">
             <div className="col-sm-6">
               <div className="bg" style={{
-                backgroundImage: `url(${img[1]})`,
+                backgroundImage: `url(${imgs[1]})`,
                 borderRadius: '7px',
-            }}>
+              }}>
               </div>
             </div>
             <div className="col-sm-6">
               <div className="heading">
                 <h3>{users2.title}</h3>
-                <p dangerouslySetInnerHTML={{ __html: users2.description }}  />
+                <p dangerouslySetInnerHTML={{ __html: users2.description }} />
 
 
                 {/* <button className="button" type="button" name="button">book now</button> */}
@@ -86,8 +102,8 @@ function Private_Events() {
         </div>
       </div>
 
-   <PrivateEvents/>
-   <Worklist/>
+      <PrivateEvents />
+      <Worklist />
       <Faq />
     </>
   )

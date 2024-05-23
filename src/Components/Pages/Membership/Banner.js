@@ -9,8 +9,8 @@ import Loader from '../Loader';
 function Banner() {
 	const postIds = ["64073ef5ad080eddce51fae5"];
 	const [loading, setLoading] = useState(false);
-	const users = useSelector((state) => state?.counter?.formData?.contact_banner);
-	const img = useSelector((state) => state?.counter?.formData?.contact_banner_image);
+	const users = useSelector((state) => state?.counter?.formData?.membership_banner);
+	const img = useSelector((state) => state?.counter?.formData?.membership_banner_image);
 	const dispatch = useDispatch();
 
 
@@ -27,14 +27,14 @@ function Banner() {
 					})
 				);
 				const fetchedUser = responses[0];
-				dispatch(updateInputData({ formName: 'contact_banner', inputData: fetchedUser }));
+				dispatch(updateInputData({ formName: 'membership_banner', inputData: fetchedUser }));
 
 				// If fetched user has attachments, fetch and update image URL
 				if (fetchedUser && fetchedUser.attachments) {
 					const imageResponse = await fetch(`${IP}/file/${fetchedUser.attachments}`);
 					const imageBlob = await imageResponse.blob();
 					const imageURL = URL.createObjectURL(imageBlob);
-					dispatch(updateInputData({ formName: 'contact_banner_image', inputData: imageURL }));
+					dispatch(updateInputData({ formName: 'membership_banner_image', inputData: imageURL }));
 				}
 			} catch (error) {
 				// Handle errors by logging them to the console
