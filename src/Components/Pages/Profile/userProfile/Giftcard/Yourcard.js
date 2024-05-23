@@ -6,6 +6,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { IP } from '../../../../../Constant';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateInputData } from "../../../Redux/counterSlice";
 
 function Yourcard() {
 
@@ -14,10 +16,17 @@ function Yourcard() {
     const [isModalOpen, setModalOpen] = useState(false);
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
-    const [user, setUser] = useState([]);
+    // const [user, setUser] = useState([]);
     const [giftCardId, setGiftcardId] = useState();
     const [images, setImageObjectURL] = useState([]);
     const [loading, setLoading] = useState(false);
+
+    const dispatch = useDispatch();
+    const formData = useSelector((state) => state?.counter?.formData);
+
+    const user = formData.my_giftcard && formData.my_giftcard[0] ? formData.my_giftcard[0] : "";
+    const imgs = formData.about_team_image && formData.about_team_image[0] ? formData.about_team_image[0] : "";
+
 
     const openModal = (id) => {
         setGiftcardId(id)
@@ -41,7 +50,7 @@ function Yourcard() {
 
                 const res = await fetch(`${IP}/user/my-giftCards`, config);
                 const data = await res.json();
-                setUser(data?.data);
+                // setUser(data?.data);
 
                 console.log("user/my-giftCards", data.data);
             } catch (error) {

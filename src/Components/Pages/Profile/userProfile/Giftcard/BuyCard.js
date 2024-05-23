@@ -4,16 +4,23 @@ import { IP } from "../../../../../Constant";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import StripeCheckout from "react-stripe-checkout";
+import { useDispatch, useSelector } from 'react-redux';
+import { updateInputData } from "../../../Redux/counterSlice";
 
 function BuyCard() {
 	const user_id = localStorage.getItem("userid");
 	const nav = useNavigate();
-	const [user, setUser] = useState([]);
+	// const [user, setUser] = useState([]);
 	const [clientSecret, setClientSecret] = useState(null);
 	const [offerId, setOfferId] = useState(null);
 	const [prices, setPrices] = useState(null);
 	const [ID, setID] = useState([]);
 	const [loading, setLoading] = useState(false);
+	const dispatch = useDispatch();
+	const formData = useSelector((state) => state?.counter?.formData);
+	const user = formData.list_giftcard && formData.list_giftcard[0] ? formData.list_giftcard[0] : "";
+	const mygifcart = formData.my_giftcard && formData.my_giftcard[0] ? formData.my_giftcard[0] : "";
+	const imgs = formData.about_team_image && formData.about_team_image[0] ? formData.about_team_image[0] : "";
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -22,13 +29,15 @@ function BuyCard() {
 				const data = await res.json();
 				console.log("giftcard filter data", data)
 				const filteredGiftCards = data?.coupons?.filter((d) => d.type === "gift_card");
-				setUser(filteredGiftCards);
+				// setUser(filteredGiftCards);
+				dispatch(updateInputData({ formName: 'list_giftcard', inputData: filteredGiftCards }));
 			} catch (error) {
 				console.error("Error fetching gift cards:", error);
 			}
 		};
 		fetchData();
 	}, []);
+
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -43,6 +52,7 @@ function BuyCard() {
 				const res = await fetch(`${IP}/user/my-giftCards`, config);
 				const data = await res.json();
 				setID(data?.data);
+				dispatch(updateInputData({ formName: 'my_giftcard', inputData: data?.data }));
 			} catch (error) {
 				console.error("Error fetching user gift cards:", error);
 			}
@@ -138,7 +148,7 @@ function BuyCard() {
 	return (
 		<>
 			<div id="gift_card_container_main">
-				{user.map((card, index) => {
+				{Array.isArray(user) && user.length > 0 && user.map((card, index) => {
 					const IDOfferId = ID.map(item => item.offerId._id);
 					const shouldRenderCard = !IDOfferId.includes(card._id);
 					if (shouldRenderCard) {
@@ -170,7 +180,8 @@ function BuyCard() {
 												stripeKey="pk_test_51MXmewLnVrUYOeK2PN2SexCsPAi8lsw8dIt7Pw04DUCsoCsv7a0VReRlGhbUuDOKYqbp1PEDWRWklwSvEsUD0NZ400sa7PXdfg"
 											>
 												<button
-													id="Buy_gift_card" className=""
+													id="Buy_gift_card"
+													className=""
 													onClick={(event) => {
 														event.preventDefault();
 														handleSubmit(card.price, card._id);
@@ -189,6 +200,7 @@ function BuyCard() {
 					}
 				})}
 			</div>
+
 		</>
 	);
 }
