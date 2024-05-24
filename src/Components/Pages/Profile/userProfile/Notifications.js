@@ -53,7 +53,7 @@ const Notifications = () => {
   return (
     <div className="progressbar_userpannel profileSpace">
       <div className="container__view">
-        {/* <Avatar name={username} /> */}
+       
         <h3>Notifications</h3>
         <div className="notification__view">
           {loading ? (
