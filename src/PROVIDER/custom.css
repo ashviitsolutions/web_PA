@@ -680,6 +680,9 @@
 .profileBtn .btn{
   margin: 0 5px;
 }
+.dropdown-item.active, .dropdown-item:active{
+  background-color: none !important;
+}
 
 @media only screen and (max-width: 768px) {
   .sidebar {
