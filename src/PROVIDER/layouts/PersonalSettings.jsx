@@ -173,15 +173,15 @@ const PersonalSettings = () => {
                 </div>
 
                 <div className="col-md-6">
-                  <span className="personal-info-title">call-status:</span> {status}
+                  <span className="personal-info-title">Status:</span> {status}
                 </div>
               </Row>
             </div>
           </div>
         </Row>
-        <Row className="mt-4 mb-4">
-          <div className="col-md-4 mb-4">
-            <div className="box shadow-sm mb-4">
+        <Row className="mt-12 mb-12">
+          <div className="col-md-12 mb-12">
+            <div className="box profileBtn shadow-sm mb-12" style={{textAlign: "center"}}>
               <h4 className="text-center">Actions</h4>
               <Button
                 onClick={() => setProfileEdit(true)}
