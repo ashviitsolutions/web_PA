@@ -5,7 +5,14 @@ import { IP } from "../../Constant";
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import { useNavigate } from "react-router-dom";
 import avtar from "./img/avtar.jpg"
+import { useDispatch, useSelector } from 'react-redux';
+import { updateInputData } from "../../Components/Pages/Redux/counterSlice";
+
+
 const NavProfile = () => {
+  const dispatch = useDispatch();
+  const formData = useSelector((state) => state?.counter?.formData);
+  const profileimage = formData.provider_profile_pic && formData.provider_profile_pic[0] ? formData.provider_profile_pic[0] : "";
   const [toggle, setToggle] = useState(false)
   const nav = useNavigate()
   const [images, setImages] = useState(null);
@@ -20,6 +27,7 @@ const NavProfile = () => {
           }
         });
         const result = await response.json();
+        dispatch(updateInputData({ formName: 'provider_profile', inputData: result }));
         setImages(result.profile_pic);
       } catch (err) {
         console.log(err);
@@ -32,6 +40,7 @@ const NavProfile = () => {
         const imageBlob = await res.blob();
         const imageObjectURL = URL.createObjectURL(imageBlob);
         setImg(imageObjectURL);
+        dispatch(updateInputData({ formName: 'provider_profile_pic', inputData: imageObjectURL }));
       } catch (err) {
         console.log(err);
       }
@@ -45,7 +54,8 @@ const NavProfile = () => {
 
 
   const handleToggle = () => {
-    setToggle(!toggle)
+    // setToggle(!toggle)
+    nav("/providers/notification")
   }
 
 
@@ -61,7 +71,7 @@ const NavProfile = () => {
             <div className="pull-left" style={{ display: "inline-block" }}>
               <img
                 className="thumbnail-image"
-                src={img || avtar}
+                src={profileimage || avtar}
                 alt="user pic"
                 style={{ width: "45px", objectFit: 'cover', borderRadius: '50%', height: '45px' }}
               />
@@ -69,11 +79,11 @@ const NavProfile = () => {
           }
           id="basic-nav-dropdown"
         >
-          <NavDropdown.Item>
+          {/* <NavDropdown.Item>
             <Link to="/providers/profile" className="nav-link">Profile</Link>
-          </NavDropdown.Item>
+        </NavDropdown.Item> */}
           <NavDropdown.Item>
-            <Link to="/providers/personal-settings" className="nav-link">Personal Settings</Link>
+            <Link to="/providers/personal-settings" className="nav-link">Profile</Link>
           </NavDropdown.Item>
 
           <NavDropdown.Divider />

@@ -10,20 +10,19 @@ import Editprofile from "../components/personalsettings/Editprofile";
 import { IP } from "../../Constant"
 import AddressEdit from "../components/personalsettings/AddressEdit";
 import ProfileEdit from "../components/personalsettings/ProfileEdit";
+import { useDispatch, useSelector } from 'react-redux';
+import { updateInputData } from "../../Components/Pages/Redux/counterSlice";
 
 
 const PersonalSettings = () => {
-  const [address, setAddress] = React.useState(false)
+  const dispatch = useDispatch();
+  const formData = useSelector((state) => state?.counter?.formData);
+  const user = formData.provider_profile && formData.provider_profile[0] ? formData.provider_profile[0] : "";
+  const profileimage = formData.provider_profile_pic && formData.provider_profile_pic[0] ? formData.provider_profile_pic[0] : "";
+  // const [user, setUser] = React.useState()
+
   const [addresedit, setAddresedit] = React.useState(false)
-  const [postalcode, setPostalcode] = React.useState("")
-  const [country, setCountry] = React.useState("")
-  const [state, setState] = React.useState("")
-  const [apt, setApt] = useState("")
-  const [city, setCity] = useState("")
-  const [skills, setSkills] = useState([])
-  const [status, setStatus] = useState("")
-  const [routing_number, setRouting_number] = useState("")
-  const [account_num, setAccount_num] = useState("")
+
   const [editAvailiblityShow, seteditAvailiblityShow] = React.useState(false);
   const [profileedit, setProfileEdit] = React.useState(false);
   const [editYourOtherInfoShow, seteditYourOtherInfoShow] =
@@ -48,27 +47,7 @@ const PersonalSettings = () => {
   let questions = questionsShow ? <Questionaire /> : "";
 
   const token = localStorage.getItem("providertoken")
-  useEffect(() => {
-    fetch(`${IP}/user/my_profile`, {
-      headers: {
-        'Authorization': token
-      }
-    }).then(resp => {
-      return resp.json()
-    }).then(data => {
-      console.log('prnsl setting', data)
-      setAddress(data.mailing_address.address)
-      setCountry(data.mailing_address.country)
-      setPostalcode(data.mailing_address.postal_code)
-      setState(data.mailing_address.state)
-      setApt(data.mailing_address.apt_number)
-      setCity(data.mailing_address.city)
-      setSkills(data.areas_of_expertise.on_demand)
-      setStatus(data.call_status)
-      setRouting_number(data.payout_info.routing_number)
-      setAccount_num(data.payout_info.account_number)
-    })
-  }, [])
+
 
 
 
@@ -90,11 +69,16 @@ const PersonalSettings = () => {
           }
         });
         const result = await response.json();
+        console.log("provider perofile data", result)
+        // setUser(result)
+        dispatch(updateInputData({ formName: 'provider_profile', inputData: result }));
         setImages(result.profile_pic);
       } catch (err) {
         console.log(err);
       }
     };
+
+    console.log("provider perofile user", user)
 
     const fetchImage = async () => {
       try {
@@ -102,6 +86,7 @@ const PersonalSettings = () => {
         const imageBlob = await res.blob();
         const imageObjectURL = URL.createObjectURL(imageBlob);
         setImg(imageObjectURL);
+        dispatch(updateInputData({ formName: 'provider_profile_pic', inputData: imageObjectURL }));
       } catch (err) {
         console.log(err);
       }
@@ -126,12 +111,12 @@ const PersonalSettings = () => {
   return (
     <>
       <Container  >
-        <Row className="mb-2">
+        <Row className="mb-2 mt-5">
           <div className="col-md-4 mb-2 text-center">
             <div className="img-box shadow">
               <FontAwesomeIcon className="edit profile-edit" icon={faPencil} onClick={() => setEditprofile(true)} />
               <img
-                src={img}
+                src={profileimage}
                 alt=""
                 style={{
                   width: "100%",
@@ -152,28 +137,24 @@ const PersonalSettings = () => {
               />
               <Row style={{ height: "100%", alignContent: "space-evenly" }}>
                 <div className="col-md-6">
-                  <span className="personal-info-title">Address :</span> {address}
+                  <span className="personal-info-title">Address :</span> {user?.mailing_address?.address}
                 </div>
                 <div className="col-md-6">
-                  <span className="personal-info-title">City :</span> {city}
-                  City
+                  <span className="personal-info-title">Postal Code :</span> {user?.mailing_address?.postal_code}
                 </div>
                 <div className="col-md-6">
-                  <span className="personal-info-title">Apt No :</span> {apt}
+                  <span className="personal-info-title">DOB :</span> {user?.DOB}
 
                 </div>
                 <div className="col-md-6">
-                  <span className="personal-info-title">State :</span> {state}
-                </div>
-                <div className="col-md-6">
-                  <span className="personal-info-title">Country :</span> {country}
-                </div>
-                <div className="col-md-6">
-                  <span className="personal-info-title">Postal Code :</span> {postalcode}
-                </div>
+                  <span className="personal-info-title">phone :</span> {user.phone}
 
+                </div>
                 <div className="col-md-6">
-                  <span className="personal-info-title">Status:</span> {status}
+                  <span className="personal-info-title">working shift :</span> {user.working_shift}
+                </div>
+                <div className="col-md-6">
+                  <span className="personal-info-title">Status:</span> {user.call_status}
                 </div>
               </Row>
             </div>
@@ -181,7 +162,7 @@ const PersonalSettings = () => {
         </Row>
         <Row className="mt-12 mb-12">
           <div className="col-md-12 mb-12">
-            <div className="box profileBtn shadow-sm mb-12" style={{textAlign: "center"}}>
+            <div className="box profileBtn shadow-sm mb-12" style={{ textAlign: "center" }}>
               <h4 className="text-center">Actions</h4>
               <Button
                 onClick={() => setProfileEdit(true)}

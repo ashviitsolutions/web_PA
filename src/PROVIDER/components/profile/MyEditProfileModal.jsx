@@ -8,7 +8,7 @@ const MyEditProfileModal = (props) => {
   let descriptionupdate = props.user.description;
   let mobileupdate = props.user.mobile;
   let emailupdate = props.user.email;
-  
+
   const [name, setName] = useState(nameupdate);
   const [description, setDescription] = useState(descriptionupdate);
   const [mobile, setMobile] = useState(mobileupdate);
@@ -65,7 +65,7 @@ const MyEditProfileModal = (props) => {
                 />
               </div>
               <div className="col-md-6">
-                <Form.Label>Email ID</Form.Label> 
+                <Form.Label>Email ID</Form.Label>
                 <Form.Control
                   name="email"
                   type="email"
@@ -103,7 +103,7 @@ const MyEditProfileModal = (props) => {
 
         </Modal.Body>
         <Modal.Footer style={{ justifyContent: "center" }}>
-          <Button onClick={()=> props.handleSave({upname: name, updescription: description, upmobile: mobile, upemail: email})}>Save</Button>
+          <Button onClick={() => props.handleSave({ upname: name, updescription: description, upmobile: mobile, upemail: email })}>Save</Button>
         </Modal.Footer>
       </Form>
     </Modal>
