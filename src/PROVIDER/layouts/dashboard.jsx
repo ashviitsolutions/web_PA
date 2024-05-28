@@ -7,11 +7,17 @@ import ScheduledEvents from "./ScheduledEvents";
 import { IP } from "../../Constant"
 import { useNavigate } from "react-router-dom";
 import Modal from "../Modal";
+import { useDispatch, useSelector } from 'react-redux';
+import { updateInputData } from "../../Components/Pages/Redux/counterSlice";
 
 const Dashboard = () => {
+  const dispatch = useDispatch();
+  const formData = useSelector((state) => state?.counter?.formData);
+  const request = formData.booking_request && formData.booking_request[0] ? formData.booking_request[0] : "";
+  // const wallate = formData.provider_wallet && formData.provider_wallet[0] ? formData.provider_wallet[0] : "";
   const nav = useNavigate()
 
-  const [request, setreq] = useState([])
+  // const [request, setreq] = useState([])
   const token = localStorage.getItem('providertoken')
 
 
@@ -29,6 +35,7 @@ const Dashboard = () => {
     }).then(result => {
 
       setWallate(result.wallet)
+      // dispatch(updateInputData({ formName: 'provider_wallet', inputData: result.wallet }));
 
     }).catch(err => {
       console.log(err)
@@ -36,7 +43,7 @@ const Dashboard = () => {
 
 
 
-  }, [])
+  }, [wallate,dispatch])
 
 
 
@@ -48,16 +55,17 @@ const Dashboard = () => {
     }).then(resp => {
       return resp.json()
     }).then(result => {
-      setreq(result)
+      // setreq(result)
+      dispatch(updateInputData({ formName: 'booking_request', inputData: result }));
       // console.log("request data", result)
     }).catch(err => {
       console.log(err)
     });
-  }, [token]);
+  }, [token ,dispatch]);
 
   useEffect(() => {
     fetchData();
-  }, [fetchData]);
+  }, [request ,dispatch]);
 
 
 
