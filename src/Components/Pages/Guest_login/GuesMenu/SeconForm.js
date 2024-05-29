@@ -118,38 +118,6 @@ const SeconForm = ({ step, nextStep }) => {
         setGenderPreferences([selectedGenderValue]);
     };
 
-    // const handleGenderSelect1 = (selectedGenderValue) => {
-    //     if (!genderPreferences.includes(selectedGenderValue)) {
-    //         setFormData({ ...formData, gender: selectedGenderValue });
-    //         setSelectedGender1(selectedGenderValue);
-    //         setGenderPreferences([...genderPreferences, selectedGenderValue]);
-    //     }
-    // };
-
-    // const handleGenderSelect2 = (selectedGenderValue) => {
-    //     if (!genderPreferences.includes(selectedGenderValue)) {
-    //         setFormData({ ...formData, gender: selectedGenderValue });
-    //         setSelectedGender2(selectedGenderValue);
-    //         setGenderPreferences([...genderPreferences, selectedGenderValue]);
-    //     }
-    // };
-
-    // const handleGenderSelect1 = (selectedGenderValue) => {
-    //     if (!genderPreferences.includes(selectedGenderValue)) {
-    //         setFormData({ ...formData, gender: selectedGenderValue });
-    //         setSelectedGender1(selectedGenderValue);
-    //         setGenderPreferences(prevPreferences => [...prevPreferences, selectedGenderValue]);
-    //     }
-    // };
-
-    // const handleGenderSelect2 = (selectedGenderValue) => {
-    //     if (!genderPreferences.includes(selectedGenderValue)) {
-    //         setFormData({ ...formData, gender: selectedGenderValue });
-    //         setSelectedGender2(selectedGenderValue);
-    //         setGenderPreferences(prevPreferences => [...prevPreferences, selectedGenderValue]);
-    //     }
-    // };
-
 
 
     const handleServiceTimeSelect = (selectedTime) => {
@@ -395,38 +363,32 @@ const SeconForm = ({ step, nextStep }) => {
                     <p className="title">Select Service</p>
                     <div className="second_form_book_container">
                         {
-                            user.filter((filter) => filter.category === "on demand").map((cur, index) => {
+                            Array.isArray(users) && users.length > 0 &&
+                            users.filter((user) => user.category === "on demand").map((cur, index) => {
                                 return (
-
-                                    <div className={`second_form_book ${service_ids === `${cur._id}` ? "selected" : ""}`} key={index} onClick={() => handlePrice(cur)}  >
-                                        <div onClick={() => handleId(cur._id)} className="item" >
+                                    <div
+                                        className={`second_form_book ${service_ids === `${cur._id}` ? "selected" : ""}`}
+                                        key={index}
+                                        onClick={() => handlePrice(cur)}
+                                    >
+                                        <div onClick={() => handleId(cur._id)} className="item">
                                             <PreviewImage attachments={cur.attachments} />
-                                            <div className="book-details" >
+                                            <div className="book-details">
                                                 <h2 className="book-title">{cur.title}</h2>
                                                 <div className="info_icon" onClick={() => handleInfoIconClick(cur._id)}>
                                                     <FontAwesomeIcon icon={faInfo} />
                                                 </div>
                                                 {/* <p className="book-description" dangerouslySetInnerHTML={{ __html: cur.description.slice(0, 50) }} /> */}
                                                 <p className="book-price">Price: ${cur.price}</p>
-
-
-
-
-
                                                 {showInfo[cur._id] && (
                                                     <div className="info_box" dangerouslySetInnerHTML={{ __html: cur.description }}></div>
                                                 )}
                                             </div>
                                         </div>
-
                                     </div>
-
-
                                 );
                             })
                         }
-
-
                     </div>
                 </div>
             </div>
@@ -457,7 +419,8 @@ const SeconForm = ({ step, nextStep }) => {
 
                 <div className="second_form_book_container">
                     {
-                        user.filter((filter) => filter.category === "addons").map((cur, index) => {
+                        Array.isArray(users) && users.length > 0 &&
+                        users.filter((user) => user.category === "addons").map((cur, index) => {
                             return (
 
                                 <div className={`second_form_book ${selectedItems.includes(cur._id) ? "selected" : ""}`} key={index}>
