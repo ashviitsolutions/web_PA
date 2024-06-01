@@ -3,23 +3,33 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Link, NavLink } from "react-router-dom";
 import NavProfile from "./NavProfile";
-import { NavDropdown } from "react-bootstrap";
-import "../custom.css"
+import "../custom.css";
 import React, { useState } from "react";
-import image1 from "./img/logo_image2.png"
+import image1 from "./img/logo_image2.png";
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+
 function NavBar() {
-  const [toggle, setToggle] = useState(false)
+  const [expanded, setExpanded] = useState(false);
+
   const handleToggle = () => {
-    setToggle(!toggle)
-  }
+    setExpanded(!expanded);
+  };
+
+  const handleSelect = () => {
+    setExpanded(false);
+  };
+
   return (
     <>
-      <Navbar className="bg-white shadow-sm" expand="lg" id="topbar">
+      <Navbar
+        className="bg-white shadow-sm"
+        expand="lg"
+        id="topbar"
+        expanded={expanded}
+      >
         <Container>
           <Link className="navbar-brandn" to="/">
             <img
-
               style={{ marginTop: "-30px" }}
               src={image1}
               width="200"
@@ -27,26 +37,59 @@ function NavBar() {
               alt="React Bootstrap logo"
             />
           </Link>
-          {/* <NotificationsActiveIcon className="notificationmobile" onClick={handleToggle} /> */}
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+
+          <Navbar.Toggle
+            aria-controls="basic-navbar-nav"
+            onClick={handleToggle}
+          />
           <Navbar.Collapse id="basic-navbar-navs">
             <Nav className="me-auto" id="links">
-              <NavLink className="nav-link" role="button" to="/providers">
+              <NavLink
+                className="nav-link"
+                role="button"
+                to="/providers"
+                onClick={handleSelect}
+              >
                 Dashboard
               </NavLink>
-              <NavLink className="nav-link" role="button" to="/providers/scheduled-requests">
+              <NavLink
+                className="nav-link"
+                role="button"
+                to="/providers/scheduled-requests"
+                onClick={handleSelect}
+              >
                 Scheduled Events
               </NavLink>
-              <NavLink className="nav-link" role="button" to="/providers/events">
+              <NavLink
+                className="nav-link"
+                role="button"
+                to="/providers/events"
+                onClick={handleSelect}
+              >
                 Events
               </NavLink>
-              <NavLink className="nav-link" role="button" to="/providers/services">
+              <NavLink
+                className="nav-link"
+                role="button"
+                to="/providers/services"
+                onClick={handleSelect}
+              >
                 Services
               </NavLink>
-              <NavLink className="nav-link" role="button" to="/providers/earnings">
+              <NavLink
+                className="nav-link"
+                role="button"
+                to="/providers/earnings"
+                onClick={handleSelect}
+              >
                 Earnings
               </NavLink>
-              <NavLink className="nav-link" role="button" to="/providers/application-form">
+              <NavLink
+                className="nav-link"
+                role="button"
+                to="/providers/application-form"
+                onClick={handleSelect}
+              >
                 Application Form
               </NavLink>
             </Nav>
@@ -54,34 +97,8 @@ function NavBar() {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      {/* {
-        toggle ? (
-          <Nav >
-            <div className="notificationdroupdown">
-              <NavDropdown.Item>
-                <h3 className="nav-link">notification1</h3>
-              </NavDropdown.Item>
-              <NavDropdown.Item>
-
-                <h3 className="nav-link">notification1</h3>
-              </NavDropdown.Item>
-
-              <NavDropdown.Divider />
-              <NavDropdown.Item>
-
-                <h3 className="nav-link">notification1</h3>
-              </NavDropdown.Item>
-            </div>
-
-          </Nav>
-        ) : null
-      } */}
     </>
-
-
   );
 }
 
 export default NavBar;
-
-

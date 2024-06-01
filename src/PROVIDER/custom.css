@@ -688,7 +688,10 @@
   .sidebar {
     display: none;
   }
-
+  .schedule-card {
+    max-width: 90%;
+    padding-left: 0rem !important;
+  }
   .notificationmobile {
     margin-top: 1px;
     margin-left: 50px;

@@ -1,21 +1,30 @@
-import React,{useState , useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { Form } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { IP } from "../../../Constant";
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
+
+
+
 const PayoutInformationModal = (props) => {
   const nav = useNavigate()
+  const formData = useSelector((state) => state?.counter?.formData);
+  const user = formData.provider_profile && formData.provider_profile[0] ? formData.provider_profile[0] : "";
 
-  const[routing_number , setRouting_number]=useState()
-  const[account_number , setAccount_number]=useState()
+  const [routing_number, setRouting_number] = useState(user?.payout_info?.account_number || "")
+  const [account_number, setAccount_number] = useState(user?.payout_info?.routing_number || "")
   let token = localStorage.getItem("providertoken")
 
-  
-  const handleUpdate=async(event)=>{
+
+  console.log("user profile" ,user)
+
+  const handleUpdate = async (event) => {
     event.preventDefault()
-    let datas = {"routing_number":routing_number, "account_number":account_number}
-    
+    let datas = { "routing_number": routing_number, "account_number": account_number }
+
     try {
       const resp = await fetch(`${IP}/provider/update_payout`, {
         method: "PUT",
@@ -29,7 +38,7 @@ const PayoutInformationModal = (props) => {
       })
 
       if (resp.status === 200) {
-          nav("/providers");
+        nav("/providers");
       }
 
     } catch (error) {
@@ -38,9 +47,9 @@ const PayoutInformationModal = (props) => {
   }
 
 
-  useEffect(()=>{
+  useEffect(() => {
     handleUpdate()
-  },[handleUpdate])
+  }, [handleUpdate])
 
   return (
     <Modal
@@ -58,11 +67,11 @@ const PayoutInformationModal = (props) => {
         <Modal.Body>
           <Form.Group className="mb-3 mt-2">
             <Form.Label>Routing Number</Form.Label>
-            <Form.Control type="text" placeholder="Routing Number" onChange={(e)=>setRouting_number(e.target.value)} />
+            <Form.Control type="text" placeholder="Routing Number" value={routing_number} onChange={(e) => setRouting_number(e.target.value)} />
           </Form.Group>
           <Form.Group className="mb-3 mt-2">
             <Form.Label>Account Number</Form.Label>
-            <Form.Control type="text" placeholder="Account Number" onChange={(e)=>setAccount_number(e.target.value)} />
+            <Form.Control type="text" placeholder="Account Number" value={account_number} onChange={(e) => setAccount_number(e.target.value)} />
           </Form.Group>
         </Modal.Body>
         <Modal.Footer style={{ justifyContent: "center" }}>

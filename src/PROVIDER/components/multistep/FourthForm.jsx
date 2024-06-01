@@ -25,6 +25,10 @@ const ThirdForm = (props) => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+    if (!pdfFile) {
+      setUploadStatus("Please select a PDF file to upload.");
+      return;
+    }
     try {
       const formData = new FormData();
       formData.append('contract', pdfFile);
@@ -35,7 +39,7 @@ const ThirdForm = (props) => {
         },
         body: formData
       });
-      
+
       if (response.ok) {
         setUploadStatus("Upload successful!");
       } else {
@@ -57,8 +61,8 @@ const ThirdForm = (props) => {
           <h2 className="text-center mt-2">Contract</h2>
           <div className="down-upload">
             <div className="text-center" style={{ fontSize: "25px" }}>
-              <FontAwesomeIcon icon={faFilePdf} />{" "}
-              <span>Membership Contract &nbsp;</span>{" "}
+              <FontAwesomeIcon icon={faFilePdf} />
+              <span>Membership Contract &nbsp;</span>
               <FontAwesomeIcon icon={faDownload} />
             </div>
             <div className="text-center">
@@ -67,11 +71,22 @@ const ThirdForm = (props) => {
               </Form.Group>
             </div>
           </div>
-         
-          <div className="text-center"><Button type="submit">Upload</Button></div>
+
+          <div className="text-center">
+            <Button type="submit">Upload</Button>
+          </div>
+          {uploadStatus && <Alert variant="info">{uploadStatus}</Alert>}
         </div>
 
         <Row style={{ justifyContent: "space-between", padding: "10px" }}>
+          <Button
+            className="button small"
+            variant="primary"
+            onClick={previousStep}
+            type="button"
+          >
+            Previous
+          </Button>
           <Button
             className="button small"
             variant="primary"
