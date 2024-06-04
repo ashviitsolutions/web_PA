@@ -45,11 +45,6 @@ function Statemement() {
 
 
 
-
-    console.log("membershipDetails", membershipDetails)
-    console.log("giftcarddetails", giftcarddetails)
-    console.log("alldata", alldata)
-
     useEffect(() => {
         let updatedTotalTip = 0;
         user.forEach(provider => {
@@ -90,7 +85,7 @@ function Statemement() {
                 setMembershipDetails(result.allData.membershipDetails);
                 setGiftcarddetails(result.allData.giftcarddetails);
                 setAlladata(result.finalcalculation)
-                console.log("real resuklt data", result)
+                // console.log("real resuklt data", result)
 
             })
             .catch(err => console.error("Error fetching data:", err))
@@ -98,7 +93,7 @@ function Statemement() {
     }, []);
 
 
-    console.log("provider service data", user)
+
 
 
 
@@ -130,13 +125,15 @@ function Statemement() {
             totalServicePrice += cur.total_service_price || 0;
             totalAddOns += cur.total_add_ons || 0;
             totalAddOnPrice += cur.total_add_on_price || 0;
-            amount_tax += cur.service?.amount_calculation?.amount_tax || 0; // Add conditional check
+            amount_tax += cur.service?.amount_calculation?.amount_tax || 0;
+            totalTipAmount += cur.service?.amount_calculation?.amount_tip || 0;
             totalAdminAmount += cur.total_admin_amount || 0;
             totalProviderAmount += cur.total_provider_amount || 0;
 
             // Calculate total tip amount for each user
             cur.services.forEach(service => {
                 amount_tax += service?.amount_calculation?.amount_tax || 0; // Add conditional check
+                totalTipAmount += service?.amount_calculation?.amount_tip || 0; // Add conditional check
             });
         });
 
@@ -163,39 +160,6 @@ function Statemement() {
 
 
 
-
-
-
-
-
-
-
-
-    // const handleMemberhsip = () => {
-    //     const filteredData = membershipDetails.filter(event => {
-    //         console.log("eventDate:", event.createdAt); // Accessing the first element's createdAt property
-
-    //         const eventDate = moment(event.createdAt, 'YYYY-MM-DD'); // Adjust the format based on the actual format of eventDate
-
-    //         const isWithinDateRange = (!startDate || moment(startDate).isSameOrBefore(eventDate, 'day')) &&
-    //             (!endDate || moment(endDate).isSameOrAfter(eventDate, 'day'));
-
-    //         const isSearched = !searchText || event?.userDetails?.name.toLowerCase().includes(searchText.toLowerCase());
-
-    //         return isWithinDateRange && isSearched;
-    //     });
-
-    //     // Calculate total membership price from filtered data
-    //     let totalMembershipPrice = 0;
-
-    //     filteredData.forEach(cur => {
-    //         totalMembershipPrice += cur.membershipPrice;
-    //     });
-
-    //     return { filteredData, totalMembershipPrice };
-    // };
-    
-    
     const handleMemberhsip = () => {
         const filteredData = membershipDetails.filter(event => {
             // Ensure that event and userDetails are not undefined before accessing their properties
@@ -244,12 +208,22 @@ function Statemement() {
         });
 
         // Calculate total gift price from filtered data
+        // let totalGiftPrice = 0;
+
+        // filteredGiftData.forEach(cur => {
+        //     cur.giftCards.forEach(card => {
+        //         totalGiftPrice += card.totalOfferValueForUser;
+        //     });
+        // });
+
         let totalGiftPrice = 0;
 
         filteredGiftData.forEach(cur => {
-            cur.giftCards.forEach(card => {
-                totalGiftPrice += card.offerCurrentValue;
-            });
+            if (cur.giftCards && Array.isArray(cur.giftCards)) {
+                cur.giftCards.forEach(card => {
+                    totalGiftPrice += card.offerValue || 0; // Ensure offerValue is added safely
+                });
+            }
         });
 
         return { filteredGiftData, totalGiftPrice };
@@ -258,9 +232,9 @@ function Statemement() {
     const { filteredGiftData, totalGiftPrice } = handleGiftcard();
 
 
-    console.log("filter totalMembershipPrice", totalMembershipPrice)
-    console.log("filter totalMembershipPrice", totalGiftPrice)
-    console.log("aggregatedValues", aggregatedValues)
+    console.log("dfghdfhfghfdgjhdfdf totalGiftPrice", totalGiftPrice)
+
+    console.log("filteredGiftData filteredGiftData filteredGiftData", filteredGiftData)
 
     const totalAdminAmount = parseFloat(aggregatedValues.totalAdminAmount || 0);
     const totalProviderAmount = parseFloat(aggregatedValues.totalProviderAmount || 0);
@@ -302,7 +276,7 @@ function Statemement() {
     }, [status, aggregatedValues.totalAdminAmount, aggregatedValues.totalProviderAmount, aggregatedValues.amount_tax]);
 
 
-
+    console.log("filteredData", filteredData)
 
     return (
         <>
@@ -356,6 +330,7 @@ function Statemement() {
                                 <th>Customer</th>
                                 <th>Amount</th>
                                 <th>Tax(es)</th>
+                                <th>Gratuity</th>
                                 <th>Provider's Commission</th>
                                 <th>Profit</th>
                             </tr>
@@ -377,7 +352,7 @@ function Statemement() {
                                                     <p><span>{moment(cur.createdAt).format("LT")}</span></p>
                                                 </td>
                                                 <td className="provDet">
-                                                    <p className='title cursor2' onClick={() => handleRowClick(cur)} title='click on provider to view details'><span>{`${cur?.provider_details?.first_name} ${cur?.provider_details?.last_name}`}</span></p>
+                                                    <p className='title cursor2' onClick={() => handleRowClick(cur)} title='click on provider to view details'><span>{`${cur?.provider_details?.name}`}</span></p>
                                                     <span className='sub'>{cur?.provider_details?.mailing_address?.address}</span>
                                                     <p className='sub'><span>{cur?.provider_details?.email}</span></p>
                                                     <p className='sub'><span>{cur?.provider_details?.phone}</span></p>
@@ -413,9 +388,10 @@ function Statemement() {
 
 
                                                 <td>{cur?.total_admin_amount?.toFixed(2)}$</td>
-                                                <td>{cur?.total_tip_amount?.toFixed(2)}$</td>
+                                                <td>{cur?.total_tax_amount?.toFixed(2)}$</td>
+                                                <td>{cur?.total_gratuity_amount?.toFixed(2)}$</td>
                                                 <td>{cur?.total_provider_amount?.toFixed(2)}$</td>
-                                                <td>{Math.max(cur?.total_admin_amount - (cur?.total_tip_amount || 0) - cur?.total_provider_amount, 0).toFixed(2)}$</td>
+                                                <td>{Math.max(cur?.total_admin_amount - (cur?.total_tax_amount || 0) - cur?.total_provider_amount, 0).toFixed(2)}$</td>
 
 
 
@@ -483,10 +459,11 @@ function Statemement() {
                                                         <p className='sub'>{giftData.email}</p>
                                                         <p className='sub'>{giftData.mobile}</p>
                                                     </td>
-                                                    <td>{giftData.totalOfferValueForUser}$</td>
+                                                    <td>{giftCard.offerValue}$</td>
                                                     <td>_</td>
                                                     <td>_</td>
-                                                    <td>{giftData.totalOfferValueForUser}$</td>
+                                                    <td>_</td>
+                                                    <td>{giftCard.offerValue}$</td>
                                                 </tr>
                                             ))
                                         ))}
@@ -506,6 +483,7 @@ function Statemement() {
                                                 <>
                                                     <p>Service Amount = {aggregatedValues.totalAdminAmount.toFixed(2)}$</p>
                                                     <p>- Tax(es) = {aggregatedValues.amount_tax.toFixed(2)}$</p>
+                                                    <p>Gratuity = {aggregatedValues.totalTipAmount.toFixed(2)}$</p>
                                                     <p>- Provider Pay = {aggregatedValues.totalProviderAmount.toFixed(2)}$</p>
                                                 </>
 
@@ -522,15 +500,18 @@ function Statemement() {
 
                                         {
                                             (status === "giftcard" || status === "") && (
-                                                <p>Giftcard amount = {totalGiftPrice.toFixed(2)}$</p>
+                                                <p>Giftcard amount = {totalGiftPrice?.toFixed(2)}$</p>
                                             )
                                         }
 
 
                                         <p>
-                                            <strong>
-                                                Net Profit = {finalAmounts.toFixed(2)}$
-                                            </strong>
+                                            <p>
+                                                <strong>
+                                                    Net Profit = {(finalAmounts + totalGiftPrice + totalMembershipPrice).toFixed(2)}$
+                                                </strong>
+                                            </p>
+
                                         </p>
 
 
