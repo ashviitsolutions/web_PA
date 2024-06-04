@@ -430,6 +430,7 @@ function Statemement() {
                                                 <td>{membership.membershipPrice.toFixed(2)}$</td>
                                                 <td>_</td>
                                                 <td>_</td>
+                                                <td>_</td>
                                                 <td>{membership.membershipPrice.toFixed(2)}$</td>
                                             </tr>
                                         ))}
