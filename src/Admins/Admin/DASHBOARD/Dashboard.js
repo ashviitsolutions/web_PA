@@ -17,7 +17,9 @@ import moment from 'moment';
 
 
 function Dashboard() {
+
     const [finalAmounts, setFinalAmount] = useState(0)
+    const [totalsales, setTotalsales] = useState(0)
     const [users, setUsers] = useState([]);
     const [status, setStatus] = useState("services");
     const [alldata, setAlladata] = useState("services");
@@ -336,16 +338,16 @@ function Dashboard() {
 
 
     useEffect(() => {
-
         const totalAdminAmount = parseFloat(aggregatedValues.totalAdminAmount || 0);
         const totalProviderAmount = parseFloat(aggregatedValues.totalProviderAmount || 0);
         const amount_tax = parseFloat(aggregatedValues.amount_tax || 0);
         const totalMembership = parseFloat(totalMembershipPrice || 0);
         const totalGift = parseFloat(totalGiftPrice || 0);
         const finalAmount = (totalAdminAmount + totalMembership + totalGift) - (amount_tax + totalProviderAmount);
+        const totalSales = (totalAdminAmount + totalMembership + totalGift + amount_tax);
         setFinalAmount(finalAmount);
-
-    }, [aggregatedValues.totalAdminAmount, aggregatedValues.totalProviderAmount, aggregatedValues.amount_tax]);
+        setTotalsales(totalSales);
+    }, [aggregatedValues.totalAdminAmount, aggregatedValues.totalProviderAmount, aggregatedValues.amount_tax, totalMembershipPrice, totalGiftPrice]);
 
 
 
@@ -409,14 +411,8 @@ function Dashboard() {
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image4})` }}></span>
 
-                                                        {/*  <h3>{Math.max(aggregatedValues.totalAdminAmount + totalMembershipPrice + totalGiftPrice + aggregatedValues.amount_tax, 0).toFixed(2)}$</h3> */}
-                                                        <h3>    {(
-                                                            Math.max(
-                                                                aggregatedValues.totalAdminAmount + totalMembershipPrice + totalGiftPrice + aggregatedValues.amount_tax,
-                                                                0
-                                                            ) || 0
-                                                        ).toFixed(2)}$
-                                                        </h3>
+                                                        <h3>{Math.max(totalsales).toFixed(2)}$</h3>
+                                                       
                                                         <p>Total Sale</p>
                                                     </div>
                                                 </div>
