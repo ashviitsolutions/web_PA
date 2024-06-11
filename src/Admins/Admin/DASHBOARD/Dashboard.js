@@ -412,7 +412,7 @@ function Dashboard() {
                                                         <span className="icon" style={{ backgroundImage: `url(${image4})` }}></span>
 
                                                         <h3>{Math.max(totalsales).toFixed(2)}$</h3>
-                                                       
+
                                                         <p>Total Sale</p>
                                                     </div>
                                                 </div>
