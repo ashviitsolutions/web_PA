@@ -114,7 +114,7 @@ function Event() {
         const filteredData = request.filter(event => {
             console.log("Event status:", event.service_status);
 
-            const eventDate = moment(event.scheduled_date);
+            const eventDate = moment(event.createdAt);
             const isWithinDateRange = (!startDate || eventDate.isSameOrAfter(startDate)) &&
                 (!endDate || eventDate.isSameOrBefore(endDate));
             const isStatusMatched = !status || event.service_status === status;
