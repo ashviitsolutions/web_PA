@@ -86,7 +86,7 @@ function EditClient() {
             }
         } catch (error) {
             console.error(error);
-            setError('An error occurred. Please try again.'); // Set error message
+            setError('An error occurred. Please try again.');
             toast.error("An error occurred. Please try again.", {
                 position: "top-right",
                 autoClose: 3000,
