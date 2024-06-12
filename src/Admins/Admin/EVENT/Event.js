@@ -44,7 +44,7 @@ function Event() {
 
     const fetchData = useCallback(() => {
         setLoading(true);
-        fetch(`${IP}/bookings/allbookings`, {
+        fetch(`http://localhost:5000/api/bookings/allbookings`, {
             headers: {
                 'Authorization': token
             }
@@ -193,11 +193,19 @@ function Event() {
                                         <div className="item_wrapper" key={index} onClick={() => openModal(event)}>
                                             <div className="item card layer2">
                                                 <div className="first_half">
+                                                    <h3>{event?.user?.first_name} {event?.user?.last_name}</h3>
                                                     <h3>{event.service_name} {event.service_time} - {event.massage_for}</h3>
                                                     <span className="address">{event.address}</span>
                                                     <span className="address"><b></b>{event.scheduled_date}</span>
                                                     <span className="address"><b></b>{event.scheduled_timing}</span>
-                                                    <span className="tag"><b>Booking status: </b>{event.service_status}</span>
+                                                    <span className="tag">
+                                                        <b>Booking status: </b>
+                                                        {event.service_status}
+                                                        {event?.provider?.first_name && event?.provider?.last_name ? (
+                                                            <> by {event.provider.first_name} {event.provider.last_name}</>
+                                                        ) : null}
+                                                    </span>
+
                                                     <span className="tag"><b></b> {event.instructions !== '' ? <><strong className="mt-1">Instructions : </strong> {event.instructions} </> : ''}</span>
                                                 </div>
                                                 <div className="second_half">

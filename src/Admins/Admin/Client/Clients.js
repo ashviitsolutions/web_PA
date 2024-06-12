@@ -182,7 +182,7 @@ function Clients() {
                                 </thead>
                                 <tbody id="post_container">
                                     {memoizedUser.map((client, index) => (
-                                        <tr className="wrapper" key={index} id={`tr_post_${client.id}`}>
+                                        <tr className="wrapper" key={index} id={`tr_post_${client.id}`} onClick={() => handleRowClick(client)}>
                                             <td>
                                                 <div className="content">
                                                    
@@ -191,7 +191,7 @@ function Clients() {
                                                 </div>
                                             </td>
                                             <td>
-                                                <div className="content" onClick={() => handleRowClick(client)}>
+                                                <div className="content" >
                                                 
                                                         <span className="title">{client.email}</span>
                                                    
