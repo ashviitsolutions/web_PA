@@ -13,6 +13,7 @@ function EditClient() {
 
     const tokenadmin = localStorage.getItem("tokenadmin");
     const { id } = useParams();
+    localStorage.setItem("userid",id)
     const location = useLocation();
     const apidata = location.state.client;
     const navigate = useNavigate();
@@ -66,6 +67,7 @@ function EditClient() {
     };
 
     useEffect(() => {
+       
         const updatedSavedValues = {
             first_name: apidata.first_name,
             last_name: apidata.last_name,

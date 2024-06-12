@@ -471,7 +471,7 @@ function Dashboard() {
                                                         <span className="icon" style={{ backgroundImage: `url(${image3})` }}></span>
                                                         <h3>{user.total_scheduled_bookings
                                                         }</h3>
-                                                        <p>Attended</p>
+                                                        <p>Scheduled</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -489,7 +489,7 @@ function Dashboard() {
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image7})` }}></span>
                                                         <h3>{user.total_completed_bookings}</h3>
-                                                        <p>Checkout</p>
+                                                        <p>completed</p>
                                                     </div>
                                                 </div>
                                             </div>
