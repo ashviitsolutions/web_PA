@@ -44,7 +44,7 @@ function Event() {
 
     const fetchData = useCallback(() => {
         setLoading(true);
-        fetch(`http://localhost:5000/api/bookings/allbookings`, {
+        fetch(`${IP}/bookings/allbookings`, {
             headers: {
                 'Authorization': token
             }
