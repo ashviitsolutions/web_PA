@@ -5,6 +5,7 @@ import ReactPaginate from 'react-paginate';
 import { IP } from '../../../Constant';
 import "./style.css";
 import { FallingLines } from 'react-loader-spinner';
+import { useNavigate } from 'react-router-dom';
 
 const PreviewImage = ({ attachments }) => {
     const [imageObjectURL, setImageObjectURL] = useState(null);
@@ -31,6 +32,7 @@ const PreviewImage = ({ attachments }) => {
 
 
 function Getpost() {
+    const navigate = useNavigate()
     const [search, setSearch] = useState("")
     //   const [Delete, setDelete] = useState([])
 
@@ -123,7 +125,8 @@ function Getpost() {
                         <div className="">
                             <div className="headings float_wrapper">
                                 <div className="gutter pull-left" >
-                                    <h3>All Service</h3>
+                                <h3><span className='cursor title backarrow' onClick={() => navigate(-1)}>&larr;</span> All Service</h3>
+                                    
                                     <p>list of all add posts</p>
                                 </div>
                                 <div className="gutter pull-left">

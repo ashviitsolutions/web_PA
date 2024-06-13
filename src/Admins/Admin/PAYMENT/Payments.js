@@ -177,7 +177,8 @@ function Payments() {
           <div class="row">
             <div class="">
               <div class="headings">
-                <h3>Statement of Providers</h3>
+              <h3><span className='cursor title backarrow' onClick={() => navigate(-1)}>&larr;</span>Statement of Providers</h3>
+                
                 <span class="toggle_sidebar" ></span>
               </div>
             </div>

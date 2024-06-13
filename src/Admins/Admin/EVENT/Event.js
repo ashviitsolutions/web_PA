@@ -3,9 +3,10 @@ import { IP } from "../../../Constant";
 import CustomModal from "./Model";
 import { FallingLines } from "react-loader-spinner";
 import moment from "moment";
-import { useLocation } from 'react-router-dom';
+import { useLocation , useNavigate } from 'react-router-dom';
 
 function Event() {
+    const nav=useNavigate()
 
     const location = useLocation();
     const event_status = location.state ? location.state.event_status : "";
@@ -148,7 +149,8 @@ function Event() {
                     <div className="row">
                         <div className="">
                             <div className="headings">
-                                <h3 >Events</h3>
+                            <h3><span className='cursor title backarrow' onClick={() => nav(-1)}>&larr;</span>Events</h3>
+                               
                                 <span className="toggle_sidebar" ></span>
                             </div>
                         </div>

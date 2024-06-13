@@ -203,7 +203,8 @@ function Blogs() {
                         <div className="">
                             <div className="headings float_wrapper">
                                 <div className="gutter pull-left" >
-                                    <h3>All Blogs</h3>
+                                <h3><span className='cursor title backarrow' onClick={() => nav(-1)}>&larr;</span>All Blogs</h3>
+                                    
                                     <p>list of all add blogs</p>
                                 </div>
                                 <div className="gutter pull-left">

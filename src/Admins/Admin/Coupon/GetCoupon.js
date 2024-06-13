@@ -2,6 +2,7 @@ import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { FallingLines } from "react-loader-spinner";
 import { IP } from '../../../Constant';
+import { useNavigate } from 'react-router-dom';
 
 const PreviewImage = ({ attachments }) => {
     const [imageObjectURL, setImageObjectURL] = useState(null);
@@ -25,6 +26,7 @@ const PreviewImage = ({ attachments }) => {
 };
 
 function GetCoupon() {
+    const nav=useNavigate()
     const [search, setSearch] = useState("");
     const [user, setUser] = useState([]);
     const [pageNumber, setPageNumber] = useState(1);
@@ -84,7 +86,8 @@ function GetCoupon() {
                         <div className="">
                             <div className="headings float_wrapper">
                                 <div className="gutter pull-left">
-                                    <h3>All Coupon Cards</h3>
+                                <h3><span className='cursor title backarrow' onClick={() => nav(-1)}>&larr;</span>All Coupon Cards</h3>
+                                   
                                     <p>List of all add posts</p>
                                 </div>
                                 <div className="gutter pull-left">
