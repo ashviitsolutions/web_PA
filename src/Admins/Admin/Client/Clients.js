@@ -45,6 +45,8 @@ function Clients() {
 
 
 
+    console.log("memberhsip and name list",user)
+
 
 
 
@@ -107,7 +109,7 @@ function Clients() {
 
     const memoizedUser = handleFilter();
 
-    console.log("memoizedUser ",memoizedUser)
+    console.log("memoizedUser ", memoizedUser)
 
 
 
@@ -120,9 +122,9 @@ function Clients() {
 
     const handleRowClick = (client) => {
         console.log("cur", client); // Check the structure of cur
-        navigate(`/admin/clients/edit_client/${client._id}`, { state: { client} });
-      };
-    
+        navigate(`/admin/clients/edit_client/${client._id}`, { state: { client } });
+    };
+
 
 
 
@@ -178,7 +180,7 @@ function Clients() {
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Created at</th>
-                                        {/* <th>Created by</th> */}
+                                        <th>Created by</th>
                                     </tr>
                                 </thead>
                                 <tbody id="post_container">
@@ -186,22 +188,23 @@ function Clients() {
                                         <tr className="wrapper cursor" key={index} id={`tr_post_${client.id}`} onClick={() => handleRowClick(client)}>
                                             <td>
                                                 <div className="content">
-                                                   
-                                                        <span className="title">{client.first_name} {client.last_name}</span>
-                                                        <p className='sub'>No Membership</p>
-                                                  
+
+                                                    <span className="title">{client.first_name} {client.last_name}</span>
+                                                    <p className='sub'>{client.membershipType}</p>
+
                                                 </div>
                                             </td>
                                             <td>
                                                 <div className="content sub" >
-                                                
+
                                                     <span className="title">{client.email}</span>
                                                     <p className="title">{client.mobile}</p>
-                                                   
+
                                                 </div>
                                             </td>
-                                            {/* <td>{client.createdAt}</td> */}
-                                            {/* <td>admin</td> */}
+
+                                            <td> {moment(client.createdAt).format('DD-MM-YYYY hh:mm A')}</td>
+                                         <td>{client.created_by}</td> 
                                         </tr>
                                     ))}
                                 </tbody>

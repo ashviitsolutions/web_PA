@@ -20,6 +20,7 @@ function AddClient() {
         mobile: '',
         password: '',
         Confirm_Password: '',
+        created_by:"admin"
     };
 
     const SignupSchema = Yup.object().shape({
