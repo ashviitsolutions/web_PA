@@ -87,7 +87,7 @@ function EditClient() {
                         <div className="">
                             <div className="headings float_wrapper">
                                 <div className="gutter pull-left" style={{ paddingLeft: '0' }}>
-                                    <h3>Edit Client</h3>
+                                    <h3><span className='cursor title backarrow' onClick={() => navigate(-1)}>&larr;</span> Edit/View Client Details</h3>
                                 </div>
                                 <span className="toggle_sidebar"></span>
                             </div>

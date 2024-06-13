@@ -270,7 +270,7 @@ function ViewDetails() {
             <div className="col-sm-6 card-right" id="card-right">
                 <div className="gutter">
                     <div id="about_user_card" className="card layer2">
-                        <h3 className="inner_title">Service Details</h3>
+                        <h3 className="inner_title">Purchase History</h3>
                         <ul className="true">
                             <li><b>Service Booking:</b></li>
                             {memoizedUser.map((cur, index) => (
@@ -321,6 +321,71 @@ function ViewDetails() {
 
 
                         </ul>
+                        <ul className="true">
+                            <li><b>Service Booking:</b></li>
+                            <table className='smallDetails'>
+                                <thead>
+                                    <tr>
+                                        <th>Service/Addons Name</th>
+                                        <th>Billing Amount</th>
+                                        <th>Provided by</th>
+                                        <th>Date/Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Tissue Massage - Partner (60min)
+                                            <p><b>Addons-</b> Head Massage Oil</p>
+                                        </td>
+                                        <td>140$</td>
+                                        <td>Leonid Brimshan</td>
+                                        <td>12-06-2024
+                                            <p>12:10 pm</p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <li><b>Gift card purchases:</b></li>
+                            <table className='smallDetails'>
+                                <thead>
+                                    <tr>
+                                        <th>Gift Card Name</th>
+                                        <th>Billing Amount</th>
+                                        <th>Date/Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Tissue Massage - Partner (60min)</td>
+                                        <td>140$</td>
+                                        <td>12-06-2024
+                                            <p>12:10 pm</p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <li><b>Membership purchase/renewals:</b></li>
+                            <table className='smallDetails'>
+                                <thead>
+                                    <tr>
+                                        <th>Name of Plan</th>
+                                        <th>Billing Amount</th>
+                                        <th>Date/Time</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Silver Membership
+                                            <p><b>Expiring on-</b> 12-07-2024</p>
+                                        </td>
+                                        <td>140$</td>
+                                        <td>12-06-2024
+                                            <p>12:10 pm</p>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            </ul>
                     </div>
                 </div>
             </div>

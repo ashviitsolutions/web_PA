@@ -34,7 +34,7 @@ function Clients() {
             .then(result => {
 
 
-                setUser(prevData => [...prevData, ...result]);
+                setUser(result);
                 setLoading(false);
             }).catch(err => {
                 console.log(err);
@@ -134,7 +134,7 @@ function Clients() {
                         <div className="">
                             <div className="headings float_wrapper" id="clientget">
                                 <div className="gutter pull-left">
-                                    <h3>All Clients</h3>
+                                    <h3><span className='cursor title backarrow' onClick={() => navigate(-1)}>&larr;</span> All Clients</h3>
                                     <p>list of all Clients</p>
                                 </div>
                                 <div className="gutter pull-left">
@@ -144,6 +144,7 @@ function Clients() {
                                         </button>
                                     </Link>
                                 </div>
+                                <div className="gutter pull-right"><small className='sub'>* Click on client to view details</small></div>
                                 <span className="toggle_sidebar"></span>
                             </div>
                         </div>
@@ -177,28 +178,30 @@ function Clients() {
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Created at</th>
-                                        <th>Created by</th>
+                                        {/* <th>Created by</th> */}
                                     </tr>
                                 </thead>
                                 <tbody id="post_container">
                                     {memoizedUser.map((client, index) => (
-                                        <tr className="wrapper" key={index} id={`tr_post_${client.id}`} onClick={() => handleRowClick(client)}>
+                                        <tr className="wrapper cursor" key={index} id={`tr_post_${client.id}`} onClick={() => handleRowClick(client)}>
                                             <td>
                                                 <div className="content">
                                                    
                                                         <span className="title">{client.first_name} {client.last_name}</span>
+                                                        <p className='sub'>No Membership</p>
                                                   
                                                 </div>
                                             </td>
                                             <td>
-                                                <div className="content" >
+                                                <div className="content sub" >
                                                 
-                                                        <span className="title">{client.email}</span>
+                                                    <span className="title">{client.email}</span>
+                                                    <p className="title">{client.mobile}</p>
                                                    
                                                 </div>
                                             </td>
-                                            <td>{client.createdAt}</td>
-                                            <td>admin</td>
+                                            {/* <td>{client.createdAt}</td> */}
+                                            {/* <td>admin</td> */}
                                         </tr>
                                     ))}
                                 </tbody>
