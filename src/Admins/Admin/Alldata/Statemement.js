@@ -207,14 +207,6 @@ function Statemement() {
             return isWithinDateRange && isSearched;
         });
 
-        // Calculate total gift price from filtered data
-        // let totalGiftPrice = 0;
-
-        // filteredGiftData.forEach(cur => {
-        //     cur.giftCards.forEach(card => {
-        //         totalGiftPrice += card.totalOfferValueForUser;
-        //     });
-        // });
 
         let totalGiftPrice = 0;
 
@@ -509,7 +501,24 @@ function Statemement() {
                                         <p>
                                             <p>
                                                 <strong>
-                                                    Net Profit = {(finalAmounts + totalGiftPrice + totalMembershipPrice).toFixed(2)}$
+                                                    {
+                                                        (status === "giftcard") && (
+                                                            <p>Net Profit = {totalGiftPrice?.toFixed(2)}$</p>
+                                                        )
+                                                    }
+
+                                                    {
+                                                        (status === "membership") && (
+                                                            <p> Net Profit = {totalMembershipPrice.toFixed(2)}$</p>
+                                                        )
+                                                    }
+                                                    <p> Total Amount = {(aggregatedValues.totalAdminAmount + totalGiftPrice + totalMembershipPrice).toFixed(2)}$</p>
+                                                    {
+                                                        (status === "services" || status === "") && (
+                                                            <p> Net Profit = {(aggregatedValues.totalAdminAmount + totalGiftPrice + totalMembershipPrice - aggregatedValues.amount_tax - aggregatedValues.totalProviderAmount).toFixed(2)}$</p>
+                                                        )
+                                                    }
+                                                 
                                                 </strong>
                                             </p>
 

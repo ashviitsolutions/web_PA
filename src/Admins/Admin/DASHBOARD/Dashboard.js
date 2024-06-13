@@ -212,12 +212,12 @@ function Dashboard() {
 
 
 
-
     const handleFilters = () => {
         const filteredData = users.filter(event => {
             const eventDate = moment(event.services[0].createdAt, 'YYYY-MM-DD');
             const isWithinDateRange = (!startDate || moment(startDate).isSameOrBefore(eventDate, 'day')) &&
                 (!endDate || moment(endDate).isSameOrAfter(eventDate, 'day'));
+
             return isWithinDateRange;
         });
 
@@ -237,13 +237,15 @@ function Dashboard() {
             totalServicePrice += cur.total_service_price || 0;
             totalAddOns += cur.total_add_ons || 0;
             totalAddOnPrice += cur.total_add_on_price || 0;
-            amount_tax += cur.service?.amount_calculation?.amount_tax || 0; // Add conditional check
+            amount_tax += cur.service?.amount_calculation?.amount_tax || 0;
+            totalTipAmount += cur.service?.amount_calculation?.amount_tip || 0;
             totalAdminAmount += cur.total_admin_amount || 0;
             totalProviderAmount += cur.total_provider_amount || 0;
 
             // Calculate total tip amount for each user
             cur.services.forEach(service => {
                 amount_tax += service?.amount_calculation?.amount_tax || 0; // Add conditional check
+                totalTipAmount += service?.amount_calculation?.amount_tip || 0; // Add conditional check
             });
         });
 
@@ -264,6 +266,10 @@ function Dashboard() {
 
 
 
+
+
+
+
     const { filteredData: memoizedUsers, aggregatedValues } = handleFilters();
 
     console.log("aggregatedValues", aggregatedValues)
@@ -280,15 +286,19 @@ function Dashboard() {
 
     const handleMemberhsip = () => {
         const filteredData = membershipDetails.filter(event => {
-            console.log("eventDate:", event.createdAt); // Accessing the first element's createdAt property
+            // Ensure that event and userDetails are not undefined before accessing their properties
+            if (event && event.userDetails && event.userDetails.name) {
+                const eventDate = moment(event.createdAt, 'YYYY-MM-DD');
 
-            const eventDate = moment(event.createdAt, 'YYYY-MM-DD'); // Adjust the format based on the actual format of eventDate
-
-            const isWithinDateRange = (!startDate || moment(startDate).isSameOrBefore(eventDate, 'day')) &&
-                (!endDate || moment(endDate).isSameOrAfter(eventDate, 'day'));
+                const isWithinDateRange = (!startDate || moment(startDate).isSameOrBefore(eventDate, 'day')) &&
+                    (!endDate || moment(endDate).isSameOrAfter(eventDate, 'day'));
 
 
-            return isWithinDateRange;
+
+                return isWithinDateRange;
+            } else {
+                return false; // Return false for items where userDetails or name is undefined
+            }
         });
 
         // Calculate total membership price from filtered data
@@ -317,16 +327,19 @@ function Dashboard() {
                 (!endDate || moment(endDate).isSameOrAfter(eventDate, 'day'));
 
 
+
             return isWithinDateRange;
         });
 
-        // Calculate total gift price from filtered data
+
         let totalGiftPrice = 0;
 
         filteredGiftData.forEach(cur => {
-            cur.giftCards.forEach(card => {
-                totalGiftPrice += card.offerCurrentValue;
-            });
+            if (cur.giftCards && Array.isArray(cur.giftCards)) {
+                cur.giftCards.forEach(card => {
+                    totalGiftPrice += card.offerValue || 0; // Ensure offerValue is added safely
+                });
+            }
         });
 
         return { filteredGiftData, totalGiftPrice };
@@ -411,7 +424,7 @@ function Dashboard() {
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image4})` }}></span>
 
-                                                        <h3>{Math.max(totalsales).toFixed(2)}$</h3>
+                                                        <h3>{(aggregatedValues.totalAdminAmount + totalGiftPrice + totalMembershipPrice).toFixed(2)}$</h3>
 
                                                         <p>Total Sale</p>
                                                     </div>
@@ -421,7 +434,7 @@ function Dashboard() {
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${money})` }}></span>
-                                                        <h3>{finalAmounts.toFixed(2)}$</h3>
+                                                        <h3>{(aggregatedValues.totalAdminAmount + totalGiftPrice + totalMembershipPrice - aggregatedValues.amount_tax - aggregatedValues.totalProviderAmount).toFixed(2)}$</h3>
 
                                                         <p>Net Profit</p>
                                                     </div>
