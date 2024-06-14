@@ -277,7 +277,8 @@ function Statemement() {
                     <div class="row">
                         <div class="">
                             <div class="headings">
-                                <h3>Statement</h3>
+                            <h3><span className='cursor title backarrow' onClick={() => navigate(-1)}>&larr;</span>Statement</h3>
+                                
                                 <span class="toggle_sidebar" ></span>
                             </div>
                         </div>

@@ -10,10 +10,11 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function EditClient() {
-
+    const Startdate = localStorage.getItem("startDate")
+    const Enddate = localStorage.getItem("endDate")
     const tokenadmin = localStorage.getItem("tokenadmin");
     const { id } = useParams();
-    localStorage.setItem("userid",id)
+    localStorage.setItem("userid", id)
     const location = useLocation();
     const apidata = location.state.client;
     const navigate = useNavigate();
@@ -67,7 +68,7 @@ function EditClient() {
     };
 
     useEffect(() => {
-       
+
         const updatedSavedValues = {
             first_name: apidata.first_name,
             last_name: apidata.last_name,
@@ -97,6 +98,8 @@ function EditClient() {
                     <div className="row">
                         <div className="col-sm-6">
                             <div className="gutter">
+                                <p>{Startdate} to {Enddate}</p>
+
                                 <div id="user_form_card" className="card layer2">
                                     <label className="card_label" htmlFor="">
                                         Personal Information

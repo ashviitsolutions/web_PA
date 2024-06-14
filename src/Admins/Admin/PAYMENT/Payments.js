@@ -17,14 +17,16 @@ import moment from "moment";
 
 function Payments() {
   const navigate = useNavigate()
+  const Startdate = localStorage.getItem("startDate")
+  const Enddate = localStorage.getItem("endDate")
 
   const [count, setCount] = useState(0);
   const [data, setData] = useState(1);
   const [searchText, setSearchText] = useState("");
   const [pageNumber, setPageNumber] = useState(1);
 
-  const [startDate, setStartDate] = useState(moment().format('YYYY-MM-DD'));
-  const [endDate, setEndDate] = useState(moment().format('YYYY-MM-DD'));
+  const [startDate, setStartDate] = useState(Startdate || moment().subtract(7, 'day').format('YYYY-MM-DD'));
+  const [endDate, setEndDate] = useState(Enddate || moment().format('YYYY-MM-DD'));
 
   const [loading, setLoading] = useState(null);
   const [totalTip, setTotalTip] = useState(0);
@@ -38,11 +40,18 @@ function Payments() {
 
   console.log("user ", user)
 
-  useEffect(() => {
 
-    setStartDate(startDate);
-    setEndDate(endDate);
-  }, [startDate, endDate]);
+  useEffect(() => {
+    localStorage.setItem("startDate", startDate);
+    localStorage.setItem("endDate", endDate);
+}, [startDate, endDate]);
+
+useEffect(() => {
+    const today = moment().format('YYYY-MM-DD');
+    setStartDate(moment(today).subtract(7, 'day').format('YYYY-MM-DD'));
+    setEndDate(today);
+
+}, []); // Empty dependency array means this effect will only run once after the initial render
 
 
 
