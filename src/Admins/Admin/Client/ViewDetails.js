@@ -3,7 +3,6 @@ import { useParams, useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import moment from "moment";
 import { IP } from '../../../Constant';
-import "./style.css"; // Assuming you have this file for styling
 
 function ViewDetails() {
     const userid = localStorage.getItem("userid");

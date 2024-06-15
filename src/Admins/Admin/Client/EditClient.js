@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { IP } from '../../../Constant';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import axios from 'axios';
-import "./style.css"; // Assuming you have this file for styling
 import ViewDetails from './ViewDetails';
 import openEye from "../../../Components/assets/img/iconoir_eye.png";
 import closeEye from "../../../Components/assets/img/codicon_eye-closed.png";

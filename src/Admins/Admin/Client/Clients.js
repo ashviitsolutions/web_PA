@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import './style.css';
 import { IP } from '../../../Constant';
 import ReactPaginate from 'react-paginate';
 import { FallingLines } from "react-loader-spinner";
