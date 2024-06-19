@@ -122,6 +122,12 @@ function Sidebar() {
               </Link>
             </div>
             <div className="items">
+              <Link to="/admin/clients-service-details">
+                <Groups2Icon style={{ color: "#fff" }} />
+                <span className="title">clients</span>
+              </Link>
+            </div>
+            <div className="items">
               <Link to="/admin/login">
                 <LogoutIcon style={{ color: "#fff" }} />
                 <span className="title" onClick={logout}>logout</span>

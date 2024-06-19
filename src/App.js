@@ -95,6 +95,7 @@ import EditClient from './Admins/Admin/Client/EditClient';
 import Contractors from './Admins/Admin/CONTRACTORS/Contractors';
 import AddContractors from './Admins/Admin/CONTRACTORS/AddContractors';
 import ViewContractor from './Admins/Admin/CONTRACTORS/ViewContractor';
+import ViewServices from './Admins/Admin/Client/ViewServices';
 
 //Pyments
 import Payments from './Admins/Admin/PAYMENT/Payments';
@@ -460,8 +461,11 @@ function App() {
             <Sidebar />
             <Protect Component={Dashboard} />
           </>} />
-
-
+          <Route path="/admin/clients-service-details" element={<>
+            <Sidebar />
+            <Protect Component={ViewServices} />
+          </>} />
+          
           <Route path="/admin/blogs" element={<>
             <Sidebar />
             <Protect Component={Blogs} />
