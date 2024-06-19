@@ -16,8 +16,10 @@ import { useLocation } from 'react-router-dom';
 function Statemement() {
     const navigate = useNavigate()
     const location = useLocation();
-    const endDates = location.state.endDate;
-    const startDates = location.state.startDate
+    const startDates = location.state ? location.state.startDate : "";
+    const endDates = location.state ? location.state.endDate : "";
+    const Startdate = localStorage.getItem("startDate")
+    const Enddate = localStorage.getItem("endDate")
     const [searchText, setSearchText] = useState("");
 
     const [startDate, setStartDate] = useState(startDates);
@@ -37,10 +39,16 @@ function Statemement() {
 
 
     useEffect(() => {
+        localStorage.setItem("startDate", startDate);
+        localStorage.setItem("endDate", endDate);
+    }, [startDate, endDate]);
 
-        setStartDate(startDate);
-        setEndDate(endDate);
-    }, []);
+
+    useEffect(() => {
+
+        setStartDate(Startdate);
+        setEndDate(Enddate);
+    }, [endDates, endDates]);// Empty dependency array means this effect will only run once after the initial render
 
 
 
@@ -99,13 +107,14 @@ function Statemement() {
 
 
 
+    console.log("user provider data", user)
 
     const handleFilter = () => {
         const filteredData = user.filter(event => {
             const eventDate = moment(event.services[0].createdAt, 'YYYY-MM-DD');
             const isWithinDateRange = (!startDate || moment(startDate).isSameOrBefore(eventDate, 'day')) &&
                 (!endDate || moment(endDate).isSameOrAfter(eventDate, 'day'));
-            const isSearched = !searchText || event.provider_details.first_name.toLowerCase().includes(searchText.toLowerCase());
+            const isSearched = !searchText || event.provider_details.name.toLowerCase().includes(searchText.toLowerCase());
             return isWithinDateRange && isSearched;
         });
 
@@ -169,9 +178,9 @@ function Statemement() {
                 const isWithinDateRange = (!startDate || moment(startDate).isSameOrBefore(eventDate, 'day')) &&
                     (!endDate || moment(endDate).isSameOrAfter(eventDate, 'day'));
 
-                const isSearched = !searchText || event.userDetails.name.toLowerCase().includes(searchText.toLowerCase());
+                
 
-                return isWithinDateRange && isSearched;
+                return isWithinDateRange;
             } else {
                 return false; // Return false for items where userDetails or name is undefined
             }
@@ -202,9 +211,9 @@ function Statemement() {
             const isWithinDateRange = (!startDate || moment(startDate).isSameOrBefore(eventDate, 'day')) &&
                 (!endDate || moment(endDate).isSameOrAfter(eventDate, 'day'));
 
-            const isSearched = !searchText || event.name.toLowerCase().includes(searchText.toLowerCase());
+           
 
-            return isWithinDateRange && isSearched;
+            return isWithinDateRange;
         });
 
 

@@ -7,6 +7,7 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { Button, Card } from "react-bootstrap";
 import axios from 'axios';
 import Verification from './Verification';
+import { Link } from 'react-router-dom';
 
 
 
@@ -86,6 +87,8 @@ const OfficeImage = ({ attachments }) => {
 
 
 function ViewContractor() {
+  const startDate = localStorage.getItem("startDate")
+  const endDate = localStorage.getItem("endDate")
   const [userschedule, setuserSchedule] = useState({});
   const [user, setUser] = useState({});
   const [toggle, setToggle] = useState(false);
@@ -165,6 +168,13 @@ function ViewContractor() {
     document.body.innerHTML = originalContents;
   };
 
+  const handleCardClient = (event_status) => {
+
+    // nav(`/admin/${event_status},{ state: {startDate, endDate } }`);
+    nav(`/admin/${event_status}`, { state: { startDate, endDate } });
+
+};
+
   return (
     <>
       <div id="content">
@@ -196,10 +206,23 @@ function ViewContractor() {
                   </ul>
 
                   <h3 className="inner_title"></h3>
-                  <div onClick={handleToggle} style={{ fontSize: "13px" }} >
-                    <RemoveRedEyeIcon style={{ width: "17px", marginRight: "3px" }} />
-                    View Details
+
+                  <div className="d-flex">
+                    <div onClick={handleToggle} style={{ fontSize: "13px" }} >
+                      <RemoveRedEyeIcon style={{ width: "17px", marginRight: "3px" }} />
+                      View Details
+                    </div>
+
+
+       
+                      <div onClick={() => handleCardClient('all-statement')} style={{ fontSize: "13px" }} >
+                        <RemoveRedEyeIcon style={{ width: "17px", marginRight: "3px" }} />
+                        View service
+                      </div>
+          
                   </div>
+
+
 
                 </div>
 
