@@ -248,7 +248,7 @@ function ViewServices() {
                         <div className="">
                             <div className="headings float_wrapper">
                                 <div className="gutter pull-left" style={{ paddingLeft: '0' }}>
-                                    <h3><span className='cursor title backarrow' onClick={() => navigate(-1)}>&larr;</span>Client Services Details</h3>
+                                    <h3><span className='cursor title backarrow' onClick={() => navigate(-1)}>&larr;</span> Client Services Details</h3>
                                 </div>
                                 <div className="gutter pull-right"><small className='sub'>* Click on client to view details</small></div>
                                 <span className="toggle_sidebar"></span>
@@ -317,10 +317,23 @@ function ViewServices() {
                         <div className="gutter">
                             <div id="about_user_card" className="card layer2">
                                 <h3 className="inner_title">Purchase History</h3>
-
-                                <ul className="true">
+                                <table className='smallDetails'>
+                                    <tr>
+                                        <td><b>Name:</b></td>
+                                        <td>Munna Kumar</td>
+                                        <td><b>Email:</b></td>
+                                        <td>democustomer@gmail.com</td>
+                                        <td><b>Mobile:</b></td>
+                                        <td>+91-8449496694</td>
+                                        <td><b>Address:</b></td>
+                                        <td>New York City, America</td>
+                                    </tr>
+                                </table>
+                                <div className='vspace50'></div>
+                                
                                     {memoizedUser.length > 0 ? (
-                                        <li><b>Service Booking:</b>
+                                        <>
+                                        <p><b>Service Booking:</b></p>
                                             <table className='smallDetails'>
                                                 <thead>
                                                     <tr>
@@ -359,13 +372,16 @@ function ViewServices() {
                                                     ))}
                                                 </tbody>
                                             </table>
-                                        </li>
+                                            </>
                                     ) : (
-                                        <li>No service bookings found.</li>
+                                        <p>No service bookings found.</p>
                                     )}
 
                                     {filteredGiftData.length > 0 ? (
-                                        <li><b>Gift card purchases:</b>
+                                        <>
+                                        
+                                        <div className='vspace50'></div>
+                                        <p><b>Gift card purchases:</b></p>
                                             <table className='smallDetails'>
                                                 <thead>
                                                     <tr>
@@ -387,13 +403,17 @@ function ViewServices() {
                                                     ))}
                                                 </tbody>
                                             </table>
-                                        </li>
+                                            </>
+                                        
                                     ) : (
-                                        <li>No gift card purchases found.</li>
+                                        <p>No gift card purchases found.</p>
                                     )}
 
                                     {filteredMembershipData.length > 0 ? (
-                                        <li><b>Membership purchase/renewals:</b>
+                                        <>
+                                        
+                                        <div className='vspace50'></div>
+                                        <p><b>Membership purchase/renewals:</b></p>
                                             <table className='smallDetails'>
                                                 <thead>
                                                     <tr>
@@ -416,11 +436,12 @@ function ViewServices() {
                                                     ))}
                                                 </tbody>
                                             </table>
-                                        </li>
+                                        </>
+                                        
                                     ) : (
-                                        <li>No membership purchases found.</li>
+                                        <p>No membership purchases found.</p>
                                     )}
-                                </ul>
+                                
                             </div>
                         </div>
                     </div>

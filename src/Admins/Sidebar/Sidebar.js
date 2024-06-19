@@ -38,7 +38,7 @@ function Sidebar() {
           <div className="infobox_big avatar" id='avtar'>
             <img src={images} alt="..." style={{ height: "50px" }} />
             <div className="items" style={{ marginTop: "5px", textAlign: "center" }}>
-              <span className="title">admin</span>
+              <span className="title"></span>
 
 
             </div>
@@ -49,13 +49,13 @@ function Sidebar() {
             <div className="items">
               <Link to="/admin">
                 <DashboardIcon style={{ color: "#fff" }} />
-                <span className="title">dashboard</span>
+                <span className="title">Dashboard</span>
               </Link>
             </div>
             <div className="items">
               <Link to="/admin/events">
                 <TodayIcon style={{ color: "#fff" }} />
-                <span className="title">Bookings</span>
+                <span className="title" title='view client bookings'>Bookings</span>
               </Link>
             </div>
             {/*  <div className="items">
@@ -75,7 +75,7 @@ function Sidebar() {
             <div className="items">
               <Link to="/admin/payments">
                 <AccountBalanceIcon style={{ color: "#fff" }} />
-                <span className="title">Statement</span>
+                <span className="title" title='view statement of providers'>Statements</span>
               </Link>
             </div>
             <div className="items">
