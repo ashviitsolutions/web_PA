@@ -1,22 +1,20 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { IP } from '../../../Constant';
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import Details from "./Details"
-import ReactPaginate from 'react-paginate';
 import { FallingLines } from 'react-loader-spinner';
-import "./Payment.css"
 import { useNavigate } from 'react-router-dom';
 import moment from "moment";
+import { useLocation } from 'react-router-dom';
 
 
 
 
 
 
-
-function Payments() {
+function Providerservices() {
   const navigate = useNavigate()
+  const location = useLocation();
+  const apidata = location.state ? location.state.name : "";
   const storedStartDate = localStorage.getItem("startDate");
   const storedEndDate = localStorage.getItem("endDate");
   const [startDate, setStartDate] = useState(storedStartDate);
@@ -24,7 +22,7 @@ function Payments() {
 
   const [count, setCount] = useState(0);
   const [data, setData] = useState(1);
-  const [searchText, setSearchText] = useState("");
+  const [searchText, setSearchText] = useState(apidata);
   const [pageNumber, setPageNumber] = useState(1);
   const [loading, setLoading] = useState(null);
   const [totalTip, setTotalTip] = useState(0);
@@ -71,7 +69,7 @@ function Payments() {
 
   const handleRowClick = (cur) => {
     console.log("cur", cur); // Check the structure of cur
-    navigate(`/admin/payments/details/${cur.provider_details._id}`, { state: { cur, startDate, endDate } });
+    navigate(`/admin/provider-service-details/${cur.provider_details._id}`, { state: { cur, startDate, endDate } });
   };
 
 
@@ -81,7 +79,7 @@ function Payments() {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`${IP}/provider/services-by-provider?page=${pageNumber}&limit=10`, {
+    fetch(`http://localhost:5000/api/provider/all-services-by-provider?page=${pageNumber}&limit=10`, {
       headers: {
         'Authorization': token
       }
@@ -141,6 +139,8 @@ function Payments() {
 
 
 
+  console.log("user provider list", user)
+
 
 
   const handleFilter = () => {
@@ -155,7 +155,8 @@ function Payments() {
       const isWithinDateRange = (!startDate || moment(startDate).isSameOrBefore(eventDate, 'day')) &&
         (!endDate || moment(endDate).isSameOrAfter(eventDate, 'day'));
 
-      const isSearched = !searchText || event.provider_details.first_name.toLowerCase().includes(searchText.toLowerCase());
+      const fullName = `${event.provider_details.first_name.toLowerCase()} ${event.provider_details.last_name.toLowerCase()}`;
+      const isSearched = !searchText || fullName.includes(searchText.toLowerCase());
 
       return isWithinDateRange && isSearched;
     });
@@ -248,8 +249,8 @@ function Payments() {
                     <p className='title cursor2' onClick={() => handleRowClick(cur)} title='click on provider to view details'><span>{`${cur?.provider_details?.first_name} ${cur?.provider_details?.last_name}`}</span></p>
                     <span className='sub'>{cur?.provider_details?.mailing_address?.address}</span>
 
-                    <p className='sub'>email: <span>{cur?.provider_details?.email}</span></p>
-                    <p className='sub'>phone: <span>{cur?.provider_details?.phone}</span></p>
+                    <p className='sub'><span>{cur?.provider_details?.email}</span></p>
+                    <p className='sub'><span>{cur?.provider_details?.phone}</span></p>
                   </td>
 
 
@@ -298,4 +299,4 @@ function Payments() {
   )
 }
 
-export default Payments
+export default Providerservices

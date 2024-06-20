@@ -9,8 +9,8 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function EditClient() {
-    const Startdate = localStorage.getItem("startDate")
-    const Enddate = localStorage.getItem("endDate")
+    const startDate = localStorage.getItem("startDate")
+    const endDates = localStorage.getItem("endDate")
     const tokenadmin = localStorage.getItem("tokenadmin");
     const { id } = useParams();
     localStorage.setItem("userid", id)
@@ -78,6 +78,14 @@ function EditClient() {
         };
         setFormValues(updatedSavedValues);
     }, [apidata]);
+    const handleCardClient = (event_status) => {
+        // Combine first_name and last_name
+        const fullName = `${formValues.first_name} ${formValues.last_name}`;
+
+        // Navigate with the full name included in the state
+        navigate(`/admin/${event_status}`, { state: { startDate, endDates, name: fullName } });
+    };
+
 
     return (
         <>
@@ -171,15 +179,15 @@ function EditClient() {
                                         </div>
                                         <div className="input_group">
                                             <button type="submit" className="primary square button">Submit</button>
-                                            <div className='link title pull-right'>View Purchase History</div>
+                                            <div className='link title pull-right' onClick={() => handleCardClient('clients-service-details')}>View Purchase History</div>
                                         </div>
-                                        
+
                                     </form>
                                 </div>
                             </div>
                         </div>
 
-                        
+
 
                     </div>
                 </div>

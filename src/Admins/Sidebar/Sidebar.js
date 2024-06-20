@@ -89,7 +89,7 @@ function Sidebar() {
                 <PagesIcon style={{ color: "#fff" }} />
                 <span className="title">Blog &amp; Posts</span>
               </Link>
-            </div>  
+            </div>
             <div className="items">
               <Link to="/admin/clients">
                 <Groups2Icon style={{ color: "#fff" }} />
@@ -100,6 +100,12 @@ function Sidebar() {
               <Link to="/admin/contractors">
                 <HailIcon style={{ color: "#fff" }} />
                 <span className="title">List of Providers</span>
+              </Link>
+            </div>
+            <div className="items">
+              <Link to="/admin/provider-all-services">
+                <HailIcon style={{ color: "#fff" }} />
+                <span className="title">Providers Services</span>
               </Link>
             </div>
             <div className="items">

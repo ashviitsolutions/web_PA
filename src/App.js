@@ -139,6 +139,8 @@ import Failed from './Components/Pages/Profile/userProfile/Response/Failed';
 import Setting from './Components/Pages/Profile/userProfile/Setting';
 import Review from './Admins/Admin/Alldata/Review';
 import Statemement from './Admins/Admin/Alldata/Statemement';
+import Providerservices from './Admins/Admin/CONTRACTORS/Providerservices';
+import DetailService from './Admins/Admin/CONTRACTORS/DetailService';
 function App() {
   const nav = useNavigate()
   useEffect(() => {
@@ -465,7 +467,16 @@ function App() {
             <Sidebar />
             <Protect Component={ViewServices} />
           </>} />
-          
+          <Route path="/admin/provider-all-services" element={<>
+            <Sidebar />
+            <Protect Component={Providerservices} />
+          </>} />
+
+          <Route path="/admin/provider-service-details/:id" element={<>
+            <Sidebar />
+            <Protect Component={DetailService} />
+          </>} />
+
           <Route path="/admin/blogs" element={<>
             <Sidebar />
             <Protect Component={Blogs} />

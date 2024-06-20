@@ -18,6 +18,7 @@ import DiscountIcon from '@mui/icons-material/Discount';
 import BabyChangingStationIcon from '@mui/icons-material/BabyChangingStation';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import PagesIcon from '@mui/icons-material/Pages';
+import SpaIcon from '@mui/icons-material/Spa';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
@@ -57,90 +58,101 @@ function Mobile() {
                             </div>
                             <span className="toggle_sidebar close" ></span>
                         </div>
-                        <div className="nav" style={{ marginTop: "10px" }}>
+                        <div className="nav" style={{ marginTop: "30px" }}>
 
-                            <div className="items">
-                                <Link to="/admin">
-                                    <DashboardIcon style={{ color: "#fff" }} />
-                                    <span className="title">dashboard</span>
-                                </Link>
-                            </div>
-                            <div className="items">
-                                <Link to="/admin/events">
-                                    <TodayIcon style={{ color: "#fff" }} />
-                                    <span className="title">Bookings</span>
-                                </Link>
-                            </div>
-                            {/*  <div className="items">
-              <Link to="/admin/bookings">
-                <BeenhereIcon style={{ color: "#fff" }} />
-                <span className="title">bookings</span>
-              </Link>
-  </div> */}
-
-                            {/*  <div className="items">
-              <Link to="/admin/messages">
-                <MessageIcon style={{ color: "#fff" }} />
-                <span className="title">messages</span>
-              </Link>
-            </div>
-           */}
-                            <div className="items">
-                                <Link to="/admin/payments">
-                                    <AccountBalanceIcon style={{ color: "#fff" }} />
-                                    <span className="title">Statement</span>
-                                </Link>
-                            </div>
-                            <div className="items">
-                                <Link to="/admin/gift">
-                                    <CardGiftcardIcon style={{ color: "#fff" }} />
-                                    <span className="title">Gift Card</span>
-                                </Link>
-                            </div>
-                            <div className="items">
-                                <Link to="/admin/coupon ">
-                                    <DiscountIcon style={{ color: "#fff" }} />
-                                    <span className="title">Coupon</span>
-                                </Link>
-                            </div>
-                            <div className="items">
-                                <Link to="/admin/services">
-                                    <BabyChangingStationIcon style={{ color: "#fff" }} />
-                                    <span className="title">services</span>
-                                </Link>
-                            </div>
-                            <div className="items">
-                                <Link to="/admin/post">
-                                    <PostAddIcon style={{ color: "#fff" }} />
-                                    <span className="title">posts</span>
-                                </Link>
-                            </div>
-                            <div className="items">
-                                <Link to="/admin/blogs">
-                                    <PagesIcon style={{ color: "#fff" }} />
-                                    <span className="title">Blogs</span>
-                                </Link>
-                            </div>
-
-                            <div className="items">
-                                <Link to="/admin/contractors">
-                                    <HailIcon style={{ color: "#fff" }} />
-                                    <span className="title">contractors</span>
-                                </Link>
-                            </div>
-                            <div className="items">
-                                <Link to="/admin/clients">
-                                    <Groups2Icon style={{ color: "#fff" }} />
-                                    <span className="title">clients</span>
-                                </Link>
-                            </div>
-                            <div className="items">
-                                <Link to="/admin/login">
-                                    <LogoutIcon style={{ color: "#fff" }} />
-                                    <span className="title" onClick={logout}>logout</span>
-                                </Link>
-                            </div>
+                        <div className="items">
+                          <Link to="/admin">
+                            <DashboardIcon style={{ color: "#fff" }} />
+                            <span className="title">Dashboard</span>
+                          </Link>
                         </div>
+                        <div className="items">
+                          <Link to="/admin/events">
+                            <TodayIcon style={{ color: "#fff" }} />
+                            <span className="title" title='view client bookings'>Completed Bookings</span>
+                          </Link>
+                        </div>
+                        {/*  <div className="items">
+                          <Link to="/admin/bookings">
+                            <BeenhereIcon style={{ color: "#fff" }} />
+                            <span className="title">bookings</span>
+                          </Link>
+              </div> */}
+            
+                        {/*  <div className="items">
+                          <Link to="/admin/messages">
+                            <MessageIcon style={{ color: "#fff" }} />
+                            <span className="title">messages</span>
+                          </Link>
+                        </div>
+                       */}
+                        <div className="items">
+                          <Link to="/admin/payments">
+                            <AccountBalanceIcon style={{ color: "#fff" }} />
+                            <span className="title" title='view statement of providers'>Provider's Statements</span>
+                          </Link>
+                        </div>
+                        <div className="items">
+                          <Link to="/admin/clients-service-details">
+                            <Groups2Icon style={{ color: "#fff" }} />
+                            <span className="title">Purchase History</span>
+                          </Link>
+                        </div>
+                        <div className="items">
+                          <Link to="/admin/blogs">
+                            <PagesIcon style={{ color: "#fff" }} />
+                            <span className="title">Blog &amp; Posts</span>
+                          </Link>
+                        </div>
+                        <div className="items">
+                          <Link to="/admin/clients">
+                            <Groups2Icon style={{ color: "#fff" }} />
+                            <span className="title">List of Clients</span>
+                          </Link>
+                        </div>
+                        <div className="items">
+                          <Link to="/admin/contractors">
+                            <HailIcon style={{ color: "#fff" }} />
+                            <span className="title">List of Providers</span>
+                          </Link>
+                        </div>
+                        <div className="items">
+                          <Link to="/admin/provider-all-services">
+                            <HailIcon style={{ color: "#fff" }} />
+                            <span className="title">Providers Services</span>
+                          </Link>
+                        </div>
+                        <div className="items">
+                          <Link to="/admin/gift">
+                            <CardGiftcardIcon style={{ color: "#fff" }} />
+                            <span className="title">Manage Gift Card</span>
+                          </Link>
+                        </div>
+                        <div className="items">
+                          <Link to="/admin/coupon ">
+                            <DiscountIcon style={{ color: "#fff" }} />
+                            <span className="title">Manage Coupon Codes</span>
+                          </Link>
+                        </div>
+                        <div className="items">
+                          <Link to="/admin/services">
+                            <SpaIcon style={{ color: "#fff" }} />
+                            <span className="title">List of Services</span>
+                          </Link>
+                        </div>
+                        <div className="items">
+                          <Link to="/admin/post">
+                            <PostAddIcon style={{ color: "#fff" }} />
+                            <span className="title">Manage Content</span>
+                          </Link>
+                        </div>
+                        <div className="items">
+                          <Link to="/admin/login">
+                            <LogoutIcon style={{ color: "#fff" }} />
+                            <span className="title" onClick={logout}>logout</span>
+                          </Link>
+                        </div>
+                      </div>
                     </div>
                 </div>
             </div>

@@ -9,11 +9,12 @@ function ViewServices() {
     const location = useLocation();
     const startDates = location.state ? location.state.startDate : "";
     const endDates = location.state ? location.state.endDate : "";
-    const Startdate = localStorage.getItem("startDate")
-    const Enddate = localStorage.getItem("endDate")
-    const [searchText, setSearchText] = useState("");
-    const [startDate, setStartDate] = useState(startDates);
-    const [endDate, setEndDate] = useState(endDates);
+    const username = location.state ? location.state.name : "";
+    const storedStartDate = localStorage.getItem("startDate");
+    const storedEndDate = localStorage.getItem("endDate");
+    const [startDate, setStartDate] = useState(startDates || storedStartDate);
+    const [endDate, setEndDate] = useState(endDates || storedEndDate);
+    const [searchText, setSearchText] = useState(username);
     const [loading, setLoading] = useState(null);
     const [totalTip, setTotalTip] = useState(0);
     const [user, setUser] = useState([]);
@@ -22,7 +23,7 @@ function ViewServices() {
     const [serachToggle, setAerachToggle] = useState(true);
     const [membershipDetails, setMembershipDetails] = useState([]);
     const [giftcarddetails, setGiftcarddetails] = useState([]);
-    const [finalAmounts, setFinalAmount] = useState(0);
+    const [userid, setUserId] = useState('');
     const [selectedUserName, setSelectedUserName] = useState(""); // New state to store selected user name
     const [selectedUserEmail, setSelectedUserEmail] = useState(""); // New state to store selected user email
     const [selectedUserMobile, setSelectedUserMobile] = useState(""); // New state to store selected user mobile
@@ -37,11 +38,6 @@ function ViewServices() {
     }, [startDate, endDate]);
 
 
-    useEffect(() => {
-
-        setStartDate(Startdate);
-        setEndDate(Enddate);
-    }, [endDates, endDates]);// Empty dependency array means this effect will only run once after the initial render
 
     useEffect(() => {
         let updatedTotalTip = 0;
@@ -53,12 +49,6 @@ function ViewServices() {
         setTotalTip(updatedTotalTip);
     }, [user]);
 
-
-
-    // list of user sdetails
-
-
-
     useEffect(() => {
         setLoading(true);
         fetch(`${IP}/admin/allusers`, {
@@ -68,7 +58,6 @@ function ViewServices() {
         }).then(resp => resp.json())
             .then(result => {
                 setUserlist(result);
-
                 setLoading(false);
             }).catch(err => {
                 console.log(err);
@@ -76,30 +65,32 @@ function ViewServices() {
             });
     }, [token]);
 
-
     useEffect(() => {
-        setLoading(true);
-        fetch(`${IP}/provider/get-all-service?userId=${selectedUserId}`)
-            .then(resp => resp.json())
-            .then(result => {
-                setUser(result.allData.servicesByProvider);
-                setMembershipDetails(result.allData.membershipDetails);
-                setGiftcarddetails(result.allData.giftcarddetails);
-                setAlladata(result.finalcalculation);
-                console.log("Fetched data", result);
+        if (selectedUserId) {
+            setLoading(true);
+            fetch(`${IP}/provider/get-all-service?userId=${selectedUserId}`)
+                .then(resp => resp.json())
+                .then(result => {
+                    setUser(result.allData.servicesByProvider);
+                    setMembershipDetails(result.allData.membershipDetails);
+                    setGiftcarddetails(result.allData.giftcarddetails);
+                    setAlladata(result.finalcalculation);
+                    console.log("Fetched data", result);
 
-                // Update selected user details upon fetching services data
-                const selectedUser = userlist.find(user => user._id === selectedUserId);
-                console.log("user ddeyails of elected", selectedUser)
-                if (selectedUser) {
-                    setSelectedUserName(`${selectedUser.first_name} ${selectedUser.last_name}`);
-                    setSelectedUserEmail(selectedUser.email);
-                    setSelectedUserMobile(selectedUser.mobile);
-                    setSelectedUserAddress(selectedUser.address);
-                }
-            })
-            .catch(err => console.error("Error fetching data:", err))
-            .finally(() => setLoading(false));
+                    // Update selected user details upon fetching services data
+                    const selectedUser = userlist.find(user => user._id === selectedUserId);
+                    console.log("user details of selected", selectedUser);
+                    if (selectedUser) {
+                        setSelectedUserName(`${selectedUser.first_name} ${selectedUser.last_name}`);
+                        setUserId(selectedUser);
+                        setSelectedUserEmail(selectedUser.email);
+                        setSelectedUserMobile(selectedUser.mobile);
+                        setSelectedUserAddress(selectedUser.address);
+                    }
+                })
+                .catch(err => console.error("Error fetching data:", err))
+                .finally(() => setLoading(false));
+        }
     }, [selectedUserId]);
 
     const filteredUsers = userlist.filter(user => {
@@ -116,17 +107,14 @@ function ViewServices() {
     };
 
     useEffect(() => {
-        handleUserClick()
+        setSelectedUserId(selectedUserId);
     }, [selectedUserId])
-
-
-
 
     const handleFilter = () => {
         const filteredData = user.filter(event => {
             const eventDate = moment(event.services[0].createdAt, 'YYYY-MM-DD');
             const isWithinDateRange = (!startDate || moment(startDate).isSameOrBefore(eventDate, 'day')) &&
-                (!endDate || moment(endDate).isSameOrAfter(eventDate, 'day'));;
+                (!endDate || moment(endDate).isSameOrAfter(eventDate, 'day'));
             return isWithinDateRange;
         });
 
@@ -221,36 +209,13 @@ function ViewServices() {
 
     const totalAdminAmount = parseFloat(aggregatedValues.totalAdminAmount || 0);
     const totalProviderAmount = parseFloat(aggregatedValues.totalProviderAmount || 0);
-    const amount_tax = parseFloat(aggregatedValues.amount_tax || 0);
-    const totalMembership = parseFloat(totalMembershipPrice || 0);
-    const totalGift = parseFloat(totalGiftPrice || 0);
-    const finalAmount = (totalAdminAmount + totalMembership + totalGift) - (amount_tax + totalProviderAmount);
+    const finalAmount = totalAdminAmount + totalProviderAmount;
 
-    useEffect(() => {
-        if (status === "") {
-            const totalAdminAmount = parseFloat(aggregatedValues.totalAdminAmount || 0);
-            const totalProviderAmount = parseFloat(aggregatedValues.totalProviderAmount || 0);
-            const amount_tax = parseFloat(aggregatedValues.amount_tax || 0);
-            const totalMembership = parseFloat(totalMembershipPrice || 0);
-            const totalGift = parseFloat(totalGiftPrice || 0);
-            const finalAmount = (totalAdminAmount + totalMembership + totalGift) - (amount_tax + totalProviderAmount);
-            setFinalAmount(finalAmount);
-        } else if (status === "services") {
-            const totalAdminAmount = parseFloat(aggregatedValues.totalAdminAmount || 0);
-            const totalProviderAmount = parseFloat(aggregatedValues.totalProviderAmount || 0);
-            const amount_tax = parseFloat(aggregatedValues.amount_tax || 0);
-            const finalAmount = (totalAdminAmount) - (amount_tax + totalProviderAmount);
-            setFinalAmount(finalAmount);
-        } else if (status === "membership") {
-            const totalMembership = parseFloat(totalMembershipPrice || 0);
-            const finalAmount = totalMembership;
-            setFinalAmount(finalAmount);
-        } else if (status === "giftcard") {
-            const totalGift = parseFloat(totalGiftPrice || 0);
-            const finalAmount = totalGift;
-            setFinalAmount(finalAmount);
-        }
-    }, [status, aggregatedValues.totalAdminAmount, aggregatedValues.totalProviderAmount, aggregatedValues.amount_tax, totalMembershipPrice, totalGiftPrice]);
+
+    const handleRowClick = (client) => {
+        console.log("cur", client); // Check the structure of cur
+        navigate(`/admin/clients/edit_client/${client._id}`, { state: { client } });
+    };
 
     return (
         <>
@@ -264,9 +229,9 @@ function ViewServices() {
                                 </div>
                                 <div className="gutter pull-right">
                                     <small className='sub'>
-                                    <p>* Search client and click on client name to view purchase history</p>
-                                    <p>* Click on Edit link after the client name to edit client details</p>
-                                    <p>* Click on provider name to view provider service history</p>
+                                        <p>* Search client and click on client name to view purchase history</p>
+                                        <p>* Click on Edit link after the client name to edit client details</p>
+                                        <p>* Click on provider name to view provider service history</p>
                                     </small>
                                 </div>
                                 <span className="toggle_sidebar"></span>
@@ -307,23 +272,23 @@ function ViewServices() {
                             <div className="gutter">
                                 <div id="about_user_card" className=" layer2">
                                     <h3 className="inner_title">User List</h3>
-                                        {loading ? (
-                                            <p>Loading...</p>
-                                        ) : (
-                                            filteredUsers.length > 0 ? (
-                                                filteredUsers.map(user => (
-                                                    <div className='card gutter mt-2 link'>
+                                    {loading ? (
+                                        <p>Loading...</p>
+                                    ) : (
+                                        filteredUsers.length > 0 ? (
+                                            filteredUsers.map(user => (
+                                                <div className='card gutter mt-2 link'>
                                                     <small key={user._id} onClick={() => handleUserClick(user._id)}>
                                                         <p><b>Name:</b> {user.first_name} {user.last_name}</p>
                                                         <p><b>Email:</b> {user.email}</p>
-                                                        <p><b>Mobile:</b> {user. mobile}</p>
+                                                        <p><b>Mobile:</b> {user.mobile}</p>
                                                     </small>
-                                                    </div>
-                                                ))
-                                            ) : (
-                                                <p>No users found.</p>
-                                            )
-                                        )}
+                                                </div>
+                                            ))
+                                        ) : (
+                                            <p>No users found.</p>
+                                        )
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -339,7 +304,7 @@ function ViewServices() {
                                 <table className='smallDetails'>
                                     <tr>
                                         <td><b>Name:</b></td>
-                                        <td>{selectedUserName} (<span className='link title'>Edit</span>)</td>
+                                        <td>{selectedUserName} (<span className='link title' onClick={() => handleRowClick(userid)} >Edit</span>)</td>
                                         <td><b>Email:</b></td>
                                         <td>{selectedUserEmail}</td>
                                         <td><b>Mobile:</b></td>
@@ -363,10 +328,10 @@ function ViewServices() {
                                             </thead>
                                             <tbody>
                                                 {memoizedUser.map((cur, index) => (
-                                                    <React.Fragment  key={index}>
-                                                        
-                                                            {cur.services.map((service, serviceIndex) => (
-                                                                <tr key={index}>
+                                                    <React.Fragment key={index}>
+
+                                                        {cur.services.map((service, serviceIndex) => (
+                                                            <tr key={index}>
                                                                 <td>
                                                                     <div key={serviceIndex}>
                                                                         <h6>{service.service_name}</h6>
@@ -377,24 +342,24 @@ function ViewServices() {
                                                                             <p key={addonIndex}>{addon.title}</p>
                                                                         ))}
                                                                     </div>
-                                                                
+
                                                                 </td>
                                                                 <td>
-                                                                <p>{service?.amount_calculation?.total_amount}$</p>
-                                                            </td>
-    
-                                                            <td>
-                                                            <p className='link title'>{service?.provider_details?.name}</p>
-                                                            </td>
-                                                           
-                                                            <td>
-                                                                <p key={`createdAt-${serviceIndex}`}>
+                                                                    <p>{service?.amount_calculation?.total_amount}$</p>
+                                                                </td>
+
+                                                                <td>
+                                                                    <p className='link title'>{service?.provider_details?.name}</p>
+                                                                </td>
+
+                                                                <td>
+                                                                    <p key={`createdAt-${serviceIndex}`}>
                                                                         {moment(service.createdAt).format('DD-MM-YYYY hh:mm A')}
                                                                     </p>
-                                                            </td>
-                                                        </tr>
-                                                            ))}
-                                                  </React.Fragment>      
+                                                                </td>
+                                                            </tr>
+                                                        ))}
+                                                    </React.Fragment>
                                                 ))}
                                             </tbody>
                                         </table>
