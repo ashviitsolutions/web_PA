@@ -79,7 +79,7 @@ function Providerservices() {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:5000/api/provider/all-services-by-provider?page=${pageNumber}&limit=10`, {
+    fetch(`${IP}/provider/all-services-by-provider?page=${pageNumber}&limit=10`, {
       headers: {
         'Authorization': token
       }
