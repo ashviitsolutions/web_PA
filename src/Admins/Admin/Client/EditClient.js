@@ -97,7 +97,6 @@ function EditClient() {
                     <div className="row">
                         <div className="col-sm-6">
                             <div className="gutter">
-                                <p>{Startdate} to {Enddate}</p>
 
                                 <div id="user_form_card" className="card layer2">
                                     <label className="card_label" htmlFor="">
@@ -172,13 +171,15 @@ function EditClient() {
                                         </div>
                                         <div className="input_group">
                                             <button type="submit" className="primary square button">Submit</button>
+                                            <div className='link title pull-right'>View Purchase History</div>
                                         </div>
+                                        
                                     </form>
                                 </div>
                             </div>
                         </div>
 
-                        <ViewDetails />
+                        
 
                     </div>
                 </div>

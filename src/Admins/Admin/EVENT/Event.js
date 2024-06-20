@@ -154,8 +154,14 @@ function Event() {
                     <div className="row">
                         <div className="">
                             <div className="headings">
-                            <h3><span className='cursor title backarrow' onClick={() => nav(-1)}>&larr;</span>Events</h3>
-                               
+                            <h3><span className='cursor title backarrow' onClick={() => nav(-1)}>&larr;</span> Events</h3>
+                            <div className="gutter pull-right">
+                                <small className='sub'>
+                                <p>* Click on client name to view/edit client details</p>
+                                <p>* Click on service name to view details</p>
+                                <p>* Click on provider name to view/edit provider details</p>
+                                </small>
+                            </div>
                                 <span className="toggle_sidebar" ></span>
                             </div>
                         </div>
@@ -197,20 +203,25 @@ function Event() {
                                     <p>No bookings found.</p>
                                 ) : (
                                     filteredRequest.map((event, index) => (
-                                        <div className="item_wrapper" key={index} onClick={() => openModal(event)}>
+                                        <div className="item_wrapper" key={index}>
                                             <div className="item card layer2">
                                                 <div className="first_half">
-                                                    <h3 onClick={() => handleRowClick(event.user)}>{event?.user?.first_name} {event?.user?.last_name}</h3>
-                                                    <h3>{event.service_name} {event.service_time} - {event.massage_for}</h3>
+                                                    <h3 className="link title" onClick={() => handleRowClick(event.user)}>{event?.user?.first_name} {event?.user?.last_name}</h3>
+                                                    <h3 className="link" onClick={() => openModal(event)}>{event.service_name} {event.service_time} - {event.massage_for}</h3>
                                                     <span className="address">{event.address}</span>
                                                     <span className="address"><b></b>{event.scheduled_date}</span>
                                                     <span className="address"><b></b>{event.scheduled_timing}</span>
                                                     <span className="tag">
                                                         <b>Booking status: </b>
                                                         {event.service_status}
-                                                        {event?.provider?.first_name && event?.provider?.last_name ? (
-                                                            <> by {event.provider.first_name} {event.provider.last_name}</>
+                                                            {event?.provider?.first_name && event?.provider?.last_name ? (
+                                                            <> by &nbsp;
+                                                                <span className="link title">
+                                                                    {event.provider.first_name} {event.provider.last_name}
+                                                                </span>
+                                                            </>
                                                         ) : null}
+                                                        
                                                     </span>
 
                                                     <span className="tag"><b></b> {event.instructions !== '' ? <><strong className="mt-1">Instructions : </strong> {event.instructions} </> : ''}</span>

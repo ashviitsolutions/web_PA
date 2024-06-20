@@ -262,7 +262,13 @@ function ViewServices() {
                                 <div className="gutter pull-left" style={{ paddingLeft: '0' }}>
                                     <h3><span className='cursor title backarrow' onClick={() => navigate(-1)}>&larr;</span> Client Services Details</h3>
                                 </div>
-                                <div className="gutter pull-right"><small className='sub'>* Click on client to view details</small></div>
+                                <div className="gutter pull-right">
+                                    <small className='sub'>
+                                    <p>* Search client and click on client name to view purchase history</p>
+                                    <p>* Click on Edit link after the client name to edit client details</p>
+                                    <p>* Click on provider name to view provider service history</p>
+                                    </small>
+                                </div>
                                 <span className="toggle_sidebar"></span>
                             </div>
                         </div>
@@ -297,26 +303,27 @@ function ViewServices() {
 
                     {/* User List */}
                     {searchText && (
-                        <div className="col-sm-12 card-right" id="card-right">
+                        <div className="col-sm-4 pull-right searchResult" id="">
                             <div className="gutter">
-                                <div id="about_user_card" className="card layer2">
+                                <div id="about_user_card" className=" layer2">
                                     <h3 className="inner_title">User List</h3>
-                                    <ul>
                                         {loading ? (
-                                            <li>Loading...</li>
+                                            <p>Loading...</p>
                                         ) : (
                                             filteredUsers.length > 0 ? (
                                                 filteredUsers.map(user => (
-                                                    <li key={user._id} onClick={() => handleUserClick(user._id)}>
-                                                        <p><b>First Name:</b> {user.first_name} {user.last_name}</p>
-                                                        <p><b>Mobile:</b> {user.email}</p>
-                                                    </li>
+                                                    <div className='card gutter mt-2 link'>
+                                                    <small key={user._id} onClick={() => handleUserClick(user._id)}>
+                                                        <p><b>Name:</b> {user.first_name} {user.last_name}</p>
+                                                        <p><b>Email:</b> {user.email}</p>
+                                                        <p><b>Mobile:</b> {user. mobile}</p>
+                                                    </small>
+                                                    </div>
                                                 ))
                                             ) : (
-                                                <li>No users found.</li>
+                                                <p>No users found.</p>
                                             )
                                         )}
-                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -332,7 +339,7 @@ function ViewServices() {
                                 <table className='smallDetails'>
                                     <tr>
                                         <td><b>Name:</b></td>
-                                        <td>{selectedUserName}</td>
+                                        <td>{selectedUserName} (<span className='link title'>Edit</span>)</td>
                                         <td><b>Email:</b></td>
                                         <td>{selectedUserEmail}</td>
                                         <td><b>Mobile:</b></td>
@@ -356,40 +363,38 @@ function ViewServices() {
                                             </thead>
                                             <tbody>
                                                 {memoizedUser.map((cur, index) => (
-                                                    <tr key={index}>
-                                                        <td>
+                                                    <React.Fragment  key={index}>
+                                                        
                                                             {cur.services.map((service, serviceIndex) => (
-                                                                <div key={serviceIndex}>
-                                                                    <h6>{service.service_name}</h6>
-                                                                    {service.add_ons_details && service.add_ons_details.length > 0 && (
-                                                                        <p><b>Addons-</b></p>
-                                                                    )}
-                                                                    {service.add_ons_details.map((addon, addonIndex) => (
-                                                                        <p key={addonIndex}>{addon.title}</p>
-                                                                    ))}
-                                                                </div>
-                                                            ))}
-                                                        </td>
-                                                        <td>
-                                                            {cur.services.map((service, serviceIndex) => (
-                                                                <p>{service?.amount_calculation?.total_amount}</p>
-                                                            ))}
-                                                        </td>
-
-                                                        <td>
-                                                            {cur.services.map((service, serviceIndex) => (
-                                                                <p>{service?.provider_details?.name}</p>
-                                                            ))}
-                                                        </td>
-                                                       
-                                                        <td>
-                                                            {cur.services.map((service, serviceIndex) => (
+                                                                <tr key={index}>
+                                                                <td>
+                                                                    <div key={serviceIndex}>
+                                                                        <h6>{service.service_name}</h6>
+                                                                        {service.add_ons_details && service.add_ons_details.length > 0 && (
+                                                                            <p><b>Addons-</b></p>
+                                                                        )}
+                                                                        {service.add_ons_details.map((addon, addonIndex) => (
+                                                                            <p key={addonIndex}>{addon.title}</p>
+                                                                        ))}
+                                                                    </div>
+                                                                
+                                                                </td>
+                                                                <td>
+                                                                <p>{service?.amount_calculation?.total_amount}$</p>
+                                                            </td>
+    
+                                                            <td>
+                                                            <p className='link title'>{service?.provider_details?.name}</p>
+                                                            </td>
+                                                           
+                                                            <td>
                                                                 <p key={`createdAt-${serviceIndex}`}>
-                                                                    {moment(service.createdAt).format('DD-MM-YYYY hh:mm A')}
-                                                                </p>
+                                                                        {moment(service.createdAt).format('DD-MM-YYYY hh:mm A')}
+                                                                    </p>
+                                                            </td>
+                                                        </tr>
                                                             ))}
-                                                        </td>
-                                                    </tr>
+                                                  </React.Fragment>      
                                                 ))}
                                             </tbody>
                                         </table>

@@ -419,7 +419,7 @@ function Dashboard() {
                                 <div className="summary_collections">
                                     <div className="container-fluid">
                                         <div className="row">
-                                            <div className="col-sm-3" onClick={() => handleCardClient('all-statement')}>
+                                            <div className="col-sm-3 link" onClick={() => handleCardClient('all-statement')}>
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image4})` }}></span>
@@ -430,7 +430,7 @@ function Dashboard() {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-sm-3" onClick={() => handleCardClient('all-statement')}>
+                                            <div className="col-sm-3 link" onClick={() => handleCardClient('all-statement')}>
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${money})` }}></span>
@@ -441,7 +441,7 @@ function Dashboard() {
                                                 </div>
                                             </div>
 
-                                            <div className="col-sm-3" onClick={handleClient} >
+                                            <div className="col-sm-3 link" onClick={handleClient} >
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image5})` }}></span>
@@ -450,7 +450,7 @@ function Dashboard() {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-sm-3" onClick={() => handleVender('Newly registered')}>
+                                            <div className="col-sm-3 link" onClick={() => handleVender('Newly registered')}>
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image5})` }}></span>
@@ -469,7 +469,7 @@ function Dashboard() {
                                                 <h5>Services</h5>
                                             </div>
 
-                                            <div className="col-sm-3" onClick={() => handleCardClick('pending')}>
+                                            <div className="col-sm-3 link" onClick={() => handleCardClick('pending')}>
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image1})` }}></span>
@@ -478,7 +478,7 @@ function Dashboard() {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-sm-3" onClick={() => handleCardClick('scheduled')}>
+                                            <div className="col-sm-3 link" onClick={() => handleCardClick('scheduled')}>
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image3})` }}></span>
@@ -488,7 +488,7 @@ function Dashboard() {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-sm-3" onClick={() => handleCardClick('')}>
+                                            <div className="col-sm-3 link" onClick={() => handleCardClick('')}>
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image2})` }}></span>
@@ -497,7 +497,7 @@ function Dashboard() {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-sm-3" onClick={() => handleCardClick('completed')}>
+                                            <div className="col-sm-3 link" onClick={() => handleCardClick('completed')}>
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image7})` }}></span>
@@ -512,7 +512,7 @@ function Dashboard() {
 
 
 
-                                            <div className="col-sm-4" onClick={() => handleCardClient('gift-all')}>
+                                            <div className="col-sm-4 link" onClick={() => handleCardClient('gift-all')}>
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image8})` }}></span>
@@ -521,7 +521,7 @@ function Dashboard() {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-sm-4" onClick={() => handleCardClient('memberhsip-all')}>
+                                            <div className="col-sm-4 link" onClick={() => handleCardClient('memberhsip-all')}>
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image9})` }}></span>
@@ -531,7 +531,7 @@ function Dashboard() {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="col-sm-4" onClick={() => handleCardClient('review')}>
+                                            <div className="col-sm-4 link" onClick={() => handleCardClient('review')}>
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image10})` }}></span>

@@ -1051,3 +1051,26 @@ tbody .bg {
 .vspace50{
     height: 50px;
 }
+.link{
+    color: #0a3c62 !important;
+    cursor: pointer;
+}
+.link:hover{
+    color: #03a9f4 !important;
+    transition: .3s;
+}
+.searchResult {
+    position: absolute;
+    z-index: 999;
+    right: 37px;
+    background: #f5f5f5a6;
+    border-radius: 10px;
+    backdrop-filter: blur(1px);
+}
+
+.searchResult .card {
+    padding: 10px !important;
+}
+.searchResult p{
+    margin: 0 !important;
+}

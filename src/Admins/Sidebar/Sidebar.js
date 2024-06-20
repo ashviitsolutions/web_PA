@@ -36,15 +36,15 @@ function Sidebar() {
         <div className="card layer">
 
           <div className="infobox_big avatar" id='avtar'>
-            <img src={images} alt="..." style={{ height: "50px" }} />
-            <div className="items" style={{ marginTop: "5px", textAlign: "center" }}>
+            <img src={images} alt="..." style={{ width: "80%" }} />
+            {/* <div className="items" style={{ marginTop: "5px", textAlign: "center" }}>
               <span className="title"></span>
 
 
-            </div>
+            </div> */}
             <span className="toggle_sidebar close" ></span>
           </div>
-          <div className="nav" style={{ marginTop: "10px" }}>
+          <div className="nav" style={{ marginTop: "30px" }}>
 
             <div className="items">
               <Link to="/admin">
@@ -55,7 +55,7 @@ function Sidebar() {
             <div className="items">
               <Link to="/admin/events">
                 <TodayIcon style={{ color: "#fff" }} />
-                <span className="title" title='view client bookings'>Bookings</span>
+                <span className="title" title='view client bookings'>Completed Bookings</span>
               </Link>
             </div>
             {/*  <div className="items">
@@ -75,56 +75,55 @@ function Sidebar() {
             <div className="items">
               <Link to="/admin/payments">
                 <AccountBalanceIcon style={{ color: "#fff" }} />
-                <span className="title" title='view statement of providers'>Statements</span>
-              </Link>
-            </div>
-            <div className="items">
-              <Link to="/admin/gift">
-                <CardGiftcardIcon style={{ color: "#fff" }} />
-                <span className="title">Gift Card</span>
-              </Link>
-            </div>
-            <div className="items">
-              <Link to="/admin/coupon ">
-                <DiscountIcon style={{ color: "#fff" }} />
-                <span className="title">Coupon</span>
-              </Link>
-            </div>
-            <div className="items">
-              <Link to="/admin/services">
-                <SpaIcon style={{ color: "#fff" }} />
-                <span className="title">services</span>
-              </Link>
-            </div>
-            <div className="items">
-              <Link to="/admin/post">
-                <PostAddIcon style={{ color: "#fff" }} />
-                <span className="title">posts</span>
-              </Link>
-            </div>
-            <div className="items">
-              <Link to="/admin/blogs">
-                <PagesIcon style={{ color: "#fff" }} />
-                <span className="title">Blogs</span>
-              </Link>
-            </div>
-
-            <div className="items">
-              <Link to="/admin/contractors">
-                <HailIcon style={{ color: "#fff" }} />
-                <span className="title">contractors</span>
-              </Link>
-            </div>
-            <div className="items">
-              <Link to="/admin/clients">
-                <Groups2Icon style={{ color: "#fff" }} />
-                <span className="title">clients</span>
+                <span className="title" title='view statement of providers'>Provider's Statements</span>
               </Link>
             </div>
             <div className="items">
               <Link to="/admin/clients-service-details">
                 <Groups2Icon style={{ color: "#fff" }} />
-                <span className="title">clients</span>
+                <span className="title">Purchase History</span>
+              </Link>
+            </div>
+            <div className="items">
+              <Link to="/admin/blogs">
+                <PagesIcon style={{ color: "#fff" }} />
+                <span className="title">Blog &amp; Posts</span>
+              </Link>
+            </div>  
+            <div className="items">
+              <Link to="/admin/clients">
+                <Groups2Icon style={{ color: "#fff" }} />
+                <span className="title">List of Clients</span>
+              </Link>
+            </div>
+            <div className="items">
+              <Link to="/admin/contractors">
+                <HailIcon style={{ color: "#fff" }} />
+                <span className="title">List of Providers</span>
+              </Link>
+            </div>
+            <div className="items">
+              <Link to="/admin/gift">
+                <CardGiftcardIcon style={{ color: "#fff" }} />
+                <span className="title">Manage Gift Card</span>
+              </Link>
+            </div>
+            <div className="items">
+              <Link to="/admin/coupon ">
+                <DiscountIcon style={{ color: "#fff" }} />
+                <span className="title">Manage Coupon Codes</span>
+              </Link>
+            </div>
+            <div className="items">
+              <Link to="/admin/services">
+                <SpaIcon style={{ color: "#fff" }} />
+                <span className="title">List of Services</span>
+              </Link>
+            </div>
+            <div className="items">
+              <Link to="/admin/post">
+                <PostAddIcon style={{ color: "#fff" }} />
+                <span className="title">Manage Content</span>
               </Link>
             </div>
             <div className="items">

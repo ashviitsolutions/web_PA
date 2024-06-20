@@ -183,7 +183,7 @@ function ViewContractor() {
             <div className="">
               <div className="headings float_wrapper">
                 <div className="gutter pull-left" style={{ paddingLeft: "0" }}>
-                  <h3>View Contractor</h3>
+                  <h3><span className='cursor title backarrow' onClick={() => nav(-1)}>&larr;</span> View Contractor</h3>
                 </div>
                 <span className="toggle_sidebar" ></span>
               </div>
@@ -208,16 +208,16 @@ function ViewContractor() {
                   <h3 className="inner_title"></h3>
 
                   <div className="d-flex">
-                    <div onClick={handleToggle} style={{ fontSize: "13px" }} >
+                    <div className='link title' onClick={handleToggle} style={{ fontSize: "13px" }} >
                       <RemoveRedEyeIcon style={{ width: "17px", marginRight: "3px" }} />
-                      View Details
+                      View Contractor Data
                     </div>
 
-
+                    &nbsp; &nbsp; &nbsp;
        
-                      <div onClick={() => handleCardClient('all-statement')} style={{ fontSize: "13px" }} >
+                      <div className='link title' onClick={() => handleCardClient('all-statement')} style={{ fontSize: "13px" }} >
                         <RemoveRedEyeIcon style={{ width: "17px", marginRight: "3px" }} />
-                        View service
+                        View Service History
                       </div>
           
                   </div>
