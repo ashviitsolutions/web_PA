@@ -37,7 +37,7 @@ function Sidebar() {
 
           <div className="infobox_big avatar" id='avtar'>
             <img src={images} alt="..." style={{ width: "80%" }} />
-            {/* <div className="items" style={{ marginTop: "5px", textAlign: "center" }}>
+            {/* <div className="items" title='' style={{ marginTop: "5px", textAlign: "center" }}>
               <span className="title"></span>
 
 
@@ -46,93 +46,93 @@ function Sidebar() {
           </div>
           <div className="nav" style={{ marginTop: "30px" }}>
 
-            <div className="items">
+            <div className="items" title='Back to Dashboard'>
               <Link to="/admin">
                 <DashboardIcon style={{ color: "#fff" }} />
                 <span className="title">Dashboard</span>
               </Link>
             </div>
-            <div className="items">
+            <div className="items" title='View the list of completed bookings'>
               <Link to="/admin/events">
                 <TodayIcon style={{ color: "#fff" }} />
-                <span className="title" title='view client bookings'>Completed Bookings</span>
+                <span className="title">Completed Bookings</span>
               </Link>
             </div>
-            {/*  <div className="items">
+            {/*  <div className="items" title=''>
               <Link to="/admin/bookings">
                 <BeenhereIcon style={{ color: "#fff" }} />
                 <span className="title">bookings</span>
               </Link>
   </div> */}
 
-            {/*  <div className="items">
+            {/*  <div className="items" title=''>
               <Link to="/admin/messages">
                 <MessageIcon style={{ color: "#fff" }} />
                 <span className="title">messages</span>
               </Link>
             </div>
            */}
-            <div className="items">
+            <div className="items" title='View statement of providers services and their commission'>
               <Link to="/admin/payments">
                 <AccountBalanceIcon style={{ color: "#fff" }} />
-                <span className="title" title='view statement of providers'>Provider's Statements</span>
+                <span className="title">Provider's Commission</span>
               </Link>
             </div>
-            <div className="items">
+            <div className="items" title='View client purchase history'>
               <Link to="/admin/clients-service-details">
                 <Groups2Icon style={{ color: "#fff" }} />
                 <span className="title">Purchase History</span>
               </Link>
             </div>
-            <div className="items">
+            <div className="items" title='manage blog posts on website'>
               <Link to="/admin/blogs">
                 <PagesIcon style={{ color: "#fff" }} />
                 <span className="title">Blog &amp; Posts</span>
               </Link>
             </div>
-            <div className="items">
+            <div className="items" title='Manage clients'>
               <Link to="/admin/clients">
                 <Groups2Icon style={{ color: "#fff" }} />
                 <span className="title">List of Clients</span>
               </Link>
             </div>
-            <div className="items">
+            <div className="items" title='Manage providers'>
               <Link to="/admin/contractors">
                 <HailIcon style={{ color: "#fff" }} />
                 <span className="title">List of Providers</span>
               </Link>
             </div>
-            <div className="items">
+            <div className="items" title='View history of services served by provider'>
               <Link to="/admin/provider-all-services">
                 <HailIcon style={{ color: "#fff" }} />
                 <span className="title">Providers Services</span>
               </Link>
             </div>
-            <div className="items">
+            <div className="items" title='Manage gift cards'>
               <Link to="/admin/gift">
                 <CardGiftcardIcon style={{ color: "#fff" }} />
                 <span className="title">Manage Gift Card</span>
               </Link>
             </div>
-            <div className="items">
+            <div className="items" title='Manage coupon codes'>
               <Link to="/admin/coupon ">
                 <DiscountIcon style={{ color: "#fff" }} />
                 <span className="title">Manage Coupon Codes</span>
               </Link>
             </div>
-            <div className="items">
+            <div className="items" title='Manage Services'>
               <Link to="/admin/services">
                 <SpaIcon style={{ color: "#fff" }} />
                 <span className="title">List of Services</span>
               </Link>
             </div>
-            <div className="items">
+            <div className="items" title='Manage content on website'>
               <Link to="/admin/post">
                 <PostAddIcon style={{ color: "#fff" }} />
                 <span className="title">Manage Content</span>
               </Link>
             </div>
-            <div className="items">
+            <div className="items" title='click to logout'>
               <Link to="/admin/login">
                 <LogoutIcon style={{ color: "#fff" }} />
                 <span className="title" onClick={logout}>logout</span>

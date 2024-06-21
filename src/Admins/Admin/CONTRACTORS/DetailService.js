@@ -79,7 +79,8 @@ function DetailService() {
                     <div className="row">
                         <div className="col">
                             <div className="headings">
-                                <h3>{apidata.provider_details.first_name} {apidata.provider_details.first_name} Service Details</h3>
+                                <h3><span className='cursor title backarrow' onClick={() => navigator(-1)}>&larr;</span> {/* {apidata.provider_details.first_name} {apidata.provider_details.last_name} */} Service Details</h3>
+                                <p>from {startDate} to {endDate}</p>
 
                                 <span className="toggle_sidebar"></span>
                             </div>
@@ -88,8 +89,8 @@ function DetailService() {
                             <p className='main title'>{apidata.provider_details.first_name} {apidata.provider_details.first_name}</p>
                             <p className='sub'>{apidata.provider_details.email}</p>
                             <p className='sub'>{apidata.provider_details.phone}</p>
-                            <p className='sub'>{startDate}</p> to
-                            <p className='sub'>{endDate}</p>
+                            {/* <p className='sub'>{startDate}</p> to
+                            <p className='sub'>{endDate}</p> */}
                         </div>
 
                     </div>

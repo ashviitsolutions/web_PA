@@ -45,6 +45,7 @@
 #sidebar .items:hover {
     background: #2196f3;
     transition: .5s ease-in-out;
+    padding-left: 20px;
 }
 #sidebar .items:active{
     background: #2196f3;
