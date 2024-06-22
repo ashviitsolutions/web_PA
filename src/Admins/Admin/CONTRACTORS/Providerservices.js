@@ -228,8 +228,12 @@ function Providerservices() {
           <div class="row">
             <div class="">
               <div class="headings">
-                <h3><span className='cursor title backarrow' onClick={() => navigate(-1)}>&larr;</span>Statement of Providers</h3>
-
+                <h3><span className='link title backarrow' onClick={() => navigate(-1)}>&larr;</span> Statement of Providers</h3>
+                <div className="gutter pull-right">
+                    <small className='sub'>
+                        <p>* Click on the provider name to view service wise data</p>
+                    </small>
+                </div>
                 <span class="toggle_sidebar" ></span>
               </div>
             </div>
@@ -369,7 +373,7 @@ function Providerservices() {
                 </tbody>
               </table>
             ) : (
-              <p>No data found please selectet the provider</p>
+              <p>No data found please select the provider</p>
             )
           }
 

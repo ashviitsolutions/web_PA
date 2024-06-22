@@ -85,17 +85,16 @@ function Details() {
                     <div className="row">
                         <div className="col">
                             <div className="headings">
-                                <h3>Payments</h3>
-                            
+                                <h3><span className='link title backarrow' onClick={() => navigator(-1)}>&larr;</span> Payments</h3>
+                                <p className='sub'>{startDate} to {endDate}</p>
                                 <span className="toggle_sidebar"></span>
                             </div>
                         </div>
                         <div className="col-auto mt-6 provDet">
-                            <p className='main title'>{apidata.provider_details.first_name} {apidata.provider_details.first_name}</p>
+                            <p className='main title'>{apidata.provider_details.first_name} {apidata.provider_details.last_name}</p>
                             <p className='sub'>{apidata.provider_details.email}</p>
                             <p className='sub'>{apidata.provider_details.phone}</p>
-                            <p className='sub'>{startDate}</p> to
-                            <p className='sub'>{endDate}</p>
+                            
                         </div>
                         <div className="col-auto mt-3">
                             <button className="btn btn-primary" onClick={handleReleasePaymentClick}>Release Payment</button>

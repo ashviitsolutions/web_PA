@@ -86,7 +86,7 @@ function DetailService() {
                             </div>
                         </div>
                         <div className="col-auto mt-6 provDet">
-                            <p className='main title'>{apidata.provider_details.first_name} {apidata.provider_details.first_name}</p>
+                            <p className='main title'>{apidata.provider_details.first_name} {apidata.provider_details.last_name}</p>
                             <p className='sub'>{apidata.provider_details.email}</p>
                             <p className='sub'>{apidata.provider_details.phone}</p>
                             {/* <p className='sub'>{startDate}</p> to
@@ -104,7 +104,7 @@ function DetailService() {
                                 <th>Addons</th>
                                 <th>Gratuity(18%)</th>
                                 <th>Total Charges</th>
-                                <th>Total Pay</th>
+                                <th>Total Commission</th>
                             </tr>
                         </thead>
                         <tbody>

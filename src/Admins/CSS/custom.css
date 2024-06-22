@@ -1060,11 +1060,12 @@ tbody .bg {
     transition: .3s;
 }
 .searchResult {
-    position: absolute;
+    position: absolute !important;
     z-index: 999;
     right: 37px;
     background: #f5f5f5a6;
     border-radius: 10px;
+    -webkit-backdrop-filter: blur(1px);
     backdrop-filter: blur(1px);
 }
 
