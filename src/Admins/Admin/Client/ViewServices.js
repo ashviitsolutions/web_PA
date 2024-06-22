@@ -14,7 +14,7 @@ function ViewServices() {
     const storedEndDate = localStorage.getItem("endDate");
     const [startDate, setStartDate] = useState(startDates || storedStartDate);
     const [endDate, setEndDate] = useState(endDates || storedEndDate);
-    const [searchText, setSearchText] = useState("");
+    const [searchText, setSearchText] = useState(username);
     const [loading, setLoading] = useState(null);
     const [totalTip, setTotalTip] = useState(0);
     const [user, setUser] = useState([]);
@@ -217,6 +217,8 @@ function ViewServices() {
         navigate(`/admin/clients/edit_client/${client._id}`, { state: { client } });
     };
 
+    console.log("memoizedUser value", memoizedUser)
+
     return (
         <>
             <div id="content">
@@ -331,11 +333,10 @@ function ViewServices() {
                                                     <tbody>
                                                         {memoizedUser.map((cur, index) => (
                                                             <React.Fragment key={index}>
-
                                                                 {cur.services.map((service, serviceIndex) => (
-                                                                    <tr key={index}>
+                                                                    <tr key={`${index}-${serviceIndex}`}>
                                                                         <td>
-                                                                            <div key={serviceIndex}>
+                                                                            <div>
                                                                                 <h6>{service.service_name}</h6>
                                                                                 {service.add_ons_details && service.add_ons_details.length > 0 && (
                                                                                     <p><b>Addons-</b></p>
@@ -344,18 +345,17 @@ function ViewServices() {
                                                                                     <p key={addonIndex}>{addon.title}</p>
                                                                                 ))}
                                                                             </div>
-
                                                                         </td>
                                                                         <td>
                                                                             <p>{service?.amount_calculation?.total_amount}$</p>
                                                                         </td>
-
                                                                         <td>
-                                                                            <p className='link title'>{service?.provider_details?.name}</p>
+                                                                            <p>
+                                                                                {cur.provider_details?.name}
+                                                                            </p>
                                                                         </td>
-
                                                                         <td>
-                                                                            <p key={`createdAt-${serviceIndex}`}>
+                                                                            <p>
                                                                                 {moment(service.createdAt).format('DD-MM-YYYY hh:mm A')}
                                                                             </p>
                                                                         </td>
@@ -364,6 +364,8 @@ function ViewServices() {
                                                             </React.Fragment>
                                                         ))}
                                                     </tbody>
+
+
                                                 </table>
                                             </>
                                         ) : (
@@ -439,7 +441,7 @@ function ViewServices() {
                                 </div>
                             </div>
                         ) : (
-                            <p>No data found please select the provider</p>
+                            <p>No data found please select the client</p>
                         )
                     }
 

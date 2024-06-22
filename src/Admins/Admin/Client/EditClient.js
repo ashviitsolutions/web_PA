@@ -78,6 +78,8 @@ function EditClient() {
         };
         setFormValues(updatedSavedValues);
     }, [apidata]);
+
+    
     const handleCardClient = (event_status) => {
         // Combine first_name and last_name
         const fullName = `${apidata._id}`;

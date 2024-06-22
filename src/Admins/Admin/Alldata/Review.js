@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import { IP } from '../../../Constant';
 import { FallingLines } from "react-loader-spinner";
-import { useLocation,useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import Rating from "react-rating-stars-component";
+
 
 
 const PreviewImage = ({ attachments }) => {
@@ -30,6 +31,7 @@ const PreviewImage = ({ attachments }) => {
 };
 
 function Review() {
+
   const [userRating, setUserRating] = useState(0);
   const navigate = useNavigate();
   const location = useLocation();
@@ -128,6 +130,19 @@ function Review() {
 
   console.log("memoizedUser", memoizedUser)
 
+  const handlenavigate = (id) => {
+    navigate(`/admin/contractors/view_contractor/${id}`)
+  }
+
+
+  const handlenavigateClinet = (userd) => {
+    // Combine first_name and last_name
+    const fullName = `${userd}`;
+
+    // Navigate with the full name included in the state
+    navigate(`/admin/clients-service-details`, { state: { startDate, endDates, name: fullName } });
+  };
+
   return (
     <>
       <div id="content">
@@ -199,13 +214,13 @@ function Review() {
                             {cur.comments}  &
                           </span>
                           <Rating
-                              value={cur.rating}
-                              count={5}
-    
-                              size={24}
-                              activeColor="#007bff"
-                            />
-                          
+                            value={cur.rating}
+                            count={5}
+
+                            size={24}
+                            activeColor="#007bff"
+                          />
+
                         </div>
                       </td>
 
@@ -216,9 +231,9 @@ function Review() {
                           <div className="content mt-3">
                             <span className="title" id="headingtitle">
                               <span id="pricevalue">{cur.serviceName}</span>
-                              
+
                             </span>
-                            
+
                           </div>
 
                         </div>
@@ -227,14 +242,14 @@ function Review() {
 
                       <td>
                         <div className="typefield">
-                          <span style={{ display: "block" }}>{cur.providerName}</span>
+                          <span style={{ display: "block" }} onClick={() => handlenavigate(cur.providerId)}>{cur.providerName}</span>
                         </div>
                       </td>
 
 
                       <td>
                         <div className="typefield">
-                          <span style={{ display: "block" }}>{cur.reviewerName}</span>
+                          <span style={{ display: "block" }} onClick={() => handlenavigateClinet(cur.customerId)}>{cur.reviewerName}</span>
 
                         </div>
                       </td>
