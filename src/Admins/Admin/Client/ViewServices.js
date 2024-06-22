@@ -14,7 +14,7 @@ function ViewServices() {
     const storedEndDate = localStorage.getItem("endDate");
     const [startDate, setStartDate] = useState(startDates || storedStartDate);
     const [endDate, setEndDate] = useState(endDates || storedEndDate);
-    const [searchText, setSearchText] = useState(username);
+    const [searchText, setSearchText] = useState("");
     const [loading, setLoading] = useState(null);
     const [totalTip, setTotalTip] = useState(0);
     const [user, setUser] = useState([]);
