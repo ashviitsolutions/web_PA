@@ -19,14 +19,14 @@ function Providerservices() {
   const storedEndDate = localStorage.getItem("endDate");
   const [startDate, setStartDate] = useState(storedStartDate);
   const [endDate, setEndDate] = useState(storedEndDate);
+  const [selectedUserId, setSelectedUserId] = useState("");
 
-  const [count, setCount] = useState(0);
-  const [data, setData] = useState(1);
   const [searchText, setSearchText] = useState(apidata);
   const [pageNumber, setPageNumber] = useState(1);
   const [loading, setLoading] = useState(null);
   const [totalTip, setTotalTip] = useState(0);
   const [user, setUser] = useState([]);
+  const [providerlist, setProviderlist] = useState([]);
 
 
   let token = localStorage.getItem("tokenadmin");
@@ -34,7 +34,7 @@ function Providerservices() {
 
 
 
-  console.log("user ", user)
+  console.log("providerlist ", providerlist)
 
 
   useEffect(() => {
@@ -57,22 +57,10 @@ function Providerservices() {
 
 
 
-
-
-
-
-
-
-
-
-
-
   const handleRowClick = (cur) => {
     console.log("cur", cur); // Check the structure of cur
     navigate(`/admin/provider-service-details/${cur.provider_details._id}`, { state: { cur, startDate, endDate } });
   };
-
-
 
 
 
@@ -90,12 +78,12 @@ function Providerservices() {
           // Handle the case where no providers are found
           console.log(result.msg);
         } else {
-          setUser(prevData => {
+          setProviderlist(prevData => {
             // Check for duplicates and concatenate only unique entries
             const newData = result.filter(newItem => !prevData.some(oldItem => oldItem._id === newItem._id));
             return [...prevData, ...newData];
           });
-          setCount(result.length);
+
         }
       })
       .catch(err => {
@@ -105,6 +93,49 @@ function Providerservices() {
         setLoading(false); // Set loading to false after fetching data
       });
   }, [pageNumber]);
+
+
+
+
+  useEffect(() => {
+    setLoading(true);
+
+    console.log("selectedUserId in useEffect", selectedUserId)
+
+    fetch(`${IP}/provider/services-by-provider-details?providerId=${selectedUserId}`, {
+      headers: {
+        'Authorization': token
+      }
+    })
+      .then(resp => {
+        if (!resp.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return resp.json();
+      })
+      .then(result => {
+        if (Array.isArray(result)) {
+          setUser(result); // Assuming result is already an array of items
+        } else {
+          // Handle cases where result is not an array (maybe extract data from result)
+          setUser(result.data); // Adjust this based on your actual API response structure
+        }
+      })
+      .catch(err => {
+        console.error('Fetch error:', err);
+        // Handle fetch errors here
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [selectedUserId]);
+
+
+
+
+
+  console.log("user data", user)
+
 
 
 
@@ -139,7 +170,7 @@ function Providerservices() {
 
 
 
-  console.log("user provider list", user)
+
 
 
 
@@ -147,18 +178,33 @@ function Providerservices() {
     console.log("startDate:", startDate);
     console.log("endDate:", endDate);
 
+    // Ensure user is an array before filtering
+    if (!Array.isArray(user)) {
+      return []; // Return empty array or handle differently based on your logic
+    }
+
     const filteredData = user.filter(event => {
-      console.log("eventDate:", event.services[0].createdAt); // Accessing the first element's createdAt property
+      // Extracting the date from the first service's createdAt
+      const eventDate = moment(event.services[0].createdAt, 'YYYY-MM-DD');
 
-      const eventDate = moment(event.services[0].createdAt, 'YYYY-MM-DD'); // Adjust the format based on the actual format of eventDate
-
+      // Checking if the eventDate is within the specified date range
       const isWithinDateRange = (!startDate || moment(startDate).isSameOrBefore(eventDate, 'day')) &&
         (!endDate || moment(endDate).isSameOrAfter(eventDate, 'day'));
 
-      const fullName = `${event.provider_details.first_name.toLowerCase()} ${event.provider_details.last_name.toLowerCase()}`;
-      const isSearched = !searchText || fullName.includes(searchText.toLowerCase());
+      // Constructing the full name for searching
+      const fullName = `${event.provider_details.first_name ?? ''} ${event.provider_details.last_name ?? ''}`.toLowerCase();
 
-      return isWithinDateRange && isSearched;
+      // Checking if the fullName includes the searchText (case insensitive)
+      const isNameSearched = !searchText || fullName.includes(searchText.toLowerCase());
+
+      // Checking if the email includes the searchText (case insensitive)
+      const isEmailSearched = !searchText || event.provider_details.email.toLowerCase().includes(searchText.toLowerCase());
+
+      // Checking if the phone includes the searchText (case insensitive)
+      const isPhoneSearched = !searchText || event.provider_details.phone.includes(searchText);
+
+      // Combine all conditions for filtering
+      return isWithinDateRange && (isNameSearched || isEmailSearched || isPhoneSearched);
     });
 
     return filteredData;
@@ -166,10 +212,13 @@ function Providerservices() {
 
 
 
-
   const memoizedUser = handleFilter();
 
+  const handleUserClick = (userId) => {
 
+    setSelectedUserId(userId.provider_details._id);
+    setSearchText("")
+  };
 
 
   return (
@@ -210,73 +259,119 @@ function Providerservices() {
 
 
 
-          <table className="payments-table">
-            <thead>
-              <tr>
-                <th>Date/Time</th>
-                <th>Provider</th>
-                <th>Services count</th>
-                <th>Services value</th>
-                <th>Addon sales</th>
-
-                <th>Addon Value</th>
-                <th>Gratuity</th>
-                <th>Total Charge</th>
-                <th>Total commission</th>
-              </tr>
-            </thead>
-            <tbody>
-              {memoizedUser.length === 0 && (
-                <tr>
-                  <td colSpan="11">No data found</td>
-                </tr>
-              )}
-              {memoizedUser.map((cur, index) => (
-                <tr key={index}>
-
-
-
-                  <td className='sub ' >
-
-                    <span>{moment(cur.createdAt).format("MMMM Do YYYY")}</span>
-                    <p><span>{moment(cur.createdAt).format("LT")}</span></p>
-                  </td>
+          {/* User List */}
+          {searchText && (
+            <div className="col-sm-4 pull-right searchResult" id="">
+              <div className="gutter">
+                <div id="about_user_card" className=" layer2">
+                  <h3 className="inner_title">User List</h3>
+                  {loading ? (
+                    <p>Loading...</p>
+                  ) : (
+                    providerlist.length > 0 ? (
+                      providerlist.map(user => (
+                        <div className='card gutter mt-2 link'>
+                          <small key={user._id} onClick={() => handleUserClick(user)}>
+                            <p><b>Name:</b> {`${user?.provider_details?.first_name} ${user?.provider_details?.last_name}`}</p>
+                            <p><b>Email:</b> {user?.provider_details?.email}</p>
+                            <p><b>Mobile:</b> {user?.provider_details?.phone}</p>
+                          </small>
+                        </div>
+                      ))
+                    ) : (
+                      <p>No users found.</p>
+                    )
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
 
 
 
 
-                  <td className="provDet">
-                    <p className='title cursor2' onClick={() => handleRowClick(cur)} title='click on provider to view details'><span>{`${cur?.provider_details?.first_name} ${cur?.provider_details?.last_name}`}</span></p>
-                    <span className='sub'>{cur?.provider_details?.mailing_address?.address}</span>
-
-                    <p className='sub'><span>{cur?.provider_details?.email}</span></p>
-                    <p className='sub'><span>{cur?.provider_details?.phone}</span></p>
-                  </td>
-
-
-                  {/* <td >
-                    <div className="">
-                      <p><span>{cur?.provider_details?.email}</span></p>
-                      <p><span>{cur?.provider_details?.phone}</span></p>
-                    </div>
-                  </td> */}
-
-                  <td>{cur.total_services}</td>
-                  <td>{cur?.total_service_price?.toFixed(2)}$</td>
-                  <td>{cur.total_add_ons}</td>
-                  <td>{cur?.total_tip_amount?.toFixed(2)}$</td>
-                  <td>{totalTip.toFixed(2)}$</td>
-                  <td>{cur?.total_admin_amount?.toFixed(2)}$</td>
-
-
-                  <td>{cur?.total_provider_amount?.toFixed(2)}$</td>
 
 
 
-                </tr>
-              ))}
-            </tbody>
-          </table>
+
+
+
+
+
+
+          {
+            memoizedUser.length > 0 ? (
+              <table className="payments-table">
+                <thead>
+                  <tr>
+                    <th>Date/Time</th>
+                    <th>Provider</th>
+                    <th>Services count</th>
+                    <th>Services value</th>
+                    <th>Addon sales</th>
+
+                    <th>Addon Value</th>
+                    <th>Gratuity</th>
+                    <th>Total Charge</th>
+                    <th>Total commission</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {memoizedUser.length === 0 && (
+                    <tr>
+                      <td colSpan="11">No data found</td>
+                    </tr>
+                  )}
+                  {memoizedUser.map((cur, index) => (
+                    <tr key={index}>
+
+
+
+                      <td className='sub ' >
+
+                        <span>{moment(cur.createdAt).format("MMMM Do YYYY")}</span>
+                        <p><span>{moment(cur.createdAt).format("LT")}</span></p>
+                      </td>
+
+
+
+
+                      <td className="provDet">
+                        <p className='title cursor2' onClick={() => handleRowClick(cur)} title='click on provider to view details'><span>{`${cur?.provider_details?.first_name} ${cur?.provider_details?.last_name}`}</span></p>
+                        <span className='sub'>{cur?.provider_details?.mailing_address?.address}</span>
+
+                        <p className='sub'><span>{cur?.provider_details?.email}</span></p>
+                        <p className='sub'><span>{cur?.provider_details?.phone}</span></p>
+                      </td>
+
+
+                      {/* <td >
+                      <div className="">
+                        <p><span>{cur?.provider_details?.email}</span></p>
+                        <p><span>{cur?.provider_details?.phone}</span></p>
+                      </div>
+                    </td> */}
+
+                      <td>{cur.total_services}</td>
+                      <td>{cur?.total_service_price?.toFixed(2)}$</td>
+                      <td>{cur.total_add_ons}</td>
+                      <td>{cur?.total_tip_amount?.toFixed(2)}$</td>
+                      <td>{totalTip.toFixed(2)}$</td>
+                      <td>{cur?.total_admin_amount?.toFixed(2)}$</td>
+
+
+                      <td>{cur?.total_provider_amount?.toFixed(2)}$</td>
+
+
+
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <p>No data found please selectet the provider</p>
+            )
+          }
 
 
           {loading && (
@@ -294,7 +389,7 @@ function Providerservices() {
 
         </div>
 
-      </div>
+      </div >
     </>
   )
 }
