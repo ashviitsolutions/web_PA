@@ -19,9 +19,9 @@ function Providerservices() {
   const storedEndDate = localStorage.getItem("endDate");
   const [startDate, setStartDate] = useState(storedStartDate);
   const [endDate, setEndDate] = useState(storedEndDate);
-  const [selectedUserId, setSelectedUserId] = useState("");
+  const [selectedUserId, setSelectedUserId] = useState(apidata);
 
-  const [searchText, setSearchText] = useState(apidata);
+  const [searchText, setSearchText] = useState("");
   const [pageNumber, setPageNumber] = useState(1);
   const [loading, setLoading] = useState(null);
   const [totalTip, setTotalTip] = useState(0);

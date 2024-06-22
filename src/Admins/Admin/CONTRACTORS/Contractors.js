@@ -83,19 +83,6 @@ function Contractors() {
     }, [startDate, endDate]);
 
 
-    // useEffect(() => {
-
-    //     setStartDate(Startdate);
-    //     setEndDate(Enddate);
-    // }, [vender_status, endDates, endDates]);// Empty dependency array means this effect will only run once after the initial render
-
-
-    useEffect(() => {
-        const today = moment().format('YYYY-MM-DD');
-        setStartDate(moment(Startdate).subtract(7, 'day').format('YYYY-MM-DD'));
-        setEndDate(today);
-
-    }, [vender_status, endDates, endDates]); // Empty dependency array means this effect will only run once after the initial render
 
 
 

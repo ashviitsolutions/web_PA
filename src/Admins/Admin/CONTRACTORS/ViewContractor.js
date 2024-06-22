@@ -169,7 +169,7 @@ function ViewContractor() {
   };
 
   const handleCardClient = (event_status) => {
-    nav(`/admin/${event_status}`, { state: { name: `${user?.first_name} ${user?.last_name}`, startDate, endDate } });
+    nav(`/admin/${event_status}`, { state: { name: `${user?._id}`, startDate, endDate } });
   };
   
 

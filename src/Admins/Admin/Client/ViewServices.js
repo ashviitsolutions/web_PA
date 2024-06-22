@@ -14,7 +14,7 @@ function ViewServices() {
     const storedEndDate = localStorage.getItem("endDate");
     const [startDate, setStartDate] = useState(startDates || storedStartDate);
     const [endDate, setEndDate] = useState(endDates || storedEndDate);
-    const [searchText, setSearchText] = useState(username);
+    const [searchText, setSearchText] = useState("");
     const [loading, setLoading] = useState(null);
     const [totalTip, setTotalTip] = useState(0);
     const [user, setUser] = useState([]);
@@ -29,7 +29,7 @@ function ViewServices() {
     const [selectedUserMobile, setSelectedUserMobile] = useState(""); // New state to store selected user mobile
     const [selectedAddress, setSelectedUserAddress] = useState("")
     const [userlist, setUserlist] = useState([]);
-    const [selectedUserId, setSelectedUserId] = useState("");
+    const [selectedUserId, setSelectedUserId] = useState(username);
     const token = localStorage.getItem('tokenadmin');
 
     useEffect(() => {
@@ -297,145 +297,153 @@ function ViewServices() {
 
 
 
-                    <div className="col-sm-12 card-right" id="card-right">
-                        <div className="gutter">
-                            <div id="about_user_card" className="card layer2">
-                                <h3 className="inner_title">Purchase History</h3>
-                                <table className='smallDetails'>
-                                    <tr>
-                                        <td><b>Name:</b></td>
-                                        <td>{selectedUserName} (<span className='link title' onClick={() => handleRowClick(userid)} >Edit</span>)</td>
-                                        <td><b>Email:</b></td>
-                                        <td>{selectedUserEmail}</td>
-                                        <td><b>Mobile:</b></td>
-                                        <td>{selectedUserMobile}</td>
-
-                                    </tr>
-                                </table>
-                                <div className='vspace50'></div>
-
-                                {memoizedUser.length > 0 ? (
-                                    <>
-                                        <p><b>Service Booking:</b></p>
+                    {
+                        memoizedUser.length > 0 ? (
+                            <div className="col-sm-12 card-right" id="card-right">
+                                <div className="gutter">
+                                    <div id="about_user_card" className="card layer2">
+                                        <h3 className="inner_title">Purchase History</h3>
                                         <table className='smallDetails'>
-                                            <thead>
-                                                <tr>
-                                                    <th>Service/Addons Name</th>
-                                                    <th>Billing Amount</th>
-                                                    <th>Provided by</th>
-                                                    <th>Date/Time</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {memoizedUser.map((cur, index) => (
-                                                    <React.Fragment key={index}>
+                                            <tr>
+                                                <td><b>Name:</b></td>
+                                                <td>{selectedUserName} (<span className='link title' onClick={() => handleRowClick(userid)} >Edit</span>)</td>
+                                                <td><b>Email:</b></td>
+                                                <td>{selectedUserEmail}</td>
+                                                <td><b>Mobile:</b></td>
+                                                <td>{selectedUserMobile}</td>
 
-                                                        {cur.services.map((service, serviceIndex) => (
-                                                            <tr key={index}>
+                                            </tr>
+                                        </table>
+                                        <div className='vspace50'></div>
+
+                                        {memoizedUser.length > 0 ? (
+                                            <>
+                                                <p><b>Service Booking:</b></p>
+                                                <table className='smallDetails'>
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Service/Addons Name</th>
+                                                            <th>Billing Amount</th>
+                                                            <th>Provided by</th>
+                                                            <th>Date/Time</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {memoizedUser.map((cur, index) => (
+                                                            <React.Fragment key={index}>
+
+                                                                {cur.services.map((service, serviceIndex) => (
+                                                                    <tr key={index}>
+                                                                        <td>
+                                                                            <div key={serviceIndex}>
+                                                                                <h6>{service.service_name}</h6>
+                                                                                {service.add_ons_details && service.add_ons_details.length > 0 && (
+                                                                                    <p><b>Addons-</b></p>
+                                                                                )}
+                                                                                {service.add_ons_details.map((addon, addonIndex) => (
+                                                                                    <p key={addonIndex}>{addon.title}</p>
+                                                                                ))}
+                                                                            </div>
+
+                                                                        </td>
+                                                                        <td>
+                                                                            <p>{service?.amount_calculation?.total_amount}$</p>
+                                                                        </td>
+
+                                                                        <td>
+                                                                            <p className='link title'>{service?.provider_details?.name}</p>
+                                                                        </td>
+
+                                                                        <td>
+                                                                            <p key={`createdAt-${serviceIndex}`}>
+                                                                                {moment(service.createdAt).format('DD-MM-YYYY hh:mm A')}
+                                                                            </p>
+                                                                        </td>
+                                                                    </tr>
+                                                                ))}
+                                                            </React.Fragment>
+                                                        ))}
+                                                    </tbody>
+                                                </table>
+                                            </>
+                                        ) : (
+                                            <p>No service bookings found.</p>
+                                        )}
+
+                                        {filteredGiftData.length > 0 ? (
+                                            <>
+
+                                                <div className='vspace50'></div>
+                                                <p><b>Gift card purchases:</b></p>
+                                                <table className='smallDetails'>
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Gift Card Name</th>
+                                                            <th>Billing Amount</th>
+                                                            <th>Date/Time</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {filteredGiftData.map((giftData, index) => (
+                                                            giftData.giftCards.map((giftCard, cardIndex) => (
+                                                                <tr key={`giftcard-${index}-${cardIndex}`}>
+                                                                    <td>{giftCard.giftcard_name}</td>
+                                                                    <td>{giftCard.offerValue}$</td>
+                                                                    <td>{moment(giftCard.createdAt).format('DD-MM-YYYY hh:mm A')}
+                                                                    </td>
+                                                                </tr>
+                                                            ))
+                                                        ))}
+                                                    </tbody>
+                                                </table>
+                                            </>
+
+                                        ) : (
+                                            <p>No gift card purchases found.</p>
+                                        )}
+
+                                        {filteredMembershipData.length > 0 ? (
+                                            <>
+
+                                                <div className='vspace50'></div>
+                                                <p><b>Membership purchase/renewals:</b></p>
+                                                <table className='smallDetails'>
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Name of Plan</th>
+                                                            <th>Billing Amount</th>
+                                                            <th>Date/Time</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {filteredMembershipData.map((membership, index) => (
+                                                            <tr key={`membership-${index}`}>
                                                                 <td>
-                                                                    <div key={serviceIndex}>
-                                                                        <h6>{service.service_name}</h6>
-                                                                        {service.add_ons_details && service.add_ons_details.length > 0 && (
-                                                                            <p><b>Addons-</b></p>
-                                                                        )}
-                                                                        {service.add_ons_details.map((addon, addonIndex) => (
-                                                                            <p key={addonIndex}>{addon.title}</p>
-                                                                        ))}
-                                                                    </div>
-
+                                                                    {membership.membershipType}
+                                                                    <p><b>Expiring on-</b>{moment(membership.lastRenewalPaymentDate).format('DD-MM-YYYY hh:mm A')}</p>
                                                                 </td>
-                                                                <td>
-                                                                    <p>{service?.amount_calculation?.total_amount}$</p>
-                                                                </td>
-
-                                                                <td>
-                                                                    <p className='link title'>{service?.provider_details?.name}</p>
-                                                                </td>
-
-                                                                <td>
-                                                                    <p key={`createdAt-${serviceIndex}`}>
-                                                                        {moment(service.createdAt).format('DD-MM-YYYY hh:mm A')}
-                                                                    </p>
+                                                                <td>{membership.membershipPrice}$</td>
+                                                                <td>{moment(membership.createdAt).format('DD-MM-YYYY hh:mm A')}
                                                                 </td>
                                                             </tr>
                                                         ))}
-                                                    </React.Fragment>
-                                                ))}
-                                            </tbody>
-                                        </table>
-                                    </>
-                                ) : (
-                                    <p>No service bookings found.</p>
-                                )}
+                                                    </tbody>
+                                                </table>
+                                            </>
 
-                                {filteredGiftData.length > 0 ? (
-                                    <>
+                                        ) : (
+                                            <p>No membership purchases found.</p>
+                                        )}
 
-                                        <div className='vspace50'></div>
-                                        <p><b>Gift card purchases:</b></p>
-                                        <table className='smallDetails'>
-                                            <thead>
-                                                <tr>
-                                                    <th>Gift Card Name</th>
-                                                    <th>Billing Amount</th>
-                                                    <th>Date/Time</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {filteredGiftData.map((giftData, index) => (
-                                                    giftData.giftCards.map((giftCard, cardIndex) => (
-                                                        <tr key={`giftcard-${index}-${cardIndex}`}>
-                                                            <td>{giftCard.giftcard_name}</td>
-                                                            <td>{giftCard.offerValue}$</td>
-                                                            <td>{moment(giftCard.createdAt).format('DD-MM-YYYY hh:mm A')}
-                                                            </td>
-                                                        </tr>
-                                                    ))
-                                                ))}
-                                            </tbody>
-                                        </table>
-                                    </>
-
-                                ) : (
-                                    <p>No gift card purchases found.</p>
-                                )}
-
-                                {filteredMembershipData.length > 0 ? (
-                                    <>
-
-                                        <div className='vspace50'></div>
-                                        <p><b>Membership purchase/renewals:</b></p>
-                                        <table className='smallDetails'>
-                                            <thead>
-                                                <tr>
-                                                    <th>Name of Plan</th>
-                                                    <th>Billing Amount</th>
-                                                    <th>Date/Time</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {filteredMembershipData.map((membership, index) => (
-                                                    <tr key={`membership-${index}`}>
-                                                        <td>
-                                                            {membership.membershipType}
-                                                            <p><b>Expiring on-</b>{moment(membership.lastRenewalPaymentDate).format('DD-MM-YYYY hh:mm A')}</p>
-                                                        </td>
-                                                        <td>{membership.membershipPrice}$</td>
-                                                        <td>{moment(membership.createdAt).format('DD-MM-YYYY hh:mm A')}
-                                                        </td>
-                                                    </tr>
-                                                ))}
-                                            </tbody>
-                                        </table>
-                                    </>
-
-                                ) : (
-                                    <p>No membership purchases found.</p>
-                                )}
-
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
+                        ) : (
+                            <p>No data found please select the provider</p>
+                        )
+                    }
+
+
                 </div>
             </div>
         </>
