@@ -12,6 +12,7 @@ import { useLocation } from 'react-router-dom';
 
 
 function Providerservices() {
+  let providerID = localStorage.getItem("providerID");
   const navigate = useNavigate()
   const location = useLocation();
   const apidata = location.state ? location.state.name : "";
@@ -19,7 +20,8 @@ function Providerservices() {
   const storedEndDate = localStorage.getItem("endDate");
   const [startDate, setStartDate] = useState(storedStartDate);
   const [endDate, setEndDate] = useState(storedEndDate);
-  const [selectedUserId, setSelectedUserId] = useState(apidata);
+  const [selectedUserId, setSelectedUserId] = useState(apidata || providerID);
+
 
   const [searchText, setSearchText] = useState("");
   const [pageNumber, setPageNumber] = useState(1);
@@ -30,6 +32,7 @@ function Providerservices() {
 
 
   let token = localStorage.getItem("tokenadmin");
+
 
 
 
@@ -58,9 +61,12 @@ function Providerservices() {
 
 
   const handleRowClick = (cur) => {
+   
     console.log("cur", cur); // Check the structure of cur
     navigate(`/admin/provider-service-details/${cur.provider_details._id}`, { state: { cur, startDate, endDate } });
+    localStorage.setItem("providerID", `${cur.provider_details._id}`)
   };
+
 
 
 
@@ -230,9 +236,9 @@ function Providerservices() {
               <div class="headings">
                 <h3><span className='link title backarrow' onClick={() => navigate(-1)}>&larr;</span> Statement of Providers</h3>
                 <div className="gutter pull-right">
-                    <small className='sub'>
-                        <p>* Click on the provider name to view service wise data</p>
-                    </small>
+                  <small className='sub'>
+                    <p>* Click on the provider name to view service wise data</p>
+                  </small>
                 </div>
                 <span class="toggle_sidebar" ></span>
               </div>
