@@ -79,7 +79,8 @@ function DetailService() {
                     <div className="row">
                         <div className="col">
                             <div className="headings">
-                                <h3>{apidata.provider_details.first_name} {apidata.provider_details.first_name} Service Details</h3>
+                                <h3><span className='cursor title backarrow' onClick={() => navigator(-1)}>&larr;</span>Statement of Providers</h3>
+                                <h3>{apidata.provider_details.first_name} {apidata.provider_details.last_name} Service Details</h3>
 
                                 <span className="toggle_sidebar"></span>
                             </div>
