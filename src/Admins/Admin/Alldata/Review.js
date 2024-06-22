@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import { IP } from '../../../Constant';
 import { FallingLines } from "react-loader-spinner";
-import { useLocation } from 'react-router-dom';
+import { useLocation,useNavigate } from 'react-router-dom';
 import moment from 'moment';
 import Rating from "react-rating-stars-component";
 
@@ -31,6 +31,7 @@ const PreviewImage = ({ attachments }) => {
 
 function Review() {
   const [userRating, setUserRating] = useState(0);
+  const navigate = useNavigate();
   const location = useLocation();
   const startDates = location.state ? location.state.startDate : "";
   const endDates = location.state ? location.state.endDate : "";
@@ -135,10 +136,15 @@ function Review() {
             <div className="">
               <div className="headings float_wrapper">
                 <div className="gutter pull-left">
-                  <h3>All Customer review</h3>
-                  <p>list of all add review</p>
+                  <h3><span className='link title backarrow' onClick={() => navigate(-1)}>&larr;</span> All Customer review</h3>
+                  <p>List of customer feedbacks</p>
                 </div>
-
+                <div className="gutter pull-right">
+                  <small className='sub'>
+                    <p>* Click on the provider name to view provider profile</p>
+                    <p>* Click on the client name to view client profile</p>
+                  </small>
+                </div>
                 <span className="toggle_sidebar"></span>
               </div>
             </div>
@@ -179,7 +185,7 @@ function Review() {
                     <th>Review</th> {/* review text along with stars given */}
                     <th>Review for Service</th> {/* service name for which review have given */}
                     <th>For provider</th> {/* name of provider to whome review has given */}
-                    <th>Reviewer</th> {/* client name, email, mobile */}
+                    <th>Client name</th> {/* client name, email, mobile */}
                     <th>Date</th> {/* date of review posted */}
                   </tr>
                 </thead>
