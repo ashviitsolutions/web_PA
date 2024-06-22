@@ -190,86 +190,94 @@ function Review() {
 
 
 
+          {
+            user.lenght > 0 ? (
+              <div className="row">
+                <div className="gutter">
+                  <table className="table-responsive ultra_responsive">
+                    <thead>
+                      <tr>
+                        <th>Review</th> {/* review text along with stars given */}
+                        <th>Review for Service</th> {/* service name for which review have given */}
+                        <th>For provider</th> {/* name of provider to whome review has given */}
+                        <th>Client name</th> {/* client name, email, mobile */}
+                        <th>Date</th> {/* date of review posted */}
+                      </tr>
+                    </thead>
+
+                    {user.map((cur, index) => {
+                      return (
+                        <tr key={index}>
+                          <td className='reviewTab'>
+                            <div className="content">
+                              <span className="title" id="headingtitle">
+                                {cur.comments}  &
+                              </span>
+                              <Rating
+                                value={cur.rating}
+                                count={5}
+
+                                size={24}
+                                activeColor="#007bff"
+                              />
+
+                            </div>
+                          </td>
+
+                          <td>
+                            <div className="typefield">
 
 
-          <div className="row">
-            <div className="gutter">
-              <table className="table-responsive ultra_responsive">
-                <thead>
-                  <tr>
-                    <th>Review</th> {/* review text along with stars given */}
-                    <th>Review for Service</th> {/* service name for which review have given */}
-                    <th>For provider</th> {/* name of provider to whome review has given */}
-                    <th>Client name</th> {/* client name, email, mobile */}
-                    <th>Date</th> {/* date of review posted */}
-                  </tr>
-                </thead>
+                              <div className="content mt-3">
+                                <span className="title" id="headingtitle">
+                                  <span id="pricevalue">{cur.serviceName}</span>
 
-                {user.map((cur, index) => {
-                  return (
-                    <tr key={index}>
-                      <td className='reviewTab'>
-                        <div className="content">
-                          <span className="title" id="headingtitle">
-                            {cur.comments}  &
-                          </span>
-                          <Rating
-                            value={cur.rating}
-                            count={5}
+                                </span>
 
-                            size={24}
-                            activeColor="#007bff"
-                          />
+                              </div>
 
-                        </div>
-                      </td>
-
-                      <td>
-                        <div className="typefield">
+                            </div>
+                          </td>
 
 
-                          <div className="content mt-3">
-                            <span className="title" id="headingtitle">
-                              <span id="pricevalue">{cur.serviceName}</span>
-
-                            </span>
-
-                          </div>
-
-                        </div>
-                      </td>
+                          <td>
+                            <div className="typefield">
+                              <span style={{ display: "block" }} onClick={() => handlenavigate(cur.providerId)}>{cur.providerName}</span>
+                            </div>
+                          </td>
 
 
-                      <td>
-                        <div className="typefield">
-                          <span style={{ display: "block" }} onClick={() => handlenavigate(cur.providerId)}>{cur.providerName}</span>
-                        </div>
-                      </td>
+                          <td>
+                            <div className="typefield">
+                              <span style={{ display: "block" }} onClick={() => handlenavigateClinet(cur.customerId)}>{cur.reviewerName}</span>
 
-
-                      <td>
-                        <div className="typefield">
-                          <span style={{ display: "block" }} onClick={() => handlenavigateClinet(cur.customerId)}>{cur.reviewerName}</span>
-
-                        </div>
-                      </td>
-                      <td>{moment(cur.createdAt).format('YYYY-MM-DD')}</td>
-                    </tr>
-                  );
-                })}
-              </table>
-              {loading && (
-                <div style={{ textAlign: "center" }}>
-                  <FallingLines
-                    color="#03a9f4"
-                    width="150"
-                    visible={true}
-                    ariaLabel="falling-circles-loading"
-                  />
+                            </div>
+                          </td>
+                          <td>{moment(cur.createdAt).format('YYYY-MM-DD')}</td>
+                        </tr>
+                      );
+                    })}
+                  </table>
+                  {loading && (
+                    <div style={{ textAlign: "center" }}>
+                      <FallingLines
+                        color="#03a9f4"
+                        width="150"
+                        visible={true}
+                        ariaLabel="falling-circles-loading"
+                      />
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-          </div>
+              </div>
+            ) : (
+              <p>No Review data found</p>
+            )
+          }
+
+
+
+
         </div>
       </div>
     </>
