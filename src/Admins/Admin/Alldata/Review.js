@@ -241,14 +241,14 @@ function Review() {
 
 
                       <td>
-                        <div className="typefield">
+                        <div className="typefield link title">
                           <span style={{ display: "block" }} onClick={() => handlenavigate(cur.providerId)}>{cur.providerName}</span>
                         </div>
                       </td>
 
 
                       <td>
-                        <div className="typefield">
+                        <div className="typefield link title">
                           <span style={{ display: "block" }} onClick={() => handlenavigateClinet(cur.customerId)}>{cur.reviewerName}</span>
 
                         </div>
