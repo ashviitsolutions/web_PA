@@ -85,7 +85,7 @@ function Success() {
           {/* <p className='small'>Redirecting... </p>
           <p className='small'>Do not reload or press back button!</p> */}
         </div>
-        <div className='receipt_footer'><p className='small'>Payment successful </p>
+        <div className='receipt_footer'><p className='small'>Payment Processing....</p>
           <p className='small'>Do not reload or press back button!</p>
           <p><img src={logo} className='receipt_logo' /></p>
         </div>

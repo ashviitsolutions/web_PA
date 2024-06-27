@@ -631,7 +631,7 @@ const Conform = () => {
                                         {percent_off && (
                                             <p className="prices" style={{ fontSize: '17px' }}>
                                                 <span className='value'>
-                                                %Coupon Discount: ${percent_off / 100}%
+                                                    %Coupon Discount: ${percent_off / 100}%
                                                 </span></p>
                                         )}
 

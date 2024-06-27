@@ -1,126 +1,64 @@
 import React, { useEffect, useState } from 'react';
 import './Login.css';
-import * as Yup from 'yup';
 import { Link, useNavigate } from 'react-router-dom';
-import { IP } from '../../../Constant';
-import { toast, ToastContainer } from 'react-toastify';
+import openEye from "../../assets/img/iconoir_eye.png";
+import closeEye from "../../assets/img/codicon_eye-closed.png";
+import Btn from "../../../Helpers/Btn/Btn";
+import InputField from "../../../Helpers/Filed/InputField";
+import { useUserRegistration } from '../../../Helpers/Hooks/Hooks';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import openEye from "../../assets/img/iconoir_eye.png"
-import closeEye from "../../assets/img/codicon_eye-closed.png"
+import useToast from '../../../Helpers/useToast'; // Assuming useToast is defined here
+import { IP } from '../../../Constant'; // Ensure IP is imported correctly
 
 function Login() {
-    const [toggle, setToggle] = useState(false);
-    const [error, setError] = useState(false);
-    const [email, setEmail] = useState('');
-    const [loading, setLoading] = useState(false);
-    const [password, setPassword] = useState('');
-    const loginguser = localStorage.getItem('token');
-    const nav = useNavigate();
-
-
-
-
-
+    const [formData, setFormData] = useState({ email: '', password: '' });
     const [showPassword, setShowPassword] = useState(false);
+    const { loginUser, loading } = useUserRegistration();
+    const navigate = useNavigate();
+    const { showSuccess, showError } = useToast(); // Ensure useToast is imported correctly
+
+    useEffect(() => {
+        const auth = localStorage.getItem('token');
+        if (auth) {
+            navigate('/userProfile');
+        }
+    }, [navigate]);
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setFormData((prevState) => ({
+            ...prevState,
+            [name]: value,
+        }));
+    };
 
     const handleTogglePassword = () => {
         setShowPassword(!showPassword);
     };
 
-
-
-
-
-
-
-    useEffect(() => {
-        const auth = localStorage.getItem('token');
-        if (auth) {
-            nav('/userProfile');
-        }
-    }, [nav]);
-
-    const initialValues = {
-        email: '',
-        password: '',
-    };
-
-    const SignupSchema = Yup.object().shape({
-        email: Yup.string().required('Required'),
-        password: Yup.string().required('required'),
-    });
-
-    const onSubmit = async () => {
-        setLoading(true)
-        const data = { email, password };
-
+    const handleSubmit = async (event) => {
+        event.preventDefault();
         try {
-            const resp = await fetch(`${IP}/user/login`, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            });
+            const res = await loginUser(formData);
 
-            const token = resp.headers.get('Authorization');
-            const result = await resp.json();
-            console.log("result login",result)
-
-            setLoading(false)
-            if (resp.status === 200) {
-                setLoading(false)
-                const fullName = `${result?.user_info?.first_name} ${result?.user_info?.last_name}`;
-                localStorage.setItem("user_name", fullName);
-                localStorage.setItem('users', JSON.stringify(result));
-                localStorage.setItem('userid', result?.user_info?._id);
-                localStorage.setItem('user_name', result?.user_info?.name);
-                localStorage.setItem('user_email', result?.user_info?.email);
-                localStorage.setItem('mobile', result?.user_info?.mobile);
-                localStorage.setItem("first_name", result?.user_info?.first_name);
-                localStorage.setItem("last_name", result?.user_info?.last_name);
-                localStorage.setItem('token', token);
-                toast.success("Logged in successfully", {
-                    position: "top-right",
-                    autoClose: 1000,
-                    onClose: () => {
-                        nav('/userProfile');
-                    },
-                });
-
-            } else {
-                setToggle(true);
-
-                toast.error("Invalid credentials", {
-                    position: "top-right",
-                    autoClose: 3000,
-                });
-
+            if (res.status === 200) {
+              
+                navigate('/userProfile');
             }
-
         } catch (error) {
-            setLoading(false)
-            console.log('Error show', error);
-            toast.error("An error occurred. Please try again.", {
-                position: "top-right",
-                autoClose: 3000,
-            });
+            console.error("Login error", error);
         }
     };
 
-    const forGet = async () => {
-        if (!email) {
-            // Add  check to ensure email is not empty
-            toast.error('Please enter your email before requesting a password reset.', {
-                position: 'top-right',
-                autoClose: 3000,
-            });
+    const handleForgetPassword = async () => {
+        if (!formData.email) {
+            showError('Please enter your email before requesting a password reset.');
             return;
         }
 
         try {
-            const data = { email };
+            const data = { email: formData.email };
             const resp = await fetch(`${IP}/user/forgate-password`, {
                 method: 'POST',
                 headers: {
@@ -132,112 +70,74 @@ function Login() {
 
             if (resp.status === 200) {
                 const result = await resp.json();
-                console.log('result', result);
-
-                toast.success('Password reset email sent. Check your inbox.', {
-                    position: 'top-right',
-                    autoClose: 3000,
+                showSuccess('Password reset email sent. Check your inbox.', {
                     onClose: () => {
-                        nav('/login');
+                        navigate('/login');
                     },
                 });
             } else {
                 const errorResult = await resp.json();
-                toast.error(`${errorResult.message}`, {
-                    position: 'top-right',
-                    autoClose: 3000,
+                showError(`${errorResult.message}`, {
                     onClose: () => {
-                        nav('/login');
+                        navigate('/login');
                     },
                 });
-                console.log('errorResult', errorResult);
             }
         } catch (error) {
-            console.log('Error:', error);
-            toast.error('An error occurred. Please try again.', {
-                position: 'top-right',
-                autoClose: 3000,
-            });
+            showError('An error occurred. Please try again.');
         }
     };
 
-
-
-
+    const inputFields = [
+        { id: 1, label: "E-mail", name: "email", type: "email", placeholder: "Enter Email" },
+        { id: 2, label: "Password", name: "password", type: showPassword ? 'text' : 'password', placeholder: "Enter Password" },
+    ];
 
     return (
         <>
             <div id="login_page">
                 <div className="container">
                     <div className="row" style={{ textAlign: 'center' }}>
-                        <div className="sign_in_form">
+                        <form className="sign_in_form" onSubmit={handleSubmit}>
                             <div className="heading">
                                 <h3 id="signtexxt">Sign In</h3>
                             </div>
 
-                            <div className="input_group">
-                                <input
-                                    className="input"
-                                    name="email"
-                                    type="email"
-                                    placeholder=""
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                />
-                                <label htmlFor="">E-mail</label>
-                                <span className="highlight"></span>
-                            </div>
-                            <div style={{ height: '5px' }}></div>
-                            <div className="input_group">
-                                <input
-                                    className="input"
-                                    name="password"
-                                    type={showPassword ? 'text' : 'password'}
-                                    placeholder=""
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                />
-                                <label htmlFor="">Password</label>
-                                <button className='eye_button' type="button" onClick={handleTogglePassword}>
-                                    {showPassword ? <img src={closeEye} alt='' /> : <img src={openEye} alt='' />}
-                                </button>
-                            </div>
-                            <p style={{ background: 0, color: '#707070', cursor: "pointer" }} onClick={forGet}>
+                            {inputFields.map((field) => (
+                                <div className="input_group" key={field.id}>
+                                    <InputField
+                                        inputdata={formData[field.name]}
+                                        id={`input${field.name.charAt(0).toUpperCase() + field.name.slice(1)}`}
+                                        placeholder={field.placeholder}
+                                        Press={handleChange}
+                                        name={field.name}
+                                        type={field.type}
+                                        required
+                                    />
+                                    {field.name === "password" && (
+                                        <button className='eye_button' type="button" onClick={handleTogglePassword}>
+                                            {showPassword ? <img src={closeEye} alt="Hide" /> : <img src={openEye} alt="Show" />}
+                                        </button>
+                                    )}
+                                </div>
+                            ))}
+
+                            <p style={{ background: 0, color: '#707070', cursor: "pointer" }} onClick={handleForgetPassword}>
                                 Forget password ?
                             </p>
 
                             <div className="input_group" style={{ textDecoration: 'none', paddingTop: '1px' }}>
-                                <button className="button" type="button" onClick={onSubmit}>
-                                    {loading ? "Loading..." : "sign in"}
-                                </button>
+                                <Btn title={loading ? "Loading..." : "Sign In"} />
                                 <span>
-                                    Don't have an account? <Link to="/sign_up" className="anchor">
-                                        SignUp
-                                    </Link>
+                                    Don't have an account? <Link to="/sign_up" className="anchor">Sign Up</Link>
                                 </span>
-
-                                {/*   {toggle ? (
-                                    <div id="notification_holder">
-                                        {!loginguser ? (
-                                            <div className="notificatioerror">
-                                                <h3 id="errorshow">Invalid credentials</h3>
-
-                                            </div>
-                                        ) : (
-                                            <h3>Success</h3>
-                                        )}
-                                    </div>
-                                        ) : null}   */}
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
-
             <ToastContainer />
         </>
-
-
     );
 }
 
