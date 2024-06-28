@@ -1,36 +1,25 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import image1 from "../../../assets/img/43547063_s.jpg";
 import image2 from "../../../assets/img/istockphoto-1307109392-170667a.jpg";
-import { useDispatch } from 'react-redux';
-import { updateInputData } from '../../Redux/counterSlice';
-import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 
 function Select_location() {
-    const nav = useNavigate()
-    const dispatch = useDispatch();
-    const [state, setState] = useState()
+    const nav = useNavigate();
+
 
     const handleSubmit = (input) => {
-        setState(input)
         const formData = {
             location_type: input,
         };
 
-        // Dispatch the form data to Redux
-        dispatch(updateInputData({ formName: 'location', inputData: formData }));
-    };
-
-    useEffect(() => {
-        if (state === "Home") {
-            nav("/select_location")
-        } else if (state === "providers location") {
-            nav("/listofprovider")
+        if (input === "Home") {
+            nav(`/select_location`, { state: { location: formData } });
+        } else if (input === "providers location") {
+            nav(`/listofprovider`, { state: { location: formData } });
         }
-
-    }, [state])
+    };
 
     return (
         <>
@@ -48,7 +37,6 @@ function Select_location() {
                                                 backgroundImage: `url(${image2})`,
                                             }}
                                         ></span>
-
                                         <span className="title">My Location</span>
                                         <span className="text">Home, Office, Hotel</span>
                                     </li>
@@ -61,13 +49,12 @@ function Select_location() {
                                                 backgroundImage: `url(${image1})`,
                                             }}
                                         ></span>
-
                                         <span className="title">Provider's Location</span>
                                         <span className="text">Massage Parlor, Spa, Wellness Center</span>
                                     </li>
                                 </div>
                             </ul>
-                            <a className='small' href='/'><FontAwesomeIcon icon={faArrowLeftLong} /> Back to Home</a>
+                            <Link className='small' to='/'><FontAwesomeIcon icon={faArrowLeftLong} /> Back to Home</Link>
                         </form>
                     </div>
                 </div>

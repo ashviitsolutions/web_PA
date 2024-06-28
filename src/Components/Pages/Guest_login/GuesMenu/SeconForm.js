@@ -10,12 +10,21 @@ import { useRef } from "react";
 import PreviewImage from './PreviewImage'; // Update the path accordingly
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfo } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate, useLocation } from 'react-router-dom';
 
 
 
 
 
 const SeconForm = ({ step, nextStep }) => {
+    const nav = useNavigate()
+    const location = useLocation();
+    const locationType = location.state?.location_type || "";
+    const locationForm = location.state?.locationForm || "";
+    const firstForm = location.state?.firstForm || "";
+    console.log("locationForm second form", locationForm);
+    console.log("locationType second form", locationType);
+    console.log("firstForm form data", firstForm)
     const dispatch = useDispatch();
     const selector = useSelector((state) => state.counter.formData);
     // const gendercheck = selector?.firstForm[0]; 
@@ -23,7 +32,7 @@ const SeconForm = ({ step, nextStep }) => {
     const service_id = selector?.service_id && selector.service_id.length > 0 ? selector.service_id[0] : "";
     const user = selector?.booking_service && selector.booking_service.length > 0 ? selector.booking_service[0] : "";
 
-    console.log("selector service_id", service_id)
+    // console.log("selector service_id", service_id)
 
     const [users, setUser] = useState([]);
     const [selectedItems, setSelectedItems] = useState([]);
@@ -44,7 +53,7 @@ const SeconForm = ({ step, nextStep }) => {
 
 
 
-    console.log("priceservice", priceservice, priceadon)
+    // console.log("priceservice", priceservice, priceadon)
 
 
 
@@ -201,16 +210,28 @@ const SeconForm = ({ step, nextStep }) => {
             .filter(item => selectedItems.includes(item._id)) // Filter selected add-ons
             .map(item => ({ id: item._id, title: item.title, price: item.price })); // Map to an array of objects with ID, title, and price
 
-        // Dispatch selected add-on IDs and prices
-        dispatch(updateInputData({ formName: 'secondform', inputData: formData }));
-        dispatch(updateInputData({ formName: 'addon_id', inputData: selectedItems }));
-        dispatch(updateInputData({ formName: 'add_ons_details', inputData: selectedAddonsData }));
-        dispatch(updateInputData({ formName: 'servicename', inputData: servicename }));
+        // // Dispatch selected add-on IDs and prices
+        // dispatch(updateInputData({ formName: 'secondform', inputData: formData }));
+        // dispatch(updateInputData({ formName: 'addon_id', inputData: selectedItems }));
+        // dispatch(updateInputData({ formName: 'add_ons_details', inputData: selectedAddonsData }));
+        // dispatch(updateInputData({ formName: 'servicename', inputData: servicename }));
+        // dispatch(updateInputData({ formName: 'booking_service', inputData: user }));
 
-        // Proceed to the next step after a delay of 2 seconds
-        setTimeout(() => {
-            nextStep();
-        }, 2000);
+        nav(`/book`, {
+            state: {
+                firstForm: firstForm,
+                location_type: locationType,
+                locationForm: locationForm,
+                secondform: formData,
+                addon_id: selectedItems,
+                add_ons_details: selectedAddonsData,
+                servicename: servicename,
+
+
+            }
+        });
+        nextStep();
+
     };
 
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { IP } from '../../../../Constant';
 import './style.css';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import StripeCheckout from 'react-stripe-checkout';
 import vectorImg from "../../../assets/img/6212029.jpg";
 import { useSelector } from 'react-redux';
@@ -11,7 +11,15 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Conform = () => {
 
-
+    const nav = useNavigate()
+    const location = useLocation();
+  
+    const addon_id = location.state?.addon_id || "";
+    const add_ons_details = location.state?.add_ons_details || "";
+    const servicename = location.state?.servicename || "";
+    const service_name = location.state?.servicename || "";
+  
+    const locationName = location.state?.locationForm?.location || "";
     const formData = useSelector((state) => state.counter.formData);
     const { totalPrice } = useParams();
     const { provider_id } = useParams();
@@ -20,60 +28,44 @@ const Conform = () => {
     const username = localStorage.getItem("user_name");
     const userid = localStorage.getItem("userid");
     const token = localStorage.getItem("token");
-    const nav = useNavigate();
+
 
 
     console.log("formData", formData)
 
 
-    const addon_id = formData.addon_id && formData.addon_id[0] ? formData.addon_id[0] : "";
-    const location = formData.locationForm && formData.locationForm[0] ? formData.locationForm[0] : null;
-    const locationName = location ? location.location : null;
+
+    const customerdetails = location?.state?.fifthform || "";
+    const { address, first_name, last_name, arrivalInstructions, mobile, confirmpassword, password, email } = location?.state?.fifthform || "";
+    // const addressUser = location.locationForm?.address || "";
+    const location_type = location.state?.location_type || "";
 
 
-    const customer_user = formData.fifthform && formData.fifthform[0] ? formData.fifthform[0].name : "";
-    const addressUser = formData.locationForm && formData.locationForm[0] ? formData.locationForm[0].address : "";
-    const location_type = formData.location && formData.location[0] ? formData.location[0].location_type : "";
-    const gender = formData.secondform && formData.secondform[0] ? formData.secondform[0].gender : "";
-    const gender1 = formData.secondform && formData.secondform[0] ? formData.secondform[0].gender[0] : "";
-    const gender2 = formData.secondform && formData.secondform[0] ? formData.secondform[0].gender[1] : "";
+    const gender = location?.state?.secondform?.gender || "";
+    const gender1 = location?.state?.secondform?.gender[0] || "";
+    const gender2 = location?.state?.secondform?.gender[1] || "";
+    const service_id = location?.state?.secondform?.service_ids || "";
+    const service_time = location?.state?.secondform?.service_time || "";
+    const areas_of_concern = location?.state?.thirdform?.areas_of_concern || "";
+    const health_conditions = location?.state?.thirdform?.health_conditions || "";
+    const massage_body_part = location?.state?.thirdform?.massage_body_part || "";
+    const massage_pressure = location?.state?.thirdform?.massage_pressure || "";
+    const special_considerations = location?.state?.thirdform?.special_considerations || "";
+    const scheduled_date = location?.state?.fourthform?.date || "";
+    const scheduled_timing = location?.state?.fourthform?.time || "";
+    const massage_for = location?.state?.firstForm || "";
 
-    //   const totalPrice = formData.secondform && formData.secondform[0] ? formData.secondform[0].totalPrice : "";
-    const service_id = formData.secondform && formData.secondform[0] ? formData.secondform[0].service_ids : "";
-    const service_time = formData.secondform && formData.secondform[0] ? formData.secondform[0].service_time : "";
-    const areas_of_concern = formData.thirdform && formData.thirdform[0] ? formData.thirdform[0].areas_of_concern : "";
-    const health_conditions = formData.thirdform && formData.thirdform[0] ? formData.thirdform[0].health_conditions : "";
-    const massage_body_part = formData.thirdform && formData.thirdform[0] ? formData.thirdform[0].massage_body_part : "";
-    const massage_pressure = formData.thirdform && formData.thirdform[0] ? formData.thirdform[0].massage_pressure : "";
-    const special_considerations = formData.thirdform && formData.thirdform[0] ? formData.thirdform[0].special_considerations : "";
-    const scheduled_date = formData.fourthform && formData.fourthform[0] ? formData.fourthform[0].date : "";
-    const scheduled_timing = formData.fourthform && formData.fourthform[0] ? formData.fourthform[0].time : "";
-    // const massage_for = formData?.firstForm?.[0] || "";
-    const massage_for = formData.firstForm && formData.firstForm[0] ? formData.firstForm[0] : "";
-
-    const add_ons_details = formData.add_ons_details && formData.add_ons_details[0] ? formData.add_ons_details[0] : "";
-
-    const service_name = formData.servicename && formData.servicename[0] ? formData.servicename[0] : "";
+    const gendercheck = location?.firstForm || "";
 
 
 
 
 
-    const email = formData.fifthform && formData.fifthform[0] ? formData.fifthform[0].email : "";
-    const address = formData.fifthform && formData.fifthform[0] ? formData.fifthform[0].address : "";
-    const arrivalInstructions = formData.fifthform && formData.fifthform[0] ? formData.fifthform[0].arrivalInstructions : "";
-    const confirmpassword = formData.fifthform && formData.fifthform[0] ? formData.fifthform[0].email : "";
-    const password = formData.fifthform && formData.fifthform[0] ? formData.fifthform[0].password : "";
-    const mobile = formData.fifthform && formData.fifthform[0] ? formData.fifthform[0].mobile : "";
 
-    // const servicename = formData.servicename && formData.servicename[0] ? formData.servicename[0] || "";
-    const servicename = formData.servicename && formData.servicename[0] ? formData.servicename[0] : "";
 
-    const gendercheck = formData?.firstForm && formData.firstForm.length > 0 ? formData.firstForm[0] : "";
 
-    console.log("add_ons_details", add_ons_details)
 
-    console.log("servicename", servicename)
+
     const [selectedGiftCards, setSelectedGiftCards] = useState([]);
     const [paymentIntentId, setPaymentIntentId] = useState('');
     const [client_secret, setClientSecret] = useState();
@@ -209,7 +201,7 @@ const Conform = () => {
 
 
 
-    console.log("amount provider check", price_provider, provider_addon)
+
 
 
     useEffect(() => {
@@ -489,11 +481,11 @@ const Conform = () => {
                                 <div>
                                     <li>
                                         <span className="title">Date of service:</span>
-                                        <span className="value">{formData.fourthform?.[0]?.date}</span>
+                                        <span className="value">{scheduled_date}</span>
                                     </li>
                                     <li>
                                         <span className="title">Time of service:</span>
-                                        <span className="value">{formData.fourthform?.[0]?.time}</span>
+                                        <span className="value">{scheduled_timing}</span>
                                     </li>
                                     <li>
                                         <span className="title">Duration of service:</span>
@@ -527,8 +519,8 @@ const Conform = () => {
 
                                 <li>
                                     <span className="title">Personal Details</span>
-                                    <spam className="value">Full Name : {customer_user}</spam>
-                                    <span className="value">Address : {addressUser}</span>
+                                    <spam className="value">Full Name : {first_name} {last_name}</spam>
+                                    <span className="value">Address : {address}</span>
 
                                     {
                                         gendercheck === "partner" ? (

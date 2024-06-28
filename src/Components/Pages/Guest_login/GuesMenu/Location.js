@@ -1,12 +1,12 @@
-
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { updateInputData } from '../../Redux/counterSlice';
+import { useDispatch } from 'react-redux';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import LocationIcon from '../../../assets/img/crosshair.svg';
 
 function Location() {
+  const location = useLocation();
+  const locationType = location.state?.location?.location_type || "";
   const [address, setAddress] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [coordinates, setCoordinates] = useState({
@@ -57,9 +57,6 @@ function Location() {
   const dispatch = useDispatch();
   const nav = useNavigate();
 
-
-
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -68,9 +65,7 @@ function Location() {
       return;
     } else {
       setErrorMessage("");
-
     }
-
 
     const config = {
       address: address,
@@ -80,13 +75,10 @@ function Location() {
       },
     };
 
-    dispatch(updateInputData({ formName: 'locationForm', inputData: config }));
-
-    setTimeout(() => {
-      nav("/book");
-    }, 2000);
+    nav(`/book`, { state: { locationForm: config, location_type: locationType } });
   };
 
+  console.log("locationType", locationType);
 
   return (
     <>
@@ -95,7 +87,6 @@ function Location() {
           <div className="row">
             <form className="location card layer1">
               <h3>Where would you like our provider to meet you?</h3>
-
               <div className="input_group">
                 <PlacesAutocomplete
                   value={address}
@@ -125,18 +116,10 @@ function Location() {
                     </div>
                   )}
                 </PlacesAutocomplete>
-                {/*  
-                <button
-                  className="button"
-                  style={{ padding: '8px', marginTop: '10px' }}
-                  type="button"
-                  onClick={handleGetCurrentLocation}
-                >
-                  Use Current Location
-                </button>
-                    */}
-                <p onClick={handleGetCurrentLocation} className='useLocation'><img src={LocationIcon} alt='location' height={20} /> Use my current ocation</p>
 
+                <p onClick={handleGetCurrentLocation} className='useLocation'>
+                  <img src={LocationIcon} alt='location' height={20} /> Use my current location
+                </p>
               </div>
               <div className="error-message">{errorMessage}</div>
               <div className="input_group">
@@ -153,29 +136,9 @@ function Location() {
             </form>
           </div>
         </div>
-
       </div>
     </>
   );
 }
 
 export default Location;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -2,10 +2,27 @@ import React, { useState } from "react";
 import "./style.css";
 import { useDispatch, useSelector } from 'react-redux';
 import { updateInputData } from '../../Redux/counterSlice';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const ThirdForm = ({ nextStep }) => {
-    const third = useSelector((state) => state.counter.formData);
-    console.log("third", third);
+    const nav = useNavigate()
+    const location = useLocation();
+    const locationType = location.state?.location_type || "";
+    const locationForm = location.state?.locationForm || "";
+    const firstForm = location.state?.firstForm || "";
+    const addon_id = location.state?.addon_id || "";
+    const add_ons_details = location.state?.add_ons_details || "";
+    const servicename = location.state?.servicename || "";
+    const secondform = location.state?.secondform || "";
+
+
+    console.log("locationForm second form", locationForm);
+    console.log("locationType second form", locationType);
+    console.log("firstForm form data", firstForm)
+
+    console.log("locationForm addon_id ", addon_id);
+    console.log("locationType add_ons_details", add_ons_details);
+    console.log("firstForm servicename", servicename)
 
     const [areasOfConcern, setAreasOfConcern] = useState([]);
     const [healthConditions, setHealthConditions] = useState([]);
@@ -27,12 +44,23 @@ const ThirdForm = ({ nextStep }) => {
         };
 
         try {
-            // Dispatch the form data to Redux if needed
-            dispatch(updateInputData({ formName: 'thirdform', inputData: formData }));
 
-            setTimeout(() => {
-                nextStep();
-            }, 2000)
+            nav(`/book`, {
+                state: {
+                    firstForm: firstForm,
+                    thirdform: formData,
+                    location_type: locationType,
+                    locationForm: locationForm,
+                    secondform: secondform,
+                    addon_id: addon_id,
+                    add_ons_details: add_ons_details,
+                    servicename: servicename,
+
+
+                }
+            });
+            nextStep();
+
         } catch (error) {
             console.error("Error submitting form:", error);
         }

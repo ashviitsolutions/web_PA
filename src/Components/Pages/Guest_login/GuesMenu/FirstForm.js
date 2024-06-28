@@ -3,37 +3,32 @@ import "./style.css"
 import image13 from "../../../assets/img/goodbye.png"
 import image14 from "../../../assets/img/laugh.png"
 import image15 from "../../../assets/img/thinking-of-someone.png"
-import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateInputData } from '../../Redux/counterSlice';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 
 
 const FirstForm = ({ step, nextStep }) => {
-    // Use useSelector with the correct selector to get the formData
-    const formData = useSelector((state) => state.counter.formData);
-    console.log("firstform", formData);
+    const nav = useNavigate()
+    const location = useLocation();
+    const locationType = location.state?.location_type || "";
+    const locationForm = location.state?.locationForm || "";
+    console.log("locationForm", locationForm);
+    console.log("locationType", locationType);
 
     const dispatch = useDispatch();
-    // const handleSubmit = (input) => {
-    //     dispatch(updateInputData({ formName: 'firstForm', inputData: input }));
 
-
-    //     setTimeout(() => {
-    //         nextStep();
-
-    //       }, 2000)
-    //     nav("/guest_login")
-    // };
 
     const handleSubmit = (input) => {
-        console.log('handleSubmit called with input:', input);
-        console.log('dispatch:', dispatch);
-        dispatch(updateInputData({ formName: 'firstForm', inputData: input }));
-        setTimeout(() => {
+        if (!input) {
+            alert("please select the option")
+        } else {
+            nav(`/book`, { state: { firstForm: input, location_type: locationType, locationForm: locationForm } });
             nextStep();
+        }
 
-        }, 2000)
+
     };
 
 
@@ -65,12 +60,12 @@ const FirstForm = ({ step, nextStep }) => {
                             ></span>
                             Duo
                         </li>
-                       
+
                     </ul>
                     <a className='small' href='/'>&larr; Back to Home</a>
                 </div>
             </div>
-            
+
 
         </>
     )

@@ -3,10 +3,37 @@ import "./style.css";
 import { useDispatch, useSelector } from 'react-redux';
 import { updateInputData } from '../../Redux/counterSlice';
 import Calendar from 'react-calendar';
+import { useLocation, useNavigate } from "react-router-dom";
 
 const FourForm = ({ nextStep }) => {
+  const nav = useNavigate()
+  const location = useLocation();
+  const locationType = location.state?.location_type || "";
+  const locationForm = location.state?.locationForm || "";
+  const firstForm = location.state?.firstForm || "";
+  const addon_id = location.state?.addon_id || "";
+  const add_ons_details = location.state?.add_ons_details || "";
+  const servicename = location.state?.servicename || "";
+  const thirdform = location.state?.thirdform || "";
+  const secondform = location.state?.secondform || "";
+
+  console.log("locationForm thirdform form ", locationForm);
+  console.log("locationType thirdform form", locationType);
+  console.log("firstForm thirdform form data", firstForm)
+
+  console.log("locationForm thirdform addon_id ", addon_id);
+  console.log("locationType thirdform add_ons_details", add_ons_details);
+  console.log("firstForm  thirdform servicename", servicename)
+  console.log("thirdform thirdform servicename", thirdform)
+  console.log("secondform secondform", secondform)
+
+
+
+
+
+
   const selector = useSelector((state) => state.counter.formData);
-  console.log("selector", selector);
+
   const [selectedTime, setSelectedTime] = useState(""); // State to store selected time
   const [selectedDate, setSelectedDate] = useState(new Date()); // State to store selected date
   const [errorMessage, setErrorMessage] = useState("");
@@ -67,12 +94,29 @@ const FourForm = ({ nextStep }) => {
       time: selectedTime,
     };
 
-    // Dispatch the form data to Redux
-    dispatch(updateInputData({ formName: 'fourthform', inputData: formData }));
+    nav(`/book`, {
+      state: {
+        firstForm: firstForm,
+        thirdform: formData,
+        location_type: locationType,
+        locationForm: locationForm,
+        secondform: secondform,
+        addon_id: addon_id,
+        add_ons_details: add_ons_details,
+        servicename: servicename,
+        fourthform: formData
 
-    setTimeout(() => {
-      nextStep();
-    }, 2000);
+
+      }
+    });
+    nextStep();
+
+    // // Dispatch the form data to Redux
+    // dispatch(updateInputData({ formName: 'fourthform', inputData: formData }));
+
+    // setTimeout(() => {
+    //   nextStep();
+    // }, 2000);
   };
 
 

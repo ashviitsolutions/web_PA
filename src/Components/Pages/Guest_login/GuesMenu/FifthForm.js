@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./style.css";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -12,6 +12,32 @@ import axios from "axios";
 
 
 const FifthForm = ({ step, nextStep }) => {
+  const nav = useNavigate()
+  const location = useLocation();
+  const locationType = location.state?.location_type || "";
+  const locationForm = location.state?.locationForm || "";
+  const firstForm = location.state?.firstForm || "";
+  const addon_id = location.state?.addon_id || "";
+  const add_ons_details = location.state?.add_ons_details || "";
+  const servicename = location.state?.servicename || "";
+  const thirdform = location.state?.thirdform || "";
+  const fourthform = location.state?.fourthform || "";
+  const secondform = location.state?.secondform || "";
+
+
+  console.log("locationForm fourthform form ", locationForm);
+  console.log("locationType fourthform form", locationType);
+  console.log("firstForm fourthform form data", firstForm)
+
+  console.log("locationForm fourthform addon_id ", addon_id);
+  console.log("locationType fourthform add_ons_details", add_ons_details);
+  console.log("fourthform  fourthform servicename", servicename)
+  console.log("fourthform fourthform servicename", thirdform)
+  console.log("fourthform fourthform servicename", fourthform)
+  console.log("secondform secondform servicename", secondform)
+
+
+
   const [showPassword, setShowPassword] = useState(false);
   const { provider_id } = useParams();
   const formData = useSelector((state) => state.counter.formData);
@@ -25,10 +51,11 @@ const FifthForm = ({ step, nextStep }) => {
   const userid = localStorage.getItem("userid");
   const token = localStorage.getItem("token");
 
-  const totalPrice = formData.secondform && formData.secondform[0] ? formData.secondform[0].totalPrice : "";
-  const addressUser = formData.locationForm?.[0]?.address || "";
+  // const totalPrice = formData.secondform && formData.secondform[0] ? formData.secondform[0].totalPrice : "";
+  const totalPrice = location.state?.secondform?.totalPrice || "";
+  const addressUser = location.state?.locationForm?.address || "";
 
-  const nav = useNavigate();
+
   const [address, setAddress] = useState(addressUser);
   const [email, setEmail] = useState(useremail);
   const [arrivalInstructions, setArrivalInstructions] = useState("");
@@ -60,11 +87,29 @@ const FifthForm = ({ step, nextStep }) => {
       confirmpassword: confirmpassword
     };
 
-    dispatch(updateInputData({ formName: 'fifthform', inputData: formData }));
+    nav(`/book/${provider_id}/${totalPrice}`, {
+      state: {
+        firstForm:firstForm,
+        thirdform: thirdform,
+        location_type: locationType,
+        locationForm: locationForm,
+        secondform: secondform,
+        addon_id: addon_id,
+        add_ons_details: add_ons_details,
+        servicename: servicename,
+        fourthform: fourthform,
+        fifthform: formData
 
-    setTimeout(() => {
-      nav(`/book/${provider_id}/${totalPrice}`);
-    }, 2000);
+
+      }
+    });
+    nextStep();
+
+    // dispatch(updateInputData({ formName: 'fifthform', inputData: formData }));
+
+    // setTimeout(() => {
+    //   nav(`/book/${provider_id}/${totalPrice}`);
+    // }, 2000);
   };
 
   const handleSubmit = async (e) => {
