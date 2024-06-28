@@ -46,6 +46,8 @@ const Dashboard = () => {
   }, [wallate,dispatch])
 
 
+  console.log("wallate wallate",wallate)
+
 
   const fetchData = useCallback(() => {
     fetch(`${IP}/provider/requests`, {
@@ -83,8 +85,8 @@ const Dashboard = () => {
         <div className="col-md-12">
           <h2 className="text-center mt-2">Earnings</h2>
           <Row>
-            <EarningsCard label="Net Income" amt={wallate?.total_withdrawn.toFixed(2)} />
-            <EarningsCard label="Pending Clearance" amt={wallate?.available_amount.toFixed(2)} />
+            <EarningsCard label="Net Income" amt={wallate?.available_amount?.toFixed(2)} />
+            <EarningsCard label="Total Withdrawn" amt={wallate?.total_withdrawn.toFixed(2)} />
 
           </Row>
         </div>
