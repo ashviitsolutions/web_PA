@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import './Listprovider.css';
-import { IP } from '../../../../Constant';
 import { useNavigate } from 'react-router-dom';
-
-
-
+import Loader from '../../Loader';
+import { IP } from "../../../../Constant";
 
 function Listprovider() {
     const nav = useNavigate();
     const [users, setUsers] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [currentLocation, setCurrentLocation] = useState(null);
 
-
-
     useEffect(() => {
         const fetchData = async () => {
+            setLoading(true);
             try {
                 const latitude = currentLocation?.latitude;
                 const longitude = currentLocation?.longitude;
@@ -38,10 +36,14 @@ function Listprovider() {
                 }
             } catch (error) {
                 console.error('Error fetching data:', error);
+            } finally {
+                setLoading(false);
             }
         };
 
-        fetchData();
+        if (currentLocation) {
+            fetchData();
+        }
     }, [currentLocation]);
 
     useEffect(() => {
@@ -64,13 +66,6 @@ function Listprovider() {
         fetchLocation();
     }, []);
 
-
-
-
-
-
-
-    // Initialize users with an empty array if it's undefined
     const filteredUsers = (users || []).filter((cur) => {
         const fullName = `${cur.first_name} ${cur.last_name}`.toLowerCase();
         return fullName.includes(searchTerm.toLowerCase());
@@ -92,32 +87,35 @@ function Listprovider() {
                 />
             </div>
 
-            <div className='Provider_List'>
-                {filteredUsers.filter((data) => data.application_status >= 3).map((cur) => (
-                    <div key={cur.id} className='provider_card'>
-                        <div className='image'>
-                            <img src={`http://45.13.132.197:5000/api/file/${cur.images}`} alt='' />
-
-                        </div>
-                        <div className='content'>
-                            <h3>{cur.first_name} {cur.last_name}</h3>
-                            <p><strong>{cur.averageRating}★</strong></p>
-                        </div>
-                        <div className='decription'>
-                            <p>Available Service: {cur?.areas_of_expertise?.on_demand}</p>
-                            <p>Address: {cur?.mailing_address?.address} {cur?.mailing_address?.country} {cur?.mailing_address?.postal_code}</p>
-                        </div>
-                        <div className='Listprovider_button'>
-                            <button className='button' onClick={() => handleSelect(cur._id)}>Select</button>
-                        </div>
+            {loading ? (
+                <Loader />
+            ) : (
+                filteredUsers.length > 0 ? (
+                    <div className='Provider_List'>
+                        {filteredUsers.filter((data) => data.application_status >= 3).map((cur) => (
+                            <div key={cur._id} className='provider_card'>
+                                <div className='image'>
+                                    <img src={`http://45.13.132.197:5000/api/file/${cur.images}`} alt='' />
+                                </div>
+                                <div className='content'>
+                                    <h3>{cur.first_name} {cur.last_name}</h3>
+                                    <p><strong>{cur.averageRating}★</strong></p>
+                                </div>
+                                <div className='decription'>
+                                    <p>Available Service: {cur?.areas_of_expertise?.on_demand?.join(', ')}</p>
+                                    <p>Address: {cur?.mailing_address?.address} {cur?.mailing_address?.country} {cur?.mailing_address?.postal_code}</p>
+                                    <p>Distance from you: {cur?.dist?.calculatedInKilometers}</p>
+                                </div>
+                                <div className='Listprovider_button'>
+                                    <button className='button' onClick={() => handleSelect(cur._id)}>Select</button>
+                                </div>
+                            </div>
+                        ))}
                     </div>
-                ))}
-
-
-            </div>
-
-
-
+                ) : (
+                    <p className='text-center'><strong>No stores found within 10 kilometers of the specified location</strong></p>
+                )
+            )}
         </div>
     );
 }
