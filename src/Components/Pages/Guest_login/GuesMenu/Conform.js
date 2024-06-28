@@ -8,17 +8,20 @@ import vectorImg from "../../../assets/img/6212029.jpg";
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useUserRegistration } from '../../../../Helpers/Hooks/Hooks';
 
 const Conform = () => {
-
+    const { getUserMembership, membershipLevel } = useUserRegistration();
+    const { getUserGiftCards, user } = useUserRegistration();
+    const [memberhsipDiscount, setMembershipDiscountRate] = useState("")
     const nav = useNavigate()
     const location = useLocation();
-  
+
     const addon_id = location.state?.addon_id || "";
     const add_ons_details = location.state?.add_ons_details || "";
     const servicename = location.state?.servicename || "";
     const service_name = location.state?.servicename || "";
-  
+
     const locationName = location.state?.locationForm?.location || "";
     const formData = useSelector((state) => state.counter.formData);
     const { totalPrice } = useParams();
@@ -30,8 +33,6 @@ const Conform = () => {
     const token = localStorage.getItem("token");
 
 
-
-    console.log("formData", formData)
 
 
 
@@ -75,8 +76,8 @@ const Conform = () => {
     const [tip, setTip] = useState(0);
     const [error, setError] = useState(false);
     const [giftCardAmount, setGiftCardAmount] = useState(0);
-    const [user, setUser] = useState([]);
-    const [membership, setMembershipLevel] = useState();
+    // const [user, setUser] = useState(userGiftCards);
+    const [membership, setMembershipLevel] = useState(membershipLevel);
     const [originalprice, setOriginalprice] = useState()
     const [bookingid, setBookingId] = useState(null)
 
@@ -101,7 +102,7 @@ const Conform = () => {
     const amount_off = coupon_amount.amount_off
     const percent_off = coupon_amount.percent_off
 
-    console.log("coupon amount charge", amount_off)
+    console.log("coupon amount originalpriceoriginalpriceoriginalpriceoriginalprice", originalprice)
     console.log("percent_off amount charge", percent_off)
 
 
@@ -119,37 +120,13 @@ const Conform = () => {
 
 
 
+
+
     useEffect(() => {
-        const getUserMembership = async () => {
-            const token = localStorage.getItem("token");
-
-            try {
-                const response = await fetch(`${IP}/user/membership-details`, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': token,
-                    },
-                });
-
-
-                const data = await response.json();
-
-
-                setMembershipLevel(data.membershipType);
-
-
-
-
-            } catch (error) {
-                console.error("Error:", error);
-            }
-        };
-
         getUserMembership();
-    }, [totalPrice]);
-
-
+        getUserGiftCards();
+    }, []);
+    console.log("userGiftCards userGiftCards", user)
 
 
 
@@ -167,10 +144,10 @@ const Conform = () => {
         let couponDiscountRate = 0;
 
         // Check if membership is Silver or Gold
-        if (membership === "Silver") {
+        if (membershipLevel === "Silver") {
             // If Silver membership is selected, apply a 5% discount
             membershipDiscountRate = 0.05;
-        } else if (membership === "Gold") {
+        } else if (membershipLevel === "Gold") {
             // If Gold membership is selected, apply a 10% discount
             membershipDiscountRate = 0.10;
         }
@@ -180,6 +157,7 @@ const Conform = () => {
         }
 
         const servicePricewithmemberhsip = 135 * (1 - membershipDiscountRate);
+        const membershipDiscountprice = 135 - servicePricewithmemberhsip;
         const adds_onprice = (totalPrice - 135);
         const tip = (servicePricewithmemberhsip + adds_onprice) * 0.18;
         const Tax = (servicePricewithmemberhsip + adds_onprice) * taxRate;
@@ -196,7 +174,8 @@ const Conform = () => {
         setTotalAmount(totalAmounts);
         setAddsAmount(adds_onprice);
         setOriginalprice(servicePricewithmemberhsip)
-    }, [totalPrice, membership, formData.fifthform, amount_off, percent_off]);
+        setMembershipDiscountRate(membershipDiscountprice)
+    }, [totalPrice, membershipLevel, formData.fifthform, amount_off, percent_off]);
 
 
 
@@ -208,9 +187,9 @@ const Conform = () => {
         let tax = tip;
         let addonsprice = amount_addon;
         const time_status = service_time;
-        const memberhsip = originalprice;
+        const memberhsip = memberhsipDiscount;
         let basePrice = 70; // Initial base price
-        let membershipDiscountRate = 0;
+
         // console.log("amount_addon amount_addonamount_addon", amount_addon)
 
         // Adjust base price based on service time
@@ -225,13 +204,7 @@ const Conform = () => {
             basePrice *= 2;
         }
 
-        if (membership === "Silver") {
-            // If Silver membership is selected, apply a 5% discount
-            membershipDiscountRate = 0.05;
-        } else if (membership === "Gold") {
-            // If Gold membership is selected, apply a 10% discount
-            membershipDiscountRate = 0.10;
-        }
+
         // Add 14% of total add-ons price to totalPrice
         let totalPriceAddons = addonsprice;
 
@@ -239,6 +212,8 @@ const Conform = () => {
 
         //total value after adding adsonprice
         let totalPriceWithAddons = basePrice + calculateaadon;
+
+
 
         // Add tax amount to totalPrice
         totalPriceWithAddons += tax;
@@ -270,7 +245,7 @@ const Conform = () => {
             amount_addon: amountAddon,
             amount_tip: tip,
             amount_tax: tax,
-            amount_membership_discount: originalprice,
+            amount_membership_discount: memberhsipDiscount,
             total_amount: totalPrice,
         },
 
@@ -282,7 +257,7 @@ const Conform = () => {
             gift_cart_amount: giftCardAmount,
 
             amount_tip: tip,
-            amount_membership_discount: originalprice,
+            amount_membership_discount: memberhsipDiscount,
             total_amount: price_provider,
         },
 
@@ -380,30 +355,7 @@ const Conform = () => {
     }, [bookingData?.amount_calculation?.amount_tip, provider_addon, giftCardAmount, loading]); // Trigger when bookingData changes
 
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const token = localStorage.getItem("token");
-                const config = {
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: token,
-                    },
-                };
 
-                const res = await fetch(`${IP}/user/my-giftCards`, config);
-                const data = await res.json();
-                setUser(data?.data);
-
-
-            } catch (error) {
-
-            }
-        };
-
-        fetchData();
-    }, []);
-    console.log("user/my-giftCards", user);
 
     const handleGiftCardChange = (amount) => {
         if (amount > totalAmount) {
@@ -633,17 +585,17 @@ const Conform = () => {
 
 
 
-                                        {membership === "Silver" && (
+                                        {membershipLevel === "Silver" && (
                                             <p className="prices" style={{ fontSize: '17px' }}>
                                                 <span className='value'>
-                                                    5% Silver Membership Discount: ${6.75}
+                                                    5% Silver Membership Discount: ${memberhsipDiscount}
 
                                                 </span></p>
                                         )}
-                                        {membership === "Gold" && (
+                                        {membershipLevel === "Gold" && (
                                             <p className="prices" style={{ fontSize: '17px' }}>
                                                 <span className='value'>
-                                                    10% Gold Membership Discount: ${13.50}
+                                                    10% Gold Membership Discount: ${memberhsipDiscount}
                                                 </span></p>
                                         )}
                                         <p className="prices" style={{ fontSize: '17px' }} >

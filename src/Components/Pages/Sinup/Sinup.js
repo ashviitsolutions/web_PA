@@ -78,6 +78,7 @@ const Signup = () => {
                                         type={field.type}
                                         required
                                     />
+                                    
                                     {(field.name === "password" || field.name === "confirmPassword") && (
                                         <button className="eye_button" type="button" onClick={handleTogglePassword}>
                                             {showPassword ? <img src={closeEye} alt="Hide" /> : <img src={openEye} alt="Show" />}
@@ -86,7 +87,7 @@ const Signup = () => {
                                 </div>
                             ))}
 
-                            <div className="input_group" style={{ textDecoration: "none", marginTop: "-10px" }}>
+                            <div className="" style={{ textDecoration: "none", marginTop: "-10px" }}>
                                 <Btn title={loading ? "Loading..." : "Sign Up"} />
                                 <span>Already have an account? <Link to="/login" className="anchor">Sign In</Link></span>
                             </div>
