@@ -4,10 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { IP } from "../../../../Constant";
+import { useDispatch, useSelector } from 'react-redux';
 
 
 
 function Setting() {
+	const dispatch = useDispatch();
+	const selector = useSelector((state) => state.counter.formData);
+	const profiledata = Array.isArray(selector?.profiledata) && selector.profiledata.length > 0 ? selector.profiledata[0] : [];
 	const token = localStorage.getItem("token");
 	const nav = useNavigate();
 
@@ -30,21 +34,12 @@ function Setting() {
 	const [confirm_password, setConfirmPassword] = useState("");
 
 	useEffect(() => {
-		const fetchPosts = async () => {
-			try {
-				const response = await Hook.getProfile();
-				setFirstname(response.data.first_name);
-				setLastname(response.data.last_name);
-				setEmail(response.data.email);
-				setMobile(response.data.mobile);
-				localStorage.setItem("user_id", response.data._id);
-				console.log("get setting", response.data);
-			} catch (error) {
-				console.error("Error fetching data:", error);
-			}
-		};
-
-		fetchPosts();
+		setFirstname(profiledata.first_name);
+		setLastname(profiledata.last_name);
+		setEmail(profiledata.email);
+		setMobile(profiledata.mobile);
+		localStorage.setItem("user_id", profiledata._id);
+		console.log("get setting", profiledata.data);
 	}, []);
 
 

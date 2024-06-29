@@ -7,18 +7,23 @@ import { FallingLines } from "react-loader-spinner";
 import moment from "moment";
 import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { updateInputData } from '../../Redux/counterSlice';
 
 const Notifications = () => {
+  const dispatch = useDispatch();
+  const selector = useSelector((state) => state.counter.formData);
+  const notifications = Array.isArray(selector?.notificationdata) && selector.notificationdata.length > 0 ? selector.notificationdata[0] : [];
   const token = localStorage.getItem("token");
   const username = localStorage.getItem("user_name");
   const user_id = localStorage.getItem("userid");
   const [loading, setLoading] = useState(false);
-  const [notifications, setNotifications] = useState([]);
+  // const [notifications, setNotifications] = useState([]);
   const [pageNumber, setPageNumber] = useState(0);
   const notificationsPerPage = 5; // Number of notifications to show per page
 
   useEffect(() => {
-    setLoading(true);
+    // setLoading(true);
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -29,7 +34,8 @@ const Notifications = () => {
       .get(`${IP}/get-all-notifications/${user_id}`, config)
       .then((res) => {
         console.log(res.data);
-        setNotifications(res.data);
+        // setNotifications(res.data);
+        dispatch(updateInputData({ formName: 'notificationdata', inputData: res.data }));
         setLoading(false);
       })
       .catch((err) => {
@@ -53,7 +59,7 @@ const Notifications = () => {
   return (
     <div className="progressbar_userpannel profileSpace">
       <div className="container__view">
-       
+
         <h3>Notifications</h3>
         <div className="notification__view">
           {loading ? (

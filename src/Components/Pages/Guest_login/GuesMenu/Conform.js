@@ -11,7 +11,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useUserRegistration } from '../../../../Helpers/Hooks/Hooks';
 
 const Conform = () => {
-    const { getUserMembership, membershipLevel } = useUserRegistration();
+    const membershipLevel = localStorage.getItem("membership")
+    // const { getUserMembership, membershipLevels } = useUserRegistration();
     const { getUserGiftCards, user } = useUserRegistration();
     const [memberhsipDiscount, setMembershipDiscountRate] = useState("")
     const nav = useNavigate()
@@ -123,7 +124,7 @@ const Conform = () => {
 
 
     useEffect(() => {
-        getUserMembership();
+        // getUserMembership();
         getUserGiftCards();
     }, []);
     console.log("userGiftCards userGiftCards", user)
