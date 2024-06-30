@@ -17,15 +17,15 @@ const FourForm = ({ nextStep }) => {
   const thirdform = location.state?.thirdform || "";
   const secondform = location.state?.secondform || "";
 
-  console.log("locationForm thirdform form ", locationForm);
-  console.log("locationType thirdform form", locationType);
-  console.log("firstForm thirdform form data", firstForm)
+  // console.log("locationForm thirdform form ", locationForm);
+  // console.log("locationType thirdform form", locationType);
+  // console.log("firstForm thirdform form data", firstForm)
 
-  console.log("locationForm thirdform addon_id ", addon_id);
-  console.log("locationType thirdform add_ons_details", add_ons_details);
-  console.log("firstForm  thirdform servicename", servicename)
+  // console.log("locationForm thirdform addon_id ", addon_id);
+  // console.log("locationType thirdform add_ons_details", add_ons_details);
+  // console.log("firstForm  thirdform servicename", servicename)
   console.log("thirdform thirdform servicename", thirdform)
-  console.log("secondform secondform", secondform)
+  // console.log("secondform secondform", secondform)
 
 
 
@@ -97,7 +97,7 @@ const FourForm = ({ nextStep }) => {
     nav(`/book`, {
       state: {
         firstForm: firstForm,
-        thirdform: formData,
+        thirdform: thirdform,
         location_type: locationType,
         locationForm: locationForm,
         secondform: secondform,

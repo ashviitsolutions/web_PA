@@ -62,7 +62,7 @@ const Conform = () => {
 
 
 
-
+    console.log("areas_of_concernareas_of_concernareas_of_concern", areas_of_concern)
 
 
 
@@ -228,7 +228,6 @@ const Conform = () => {
 
 
 
-
     var bookingData = {
         ...(userid ? {
             user: userid,
@@ -291,12 +290,13 @@ const Conform = () => {
         service_name: service_name
     };
 
+    console.log("provider_addonprovider_addonprovider_addonprovider_addonprovider_addon",bookingData)
 
 
     const handleCheckout = async () => {
         setLoading(true);
 
-        if (!booking_id && !bookingid) {
+        if (!booking_id && !bookingid  && !provider_addon) {
             setLoading(false);
             return false;
         }
@@ -450,7 +450,7 @@ const Conform = () => {
                                     </li>
                                     <li>
                                         <span className="title">Addons:</span>
-                                        {add_ons_details ? (
+                                        {add_ons_details.length > 0 ? (
                                             <span className="value">
                                                 {add_ons_details.map((addon, index) => (
                                                     <span key={index}>
@@ -468,6 +468,80 @@ const Conform = () => {
                                         <span className="value">Massage on demand</span>
                                     </li>
 
+                                    <li>
+                                        <span className="title">Areas of concern:</span>
+                                        {areas_of_concern.length > 0 ? (
+                                            <span className="value">
+                                                {areas_of_concern.map((addon, index) => (
+                                                    <span key={index}>
+                                                        {addon}
+                                                        {index !== areas_of_concern.length - 1 ? ', ' : ''}
+                                                    </span>
+                                                ))}
+                                            </span>
+                                        ) : (
+                                            <span className="value">No Areas of concern selected</span>
+                                        )}
+                                    </li>
+
+                                    <li>
+                                        <span className="title">Health conditions:</span>
+                                        {health_conditions.length > 0 ? (
+                                            <span className="value">
+                                                {health_conditions.map((addon, index) => (
+                                                    <span key={index}>
+                                                        {addon}
+                                                        {index !== health_conditions.length - 1 ? ', ' : ''}
+                                                    </span>
+                                                ))}
+                                            </span>
+                                        ) : (
+                                            <span className="value">No health conditions selected</span>
+                                        )}
+                                    </li>
+
+
+
+                                    <li>
+                                        <span className="title">Special considerations:</span>
+                                        {special_considerations.length > 0 ? (
+                                            <span className="value">
+                                                {special_considerations.map((addon, index) => (
+                                                    <span key={index}>
+                                                        {addon}
+                                                        {index !== special_considerations.length - 1 ? ', ' : ''}
+                                                    </span>
+                                                ))}
+                                            </span>
+                                        ) : (
+                                            <span className="value">No special considerations selected</span>
+                                        )}
+                                    </li>
+                                    <li>
+                                        <span className="title">Massage body part:</span>
+                                        {massage_body_part.length > 0 ? (
+                                            <span className="value">
+                                                {massage_body_part.map((addon, index) => (
+                                                    <span key={index}>
+                                                        {addon}
+                                                        {index !== massage_body_part.length - 1 ? ', ' : ''}
+                                                    </span>
+                                                ))}
+                                            </span>
+                                        ) : (
+                                            <span className="value">No massage body part selected</span>
+                                        )}
+                                    </li>
+                                    <li>
+                                        <span className="title">Massage pressure:</span>
+                                        {massage_pressure.length > 0 ? (
+                                            <span className="value">
+                                                {massage_pressure}
+                                            </span>
+                                        ) : (
+                                            <span className="value">No massage pressure selected</span>
+                                        )}
+                                    </li>
                                 </div>
 
                                 <li>

@@ -16,13 +16,13 @@ const ThirdForm = ({ nextStep }) => {
     const secondform = location.state?.secondform || "";
 
 
-    console.log("locationForm second form", locationForm);
-    console.log("locationType second form", locationType);
-    console.log("firstForm form data", firstForm)
+    // console.log("locationForm second form", locationForm);
+    // console.log("locationType second form", locationType);
+    // console.log("secondform form data", secondform)
 
-    console.log("locationForm addon_id ", addon_id);
-    console.log("locationType add_ons_details", add_ons_details);
-    console.log("firstForm servicename", servicename)
+    // console.log("locationForm addon_id ", addon_id);
+    // console.log("locationType add_ons_details", add_ons_details);
+    // console.log("firstForm servicename", servicename)
 
     const [areasOfConcern, setAreasOfConcern] = useState([]);
     const [healthConditions, setHealthConditions] = useState([]);

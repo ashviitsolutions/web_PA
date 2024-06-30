@@ -43,6 +43,32 @@ function Event() {
 
 
 
+    // const fetchData = useCallback(() => {
+    //     setLoading(true);
+    //     fetch(`${IP}/bookings/allbookings`, {
+    //         headers: {
+    //             'Authorization': token
+    //         }
+    //     })
+    //         .then(resp => {
+    //             if (!resp.ok) {
+    //                 throw new Error('Network response was not ok');
+    //             }
+    //             return resp.json();
+    //         })
+    //         .then(result => {
+    //             setRequest(prevData => [...prevData, ...result]);
+    //             console.log("booking data data", result);
+    //             setLoading(false);
+    //         })
+    //         .catch(err => {
+    //             console.error('Error fetching data:', err);
+    //         }
+    //         ).finally(() => {
+    //             setLoading(false); // Set loading to false after fetching data
+    //         });
+    // }, []);
+
     const fetchData = useCallback(() => {
         setLoading(true);
         fetch(`${IP}/bookings/allbookings`, {
@@ -50,24 +76,26 @@ function Event() {
                 'Authorization': token
             }
         })
-            .then(resp => {
-                if (!resp.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return resp.json();
-            })
-            .then(result => {
-                setRequest(prevData => [...prevData, ...result]);
-                console.log("booking data data", result);
-                setLoading(false);
-            })
-            .catch(err => {
-                console.error('Error fetching data:', err);
+        .then(resp => {
+            if (!resp.ok) {
+                throw new Error('Network response was not ok');
             }
-            ).finally(() => {
-                setLoading(false); // Set loading to false after fetching data
-            });
-    }, []);
+            return resp.json();
+        })
+        .then(result => {
+            if (!Array.isArray(result)) {
+                throw new Error('Result is not an array');
+            }
+            setRequest(prevData => [...prevData, ...result]);
+            console.log("booking data data", result);
+            setLoading(false);
+        })
+        .catch(err => {
+            console.error('Error fetching data:', err);
+            setLoading(false);
+        });
+    }, [token]);
+
 
     useEffect(() => {
         fetchData();

@@ -274,7 +274,7 @@ function Providerservices() {
             <div className="col-sm-4 pull-right searchResult" id="">
               <div className="gutter">
                 <div id="about_user_card" className=" layer2">
-                  <h3 className="inner_title">User List</h3>
+                  <h3 className="inner_title">providers List</h3>
                   {loading ? (
                     <p>Loading...</p>
                   ) : (
@@ -289,7 +289,7 @@ function Providerservices() {
                         </div>
                       ))
                     ) : (
-                      <p>No users found.</p>
+                      <p>No providers found.</p>
                     )
                   )}
                 </div>

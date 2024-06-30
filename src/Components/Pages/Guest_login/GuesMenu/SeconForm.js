@@ -22,9 +22,9 @@ const SeconForm = ({ step, nextStep }) => {
     const locationType = location.state?.location_type || "";
     const locationForm = location.state?.locationForm || "";
     const firstForm = location.state?.firstForm || "";
-    console.log("locationForm second form", locationForm);
-    console.log("locationType second form", locationType);
-    console.log("firstForm form data", firstForm)
+    // console.log("locationForm second form", locationForm);
+    // console.log("locationType second form", locationType);
+    // console.log("firstForm form data", firstForm)
     const dispatch = useDispatch();
     const selector = useSelector((state) => state.counter.formData);
     // const gendercheck = selector?.firstForm[0]; 
