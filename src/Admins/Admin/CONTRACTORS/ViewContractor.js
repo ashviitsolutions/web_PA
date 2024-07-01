@@ -44,7 +44,24 @@ const PreviewImage = ({ attachments }) => {
   );
 };
 
+const DocumentLinks = ({ documents }) => {
+  if (!documents) return null;
 
+  const documentKeys = Object.keys(documents);
+
+  return (
+    <div>
+      <li><b>Download documents:</b></li>
+      {documentKeys.map((key, index) => (
+        <a href={`${IP}/file/${documents[key]}`} target="_blank" rel="noreferrer" key={index}>
+          <li>
+            <b>{index + 1}. {key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1').trim()}:</b>
+          </li>
+        </a>
+      ))}
+    </div>
+  );
+};
 
 
 const OfficeImage = ({ attachments }) => {
@@ -313,7 +330,7 @@ function ViewContractor() {
                           <li><b>Previous employee:</b>{user?.previous_employee}</li>
                           <li><b>Application status_text:</b>{application_status_text}</li>
                           <li><b>Address:</b>{user?.mailing_address?.address}</li>
-                        
+
 
                           <li><b>City:</b>{user?.mailing_address?.city}</li>
                           <li><b>Country:</b> {user?.mailing_address?.country}</li>
@@ -333,26 +350,7 @@ function ViewContractor() {
 
 
                           <li><b>Download documents:-</b></li>
-                          <a href="" target="_blank" rel="noreferrer">
-                            <li>
-                              <b>1. Driving License:</b>
-                            </li>
-                          </a>
-
-
-                          <a href="" target="_blank" rel="noreferrer">
-                            <li>
-                              <b>2.Insurance:</b>
-                            </li>
-                          </a>
-
-
-                          <a href="" target="_blank" rel="noreferrer">
-                            <li>
-                              <b>3.License:</b>
-                            </li>
-                          </a>
-
+                          <DocumentLinks documents={user.documents} />
 
 
                         </ul>
