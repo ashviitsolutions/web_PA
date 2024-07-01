@@ -324,35 +324,12 @@ function ViewContractor() {
                           <li><b>Private events:</b>{user?.areas_of_expertise?.private_events}</li>
                           <li><b>Corporate events:</b>{user?.areas_of_expertise?.corporate_events}</li>
                           <li><b>Working information:</b></li>
-                          <div className="d-flex">
-                            <li><p>Monday start time: {userschedule?.Mon_Start_time}</p></li>
-                            <li><p>Monday End time: {userschedule?.Mon_End_time}</p></li>
-                          </div>
-                          <div className="d-flex">
-                            <li><p>Tuesday start time: {userschedule?.Tue_Start_time}</p></li>
-                            <li><p>Tuesday End time: {userschedule?.Tue_End_time}</p></li>
-                          </div>
-                          <div className="d-flex">
-                            <li><p>Wednesday start time: {userschedule?.Wed_Start_time}</p></li>
-                            <li><p>Wednesday End time: {userschedule?.Wed_End_time}</p></li>
-                          </div>
-                          <div className="d-flex">
-                            <li><p>Thursday start time: {userschedule?.Thu_Start_time}</p></li>
-                            <li><p>Thursday End time: {userschedule?.Thu_End_time}</p></li>
-                          </div>
-                          <div className="d-flex">
-                            <li><p>Friday start time: {userschedule?.Fri_Start_time}</p></li>
-                            <li><p>Friday End time: {userschedule?.Fri_End_time}</p></li>
-                          </div>
-
-                          <div className="d-flex">
-                            <li><p>Saturday start time: {userschedule?.Sat_Start_time}</p></li>
-                            <li><p>Saturday End time: {userschedule?.Sat_End_time}</p></li>
-                          </div>
-                          <div className="d-flex">
-                            <li><p>Sunday start time: {userschedule?.Sun_Start_time}</p></li>
-                            <li><p>Sunday End time: {userschedule?.Sun_End_time}</p></li>
-                          </div>
+                          {user?.working_information?.map((schedule, index) => (
+                            <div className="d-flex" key={index}>
+                              <li><p>{schedule.day} Start time: {schedule.start_time}</p></li>
+                              <li><p>{schedule.day} End time: {schedule.end_time}</p></li>
+                            </div>
+                          ))}
 
 
                           <li><b>Download documents:-</b></li>

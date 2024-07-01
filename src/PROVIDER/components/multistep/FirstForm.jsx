@@ -342,120 +342,138 @@ const FirstForm = (props) => {
         >
           <h5>Personal Information</h5>
 
-          <Form.Group className="mb-3 mt-3">
-            <Form.Label>Name</Form.Label>
-            <Row>
-              <div className="col-md-6 mb-2">
-                <Form.Control
-                  required
-                  name="fname"
-                  type="text"
-                  placeholder="First Name"
-                  value={fname}
-                  onChange={(e) => setFname(e.target.value)}
-                />
-              </div>
 
-              <div className="col-md-6">
-                <Form.Control
-                  required
-                  name="lname"
-                  type="text"
-                  placeholder="Last Name"
-                  value={lname}
-                  onChange={(e) => setLname(e.target.value)}
-                />
-              </div>
-            </Row>
-          </Form.Group>
+          {dataprofile && (
+            <>
+              <Form.Group className="mb-3 mt-3">
+                <Form.Label>Name</Form.Label>
+                <Row>
+                  <div className="col-md-6 mb-2">
+                    <Form.Control
+                      required
+                      name="fname"
+                      type="text"
+                      placeholder="First Name"
+                      value={fname}
+                      onChange={(e) => setFname(e.target.value)}
+                    />
+                  </div>
 
-
-
-          <Form.Group className="mb-3 mt-3">
-            <Row>
-              <div className="col-md-6 mb-2">
-                <Form.Label>E-Mail</Form.Label>
-                <Form.Control
-                  required
-                  name="email"
-                  type="email"
-                  placeholder="E-Mail"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-              <div className="col-md-6">
-                <Form.Label htmlFor="phone">Phone</Form.Label>
-                <Form.Control
-                  required
-                  type="phone"
-                  placeholder="Phone"
-                  id="phone"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                />
-              </div>
-            </Row>
-          </Form.Group>
+                  <div className="col-md-6">
+                    <Form.Control
+                      required
+                      name="lname"
+                      type="text"
+                      placeholder="Last Name"
+                      value={lname}
+                      onChange={(e) => setLname(e.target.value)}
+                    />
+                  </div>
+                </Row>
+              </Form.Group>
 
 
 
+              <Form.Group className="mb-3 mt-3">
+                <Row>
+                  <div className="col-md-6 mb-2">
+                    <Form.Label>E-Mail</Form.Label>
+                    <Form.Control
+                      required
+                      name="email"
+                      type="email"
+                      placeholder="E-Mail"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  </div>
+                  <div className="col-md-6">
+                    <Form.Label htmlFor="phone">Phone</Form.Label>
+                    <Form.Control
+                      required
+                      type="phone"
+                      placeholder="Phone"
+                      id="phone"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                    />
+                  </div>
+                </Row>
+              </Form.Group>
 
-          <Form.Group className="mb-3 mt-3">
-            <Row>
-              <div className="col-md-6 mb-2">
-                <Form.Label htmlFor="zip">ZIP Code</Form.Label>
-                <Form.Control
-                  required
-                  type="text"
-                  placeholder="ZIP Code"
-                  id="zip"
-                  value={zip}
-                  onChange={(e) => setZip(e.target.value)}
-                />
-              </div>
-              <div className="col-md-6">
-                <Form.Label htmlFor="country">Country</Form.Label>
-                <Form.Control
-                  required
-                  type="text"
-                  placeholder="Country"
-                  id="country"
-                  value={country}
-                  onChange={(e) => setCountry(e.target.value)}
-                />
-              </div>
-            </Row>
-          </Form.Group>
 
 
-          <Form.Group className="mb-3 mt-3">
-            <Row>
-              <div className="col-md-6 mb-2">
-                <Form.Label>State</Form.Label>
-                <Form.Control
-                  required
-                  name="state"
-                  type="text"
-                  placeholder="Enter State"
-                  onChange={(e) => setState(e.target.value)}
-                  value={state}
-                />
-              </div>
-              <div className="col-md-6">
-                <Form.Label htmlFor="DOB">City</Form.Label>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="City"
-                  value={city}
-                  onChange={(e) => setCity(e.target.value)}
-                  required
 
-                />
-              </div>
-            </Row>
-          </Form.Group>
+              <Form.Group className="mb-3 mt-3">
+                <Row>
+                  <div className="col-md-6 mb-2">
+                    <Form.Label htmlFor="zip">ZIP Code</Form.Label>
+                    <Form.Control
+                      required
+                      type="text"
+                      placeholder="ZIP Code"
+                      id="zip"
+                      value={zip}
+                      onChange={(e) => setZip(e.target.value)}
+                    />
+                  </div>
+                  <div className="col-md-6">
+                    <Form.Label htmlFor="country">Country</Form.Label>
+                    <Form.Control
+                      required
+                      type="text"
+                      placeholder="Country"
+                      id="country"
+                      value={country}
+                      onChange={(e) => setCountry(e.target.value)}
+                    />
+                  </div>
+                </Row>
+              </Form.Group>
+
+
+              <Form.Group className="mb-3 mt-3">
+                <Row>
+                  <div className="col-md-6 mb-2">
+                    <Form.Label>State</Form.Label>
+                    <Form.Control
+                      required
+                      name="state"
+                      type="text"
+                      placeholder="Enter State"
+                      onChange={(e) => setState(e.target.value)}
+                      value={state}
+                    />
+                  </div>
+                  <div className="col-md-6">
+                    <Form.Label htmlFor="DOB">City</Form.Label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="City"
+                      value={city}
+                      onChange={(e) => setCity(e.target.value)}
+                      required
+
+                    />
+                  </div>
+                </Row>
+              </Form.Group>
+
+            </>
+          )}
+
+
+
+
+
+
+
+
+
+
+
+
           <Form.Group className="mb-3 mt-3">
             <Row>
               <div className="col-md-6 mb-2">
