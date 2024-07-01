@@ -313,7 +313,7 @@ function ViewContractor() {
                           <li><b>Previous employee:</b>{user?.previous_employee}</li>
                           <li><b>Application status_text:</b>{application_status_text}</li>
                           <li><b>Address:</b>{user?.mailing_address?.address}</li>
-                          <li><b>Apt number:</b> {user?.mailing_address?.apt_number}</li>
+                        
 
                           <li><b>City:</b>{user?.mailing_address?.city}</li>
                           <li><b>Country:</b> {user?.mailing_address?.country}</li>

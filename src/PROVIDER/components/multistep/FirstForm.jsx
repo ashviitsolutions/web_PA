@@ -281,43 +281,7 @@ const FirstForm = (props) => {
       });
       props.nextStep();
 
-      // if (result.status === 200) {
-      //   toast.success("Your Registration successfully!", {
-      //     position: "top-right",
-      //     autoClose: 3000,
 
-      //   });
-      //   props.nextStep();
-
-      // }
-      // if (result.status === 200) {
-
-      //   // Show success notification and navigate to '/admin/Gift'
-      //   toast.success("Your Registration successfully!", {
-      //     position: "top-right",
-      //     autoClose: 3000,
-
-      //   });
-      //   props.nextStep();
-      // } else {
-      //   // Show error notification if the API response is not successful
-      //   toast.error("An error occurred. Please try again.", {
-      //     position: "top-right",
-      //     autoClose: 3000,
-
-      //   });
-
-      // }
-
-
-
-
-
-
-
-      // console.log("time value first form", result);
-      // console.log(result);
-      // props.nextStep();
     } catch (error) {
       console.log("Error show", error);
       toast.error("An error occurred. Please try again.", {
@@ -672,23 +636,26 @@ const FirstForm = (props) => {
 
 
 
-          <div className="dayselected" style={{ display: "flex", flexDirection: "column" }}>
+          <div className="dayselected">
             {availabilityHours.map(({ day, start_time, end_time }, index) => (
               <div className="col-md-10 mb-2 timerange" key={day} style={{ marginBottom: "20px" }}>
                 <p className="mt-2">{day} Availability Hours</p>
-                <TimePicker
-                  label={`${day} (Start Time)`}
-                  value={start_time}
-                  onChange={(selectedTime) => handleAvailabilityHoursChange(index, 'start_time', selectedTime)}
-                />
-                <TimePicker
-                  label={`${day} (End Time)`}
-                  value={end_time}
-                  onChange={(selectedTime) => handleAvailabilityHoursChange(index, 'end_time', selectedTime)}
-                />
+                <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+                  <TimePicker
+                    label={`${day} (Start Time)`}
+                    value={start_time}
+                    onChange={(selectedTime) => handleAvailabilityHoursChange(index, 'start_time', selectedTime)}
+                  />
+                  <TimePicker
+                    label={`${day} (End Time)`}
+                    value={end_time}
+                    onChange={(selectedTime) => handleAvailabilityHoursChange(index, 'end_time', selectedTime)}
+                  />
+                </div>
               </div>
             ))}
           </div>
+
 
           <div>
           </div>
