@@ -228,7 +228,7 @@ const FirstForm = (props) => {
 
   const handleSubmit = async (event) => {
 
-    console.log("availabilityHoursavailabilityHoursavailabilityHours", availabilityHours)
+    // console.log("availabilityHoursavailabilityHoursavailabilityHours", availabilityHours)
 
     event.preventDefault();
 
