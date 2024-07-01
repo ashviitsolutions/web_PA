@@ -6,7 +6,7 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import avtar from "../../img/avtar.jpg"
 import ReactPaginate from 'react-paginate';
 import { FallingLines } from 'react-loader-spinner';
-import { useLocation , useNavigate} from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import moment from 'moment';
 
 const PreviewImage = ({ attachments }) => {
@@ -47,7 +47,7 @@ const PreviewImage = ({ attachments }) => {
 
 
 function Contractors() {
-    const navigate=useNavigate()
+    const navigate = useNavigate()
     const Startdate = localStorage.getItem("startDate")
     const Enddate = localStorage.getItem("endDate")
     const location = useLocation();
@@ -157,8 +157,8 @@ function Contractors() {
                         <div className="">
                             <div className="headings float_wrapper" id='clientget'>
                                 <div className="gutter pull-left" >
-                                <h3><span className='cursor title backarrow' onClick={() => navigate(-1)}>&larr;</span>All Contractors</h3>
-                                    
+                                    <h3><span className='cursor title backarrow' onClick={() => navigate(-1)}>&larr;</span>All Contractors</h3>
+
                                     <p>List of all add contractors</p>
                                 </div>
                                 <div className="gutter pull-left">
@@ -246,10 +246,14 @@ function Contractors() {
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <Link to={`/admin/contractors/view_contractor/${cur._id}`} >
+                                                    <Link
+                                                        to={`/admin/contractors/view_contractor/${cur._id}`}
+                                                        state={{ application_status_text: cur.application_status_text }}
+                                                    >
                                                         <RemoveRedEyeIcon />
                                                     </Link>
                                                 </td>
+
                                             </tr>
                                         </tbody>
                                     </React.Fragment>

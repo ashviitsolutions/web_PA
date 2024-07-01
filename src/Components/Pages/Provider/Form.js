@@ -61,6 +61,7 @@ function FormPage(props) {
         email: '',
         address: '',
         profile_pic: '',
+        gender: '',
         zip: '',
         city: '',
         password: '',
@@ -80,6 +81,7 @@ function FormPage(props) {
             .min(8, 'At least an 8-character password is required')
             .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/, 'Must Contain 8 Characters, One Uppercase, Lowercase, Number and one special case Character '),
         confirm_password: Yup.string().required('required confirm password').oneOf([Yup.ref('password'), ''], 'password does not match'),
+        gender: Yup.string().required('Gender is required'),
     });
 
     const onSubmit = async (values, { setValues, resetForm }) => {
@@ -88,6 +90,8 @@ function FormPage(props) {
             bodyFormData.append('email', values.email);
             bodyFormData.append('first_name', values.first_name);
             bodyFormData.append('city', values.city);
+            bodyFormData.append('gender', values.gender);
+            
             bodyFormData.append('postal_code', values.zip);
             bodyFormData.append('state', values.state);
             bodyFormData.append('country', values.country);
@@ -108,7 +112,7 @@ function FormPage(props) {
             if (res.status === 200) {
                 toast.success('Your Registration successfully!', {
                     position: 'top-right',
-                    autoClose: 3000,
+                    autoClose: 1000,
                     onClose: () => {
                         nav('/providers/login');
                     },
@@ -227,6 +231,19 @@ function FormPage(props) {
                                                         <Field className="input" name="country" type="text" placeholder="" />
                                                         {errors.country && touched.country ? <div>{errors.country}</div> : null}
                                                         <label htmlFor="">Country</label>
+                                                        <span className="highlight"></span>
+                                                    </div>
+                                                </div>
+                                                <div className="col-sm-12">
+                                                    <div className="input_group">
+                                                        <Field as="select" className="input" name="gender">
+                                                            <option value="">Select Gender</option>
+                                                            <option value="male">Male</option>
+                                                            <option value="female">Female</option>
+                                                            <option value="other">Other</option>
+                                                        </Field>
+                                                        {errors.gender && touched.gender ? <div>{errors.gender}</div> : null}
+                                                        <label htmlFor="">Gender</label>
                                                         <span className="highlight"></span>
                                                     </div>
                                                 </div>

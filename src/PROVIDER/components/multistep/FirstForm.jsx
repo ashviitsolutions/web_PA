@@ -7,11 +7,13 @@ import { IP } from '../../../Constant';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
+import { useSelector } from 'react-redux';
 
 
 
 const FirstForm = (props) => {
-
+  const formData = useSelector((state) => state?.counter?.formData);
+  const dataprofile = formData.provider_profile && formData.provider_profile[0] ? formData.provider_profile[0] : "";
   const [coordinates, setCoordinates] = useState({
     lat: null,
     lng: null
@@ -44,7 +46,7 @@ const FirstForm = (props) => {
   const [images, setImages] = useState(null);
   const [imagePreviewUrl, setImagePreviewUrl] = useState("");
   const token = localStorage.getItem("providertoken")
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState([])
   const [services, setServices] = useState([])
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState('');
@@ -55,6 +57,8 @@ const FirstForm = (props) => {
   const [address, setAddress] = useState("");
   const [zip, setZip] = useState("");
   const [country, setCountry] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
   const [selectedItems, setSelectedItems] = useState([]);
   const [selectedItem, setSelectedItem] = useState([]);
   const [workingShift, setWorkingShift] = useState('');
@@ -65,11 +69,9 @@ const FirstForm = (props) => {
   const [ref2Name, setRef2Name] = useState('');
   const [ref2Phone, setRef2Phone] = useState('');
   const [submitDate, setSubmitDate] = useState("")
-  // const [images, setImages] = useState('')
   const [selectedPrivateEvents, setSelectedPrivateEvents] = useState([]);
   const [selectedCorporateEvents, setSelectedCorporateEvents] = useState([]);
-  // console.log("contry .", country)
-  // console.log("user .", user)
+
 
 
 
@@ -90,34 +92,26 @@ const FirstForm = (props) => {
 
 
 
+  const [availabilityHours, setAvailabilityHours] = useState([
+    { day: 'Monday', start_time: '', end_time: '' },
+    { day: 'Tuesday', start_time: '', end_time: '' },
+    { day: 'Wednesday', start_time: '', end_time: '' },
+    { day: 'Thursday', start_time: '', end_time: '' },
+    { day: 'Friday', start_time: '', end_time: '' },
+    { day: 'Saturday', start_time: '', end_time: '' },
+    { day: 'Sunday', start_time: '', end_time: '' },
+  ]);
 
-  const [availabilityHours, setAvailabilityHours] = useState({
-    mon_Start_time: "",
-    tue_Start_time: "",
-    wed_Start_time: "",
-    thu_Start_time: "",
-    fri_Start_time: "",
-    sat_Start_time: "",
-    sun_Start_time: "",
-
-
-    mon_End_time: "",
-    tue_End_time: "",
-    wed_End_time: "",
-    thu_End_time: "",
-    fri_End_time: "",
-    sat_End_time: "",
-    sun_End_time: "",
-  });
+  console.log('top availabilityHours', availabilityHours)
 
 
-  const handleAvailabilityHoursChange = (id, value) => {
-    setAvailabilityHours((prevState) => ({
-      ...prevState,
-      [id]: value,
-    }));
+  const handleAvailabilityHoursChange = (index, timeType, value) => {
+    setAvailabilityHours(prevState => {
+      const newState = [...prevState];
+      newState[index] = { ...newState[index], [timeType]: value };
+      return newState;
+    });
   };
-
 
   const handleOptionChange = (e) => {
     setSelectedOption(e.target.value); // update state with selected value
@@ -159,32 +153,23 @@ const FirstForm = (props) => {
 
 
   useEffect(() => {
-    fetch(`${IP}/provider/profile`, {
-      headers: {
-        'Authorization': token
-      }
-    }).then((resp) => {
-      return resp.json()
-    }).then((data) => {
-      console.log("provider rofile", data)
-      setUser(data)
-      setCountry(data?.mailing_address.country)
-      setZip(data?.mailing_address?.postal_code)
-      setFname(data?.first_name)
-      setLname(data?.last_name)
-      setEmail(data?.email)
-      setPhone(data?.phone)
-      setSsn(data?.ssn)
-      setDOB(data?.DOB)
-      setAddress(data?.Address?.current_address)
+    setUser(dataprofile)
+    setCountry(dataprofile?.mailing_address.country)
+    setZip(dataprofile?.mailing_address?.postal_code)
+    setCity(dataprofile?.mailing_address.city)
+    setState(dataprofile?.mailing_address?.state)
+    setFname(dataprofile?.first_name)
+    setLname(dataprofile?.last_name)
+    setEmail(dataprofile?.email)
+    setPhone(dataprofile?.phone)
+    setSsn(dataprofile?.ssn)
+    setDOB(dataprofile?.DOB)
+    setAddress(dataprofile?.Address?.current_address)
 
-      setRef1Name(data?.professional_references?.ref_1_name)
-      setRef1Phone(data?.professional_references?.ref_1_phone)
-      setRef2Name(data?.professional_references?.ref_2_name)
-      setRef2Phone(data?.professional_references?.ref_2_phone)
-    }).catch((error) => {
-      console.log(error)
-    })
+    setRef1Name(dataprofile?.professional_references?.ref_1_name)
+    setRef1Phone(dataprofile?.professional_references?.ref_1_phone)
+    setRef2Name(dataprofile?.professional_references?.ref_2_name)
+    setRef2Phone(dataprofile?.professional_references?.ref_2_phone)
   }, [])
 
   console.log(country)
@@ -242,7 +227,9 @@ const FirstForm = (props) => {
 
 
   const handleSubmit = async (event) => {
-    console.log("handleSubmit ran");
+
+    console.log("availabilityHoursavailabilityHoursavailabilityHours", availabilityHours)
+
     event.preventDefault();
 
     const formData = new FormData();
@@ -254,6 +241,8 @@ const FirstForm = (props) => {
     formData.append("address", address);
     formData.append("postal_code", zip);
     formData.append("country", country);
+    formData.append("city", city);
+    formData.append("state", state);
     formData.append("on_demand", selectedItems);
     formData.append("private_events", selectedPrivateEvents);
     formData.append("corporate_events", selectedCorporateEvents);
@@ -272,7 +261,7 @@ const FirstForm = (props) => {
     formData.append("latitude", coordinates.lat);
 
 
-
+    // console.log("handleSubmit ran", JSON.stringify(availabilityHours));
 
     try {
       const resp = await fetch(`${IP}/provider/update-details`, {
@@ -381,6 +370,92 @@ const FirstForm = (props) => {
           </Form.Group>
 
 
+
+          <Form.Group className="mb-3 mt-3">
+            <Row>
+              <div className="col-md-6 mb-2">
+                <Form.Label>E-Mail</Form.Label>
+                <Form.Control
+                  required
+                  name="email"
+                  type="email"
+                  placeholder="E-Mail"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
+              <div className="col-md-6">
+                <Form.Label htmlFor="phone">Phone</Form.Label>
+                <Form.Control
+                  required
+                  type="phone"
+                  placeholder="Phone"
+                  id="phone"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                />
+              </div>
+            </Row>
+          </Form.Group>
+
+
+
+
+          <Form.Group className="mb-3 mt-3">
+            <Row>
+              <div className="col-md-6 mb-2">
+                <Form.Label htmlFor="zip">ZIP Code</Form.Label>
+                <Form.Control
+                  required
+                  type="text"
+                  placeholder="ZIP Code"
+                  id="zip"
+                  value={zip}
+                  onChange={(e) => setZip(e.target.value)}
+                />
+              </div>
+              <div className="col-md-6">
+                <Form.Label htmlFor="country">Country</Form.Label>
+                <Form.Control
+                  required
+                  type="text"
+                  placeholder="Country"
+                  id="country"
+                  value={country}
+                  onChange={(e) => setCountry(e.target.value)}
+                />
+              </div>
+            </Row>
+          </Form.Group>
+
+
+          <Form.Group className="mb-3 mt-3">
+            <Row>
+              <div className="col-md-6 mb-2">
+                <Form.Label>State</Form.Label>
+                <Form.Control
+                  required
+                  name="state"
+                  type="text"
+                  placeholder="Enter State"
+                  onChange={(e) => setState(e.target.value)}
+                  value={state}
+                />
+              </div>
+              <div className="col-md-6">
+                <Form.Label htmlFor="DOB">City</Form.Label>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="City"
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
+                  required
+
+                />
+              </div>
+            </Row>
+          </Form.Group>
           <Form.Group className="mb-3 mt-3">
             <Row>
               <div className="col-md-6 mb-2">
@@ -408,48 +483,6 @@ const FirstForm = (props) => {
               </div>
             </Row>
           </Form.Group>
-
-
-
-
-          <Form.Group className="mb-3 mt-3">
-            <Row>
-              <div className="col-md-12 mb-2">
-                <Form.Label>E-Mail</Form.Label>
-                <Form.Control
-                  required
-                  name="email"
-                  type="email"
-                  placeholder="E-Mail"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-            </Row>
-          </Form.Group>
-
-
-
-
-          <Form.Group className="mb-3 mt-3">
-            <Row>
-              <div className="col-md-12 mb-2">
-                <Form.Label htmlFor="phone">Phone</Form.Label>
-                <Form.Control
-                  required
-                  type="phone"
-                  placeholder="Phone"
-                  id="phone"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                />
-              </div>
-            </Row>
-          </Form.Group>
-
-
-
-         
 
 
           <Form.Group className="mb-3 mt-3">
@@ -490,58 +523,7 @@ const FirstForm = (props) => {
             </Row>
           </Form.Group>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-          <Form.Group className="mb-3 mt-3">
-            <Row>
-              <div className="col-md-12 mb-2">
-                <Form.Label htmlFor="zip">ZIP Code</Form.Label>
-                <Form.Control
-                  required
-                  type="text"
-                  placeholder="ZIP Code"
-                  id="zip"
-                  value={zip}
-                  onChange={(e) => setZip(e.target.value)}
-                />
-              </div>
-            </Row>
-          </Form.Group>
-
-          <Form.Group className="mb-3 mt-3">
-            <Row>
-              <div className="col-md-12 mb-2">
-                <Form.Label htmlFor="country">Country</Form.Label>
-                <Form.Control
-                  required
-                  type="text"
-                  placeholder="Country"
-                  id="country"
-                  value={country}
-                  onChange={(e) => setCountry(e.target.value)}
-                />
-              </div>
-            </Row>
-          </Form.Group>
-
-
-
-          <hr className="hr" />
+          {/* <hr className="hr" /> */}
           <h5>Areas of Expertise</h5>
           <h6>On Demand</h6>
 
@@ -670,116 +652,24 @@ const FirstForm = (props) => {
             />
           </div>
 
-          <div className="dayselected" style={{ display: "flex" }}>
-            <div className="col-md-10 mb-2 timerange">
-              <p className="mt-2">Availability Hours</p>
-              <TimePicker
-                id="mon"
-                label="Monday (Start Time)"
-                value={availabilityHours.mon_Start_time}
-                onChange={(selectedTime) => handleAvailabilityHoursChange("mon_Start_time", selectedTime)}
-              />
-
-              <TimePicker
-                id="tue"
-                label="Tuesday (Start Time)"
-                value={availabilityHours.tue_Start_time}
-                onChange={(selectedTime) => handleAvailabilityHoursChange("tue_Start_time", selectedTime)}
-              />
-              <TimePicker
-                id="wed"
-                label="Wednesday (Start Time)"
-                value={availabilityHours.wed_Start_time}
-                onChange={(selectedTime) => handleAvailabilityHoursChange("wed_Start_time", selectedTime)}
-              />
 
 
-              <TimePicker
-                id="thu"
-                label="Thursday (Start Time)"
-                value={availabilityHours.thu_Start_time}
-                onChange={(selectedTime) => handleAvailabilityHoursChange("thu_Start_time", selectedTime)}
-              />
-
-              <TimePicker
-                id="fri"
-                label="Friday (Start Time)"
-                value={availabilityHours.fri_Start_time}
-                onChange={(selectedTime) => handleAvailabilityHoursChange("fri_Start_time", selectedTime)}
-              />
-
-              <TimePicker
-                id="sat"
-                label="Saturday (Start Time)"
-                value={availabilityHours.sat_Start_time}
-                onChange={(selectedTime) => handleAvailabilityHoursChange("sat_Start_time", selectedTime)}
-              />
-
-              <TimePicker
-                id="sun"
-                label="Sunday (Start Time)"
-                value={availabilityHours.sun_Start_time}
-                onChange={(selectedTime) => handleAvailabilityHoursChange("sun_Start_time", selectedTime)}
-              />
-
-
-
-            </div>
-
-            <div className="col-md-10 mb-2 timerange" id="secondtimers">
-              <TimePicker
-                id="mon"
-                label="Monday (End Time)"
-                value={availabilityHours.mon_End_time}
-                onChange={(selectedTime) => handleAvailabilityHoursChange("mon_End_time", selectedTime)}
-              />
-
-              <TimePicker
-                id="tue"
-                label="Tuesday (End Time)"
-                value={availabilityHours.tue_End_time}
-                onChange={(selectedTime) => handleAvailabilityHoursChange("tue_End_time", selectedTime)}
-              />
-              <TimePicker
-                id="wed"
-                label="Wednesday (End Time)"
-                value={availabilityHours.wed_End_time}
-                onChange={(selectedTime) => handleAvailabilityHoursChange("wed_End_time", selectedTime)}
-              />
-
-
-              <TimePicker
-                id="thu"
-                label="Thursday (End Time)"
-                value={availabilityHours.thu_End_time}
-                onChange={(selectedTime) => handleAvailabilityHoursChange("thu_End_time", selectedTime)}
-              />
-
-              <TimePicker
-                id="fri"
-                label="Friday (End Time)"
-                value={availabilityHours.fri_End_time}
-                onChange={(selectedTime) => handleAvailabilityHoursChange("fri_End_time", selectedTime)}
-              />
-
-              <TimePicker
-                id="sat"
-                label="Saturday (End Time)"
-                value={availabilityHours.sat_End_time}
-                onChange={(selectedTime) => handleAvailabilityHoursChange("sat_End_time", selectedTime)}
-              />
-
-              <TimePicker
-                id="sun"
-                label="Sunday (End Time)"
-                value={availabilityHours.sun_End_time}
-                onChange={(selectedTime) => handleAvailabilityHoursChange("sun_End_time", selectedTime)}
-              />
-
-
-
-            </div>
-
+          <div className="dayselected" style={{ display: "flex", flexDirection: "column" }}>
+            {availabilityHours.map(({ day, start_time, end_time }, index) => (
+              <div className="col-md-10 mb-2 timerange" key={day} style={{ marginBottom: "20px" }}>
+                <p className="mt-2">{day} Availability Hours</p>
+                <TimePicker
+                  label={`${day} (Start Time)`}
+                  value={start_time}
+                  onChange={(selectedTime) => handleAvailabilityHoursChange(index, 'start_time', selectedTime)}
+                />
+                <TimePicker
+                  label={`${day} (End Time)`}
+                  value={end_time}
+                  onChange={(selectedTime) => handleAvailabilityHoursChange(index, 'end_time', selectedTime)}
+                />
+              </div>
+            ))}
           </div>
 
           <div>

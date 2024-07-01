@@ -143,7 +143,7 @@ const ThirdForm = ({ nextStep }) => {
                                     )
                                 }
                             />
-                            {" "} {option}
+                         {option}
                         </label>
                     </li>
                 ))}
