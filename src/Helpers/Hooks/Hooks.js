@@ -47,16 +47,7 @@ const useUserRegistration = () => {
       });
 
       const token = response.headers['authorization'];
-      const result = response.data;
-      const fullName = `${result?.user_info?.first_name} ${result?.user_info?.last_name}`;
-      localStorage.setItem("user_name", fullName);
-      localStorage.setItem('users', JSON.stringify(result));
-      localStorage.setItem('userid', result?.user_info?._id);
-      localStorage.setItem('user_name', result?.user_info?.name);
-      localStorage.setItem('user_email', result?.user_info?.email);
-      localStorage.setItem('mobile', result?.user_info?.mobile);
-      localStorage.setItem("first_name", result?.user_info?.first_name);
-      localStorage.setItem("last_name", result?.user_info?.last_name);
+
       localStorage.setItem("token", token);
 
       showSuccess("Logged in successfully");
@@ -70,6 +61,10 @@ const useUserRegistration = () => {
       throw err;
     }
   };
+
+
+
+
 
 
   const getUserMembership = async () => {
@@ -112,7 +107,7 @@ const useUserRegistration = () => {
   };
 
 
-  return { registerUser, loginUser, loading, error, membershipLevel, getUserMembership, getUserGiftCards, user:userGiftCards };
+  return { registerUser, loginUser, loading, error, membershipLevel, getUserMembership, getUserGiftCards, user: userGiftCards };
 
 
 };

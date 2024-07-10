@@ -1,9 +1,10 @@
 import axios from "axios";
+import { IP } from "../../../../Constant";
 
 const Post = {
   createPost: (formData) => {
     const token = localStorage.getItem("token");
-    const url = "http://45.13.132.197:5000/api/user/service_book";
+    const url = `${IP}/user/service_book`;
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -15,7 +16,7 @@ const Post = {
   },
   getPost: () => {
     const token = localStorage.getItem("token");
-    const url = `http://45.13.132.197:5000/api/user/my-bookings`;
+    const url = `${IP}/user/my-bookings`;
     const config = {
       headers: {
         Authorization: token,
@@ -27,7 +28,7 @@ const Post = {
 
   getProfile: () => {
     const token = localStorage.getItem("token");
-    const url = `http://45.13.132.197:5000/api/user/my_profile`;
+    const url = `${IP}/user/my_profile`;
     const config = {
       headers: {
         Authorization: token,

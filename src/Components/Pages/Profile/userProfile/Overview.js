@@ -151,11 +151,7 @@ function Overview() {
 
 																	</h4>
 																</div>
-																{/* <div className="absolute_time float_wrapper">
-																<h4 className="pull-left">
-																	{post.scheduled_date}
-																</h4>
-															</div> */}
+															
 																<div className="profile">
 																	<div className="">
 																		<span className="avatar">
