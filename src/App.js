@@ -23,7 +23,7 @@ import { Provider } from 'react-redux';
 import Select_location from './Components/Pages/Guest_login/Guest/Select_location';
 import Book from './Components/Pages/Guest_login/GuesMenu/Book';
 import Conform from './Components/Pages/Guest_login/GuesMenu/Conform';
-import Profiles from "./Components/Pages/Profile/userProfile/Profile";
+
 import Protectuser from './Components/Pages/Protected/Protectuser';
 import UserRoutes from './Components/Pages/Protected/UserRoutes';
 import Corporatebooking from './Components/Pages/Services/Submenu/Coroporate/Corporatebooking';
@@ -46,7 +46,7 @@ import userBooking from './Components/Pages/Profile/userProfile/Booking';
 import userMembership from './Components/Pages/Profile/userProfile/Membership';
 import Favorites from './Components/Pages/Profile/userProfile/Favorites';
 import Support from './Components/Pages/Profile/userProfile/Support';
-import userProfile from './Components/Pages/Profile/userProfile/Profile';
+
 import userGift from './Components/Pages/Profile/userProfile/Gift';
 import Notifications from './Components/Pages/Profile/userProfile/Notifications';
 import Sidebaruser from './Components/Pages/Profile/userProfile/Sidebar';
