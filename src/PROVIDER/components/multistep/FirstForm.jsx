@@ -75,14 +75,7 @@ const FirstForm = (props) => {
 
 
 
-  // Create the location object using the state coordinates
-  const locationObject = {
-    location: {
-      type: 'Point',
-      coordinates: [coordinates.lat, coordinates.lng],
-      address
-    }
-  };
+
 
 
 
@@ -154,9 +147,9 @@ const FirstForm = (props) => {
 
   useEffect(() => {
     setUser(dataprofile)
-    setCountry(dataprofile?.mailing_address.country)
+    setCountry(dataprofile?.mailing_address?.country)
     setZip(dataprofile?.mailing_address?.postal_code)
-    setCity(dataprofile?.mailing_address.city)
+    setCity(dataprofile?.mailing_address?.city)
     setState(dataprofile?.mailing_address?.state)
     setFname(dataprofile?.first_name)
     setLname(dataprofile?.last_name)
@@ -215,7 +208,8 @@ const FirstForm = (props) => {
       return { id: service._id, title: service.title };
     });
 
-  console.log("On corporateEvents Services:", corporateEvents);
+  console.log("On DOBDOBDOBDOBDOBDOBDOB:", DOB);
+  console.log("On ssnssnssnssnssnssnssnssnssnssn:", ssn);
 
   let areasofexpertise = {
     ondemand: ondemand,
@@ -273,20 +267,30 @@ const FirstForm = (props) => {
       });
 
       const result = await resp.json();
-      console.log("result Services:", result);
-      toast.success("Your Registration successfully!", {
-        position: "top-right",
-        autoClose: 3000,
 
-      });
-      props.nextStep();
+      if (resp.status === 200) {
+        localStorage.setItem("applicationstatus", 1);
+        console.log("result Services:", result);
+        toast.success("Your Registration successfully!", {
+          position: "top-right",
+          autoClose: 2000,
+
+        });
+        props.nextStep();
+      } else {
+        toast.error("An error occurred. Please try again.", {
+          position: "top-right",
+          autoClose: 2000,
+        });
+      }
+
 
 
     } catch (error) {
       console.log("Error show", error);
       toast.error("An error occurred. Please try again.", {
         position: "top-right",
-        autoClose: 3000,
+        autoClose: 2000,
       });
     }
   };
@@ -454,7 +458,7 @@ const FirstForm = (props) => {
               <div className="col-md-6">
                 <Form.Label htmlFor="DOB">Date of Birth</Form.Label>
                 <input
-                  type="text"
+                  type="date"
                   className="form-control"
                   placeholder="Date of Birth"
                   value={DOB}

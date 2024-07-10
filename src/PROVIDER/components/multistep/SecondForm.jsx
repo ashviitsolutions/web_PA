@@ -20,12 +20,12 @@ const SecondForm = (props) => {
       if (result.call_status === "approved") {
         setStatus(true)
         console.log('status', result)
-        
+
       }
     }).catch(err => {
       console.log(err)
     })
-  },[])
+  }, [])
 
 
   let saveAndContinue = (e) => {
@@ -53,19 +53,19 @@ const SecondForm = (props) => {
         }}>
           <h2 className="text-center">Get Ready for Call Interview</h2>
           {
-            status? <h2 className="text-center">Congratulations! Your application is Approved</h2> 
-            :
-            ""
+            status ? <h2 className="text-center">Congratulations! Your application is Approved</h2>
+              :
+              ""
             // <h2 className="text-center">Sorry, unfortunately your application is rejected by our team</h2> 
           }
-          
+
         </div>
 
         <Row style={{ justifyContent: "space-between", padding: '10px' }}>
-         
+
           {
             status ? <Button
-          
+
               className="button small"
               variant="primary"
               onClick={saveAndContinue}

@@ -87,17 +87,17 @@ function FormPage(props) {
     const onSubmit = async (values, { setValues, resetForm }) => {
         try {
             const bodyFormData = new FormData();
-            bodyFormData.append('email', values.email);
+
             bodyFormData.append('first_name', values.first_name);
+            bodyFormData.append('last_name', values.last_name);
+            bodyFormData.append('email', values.email);
+            bodyFormData.append('phone', values.phone);
             bodyFormData.append('city', values.city);
             bodyFormData.append('gender', values.gender);
-            
             bodyFormData.append('postal_code', values.zip);
             bodyFormData.append('state', values.state);
             bodyFormData.append('country', values.country);
             bodyFormData.append('confirm_password', values.confirm_password);
-            bodyFormData.append('last_name', values.last_name);
-            bodyFormData.append('phone', values.phone);
             bodyFormData.append('address', values.address);
             bodyFormData.append('password', values.password);
             bodyFormData.append('profile_pic', values.profile_pic);
@@ -127,7 +127,7 @@ function FormPage(props) {
             console.error(error);
             toast.error('An error occurred. Please try again.', {
                 position: 'top-right',
-                autoClose: 3000,
+                autoClose: 1000,
             });
         }
     };

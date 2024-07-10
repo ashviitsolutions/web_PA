@@ -45,13 +45,15 @@ function LoginProvider() {
                 localStorage.setItem('providertoken', token);
                 localStorage.setItem('provider_id', result?.user_info?._id);
                 localStorage.setItem('providerlogintime', time);
-                if (approvaltoken === 'approval') {
+                localStorage.setItem("applicationstatus", result?.user_info?.application_status)
+                if (result?.user_info?.call_status === 'approval') {
                     nav('/providers');
                 } else {
                     nav('/providers/waiting');
                 }
             } else {
                 setToggle(true);
+                setLoading(false)
             }
             console.log('provider Login', result);
         } catch (error) {
@@ -156,7 +158,7 @@ function LoginProvider() {
                                     <div id="notification_holder" style={{ paddingRight: '20px' }}>
                                         {!token ? (
                                             <div className="notificatioerror">
-                                                <h3 id="errorshow" style={{ paddingRight: '50px' }}>
+                                                <h3 id="errorshow" >
                                                     Invalid credentials
                                                 </h3>
                                             </div>

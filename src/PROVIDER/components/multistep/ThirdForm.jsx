@@ -4,20 +4,17 @@ import DocumentFileInput from "./DocumentFileInput";
 import { IP } from "../../../Constant";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import CancelIcon from '@mui/icons-material/Cancel';
+
 
 const ThirdForm = (props) => {
   const nav = useNavigate()
   const [toggle, setToggle] = useState(false)
-  const [thanks, setThanks] = useState(false)
+
   let saveAndContinue = (e) => {
     e.preventDefault();
     props.nextStep();
   };
-  let previousStep = (e) => {
-    e.preventDefault();
-    props.previousStep();
-  };
+
 
   const [upload, setUpload] = useState(true);
   const [license, setLicense] = useState(null);
@@ -55,24 +52,6 @@ const ThirdForm = (props) => {
     handleFormSubmit()
   }, [])
 
-  const handleApi = async () => {
-    props.nextStep();
-    try {
-      const response = await fetch(`${IP}/provider/screening`, {
-        method: 'POST',
-        headers: {
-          Authorization: token,
-        },
-      });
-      if (response.status === 200) {
-        // nav("/providers")
-        setToggle(false)
-        setThanks(true)
-      }
-    } catch (error) {
-
-    }
-  }
 
 
 
@@ -81,7 +60,7 @@ const ThirdForm = (props) => {
     <div>
       <Form className="col-md-8 mx-auto" style={{}} onSubmit={handleFormSubmit}>
 
-        {upload ? <Row id="upload" style={{ minHeight: "70vh", alignContent: "center" }}>
+        {upload ? <Row id="upload" style={{ alignContent: "center" }}>
 
           <div className="documents">
 
@@ -143,46 +122,12 @@ const ThirdForm = (props) => {
           </div>
 
         </Row> : <div className="content" style={{
-          height: "70vh", display: 'flex', flexDirection: 'column',
+          display: 'flex', flexDirection: 'column',
           justifyContent: 'center',
         }}>
           <h2 className="text-center">Form Submitted Successfully</h2>
         </div>}
 
-        {
-          toggle ? (
-            <div className="schudulecard" >
-              <div className="callstatus" style={{ marginTop: "7rem" }}>
-                <CancelIcon style={{ float: "right" }} onClick={() => setToggle(false)} />
-                <p style={{ paddingTop: "7rem" }}>
-                  We would like to let you know that before proceeding further,
-                  we require our clients to agree with our background screening
-                  process which is conducted by third-party.
-                  If you would like us to proceed ahead with your
-                  application please acknowledge and click on "Agree" button below.
-                </p>
-                <div className="text-center"><Button type="submit" onClick={handleApi}>aggree</Button></div>
-              </div>
-            </div>
-
-          ) : null
-        }
-
-
-
-        {
-          thanks ? (
-            <div className="schudulecard" >
-              <div className="callstatus" style={{ marginTop: "7rem" }}>
-                <CancelIcon style={{ float: "right" }} onClick={() => setThanks(false)} />
-                <h3 style={{ paddingTop: "7rem" }}>
-                  Thanks You for showing intrest , please check your email
-                </h3>
-              </div>
-            </div>
-
-          ) : null
-        }
 
 
 
@@ -194,14 +139,7 @@ const ThirdForm = (props) => {
 
         <div className="text-center"><Button type="submit">Upload</Button></div>
         <Row style={{ justifyContent: "space-between", padding: '10px' }}>
-          {/* <Button
-            style={{ width: "auto" }}
-            variant="primary"
-            onClick={previousStep}
-            type="submit"
-          >
-            Previous
-  </Button>*/}
+
           <Button
             className="button small"
             variant="primary"

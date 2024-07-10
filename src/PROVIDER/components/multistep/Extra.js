@@ -56,6 +56,7 @@ const ThirdForm = (props) => {
   }, [])
 
   const handleApi = async () => {
+    props.nextStep();
     try {
       const response = await fetch(`${IP}/provider/screening`, {
         method: 'POST',

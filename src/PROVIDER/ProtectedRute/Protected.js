@@ -22,7 +22,7 @@ function Protected(props) {
           return resp.json();
         })
         .then((result) => {
-          setUser(result.application_status);
+          setUser(result?.application_status);
 
         });
     } catch (error) {

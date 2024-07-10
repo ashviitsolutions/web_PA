@@ -150,16 +150,15 @@ function ViewContractor() {
 
 
 
-
-  const acceptApi = async (e) => {
+  const updateStatusApi = async (e, response) => {
     e.preventDefault();
 
     try {
       const bodyFormData = new FormData();
-      bodyFormData.append("response", "approved");
+      bodyFormData.append("response", response);
       bodyFormData.append("id", user._id);
 
-      const response = await axios.put(`${IP}/contractor/update-status`, bodyFormData, {
+      const apiResponse = await axios.put(`${IP}/contractor/update-status`, bodyFormData, {
         headers: {
           Authorization: tokenadmin,
           'Accept': 'application/json',
@@ -167,14 +166,13 @@ function ViewContractor() {
         },
       });
 
-      if (response.status === 200) {
+      if (apiResponse.status === 200) {
         nav("/admin/contractors");
       }
     } catch (error) {
       console.error(error);
     }
   };
-
   const handleToggle = () => {
     setToggle(!toggle);
   };
@@ -242,22 +240,19 @@ function ViewContractor() {
 
 
                 </div>
-
                 {
                   user?.application_status === 1 ? (
                     <Card className="mb-2">
                       <h3>Call Interview Status</h3>
 
                       <Card.Footer>
-                        <button className="mx-2 btn-sm btn btn-primary" onClick={acceptApi}>Accept</button>
-
-                        <Button className="nofillbtn btn-sm" >
-                          Reject
-                        </Button>
+                        <Button className="mx-2 btn-sm btn btn-primary" onClick={(e) => updateStatusApi(e, "approved")}>Accept</Button>
+                        <Button className="nofillbtn btn-sm" onClick={(e) => updateStatusApi(e, "rejected")}>Reject</Button>
                       </Card.Footer>
                     </Card>
                   ) : null
                 }
+
 
 
 
