@@ -62,7 +62,7 @@ const SideBar = () => {
           </Link>
         </div>
         <div className="sidebar-menu">
-          {user >= 3 ? (
+          {user >= 4 ? (
             <>
               <Link to="/providers">
                 <div className="menu-item">Dashboard</div>

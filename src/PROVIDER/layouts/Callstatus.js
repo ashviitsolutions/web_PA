@@ -50,6 +50,15 @@ const Callstatus = () => {
                         </Link>
                     </>
                 ) : null}
+
+                {provider_profile.application_status === 3 ? (
+                    <>
+                        <h3 className="mt-3" style={{ marginTop: "8rem" }}>
+                            Your documents have been submitted. Please wait for admin approval.
+                        </h3>
+
+                    </>
+                ) : null}
             </div>
         </Container>
     );

@@ -34,7 +34,7 @@ function Protected(props) {
     if (!loginprotect) {
       nav("/providers/login");
     } else {
-      if (approvaluser === "approval" || user >= 3) {
+      if (user >= 4) {
         nav("/providers");
       } else {
         nav("/providers/waiting");

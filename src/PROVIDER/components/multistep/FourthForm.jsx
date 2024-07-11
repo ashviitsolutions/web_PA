@@ -1,13 +1,18 @@
 import { faDownload, faFilePdf } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Form, Row, Alert } from "react-bootstrap";
 import { IP } from "../../../Constant";
+import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ThirdForm = (props) => {
-  const [pdfFile, setPdfFile] = useState(null);
+  const nav = useNavigate()
+  const [pdfFile, setContract] = useState(null);
   const [uploadStatus, setUploadStatus] = useState("");
   const token = localStorage.getItem("providertoken");
+  const [loading, setLoading] = useState(false);
 
   let saveAndContinue = (e) => {
     e.preventDefault();
@@ -19,37 +24,43 @@ const ThirdForm = (props) => {
     props.previousStep();
   };
 
-  const handleFileChange = (e) => {
-    setPdfFile(e.target.files[0]);
-  };
+
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    if (!pdfFile) {
-      setUploadStatus("Please select a PDF file to upload.");
-      return;
-    }
+    setLoading(true);
     try {
-      const formData = new FormData();
-      formData.append('contract', pdfFile);
-      const response = await fetch(`${IP}/provider/upload-contract`, {
+      const bodyFormData = new FormData();
+      bodyFormData.append("contract", pdfFile);
+      const response = await fetch(`${IP}/provider/documents`, {
         method: 'PUT',
         headers: {
           Authorization: token,
         },
-        body: formData
+        body: bodyFormData
       });
 
-      if (response.ok) {
-        setUploadStatus("Upload successful!");
-      } else {
-        setUploadStatus("Upload failed. Please try again.");
+      console.log("image pdf", response);
+      if (response.status === 200) {
+        setLoading(false);
+        toast.success("Your contract have been submitted successfully!", {
+          position: "top-right",
+          autoClose: 2000,
+
+        });
+        nav("/providers/waiting")
+
       }
     } catch (error) {
+      setLoading(false);
       console.error(error);
-      setUploadStatus("An error occurred during the upload. Please try again.");
+      toast.error(error.massage, {
+        position: "top-right",
+        autoClose: 2000,
+      });
     }
   };
+
 
   return (
     <div>
@@ -67,13 +78,13 @@ const ThirdForm = (props) => {
             </div>
             <div className="text-center">
               <Form.Group className="mb-3 mt-3 col-md-4 mx-auto">
-                <Form.Control type="file" accept=".pdf" onChange={handleFileChange} />
+                <Form.Control type="file" accept=".pdf" onChange={(e) => setContract(e.target.files[0])} />
               </Form.Group>
             </div>
           </div>
 
           <div className="text-center">
-            <Button type="submit">Upload</Button>
+            <Button type="submit">{loading ? "Loading..." : "Upload"}</Button>
           </div>
           {uploadStatus && <Alert variant="info">{uploadStatus}</Alert>}
         </div>
@@ -97,6 +108,7 @@ const ThirdForm = (props) => {
           </Button>
         </Row>
       </Form>
+      <ToastContainer />
     </div>
   );
 };

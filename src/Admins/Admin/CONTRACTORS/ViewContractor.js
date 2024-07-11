@@ -53,7 +53,7 @@ const DocumentLinks = ({ documents }) => {
     <div>
       <li><b>Download documents:</b></li>
       {documentKeys.map((key, index) => (
-        <a href={`${IP}/file/${documents[key]}`} target="_blank" rel="noreferrer" key={index}>
+        <a href={`${IP}/file/pdf-file/${documents[key]}`} target="_blank" rel="noreferrer" key={index}>
           <li>
             <b>{index + 1}. {key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1').trim()}:</b>
           </li>
@@ -257,7 +257,7 @@ function ViewContractor() {
 
 
                 {
-                  user?.application_status === 2 ? (
+                  user?.application_status === 3 ? (
                     <Verification _id={user?._id} application_status={user?.application_status} />
 
                   ) : null
