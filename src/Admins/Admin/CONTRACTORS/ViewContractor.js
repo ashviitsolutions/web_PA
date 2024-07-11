@@ -51,7 +51,7 @@ const DocumentLinks = ({ documents }) => {
 
   return (
     <div>
-      <li><b>Download documents:</b></li>
+      < p className="mt-3"><b>Download documents:</b></p>
       {documentKeys.map((key, index) => (
         <a href={`${IP}/file/pdf-file/${documents[key]}`} target="_blank" rel="noreferrer" key={index}>
           <li>
@@ -319,6 +319,7 @@ function ViewContractor() {
                           <li><b>Phone:</b> {user?.phone}</li>
                           <li><b>DOB:</b> {user?.DOB}</li>
                           <li><b>Gender:</b>{user?.gender}</li>
+
                           <li><b>Working shift:</b>{user?.working_shift}</li>
                           <li><b>Start date:</b>{user?.start_date}</li>
                           <li><b>SSN:</b>{user?.ssn}</li>
@@ -328,14 +329,26 @@ function ViewContractor() {
 
 
                           <li><b>City:</b>{user?.mailing_address?.city}</li>
+                          <li><b>Apt Number:</b>{user?.mailing_address?.apt_number}</li>
                           <li><b>Country:</b> {user?.mailing_address?.country}</li>
                           <li><b>State:</b>{user?.mailing_address?.state}</li>
                           <li><b>Postal code:</b>{user?.mailing_address?.postal_code}</li>
-
+                          < p className="mt-3"><b>Services:</b></p>
                           <li><b>On demand:</b>{user?.areas_of_expertise?.on_demand}</li>
                           <li><b>Private events:</b>{user?.areas_of_expertise?.private_events}</li>
                           <li><b>Corporate events:</b>{user?.areas_of_expertise?.corporate_events}</li>
-                          <li><b>Working information:</b></li>
+                          {
+                            user?.payout_info && (
+                              <>
+                                < p className="mt-3"> <b>Payout information:</b></p>
+                                <li><b>Account Number:</b>{user?.payout_info?.account_number}</li>
+                                <li><b>Routing Number:</b>{user?.payout_info?.routing_number}</li>
+
+                              </>
+
+                            )
+                          }
+                          < p className="mt-3"><b>Working information:</b></p>
                           {user?.working_information?.map((schedule, index) => (
                             <div className="d-flex" key={index}>
                               <li><p>{schedule.day} Start time: {schedule.start_time}</p></li>
@@ -344,7 +357,7 @@ function ViewContractor() {
                           ))}
 
 
-                          <li><b>Download documents:-</b></li>
+
                           <DocumentLinks documents={user.documents} />
 
 
@@ -390,7 +403,7 @@ function ViewContractor() {
           </div>
 
         </div>
-      </div>
+      </div >
 
     </>
   )
