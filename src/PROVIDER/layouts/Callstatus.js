@@ -7,14 +7,15 @@ import { useSelector } from 'react-redux';
 
 const Callstatus = () => {
     const formData = useSelector((state) => state?.counter?.formData);
-    const provider_profile = formData.provider_profile && formData.provider_profile[0] ? formData.provider_profile[0] : "";
+    const application_status = localStorage.getItem("application_status");
+    // const provider_profile = formData.provider_profile && formData.provider_profile[0] ? formData.provider_profile[0] : "";
 
 
 
     return (
         <Container className="schudulecard">
             <div className="callstatus">
-                {provider_profile.application_status === 0 ? (
+                {application_status === '0' ? (
                     <>
                         <h3 className="mt-5" style={{ marginTop: "18rem" }}>
                             Please fill out the application form to continue
@@ -26,7 +27,7 @@ const Callstatus = () => {
                         </Link>
                     </>
                 ) : null}
-                {provider_profile.application_status === 1 ? (
+                {application_status === "1" ? (
                     <>
                         <h3 className="mt-3" style={{ marginTop: "8rem" }}>
                             Application form submitted,call interview pending
@@ -38,7 +39,7 @@ const Callstatus = () => {
                         </Link>
                     </>
                 ) : null}
-                {provider_profile.application_status === 2 ? (
+                {application_status === "2" ? (
                     <>
                         <h3 className="mt-3" style={{ marginTop: "8rem" }}>
                             call interview done, verification pending
@@ -51,7 +52,7 @@ const Callstatus = () => {
                     </>
                 ) : null}
 
-                {provider_profile.application_status === 3 ? (
+                {application_status === "3" ? (
                     <>
                         <h3 className="mt-3" style={{ marginTop: "8rem" }}>
                             Your documents have been submitted. Please wait for admin approval.

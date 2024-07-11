@@ -151,7 +151,7 @@ const PersonalSettings = () => {
 
                 </div>
                 <div className="col-md-6">
-                  <span className="personal-info-title">working shift :</span> {user.working_shift}
+                  <span className="personal-info-title">Apt Number :</span> {user?.mailing_address?.apt_number}
                 </div>
                 <div className="col-md-6">
                   <span className="personal-info-title">Status:</span> {user.call_status}
@@ -185,15 +185,8 @@ const PersonalSettings = () => {
               </Button>
 
 
-              <Button onClick={() => setviewPUAShow(true)} className="mb-2">
-                View PlatformUser Agreement
-              </Button>
-              <Button
-                onClick={() => setindependentContractorShow(true)}
-                className="mb-2"
-              >
-                Independent Contractor Verification
-              </Button>
+         
+         
               <Button
                 onClick={() => setmailingAddressShow(true)}
                 className="mb-2"

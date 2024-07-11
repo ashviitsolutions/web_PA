@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 
 const PayoutInformationModal = (props) => {
+  const [loading, setLoading] = useState(false)
   const nav = useNavigate()
   const formData = useSelector((state) => state?.counter?.formData);
   const user = formData.provider_profile && formData.provider_profile[0] ? formData.provider_profile[0] : "";
@@ -18,11 +19,12 @@ const PayoutInformationModal = (props) => {
   const [account_number, setAccount_number] = useState(user?.payout_info?.routing_number || "")
   let token = localStorage.getItem("providertoken")
 
+  console.log("payout information",user)
 
-  console.log("user profile" ,user)
 
   const handleUpdate = async (event) => {
     event.preventDefault()
+    setLoading(true)
     let datas = { "routing_number": routing_number, "account_number": account_number }
 
     try {
@@ -38,18 +40,20 @@ const PayoutInformationModal = (props) => {
       })
 
       if (resp.status === 200) {
+        setLoading(false)
         nav("/providers");
       }
 
     } catch (error) {
+      setLoading(false)
       console.log("Error show", error)
     }
   }
 
 
-  useEffect(() => {
-    handleUpdate()
-  }, [handleUpdate])
+  // useEffect(() => {
+  //   handleUpdate()
+  // }, [handleUpdate])
 
   return (
     <Modal
@@ -67,15 +71,15 @@ const PayoutInformationModal = (props) => {
         <Modal.Body>
           <Form.Group className="mb-3 mt-2">
             <Form.Label>Routing Number</Form.Label>
-            <Form.Control type="text" placeholder="Routing Number" value={routing_number} onChange={(e) => setRouting_number(e.target.value)} />
+            <Form.Control type="Number" placeholder="Routing Number" value={routing_number} onChange={(e) => setRouting_number(e.target.value)} />
           </Form.Group>
           <Form.Group className="mb-3 mt-2">
             <Form.Label>Account Number</Form.Label>
-            <Form.Control type="text" placeholder="Account Number" value={account_number} onChange={(e) => setAccount_number(e.target.value)} />
+            <Form.Control type="Number" placeholder="Account Number" value={account_number} onChange={(e) => setAccount_number(e.target.value)} />
           </Form.Group>
         </Modal.Body>
         <Modal.Footer style={{ justifyContent: "center" }}>
-          <Button type="submit">Save</Button>
+          <Button type="submit">{loading ? "Loading" : "Save"}</Button>
         </Modal.Footer>
       </Form>
     </Modal>

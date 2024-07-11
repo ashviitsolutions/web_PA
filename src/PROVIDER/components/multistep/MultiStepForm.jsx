@@ -10,6 +10,7 @@ import { IP } from "../../../Constant";
 import { useSelector } from 'react-redux';
 
 const MultiStepForm = () => {
+  const application_status = localStorage.getItem("application_status");
   const formData = useSelector((state) => state?.counter?.formData);
   const user = formData.provider_profile && formData.provider_profile[0] ? formData.provider_profile[0] : "";
   const [now, setnow] = useState(25);
@@ -17,13 +18,13 @@ const MultiStepForm = () => {
   // const [user, setUser] = useState({});
   const token = localStorage.getItem("providertoken");
   useEffect(() => {
-    if (user.application_status === 0) {
+    if (application_status === "0") {
       setnow(25);
-    } else if (user.application_status === 1) {
+    } else if (application_status === "1") {
       setnow(50);
-    } else if (user.application_status === 2) {
+    } else if (application_status === "2") {
       setnow(75);
-    } else if (user.application_status === 3) {
+    } else if (application_status === "3") {
       setnow(100);
     }
   }, [token]);

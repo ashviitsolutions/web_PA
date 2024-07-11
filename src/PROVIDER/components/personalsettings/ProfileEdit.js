@@ -7,99 +7,115 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 const ProfileEdit = (props) => {
+  const [loading, setLoading] = useState(false)
+  const [services, setServices] = useState([]);
   const formData = useSelector((state) => state?.counter?.formData);
   const user = formData.provider_profile && formData.provider_profile[0] ? formData.provider_profile[0] : "";
   const profileimage = formData.provider_profile_pic && formData.provider_profile_pic[0] ? formData.provider_profile_pic[0] : "";
 
-  const [service, setService] = useState({
-    corporate_events: [],
-    on_demand: [],
-    private_events: []
-  });
-
-  const [selectedCorporateEvents, setSelectedCorporateEvents] = useState(user.corporate_events || []);
-  const [selectedOnDemand, setSelectedOnDemand] = useState(user.on_demand || []);
-  const [selectedPrivateEvents, setSelectedPrivateEvents] = useState(user.private_events || []);
-
-  console.log("profile edit data", user);
-
-  const [name, setName] = useState(`${user.first_name || ''} ${user.last_name || ''}`);
+  const [first_name, setFirst_name] = useState(user.first_name || '');
+  const [last_name, setLast_name] = useState(user.last_name || '');
   const [mobile, setMobile] = useState(user.phone || '');
   const [email, setEmail] = useState(user.email || '');
 
+  const [selectedItems, setSelectedItems] = useState(user?.areas_of_expertise?.on_demand || []);
+  const [selectedPrivateEvents, setSelectedPrivateEvents] = useState(user?.areas_of_expertise?.private_events || []);
+  const [selectedCorporateEvents, setSelectedCorporateEvents] = useState(user?.areas_of_expertise?.corporate_events || []);
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`${IP}/contractor/get/${user.id}`);
-
-        if (response.ok) {
-          const result = await response.json();
-          console.log("result service data", result);
-          setService(result?.areas_of_expertise || {
-            corporate_events: [],
-            on_demand: [],
-            private_events: []
-          });
-
-        } else {
-          console.error('Failed to fetch user data');
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchData();
-  }, [user.id]);
-
-  const handleServiceChange = (event, serviceList, setServiceList) => {
-    const { checked, value } = event.target;
-    if (checked) {
-      setServiceList([...serviceList, value]);
-    } else {
-      setServiceList(serviceList.filter(item => item !== value));
-    }
-  };
+    setFirst_name(user.first_name || "");
+    setLast_name(user.last_name || "");
+    setMobile(user.phone || "");
+    setEmail(user.email || "");
+  }, [user]);
 
   const handleSubmit = async (event) => {
     console.log("handleSubmit ran");
     event.preventDefault();
+    setLoading(true);
 
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('providertoken');
 
-    const formData = new FormData();
-    formData.append("first_name", name.split(" ")[0]);
-    formData.append("last_name", name.split(" ")[1]);
-    formData.append("phone", mobile);
-    formData.append("email", email);
-    formData.append("corporate_events", JSON.stringify(selectedCorporateEvents));
-    formData.append("on_demand", JSON.stringify(selectedOnDemand));
-    formData.append("private_events", JSON.stringify(selectedPrivateEvents));
+    const requestData = {
+      first_name,
+      last_name,
+      phone: mobile,
+      email,
+      areas_of_expertise: {
+        on_demand: selectedItems,
+        private_events: selectedPrivateEvents,
+        corporate_events: selectedCorporateEvents
+      }
+    };
 
     try {
-      const resp = await fetch(`${IP}/provider/update-details`, {
+      const resp = await fetch(`${IP}/provider/update_profile`, {
         method: "PUT",
         headers: {
           Authorization: token,
+          "Content-Type": "application/json"
         },
-        body: formData,
+        body: JSON.stringify(requestData),
       });
 
       const result = await resp.json();
-      console.log("result Services:", result);
-      toast.success("Updated your profile successfully!", {
-        position: "top-right",
-        autoClose: 3000,
-      });
-      props.onHide(); // Close the modal on success
+
+      if (resp.status === 200) {
+        setLoading(false);
+        console.log("result Services:", result);
+        toast.success("Updated your profile successfully!", {
+          position: "top-right",
+          autoClose: 2000,
+        });
+        props.onHide(); // Close the modal on success
+      } else {
+        setLoading(false);
+      }
 
     } catch (error) {
       console.log("Error show", error);
+      setLoading(false);
       toast.error("An error occurred. Please try again.", {
         position: "top-right",
-        autoClose: 3000,
+        autoClose: 2000,
       });
     }
+  };
+
+  // Fetch list of services
+  useEffect(() => {
+    fetch(`${IP}/service/view-services`)
+      .then((resp) => resp.json())
+      .then((data) => {
+        setServices(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }, []);
+
+  let ondemand = services
+    .filter((service) => service.category === 'on demand')
+    .map((service) => {
+      return { id: service._id, title: service.title };
+    });
+
+  let privateEvents = services
+    .filter((service) => service.category === 'private events')
+    .map((service) => {
+      return { id: service._id, title: service.title };
+    });
+
+  let corporateEvents = services
+    .filter((service) => service.category === 'corporate events')
+    .map((service) => {
+      return { id: service._id, title: service.title };
+    });
+
+  let areasofexpertise = {
+    ondemand: ondemand,
+    privateevents: privateEvents,
+    corporateevents: corporateEvents,
   };
 
   return (
@@ -125,9 +141,28 @@ const ProfileEdit = (props) => {
           </div>
           <hr className="hr" />
           <h4>Personal Information</h4>
-          <Form.Group className="mb-3 mt-2">
-            <Form.Label>Name</Form.Label>
-            <Form.Control type="text" placeholder="Name" onChange={event => setName(event.target.value)} value={name} />
+
+          <Form.Group className="mb-3 mt-3">
+            <Row>
+              <div className="col-md-6 mb-2">
+                <Form.Label>First Name</Form.Label>
+                <Form.Control
+                  name="first_name"
+                  type="text"
+                  placeholder="First Name"
+                  onChange={event => setFirst_name(event.target.value)} value={first_name}
+                />
+              </div>
+              <div className="col-md-6">
+                <Form.Label>Last Name</Form.Label>
+                <Form.Control
+                  name="last_name"
+                  type="text"
+                  placeholder="Last Name"
+                  onChange={event => setLast_name(event.target.value)} value={last_name}
+                />
+              </div>
+            </Row>
           </Form.Group>
 
           <Form.Group className="mb-3 mt-3">
@@ -154,55 +189,88 @@ const ProfileEdit = (props) => {
           </Form.Group>
           <hr className="hr" />
           <h4>Skills</h4>
-          <div>
-            <h5>Corporate Events</h5>
-            {service.corporate_events.map((cur, index) => (
-              <Form.Check
-                inline
-                key={`corporate-${index}`}
-                id={`corporate-${index}`}
-                label={cur}
-                name="corporate_events"
-                value={cur}
-                checked={selectedCorporateEvents.includes(cur)}
-                onChange={(e) => handleServiceChange(e, selectedCorporateEvents, setSelectedCorporateEvents)}
-              />
-            ))}
-          </div>
-          <div>
-            <h5>On-Demand</h5>
-            {service.on_demand.map((cur, index) => (
-              <Form.Check
-                inline
-                key={`on_demand-${index}`}
-                id={`on_demand-${index}`}
-                label={cur}
-                name="on_demand"
-                value={cur}
-                checked={selectedOnDemand.includes(cur)}
-                onChange={(e) => handleServiceChange(e, selectedOnDemand, setSelectedOnDemand)}
-              />
-            ))}
-          </div>
-          <div>
-            <h5>Private Events</h5>
-            {service.private_events.map((cur, index) => (
-              <Form.Check
-                inline
-                key={`private-${index}`}
-                id={`private-${index}`}
-                label={cur}
-                name="private_events"
-                value={cur}
-                checked={selectedPrivateEvents.includes(cur)}
-                onChange={(e) => handleServiceChange(e, selectedPrivateEvents, setSelectedPrivateEvents)}
-              />
-            ))}
-          </div>
+          <h5>Areas of Expertise</h5>
+          <h6>On Demand</h6>
+
+          {areasofexpertise.ondemand.map((item) => (
+            <Form.Check
+              key={item.id}
+              inline
+              id={item.id}
+              label={item.title}
+              name="group1"
+              value={item.id}
+              checked={selectedItems.includes(item.id)}
+              onChange={(e) => {
+                const itemValue = e.target.value;
+                setSelectedItems((prevSelectedItems) => {
+                  if (prevSelectedItems.includes(itemValue)) {
+                    return prevSelectedItems.filter((selectedItem) => selectedItem !== itemValue);
+                  } else {
+                    return [...prevSelectedItems, itemValue];
+                  }
+                });
+              }}
+            />
+          ))}
+
+          <hr className="hr" />
+          <h6>Private Events</h6>
+
+          {areasofexpertise.privateevents.map((item) => (
+            <Form.Check
+              key={item.id}
+              inline
+              id={item.id}
+              label={item.title}
+              name="group1"
+              value={item.id}
+              checked={selectedPrivateEvents.includes(item.id)}
+              onChange={(e) => {
+                const itemValue = e.target.value;
+                setSelectedPrivateEvents((prevSelectedItems) => {
+                  if (prevSelectedItems.includes(itemValue)) {
+                    return prevSelectedItems.filter((selectedItem) => selectedItem !== itemValue);
+                  } else {
+                    return [...prevSelectedItems, itemValue];
+                  }
+                });
+              }}
+            />
+          ))}
+
+          <hr className="hr" />
+
+          <h6>Corporate Events</h6>
+
+          {areasofexpertise.corporateevents.map((item) => (
+            <Form.Check
+              key={item.id}
+              inline
+              id={item.id}
+              label={item.title}
+              name="group1"
+              value={item.id}
+              checked={selectedCorporateEvents.includes(item.id)}
+              onChange={(e) => {
+                const itemValue = e.target.value;
+                setSelectedCorporateEvents((prevSelectedItems) => {
+                  if (prevSelectedItems.includes(itemValue)) {
+                    return prevSelectedItems.filter(
+                      (selectedItem) => selectedItem !== itemValue
+                    );
+                  } else {
+                    return [...prevSelectedItems, itemValue];
+                  }
+                });
+              }}
+            />
+          ))}
+
           <hr className="hr" />
         </Modal.Body>
         <Modal.Footer style={{ justifyContent: "center" }}>
-          <Button type="submit">Save</Button>
+          <Button type="submit">{loading ? "Loading" : "Save"}</Button>
         </Modal.Footer>
       </Form>
     </Modal>

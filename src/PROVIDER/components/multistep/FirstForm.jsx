@@ -208,8 +208,7 @@ const FirstForm = (props) => {
       return { id: service._id, title: service.title };
     });
 
-  console.log("On DOBDOBDOBDOBDOBDOBDOB:", DOB);
-  console.log("On ssnssnssnssnssnssnssnssnssnssn:", ssn);
+
 
   let areasofexpertise = {
     ondemand: ondemand,

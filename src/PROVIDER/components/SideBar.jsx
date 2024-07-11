@@ -2,10 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import image1 from "../../Components/assets/img/logo_home_navbar.png"
 import { IP } from "../../Constant";
+import { useNavigate } from "react-router-dom";
 // import Protected from "../ProtectedRute/Protected";
 
 const SideBar = () => {
+  const nav=useNavigate()
   const [user, setUser] = useState("");
+  const application_status = localStorage.getItem("application_status");
 
   useEffect(() => {
     const token = localStorage.getItem("providertoken");
@@ -22,6 +25,7 @@ const SideBar = () => {
         })
         .then((result) => {
           setUser(result.application_status);
+          localStorage.setItem("application_status", result.application_status)
           console.log("application-status", result.application_status)
           if (result.application_status >= 3) {
             localStorage.setItem("approvaluser", "approval");
@@ -34,7 +38,7 @@ const SideBar = () => {
       console.log(error);
     }
 
-  }, []);
+  }, [nav]);
 
 
 
@@ -62,7 +66,7 @@ const SideBar = () => {
           </Link>
         </div>
         <div className="sidebar-menu">
-          {user >= 4 ? (
+          {application_status >= "4" ? (
             <>
               <Link to="/providers">
                 <div className="menu-item">Dashboard</div>
@@ -80,7 +84,7 @@ const SideBar = () => {
               <Link to="/providers/notification">
                 <div className="menu-item">Notification</div>
               </Link>
-              {user !== 4 && (
+              {application_status !== "4" && (
                 <Link to="/providers/application-form">
                   <div className="menu-item">Application Form</div>
                 </Link>

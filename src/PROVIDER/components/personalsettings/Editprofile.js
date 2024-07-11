@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Editprofile = (props) => {
   const [images, setImages] = useState();
+  const [loading, setLoading] = useState(false)
   const [profile_pic, setProfile_pic] = useState("")
   const [imagePreviewUrl, setImagePreviewUrl] = useState("");
   const [img, setImg] = useState('');
@@ -19,6 +20,7 @@ const Editprofile = (props) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
+    setLoading(true)
     try {
       const bodyFormData = new FormData()
 
@@ -34,6 +36,7 @@ const Editprofile = (props) => {
       })
 
       if (resp.status === 200) {
+        setLoading(true)
         if (approvaltoken === "approval") {
           nav("/providers");
         } else {
@@ -42,6 +45,7 @@ const Editprofile = (props) => {
       }
 
     } catch (error) {
+      setLoading(true)
       console.error(error);
 
     }
@@ -158,7 +162,8 @@ const Editprofile = (props) => {
         </Modal.Body>
         <Modal.Footer style={{ justifyContent: "center" }}>
           <Button variant="primary" type="submit" >
-            Update
+            {loading ? "Loading..." : "Update"}
+
           </Button>
         </Modal.Footer>
       </Form>

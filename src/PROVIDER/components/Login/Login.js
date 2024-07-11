@@ -47,6 +47,7 @@ function LoginProvider() {
                 localStorage.setItem('providerlogintime', time);
                 localStorage.setItem("applicationstatus", result?.user_info?.application_status)
                 if (result?.user_info?.call_status === 'approval') {
+                    localStorage.setItem('approvaluser', "approval");
                     nav('/providers');
                 } else {
                     nav('/providers/waiting');

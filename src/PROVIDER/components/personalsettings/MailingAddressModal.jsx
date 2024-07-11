@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 
 const MailingAddressModal = (props) => {
+  const [loading, setLoading] = useState(false)
   const [coordinates, setCoordinates] = useState({ lat: null, lng: null });
   const formData = useSelector((state) => state?.counter?.formData);
   const user = formData.provider_profile && formData.provider_profile[0] ? formData.provider_profile[0] : "";
@@ -60,6 +61,7 @@ const MailingAddressModal = (props) => {
 
   const handleUpdate = async (event) => {
     event.preventDefault();
+    setLoading(true)
     if (isNaN(coordinates.lat) || isNaN(coordinates.lng)) {
       console.error("Invalid coordinates:", coordinates);
       return;
@@ -77,7 +79,7 @@ const MailingAddressModal = (props) => {
     };
 
     try {
-      const resp = await fetch(`${IP}/provider/update-details`, {
+      const resp = await fetch(`${IP}/provider/mailing_address`, {
         method: "PUT",
         headers: {
           'Authorization': token,
@@ -92,6 +94,7 @@ const MailingAddressModal = (props) => {
       }
 
     } catch (error) {
+      setLoading(false)
       console.log("Error show", error);
     }
   };
@@ -192,7 +195,7 @@ const MailingAddressModal = (props) => {
           </Form.Group>
         </Modal.Body>
         <Modal.Footer style={{ justifyContent: "center" }}>
-          <Button type="submit">Save</Button>
+          <Button type="submit">{loading ? "Loading" : "Save"}</Button>
         </Modal.Footer>
       </Form>
     </Modal>
