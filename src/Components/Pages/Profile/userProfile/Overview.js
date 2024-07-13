@@ -151,21 +151,32 @@ function Overview() {
 
 																	</h4>
 																</div>
-															
+
 																<div className="profile">
 																	<div className="">
 																		<span className="avatar">
 																			<img
-																				src={img1}
+																				src={`${IP}/file/${post?.attachments}`}
 																				width={60}
 																				height={60}
 																				alt="Avatar"
 																			/>
 																		</span>
-																		<div className="text">
-																			<h3>{post?.service_id?.title}</h3>
-																			<p>{post.service_time}</p>
+																		<div style={{ display: "flex", justifyContent: "space-between" }}>
+																			<div className="text">
+																				<h3>{post?.service_name}</h3>
+																				<p>{post.service_time}</p>
+																			</div>
+																			<div className="text">
+																				<h3>Add-ons:</h3>
+																				<div>
+																					{post.add_ons_details.map((addon, index) => (
+																						<p key={index} style={{ margin: '4px 0' }}>{addon.title}</p>
+																					))}
+																				</div>
+																			</div>
 																		</div>
+
 																	</div>
 																</div>
 																{isEventOpen(`app${index + 1}`) && (
@@ -193,7 +204,7 @@ function Overview() {
 																		</div>
 																		<div className="billing float_wrapper">
 																			<p className="pull-left">
-																				$ {post?.amount_calculation?.amount_widthout_tax?.toFixed(2)}
+																				$ {post?.user_amount_calculation?.totalAmountWithTax?.toFixed(2)}
 																			</p>
 																			<p className="paid pull-right">
 																				{post.service_status}
@@ -207,6 +218,8 @@ function Overview() {
 												))
 											)}
 										</div>
+
+
 
 										<div className="row mt-3" id="overview_page_container">
 											<div className="status_booking">
@@ -239,16 +252,27 @@ function Overview() {
 																<div className="profile">
 																	<span className="avatar">
 																		<img
-																			src={img1}
+																			src={`${IP}/file/${post?.attachments}`}
 																			width={60}
 																			height={60}
 																			alt="Avatar"
 																		/>
 																	</span>
-																	<div className="text">
-																		<h3>{post?.service_id?.title}</h3>
-																		<p>{post.service_time}</p>
+																	<div style={{ display: "flex", justifyContent: "space-between" }}>
+																		<div className="text">
+																			<h3>{post?.service_name}</h3>
+																			<p>{post.service_time}</p>
+																		</div>
+																		<div className="text">
+																			<h3>Add-ons:</h3>
+																			<div>
+																				{post.add_ons_details.map((addon, index) => (
+																					<p key={index} style={{ margin: '4px 0' }}>{addon.title}</p>
+																				))}
+																			</div>
+																		</div>
 																	</div>
+
 																</div>
 																{isEventOpen(`app${index + 1}`) && (
 																	<div className="more_detail">
@@ -269,13 +293,13 @@ function Overview() {
 																				</p>
 																			) : (
 																				<p>
-																					Appointment with <b>{post?.providerInfo?.first_name}</b>
+																					Appointment with <b>{post?.providerInfo[0]?.first_name} {post?.providerInfo[0]?.last_name}</b>
 																				</p>
 																			)}
 																		</div>
 																		<div className="billing float_wrapper">
 																			<p className="pull-left">
-																				$ {post?.amount_calculation?.amount_widthout_tax?.toFixed(2)}
+																				$ {post?.user_amount_calculation?.totalAmountWithTax?.toFixed(2)}
 																			</p>
 																			<p className="paid pull-right">
 																				{post.service_status}

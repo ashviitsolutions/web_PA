@@ -150,7 +150,7 @@ function Details() {
                                     </td>
                                     <td>{service?.provider_amount_calculation?.amount_tip?.toFixed(2)}$</td>
                                     <td>{service.amount_calculation.amount_widthout_tax.toFixed(2)}$</td>
-                                    <td>{service?.provider_amount_calculation?.total_amount?.toFixed(2)}$</td>
+                                    <td>{service?.provider_amount_calculation?.totalAmount?.toFixed(2)}$</td>
                                 </tr>
                             ))}
                             <tr>

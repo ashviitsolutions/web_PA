@@ -109,7 +109,7 @@ const ScheduledRequestCard = (props) => {
                   {/* <div>${props.amt}</div>
               <div>+${tip} pre-tip</div>
               <div className="text-warning">Total = ${total}</div> */}
-                  <div className="earn"><span><FontAwesomeIcon icon={faCoins} /></span> {amount_calculation?.total_amount?.toFixed(2)}$</div>
+                  <div className="earn"><span><FontAwesomeIcon icon={faCoins} /></span> {amount_calculation?.totalAmount?.toFixed(2)}$</div>
                 </div>
               </Row>
             </Card.Body>

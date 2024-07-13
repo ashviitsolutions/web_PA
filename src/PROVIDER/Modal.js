@@ -155,7 +155,7 @@ function CustomModal(
             </div>
             <div className="col-md-6 title">Duration and Earning</div>
             <div className="col-md-3">{serviceTime}</div>
-            <div className="col-md-3 title">{amount_calculation?.total_amount?.toFixed(2)}$</div>
+            <div className="col-md-3 title">{amount_calculation?.totalAmount?.toFixed(2)}$</div>
             <div div className="col-md-6 title">
               Location:
             </div>

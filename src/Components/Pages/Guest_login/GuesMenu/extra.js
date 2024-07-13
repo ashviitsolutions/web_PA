@@ -2,16 +2,28 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { IP } from '../../../../Constant';
 import './style.css';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import StripeCheckout from 'react-stripe-checkout';
 import vectorImg from "../../../assets/img/6212029.jpg";
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useUserRegistration } from '../../../../Helpers/Hooks/Hooks';
 
 const Conform = () => {
+    const membershipLevel = localStorage.getItem("membership")
+    // const { getUserMembership, membershipLevels } = useUserRegistration();
+    const { getUserGiftCards, user } = useUserRegistration();
+    const [memberhsipDiscount, setMembershipDiscountRate] = useState("")
+    const nav = useNavigate()
+    const location = useLocation();
 
+    const addon_id = location.state?.addon_id || "";
+    const add_ons_details = location.state?.add_ons_details || "";
+    const servicename = location.state?.servicename || "";
+    const service_name = location.state?.servicename || "";
 
+    const locationName = location.state?.locationForm?.location || "";
     const formData = useSelector((state) => state.counter.formData);
     const { totalPrice } = useParams();
     const { provider_id } = useParams();
@@ -20,60 +32,42 @@ const Conform = () => {
     const username = localStorage.getItem("user_name");
     const userid = localStorage.getItem("userid");
     const token = localStorage.getItem("token");
-    const nav = useNavigate();
-
-
-    console.log("formData", formData)
-
-
-    const addon_id = formData.addon_id && formData.addon_id[0] ? formData.addon_id[0] : "";
-    const location = formData.locationForm && formData.locationForm[0] ? formData.locationForm[0] : null;
-    const locationName = location ? location.location : null;
-
-
-    const customer_user = formData.fifthform && formData.fifthform[0] ? formData.fifthform[0].name : "";
-    const addressUser = formData.locationForm && formData.locationForm[0] ? formData.locationForm[0].address : "";
-    const location_type = formData.location && formData.location[0] ? formData.location[0].location_type : "";
-    const gender = formData.secondform && formData.secondform[0] ? formData.secondform[0].gender : "";
-    const gender1 = formData.secondform && formData.secondform[0] ? formData.secondform[0].gender[0] : "";
-    const gender2 = formData.secondform && formData.secondform[0] ? formData.secondform[0].gender[1] : "";
-
-    //   const totalPrice = formData.secondform && formData.secondform[0] ? formData.secondform[0].totalPrice : "";
-    const service_id = formData.secondform && formData.secondform[0] ? formData.secondform[0].service_ids : "";
-    const service_time = formData.secondform && formData.secondform[0] ? formData.secondform[0].service_time : "";
-    const areas_of_concern = formData.thirdform && formData.thirdform[0] ? formData.thirdform[0].areas_of_concern : "";
-    const health_conditions = formData.thirdform && formData.thirdform[0] ? formData.thirdform[0].health_conditions : "";
-    const massage_body_part = formData.thirdform && formData.thirdform[0] ? formData.thirdform[0].massage_body_part : "";
-    const massage_pressure = formData.thirdform && formData.thirdform[0] ? formData.thirdform[0].massage_pressure : "";
-    const special_considerations = formData.thirdform && formData.thirdform[0] ? formData.thirdform[0].special_considerations : "";
-    const scheduled_date = formData.fourthform && formData.fourthform[0] ? formData.fourthform[0].date : "";
-    const scheduled_timing = formData.fourthform && formData.fourthform[0] ? formData.fourthform[0].time : "";
-    // const massage_for = formData?.firstForm?.[0] || "";
-    const massage_for = formData.firstForm && formData.firstForm[0] ? formData.firstForm[0] : "";
-
-    const add_ons_details = formData.add_ons_details && formData.add_ons_details[0] ? formData.add_ons_details[0] : "";
-
-    const service_name = formData.servicename && formData.servicename[0] ? formData.servicename[0] : "";
 
 
 
 
 
-    const email = formData.fifthform && formData.fifthform[0] ? formData.fifthform[0].email : "";
-    const address = formData.fifthform && formData.fifthform[0] ? formData.fifthform[0].address : "";
-    const arrivalInstructions = formData.fifthform && formData.fifthform[0] ? formData.fifthform[0].arrivalInstructions : "";
-    const confirmpassword = formData.fifthform && formData.fifthform[0] ? formData.fifthform[0].email : "";
-    const password = formData.fifthform && formData.fifthform[0] ? formData.fifthform[0].password : "";
-    const mobile = formData.fifthform && formData.fifthform[0] ? formData.fifthform[0].mobile : "";
+    const customerdetails = location?.state?.fifthform || "";
+    const { address, first_name, last_name, arrivalInstructions, mobile, confirmpassword, password, email } = location?.state?.fifthform || "";
+    // const addressUser = location.locationForm?.address || "";
+    const location_type = location.state?.location_type || "";
 
-    // const servicename = formData.servicename && formData.servicename[0] ? formData.servicename[0] || "";
-    const servicename = formData.servicename && formData.servicename[0] ? formData.servicename[0] : "";
 
-    const gendercheck = formData?.firstForm && formData.firstForm.length > 0 ? formData.firstForm[0] : "";
+    const gender = location?.state?.secondform?.gender || "";
+    const gender1 = location?.state?.secondform?.gender[0] || "";
+    const gender2 = location?.state?.secondform?.gender[1] || "";
+    const service_id = location?.state?.secondform?.service_ids || "";
+    const service_time = location?.state?.secondform?.service_time || "";
+    const areas_of_concern = location?.state?.thirdform?.areas_of_concern || "";
+    const health_conditions = location?.state?.thirdform?.health_conditions || "";
+    const massage_body_part = location?.state?.thirdform?.massage_body_part || "";
+    const massage_pressure = location?.state?.thirdform?.massage_pressure || "";
+    const special_considerations = location?.state?.thirdform?.special_considerations || "";
+    const scheduled_date = location?.state?.fourthform?.date || "";
+    const scheduled_timing = location?.state?.fourthform?.time || "";
+    const massage_for = location?.state?.firstForm || "";
 
-    console.log("add_ons_details", add_ons_details)
+    const gendercheck = location?.firstForm || "";
 
-    console.log("servicename", servicename)
+
+
+
+    console.log("areas_of_concernareas_of_concernareas_of_concern", areas_of_concern)
+
+
+
+
+
     const [selectedGiftCards, setSelectedGiftCards] = useState([]);
     const [paymentIntentId, setPaymentIntentId] = useState('');
     const [client_secret, setClientSecret] = useState();
@@ -83,8 +77,8 @@ const Conform = () => {
     const [tip, setTip] = useState(0);
     const [error, setError] = useState(false);
     const [giftCardAmount, setGiftCardAmount] = useState(0);
-    const [user, setUser] = useState([]);
-    const [membership, setMembershipLevel] = useState();
+    // const [user, setUser] = useState(userGiftCards);
+    const [membership, setMembershipLevel] = useState(membershipLevel);
     const [originalprice, setOriginalprice] = useState()
     const [bookingid, setBookingId] = useState(null)
 
@@ -109,7 +103,7 @@ const Conform = () => {
     const amount_off = coupon_amount.amount_off
     const percent_off = coupon_amount.percent_off
 
-    console.log("coupon amount charge", amount_off)
+    console.log("coupon amount originalpriceoriginalpriceoriginalpriceoriginalprice", originalprice)
     console.log("percent_off amount charge", percent_off)
 
 
@@ -127,37 +121,13 @@ const Conform = () => {
 
 
 
+
+
     useEffect(() => {
-        const getUserMembership = async () => {
-            const token = localStorage.getItem("token");
-
-            try {
-                const response = await fetch(`${IP}/user/membership-details`, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': token,
-                    },
-                });
-
-
-                const data = await response.json();
-
-
-                setMembershipLevel(data.membershipType);
-
-
-
-
-            } catch (error) {
-                console.error("Error:", error);
-            }
-        };
-
-        getUserMembership();
-    }, [totalPrice]);
-
-
+        // getUserMembership();
+        getUserGiftCards();
+    }, []);
+    console.log("userGiftCards userGiftCards", user)
 
 
 
@@ -175,10 +145,10 @@ const Conform = () => {
         let couponDiscountRate = 0;
 
         // Check if membership is Silver or Gold
-        if (membership === "Silver") {
+        if (membershipLevel === "Silver") {
             // If Silver membership is selected, apply a 5% discount
             membershipDiscountRate = 0.05;
-        } else if (membership === "Gold") {
+        } else if (membershipLevel === "Gold") {
             // If Gold membership is selected, apply a 10% discount
             membershipDiscountRate = 0.10;
         }
@@ -188,6 +158,7 @@ const Conform = () => {
         }
 
         const servicePricewithmemberhsip = 135 * (1 - membershipDiscountRate);
+        const membershipDiscountprice = 135 - servicePricewithmemberhsip;
         const adds_onprice = (totalPrice - 135);
         const tip = (servicePricewithmemberhsip + adds_onprice) * 0.18;
         const Tax = (servicePricewithmemberhsip + adds_onprice) * taxRate;
@@ -204,21 +175,22 @@ const Conform = () => {
         setTotalAmount(totalAmounts);
         setAddsAmount(adds_onprice);
         setOriginalprice(servicePricewithmemberhsip)
-    }, [totalPrice, membership, formData.fifthform ,amount_off ,percent_off ]);
+        setMembershipDiscountRate(membershipDiscountprice)
+    }, [totalPrice, membershipLevel, formData.fifthform, amount_off, percent_off]);
 
 
 
 
-    console.log("amount provider check", price_provider, provider_addon)
+
 
 
     useEffect(() => {
         let tax = tip;
         let addonsprice = amount_addon;
         const time_status = service_time;
-        const memberhsip = originalprice;
+        const memberhsip = memberhsipDiscount;
         let basePrice = 70; // Initial base price
-        let membershipDiscountRate = 0;
+
         // console.log("amount_addon amount_addonamount_addon", amount_addon)
 
         // Adjust base price based on service time
@@ -233,13 +205,7 @@ const Conform = () => {
             basePrice *= 2;
         }
 
-        if (membership === "Silver") {
-            // If Silver membership is selected, apply a 5% discount
-            membershipDiscountRate = 0.05;
-        } else if (membership === "Gold") {
-            // If Gold membership is selected, apply a 10% discount
-            membershipDiscountRate = 0.10;
-        }
+
         // Add 14% of total add-ons price to totalPrice
         let totalPriceAddons = addonsprice;
 
@@ -248,6 +214,8 @@ const Conform = () => {
         //total value after adding adsonprice
         let totalPriceWithAddons = basePrice + calculateaadon;
 
+
+
         // Add tax amount to totalPrice
         totalPriceWithAddons += tax;
         setProvuideraddon(calculateaadon)
@@ -255,7 +223,6 @@ const Conform = () => {
         setProvider_service(basePrice)
         setTotalPrice(totalPriceWithAddons);
     }, [service_time, massage_for, amount_addon]);
-
 
 
 
@@ -278,7 +245,7 @@ const Conform = () => {
             amount_addon: amountAddon,
             amount_tip: tip,
             amount_tax: tax,
-            amount_membership_discount: originalprice,
+            amount_membership_discount: memberhsipDiscount,
             total_amount: totalPrice,
         },
 
@@ -290,7 +257,7 @@ const Conform = () => {
             gift_cart_amount: giftCardAmount,
 
             amount_tip: tip,
-            amount_membership_discount: originalprice,
+            amount_membership_discount: memberhsipDiscount,
             total_amount: price_provider,
         },
 
@@ -323,12 +290,13 @@ const Conform = () => {
         service_name: service_name
     };
 
+    console.log("provider_addonprovider_addonprovider_addonprovider_addonprovider_addon", bookingData)
 
 
     const handleCheckout = async () => {
         setLoading(true);
 
-        if (!booking_id && !bookingid) {
+        if (!booking_id && !bookingid && !provider_addon) {
             setLoading(false);
             return false;
         }
@@ -388,30 +356,7 @@ const Conform = () => {
     }, [bookingData?.amount_calculation?.amount_tip, provider_addon, giftCardAmount, loading]); // Trigger when bookingData changes
 
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const token = localStorage.getItem("token");
-                const config = {
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: token,
-                    },
-                };
 
-                const res = await fetch(`${IP}/user/my-giftCards`, config);
-                const data = await res.json();
-                setUser(data?.data);
-
-
-            } catch (error) {
-
-            }
-        };
-
-        fetchData();
-    }, []);
-    console.log("user/my-giftCards", user);
 
     const handleGiftCardChange = (amount) => {
         if (amount > totalAmount) {
@@ -466,7 +411,7 @@ const Conform = () => {
         }
     };
 
-    
+
 
 
 
@@ -489,11 +434,11 @@ const Conform = () => {
                                 <div>
                                     <li>
                                         <span className="title">Date of service:</span>
-                                        <span className="value">{formData.fourthform?.[0]?.date}</span>
+                                        <span className="value">{scheduled_date}</span>
                                     </li>
                                     <li>
                                         <span className="title">Time of service:</span>
-                                        <span className="value">{formData.fourthform?.[0]?.time}</span>
+                                        <span className="value">{scheduled_timing}</span>
                                     </li>
                                     <li>
                                         <span className="title">Duration of service:</span>
@@ -505,7 +450,7 @@ const Conform = () => {
                                     </li>
                                     <li>
                                         <span className="title">Addons:</span>
-                                        {add_ons_details ? (
+                                        {add_ons_details.length > 0 ? (
                                             <span className="value">
                                                 {add_ons_details.map((addon, index) => (
                                                     <span key={index}>
@@ -523,12 +468,86 @@ const Conform = () => {
                                         <span className="value">Massage on demand</span>
                                     </li>
 
+                                    <li>
+                                        <span className="title">Areas of concern:</span>
+                                        {areas_of_concern.length > 0 ? (
+                                            <span className="value">
+                                                {areas_of_concern.map((addon, index) => (
+                                                    <span key={index}>
+                                                        {addon}
+                                                        {index !== areas_of_concern.length - 1 ? ', ' : ''}
+                                                    </span>
+                                                ))}
+                                            </span>
+                                        ) : (
+                                            <span className="value">No Areas of concern selected</span>
+                                        )}
+                                    </li>
+
+                                    <li>
+                                        <span className="title">Health conditions:</span>
+                                        {health_conditions.length > 0 ? (
+                                            <span className="value">
+                                                {health_conditions.map((addon, index) => (
+                                                    <span key={index}>
+                                                        {addon}
+                                                        {index !== health_conditions.length - 1 ? ', ' : ''}
+                                                    </span>
+                                                ))}
+                                            </span>
+                                        ) : (
+                                            <span className="value">No health conditions selected</span>
+                                        )}
+                                    </li>
+
+
+
+                                    <li>
+                                        <span className="title">Special considerations:</span>
+                                        {special_considerations.length > 0 ? (
+                                            <span className="value">
+                                                {special_considerations.map((addon, index) => (
+                                                    <span key={index}>
+                                                        {addon}
+                                                        {index !== special_considerations.length - 1 ? ', ' : ''}
+                                                    </span>
+                                                ))}
+                                            </span>
+                                        ) : (
+                                            <span className="value">No special considerations selected</span>
+                                        )}
+                                    </li>
+                                    <li>
+                                        <span className="title">Massage body part:</span>
+                                        {massage_body_part.length > 0 ? (
+                                            <span className="value">
+                                                {massage_body_part.map((addon, index) => (
+                                                    <span key={index}>
+                                                        {addon}
+                                                        {index !== massage_body_part.length - 1 ? ', ' : ''}
+                                                    </span>
+                                                ))}
+                                            </span>
+                                        ) : (
+                                            <span className="value">No massage body part selected</span>
+                                        )}
+                                    </li>
+                                    <li>
+                                        <span className="title">Massage pressure:</span>
+                                        {massage_pressure.length > 0 ? (
+                                            <span className="value">
+                                                {massage_pressure}
+                                            </span>
+                                        ) : (
+                                            <span className="value">No massage pressure selected</span>
+                                        )}
+                                    </li>
                                 </div>
 
                                 <li>
                                     <span className="title">Personal Details</span>
-                                    <spam className="value">Full Name : {customer_user}</spam>
-                                    <span className="value">Address : {addressUser}</span>
+                                    <spam className="value">Full Name : {first_name} {last_name}</spam>
+                                    <span className="value">Address : {address}</span>
 
                                     {
                                         gendercheck === "partner" ? (
@@ -618,21 +637,40 @@ const Conform = () => {
                                             <span className='value'>
                                                 6.625% Taxes: ${tax.toFixed(2)}
                                             </span></p>
-                                        <p className="prices" style={{ fontSize: '17px' }}>
-                                            <span className='value'>
-                                                6% Coupon Discount:
-                                            </span></p>
-                                        {membership === "Silver" && (
+
+
+
+                                        {amount_off && (
                                             <p className="prices" style={{ fontSize: '17px' }}>
                                                 <span className='value'>
-                                                    5% Silver Membership Discount: ${6.75}
+                                                    Coupon Discount:${amount_off.toFixed(2)}
 
                                                 </span></p>
                                         )}
-                                        {membership === "Gold" && (
+                                        {percent_off && (
                                             <p className="prices" style={{ fontSize: '17px' }}>
                                                 <span className='value'>
-                                                    10% Gold Membership Discount: ${13.50}
+                                                    %Coupon Discount: ${percent_off / 100}%
+                                                </span></p>
+                                        )}
+
+
+
+
+
+
+
+                                        {membershipLevel === "Silver" && (
+                                            <p className="prices" style={{ fontSize: '17px' }}>
+                                                <span className='value'>
+                                                    5% Silver Membership Discount: ${memberhsipDiscount}
+
+                                                </span></p>
+                                        )}
+                                        {membershipLevel === "Gold" && (
+                                            <p className="prices" style={{ fontSize: '17px' }}>
+                                                <span className='value'>
+                                                    10% Gold Membership Discount: ${memberhsipDiscount}
                                                 </span></p>
                                         )}
                                         <p className="prices" style={{ fontSize: '17px' }} >

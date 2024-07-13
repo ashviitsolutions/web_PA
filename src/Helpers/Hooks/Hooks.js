@@ -49,7 +49,12 @@ const useUserRegistration = () => {
       const token = response.headers['authorization'];
 
       localStorage.setItem("token", token);
-
+      localStorage.setItem("userid", response?.data?.user_info?._id);
+      localStorage.setItem("first_name", response?.data?.user_info?.first_name);
+      localStorage.setItem("last_name", response?.data?.user_info?.last_name);
+      localStorage.setItem("user_email", response?.data?.user_info?.email);
+      localStorage.setItem("mobile", response?.data?.user_info?.mobile);
+      
       showSuccess("Logged in successfully");
 
       setLoading(false);

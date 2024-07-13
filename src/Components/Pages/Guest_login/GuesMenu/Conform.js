@@ -3,18 +3,23 @@ import axios from 'axios';
 import { IP } from '../../../../Constant';
 import './style.css';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import StripeCheckout from 'react-stripe-checkout';
+import { updateInputData } from '../../Redux/counterSlice';
+import { useDispatch, useSelector } from 'react-redux';
 import vectorImg from "../../../assets/img/6212029.jpg";
-import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useUserRegistration } from '../../../../Helpers/Hooks/Hooks';
+import Post from '../../Profile/Hook/Hook';
 
 const Conform = () => {
+
+    const dispatch = useDispatch();
+    const selector = useSelector((state) => state.counter.formData);
+    const calculatedData = Array.isArray(selector?.calculatedData) && selector.calculatedData.length > 0 ? selector.calculatedData[0] : [];
+
     const membershipLevel = localStorage.getItem("membership")
-    // const { getUserMembership, membershipLevels } = useUserRegistration();
     const { getUserGiftCards, user } = useUserRegistration();
-    const [memberhsipDiscount, setMembershipDiscountRate] = useState("")
+
     const nav = useNavigate()
     const location = useLocation();
 
@@ -24,22 +29,18 @@ const Conform = () => {
     const service_name = location.state?.servicename || "";
 
     const locationName = location.state?.locationForm?.location || "";
-    const formData = useSelector((state) => state.counter.formData);
+
     const { totalPrice } = useParams();
     const { provider_id } = useParams();
 
     const booking_id = localStorage.getItem("booking_id");
-    const username = localStorage.getItem("user_name");
+
     const userid = localStorage.getItem("userid");
     const token = localStorage.getItem("token");
 
 
-
-
-
-    const customerdetails = location?.state?.fifthform || "";
     const { address, first_name, last_name, arrivalInstructions, mobile, confirmpassword, password, email } = location?.state?.fifthform || "";
-    // const addressUser = location.locationForm?.address || "";
+
     const location_type = location.state?.location_type || "";
 
 
@@ -61,174 +62,27 @@ const Conform = () => {
 
 
 
-
-    console.log("areas_of_concernareas_of_concernareas_of_concern", areas_of_concern)
-
-
-
-
-
     const [selectedGiftCards, setSelectedGiftCards] = useState([]);
     const [paymentIntentId, setPaymentIntentId] = useState('');
-    const [client_secret, setClientSecret] = useState();
+
     const [loading, setLoading] = useState(false);
 
-    const [tax, setTax] = useState(0);
-    const [tip, setTip] = useState(0);
+
     const [error, setError] = useState(false);
     const [giftCardAmount, setGiftCardAmount] = useState(0);
-    // const [user, setUser] = useState(userGiftCards);
-    const [membership, setMembershipLevel] = useState(membershipLevel);
-    const [originalprice, setOriginalprice] = useState()
-    const [bookingid, setBookingId] = useState(null)
 
-    const [amountAddon, setAmountAddon] = useState(0);
+
     const [coupon, setCoupon] = useState("")
     const [coupon_amount, setCouponAmount] = useState(0)
 
-    const [amount_addon, setAddsAmount] = useState(0)
+    const [pay, setPay] = useState(false);
 
-    const [price_provider, setTotalPrice] = useState()
-    const [provider_addon, setProvuideraddon] = useState()
-    const [serviceprice, setProvider_service] = useState()
-    const [meberhsip_provider_price, setMembership] = useState()
-
-
-    const [totalAmount, setTotalAmount] = useState(0);
-    const [serviceDetails, setServiceDetails] = useState({
-        price: 0,
-        service_name: ""
-    });
-
-    const amount_off = coupon_amount.amount_off
-    const percent_off = coupon_amount.percent_off
-
-    console.log("coupon amount originalpriceoriginalpriceoriginalpriceoriginalprice", originalprice)
-    console.log("percent_off amount charge", percent_off)
+    const amount_off = coupon_amount?.amount_off;
+    const percent_off = coupon_amount?.percent_off;
 
 
 
-    useEffect(() => {
-        // Calculate total price for addons
-        if (Array.isArray(add_ons_details)) {
-            const totalAddonPrice = add_ons_details.reduce((total, addon) => total + addon.price, 0);
-            setAmountAddon(totalAddonPrice);
-        } else {
-            // If add_ons_details is not an array, set the total addon price to 0
-            setAmountAddon(0);
-        }
-    }, [add_ons_details]);
-
-
-
-
-
-    useEffect(() => {
-        // getUserMembership();
-        getUserGiftCards();
-    }, []);
-    console.log("userGiftCards userGiftCards", user)
-
-
-
-
-
-    useEffect(() => {
-        // Define default values for tip and tax rate
-        // const tip = 31.5;
-        const taxRate = 0.06625;
-        const percent_offRate = 0.06625;
-
-
-        // Initialize membership discount rate
-        let membershipDiscountRate = 0;
-        let couponDiscountRate = 0;
-
-        // Check if membership is Silver or Gold
-        if (membershipLevel === "Silver") {
-            // If Silver membership is selected, apply a 5% discount
-            membershipDiscountRate = 0.05;
-        } else if (membershipLevel === "Gold") {
-            // If Gold membership is selected, apply a 10% discount
-            membershipDiscountRate = 0.10;
-        }
-
-        if (amount_off) {
-            couponDiscountRate = amount_off;
-        }
-
-        const servicePricewithmemberhsip = 135 * (1 - membershipDiscountRate);
-        const membershipDiscountprice = 135 - servicePricewithmemberhsip;
-        const adds_onprice = (totalPrice - 135);
-        const tip = (servicePricewithmemberhsip + adds_onprice) * 0.18;
-        const Tax = (servicePricewithmemberhsip + adds_onprice) * taxRate;
-        const percent_ofDis = (servicePricewithmemberhsip * percent_offRate) / 100;
-        const totalAmounts = servicePricewithmemberhsip + adds_onprice + tip + Tax - couponDiscountRate - percent_ofDis;
-
-        // Update state variables
-        setServiceDetails({
-            price: totalAmounts,
-            service_name: servicename
-        });
-        setTax(Tax);
-        setTip(tip);
-        setTotalAmount(totalAmounts);
-        setAddsAmount(adds_onprice);
-        setOriginalprice(servicePricewithmemberhsip)
-        setMembershipDiscountRate(membershipDiscountprice)
-    }, [totalPrice, membershipLevel, formData.fifthform, amount_off, percent_off]);
-
-
-
-
-
-
-
-    useEffect(() => {
-        let tax = tip;
-        let addonsprice = amount_addon;
-        const time_status = service_time;
-        const memberhsip = memberhsipDiscount;
-        let basePrice = 70; // Initial base price
-
-        // console.log("amount_addon amount_addonamount_addon", amount_addon)
-
-        // Adjust base price based on service time
-        if (time_status === "90 minutes") {
-            basePrice += 35;
-        } else if (time_status === "120 minutes") {
-            basePrice += 70;
-        }
-
-        // Double the base price if gender is 'partner'
-        if (massage_for === "partner") {
-            basePrice *= 2;
-        }
-
-
-        // Add 14% of total add-ons price to totalPrice
-        let totalPriceAddons = addonsprice;
-
-        const calculateaadon = totalPriceAddons * 0.14;
-
-        //total value after adding adsonprice
-        let totalPriceWithAddons = basePrice + calculateaadon;
-
-
-
-        // Add tax amount to totalPrice
-        totalPriceWithAddons += tax;
-        setProvuideraddon(calculateaadon)
-        setMembership(memberhsip)
-        setProvider_service(basePrice)
-        setTotalPrice(totalPriceWithAddons);
-    }, [service_time, massage_for, amount_addon]);
-
-
-
-
-
-    var bookingData = {
+    var serviceDetails = {
         ...(userid ? {
             user: userid,
             customer_email: email,
@@ -239,36 +93,8 @@ const Conform = () => {
         }),
         location: locationName,
 
-        amount_calculation: {
-            amount_widthout_tax: totalAmount,
-            amount_service: 135,
-            amount_addon: amountAddon,
-            amount_tip: tip,
-            amount_tax: tax,
-            amount_membership_discount: memberhsipDiscount,
-            total_amount: totalPrice,
-        },
-
-
-        provider_amount_calculation: {
-            service_price: serviceprice,
-
-            amount_addon: provider_addon,
-            gift_cart_amount: giftCardAmount,
-
-            amount_tip: tip,
-            amount_membership_discount: memberhsipDiscount,
-            total_amount: price_provider,
-        },
-
-
-
-
-        // amount_service:amount_service,
-
-
-
-        paymentIntentId: paymentIntentId,
+        user_amount_calculation: calculatedData?.user_amount_calculation,
+        provider_amount_calculation: calculatedData?.provider_amount_calculation,
         location_type: location_type,
         massage_for: massage_for,
         service_id: service_id,
@@ -290,24 +116,26 @@ const Conform = () => {
         service_name: service_name
     };
 
-    console.log("provider_addonprovider_addonprovider_addonprovider_addonprovider_addon",bookingData)
+
 
 
     const handleCheckout = async () => {
         setLoading(true);
+        // setPay(true)
 
-        if (!booking_id && !bookingid  && !provider_addon) {
+        if (!calculatedData.totalAmountWithTax) {
             setLoading(false);
             return false;
         }
 
-        const bookingId = bookingid || booking_id;
-
         try {
-            const response = await axios.post(`${IP}/createCheckoutSession`, {
+
+            const response = await axios.post(`http://localhost:5000/api/createCheckoutSession`, {
                 service_details: serviceDetails,
-                booking_id: bookingId
+                price: calculatedData.totalAmountWithTax,
+                userId: userid
             });
+
             window.location.href = response.data.url;
         } catch (error) {
             console.error('Error creating checkout session:', error);
@@ -318,48 +146,10 @@ const Conform = () => {
 
 
 
-    useEffect(() => {
-        const sendBookingData = async () => {
-            try {
-
-                const response = await fetch(`${IP}/user/pendingbooking`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: token,
-                    },
-                    body: JSON.stringify(bookingData)
-                });
-
-                if (!response.ok) {
-                    throw new Error('Failed to send booking data');
-                }
-
-                const responseData = await response.json();
-
-                if (!responseData || !responseData._id) {
-                    throw new Error('Invalid response from the server.');
-                }
-
-                // Set the booking ID in state and local storage
-                setBookingId(responseData._id);
-                localStorage.setItem("booking_id", responseData._id);
-                console.log('Booking data sent successfully:', responseData);
-            } catch (error) {
-                console.error('Error sending booking data:', error.message);
-                // Handle error here (e.g., show a notification to the user)
-            }
-        };
-
-        // Call the function to send booking data
-        sendBookingData();
-    }, [bookingData?.amount_calculation?.amount_tip, provider_addon, giftCardAmount, loading]); // Trigger when bookingData changes
-
-
 
 
     const handleGiftCardChange = (amount) => {
-        if (amount > totalAmount) {
+        if (amount > calculatedData?.totalAmountWithTax) {
             // Notify the user that deselecting this gift card would exceed the total amount
             toast.error("Deselecting this gift card would exceed the total amount.", {
                 position: "top-right",
@@ -382,16 +172,10 @@ const Conform = () => {
         // Calculate the total gift card amount based on selected gift cards
         const updatedGiftCardAmount = updatedSelectedGiftCards.reduce((acc, curr) => acc + curr, 0);
 
-        // Calculate the adjusted service price after deducting the gift card amount
-        const adjustedServicePrice = totalAmount - updatedGiftCardAmount;
-
         // Update the state with new selected gift cards and adjusted service price
         setSelectedGiftCards(updatedSelectedGiftCards);
         setGiftCardAmount(updatedGiftCardAmount);
-        setServiceDetails({
-            ...serviceDetails,
-            price: adjustedServicePrice,
-        });
+
     };
 
 
@@ -412,9 +196,35 @@ const Conform = () => {
     };
 
 
+    useEffect(() => {
+
+        getUserGiftCards();
+    }, []);
 
 
+    useEffect(() => {
+        const calculateBooking = async () => {
+            try {
+                // setLoading(true);
+                const response = await Post.createCalculation({
+                    service_id: location.state?.secondform?.service_ids,
+                    service_time: location.state?.secondform?.service_time,
+                    giftCardAmount: giftCardAmount,
+                    add_ons_details: location.state?.add_ons_details,
+                    coupon_amount: amount_off,
+                    coupon_percentage: percent_off
+                });
+                dispatch(updateInputData({ formName: 'calculatedData', inputData: response?.data?.calculatedata }));
+            } catch (error) {
+                console.error('Error calculating booking:', error);
+                setError('Error calculating booking. Please try again later.');
+            } finally {
+                // setLoading(false);
+            }
+        };
 
+        calculateBooking();
+    }, [giftCardAmount, amount_off, percent_off, location.state?.secondform?.service_ids, location.state?.secondform?.service_time, location.state?.add_ons_details, dispatch]);
 
 
 
@@ -627,32 +437,28 @@ const Conform = () => {
                                     <div className="price" style={{ display: 'block', lineHeight: '10px' }}>
                                         <p className="prices" style={{ fontSize: '17px' }}>
                                             <span className='value'>
-                                                Amount: ${totalPrice}
+                                                Amount: ${calculatedData?.amountWithoutTax?.toFixed(2)}
                                             </span></p>
                                         <p className="prices" style={{ fontSize: '17px' }}>
                                             <span className='value'>
-                                                18% Tip: ${tip.toFixed(2)}
+                                                18% Tip: ${calculatedData?.tipAmount?.toFixed(2)}
                                             </span></p>
                                         <p className="prices" style={{ fontSize: '17px' }}>
                                             <span className='value'>
-                                                6.625% Taxes: ${tax.toFixed(2)}
+                                                6.625% Taxes: ${calculatedData?.taxAmount?.toFixed(2)}
                                             </span></p>
 
 
 
-                                        {amount_off && (
+                                        {amount_off || percent_off ? (
                                             <p className="prices" style={{ fontSize: '17px' }}>
                                                 <span className='value'>
-                                                    Coupon Discount:${amount_off.toFixed(2)}
+                                                    Coupon Discount: ${calculatedData?.couponDiscountAmount.toFixed(2)}
+                                                </span>
+                                            </p>
+                                        ) : null}
 
-                                                </span></p>
-                                        )}
-                                        {percent_off && (
-                                            <p className="prices" style={{ fontSize: '17px' }}>
-                                                <span className='value'>
-                                                    %Coupon Discount: ${percent_off / 100}%
-                                                </span></p>
-                                        )}
+
 
 
 
@@ -663,18 +469,18 @@ const Conform = () => {
                                         {membershipLevel === "Silver" && (
                                             <p className="prices" style={{ fontSize: '17px' }}>
                                                 <span className='value'>
-                                                    5% Silver Membership Discount: ${memberhsipDiscount}
+                                                    5% Silver Membership Discount: ${calculatedData?.membershipDiscountAmount}
 
                                                 </span></p>
                                         )}
                                         {membershipLevel === "Gold" && (
                                             <p className="prices" style={{ fontSize: '17px' }}>
                                                 <span className='value'>
-                                                    10% Gold Membership Discount: ${memberhsipDiscount}
+                                                    10% Gold Membership Discount: ${calculatedData?.membershipDiscountAmount}
                                                 </span></p>
                                         )}
                                         <p className="prices" style={{ fontSize: '17px' }} >
-                                            <span className='value'>Total: ${totalAmount.toFixed(2)}
+                                            <span className='value'>Total amount: ${calculatedData?.totalAmountWithTax?.toFixed(2)}
                                             </span></p>
 
                                     </div>
@@ -686,7 +492,7 @@ const Conform = () => {
                                 <div>
 
                                     <div style={{ textAlign: 'center' }}>
-                                        <button className="button" onClick={handleCheckout}>{loading ? "Loading..." : `Proceed to Pay ${(totalAmount - giftCardAmount).toFixed(2)}`}</button>
+                                        <button className="button" onClick={handleCheckout}>{loading ? "Loading..." : `Proceed to Pay ${calculatedData?.totalAmountWithTax?.toFixed(2)}`}</button>
                                     </div>
                                 </div>
                             )}

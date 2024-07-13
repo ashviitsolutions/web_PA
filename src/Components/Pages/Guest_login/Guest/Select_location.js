@@ -14,7 +14,7 @@ function Select_location() {
             location_type: input,
         };
 
-        if (input === "Home") {
+        if (input === "home") {
             nav(`/select_location`, { state: { location: formData } });
         } else if (input === "providers location") {
             nav(`/listofprovider`, { state: { location: formData } });
@@ -29,7 +29,7 @@ function Select_location() {
                         <form className="location">
                             <h3 className='blue_head'>Where would you like <b>our service?</b> </h3>
                             <ul className="service">
-                                <div onClick={() => handleSubmit('Home')}>
+                                <div onClick={() => handleSubmit('home')}>
                                     <li>
                                         <span
                                             className="bg"

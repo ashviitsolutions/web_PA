@@ -14,9 +14,22 @@ const Post = {
 
     return axios.post(url, formData, config);
   },
+
+  createCalculation: (calculationdata) => {
+    const token = localStorage.getItem("token");
+    const url = `http://localhost:5000/api/user/service_book_calculation`;
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+    };
+
+    return axios.post(url, calculationdata, config);
+  },
   getPost: () => {
     const token = localStorage.getItem("token");
-    const url = `${IP}/user/my-bookings`;
+    const url = `http://localhost:5000/api/user/my-bookings`;
     const config = {
       headers: {
         Authorization: token,
