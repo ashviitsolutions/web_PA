@@ -43,14 +43,14 @@ const Dashboard = () => {
 
 
 
-  }, [wallate,dispatch])
+  }, [wallate, dispatch])
 
 
-  console.log("wallate wallate",wallate)
+  console.log("wallate wallate", wallate)
 
 
   const fetchData = useCallback(() => {
-    fetch(`${IP}/provider/requests`, {
+    fetch(`${IP}/provider/requests?service_status=pending`, {
       headers: {
         'Authorization': token
       }
@@ -63,11 +63,11 @@ const Dashboard = () => {
     }).catch(err => {
       console.log(err)
     });
-  }, [token ,dispatch]);
+  }, [token, dispatch]);
 
   useEffect(() => {
     fetchData();
-  }, [request ,dispatch]);
+  }, [request, dispatch]);
 
 
 

@@ -28,7 +28,7 @@ const SeconForm = ({ step, nextStep }) => {
     const dispatch = useDispatch();
     const selector = useSelector((state) => state.counter.formData);
     // const gendercheck = selector?.firstForm[0]; 
-    const gendercheck = selector?.firstForm && selector.firstForm.length > 0 ? selector.firstForm[0] : "";
+    const gendercheck = location.state?.firstForm || "";
     const service_id = selector?.service_id && selector.service_id.length > 0 ? selector.service_id[0] : "";
     const user = selector?.booking_service && selector.booking_service.length > 0 ? selector.booking_service[0] : "";
 
@@ -53,7 +53,7 @@ const SeconForm = ({ step, nextStep }) => {
 
 
 
-    // console.log("priceservice", priceservice, priceadon)
+    console.log("gendercheckgendercheck", gendercheck)
 
 
 
@@ -98,13 +98,13 @@ const SeconForm = ({ step, nextStep }) => {
         const time_status = selectedServiceTime;
 
         if (time_status === "90 minutes") {
-            total += 40;
+            total += 35;
         } else if (time_status === "120 minutes") {
-            total += 80;
+            total += 70;
         }
 
         // Halve the priceservice if gendercheck is "partner"
-        if (gendercheck === "partner") {
+        if (firstForm === "partner") {
             const modifiedPriceService = priceservice / 2; // Halve the priceservice
             total -= priceservice; // Subtract the original priceservice from total
             total += modifiedPriceService; // Add the modified priceservice to total

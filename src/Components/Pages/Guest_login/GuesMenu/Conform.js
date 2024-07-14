@@ -10,6 +10,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useUserRegistration } from '../../../../Helpers/Hooks/Hooks';
 import Post from '../../Profile/Hook/Hook';
+import Loader from '../../Loader';
 
 const Conform = () => {
 
@@ -30,14 +31,9 @@ const Conform = () => {
 
     const locationName = location.state?.locationForm?.location || "";
 
-    const { totalPrice } = useParams();
     const { provider_id } = useParams();
 
-    const booking_id = localStorage.getItem("booking_id");
-
     const userid = localStorage.getItem("userid");
-    const token = localStorage.getItem("token");
-
 
     const { address, first_name, last_name, arrivalInstructions, mobile, confirmpassword, password, email } = location?.state?.fifthform || "";
 
@@ -63,9 +59,10 @@ const Conform = () => {
 
 
     const [selectedGiftCards, setSelectedGiftCards] = useState([]);
-    const [paymentIntentId, setPaymentIntentId] = useState('');
+
 
     const [loading, setLoading] = useState(false);
+    const [loader, setLoder] = useState(false)
 
 
     const [error, setError] = useState(false);
@@ -80,6 +77,9 @@ const Conform = () => {
     const amount_off = coupon_amount?.amount_off;
     const percent_off = coupon_amount?.percent_off;
 
+
+    console.log("coupon_amount ,percent_off", coupon_amount, percent_off)
+    console.log("calculatedData?.provider_amount_calculation", calculatedData)
 
 
     var serviceDetails = {
@@ -130,7 +130,7 @@ const Conform = () => {
 
         try {
 
-            const response = await axios.post(`http://localhost:5000/api/createCheckoutSession`, {
+            const response = await axios.post(`${IP}/createCheckoutSession`, {
                 service_details: serviceDetails,
                 price: calculatedData.totalAmountWithTax,
                 userId: userid
@@ -181,19 +181,34 @@ const Conform = () => {
 
 
     const onCoupon = async () => {
-        console.log("coupon amount charge", coupon)
+        console.log("coupon amount charge", coupon);
 
         try {
             const res = await axios.post(`${IP}/coupon/check_coupon`, { code: coupon });
             console.log(res);
 
             if (res.status === 200) {
+                const { amount_off, percent_off } = res.data;
+
+                if ((amount_off && amount_off > calculatedData?.totalAmountWithTax) || (percent_off && percent_off > calculatedData?.totalAmountWithTax)) {
+                    // Notify the user that applying this coupon would exceed the total amount
+                    toast.error("Applying this coupon would exceed the total amount.", {
+                        position: "top-right",
+                        autoClose: 2000,
+                    });
+                    return; // Exit the function, preventing further execution
+                }
                 setCouponAmount(res.data); // Assuming the coupon amount is returned in the response data
             }
         } catch (error) {
-            console.error(error);
+            console.error('Error checking coupon:', error);
+            toast.error("Error applying coupon. Please try again later.", {
+                position: "top-right",
+                autoClose: 2000,
+            });
         }
     };
+
 
 
     useEffect(() => {
@@ -204,16 +219,19 @@ const Conform = () => {
 
     useEffect(() => {
         const calculateBooking = async () => {
+            setLoder(true)
             try {
                 // setLoading(true);
                 const response = await Post.createCalculation({
                     service_id: location.state?.secondform?.service_ids,
+                    massage_for:massage_for,
                     service_time: location.state?.secondform?.service_time,
                     giftCardAmount: giftCardAmount,
                     add_ons_details: location.state?.add_ons_details,
                     coupon_amount: amount_off,
                     coupon_percentage: percent_off
                 });
+                setLoder(false)
                 dispatch(updateInputData({ formName: 'calculatedData', inputData: response?.data?.calculatedata }));
             } catch (error) {
                 console.error('Error calculating booking:', error);
@@ -224,13 +242,14 @@ const Conform = () => {
         };
 
         calculateBooking();
-    }, [giftCardAmount, amount_off, percent_off, location.state?.secondform?.service_ids, location.state?.secondform?.service_time, location.state?.add_ons_details, dispatch]);
+    }, [giftCardAmount, coupon_amount, percent_off, location.state?.secondform?.service_ids, location.state?.secondform?.service_time, location.state?.add_ons_details, dispatch]);
 
 
 
     return (
 
         <>
+
 
             <div className='container checkoutPage'>
                 <div className='row'>
@@ -240,6 +259,7 @@ const Conform = () => {
                             <label style={{ textAlign: 'center', fontSize: '18px' }} className="as_title" htmlFor="">
                                 Review
                             </label>
+                            {loader ? "calculation uyour data wait" : null}
                             <ul className="review d-block">
                                 <div>
                                     <li>
@@ -410,7 +430,6 @@ const Conform = () => {
                                         </div>
                                     </div>
 
-
                                     <div>
                                         {user?.length > 0 ? (
                                             <>
@@ -428,67 +447,101 @@ const Conform = () => {
                                                 ))}
                                             </>
                                         ) : (
-                                            <span className="title">Gift Card not purchased</span>
+                                            <>
+                                                {
+                                                    user?.length == 0 ? (
+                                                        <span className="title">Gift Card not purchased</span>
+                                                    ) : (
+                                                        < span className="title">Gift Card loading...</span>
+                                                    )
+
+                                                }
+
+                                            </>
+
                                         )}
                                     </div>
 
+                                    {loader ? (
+                                        <Loader
 
-
-                                    <div className="price" style={{ display: 'block', lineHeight: '10px' }}>
-                                        <p className="prices" style={{ fontSize: '17px' }}>
-                                            <span className='value'>
-                                                Amount: ${calculatedData?.amountWithoutTax?.toFixed(2)}
-                                            </span></p>
-                                        <p className="prices" style={{ fontSize: '17px' }}>
-                                            <span className='value'>
-                                                18% Tip: ${calculatedData?.tipAmount?.toFixed(2)}
-                                            </span></p>
-                                        <p className="prices" style={{ fontSize: '17px' }}>
-                                            <span className='value'>
-                                                6.625% Taxes: ${calculatedData?.taxAmount?.toFixed(2)}
-                                            </span></p>
-
-
-
-                                        {amount_off || percent_off ? (
-                                            <p className="prices" style={{ fontSize: '17px' }}>
-                                                <span className='value'>
-                                                    Coupon Discount: ${calculatedData?.couponDiscountAmount.toFixed(2)}
-                                                </span>
-                                            </p>
-                                        ) : null}
+                                        />) : (
+                                        <>
 
 
 
 
+                                            <div className="price" style={{ display: 'block', lineHeight: '10px' }}>
+                                                <p className="prices" style={{ fontSize: '17px' }}>
+                                                    <span className='value'>
+                                                        Amount: ${calculatedData?.amountWithoutTax?.toFixed(2)}
+                                                    </span></p>
+                                                <p className="prices" style={{ fontSize: '17px' }}>
+                                                    <span className='value'>
+                                                        18% Tip: ${calculatedData?.tipAmount?.toFixed(2)}
+                                                    </span></p>
+                                                <p className="prices" style={{ fontSize: '17px' }}>
+                                                    <span className='value'>
+                                                        6.625% Taxes: ${calculatedData?.taxAmount?.toFixed(2)}
+                                                    </span></p>
+
+                                                {
+
+                                                }
+
+                                                {amount_off || percent_off ? (
+                                                    <p className="prices" style={{ fontSize: '17px' }}>
+                                                        <span className='value'>
+                                                            Coupon Discount: ${calculatedData?.couponDiscountAmount.toFixed(2)}
+                                                        </span>
+                                                    </p>
+                                                ) : null}
+
+                                                {giftCardAmount ? (
+                                                    <p className="prices" style={{ fontSize: '17px' }}>
+                                                        <span className='value'>
+                                                            Gift Card Discount: ${calculatedData?.giftcardDiscountAmount.toFixed(2)}
+                                                        </span>
+                                                    </p>
+                                                ) : null}
 
 
 
 
 
-                                        {membershipLevel === "Silver" && (
-                                            <p className="prices" style={{ fontSize: '17px' }}>
-                                                <span className='value'>
-                                                    5% Silver Membership Discount: ${calculatedData?.membershipDiscountAmount}
 
-                                                </span></p>
-                                        )}
-                                        {membershipLevel === "Gold" && (
-                                            <p className="prices" style={{ fontSize: '17px' }}>
-                                                <span className='value'>
-                                                    10% Gold Membership Discount: ${calculatedData?.membershipDiscountAmount}
-                                                </span></p>
-                                        )}
-                                        <p className="prices" style={{ fontSize: '17px' }} >
-                                            <span className='value'>Total amount: ${calculatedData?.totalAmountWithTax?.toFixed(2)}
-                                            </span></p>
 
-                                    </div>
+                                                {membershipLevel === "Silver" && (
+                                                    <p className="prices" style={{ fontSize: '17px' }}>
+                                                        <span className='value'>
+                                                            5% Silver Membership Discount: ${calculatedData?.membershipDiscountAmount}
+
+                                                        </span></p>
+                                                )}
+                                                {membershipLevel === "Gold" && (
+                                                    <p className="prices" style={{ fontSize: '17px' }}>
+                                                        <span className='value'>
+                                                            10% Gold Membership Discount: ${calculatedData?.membershipDiscountAmount}
+                                                        </span></p>
+                                                )}
+                                                <p className="prices" style={{ fontSize: '17px' }} >
+                                                    <span className='value'>Total amount: ${calculatedData?.totalAmountWithTax?.toFixed(2)}
+                                                    </span></p>
+
+                                            </div>
+                                        </>
+                                    )
+
+                                    }
+
+
+
+
 
                                 </li>
                             </ul>
 
-                            {serviceDetails && (
+                            {!loader && (
                                 <div>
 
                                     <div style={{ textAlign: 'center' }}>
@@ -500,8 +553,9 @@ const Conform = () => {
                         </div>
                     </div>
                 </div>
-            </div>
-            {error && <p style={{ color: 'red', textAlign: 'center', marginTop: '10px' }}>{error}</p>}
+            </div >
+            {error && <p style={{ color: 'red', textAlign: 'center', marginTop: '10px' }}>{error}</p>
+            }
         </>
 
 
