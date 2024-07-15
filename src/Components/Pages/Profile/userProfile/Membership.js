@@ -25,7 +25,7 @@ function Membership() {
 		{
 			id: "price_1OAn62LnVrUYOeK2Y2M7l0Cj",
 			name: "Silver",
-			price: 119,
+			price: 29,
 			savings: "5% saving off regular rate",
 			commitment: "3 months commitment",
 			GOLD: silver,
