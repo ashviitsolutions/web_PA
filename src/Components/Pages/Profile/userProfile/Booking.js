@@ -43,7 +43,7 @@ function Booking() {
                     },
                 };
 
-                const response = await axios.get(`http://localhost:5000/api/user/my-bookings?service_status=completed`, config);
+                const response = await axios.get(`${IP}/user/my-bookings?service_status=completed`, config);
 
                 console.log("Response:", response.data);
 
@@ -103,7 +103,7 @@ function Booking() {
     const handleSubmitRating = () => {
         setLoading(true);
         axios
-            .post(`http://localhost:5000/api/user/addReviewToStore`, {
+            .post(`${IP}/user/addReviewToStore`, {
                 reviewerName: username,
                 rating: userRating,
                 comments: userFeedback,
