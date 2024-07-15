@@ -28,6 +28,7 @@ function Booking() {
     const [isModalOpen, setModalOpen] = useState(false);
     const [profile, setProfile] = useState([]);
     const [providerId, setProviderId] = useState();
+    const [service_id, setServiceId] = useState();
     const [booking_id, setBookingData] = useState(null);
     const [loading, setLoading] = useState(false);
 
@@ -42,7 +43,7 @@ function Booking() {
                     },
                 };
 
-                const response = await axios.get(`${IP}/user/my-bookings?service_status=completed`, config);
+                const response = await axios.get(`http://localhost:5000/api/user/my-bookings?service_status=completed`, config);
 
                 console.log("Response:", response.data);
 
@@ -78,9 +79,7 @@ function Booking() {
         fetchProfile();
     }, []);
 
-    const handlePageClick = (data) => {
-        setData(data.selected + 1);
-    };
+
 
     const handleRatingChange = (newRating) => {
         setUserRating(newRating);
@@ -92,17 +91,19 @@ function Booking() {
 
     const handleToggle = (booking) => {
         setModalOpen(true);
-        setProviderId(booking.provider);
+        setProviderId(booking.provider); // Ensure booking.provider has the correct value
+        setServiceId(booking.service_id);
         setBookingData(booking._id);
         const newToggleStates = [...toggleStates];
         newToggleStates[booking.provider] = !newToggleStates[booking.provider];
         setToggleStates(newToggleStates);
     };
 
+
     const handleSubmitRating = () => {
         setLoading(true);
         axios
-            .post(`${IP}/user/addReviewToStore/${providerId}/${user_id}`, {
+            .post(`http://localhost:5000/api/user/addReviewToStore`, {
                 reviewerName: username,
                 rating: userRating,
                 comments: userFeedback,
@@ -128,6 +129,7 @@ function Booking() {
                 }
             })
             .catch((err) => {
+                setLoading(false);
                 console.log(err);
                 toast.error(err.response.data.message, {
                     position: "top-right",
@@ -141,6 +143,7 @@ function Booking() {
                 });
             });
     };
+
 
     const addToFavorite = (id) => {
         const config = {
@@ -226,15 +229,23 @@ function Booking() {
                                                     <div className="time_date">
                                                         <p>{booking.scheduled_date}</p>
                                                         <h3>{booking.scheduled_timing}</h3>
-                                                        <div style={{ cursor: "pointer", fontSize: "30px" }} onClick={() => addToFavorite(booking.provider)}>❤️‍</div>
-                                                        <button onClick={() => addToFavorite(booking.provider)} style={{ cursor: "pointer" }}>Add to Favorites</button>
-                                                        <button onClick={() => handleToggle(booking)}>Feedback</button>
-                                                        <Rating
-                                                            value="3"
-                                                            count={5}
-                                                            size={24}
-                                                            activeColor="#007bff"
-                                                        />
+
+                                                        {
+                                                            !booking?.ratings?.length > 0 ? (
+                                                                <button onClick={() => handleToggle(booking)}>Feedback</button>
+
+                                                            ) : (
+                                                                <Rating
+                                                                    value={booking?.ratings && booking.ratings.length > 0 ? booking.ratings[0] : 0}
+                                                                    count={5}
+                                                                    size={24}
+                                                                    activeColor="#007bff"
+                                                                />
+                                                            )
+                                                        }
+
+
+
                                                     </div>
 
                                                 </div>
