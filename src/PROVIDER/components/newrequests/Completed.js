@@ -8,7 +8,7 @@ import { faCalendar, faClock, faLocationDot, faCoins } from "@fortawesome/free-s
 const Completed = (props) => {
     const {
         handleClose,
-        user_id,
+        massage_for,
         amount_calculation,
         _id,
         amount,
@@ -104,7 +104,7 @@ const Completed = (props) => {
                         <Card.Title
                             className="px-3"
                         >
-                            {props.title}
+                            <p className="title">{title} {serviceTime} - {massage_for}</p>
                         </Card.Title>
                         <Card.Body>
                             <Row>

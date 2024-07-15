@@ -6,7 +6,7 @@ import { IP } from "../../Constant";
 
 const MyVerticallyCenteredModal = (props) => {
   const nav = useNavigate();
-  const { user_id, _id, date } = props;
+  const { service_id, _id, date } = props;
   const [hour, setHour] = useState('');
   const [minute, setMinute] = useState('');
   const [am, setAm] = useState(true);
@@ -37,7 +37,7 @@ const MyVerticallyCenteredModal = (props) => {
   }, []);
 
 
-
+  console.log("booking serviceid", service_id)
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -46,13 +46,13 @@ const MyVerticallyCenteredModal = (props) => {
     try {
       const timeValue = `${hour}:${minute} ${am ? 'AM' : 'PM'}`;
       const formData = {
-        service: user_id,
+        service_id: service_id, // Include service_id here
         id: _id,
         date: date,
         checkin: timeValue,
       };
 
-      console.log("formData data value", formData)
+      console.log("formData data value", formData);
 
       const res = await axios.put(`${IP}/provider/update/checkin`, formData, {
         headers: {
@@ -76,6 +76,7 @@ const MyVerticallyCenteredModal = (props) => {
     }
   };
 
+
   return (
     <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
       <Modal.Header closeButton>
@@ -84,10 +85,10 @@ const MyVerticallyCenteredModal = (props) => {
       <Modal.Body>
         <Row>
           <div className="col-4" style={{ alignSelf: 'center' }}>
-            <input type="text" className="form-control" placeholder="Hour" value={hour}  />
+            <input type="text" className="form-control" placeholder="Hour" value={hour} />
           </div>
           <div className="col-4" style={{ alignSelf: 'center' }}>
-            <input type="text" className="form-control" placeholder="Minutes" value={minute}  />
+            <input type="text" className="form-control" placeholder="Minutes" value={minute} />
           </div>
           <div className="col-4">
             <Button className={`form-control btn-sm mb-1 ${am ? 'active' : ''}`} onClick={() => { setAm(true); setPm(false); }}>A.M.</Button>

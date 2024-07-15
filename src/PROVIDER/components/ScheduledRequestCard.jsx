@@ -8,18 +8,14 @@ import CustomModal from "../Modal";
 const ScheduledRequestCard = (props) => {
   const {
     handleClose,
-    user_id,
     _id,
-    amount,
+    service_id,
     title,
     amount_calculation,
     date,
     serviceTime,
-    gendercheck,
-    add_ons_details,
+    massage_for,
     getlocation,
-    add_ons,
-    time,
     instructions = props.instructions ? props.instructions : '',
   } = props;
 
@@ -69,7 +65,7 @@ const ScheduledRequestCard = (props) => {
 
 
 
-  // console.log("getlocation", getlocation)
+  console.log("service_id", service_id)
 
 
 
@@ -85,7 +81,7 @@ const ScheduledRequestCard = (props) => {
             <Card.Title
               className="px-3"
             >
-              {props.title}
+              <p className="title">{title} {serviceTime} - {massage_for}</p>
             </Card.Title>
             <Card.Body>
               <Row>
@@ -146,12 +142,13 @@ const ScheduledRequestCard = (props) => {
           areasOfConcern={props.areasOfConcern}
           locationType={props.locationType}
           serviceTime={serviceTime}
-          massage_for={props.massageFor}
+          gender={props.gender}
+          massage_for={props.massage_for}
           time={props.time}
           date={props.date}
           _id={props._id}
           paymentIntentId={props.paymentIntentId}
-          user_id={props.user_id}
+          service_id={service_id}
           add_ons_details={props.add_ons_details}
           amount_calculation={props.amount_calculation}
           onClose={handleCloseModal}

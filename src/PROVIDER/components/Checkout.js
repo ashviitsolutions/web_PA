@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 const Checkout = (props) => {
   const nav = useNavigate();
-  const { user_id, paymentIntentId, _id } = props;
+  const { service_id, paymentIntentId, _id } = props;
   const [hour, setHour] = useState('');
   const [minute, setMinute] = useState('');
   const [am, setAm] = useState(true);
@@ -52,7 +52,7 @@ const Checkout = (props) => {
       const timeValue = `${hour}:${minute}`;
       const amOrPm = am ? 'am' : 'pm';
       const bodyFormData = new FormData();
-      bodyFormData.append("service", user_id);
+      bodyFormData.append("service_id", service_id);
       bodyFormData.append("id", _id);
       bodyFormData.append("checkout", `${timeValue} ${amOrPm}`);
       const res = await axios.put(`${IP}/provider/update/checkout`, bodyFormData, {
@@ -64,6 +64,7 @@ const Checkout = (props) => {
       });
 
       if (res.status === 200) {
+        setLoading(false)
         // Remove _id from removedChekincard in localStorage
         const removedChekincardArray = JSON.parse(localStorage.getItem('removedChekincard')) || [];
         const updatedArray = removedChekincardArray.filter(itemId => itemId !== _id);
@@ -78,6 +79,7 @@ const Checkout = (props) => {
         nav("/providers/earnings");
       }
     } catch (error) {
+      setLoading(false)
       console.error(error);
     }
   };

@@ -23,7 +23,7 @@ function CustomModal(
     amount_calculation,
     time,
     user_id,
-    add_ons_details,
+    service_id,
     onClose,
     event,
     gendercheck,
@@ -37,7 +37,7 @@ function CustomModal(
   }
 ) {
 
-  console.log("massage_for", massage_for)
+  console.log("gendergendergendergendergendergendergender", service_id)
 
 
 
@@ -190,7 +190,18 @@ function CustomModal(
             <div div className="col-md-6 title">
               Gender:
             </div>
-            <div className="col-md-6">{gender}</div>
+            <div className="col-md-6">
+              {gender ? (
+                gender.map((g, index) => (
+                  <div key={index}>{g}</div>
+                ))
+              ) : (
+                <div>Loading...</div>
+              )}
+            </div>
+
+
+
           </div>
 
           {/* Health Datails details */}
@@ -322,7 +333,7 @@ function CustomModal(
         <MyVerticallyCenteredModal
           show={checkInShow}
           onHide={handleCheckInModalClose}
-          user_id={user_id}
+          service_id={service_id}
           date={date}
           _id={_id}
         />
@@ -333,7 +344,7 @@ function CustomModal(
           show={checkOutShow}
           onHide={handleCheckOutModalClose}
           paymentIntentId={paymentIntentId}
-          user_id={user_id}
+          service_id={service_id}
           date={date}
           _id={_id}
         />

@@ -43,7 +43,7 @@ const Dashboard = () => {
 
 
 
-  }, [wallate, dispatch])
+  }, [])
 
 
   console.log("wallate wallate", wallate)
@@ -67,7 +67,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     fetchData();
-  }, [request, dispatch]);
+  }, [request , dispatch]);
 
 
 
@@ -102,10 +102,10 @@ const Dashboard = () => {
                   <React.Fragment key={index}>
                     <RequestCard
                       newclient="true"
-                      title={cur.service}
+                      title={cur.service_name}
                       location={cur.location}
                       address={cur.address}
-                      time={cur.scheduled_time}
+                      time={cur.scheduled_timing}
                       date={cur.scheduled_date}
                       amt={75}  // Update this with the actual logic for calculating amount
                       tip={15}  // Update this with the actual logic for calculating tip

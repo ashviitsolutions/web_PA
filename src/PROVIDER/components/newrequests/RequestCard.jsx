@@ -11,7 +11,7 @@ import CustomModal from "../../Modal";
 
 const RequestCard = (props) => {
   const token = localStorage.getItem("providertoken");
-  const { total, serviceTime, gendercheck, add_ons, amount_calculation, add_ons_details, location } = props;
+  const { total, serviceTime, gendercheck, add_ons, amount_calculation, add_ons_details, time, location } = props;
   const { _id } = props;
   var tip = props.tip ? props.tip : 0;
   var instructions = props.instructions ? props.instructions : '';

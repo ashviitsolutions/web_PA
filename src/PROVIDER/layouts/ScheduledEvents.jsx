@@ -4,34 +4,41 @@ import ScheduledRequestCard from "../components/ScheduledRequestCard";
 import { IP } from "../../Constant";
 import { useNavigate } from "react-router-dom";
 import BookingCard from "../components/BookingCard";
+import { useDispatch, useSelector } from 'react-redux';
+import { updateInputData } from "../../Components/Pages/Redux/counterSlice";
+
 import axios from "axios";
 
 const ScheduledEvents = () => {
+  const dispatch = useDispatch();
+  const formData = useSelector((state) => state?.counter?.formData);
+  const user = formData.booking_scheduled && formData.booking_scheduled[0] ? formData.booking_scheduled[0] : "";
   const nav = useNavigate();
-  const [user, setUser] = useState([]);
+  // const [user, setUser] = useState(userdefined);
   const token = localStorage.getItem("providertoken");
 
   const fetchData = useCallback(() => {
-    fetch(`${IP}/provider/events/scheduled`, {
+    fetch(`${IP}/provider/requests?service_status=scheduled`, {
       headers: {
         Authorization: token,
       },
     })
       .then((resp) => resp.json())
       .then((result) => {
-        setUser(result.scheduled);
+        // setUser(result.scheduled);
+        dispatch(updateInputData({ formName: 'booking_scheduled', inputData: result }));
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [token, setUser]);
+  }, [user]);
 
   useEffect(() => {
     fetchData();
-  }, [fetchData]);
+  }, [dispatch, token]);
 
 
-  console.log("user schudule date", user)
+  console.log("user schudule booking", user)
 
   const refundPayment = async (paymentIntentId) => {
     try {
@@ -40,9 +47,9 @@ const ScheduledEvents = () => {
       });
       console.log("Payment refunded successfully:", response.data);
       // Remove the refunded booking from the user state
-      setUser((prevUser) =>
-        prevUser.filter((booking) => booking.paymentIntentId !== paymentIntentId)
-      );
+      // setUser((prevUser) =>
+      //   prevUser.filter((booking) => booking.paymentIntentId !== paymentIntentId)
+      // );
     } catch (error) {
       console.error("Error refunding payment:", error);
     }
@@ -72,30 +79,30 @@ const ScheduledEvents = () => {
       <h2 className="text-center mt-2" id="schedule-title">
         Scheduled Events
       </h2>
-      {user.map((cur, index) => (
+      {Array.isArray(user) && user?.map((cur, index) => (
         <ScheduledRequestCard
           key={index}
-          title={cur.service_id.title}
+          title={cur.service_name}
           location={cur.address}
           getlocation={cur?.location?.coordinates}
           date={cur.scheduled_date}
           time={cur.scheduled_timing}
           locationType={cur.location_type}
-          massageFor={cur.massage_for}
+          massage_for={cur.massage_for}
           amt={75}
           tip={15}
           instructions={cur.instructions}
           amount={cur.amount_charged}
-          user_id={cur.service_id._id}
+          gender={cur.gender}
+          service_id={cur.service_id}
           paymentIntentId={cur.paymentIntentId}
           add_ons_details={cur.add_ons_details}
           serviceTime={cur.service_time}
-          gendercheck={cur.gendercheck}
+          gendercheck={cur.gender}
           areasOfConcern={cur.areas_of_concern}
           healthConditions={cur.health_conditions}
           massageBodyPart={cur.massage_body_part}
           specialConsiderations={cur.special_considerations}
-          // amount_calculation={cur.amount_calculation}
           amount_calculation={cur.provider_amount_calculation}
           _id={cur._id}
 
