@@ -13,6 +13,9 @@ import money from "../../img/earn-money.png"
 import { FallingLines } from "react-loader-spinner";
 import { useNavigate } from 'react-router-dom';
 import moment from 'moment';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateInputData } from "../../../Components/Pages/Redux/counterSlice";
+
 
 
 function Dashboard() {
@@ -25,8 +28,10 @@ function Dashboard() {
 
 
     const nav = useNavigate();
-    const [user, setUser] = useState([]);
-
+    // const [admin_wallet, setadmin_wallet] = useState([]);
+    const dispatch = useDispatch();
+    const formData = useSelector((state) => state?.counter?.formData);
+    const admin_wallet = formData.admin_finance && formData.admin_finance[0] ? formData.admin_finance[0] : "";
 
 
     const [loading, setLoading] = useState(null);
@@ -51,7 +56,7 @@ function Dashboard() {
                 });
                 const data = await res.json();
                 console.log("data dashbaord", data)
-                setUser(data);
+                dispatch(updateInputData({ formName: 'admin_finance', inputData: data }));
                 setLoading(false)
                 console.log("dashboard data", data);
             } catch (error) {
@@ -62,7 +67,7 @@ function Dashboard() {
         fetchData();
     }, [startDate, endDate, token]);
 
-    console.log("dashboard full data", user)
+    console.log("dashboard full data", admin_wallet)
 
 
 
@@ -174,7 +179,7 @@ function Dashboard() {
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image4})` }}></span>
 
-                                                        <h3>{(user?.totalSellAmount)?.toFixed(2)}$</h3>
+                                                        <h3>{(admin_wallet?.totalSellAmount)?.toFixed(2)}$</h3>
 
                                                         <p>Total Sale</p>
                                                     </div>
@@ -184,7 +189,7 @@ function Dashboard() {
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${money})` }}></span>
-                                                        <h3>{(user?.ProfitAmount)?.toFixed(2)}$</h3>
+                                                        <h3>{(admin_wallet?.ProfitAmount)?.toFixed(2)}$</h3>
 
                                                         <p>Net Profit</p>
                                                     </div>
@@ -195,7 +200,7 @@ function Dashboard() {
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image5})` }}></span>
-                                                        <h3>{user.total_clients}</h3>
+                                                        <h3>{admin_wallet.total_clients}</h3>
                                                         <p>New Clients</p>
                                                     </div>
                                                 </div>
@@ -204,7 +209,7 @@ function Dashboard() {
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image5})` }}></span>
-                                                        <h3>{user.total_providers}</h3>
+                                                        <h3>{admin_wallet.total_providers}</h3>
                                                         <p>New Providers</p>
                                                     </div>
                                                 </div>
@@ -223,7 +228,7 @@ function Dashboard() {
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image1})` }}></span>
-                                                        <h3>{user.total_pending_bookings}</h3>
+                                                        <h3>{admin_wallet.total_pending_bookings}</h3>
                                                         <p>New Request</p>
                                                     </div>
                                                 </div>
@@ -232,7 +237,7 @@ function Dashboard() {
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image3})` }}></span>
-                                                        <h3>{user.total_scheduled_bookings
+                                                        <h3>{admin_wallet.total_scheduled_bookings
                                                         }</h3>
                                                         <p>Scheduled</p>
                                                     </div>
@@ -242,7 +247,7 @@ function Dashboard() {
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image2})` }}></span>
-                                                        <h3>{user.total_bookings}</h3>
+                                                        <h3>{admin_wallet.total_bookings}</h3>
                                                         <p>Total Bookings</p>
                                                     </div>
                                                 </div>
@@ -251,9 +256,9 @@ function Dashboard() {
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image7})` }}></span>
-                                                        <h3>{user.total_completed_bookings}</h3>
+                                                        <h3>{admin_wallet.total_completed_bookings}</h3>
                                                         <p>completed</p>
-                                                        <p>Total Profit: {user?.totalBookingProfit}$</p>
+                                                        <p>Total Profit: {admin_wallet?.totalBookingProfit}$</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -268,8 +273,8 @@ function Dashboard() {
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image8})` }}></span>
                                                         <p>New Gift card</p>
-                                                        <p>Total Profit: {user?.total_giftcards}$</p>
-                                                        <p>Total Profit: {user?.total_giftcard_amount}$</p>
+                                                        <p>Total Profit: {admin_wallet?.total_giftcards}$</p>
+                                                        <p>Total Profit: {admin_wallet?.total_giftcard_amount}$</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -277,9 +282,9 @@ function Dashboard() {
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image9})` }}></span>
-                                                        <h3>{user.total_memberships}</h3>
+                                                        <h3>{admin_wallet.total_memberships}</h3>
                                                         <p>New Memberhsips</p>
-                                                        <p>Total Profit: {user?.total_membership_amount}$</p>
+                                                        <p>Total Profit: {admin_wallet?.total_membership_amount}$</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -287,7 +292,7 @@ function Dashboard() {
                                                 <div className="gutter">
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image10})` }}></span>
-                                                        <h3>{user.providerReviewsCount}</h3>
+                                                        <h3>{admin_wallet.providerReviewsCount}</h3>
                                                         <p>New Feedbacks</p>
                                                     </div>
                                                 </div>

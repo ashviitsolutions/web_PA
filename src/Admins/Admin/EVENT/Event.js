@@ -3,10 +3,10 @@ import { IP } from "../../../Constant";
 import CustomModal from "./Model";
 import { FallingLines } from "react-loader-spinner";
 import moment from "moment";
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation , useNavigate } from 'react-router-dom';
 
 function Event() {
-    const nav = useNavigate()
+    const nav=useNavigate()
 
     const location = useLocation();
     const event_status = location.state ? location.state.event_status : "";
@@ -38,31 +38,62 @@ function Event() {
     }, [event_status, endDates, endDates]);
 
 
+
+
+
+
+
+    // const fetchData = useCallback(() => {
+    //     setLoading(true);
+    //     fetch(`${IP}/bookings/allbookings`, {
+    //         headers: {
+    //             'Authorization': token
+    //         }
+    //     })
+    //         .then(resp => {
+    //             if (!resp.ok) {
+    //                 throw new Error('Network response was not ok');
+    //             }
+    //             return resp.json();
+    //         })
+    //         .then(result => {
+    //             setRequest(prevData => [...prevData, ...result]);
+    //             console.log("booking data data", result);
+    //             setLoading(false);
+    //         })
+    //         .catch(err => {
+    //             console.error('Error fetching data:', err);
+    //         }
+    //         ).finally(() => {
+    //             setLoading(false); // Set loading to false after fetching data
+    //         });
+    // }, []);
+
     const fetchData = useCallback(() => {
         setLoading(true);
-        fetch(`http://localhost:5000/api/bookings/allbookings?page=${pageNumber}&&limit=10&service_status=pending`, {
+        fetch(`${IP}/bookings/allbookings`, {
             headers: {
                 'Authorization': token
             }
         })
-            .then(resp => {
-                if (!resp.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return resp.json();
-            })
-            .then(result => {
-                if (!Array.isArray(result)) {
-                    throw new Error('Result is not an array');
-                }
-                setRequest(prevData => [...prevData, ...result]);
-                console.log("booking data data", result);
-                setLoading(false);
-            })
-            .catch(err => {
-                console.error('Error fetching data:', err);
-                setLoading(false);
-            });
+        .then(resp => {
+            if (!resp.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return resp.json();
+        })
+        .then(result => {
+            if (!Array.isArray(result)) {
+                throw new Error('Result is not an array');
+            }
+            setRequest(prevData => [...prevData, ...result]);
+            console.log("booking data data", result);
+            setLoading(false);
+        })
+        .catch(err => {
+            console.error('Error fetching data:', err);
+            setLoading(false);
+        });
     }, [token]);
 
 
@@ -151,14 +182,14 @@ function Event() {
                     <div className="row">
                         <div className="">
                             <div className="headings">
-                                <h3><span className='cursor title backarrow' onClick={() => nav(-1)}>&larr;</span> Events</h3>
-                                <div className="gutter pull-right">
-                                    <small className='sub'>
-                                        <p>* Click on client name to view/edit client details</p>
-                                        <p>* Click on service name to view details</p>
-                                        <p>* Click on provider name to view/edit provider details</p>
-                                    </small>
-                                </div>
+                            <h3><span className='cursor title backarrow' onClick={() => nav(-1)}>&larr;</span> Events</h3>
+                            <div className="gutter pull-right">
+                                <small className='sub'>
+                                <p>* Click on client name to view/edit client details</p>
+                                <p>* Click on service name to view details</p>
+                                <p>* Click on provider name to view/edit provider details</p>
+                                </small>
+                            </div>
                                 <span className="toggle_sidebar" ></span>
                             </div>
                         </div>
@@ -211,14 +242,14 @@ function Event() {
                                                     <span className="tag">
                                                         <b>Booking status: </b>
                                                         {event.service_status}
-                                                        {event?.provider?.first_name && event?.provider?.last_name ? (
+                                                            {event?.provider?.first_name && event?.provider?.last_name ? (
                                                             <> by &nbsp;
                                                                 <span className="link title">
                                                                     {event.provider.first_name} {event.provider.last_name}
                                                                 </span>
                                                             </>
                                                         ) : null}
-
+                                                        
                                                     </span>
 
                                                     <span className="tag"><b></b> {event.instructions !== '' ? <><strong className="mt-1">Instructions : </strong> {event.instructions} </> : ''}</span>
