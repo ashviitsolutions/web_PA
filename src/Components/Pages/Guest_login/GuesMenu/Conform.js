@@ -132,7 +132,7 @@ const Conform = () => {
 
             const response = await axios.post(`${IP}/createCheckoutSession`, {
                 service_details: serviceDetails,
-                price: calculatedData.totalAmountWithTax,
+                price: calculatedData?.totalAmountWithTax,
                 userId: userid
             });
 
@@ -149,34 +149,36 @@ const Conform = () => {
 
 
     const handleGiftCardChange = (amount) => {
-        if (amount > calculatedData?.totalAmountWithTax) {
-            // Notify the user that deselecting this gift card would exceed the total amount
-            toast.error("Deselecting this gift card would exceed the total amount.", {
-                position: "top-right",
-                autoClose: 2000,
-            });
-            return; // Exit the function, preventing further execution
-        }
-
         // Calculate the total gift card amount including the new amount
         const updatedSelectedGiftCards = [...selectedGiftCards];
         const index = updatedSelectedGiftCards.indexOf(amount);
+        
         if (index === -1) {
-            // If the amount is not already selected, add it to the list
-            updatedSelectedGiftCards.push(amount);
+          // If the amount is not already selected, add it to the list
+      
+          if (amount > calculatedData?.totalAmountWithTax) {
+            // Notify the user that selecting this gift card would exceed the total amount
+            toast.error("Selecting this gift card would exceed the total amount.", {
+              position: "top-right",
+              autoClose: 2000,
+            });
+            return; // Exit the function, preventing further execution
+          }
+      
+          updatedSelectedGiftCards.push(amount);
         } else {
-            // If the amount is already selected, remove it from the list
-            updatedSelectedGiftCards.splice(index, 1);
+          // If the amount is already selected, remove it from the list
+          updatedSelectedGiftCards.splice(index, 1);
         }
-
+      
         // Calculate the total gift card amount based on selected gift cards
         const updatedGiftCardAmount = updatedSelectedGiftCards.reduce((acc, curr) => acc + curr, 0);
-
+      
         // Update the state with new selected gift cards and adjusted service price
         setSelectedGiftCards(updatedSelectedGiftCards);
         setGiftCardAmount(updatedGiftCardAmount);
-
-    };
+      };
+      
 
 
 
@@ -224,15 +226,16 @@ const Conform = () => {
                 // setLoading(true);
                 const response = await Post.createCalculation({
                     service_id: location.state?.secondform?.service_ids,
-                    massage_for:massage_for,
+                    massage_for: massage_for,
                     service_time: location.state?.secondform?.service_time,
                     giftCardAmount: giftCardAmount,
                     add_ons_details: location.state?.add_ons_details,
                     coupon_amount: amount_off,
                     coupon_percentage: percent_off
                 });
-                setLoder(false)
                 dispatch(updateInputData({ formName: 'calculatedData', inputData: response?.data?.calculatedata }));
+                setLoder(false)
+
             } catch (error) {
                 console.error('Error calculating booking:', error);
                 setError('Error calculating booking. Please try again later.');
@@ -505,25 +508,17 @@ const Conform = () => {
                                                     </p>
                                                 ) : null}
 
+                                                {
+                                                    calculatedData?.membershipDiscountAmount > 0 && (
+                                                        <p className="prices" style={{ fontSize: '17px' }}>
+                                                            <span className='value'>
+                                                                Membership Discount: ${calculatedData?.membershipDiscountAmount}
+
+                                                            </span></p>
+                                                    )
+                                                }
 
 
-
-
-
-
-                                                {membershipLevel === "Silver" && (
-                                                    <p className="prices" style={{ fontSize: '17px' }}>
-                                                        <span className='value'>
-                                                            5% Silver Membership Discount: ${calculatedData?.membershipDiscountAmount}
-
-                                                        </span></p>
-                                                )}
-                                                {membershipLevel === "Gold" && (
-                                                    <p className="prices" style={{ fontSize: '17px' }}>
-                                                        <span className='value'>
-                                                            10% Gold Membership Discount: ${calculatedData?.membershipDiscountAmount}
-                                                        </span></p>
-                                                )}
                                                 <p className="prices" style={{ fontSize: '17px' }} >
                                                     <span className='value'>Total amount: ${calculatedData?.totalAmountWithTax?.toFixed(2)}
                                                     </span></p>
