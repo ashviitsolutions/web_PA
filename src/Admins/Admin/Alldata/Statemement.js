@@ -134,15 +134,15 @@ function Statemement() {
             totalServicePrice += cur.total_service_price || 0;
             totalAddOns += cur.total_add_ons || 0;
             totalAddOnPrice += cur.total_add_on_price || 0;
-            amount_tax += cur.service?.amount_calculation?.amount_tax || 0;
-            totalTipAmount += cur.service?.amount_calculation?.amount_tip || 0;
+            amount_tax += cur.service?.amount_calculation?.taxAmount || 0;
+            totalTipAmount += cur.service?.amount_calculation?.tipAmount || 0;
             totalAdminAmount += cur.total_admin_amount || 0;
             totalProviderAmount += cur.total_provider_amount || 0;
 
             // Calculate total tip amount for each user
             cur.services.forEach(service => {
-                amount_tax += service?.amount_calculation?.amount_tax || 0; // Add conditional check
-                totalTipAmount += service?.amount_calculation?.amount_tip || 0; // Add conditional check
+                amount_tax += service?.amount_calculation?.taxAmount || 0; // Add conditional check
+                totalTipAmount += service?.amount_calculation?.tipAmount || 0; // Add conditional check
             });
         });
 
@@ -178,7 +178,7 @@ function Statemement() {
                 const isWithinDateRange = (!startDate || moment(startDate).isSameOrBefore(eventDate, 'day')) &&
                     (!endDate || moment(endDate).isSameOrAfter(eventDate, 'day'));
 
-                
+
 
                 return isWithinDateRange;
             } else {
@@ -211,7 +211,7 @@ function Statemement() {
             const isWithinDateRange = (!startDate || moment(startDate).isSameOrBefore(eventDate, 'day')) &&
                 (!endDate || moment(endDate).isSameOrAfter(eventDate, 'day'));
 
-           
+
 
             return isWithinDateRange;
         });
@@ -240,6 +240,8 @@ function Statemement() {
     const totalAdminAmount = parseFloat(aggregatedValues.totalAdminAmount || 0);
     const totalProviderAmount = parseFloat(aggregatedValues.totalProviderAmount || 0);
     const amount_tax = parseFloat(aggregatedValues.amount_tax || 0);
+    const totalTipAmount = parseFloat(aggregatedValues.totalTipAmount || 0)
+
     const totalMembership = parseFloat(totalMembershipPrice || 0);
     const totalGift = parseFloat(totalGiftPrice || 0);
     const finalAmount = (totalAdminAmount + totalMembership + totalGift) - (amount_tax + totalProviderAmount);
@@ -247,37 +249,18 @@ function Statemement() {
 
 
     useEffect(() => {
-        if (status === "") {
-            const totalAdminAmount = parseFloat(aggregatedValues.totalAdminAmount || 0);
-            const totalProviderAmount = parseFloat(aggregatedValues.totalProviderAmount || 0);
-            const amount_tax = parseFloat(aggregatedValues.amount_tax || 0);
-            const totalMembership = parseFloat(totalMembershipPrice || 0);
-            const totalGift = parseFloat(totalGiftPrice || 0);
-            const finalAmount = (totalAdminAmount + totalMembership + totalGift) - (amount_tax + totalProviderAmount);
-            setFinalAmount(finalAmount);
-        } else if (status === "services") {
-            const totalAdminAmount = parseFloat(aggregatedValues.totalAdminAmount || 0);
-            const totalProviderAmount = parseFloat(aggregatedValues.totalProviderAmount || 0);
-            const amount_tax = parseFloat(aggregatedValues.amount_tax || 0);
-
-            const finalAmount = (totalAdminAmount) - (amount_tax + totalProviderAmount);
-            setFinalAmount(finalAmount);
-        } else if (status === "membership") {
-
-            const totalMembership = parseFloat(totalMembershipPrice || 0);
-
-            const finalAmount = (totalMembership);
-            setFinalAmount(finalAmount);
-        } else if (status === "giftcard") {
-            const totalGift = parseFloat(totalGiftPrice || 0);
-
-            const finalAmount = (totalGift);
-            setFinalAmount(finalAmount);
-        }
-    }, [status, aggregatedValues.totalAdminAmount, aggregatedValues.totalProviderAmount, aggregatedValues.amount_tax]);
+        const totalAdminAmount = parseFloat(aggregatedValues.totalAdminAmount || 0);
+        const totalProviderAmount = parseFloat(aggregatedValues.totalProviderAmount || 0);
+        const amount_tax = parseFloat(aggregatedValues.amount_tax || 0);
+        const totalMembership = parseFloat(totalMembershipPrice || 0);
+        const totalGift = parseFloat(totalGiftPrice || 0);
+        var totaladminAmount = (totalAdminAmount + totalMembership + totalGift) - (amount_tax + totalProviderAmount);
+        setFinalAmount(totaladminAmount)
+    }, [status, aggregatedValues, totalMembershipPrice, totalGiftPrice]);
 
 
-    console.log("filteredData", filteredData)
+
+    console.log("aggregatedValuesaggregatedValuesaggregatedValuesaggregatedValues", aggregatedValues)
 
     return (
         <>
@@ -286,8 +269,8 @@ function Statemement() {
                     <div class="row">
                         <div class="">
                             <div class="headings">
-                            <h3><span className='cursor title backarrow' onClick={() => navigate(-1)}>&larr;</span>Statement</h3>
-                                
+                                <h3><span className='cursor title backarrow' onClick={() => navigate(-1)}>&larr;</span>Statement</h3>
+
                                 <span class="toggle_sidebar" ></span>
                             </div>
                         </div>
@@ -485,9 +468,9 @@ function Statemement() {
                                             (status === "services" || status === "") && (
                                                 <>
                                                     <p>Service Amount = {aggregatedValues.totalAdminAmount.toFixed(2)}$</p>
-                                                    <p>- Tax(es) = {aggregatedValues.amount_tax.toFixed(2)}$</p>
-                                                    <p>Gratuity = {aggregatedValues.totalTipAmount.toFixed(2)}$</p>
-                                                    <p>- Provider Pay = {aggregatedValues.totalProviderAmount.toFixed(2)}$</p>
+                                                    <p>- Tax(es) = {aggregatedValues?.amount_tax?.toFixed(2)}$</p>
+                                                    <p>Gratuity = {aggregatedValues?.totalTipAmount?.toFixed(2)}$</p>
+                                                    <p>- Provider Pay = {aggregatedValues?.totalProviderAmount?.toFixed(2)}$</p>
                                                 </>
 
 
@@ -513,22 +496,36 @@ function Statemement() {
                                                 <strong>
                                                     {
                                                         (status === "giftcard") && (
-                                                            <p>Net Profit = {totalGiftPrice?.toFixed(2)}$</p>
+                                                            <>
+                                                                <p>Net Profit = {totalGiftPrice?.toFixed(2)}$</p>
+                                                                <p> Total Amount = {totalGift}$</p>
+
+
+                                                            </>
+
                                                         )
                                                     }
 
                                                     {
                                                         (status === "membership") && (
-                                                            <p> Net Profit = {totalMembershipPrice.toFixed(2)}$</p>
+                                                            <>
+                                                                <p> Net Profit = {totalMembershipPrice.toFixed(2)}$</p>
+                                                                <p> Total Amount = {totalMembership}$</p>
+
+
+                                                            </>
                                                         )
                                                     }
-                                                    <p> Total Amount = {(aggregatedValues.totalAdminAmount + totalGiftPrice + totalMembershipPrice).toFixed(2)}$</p>
                                                     {
                                                         (status === "services" || status === "") && (
-                                                            <p> Net Profit = {(aggregatedValues.totalAdminAmount + totalGiftPrice + totalMembershipPrice - aggregatedValues.amount_tax - aggregatedValues.totalProviderAmount).toFixed(2)}$</p>
+                                                            <>
+                                                                <p> Net Profit = {(aggregatedValues.totalAdminAmount + totalGiftPrice + totalMembershipPrice - aggregatedValues.amount_tax - aggregatedValues.totalProviderAmount).toFixed(2)}$</p>
+                                                                <p>Total Amount {finalAmounts?.toFixed(2)}$</p>
+
+                                                            </>
                                                         )
                                                     }
-                                                 
+
                                                 </strong>
                                             </p>
 
