@@ -34,7 +34,7 @@ function Event() {
                 const nextDay = new Date(endDate);
                 nextDay.setDate(nextDay.getDate() + 1);
 
-                const res = await fetch(`http://localhost:5000/api/bookings/allbookings?service_status=${status}&startDate=${startDate}&endDate=${nextDay.toISOString().split('T')[0]}`, {
+                const res = await fetch(`${IP}/bookings/allbookings?service_status=${status}&startDate=${startDate}&endDate=${nextDay.toISOString().split('T')[0]}`, {
                     method: 'GET',
                     headers: {
                         Authorization: token

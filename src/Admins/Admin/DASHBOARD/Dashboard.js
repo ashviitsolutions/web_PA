@@ -273,7 +273,7 @@ function Dashboard() {
                                                     <div className="card layer2">
                                                         <span className="icon" style={{ backgroundImage: `url(${image8})` }}></span>
                                                         <p>New Gift card</p>
-                                                        <p>Total Profit: {admin_wallet?.total_giftcards}$</p>
+                                                        <p>Total Profit: {admin_wallet?.total_giftcards}</p>
                                                         <p>Total Profit: {admin_wallet?.total_giftcard_amount}$</p>
                                                     </div>
                                                 </div>
