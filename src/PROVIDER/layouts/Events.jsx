@@ -83,6 +83,7 @@ const Events = () => {
       })
       .then((result) => {
         console.log("boking completd", result);
+        dispatch(updateInputData({ formName: 'booking_completed', inputData: result }));
       })
       .catch((err) => {
         console.log(err);
@@ -104,7 +105,7 @@ const Events = () => {
     }).catch(err => {
       console.log(err)
     })
-  }, [token , dispatch])
+  }, [token, dispatch])
 
 
   useEffect(() => {
@@ -227,7 +228,7 @@ const Events = () => {
           {Array.isArray(request) && request.map((cur, index) => (
             <React.Fragment key={index}>
               <RequestCard
-                event='event_value'
+                event='event'
                 newclient="true"
                 title={cur.service_name}
                 location={cur.location}

@@ -35,7 +35,7 @@ const ScheduledEvents = () => {
 
   useEffect(() => {
     fetchData();
-  }, [dispatch, token]);
+  }, [dispatch, token, user]);
 
 
   console.log("user schudule booking", user)

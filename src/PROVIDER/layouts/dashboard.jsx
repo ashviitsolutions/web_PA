@@ -67,7 +67,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     fetchData();
-  }, [request , dispatch]);
+  }, [request, dispatch]);
 
 
 
@@ -101,6 +101,7 @@ const Dashboard = () => {
                 {Array.isArray(request) && request.map((cur, index) => (
                   <React.Fragment key={index}>
                     <RequestCard
+                      event="event_value"
                       newclient="true"
                       title={cur.service_name}
                       location={cur.location}

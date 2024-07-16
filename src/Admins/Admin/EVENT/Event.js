@@ -1,225 +1,146 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { IP } from "../../../Constant";
-import CustomModal from "./Model";
+import React, { useState, useEffect } from "react";
 import { FallingLines } from "react-loader-spinner";
 import moment from "moment";
-import { useLocation , useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import CustomModal from "./Model";
+import { IP } from "../../../Constant";
 
 function Event() {
-    const nav=useNavigate()
-
+    const nav = useNavigate();
     const location = useLocation();
     const event_status = location.state ? location.state.event_status : "";
-    // const endDates = location.state.endDate;
-    // const startDates = location.state.startDate
     const startDates = location.state ? location.state.startDate : "";
     const endDates = location.state ? location.state.endDate : "";
-    const Startdate = localStorage.getItem("startDate")
-    const Enddate = localStorage.getItem("endDate")
+    const Startdate = localStorage.getItem("startDate");
+    const Enddate = localStorage.getItem("endDate");
+
+    const [startDate, setStartDate] = useState(startDates || Startdate || moment().subtract(7, 'day').format('YYYY-MM-DD'));
+    const [endDate, setEndDate] = useState(endDates || Enddate || moment().format('YYYY-MM-DD'));
+
     const token = localStorage.getItem("tokenadmin");
-    const [request, setRequest] = useState([]);
-    // const [startDate, setStartDate] = useState("");
-    // const [endDate, setEndDate] = useState("");
-    const [status, setStatus] = useState("");
+
+    const [request, setRequest] = useState();
+    const [status, setStatus] = useState("pending");
     const [searchText, setSearchText] = useState("");
-
-    const [display, setDisplay] = useState(true);
     const [showModal, setShowModal] = useState(false);
-    const [selectedEventData, setSelectedEventData] = useState(null); // New state to store selected event data
+    const [selectedEventData, setSelectedEventData] = useState(null);
     const [pageNumber, setPageNumber] = useState(1);
-    const [loading, setLoading] = useState(null);
-    const [startDate, setStartDate] = useState(startDates || Startdate);
-    const [endDate, setEndDate] = useState(endDates || Enddate);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        setStatus(event_status)
-        setStartDate(Startdate);
-        setEndDate(Enddate);
-    }, [event_status, endDates, endDates]);
+        const fetchData = async () => {
+            setLoading(true);
+            try {
+                const nextDay = new Date(endDate);
+                nextDay.setDate(nextDay.getDate() + 1);
 
-
-
-
-
-
-
-    // const fetchData = useCallback(() => {
-    //     setLoading(true);
-    //     fetch(`${IP}/bookings/allbookings`, {
-    //         headers: {
-    //             'Authorization': token
-    //         }
-    //     })
-    //         .then(resp => {
-    //             if (!resp.ok) {
-    //                 throw new Error('Network response was not ok');
-    //             }
-    //             return resp.json();
-    //         })
-    //         .then(result => {
-    //             setRequest(prevData => [...prevData, ...result]);
-    //             console.log("booking data data", result);
-    //             setLoading(false);
-    //         })
-    //         .catch(err => {
-    //             console.error('Error fetching data:', err);
-    //         }
-    //         ).finally(() => {
-    //             setLoading(false); // Set loading to false after fetching data
-    //         });
-    // }, []);
-
-    const fetchData = useCallback(() => {
-        setLoading(true);
-        fetch(`${IP}/bookings/allbookings`, {
-            headers: {
-                'Authorization': token
+                const res = await fetch(`http://localhost:5000/api/bookings/allbookings?service_status=${status}&startDate=${startDate}&endDate=${nextDay.toISOString().split('T')[0]}`, {
+                    method: 'GET',
+                    headers: {
+                        Authorization: token
+                    }
+                });
+                const data = await res.json();
+                setRequest(data);
+                setLoading(false);
+            } catch (error) {
+                console.log(error);
             }
-        })
-        .then(resp => {
-            if (!resp.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return resp.json();
-        })
-        .then(result => {
-            if (!Array.isArray(result)) {
-                throw new Error('Result is not an array');
-            }
-            setRequest(prevData => [...prevData, ...result]);
-            console.log("booking data data", result);
-            setLoading(false);
-        })
-        .catch(err => {
-            console.error('Error fetching data:', err);
-            setLoading(false);
-        });
-    }, [token]);
+        };
 
-
-    useEffect(() => {
         fetchData();
-    }, [fetchData]);
+    }, [startDate, endDate, token, status]);
 
+    console.log("requetse boking data", request)
 
+    useEffect(() => {
+        localStorage.setItem("startDate", startDate);
+        localStorage.setItem("endDate", endDate);
+    }, [startDate, endDate]);
 
+    useEffect(() => {
+        const today = moment().format('YYYY-MM-DD');
+        setStartDate(moment(today).subtract(7, 'day').format('YYYY-MM-DD'));
+        setEndDate(today);
+        setStatus(event_status)
+    }, []);
 
-    const handleInfiniteScroll = async () => {
-        try {
-
-            if (
-                window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight
-            ) {
-                setPageNumber((prev) => prev + 1);
-                setLoading(true)
-            }
-
-        } catch (error) {
-
+    const handleInfiniteScroll = () => {
+        if (window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight) {
+            setPageNumber(prev => prev + 1);
+            setLoading(true);
         }
-    }
-
+    };
 
     useEffect(() => {
         window.addEventListener("scroll", handleInfiniteScroll);
-        return () => window.removeEventListener("scroll", handleInfiniteScroll)
-    }, [])
+        return () => window.removeEventListener("scroll", handleInfiniteScroll);
+    }, []);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    const handleFilter = () => {
-        console.log("Filtering with status:", status);
-        const filteredData = request.filter(event => {
-            console.log("Event status:", event.service_status);
-
-            const eventDate = moment(event.createdAt);
-            const isWithinDateRange = (!startDate || eventDate.isSameOrAfter(startDate)) &&
-                (!endDate || eventDate.isSameOrBefore(endDate));
-            const isStatusMatched = !status || event.service_status === status;
-            const isSearched = !searchText || event.service_name.toLowerCase().includes(searchText.toLowerCase());
-            return isWithinDateRange && isStatusMatched && isSearched;
-        });
-        return filteredData;
-    };
-
-
-    const filteredRequest = handleFilter();
-
-    console.log("user booking data", filteredRequest)
-
-    // Model logic
-
-    const openModal = (eventData) => { // Modified openModal to accept eventData
-        setSelectedEventData(eventData); // Set the selected event data
+    const openModal = (eventData) => {
+        setSelectedEventData(eventData);
         setShowModal(true);
     };
 
     const closeModal = () => {
-        setShowModal(false); // Close modal
+        setShowModal(false);
     };
 
     const handleRowClick = (client) => {
-        console.log("cur", client); // Check the structure of cur
         nav(`/admin/clients/edit_client/${client._id}`, { state: { client } });
     };
 
+    const filteredTransactions = request?.filter((transaction) =>
+        transaction.service_name.toLowerCase().includes(searchText.toLowerCase())
+        // transaction.email.toLowerCase().includes(searchText.toLowerCase()) ||
+        // transaction.userId.toLowerCase().includes(searchText.toLowerCase()) ||
+        // transaction.postalCode.toString().includes(searchText) ||
+        // transaction.mobile.toString().includes(searchText)
+    );
     return (
         <>
-
             <div id="content">
                 <div className="container-fluid">
                     <div className="row">
                         <div className="">
                             <div className="headings">
-                            <h3><span className='cursor title backarrow' onClick={() => nav(-1)}>&larr;</span> Events</h3>
-                            <div className="gutter pull-right">
-                                <small className='sub'>
-                                <p>* Click on client name to view/edit client details</p>
-                                <p>* Click on service name to view details</p>
-                                <p>* Click on provider name to view/edit provider details</p>
-                                </small>
-                            </div>
-                                <span className="toggle_sidebar" ></span>
+                                <h3><span className='cursor title backarrow' onClick={() => nav(-1)}>&larr;</span> Events</h3>
+                                <div className="gutter pull-right">
+                                    <small className='sub'>
+                                        <p>* Click on client name to view/edit client details</p>
+                                        <p>* Click on service name to view details</p>
+                                        <p>* Click on provider name to view/edit provider details</p>
+                                    </small>
+                                </div>
+                                <span className="toggle_sidebar"></span>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="gutter">
-                            <div class="card layer1 filters">
-                                <span class="highlight"> from </span>
-                                <div class="input_group">
-                                    <input type="date" class="input" placeholder="Start Date" onChange={e => setStartDate(e.target.value)} value={startDate} />
-                                    <span class="highlight"></span>
+                    <div className="row">
+                        <div className="gutter">
+                            <div className="card layer1 filters">
+                                <span className="highlight"> from </span>
+                                <div className="input_group">
+                                    <input type="date" className="input" placeholder="Start Date" onChange={e => setStartDate(e.target.value)} value={startDate} />
+                                    <span className="highlight"></span>
                                 </div>
-                                <span class="highlight"> to </span>
-                                <div class="input_group">
-                                    <input type="date" class="input" placeholder="End Date" onChange={e => setEndDate(e.target.value)} value={endDate} />
-                                    <span class="highlight"></span>
+                                <span className="highlight"> to </span>
+                                <div className="input_group">
+                                    <input type="date" className="input" placeholder="End Date" onChange={e => setEndDate(e.target.value)} value={endDate} />
+                                    <span className="highlight"></span>
                                 </div>
-                                <div class="input_group">
-                                    <select name="" id="" class="input" onChange={e => setStatus(e.target.value)} value={status}>
-                                        <option value="">status</option>
+                                <div className="input_group">
+                                    <select className="input" onChange={e => setStatus(e.target.value)} value={status}>
+                                        <option value="">All Booking</option>
                                         <option value="pending">pending</option>
                                         <option value="completed">completed</option>
                                         <option value="scheduled">scheduled</option>
                                     </select>
-                                    <span class="highlight"></span>
+                                    <span className="highlight"></span>
                                 </div>
-
-                                <div class="input_group pull-right" style={{ maxWidth: "20%" }}>
-                                    <input type="text" class="input" placeholder="search here.." onChange={e => setSearchText(e.target.value)} value={searchText} />
-                                    <span class="highlight"></span>
+                                <div className="input_group pull-right" style={{ maxWidth: "20%" }}>
+                                    <input type="text" className="input" placeholder="search here.." onChange={e => setSearchText(e.target.value)} value={searchText} />
+                                    <span className="highlight"></span>
                                 </div>
                             </div>
                         </div>
@@ -227,49 +148,43 @@ function Event() {
                     <div className="row">
                         <div className="gutter">
                             <div className="bookings">
-                                {filteredRequest.length === 0 ? (
+                                {filteredTransactions?.length === 0 ? (
                                     <p>No bookings found.</p>
                                 ) : (
-                                    filteredRequest.map((event, index) => (
+                                    filteredTransactions?.map((event, index) => (
                                         <div className="item_wrapper" key={index}>
                                             <div className="item card layer2">
                                                 <div className="first_half">
                                                     <h3 className="link title" onClick={() => handleRowClick(event.user)}>{event?.user?.first_name} {event?.user?.last_name}</h3>
-                                                    <h3 className="link" onClick={() => openModal(event)}>{event.service_name} {event.service_time} - {event.massage_for}</h3>
-                                                    <span className="address">{event.address}</span>
-                                                    <span className="address"><b></b>{event.scheduled_date}</span>
-                                                    <span className="address"><b></b>{event.scheduled_timing}</span>
+                                                    <h3 className="link" >{event?.service_name} {event?.service_time} - {event?.massage_for}</h3>
+                                                    <span className="address">{event?.address}</span>
+                                                    <span className="address"><b></b>{event?.scheduled_date}</span>
+                                                    <span className="address"><b></b>{event?.scheduled_timing}</span>
                                                     <span className="tag">
                                                         <b>Booking status: </b>
                                                         {event.service_status}
-                                                            {event?.provider?.first_name && event?.provider?.last_name ? (
+                                                        {event?.providerInfo?.first_name && event?.provider?.last_name ? (
                                                             <> by &nbsp;
                                                                 <span className="link title">
-                                                                    {event.provider.first_name} {event.provider.last_name}
+                                                                    {event?.providerInfo?.first_name} {event?.providerInfo?.last_name}
                                                                 </span>
                                                             </>
                                                         ) : null}
-                                                        
                                                     </span>
-
-                                                    <span className="tag"><b></b> {event.instructions !== '' ? <><strong className="mt-1">Instructions : </strong> {event.instructions} </> : ''}</span>
+                                                    <span className="tag"><b></b> {event?.instructions !== '' ? <><strong className="mt-1">Instructions : </strong> {event?.instructions} </> : ''}</span>
                                                 </div>
                                                 <div className="second_half">
-                                                    <span>Date: {moment(event.createdAt).format("MMMM Do YYYY")}, Time: {moment(event.createdAt).format("LT")}</span>
-
-                                                    <span className="colored">Total = {event?.provider_amount_calculation?.total_amount.toFixed(2)}</span>
-                                                    {
-                                                        event.service_status === "pending" && (
-                                                            <button className="button primary square">Assign Event</button>
-                                                        )
-                                                    }
+                                                    <span>Date: {moment(event?.createdAt).format("MMMM Do YYYY")}, Time: {moment(event?.createdAt).format("LT")}</span>
+                                                    <span className="colored">Total = {event?.user_amount_calculation?.totalAmountWithTax.toFixed(2)}</span>
+                                                    {event.service_status === "pending" && (
+                                                        <button className="button primary square" onClick={() => openModal(event)}>Assign Event</button>
+                                                    )}
                                                 </div>
                                             </div>
                                         </div>
                                     ))
                                 )}
                             </div>
-
                             {loading && (
                                 <div style={{ textAlign: "center" }}>
                                     <FallingLines
@@ -314,7 +229,7 @@ function Event() {
                     add_ons={selectedEventData.add_ons}
                     add_ons_details={selectedEventData.add_ons_details}
                     massage_for={selectedEventData.massage_for}
-                    amount_calculation={selectedEventData.provider_amount_calculation}
+                    amount_calculation={selectedEventData.user_amount_calculation}
                 />
             )}
         </>
