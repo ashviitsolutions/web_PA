@@ -258,7 +258,7 @@ function Dashboard() {
                                                         <span className="icon" style={{ backgroundImage: `url(${image7})` }}></span>
                                                         <h3>{admin_wallet.total_completed_bookings}</h3>
                                                         <p>completed</p>
-                                                        <p>Total Profit: {admin_wallet?.totalBookingProfit}$</p>
+                                                        <p>Total Profit: {admin_wallet?.totalBookingProfit?.toFixed(2)}$</p>
                                                     </div>
                                                 </div>
                                             </div>

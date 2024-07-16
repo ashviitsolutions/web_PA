@@ -64,7 +64,6 @@ const Checkout = (props) => {
       });
 
       if (res.status === 200) {
-        setLoading(false)
         // Remove _id from removedChekincard in localStorage
         const removedChekincardArray = JSON.parse(localStorage.getItem('removedChekincard')) || [];
         const updatedArray = removedChekincardArray.filter(itemId => itemId !== _id);
@@ -77,8 +76,11 @@ const Checkout = (props) => {
 
         props.onHide();
         nav("/providers/earnings");
+        setLoading(false)
+
       }
     } catch (error) {
+      nav("/providers/earnings");
       setLoading(false)
       console.error(error);
     }
