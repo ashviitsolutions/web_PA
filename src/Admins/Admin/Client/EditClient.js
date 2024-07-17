@@ -82,10 +82,10 @@ function EditClient() {
     
     const handleCardClient = (event_status) => {
         // Combine first_name and last_name
-        const fullName = `${apidata._id}`;
+        const userid = `${apidata._id}`;
 
         // Navigate with the full name included in the state
-        navigate(`/admin/${event_status}`, { state: { startDate, endDates, name: fullName } });
+        navigate(`/admin/${event_status}`, { state: { startDate, endDates, userId: userid } });
     };
 
 
