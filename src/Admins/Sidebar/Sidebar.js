@@ -55,7 +55,7 @@ function Sidebar() {
             <div className="items" title='View the list of completed bookings'>
               <Link to="/admin/events">
                 <TodayIcon style={{ color: "#fff" }} />
-                <span className="title">Completed Bookings</span>
+                <span className="title">Booking Data</span>
               </Link>
             </div>
             {/*  <div className="items" title=''>

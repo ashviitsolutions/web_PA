@@ -8850,9 +8850,9 @@ img .img-responsive {
 .sign_in_form p {
   text-align: center;
 }
-.sign_in_forms .eye_button {
+/* .sign_in_forms .eye_button {
   left: 44% !important;
-}
+} */
 .sideBlogs a {
   font-size: 12px;
   text-decoration: none;
