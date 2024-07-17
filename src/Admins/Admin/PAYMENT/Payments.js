@@ -51,7 +51,7 @@ function Payments() {
     let updatedTotalTip = 0;
     user.forEach(provider => {
       provider.services.forEach(service => {
-        updatedTotalTip += service.amount_calculation.amount_tip || 0;
+        updatedTotalTip += service?.amount_calculation?.tipAmount || 0;
       });
     });
     setTotalTip(updatedTotalTip);
@@ -181,7 +181,7 @@ function Payments() {
                 <h3><span className='link title backarrow' onClick={() => navigate(-1)}>&larr;</span> Provider's Commision</h3>
                 <div className="gutter pull-right">
                   <small className='sub'>
-                      <p>* Click on provider name to release payment</p>
+                    <p>* Click on provider name to release payment</p>
                   </small>
                 </div>
                 <span class="toggle_sidebar" ></span>
@@ -267,8 +267,8 @@ function Payments() {
                   <td>{cur.total_services}</td>
                   <td>{cur?.total_service_price?.toFixed(2)}$</td>
                   <td>{cur.total_add_ons}</td>
+                  <td>{cur?.total_tax_amount?.toFixed(2)}$</td>
                   <td>{cur?.total_tip_amount?.toFixed(2)}$</td>
-                  <td>{totalTip.toFixed(2)}$</td>
                   <td>{cur?.total_admin_amount?.toFixed(2)}$</td>
 
 
