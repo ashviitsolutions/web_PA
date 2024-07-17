@@ -126,10 +126,10 @@ function Login() {
                                 Forget password ?
                             </p>
 
-                            <div className="input_group" style={{ textDecoration: 'none', paddingTop: '1px' }}>
+                            <div className="input_group" style={{ textDecoration: 'none', paddingTop: '1px', textAlign:"center" }}>
                                 <Btn title={loading ? "Loading..." : "Sign In"} />
                                 <span>
-                                    Don't have an account? <Link to="/sign_up" className="anchor">Sign Up</Link>
+                                    Don't have an account? <Link to="/sign_up" className="button ghost" style={{maxWidth:"100px", padding:"5px 6px", textAlign:"center"}}>Sign Up</Link>
                                 </span>
                             </div>
                         </form>

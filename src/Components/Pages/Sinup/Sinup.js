@@ -87,9 +87,9 @@ const Signup = () => {
                                 </div>
                             ))}
 
-                            <div className="" style={{ textDecoration: "none", marginTop: "-10px" }}>
+                            <div className="" style={{ textDecoration: "none", marginTop: "-10px", textAlign:"center" }}>
                                 <Btn title={loading ? "Loading..." : "Sign Up"} />
-                                <span>Already have an account? <Link to="/login" className="anchor">Sign In</Link></span>
+                                <span>Already have an account? <Link to="/login"className="button ghost" style={{maxWidth:"100px", padding:"5px 6px", textAlign:"center"}}>Sign In</Link></span>
                             </div>
                         </form>
                     </div>

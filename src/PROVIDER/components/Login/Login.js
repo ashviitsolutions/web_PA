@@ -132,10 +132,10 @@ function LoginProvider() {
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                 />
+                                <button className='eye_button' type="button" onClick={handleTogglePassword}>
+                                    {showPassword ? <img src={closeEye} alt='' /> : <img src={openEye} alt='' />}
+                                </button>
                             </div>
-                            <button className='eye_button' type="button" onClick={handleTogglePassword}>
-                                {showPassword ? <img src={closeEye} alt='' /> : <img src={openEye} alt='' />}
-                            </button>
                             <p
                                 style={{
                                     background: 0,
