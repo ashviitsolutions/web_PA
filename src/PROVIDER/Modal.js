@@ -37,7 +37,7 @@ function CustomModal(
   }
 ) {
 
-  console.log("gendergendergendergendergendergendergender", service_id)
+  console.log("paymentIntentIdpaymentIntentIdpaymentIntentIdpaymentIntentIdpaymentIntentId", paymentIntentId)
 
 
 

@@ -17,7 +17,7 @@ const Checkout = (props) => {
   const token = localStorage.getItem("providertoken");
   const [loading, setLoading] = useState(false);
 
-  // console.log("paymentiod", props)
+  console.log("paymentIntentId", paymentIntentId)
 
 
 
@@ -64,23 +64,23 @@ const Checkout = (props) => {
       });
 
       if (res.status === 200) {
+        confirmAndCapturePayment();
+
         // Remove _id from removedChekincard in localStorage
         const removedChekincardArray = JSON.parse(localStorage.getItem('removedChekincard')) || [];
         const updatedArray = removedChekincardArray.filter(itemId => itemId !== _id);
         localStorage.setItem('removedChekincard', JSON.stringify(updatedArray));
 
         // Run confirmAndCapturePayment after successful checkout submission
-        confirmAndCapturePayment();
 
         // Redirect to providers page
 
-        props.onHide();
+        // props.onHide();
         nav("/providers/earnings");
         setLoading(false)
 
       }
     } catch (error) {
-      nav("/providers/earnings");
       setLoading(false)
       console.error(error);
     }

@@ -67,7 +67,7 @@ const MyVerticallyCenteredModal = (props) => {
         removedChekincardArray.push(_id);
         localStorage.setItem('removedChekincard', JSON.stringify(removedChekincardArray));
         props.onHide();
-        nav("/providers/events");
+        nav("/providers");
       }
     } catch (error) {
       console.error(error);

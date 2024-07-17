@@ -105,7 +105,7 @@ const Events = () => {
     }).catch(err => {
       console.log(err)
     })
-  }, [token, dispatch])
+  }, [])
 
 
   useEffect(() => {
