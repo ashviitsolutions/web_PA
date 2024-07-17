@@ -34,7 +34,7 @@ function Event() {
                 const nextDay = new Date(endDate);
                 nextDay.setDate(nextDay.getDate() + 1);
 
-                const res = await fetch(`${IP}/bookings/allbookings?service_status=${status}&startDate=${startDate}&endDate=${nextDay.toISOString().split('T')[0]}`, {
+                const res = await fetch(`http://localhost:5000/api/bookings/allbookings?service_status=${status}&startDate=${startDate}&endDate=${nextDay.toISOString().split('T')[0]}`, {
                     method: 'GET',
                     headers: {
                         Authorization: token
@@ -97,6 +97,8 @@ function Event() {
         // transaction.postalCode.toString().includes(searchText) ||
         // transaction.mobile.toString().includes(searchText)
     );
+
+    console.log("filteredTransactionsfilteredTransactions", filteredTransactions)
     return (
         <>
             <div id="content">
@@ -155,7 +157,16 @@ function Event() {
                                         <div className="item_wrapper" key={index}>
                                             <div className="item card layer2">
                                                 <div className="first_half">
-                                                    <h3 className="link title" onClick={() => handleRowClick(event.user)}>{event?.user?.first_name} {event?.user?.last_name}</h3>
+                                                    <h3 className="link title" onClick={() => handleRowClick(event?.userInfo[0])}>
+                                                        {event?.userInfo[0]?.first_name && event?.userInfo[0]?.last_name ? (
+                                                            <>
+
+                                                                <span className="link title">
+                                                                    {`${event.userInfo[0].first_name} ${event.userInfo[0].last_name}`}
+                                                                </span>
+                                                            </>
+                                                        ) : null}
+                                                    </h3>
                                                     <h3 className="link" >{event?.service_name} {event?.service_time} - {event?.massage_for}</h3>
                                                     <span className="address">{event?.address}</span>
                                                     <span className="address"><b></b>{event?.scheduled_date}</span>
@@ -163,13 +174,15 @@ function Event() {
                                                     <span className="tag">
                                                         <b>Booking status: </b>
                                                         {event.service_status}
-                                                        {event?.providerInfo?.first_name && event?.provider?.last_name ? (
-                                                            <> by &nbsp;
+                                                        {event?.providerInfo[0]?.first_name && event?.providerInfo[0]?.last_name ? (
+                                                            <>
+                                                                &nbsp;
                                                                 <span className="link title">
-                                                                    {event?.providerInfo?.first_name} {event?.providerInfo?.last_name}
+                                                                    {`by ${event.providerInfo[0].first_name} ${event.providerInfo[0].last_name}`}
                                                                 </span>
                                                             </>
                                                         ) : null}
+
                                                     </span>
                                                     <span className="tag"><b></b> {event?.instructions !== '' ? <><strong className="mt-1">Instructions : </strong> {event?.instructions} </> : ''}</span>
                                                 </div>
