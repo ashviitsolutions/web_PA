@@ -15,12 +15,12 @@ function Providerservices() {
   let providerID = localStorage.getItem("providerID");
   const navigate = useNavigate()
   const location = useLocation();
-  const apidata = location.state ? location.state.name : "";
+  const providerId = location.state ? location.state.providerId : "";
   const storedStartDate = localStorage.getItem("startDate");
   const storedEndDate = localStorage.getItem("endDate");
   const [startDate, setStartDate] = useState(storedStartDate);
   const [endDate, setEndDate] = useState(storedEndDate);
-  const [selectedUserId, setSelectedUserId] = useState(apidata || providerID);
+  const [selectedUserId, setSelectedUserId] = useState(providerId);
 
 
   const [searchText, setSearchText] = useState("");

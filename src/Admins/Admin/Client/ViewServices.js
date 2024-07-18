@@ -110,7 +110,7 @@ function ViewServices() {
 
     const filteredUserServices = handleFilter();
 
-    console.log("giftCardDetails", giftCardDetails)
+    console.log("userServicesuserServices", userServices)
 
     return (
         <div id="content">

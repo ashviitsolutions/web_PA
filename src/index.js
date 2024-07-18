@@ -9,14 +9,14 @@ import store from "./Components/Pages/Redux/store";
 import { ToastContainer } from "react-toastify";
 
 ReactDOM.render(
-	<React.StrictMode>
+	<>
 		<Provider store={store}>
 			<BrowserRouter>
 				<App />
 				<ToastContainer />
 			</BrowserRouter>
 		</Provider>
-	</React.StrictMode>,
+	</>,
 	document.getElementById("root")
 );
 

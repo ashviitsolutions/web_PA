@@ -1,12 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { FallingLines } from "react-loader-spinner";
 import moment from "moment";
 import { useLocation, useNavigate } from 'react-router-dom';
 import CustomModal from "./Model";
 import { IP } from "../../../Constant";
+import { useDispatch, useSelector } from 'react-redux';
+import { updateInputData } from "../../../Components/Pages/Redux/counterSlice";
 
 function Event() {
     const nav = useNavigate();
+    const dispatch = useDispatch();
+    const formData = useSelector((state) => state?.counter?.formData);
+    const request = formData.admin_booking_data && formData.admin_booking_data[0] ? formData.admin_booking_data[0] : [];
     const location = useLocation();
     const event_status = location.state ? location.state.event_status : "";
     const startDates = location.state ? location.state.startDate : "";
@@ -19,39 +24,36 @@ function Event() {
 
     const token = localStorage.getItem("tokenadmin");
 
-    const [request, setRequest] = useState();
-    const [status, setStatus] = useState("pending");
+    const [status, setStatus] = useState("");
     const [searchText, setSearchText] = useState("");
     const [showModal, setShowModal] = useState(false);
     const [selectedEventData, setSelectedEventData] = useState(null);
-    const [pageNumber, setPageNumber] = useState(1);
     const [loading, setLoading] = useState(false);
 
+    const fetchData = async () => {
+        setLoading(true);
+        try {
+            const nextDay = new Date(endDate);
+            nextDay.setDate(nextDay.getDate() + 1);
+
+            const res = await fetch(`${IP}/bookings/allbookings?service_status=${status}&startDate=${startDate}&endDate=${nextDay.toISOString().split('T')[0]}`, {
+                method: 'GET',
+                headers: {
+                    Authorization: token
+                }
+            });
+            const data = await res.json();
+            dispatch(updateInputData({ formName: 'admin_booking_data', inputData: data }));
+            setLoading(false);
+        } catch (error) {
+            console.log(error);
+            setLoading(false); // Ensure loading state is cleared on error
+        }
+    };
+
     useEffect(() => {
-        const fetchData = async () => {
-            setLoading(true);
-            try {
-                const nextDay = new Date(endDate);
-                nextDay.setDate(nextDay.getDate() + 1);
-
-                const res = await fetch(`${IP}/bookings/allbookings?service_status=${status}&startDate=${startDate}&endDate=${nextDay.toISOString().split('T')[0]}`, {
-                    method: 'GET',
-                    headers: {
-                        Authorization: token
-                    }
-                });
-                const data = await res.json();
-                setRequest(data);
-                setLoading(false);
-            } catch (error) {
-                console.log(error);
-            }
-        };
-
         fetchData();
-    }, [startDate, endDate, token, status]);
-
-    console.log("requetse boking data", request)
+    }, [status, startDate, endDate, token]);
 
     useEffect(() => {
         localStorage.setItem("startDate", startDate);
@@ -62,20 +64,9 @@ function Event() {
         const today = moment().format('YYYY-MM-DD');
         setStartDate(moment(today).subtract(7, 'day').format('YYYY-MM-DD'));
         setEndDate(today);
-        setStatus(event_status)
-    }, []);
+        setStatus(event_status);
+    }, [event_status]);
 
-    const handleInfiniteScroll = () => {
-        if (window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight) {
-            setPageNumber(prev => prev + 1);
-            setLoading(true);
-        }
-    };
-
-    useEffect(() => {
-        window.addEventListener("scroll", handleInfiniteScroll);
-        return () => window.removeEventListener("scroll", handleInfiniteScroll);
-    }, []);
 
     const openModal = (eventData) => {
         setSelectedEventData(eventData);
@@ -89,19 +80,19 @@ function Event() {
     const handleRowClick = (client) => {
         nav(`/admin/clients/edit_client/${client._id}`, { state: { client } });
     };
+
     const handleProvider = (client) => {
-        nav(`/admin/contractors/view_contractor/${client._id}`, { state: { client } });
+        nav(`/admin/contractors/view_contractor/${client.provider_id}`, { state: { client } });
     };
 
-    const filteredTransactions = request?.filter((transaction) =>
-        transaction.service_name.toLowerCase().includes(searchText.toLowerCase())
-        // transaction.email.toLowerCase().includes(searchText.toLowerCase()) ||
-        // transaction.userId.toLowerCase().includes(searchText.toLowerCase()) ||
-        // transaction.postalCode.toString().includes(searchText) ||
-        // transaction.mobile.toString().includes(searchText)
-    );
+    const filteredTransactions = useMemo(() =>
+        request?.filter((event) =>
+            event?.service_name?.toLowerCase().includes(searchText.toLowerCase())
+            // Add more filtering conditions if needed
+        ), [request, searchText]);
 
-    console.log("filteredTransactionsfilteredTransactions", filteredTransactions)
+    console.log("filteredTransactions", filteredTransactions);
+
     return (
         <>
             <div id="content">
@@ -153,45 +144,40 @@ function Event() {
                     <div className="row">
                         <div className="gutter">
                             <div className="bookings">
-                                {filteredTransactions?.length === 0 ? (
-                                    <p>No bookings found.</p>
-                                ) : (
+                                {filteredTransactions?.length > 0 ? (
                                     filteredTransactions?.map((event, index) => (
                                         <div className="item_wrapper" key={index}>
                                             <div className="item card layer2">
                                                 <div className="first_half">
-                                                    <h3 className="link title" onCilck={() => handleRowClick(event?.userInfo[0])}>
-                                                        {event?.userInfo[0]?.first_name && event?.userInfo[0]?.last_name ? (
-                                                            <>
-
-                                                                <span className="link title">
-                                                                    {`${event.userInfo[0].first_name} ${event.userInfo[0].last_name}`}
-                                                                </span>
-                                                            </>
+                                                    <h3 className="link title" onClick={() => handleRowClick(event.userInfo[0])}>
+                                                        {event.userInfo[0]?.first_name && event.userInfo[0]?.last_name ? (
+                                                            <span className="link title">
+                                                                {`${event.userInfo[0].first_name} ${event.userInfo[0].last_name}`}
+                                                            </span>
                                                         ) : null}
                                                     </h3>
-                                                    <h3 className="link"  onClick={() => openModal(event)} >{event?.service_name} {event?.service_time} - {event?.massage_for}</h3>
-                                                    <span className="address">{event?.address}</span>
-                                                    <span className="address"><b></b>{event?.scheduled_date}</span>
-                                                    <span className="address"><b></b>{event?.scheduled_timing}</span>
+                                                    <h3 className="link" onClick={() => openModal(event)}>
+                                                        {`${event.service_name} ${event.service_time} - ${event.massage_for}`}
+                                                    </h3>
+                                                    <span className="address">{event.address}</span>
+                                                    <span className="address"><b></b>{event.scheduled_date}</span>
+                                                    <span className="address"><b></b>{event.scheduled_timing}</span>
                                                     <span className="tag">
                                                         <b>Booking status: </b>
                                                         {event.service_status}
-                                                        {event?.providerInfo[0]?.first_name && event?.providerInfo[0]?.last_name ? (
-                                                            <>
-                                                                &nbsp;
-                                                                <span className="link title" onCilck={() => handleProvider(event?.userInfo[0])}>
-                                                                    {`by ${event.providerInfo[0].first_name} ${event.providerInfo[0].last_name}`}
-                                                                </span>
-                                                            </>
+                                                        {event.providerInfo[0]?.first_name && event.providerInfo[0]?.last_name ? (
+                                                            <span className="link title" onClick={() => handleProvider(event.providerInfo[0])}>
+                                                                {` by ${event.providerInfo[0].first_name} ${event.providerInfo[0].last_name}`}
+                                                            </span>
                                                         ) : null}
-
                                                     </span>
-                                                    <span className="tag"><b></b> {event?.instructions !== '' ? <><strong className="mt-1">Instructions : </strong> {event?.instructions} </> : ''}</span>
+                                                    <span className="tag">
+                                                        <b></b> {event.instructions !== '' ? <><strong className="mt-1">Instructions : </strong> {event.instructions} </> : ''}
+                                                    </span>
                                                 </div>
                                                 <div className="second_half">
-                                                    <span>Date: {moment(event?.createdAt).format("MMMM Do YYYY")}, Time: {moment(event?.createdAt).format("LT")}</span>
-                                                    <span className="colored">Total = {event?.user_amount_calculation?.totalAmountWithTax.toFixed(2)}</span>
+                                                    <span>Date: {moment(event.createdAt).format("MMMM Do YYYY")}, Time: {moment(event.createdAt).format("LT")}</span>
+                                                    <span className="colored">Total = {event.user_amount_calculation?.totalAmountWithTax.toFixed(2)}</span>
                                                     {event.service_status === "pending" && (
                                                         <button className="button primary square" onClick={() => openModal(event)}>Assign Event</button>
                                                     )}
@@ -199,6 +185,8 @@ function Event() {
                                             </div>
                                         </div>
                                     ))
+                                ) : (
+                                    <p>No bookings found.</p>
                                 )}
                             </div>
                             {loading && (
@@ -215,6 +203,8 @@ function Event() {
                     </div>
                 </div>
             </div>
+
+            {/* Modal component */}
             {selectedEventData && (
                 <CustomModal
                     startDate={startDate}
