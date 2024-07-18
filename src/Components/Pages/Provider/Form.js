@@ -26,6 +26,7 @@ function FormPage(props) {
     const [users, setUsers] = useState([]);
     const [img, setImg] = useState('');
     const [toggle, setToggle] = useState(false);
+    const [loading, setLoading] = useState(false)
     const nav = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
 
@@ -85,6 +86,7 @@ function FormPage(props) {
     });
 
     const onSubmit = async (values, { setValues, resetForm }) => {
+        setLoading(true)
         try {
             const bodyFormData = new FormData();
 
@@ -110,6 +112,7 @@ function FormPage(props) {
             console.log(res);
 
             if (res.status === 200) {
+                setLoading(false)
                 toast.success('Your Registration successfully!', {
                     position: 'top-right',
                     autoClose: 1000,
@@ -118,14 +121,15 @@ function FormPage(props) {
                     },
                 });
             } else {
-                toast.error('An error occurred. Please try again.', {
+                toast.error('Email or mobile number already exist', {
                     position: 'top-right',
                     autoClose: 3000,
                 });
             }
         } catch (error) {
             console.error(error);
-            toast.error('An error occurred. Please try again.', {
+            setLoading(false)
+            toast.error('Email or mobile number already exist', {
                 position: 'top-right',
                 autoClose: 1000,
             });
@@ -296,7 +300,7 @@ function FormPage(props) {
 
                                             <div className="faqbutton">
                                                 <button className="button lazy" type="submit" style={{ maxWidth: '150px' }}>
-                                                    submit
+                                                    {loading ? "loading..." : "submit"}
                                                 </button>
                                             </div>
                                         </div>

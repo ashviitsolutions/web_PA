@@ -28,8 +28,7 @@ const useUserRegistration = () => {
       return response;
     } catch (err) {
       setLoading(false);
-      setError(err.response?.data?.message || "An error occurred");
-      showError(err.response?.data?.message || "An error occurred"); // Show error toast message
+      showError(err?.response?.data?.msg); // Show error toast message
       throw err;
     }
   };
@@ -54,15 +53,14 @@ const useUserRegistration = () => {
       localStorage.setItem("last_name", response?.data?.user_info?.last_name);
       localStorage.setItem("user_email", response?.data?.user_info?.email);
       localStorage.setItem("mobile", response?.data?.user_info?.mobile);
-      
+
       showSuccess("Logged in successfully");
 
       setLoading(false);
       return response;
     } catch (err) {
       setLoading(false);
-      setError(err.response?.data?.message || "An error occurred");
-      showError(err.response?.data?.message || "An error occurred");
+      showError(err?.response?.data?.msg);
       throw err;
     }
   };

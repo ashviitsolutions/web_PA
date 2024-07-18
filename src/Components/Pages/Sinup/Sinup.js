@@ -44,7 +44,6 @@ const Signup = () => {
                 navigate('/login');
             }
         } catch (error) {
-            showError(error.message);
         }
     };
 
