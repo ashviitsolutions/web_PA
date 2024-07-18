@@ -64,7 +64,6 @@ const Checkout = (props) => {
       });
 
       if (res.status === 200) {
-        confirmAndCapturePayment();
 
         // Remove _id from removedChekincard in localStorage
         const removedChekincardArray = JSON.parse(localStorage.getItem('removedChekincard')) || [];
@@ -72,12 +71,14 @@ const Checkout = (props) => {
         localStorage.setItem('removedChekincard', JSON.stringify(updatedArray));
 
         // Run confirmAndCapturePayment after successful checkout submission
+        confirmAndCapturePayment();
 
         // Redirect to providers page
 
-        // props.onHide();
         nav("/providers/earnings");
         setLoading(false)
+        props.onHide();
+
 
       }
     } catch (error) {

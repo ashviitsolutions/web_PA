@@ -72,12 +72,8 @@ function CustomModal(
       });
       console.log(res);
       if (res.status === 200) {
-        if (event === "event_value") {
-          nav("/providers/events");
-        } else {
-          nav("/providers");
-        }
         onHide();
+
       }
     } catch (error) {
       console.error(error);
