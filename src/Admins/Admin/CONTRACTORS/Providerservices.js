@@ -63,7 +63,7 @@ function Providerservices() {
   const handleRowClick = (cur) => {
 
     console.log("cur", cur); // Check the structure of cur
-    navigate(`/admin/provider-service-details/${cur.provider_details._id}`, { state: { cur, startDate, endDate } });
+    navigate(`/admin/contractors/view_contractor/${cur.provider_details._id}`, { state: { cur, startDate, endDate } });
     localStorage.setItem("providerID", `${cur.provider_details._id}`)
   };
 

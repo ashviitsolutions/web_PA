@@ -77,7 +77,7 @@ const FifthForm = ({ step, nextStep }) => {
 
     setLoading(true);
     const formData = {
-      first_name: last_name,
+      first_name: first_name,
       last_name: last_name,
       mobile: mobile,
       email: email,

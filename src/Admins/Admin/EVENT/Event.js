@@ -34,7 +34,7 @@ function Event() {
                 const nextDay = new Date(endDate);
                 nextDay.setDate(nextDay.getDate() + 1);
 
-                const res = await fetch(`http://localhost:5000/api/bookings/allbookings?service_status=${status}&startDate=${startDate}&endDate=${nextDay.toISOString().split('T')[0]}`, {
+                const res = await fetch(`${IP}/bookings/allbookings?service_status=${status}&startDate=${startDate}&endDate=${nextDay.toISOString().split('T')[0]}`, {
                     method: 'GET',
                     headers: {
                         Authorization: token
@@ -88,6 +88,9 @@ function Event() {
 
     const handleRowClick = (client) => {
         nav(`/admin/clients/edit_client/${client._id}`, { state: { client } });
+    };
+    const handleProvider = (client) => {
+        nav(`/admin/contractors/view_contractor/${client._id}`, { state: { client } });
     };
 
     const filteredTransactions = request?.filter((transaction) =>
@@ -157,7 +160,7 @@ function Event() {
                                         <div className="item_wrapper" key={index}>
                                             <div className="item card layer2">
                                                 <div className="first_half">
-                                                    <h3 className="link title" onClick={() => handleRowClick(event?.userInfo[0])}>
+                                                    <h3 className="link title" onCilck={() => handleRowClick(event?.userInfo[0])}>
                                                         {event?.userInfo[0]?.first_name && event?.userInfo[0]?.last_name ? (
                                                             <>
 
@@ -167,7 +170,7 @@ function Event() {
                                                             </>
                                                         ) : null}
                                                     </h3>
-                                                    <h3 className="link" >{event?.service_name} {event?.service_time} - {event?.massage_for}</h3>
+                                                    <h3 className="link"  onClick={() => openModal(event)} >{event?.service_name} {event?.service_time} - {event?.massage_for}</h3>
                                                     <span className="address">{event?.address}</span>
                                                     <span className="address"><b></b>{event?.scheduled_date}</span>
                                                     <span className="address"><b></b>{event?.scheduled_timing}</span>
@@ -177,7 +180,7 @@ function Event() {
                                                         {event?.providerInfo[0]?.first_name && event?.providerInfo[0]?.last_name ? (
                                                             <>
                                                                 &nbsp;
-                                                                <span className="link title">
+                                                                <span className="link title" onCilck={() => handleProvider(event?.userInfo[0])}>
                                                                     {`by ${event.providerInfo[0].first_name} ${event.providerInfo[0].last_name}`}
                                                                 </span>
                                                             </>
