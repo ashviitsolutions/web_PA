@@ -61,7 +61,7 @@ function Providerservices() {
 
 
   const handleRowClick = (cur) => {
-   
+
     console.log("cur", cur); // Check the structure of cur
     navigate(`/admin/provider-service-details/${cur.provider_details._id}`, { state: { cur, startDate, endDate } });
     localStorage.setItem("providerID", `${cur.provider_details._id}`)
@@ -226,6 +226,8 @@ function Providerservices() {
     setSearchText("")
   };
 
+  console.log("memoizedUser", memoizedUser)
+
 
   return (
     <>
@@ -365,8 +367,8 @@ function Providerservices() {
                       <td>{cur.total_services}</td>
                       <td>{cur?.total_service_price?.toFixed(2)}$</td>
                       <td>{cur.total_add_ons}</td>
-                      <td>{cur?.total_tip_amount?.toFixed(2)}$</td>
-                      <td>{totalTip.toFixed(2)}$</td>
+                      <td>{cur?.total_add_ons?.toFixed(2)}$</td>
+                      <td>{cur?.total_tip_amount.toFixed(2)}$</td>
                       <td>{cur?.total_admin_amount?.toFixed(2)}$</td>
 
 
