@@ -57,19 +57,22 @@
 }
 
 .Provider_List .content p {
-    color: blue;
-
+    color: #2196f3;
+    margin: 20px 0;
 }
 
 .Provider_List .content h3 {
 
     font-size: 24px;
+    margin: 20px 0;
+    color: #03a9f4;
 }
+
 
 .Provider_List .decription {
     font-size: 12px;
     margin-top: -10px;
-
+    color: #6c757d;
 }
 
 .Listprovider_button .button {

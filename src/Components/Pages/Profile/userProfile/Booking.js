@@ -214,21 +214,23 @@ function Booking() {
                                                             height={60}
                                                             alt="Avatar"
                                                         />
+                                                        {/* <p className="sub">Add to favorites</p> */}
                                                     </span>
                                                     <div className="text-item">
+                                                    
                                                         <h3>Appointment With {username}</h3>
                                                         <p>{booking.service_status}</p>
                                                         <p>{booking.address}</p>
                                                     </div>
                                                 </div>
-                                                <div className="time_date">
+                                                <div className="time_date sub">
                                                     <p>{booking.scheduled_date}</p>
-                                                    <h3>{booking.scheduled_timing}</h3>
+                                                    <p>{booking.scheduled_timing}</p>
 
 
-                                                    <div className="time_date">
-                                                        <p>{booking.scheduled_date}</p>
-                                                        <h3>{booking.scheduled_timing}</h3>
+                                                    <div className="time_date sub">
+                                                        <p className="sub">{booking.scheduled_date}</p>
+                                                        <p className="sub">{booking.scheduled_timing}</p>
 
                                                         {
                                                             !booking?.ratings?.length > 0 ? (
@@ -244,10 +246,9 @@ function Booking() {
                                                             )
                                                         }
 
-
+                                                        
 
                                                     </div>
-
                                                 </div>
                                             </div>
                                         </div>
