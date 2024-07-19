@@ -20,9 +20,14 @@ function ViewServices() {
     const [selectedUserEmail, setSelectedUserEmail] = useState('');
     const [selectedUserMobile, setSelectedUserMobile] = useState('');
     const [selectedUserAddress, setSelectedUserAddress] = useState('');
-    const [totalMembershipPrice, setTotalMembershipPrice] = useState(0); // Define totalMembershipPrice state
+    const [totalMembershipPrice, setTotalMembershipPrice] = useState(0);
+    const [totalServicesPrice, setTotalServicesPrice] = useState(0);
+
+
 
     const [totalGiftcartPrices, setTotalGiftcartPrice] = useState(0)
+
+    console.log("selectedUserIdselectedUserId", selectedUserId)
 
     useEffect(() => {
         const storedStartDate = localStorage.getItem('startDate');
@@ -57,7 +62,7 @@ function ViewServices() {
                 console.log('allData:', allData);
                 console.log('finalcalculation:', finalcalculation);
 
-                setUserServices(allData?.servicesByProvider || []);
+                setUserServices(allData?.servicesByUser || []);
                 setMembershipDetails(allData?.membershipDetails || []);
                 setGiftCardDetails(allData?.giftcarddetails || []);
 
@@ -69,6 +74,11 @@ function ViewServices() {
                 const { totalOfferValue } = allData || {};
                 if (totalOfferValue) {
                     setTotalGiftcartPrice(totalOfferValue);
+                }
+
+                const { totalServiceAmount } = allData || {};
+                if (totalServiceAmount) {
+                    setTotalServicesPrice(totalServiceAmount);
                 }
 
                 const selectedUser = userList.find((user) => user._id === selectedUserId);
@@ -105,12 +115,28 @@ function ViewServices() {
             return isWithinDateRange && isSearched;
         });
 
-        return filteredData;
+        const filteredMembership = membershipDetails.filter((membership) => {
+            const startDateValid = !startDate || moment(startDate).isSameOrBefore(membership.startDate, 'day');
+            const endDateValid = !endDate || moment(endDate).isSameOrAfter(membership.endDate, 'day');
+            return startDateValid && endDateValid;
+        });
+
+        const filteredGiftCard = giftCardDetails.filter((giftcard) => {
+            const eventDate = moment(giftcard?.giftCards[0]?.createdAt, 'YYYY-MM-DD');
+            const isWithinDateRange =
+                (!startDate || moment(startDate).isSameOrBefore(eventDate, 'day')) &&
+                (!endDate || moment(endDate).isSameOrAfter(eventDate, 'day'));
+            return isWithinDateRange;
+        });
+
+        return { filteredData, filteredMembership, filteredGiftCard };
     };
 
-    const filteredUserServices = handleFilter();
+    const { filteredData, filteredMembership, filteredGiftCard } = handleFilter();
 
-    console.log("userServicesuserServices", userServices)
+
+    console.log("filteredGiftCardfilteredGiftCard", filteredGiftCard)
+    console.log("giftCardDetails", giftCardDetails)
 
     return (
         <div id="content">
@@ -257,7 +283,7 @@ function ViewServices() {
                             }
 
 
-                            {filteredUserServices.length > 0 && (
+                            {filteredData?.length > 0 && (
                                 <>
                                     <p>
                                         <b>Service Booking:</b>
@@ -273,7 +299,7 @@ function ViewServices() {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {filteredUserServices.map((service, index) => (
+                                            {filteredData?.map((service, index) => (
                                                 <tr key={index}>
                                                     <td>
                                                         <div>
@@ -293,16 +319,22 @@ function ViewServices() {
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <p>{service.amount_calculation.total_amount}$</p>
+                                                        <p>{service?.user_amount_calculation?.totalAmountWithTax?.toFixed(2)}$</p>
                                                     </td>
                                                     <td>
-                                                        <p>{service.provider_details.name}</p>
+                                                        <p>{service?.provider_details?.first_name}  {service?.provider_details?.last_name}</p>
                                                     </td>
                                                     <td>
                                                         <p>{moment(service.createdAt).format('DD-MM-YYYY hh:mm A')}</p>
                                                     </td>
                                                 </tr>
                                             ))}
+                                            <tr>
+                                                <td colSpan="2">
+                                                    <b>Total Booking Price:</b>
+                                                </td>
+                                                <td colSpan="2">{totalServicesPrice?.toFixed(2)}$</td> {/* Ensure totalMembershipPrice is correctly accessed */}
+                                            </tr>
                                         </tbody>
                                     </table>
 
@@ -310,7 +342,7 @@ function ViewServices() {
                             )}
 
 
-                            {giftCardDetails.length > 0 && (
+                            {filteredGiftCard?.length > 0 && (
                                 <>
                                     {giftCardDetails.map((giftCardDetail, index) => (
                                         <div key={index}>
@@ -352,7 +384,7 @@ function ViewServices() {
 
 
 
-                            {membershipDetails.length > 0 && (
+                            {filteredMembership?.length > 0 && (
                                 <>
                                     <div className="vspace50"></div>
                                     <p>
@@ -374,7 +406,7 @@ function ViewServices() {
                                                         <p>{membership?.membershipType}</p>
                                                     </td>
                                                     <td>
-                                                        <p>{membership?.membershipPrice}$</p> {/* Ensure price is correctly accessed */}
+                                                        <p>{totalMembershipPrice}$</p> {/* Ensure price is correctly accessed */}
                                                     </td>
                                                     <td>
                                                         <p>{moment(membership?.createdAt).format('DD-MM-YYYY')}</p>
