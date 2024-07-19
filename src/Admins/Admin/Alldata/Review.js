@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { FallingLines } from "react-loader-spinner";
 import { useLocation, useNavigate } from 'react-router-dom';
 import moment from 'moment';
+import CustomModal from '../EVENT/Model';
 import Rating from "react-rating-stars-component";
 import { IP } from '../../../Constant'; // Assuming IP is imported correctly
 
@@ -31,39 +32,58 @@ const PreviewImage = ({ attachments }) => {
 };
 
 function Review() {
-  const [user, setUser] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
-  const [searchText, setSearchText] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
+  const [user, setUser] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const startDates = location.state ? location.state.startDate : "";
+  const endDates = location.state ? location.state.endDate : "";
+  const Startdate = localStorage.getItem("startDate");
+  const Enddate = localStorage.getItem("endDate");
+  const [showModal, setShowModal] = useState(false);
+  const [selectedEventData, setSelectedEventData] = useState(null);
+  const [searchText, setSearchText] = useState('');
+
+  const [startDate, setStartDate] = useState(startDates || Startdate || moment().subtract(7, 'day').format('YYYY-MM-DD'));
+  const [endDate, setEndDate] = useState(endDates || Enddate || moment().format('YYYY-MM-DD'));
+  const token = localStorage.getItem('tokenadmin');
 
   useEffect(() => {
-    setLoading(true);
-    const token = localStorage.getItem('tokenadmin');
-    fetch(`${IP}/bookings/get-all-review`, {
-      headers: {
-        Authorization: token
-      }
-    })
-      .then(resp => {
+    setLoading(true); // Set loading to true before API call
+    const fetchReviews = async () => {
+      try {
+        const nextDay = new Date(endDate);
+        nextDay.setDate(nextDay.getDate() + 1);
+        const resp = await fetch(`${IP}/bookings/get-all-review?startDate=${startDate}&endDate=${nextDay.toISOString().split('T')[0]}`, {
+          headers: {
+            Authorization: token
+          }
+        });
         if (!resp.ok) {
           throw new Error('Network response was not ok');
         }
-        return resp.json();
-      })
-      .then(result => {
-        console.log("Fetched reviews:", result);
-        setUser(result?.reviews || []); // Assuming 'reviews' is the array of reviews in the API response
-      })
-      .catch(err => {
-        console.error('Fetch error:', err);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []); // Empty dependency array ensures effect runs once on mount
+        const result = await resp.json();
+        setUser(result?.reviews || []);
+      } catch (error) {
+        console.error('Fetch error:', error);
+      } finally {
+        setLoading(false); // Set loading to false after API call completes
+      }
+    };
+
+    fetchReviews();
+  }, [startDate, endDate, token]); // Trigger useEffect on startDate or endDate change
+
+  useEffect(() => {
+    localStorage.setItem("startDate", startDate);
+    localStorage.setItem("endDate", endDate);
+  }, [startDate, endDate]);
+
+  useEffect(() => {
+    const today = moment().format('YYYY-MM-DD');
+    setStartDate(moment(today).subtract(7, 'day').format('YYYY-MM-DD'));
+    setEndDate(today);
+  }, []);
 
   const handleInfiniteScroll = () => {
     if (window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight) {
@@ -79,28 +99,28 @@ function Review() {
   }, []);
 
   const handleNavigate = (id) => {
-    // Navigate to provider profile based on ID
     navigate(`/admin/contractors/view_contractor/${id}`);
   };
 
-  const handleNavigateClient = (customerId) => {
-    // Navigate to client profile based on customerId
-    navigate(`/admin/clients-service-details`, { state: { startDate, endDate, customerId } });
+  const handleNavigateClient = (client) => {
+    navigate(`/admin/clients/edit_client/${client?._id}`, { state: { startDate, endDate, client } });
   };
 
-  const handleFilter = () => {
-    // Filter reviews based on selected dates and search text
-    return user.filter(cur => {
-      const isWithinDateRange = (!startDate || new Date(cur.createdAt) >= new Date(startDate)) &&
-        (!endDate || new Date(cur.createdAt) <= new Date(endDate));
-      const isSearched = !searchText ||
-        (cur.reviewerName.toLowerCase().includes(searchText.toLowerCase()) ||
-          cur.userEmail.toLowerCase().includes(searchText.toLowerCase()));
-      return isWithinDateRange && isSearched;
-    });
+  const openModal = (eventData) => {
+    setSelectedEventData(eventData);
+    setShowModal(true);
   };
 
-  const filteredReviews = handleFilter();
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
+  const filteredReviews = useMemo(() =>
+    user?.filter((event) =>
+      event?.services?.service_name.toLowerCase().includes(searchText.toLowerCase())
+
+    ), [user, searchText]);
+
 
   return (
     <div id="content">
@@ -141,6 +161,16 @@ function Review() {
             </div>
           </div>
         </div>
+        {loading && (
+          <div style={{ textAlign: "center" }}>
+            <FallingLines
+              color="#03a9f4"
+              width="150"
+              visible={true}
+              ariaLabel="falling-circles-loading"
+            />
+          </div>
+        )}
 
         {filteredReviews.length > 0 ? (
           <div className="row">
@@ -161,7 +191,7 @@ function Review() {
                       <td className='reviewTab'>
                         <div className="content">
                           <span className="title" id="headingtitle">
-                            {cur.comments}  & {/* Render review comments */}
+                            {cur.comments} {/* Render review comments */}
                           </span>
                           <Rating
                             value={cur.rating}
@@ -173,23 +203,23 @@ function Review() {
                       </td>
                       <td>
                         <div className="typefield">
-                          <div className="content mt-3">
+                          <div className="content mt-3 typefield link title" onClick={() => openModal(cur?.services)}>
                             <span className="title" id="headingtitle">
-                              <span id="pricevalue">{cur.serviceName}</span> {/* Render service name */}
+                              <span id="pricevalue">{cur?.services?.service_name}</span> {/* Render service name */}
                             </span>
                           </div>
                         </div>
                       </td>
                       <td>
                         <div className="typefield link title">
-                          <span style={{ display: "block" }} onClick={() => handleNavigate(cur.providerId)}>
-                            {cur.providerName} {/* Render provider name */}
+                          <span style={{ display: "block" }} onClick={() => handleNavigate(cur?.providerInfo[0]?.provider_id)}>
+                            {cur?.providerInfo[0]?.first_name} {cur?.providerInfo[0]?.last_name}
                           </span>
                         </div>
                       </td>
                       <td>
                         <div className="typefield link title">
-                          <span style={{ display: "block" }} onClick={() => handleNavigateClient(cur.userId)}>
+                          <span style={{ display: "block" }} onClick={() => handleNavigateClient(cur?.userInfo[0])}>
                             {cur.reviewerName} {/* Render client name */}
                           </span>
                         </div>
@@ -199,16 +229,7 @@ function Review() {
                   ))}
                 </tbody>
               </table>
-              {loading && (
-                <div style={{ textAlign: "center" }}>
-                  <FallingLines
-                    color="#03a9f4"
-                    width="150"
-                    visible={true}
-                    ariaLabel="falling-circles-loading"
-                  />
-                </div>
-              )}
+
             </div>
           </div>
         ) : (
@@ -216,6 +237,41 @@ function Review() {
         )}
 
       </div>
+      {/* Modal component */}
+      {selectedEventData && (
+        <CustomModal
+          startDate={startDate}
+          endDate={endDate}
+          booking_status={selectedEventData.service_status}
+          event={selectedEventData.event}
+          show={showModal}
+          onHide={closeModal}
+          title={selectedEventData.service_name}
+          address={selectedEventData.address}
+          time={selectedEventData.scheduled_timing}
+          date={selectedEventData.scheduled_date}
+          _id={selectedEventData._id}
+          status={selectedEventData.service_status}
+          getdirection={selectedEventData.location}
+          total={selectedEventData.total}
+          areasOfConcern={selectedEventData.areas_of_concern}
+          customerEmail={selectedEventData.customer_email}
+          gender={selectedEventData.gender}
+          healthConditions={selectedEventData.health_conditions}
+          locationType={selectedEventData.location_type}
+          massageBodyPart={selectedEventData.massage_body_part}
+          massageFor={selectedEventData.massage_for}
+          serviceTime={selectedEventData.service_time}
+          specialConsiderations={selectedEventData.special_considerations}
+          paymentIntentId={selectedEventData.paymentIntentId}
+          gendercheck={selectedEventData.gendercheck}
+          add_ons={selectedEventData.add_ons}
+          add_ons_details={selectedEventData.add_ons_details}
+          massage_for={selectedEventData.massage_for}
+          amount_calculation={selectedEventData.user_amount_calculation}
+        />
+      )}
+
     </div>
   );
 }
