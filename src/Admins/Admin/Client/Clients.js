@@ -27,7 +27,7 @@ function Clients() {
         const nextDay = new Date(endDate);
         nextDay.setDate(nextDay.getDate() + 1);
         setLoading(true);
-        setLoading(true);
+       
         fetch(`${IP}/admin/all-users?page=${pageNumber}&limit=10&startDate=${startDate}&endDate=${nextDay.toISOString().split('T')[0]}`, {
             headers: {
                 'Authorization': token

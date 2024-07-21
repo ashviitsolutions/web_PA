@@ -59,8 +59,8 @@ function Contractors() {
     const [searchText, setSearchText] = useState("");
     const [pageNumber, setPageNumber] = useState(1);
 
-    const [startDate, setStartDate] = useState(startDates || Startdate); // Initialize with startDates
-    const [endDate, setEndDate] = useState(endDates || Enddate);
+    const [startDate, setStartDate] = useState(startDates || Startdate || moment().subtract(7, 'day').format('YYYY-MM-DD'));
+    const [endDate, setEndDate] = useState(endDates || Enddate || moment().format('YYYY-MM-DD'));
     const [loading, setLoading] = useState(null);
     let token = localStorage.getItem("tokenadmin");
     const [user, setUser] = useState([]);
@@ -69,29 +69,12 @@ function Contractors() {
 
 
 
-    // useEffect(() => {
-    //     // setStatus(vender_status);
-    //     setStartDate(startDates);
-    //     setEndDate(endDates);
-    // }, [vender_status, endDates, endDates]);
-
-
 
     useEffect(() => {
-        localStorage.setItem("startDate", startDate);
-        localStorage.setItem("endDate", endDate);
-    }, [startDate, endDate]);
-
-
-
-
-
-
-
-
-    useEffect(() => {
+        const nextDay = new Date(endDate);
+        nextDay.setDate(nextDay.getDate() + 1);
         setLoading(true);
-        fetch(`${IP}/contractor/list`, {
+        fetch(`http://localhost:5000/api/contractor/list?page=${pageNumber}&limit=10&startDate=${startDate}&endDate=${nextDay.toISOString().split('T')[0]}`, {
             headers: {
                 'Authorization': token
             }
@@ -113,16 +96,42 @@ function Contractors() {
         }).finally(() => {
             setLoading(false); // Set loading to false after fetching data
         });
+    }, [startDate,endDate]);
+
+
+
+
+
+    useEffect(() => {
+        localStorage.setItem("startDate", startDate);
+        localStorage.setItem("endDate", endDate);
+    }, [startDate, endDate]);
+
+    useEffect(() => {
+        const today = moment().format('YYYY-MM-DD');
+        setStartDate(moment(today).subtract(7, 'day').format('YYYY-MM-DD'));
+        setEndDate(today);
     }, []);
 
 
 
+    const handleInfiniteScroll = async () => {
+        try {
+            if (
+                window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight
+            ) {
+                setPageNumber(prev => prev + 1);
+                setLoading(true)
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
-
-
-
-
-
+    useEffect(() => {
+        window.addEventListener("scroll", handleInfiniteScroll);
+        return () => window.removeEventListener("scroll", handleInfiniteScroll)
+    }, []);
 
 
 
@@ -135,10 +144,8 @@ function Contractors() {
             const isStatusMatched = !status || contractor.application_status_text === status;
             const eventDate = moment(contractor.createdAt, 'YYYY-MM-DD'); // Adjust the format based on the actual format of eventDate
 
-            const isWithinDateRange = (!startDate || moment(startDate).isSameOrBefore(eventDate, 'day')) &&
-                (!endDate || moment(endDate).isSameOrAfter(eventDate, 'day'));
             const isSearched = !searchText || (contractor.first_name.toLowerCase().includes(searchText.toLowerCase()) || contractor.last_name.toLowerCase().includes(searchText.toLowerCase()) || contractor.email.toLowerCase().includes(searchText.toLowerCase()));
-            return isWithinDateRange && isStatusMatched && isSearched;
+            return  isStatusMatched && isSearched;
         });
         return filteredData;
     };
