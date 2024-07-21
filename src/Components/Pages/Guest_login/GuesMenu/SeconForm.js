@@ -30,11 +30,11 @@ const SeconForm = ({ step, nextStep }) => {
     // const gendercheck = selector?.firstForm[0]; 
     const gendercheck = location.state?.firstForm || "";
     const service_id = selector?.service_id && selector.service_id.length > 0 ? selector.service_id[0] : "";
-    const user = selector?.booking_service && selector.booking_service.length > 0 ? selector.booking_service[0] : "";
+    const users = selector?.booking_service && selector.booking_service.length > 0 ? selector.booking_service[0] : "";
 
     // console.log("selector service_id", service_id)
 
-    const [users, setUser] = useState([]);
+    const [user, setUser] = useState([]);
     const [selectedItems, setSelectedItems] = useState([]);
     const [selectedGender, setSelectedGender] = useState([]);
     const [selectedGender1, setSelectedGender1] = useState([]);
@@ -174,7 +174,7 @@ const SeconForm = ({ step, nextStep }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await fetch(`${IP}/service/view-services`);
+                const res = await fetch(`${IP}/service/view-services?page=1&limit=100`);
                 const data = await res.json();
                 setUser(data);
                 dispatch(updateInputData({ formName: 'booking_service', inputData: data }));
@@ -186,6 +186,8 @@ const SeconForm = ({ step, nextStep }) => {
         fetchData();
     }, []);
 
+
+    console.log("user booking service", user)
 
 
     const handleSubmit = async () => {

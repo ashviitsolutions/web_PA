@@ -233,6 +233,8 @@ const Conform = () => {
                     coupon_amount: amount_off,
                     coupon_percentage: percent_off
                 });
+
+                console.log("response calculation data",response)
                 dispatch(updateInputData({ formName: 'calculatedData', inputData: response?.data?.calculatedata }));
                 setLoder(false)
 
