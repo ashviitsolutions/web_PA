@@ -17,34 +17,41 @@ function Clients() {
     const [user, setUser] = useState([]);
     const [pageNumber, setPageNumber] = useState(1);
     const [loading, setLoading] = useState(null);
-    const [startDate, setStartDate] = useState(startDates || Startdate); // Initialize with startDates
-    const [endDate, setEndDate] = useState(endDates || Enddate); // Initialize with endDates
+    const [startDate, setStartDate] = useState(startDates || Startdate || moment().subtract(7, 'day').format('YYYY-MM-DD'));
+    const [endDate, setEndDate] = useState(endDates || Enddate || moment().format('YYYY-MM-DD'));
     const [status, setStatus] = useState("");
     const [searchText, setSearchText] = useState("");
     const token = localStorage.getItem('tokenadmin');
 
     useEffect(() => {
+        const nextDay = new Date(endDate);
+        nextDay.setDate(nextDay.getDate() + 1);
         setLoading(true);
-        fetch(`${IP}/admin/allusers`, {
+        setLoading(true);
+        fetch(`${IP}/admin/all-users?page=${pageNumber}&limit=10&startDate=${startDate}&endDate=${nextDay.toISOString().split('T')[0]}`, {
             headers: {
                 'Authorization': token
             }
+
+
         }).then(resp => resp.json())
             .then(result => {
 
+                console.log("user details", result)
 
-                setUser(result);
+
+                setUser(result?.users);
                 setLoading(false);
             }).catch(err => {
                 console.log(err);
             }).finally(() => {
                 setLoading(false);
             });
-    }, []);
+    }, [startDate ,endDate]);
 
 
 
-    console.log("memberhsip and name list",user)
+    console.log("memberhsip and name list", user)
 
 
 
@@ -58,13 +65,11 @@ function Clients() {
         localStorage.setItem("endDate", endDate);
     }, [startDate, endDate]);
 
-
     useEffect(() => {
-
-        setStartDate(Startdate);
-        setEndDate(Enddate);
-    }, [endDates, endDates]);// Empty dependency array means this effect will only run once after the initial render
-
+        const today = moment().format('YYYY-MM-DD');
+        setStartDate(moment(today).subtract(7, 'day').format('YYYY-MM-DD'));
+        setEndDate(today);
+    }, []);
 
 
 
@@ -94,14 +99,10 @@ function Clients() {
 
         // Filter data based on selected dates, status, and search text
         const filteredData = user.filter(contractor => {
-            console.log("createAt date", contractor.createdAt)
-            const isStatusMatched = !status || contractor.application_status_text === status;
-            const eventDate = moment(contractor.createdAt, 'YYYY-MM-DD'); // Adjust the format based on the actual format of eventDate
-
-            const isWithinDateRange = (!startDate || moment(startDate).isSameOrBefore(eventDate, 'day')) &&
-                (!endDate || moment(endDate).isSameOrAfter(eventDate, 'day'));
+           
+           
             const isSearched = !searchText || (contractor.first_name.toLowerCase().includes(searchText.toLowerCase()) || contractor.last_name.toLowerCase().includes(searchText.toLowerCase()) || contractor.email.toLowerCase().includes(searchText.toLowerCase()));
-            return isWithinDateRange && isStatusMatched && isSearched;
+            return isSearched;
         });
         return filteredData;
     };
@@ -189,7 +190,15 @@ function Clients() {
                                                 <div className="content">
 
                                                     <span className="title">{client.first_name} {client.last_name}</span>
-                                                    <p className='sub'>{client.membershipType}</p>
+
+                                                    {
+                                                        client?.membershipType ? (
+                                                            <p className='sub'>{client.membershipType}</p>
+
+                                                        ) : (
+                                                            <p className='sub'>No Memberhsip</p>
+                                                        )
+                                                    }
 
                                                 </div>
                                             </td>
@@ -203,7 +212,7 @@ function Clients() {
                                             </td>
 
                                             <td> {moment(client.createdAt).format('DD-MM-YYYY hh:mm A')}</td>
-                                         <td>{client.created_by}</td> 
+                                            <td>{client.created_by}</td>
                                         </tr>
                                     ))}
                                 </tbody>
