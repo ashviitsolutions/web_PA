@@ -74,7 +74,7 @@ function Contractors() {
         const nextDay = new Date(endDate);
         nextDay.setDate(nextDay.getDate() + 1);
         setLoading(true);
-        fetch(`http://localhost:5000/api/contractor/list?page=${pageNumber}&limit=10&startDate=${startDate}&endDate=${nextDay.toISOString().split('T')[0]}`, {
+        fetch(`${IP}/contractor/list?page=${pageNumber}&limit=10&startDate=${startDate}&endDate=${nextDay.toISOString().split('T')[0]}`, {
             headers: {
                 'Authorization': token
             }
