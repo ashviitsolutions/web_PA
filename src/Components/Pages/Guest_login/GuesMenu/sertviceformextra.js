@@ -54,7 +54,7 @@ const SeconForm = ({ step, nextStep }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await fetch(`${IP}/service/view-services`);
+                const res = await fetch(`${IP}/service/view-services?page=1&limit=100`);
                 const data = await res.json();
                 setUser(data);
 

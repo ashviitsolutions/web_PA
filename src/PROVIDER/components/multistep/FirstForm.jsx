@@ -168,7 +168,7 @@ const FirstForm = (props) => {
   console.log(country)
   //fetch list of services
   useEffect(() => {
-    fetch(`${IP}/service/view-services`)
+    fetch(`${IP}/service/view-services?page=1&limit=100`)
       .then((resp) => {
         return resp.json()
       }).then((data) => {
