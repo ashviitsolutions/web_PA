@@ -35,6 +35,7 @@ function Getpost() {
     const navigate = useNavigate()
     const [search, setSearch] = useState("")
     //   const [Delete, setDelete] = useState([])
+    const [pageNumber, setPageNumber] = useState(1);
 
     const [loading, setLoading] = useState(null);
 
@@ -52,23 +53,41 @@ function Getpost() {
         setLoading(true);
         const fetchData = async () => {
             try {
-                const res = await fetch(`${IP}/service/view-services`);
+                const res = await fetch(`${IP}/service/view-services?page=${pageNumber}&limit=5`);
                 const data = await res.json();
                 setUser(prevData => [...prevData, ...data]);
                 setCount(data.length);
-                // console.log("get data", data)
+                console.log("get data", data)
                 setLoading(false); // Set loading to true before fetching data
             } catch (error) {
             }
         };
 
         fetchData();
-    }, [data, search, selectedType]);
+    }, [pageNumber]);
 
 
-    const handlePageClick = (data) => {
-        setData(data.selected + 1);
-    };
+    const handleInfiniteScroll = async () => {
+        try {
+    
+          if (
+            window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight
+          ) {
+            setPageNumber((prev) => prev + 1);
+            setLoading(true)
+          }
+    
+        } catch (error) {
+    
+        }
+      }
+    
+    
+      useEffect(() => {
+        window.addEventListener("scroll", handleInfiniteScroll);
+        return () => window.removeEventListener("scroll", handleInfiniteScroll)
+      }, [])
+    
 
 
     const filteredAndMemoizedUser = useMemo(() => {
@@ -235,29 +254,7 @@ function Getpost() {
                                     />
                                 </div>
                             )}
-                            <div className='pagination'  >
-                                <ReactPaginate
-                                    itemsPerPage={10}
-                                    previousLabel={'Previous'}
-                                    nextLabel={'Next'}
-                                    breakLabel={"..."}
-                                    pageCount={Math.ceil(count / 10)}
-                                    marginPagesDisplayed={3}
-                                    pageRangeDisplayed={2}
-                                    onPageChange={handlePageClick}
-                                    // css apply on pagination
-                                    containerClassName={'pagination justify-content-center py-3'}
-                                    pageClassName={'page-item'}
-                                    pageLinkClassName={'page-link'}
-                                    previousClassName={'page-item'}
-                                    previousLinkClassName={'page-link'}
-                                    nextClassName={'page-item'}
-                                    nextLinkClassName={'page-link'}
-                                    breakClassName={'page-item'}
-                                    breakLinkClassName={'page-link'}
-                                    activeClassName={'active'}
-                                />
-                            </div>
+                         
                         </div>
                     </div>
                 </div>

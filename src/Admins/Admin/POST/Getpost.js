@@ -53,7 +53,7 @@ function Getpost() {
     const fetchData = async () => {
       try {
         setLoading(true); // Set loading to true before fetching data
-        const res = await fetch(`${IP}/post/fetch?page=${pageNumber}&limit=10`);
+        const res = await fetch(`${IP}/post/fetch?page=${pageNumber}&limit=5`);
         const data = await res.json();
         setUser(prevData => [...prevData, ...data]);
         // setUser(data);
@@ -98,7 +98,7 @@ function Getpost() {
   }, [])
 
   const filteredUser = user.filter(post => {
-    const isTypeMatched = !selectedType || post.type._id === selectedType;
+    const isTypeMatched = !selectedType || post.type === selectedType;
     const isSearched = !search || post.title.toLowerCase().includes(search.toLowerCase());
     return isTypeMatched && isSearched;
   });
