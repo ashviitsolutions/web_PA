@@ -30,11 +30,11 @@ const SeconForm = ({ step, nextStep }) => {
     // const gendercheck = selector?.firstForm[0]; 
     const gendercheck = location.state?.firstForm || "";
     const service_id = selector?.service_id && selector.service_id.length > 0 ? selector.service_id[0] : "";
-    const users = selector?.booking_service && selector.booking_service.length > 0 ? selector.booking_service[0] : "";
+    const user = selector?.booking_service && selector.booking_service.length > 0 ? selector.booking_service[0] : "";
 
     // console.log("selector service_id", service_id)
 
-    const [user, setUser] = useState([]);
+    const [users, setUser] = useState([]);
     const [selectedItems, setSelectedItems] = useState([]);
     const [selectedGender, setSelectedGender] = useState([]);
     const [selectedGender1, setSelectedGender1] = useState([]);
@@ -177,7 +177,7 @@ const SeconForm = ({ step, nextStep }) => {
                 const res = await fetch(`${IP}/service/view-services?page=1&limit=50`);
                 const data = await res.json();
                 setUser(data);
-                dispatch(updateInputData({ formName: 'booking_service', inputData: data }));
+                // dispatch(updateInputData({ formName: 'booking_service', inputData: data }));
             } catch (error) {
                 // Handle errors
             }
