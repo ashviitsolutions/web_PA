@@ -184,7 +184,7 @@ const SeconForm = ({ step, nextStep }) => {
         };
 
         fetchData();
-    }, [firstForm ,locationForm ,dispatch]);
+    }, []);
 
 
     console.log("user booking service", user)
