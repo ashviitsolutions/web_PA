@@ -174,7 +174,7 @@ const SeconForm = ({ step, nextStep }) => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await fetch(`${IP}/service/view-services?page=1&limit=100`);
+                const res = await fetch(`${IP}/service/view-services?page=1&limit=50`);
                 const data = await res.json();
                 setUser(data);
                 dispatch(updateInputData({ formName: 'booking_service', inputData: data }));
@@ -184,7 +184,7 @@ const SeconForm = ({ step, nextStep }) => {
         };
 
         fetchData();
-    }, []);
+    }, [firstForm ,locationForm ,dispatch]);
 
 
     console.log("user booking service", user)
