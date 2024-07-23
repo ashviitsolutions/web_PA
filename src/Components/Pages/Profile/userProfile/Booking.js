@@ -19,7 +19,7 @@ function Booking() {
     const token = localStorage.getItem("token");
     const user_id = localStorage.getItem("userid");
     const [data, setData] = useState(1);
-    const [count, setCount] = useState(0);
+    const [loadingprofile, setLoadingprofile] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [userRating, setUserRating] = useState(0);
     const [userFeedback, setUserFeedback] = useState("");
@@ -66,13 +66,14 @@ function Booking() {
 
 
     useEffect(() => {
+        setLoadingprofile(true);
         const fetchProfile = async () => {
             try {
                 const response = await Hook.getProfile();
                 setProfile(response.data.favorites);
             } catch (error) {
                 console.error("Error fetching data:", error);
-                setIsLoading(false);
+                setLoadingprofile(false);
             }
         };
 
@@ -145,7 +146,9 @@ function Booking() {
     };
 
 
-    const addToFavorite = (id) => {
+    const addToFavorite = (booking) => {
+
+        console.log("provide data", booking)
         const config = {
             headers: {
                 "Content-Type": "application/json",
@@ -154,7 +157,7 @@ function Booking() {
         };
 
         axios
-            .post(`${IP}/user/addTofavorites/${id}/${user_id}`, {}, config)
+            .post(`${IP}/user/addTofavorites/${booking?.providerInfo[0]?.provider_id}/${user_id}/${booking?._id}`, {}, config)
             .then((res) => {
                 toast.success(res.data.message, {
                     position: "top-right",
@@ -214,11 +217,22 @@ function Booking() {
                                                             height={60}
                                                             alt="Avatar"
                                                         />
-                                                        {/* <p className="sub">Add to favorites</p> */}
+                                                        <div className="time_date sub">
+                                                            {loadingprofile && (
+                                                                <>
+                                                                    {profile?.some(providerid => providerid === booking.provider) ? (
+                                                                        <div style={{ cursor: "pointer", fontSize: "30px" }}>❤️‍</div>
+                                                                    ) : (
+                                                                        <button onClick={() => addToFavorite(booking)} style={{ cursor: "pointer" }}>Add to Favorites</button>
+                                                                    )}
+                                                                </>
+                                                            )}
+                                                        </div>
                                                     </span>
                                                     <div className="text-item">
-                                                    
+
                                                         <h3>Appointment With {username}</h3>
+                                                        <p>{booking.service_name}</p>
                                                         <p>{booking.service_status}</p>
                                                         <p>{booking.address}</p>
                                                     </div>
@@ -246,7 +260,10 @@ function Booking() {
                                                             )
                                                         }
 
-                                                        
+
+
+
+
 
                                                     </div>
                                                 </div>

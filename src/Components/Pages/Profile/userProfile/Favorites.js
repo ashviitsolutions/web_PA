@@ -29,7 +29,7 @@ const Favorites = () => {
     };
 
     axios
-      .get(`${IP}/user/getfavrate/${user_id}`, config)
+      .get(`${IP}/user/getfavrate`, config)
       .then((response) => {
 
         if (response.status === 200) {
