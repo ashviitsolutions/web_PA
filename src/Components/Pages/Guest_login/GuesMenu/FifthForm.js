@@ -89,7 +89,7 @@ const FifthForm = ({ step, nextStep }) => {
 
     nav(`/book/${provider_id}/${totalPrice}`, {
       state: {
-        firstForm:firstForm,
+        firstForm: firstForm,
         thirdform: thirdform,
         location_type: locationType,
         locationForm: locationForm,
@@ -145,36 +145,60 @@ const FifthForm = ({ step, nextStep }) => {
           localStorage.setItem("last_name", response?.data.user?.last_name);
 
           dispatch(updateInputData({ formName: 'fifthform', inputData: formData }));
-          toast.success("Registration successful!", {
-            position: "top-right",
-            autoClose: 2000,
-            onClose: () => {
-              nav(`/book/${provider_id}/${totalPrice}`);
-            },
+          nav(`/book/${provider_id}/${totalPrice}`, {
+            state: {
+              firstForm: firstForm,
+              thirdform: thirdform,
+              location_type: locationType,
+              locationForm: locationForm,
+              secondform: secondform,
+              addon_id: addon_id,
+              add_ons_details: add_ons_details,
+              servicename: servicename,
+              fourthform: fourthform,
+              fifthform: formData
+
+
+            }
           });
+
+          
+          nextStep();
+
+          
+
         } else {
           dispatch(updateInputData({ formName: 'fifthform', inputData: formData }));
-          if (response.data.msg.includes('email') || response.data.msg.includes('mobile')) {
-            toast.error("Email or mobile number already exists", {
-              position: "top-right",
-              autoClose: 3000,
-            });
-          } else {
-            toast.error("Registration failed. Please try again.", {
-              position: "top-right",
-              autoClose: 3000,
-            });
-          }
+          nav(`/book/${provider_id}/${totalPrice}`, {
+            state: {
+              firstForm: firstForm,
+              thirdform: thirdform,
+              location_type: locationType,
+              locationForm: locationForm,
+              secondform: secondform,
+              addon_id: addon_id,
+              add_ons_details: add_ons_details,
+              servicename: servicename,
+              fourthform: fourthform,
+              fifthform: formData
+
+
+            }
+          });
+        
+          nextStep();
+
         }
       } else {
         handleSubmits(e); // Execute handleSubmits if token is present
       }
     } catch (error) {
       console.error("Error occurred during registration:", error);
-      toast.error("Registration failed. Please try again.", {
+      toast.error(error?.response?.data?.msg, {
         position: "top-right",
         autoClose: 3000,
       });
+
     } finally {
       setLoading(false);
     }
@@ -214,7 +238,7 @@ const FifthForm = ({ step, nextStep }) => {
                 type="text"
                 name="address"
                 value={address}
-              
+
               />
             </div>
             <div className="form-group half">

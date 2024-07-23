@@ -49,6 +49,7 @@ const SeconForm = ({ step, nextStep }) => {
     const [errorMessage, setErrorMessage] = useState("");
     const [servicename, setServicename] = useState()
     const [showInfo, setShowInfo] = useState({});
+    const [loading ,setLoading]=useState(false)
 
 
 
@@ -157,14 +158,14 @@ const SeconForm = ({ step, nextStep }) => {
         if (itemIndex === -1) {
             setSelectedItems([...selectedItems, itemId]);
             setFormData({ ...formData, selectedItems: itemId });
-            const selectedItem = user.find(item => item._id === itemId);
+            const selectedItem = users.find(item => item._id === itemId);
             if (selectedItem) {
                 setPerice(prevPrice => prevPrice + selectedItem.price);
             }
         } else {
             const updatedItems = selectedItems.filter(id => id !== itemId);
             setSelectedItems(updatedItems);
-            const selectedItem = user.find(item => item._id === itemId);
+            const selectedItem = users.find(item => item._id === itemId);
             if (selectedItem) {
                 setPerice(prevPrice => prevPrice - selectedItem.price);
             }
@@ -172,13 +173,20 @@ const SeconForm = ({ step, nextStep }) => {
     };
 
     useEffect(() => {
+        setLoading(true)
         const fetchData = async () => {
             try {
                 const res = await fetch(`${IP}/service/view-services?page=1&limit=50`);
                 const data = await res.json();
                 setUser(data);
+                if(data.status===200){
+                    setLoading(false)
+
+                }
+                console.log("view service",data)
                 // dispatch(updateInputData({ formName: 'booking_service', inputData: data }));
             } catch (error) {
+                setLoading(false)
                 // Handle errors
             }
         };
@@ -187,7 +195,7 @@ const SeconForm = ({ step, nextStep }) => {
     }, []);
 
 
-    console.log("user booking service", user)
+    console.log("user booking selectedItems", selectedItems)
 
 
     const handleSubmit = async () => {
@@ -208,7 +216,7 @@ const SeconForm = ({ step, nextStep }) => {
         setErrorMessage("");
 
         // Extract add-on IDs and their prices
-        const selectedAddonsData = user
+        const selectedAddonsData = users
             .filter(item => selectedItems.includes(item._id)) // Filter selected add-ons
             .map(item => ({ id: item._id, title: item.title, price: item.price })); // Map to an array of objects with ID, title, and price
 
@@ -415,18 +423,6 @@ const SeconForm = ({ step, nextStep }) => {
                     </div>
                 </div>
             </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

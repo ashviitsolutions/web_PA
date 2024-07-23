@@ -152,33 +152,33 @@ const Conform = () => {
         // Calculate the total gift card amount including the new amount
         const updatedSelectedGiftCards = [...selectedGiftCards];
         const index = updatedSelectedGiftCards.indexOf(amount);
-        
+
         if (index === -1) {
-          // If the amount is not already selected, add it to the list
-      
-          if (amount > calculatedData?.totalAmountWithTax) {
-            // Notify the user that selecting this gift card would exceed the total amount
-            toast.error("Selecting this gift card would exceed the total amount.", {
-              position: "top-right",
-              autoClose: 2000,
-            });
-            return; // Exit the function, preventing further execution
-          }
-      
-          updatedSelectedGiftCards.push(amount);
+            // If the amount is not already selected, add it to the list
+
+            if (amount > calculatedData?.totalAmountWithTax) {
+                // Notify the user that selecting this gift card would exceed the total amount
+                toast.error("Selecting this gift card would exceed the total amount.", {
+                    position: "top-right",
+                    autoClose: 2000,
+                });
+                return; // Exit the function, preventing further execution
+            }
+
+            updatedSelectedGiftCards.push(amount);
         } else {
-          // If the amount is already selected, remove it from the list
-          updatedSelectedGiftCards.splice(index, 1);
+            // If the amount is already selected, remove it from the list
+            updatedSelectedGiftCards.splice(index, 1);
         }
-      
+
         // Calculate the total gift card amount based on selected gift cards
         const updatedGiftCardAmount = updatedSelectedGiftCards.reduce((acc, curr) => acc + curr, 0);
-      
+
         // Update the state with new selected gift cards and adjusted service price
         setSelectedGiftCards(updatedSelectedGiftCards);
         setGiftCardAmount(updatedGiftCardAmount);
-      };
-      
+    };
+
 
 
 
@@ -234,7 +234,7 @@ const Conform = () => {
                     coupon_percentage: percent_off
                 });
 
-                console.log("response calculation data",response)
+                console.log("response calculation data", response)
                 dispatch(updateInputData({ formName: 'calculatedData', inputData: response?.data?.calculatedata }));
                 setLoder(false)
 
