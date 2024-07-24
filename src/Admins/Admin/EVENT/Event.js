@@ -53,7 +53,7 @@ function Event() {
 
     useEffect(() => {
         fetchData();
-    }, [status, startDate, endDate, token]);
+    }, [status,event_status, startDate, endDate, token]);
 
     useEffect(() => {
         localStorage.setItem("startDate", startDate);
