@@ -14,8 +14,8 @@ const PaymentForm = () => {
     const nav = useNavigate()
     const { providerId, amount } = useParams()
     const [paymentId, setPaymentId] = useState('');
-    const endDate=location.state.endDate;
-    const startDate=location.state.startDate
+    const endDate = location.state.endDate;
+    const startDate = location.state.startDate
     const [additionalInfo, setAdditionalInfo] = useState('');
     // const [providerId, setProviderId] = useState('');
     const [file, setFile] = useState(null);
@@ -35,6 +35,7 @@ const PaymentForm = () => {
                 amount,
                 serviceinfo,
                 additionalInfo,
+                attachments: file,
                 providerId
             };
 
