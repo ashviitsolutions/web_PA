@@ -30,7 +30,8 @@ function Success() {
 
         if (res.status === 200) {
           navigate('/userProfile'); // Navigate to '/userProfile' on success
-        } else {
+        } else if (res.status !== 200) {
+          navigate('/userProfile/payment/cancel')
           console.error('Failed to process payment:', res.data.error);
           // Handle other statuses if needed
         }
