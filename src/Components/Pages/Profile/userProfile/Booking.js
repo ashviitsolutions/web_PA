@@ -81,6 +81,8 @@ function Booking() {
     }, []);
 
 
+    console.log("profileprofileprofile", profile)
+
 
     const handleRatingChange = (newRating) => {
         setUserRating(newRating);
@@ -220,7 +222,7 @@ function Booking() {
                                                         <div className="time_date sub">
                                                             {loadingprofile && (
                                                                 <>
-                                                                    {profile?.some(providerid => providerid === booking.provider) ? (
+                                                                    {profile?.map(providerid => providerid === booking.provider) ? (
                                                                         <div style={{ cursor: "pointer", fontSize: "30px" }}>❤️‍</div>
                                                                     ) : (
                                                                         <button onClick={() => addToFavorite(booking)} style={{ cursor: "pointer" }}>Add to Favorites</button>
