@@ -72,7 +72,7 @@ function Overview() {
 
 		fetchBooking();
 		fetchPosts();
-	}, []);
+	}, [dispatch]);
 
 
 	// Filter the appointments with status "pending" or "scheduled"
@@ -81,7 +81,7 @@ function Overview() {
 			post.service_status === "pending" || post.service_status === "scheduled"
 	);
 	const filteredSchudule = posts.filter(
-		(post) => post.service_status === "scheduled" ||post.service_status === "incompleted"
+		(post) => post.service_status === "scheduled"
 	);
 	const filteredPending = posts.filter(
 		(post) => post.service_status === "pending"
@@ -242,13 +242,9 @@ function Overview() {
 																	<h3 className="pull-left">
 																		{post.scheduled_timing}
 																	</h3>
-																	<h4 className="pull-right">1 day 20 hours</h4>
+																	<h4 className="pull-right">{post.scheduled_date}</h4>
 																</div>
-																<div className="absolute_time float_wrapper">
-																	<h4 className="pull-left">
-																		{post.scheduled_date}
-																	</h4>
-																</div>
+															
 																<div className="profile">
 																	<span className="avatar">
 																		<img
