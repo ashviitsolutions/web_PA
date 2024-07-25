@@ -17,6 +17,7 @@ const PaymentForm = () => {
     const endDate = location.state.endDate;
     const startDate = location.state.startDate
     const [additionalInfo, setAdditionalInfo] = useState('');
+    const [loading, setLoading] = useState(false)
     // const [providerId, setProviderId] = useState('');
     const [file, setFile] = useState(null);
 
@@ -26,46 +27,46 @@ const PaymentForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
         try {
             let token = localStorage.getItem("tokenadmin");
 
-            // Create the request body object
-            const requestBody = {
-                paymentId,
-                amount,
-                serviceinfo,
-                additionalInfo,
-                attachments: file,
-                providerId
-            };
+            const formData = new FormData();
+            formData.append('paymentId', paymentId);
+            formData.append('amount', amount);
+            formData.append('serviceinfo', JSON.stringify(serviceinfo)); // Convert to JSON string
+            formData.append('additionalInfo', additionalInfo);
+            if (file) {
+                formData.append('postImages', file); // Ensure the key matches the server-side expectation
+            }
+            formData.append('providerId', providerId);
 
-            // Make the POST request to the server
-            const response = await axios.post(`${IP}/service/approve-payment/${providerId}`, requestBody, {
+            const response = await axios.post(`${IP}/service/approve-payment/${providerId}`, formData, {
                 headers: {
-                    'Authorization': token
+                    'Authorization': token,
+                    'Content-Type': 'multipart/form-data' // Ensure Content-Type is set for file upload
                 }
             });
 
-            // Handle the response
             if (response.status === 200) {
-                // Show success notification and navigate to '/admin/Gift'
+                setLoading(false);
                 toast.success("Payment processed successfully!", {
                     position: "top-right",
-                    autoClose: 3000,
+                    autoClose: 2000,
                     onClose: () => {
                         nav("/admin/payments");
                     },
                 });
             } else {
-                // Show error notification if the API response is not successful
+                setLoading(false);
                 toast.error("An error occurred. Please try again.", {
                     position: "top-right",
-                    autoClose: 3000,
+                    autoClose: 2000,
                 });
             }
         } catch (error) {
+            setLoading(false);
             console.error('Error:', error.response.data);
-            // Show error notification if an error occurs
             toast.error("An error occurred. Please try again.", {
                 position: "top-right",
                 autoClose: 3000,
@@ -73,10 +74,10 @@ const PaymentForm = () => {
         }
     };
 
-
     const handleFileChange = (e) => {
-        setFile(e.target.files[0]);
+        setFile(e.target.files[0]); // Ensure the file is correctly set in the state
     };
+
 
     return (
         <>
