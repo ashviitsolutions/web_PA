@@ -122,12 +122,12 @@ function GuestLogin() {
           localStorage.setItem("user_name", fullName);
         }
 
-        localStorage.setItem('users', JSON.stringify(user));
-        localStorage.setItem('userid', user?.user_info?._id);
-
-        localStorage.setItem('user_email', user?.user_info?.email);
-        localStorage.setItem('mobile', user?.user_info?.mobile);
-        localStorage.setItem('token', token);
+        localStorage.setItem("token", token);
+        localStorage.setItem("userid", response?.data?.user_info?._id);
+        localStorage.setItem("first_name", response?.data?.user_info?.first_name);
+        localStorage.setItem("last_name", response?.data?.user_info?.last_name);
+        localStorage.setItem("user_email", response?.data?.user_info?.email);
+        localStorage.setItem("mobile", response?.data?.user_info?.mobile);
         nav('/select_location_type');
       } else {
         setToggle(true);

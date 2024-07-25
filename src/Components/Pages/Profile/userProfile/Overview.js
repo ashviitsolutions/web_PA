@@ -81,7 +81,7 @@ function Overview() {
 			post.service_status === "pending" || post.service_status === "scheduled"
 	);
 	const filteredSchudule = posts.filter(
-		(post) => post.service_status === "scheduled"
+		(post) => post.service_status === "scheduled" ||post.service_status === "incompleted"
 	);
 	const filteredPending = posts.filter(
 		(post) => post.service_status === "pending"

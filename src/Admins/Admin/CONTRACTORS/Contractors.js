@@ -96,7 +96,7 @@ function Contractors() {
         }).finally(() => {
             setLoading(false); // Set loading to false after fetching data
         });
-    }, [startDate,endDate]);
+    }, [startDate, endDate]);
 
 
 
@@ -107,11 +107,7 @@ function Contractors() {
         localStorage.setItem("endDate", endDate);
     }, [startDate, endDate]);
 
-    useEffect(() => {
-        const today = moment().format('YYYY-MM-DD');
-        setStartDate(moment(today).subtract(7, 'day').format('YYYY-MM-DD'));
-        setEndDate(today);
-    }, []);
+
 
 
 
@@ -145,7 +141,7 @@ function Contractors() {
             const eventDate = moment(contractor.createdAt, 'YYYY-MM-DD'); // Adjust the format based on the actual format of eventDate
 
             const isSearched = !searchText || (contractor.first_name.toLowerCase().includes(searchText.toLowerCase()) || contractor.last_name.toLowerCase().includes(searchText.toLowerCase()) || contractor.email.toLowerCase().includes(searchText.toLowerCase()));
-            return  isStatusMatched && isSearched;
+            return isStatusMatched && isSearched;
         });
         return filteredData;
     };

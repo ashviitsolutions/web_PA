@@ -24,7 +24,7 @@ function Event() {
 
     const token = localStorage.getItem("tokenadmin");
 
-    const [status, setStatus] = useState("");
+    const [status, setStatus] = useState(event_status);
     const [searchText, setSearchText] = useState("");
     const [showModal, setShowModal] = useState(false);
     const [selectedEventData, setSelectedEventData] = useState(null);
@@ -61,9 +61,9 @@ function Event() {
     }, [startDate, endDate]);
 
     useEffect(() => {
-        const today = moment().format('YYYY-MM-DD');
-        setStartDate(moment(today).subtract(7, 'day').format('YYYY-MM-DD'));
-        setEndDate(today);
+        // const today = moment().format('YYYY-MM-DD');
+        // setStartDate(moment(today).subtract(7, 'day').format('YYYY-MM-DD'));
+        // setEndDate(today);
         setStatus(event_status);
     }, [event_status]);
 
@@ -131,6 +131,7 @@ function Event() {
                                         <option value="pending">pending</option>
                                         <option value="completed">completed</option>
                                         <option value="scheduled">scheduled</option>
+                                        <option value="incompleted">Incompleted</option>
                                     </select>
                                     <span className="highlight"></span>
                                 </div>

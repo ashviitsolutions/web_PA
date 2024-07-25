@@ -116,7 +116,7 @@ function Editpost() {
             };
             setFormValue(updatedSavedValues);
         })
-    }, [id])
+    }, [id , nav])
 
 
 
@@ -162,7 +162,7 @@ function Editpost() {
                                     <div className="">
                                         <div className="headings float_wrapper">
                                             <div className="gutter pull-left" >
-                                                <h3>Edit post</h3>
+                                            <h3><span className='cursor title backarrow' onClick={() => nav(-1)}>&larr;</span>Edit post</h3>
                                             </div>
                                             <span className="toggle_sidebar" ></span>
                                         </div>
