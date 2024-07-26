@@ -31,17 +31,17 @@ function Success() {
           navigate('/userProfile'); 
         } else {
           console.error('Failed to process payment:', res.data.error);
-          navigate('/userProfile/payment/cancel');
+          // navigate('/userProfile'); 
         }
       } catch (error) {
         console.error('Error processing payment:', error);
-        navigate('/userProfile/payment/cancel');
+        // navigate('/userProfile/payment/cancel');
       }
     };
 
     const timer = setTimeout(() => {
       onSubmit();
-    }, 2000);
+    }, 3000);
 
     // Clean up the timer if the component unmounts before the timeout
     return () => clearTimeout(timer);
