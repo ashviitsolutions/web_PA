@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { IP } from '../../../Constant';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FallingLines } from "react-loader-spinner";
@@ -12,17 +11,25 @@ function Success() {
   const searchParams = new URLSearchParams(location.search);
   const session_id = searchParams.get('session_id');
   const tokenuser = localStorage.getItem("token");
+  
+  const [session, setSession] = useState(session_id);
+  const [token, setToken] = useState(tokenuser);
+
+  useEffect(() => {
+    setSession(session_id);
+    setToken(tokenuser);
+  }, [session_id, tokenuser]);
 
   useEffect(() => {
     const onSubmit = async () => {
-      if (!session_id || !tokenuser) return;
+      if (!session || !token) return;
 
       try {
-        const url = `${IP}/user/service_book?session_id=${session_id}`;
+        const url = `${IP}/user/service_book?session_id=${session}`;
         const config = {
           headers: {
             "Content-Type": "application/json",
-            Authorization: tokenuser,
+            Authorization: token,
           },
         };
         const res = await axios.get(url, config);
@@ -31,21 +38,21 @@ function Success() {
           navigate('/userProfile'); 
         } else {
           console.error('Failed to process payment:', res.data.error);
-          // navigate('/userProfile'); 
+          // Optionally, navigate to an error page or show a message
         }
       } catch (error) {
         console.error('Error processing payment:', error);
-        // navigate('/userProfile/payment/cancel');
+        // Optionally, navigate to a cancel/error page or show a message
       }
     };
 
     const timer = setTimeout(() => {
       onSubmit();
-    }, 3000);
+    }, 2000);
 
     // Clean up the timer if the component unmounts before the timeout
     return () => clearTimeout(timer);
-  }, [session_id, navigate, tokenuser]);
+  }, [session, token, navigate]);
 
   return (
     <div className='PaymentForm'>
