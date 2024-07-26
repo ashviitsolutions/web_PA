@@ -31,9 +31,12 @@ function Success() {
           headers: {
             "Content-Type": "application/json",
             Authorization: token,
+            'Cache-Control': 'no-cache', // Disable cache
           },
         };
         const res = await axios.get(url, config);
+
+        console.log("respose of booking", res?.status)
 
         if (res.status === 200) {
           navigate('/userProfile'); 
