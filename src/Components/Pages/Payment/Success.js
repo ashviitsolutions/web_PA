@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { FallingLines } from "react-loader-spinner";
+import { IP } from '../../../Constant';
 import logo from "../../assets/img/logo_home_navbar.png";
 import "./Payment.css";
 
