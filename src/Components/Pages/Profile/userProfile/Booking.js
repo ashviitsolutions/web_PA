@@ -43,7 +43,7 @@ function Booking() {
                     },
                 };
 
-                const response = await axios.get(`${IP}/user/my-bookings?service_status=completed`, config);
+                const response = await axios.get(`${IP}/user/my-bookings?service_status=completed&page=1&limit=50`, config);
 
                 console.log("Response:", response.data);
 
@@ -60,7 +60,7 @@ function Booking() {
 
 
 
-
+console.log("booking data",posts)
 
 
 

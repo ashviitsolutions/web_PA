@@ -97,7 +97,7 @@ function Overview() {
 	const currenSchudule = filteredSchudule.slice(startIndex, endIndex);
 
 
-
+	console.log("booking data",posts)
 
 
 	return (

@@ -29,7 +29,7 @@ const Post = {
   },
   getPost: () => {
     const token = localStorage.getItem("token");
-    const url = `${IP}/user/my-bookings`;
+    const url = `${IP}/user/my-bookings?page=1&limit=50`;
     const config = {
       headers: {
         Authorization: token,
