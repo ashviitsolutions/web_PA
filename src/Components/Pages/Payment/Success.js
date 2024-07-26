@@ -6,7 +6,6 @@ import { FallingLines } from "react-loader-spinner";
 import logo from "../../assets/img/logo_home_navbar.png";
 import "./Payment.css";
 
-
 function Success() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -29,19 +28,24 @@ function Success() {
         const res = await axios.get(url, config);
 
         if (res.status === 200) {
-          navigate('/userProfile'); // Navigate to '/userProfile' on success
-        } else if (res.status !== 200) {
-          navigate('/userProfile/payment/cancel')
+          navigate('/userProfile'); 
+        } else {
           console.error('Failed to process payment:', res.data.error);
-          // Handle other statuses if needed
+          navigate('/userProfile/payment/cancel');
         }
       } catch (error) {
         console.error('Error processing payment:', error);
+        navigate('/userProfile/payment/cancel');
       }
     };
 
-    onSubmit();
-  }, [session_id, tokenuser, navigate]);
+    const timer = setTimeout(() => {
+      onSubmit();
+    }, 2000);
+
+    // Clean up the timer if the component unmounts before the timeout
+    return () => clearTimeout(timer);
+  }, [session_id, navigate, tokenuser]);
 
   return (
     <div className='PaymentForm'>

@@ -84,7 +84,7 @@ function Overview() {
 		(post) => post.service_status === "scheduled"
 	);
 	const filteredPending = posts.filter(
-		(post) => post.service_status === "pending" || post.service_status==="incompleted"
+		(post) => post.service_status === "pending"
 	);
 
 	// Calculate the index range for the current page
