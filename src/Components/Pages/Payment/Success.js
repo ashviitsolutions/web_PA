@@ -15,7 +15,7 @@ function Success() {
 
   useEffect(() => {
     const onSubmit = async () => {
-      if (!session_id) return;
+      if (!session_id || !tokenuser) return;
 
       try {
         const url = `${IP}/user/service_book?session_id=${session_id}`;
