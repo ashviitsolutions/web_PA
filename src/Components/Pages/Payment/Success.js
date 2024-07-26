@@ -31,7 +31,7 @@ function Success() {
           headers: {
             "Content-Type": "application/json",
             Authorization: token,
-            'Cache-Control': 'no-cache', // Disable cache
+            // 'Cache-Control': 'no-cache', 
           },
         };
         const res = await axios.get(url, config);
