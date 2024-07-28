@@ -131,6 +131,7 @@ const RequestCard = (props) => {
         newclient={props.newclient}
         paymentIntentId={props.paymentIntentId}
         add_ons_details={props.add_ons_details}
+        massage_pressure={props.massage_pressure}
         amount_calculation={props.amount_calculation}
       />
     </div>

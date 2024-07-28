@@ -18,7 +18,7 @@ import Checkouts from "./components/Checkout";
 import { useNavigate } from "react-router-dom";
 
 function CustomModal(
-  { title, paymentIntentId, serviceTime, massage_for, gender, areasOfConcern, specialConsiderations, massageBodyPart, healthConditions, locationType,
+  { title, paymentIntentId, serviceTime, massage_pressure, add_ons_details, massage_for, gender, areasOfConcern, specialConsiderations, massageBodyPart, healthConditions, locationType,
     location,
     amount_calculation,
     time,
@@ -37,7 +37,7 @@ function CustomModal(
   }
 ) {
 
-  console.log("paymentIntentIdpaymentIntentIdpaymentIntentIdpaymentIntentIdpaymentIntentId", paymentIntentId)
+  console.log("paymentIntentIdpaymentIntentIdpaymentIntentIdpaymentInteadd_ons_detailsadd_ons_detailsntIdpaymentIntentId", add_ons_details)
 
 
 
@@ -137,7 +137,26 @@ function CustomModal(
         {/* Display user data in the modal */}
         <p className="title">{title} {serviceTime} - {massage_for}</p>
 
+
         <div className="col-md-12 detailsTable">
+          
+
+           <div className="title detailTitle">
+                  <FontAwesomeIcon icon={faInfoCircle} /> Addons Info
+                </div>
+             {add_ons_details ? (
+          <span className="title">
+            {add_ons_details.map((addon, index) => (
+              <span key={index} style={{ marginLeft: '10px' }}>
+                {addon.title}
+                {index !== add_ons_details.length - 1 ? ', ' : ''}
+              </span>
+            ))}
+          </span>
+        ) : (
+          <span className="title">No add-ons selected</span>
+        )}
+
           {/* booking details */}
           <div className="title detailTitle">
             <FontAwesomeIcon icon={faInfoCircle} /> Booking Info
@@ -200,28 +219,93 @@ function CustomModal(
 
           </div>
 
-          {/* Health Datails details */}
+
           {/* Health Datails details */}
           <div className="title detailTitle">
             <FontAwesomeIcon icon={faInfoCircle} /> Health/Massage Info
           </div>
+
+
           <div className="container row detailInfo">
-            <div className="col-md-6 title">
-              Area of Concern:
-            </div>
-            <div className="col-md-6">{areasOfConcern ? areasOfConcern.join(', ') : ""}</div>
-            <div className="col-md-6 title">
-              Health Issues:
-            </div>
-            <div className="col-md-6">{healthConditions ? healthConditions.join(', ') : ""}</div>
-            <div className="col-md-6 title">
-              Special Consideration:
-            </div>
-            <div className="col-md-6">{specialConsiderations ? specialConsiderations.join(', ') : ""}</div>
-            <div className="col-md-6 title">
-              Massage Body Part:
-            </div>
-            <div className="col-md-6">{massageBodyPart ? massageBodyPart.join(', ') : ""}</div>
+            {
+              areasOfConcern && areasOfConcern.length > 0 && (
+                <>
+                  <div className="col-md-6 title">
+                    Area of Concern:
+                  </div>
+                  <div className="col-md-6">{areasOfConcern ? areasOfConcern.join(', ') : ""}</div>
+                </>
+
+              )
+            }
+
+
+            {
+              areasOfConcern && areasOfConcern.length > 0 && (
+                <>
+                  <div className="col-md-6 title">
+                    Area of Concern:
+                  </div>
+                  <div className="col-md-6">{areasOfConcern ? areasOfConcern.join(', ') : ""}</div>
+                </>
+
+              )
+            }
+
+
+            {
+              healthConditions && healthConditions.length > 0 && (
+                <>
+                  <div className="col-md-6 title">
+                    Health Issues:
+                  </div>
+                  <div className="col-md-6">{healthConditions ? healthConditions.join(', ') : ""}</div>
+                </>
+
+              )
+            }
+
+
+            {
+              specialConsiderations && specialConsiderations.length > 0 && (
+                <>
+                  <div className="col-md-6 title">
+                    Special Consideration:
+                  </div>
+                  <div className="col-md-6">{specialConsiderations ? specialConsiderations.join(', ') : ""}</div>
+
+                </>
+
+              )
+            }
+
+
+            {
+              massageBodyPart && massageBodyPart.length > 0 && (
+                <>
+                  <div className="col-md-6 title">
+                    Massage Body Part:
+                  </div>
+                  <div className="col-md-6">{massageBodyPart ? massageBodyPart.join(', ') : ""}</div>
+
+                </>
+
+              )
+            }
+
+            {
+              massage_pressure && massage_pressure.length > 0 && (
+                <>
+                  <div className="col-md-6 title">
+                    Massage Pressure:
+                  </div>
+                  <div className="col-md-6">{massage_pressure}</div>
+                </>
+
+              )
+            }
+
+
           </div>
 
 

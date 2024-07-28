@@ -236,6 +236,7 @@ function Event() {
                     add_ons={selectedEventData.add_ons}
                     add_ons_details={selectedEventData.add_ons_details}
                     massage_for={selectedEventData.massage_for}
+                    massage_pressure={selectedEventData.massage_pressure}
                     amount_calculation={selectedEventData.user_amount_calculation}
                 />
             )}

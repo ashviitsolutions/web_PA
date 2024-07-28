@@ -102,6 +102,7 @@ const ScheduledEvents = () => {
           areasOfConcern={cur.areas_of_concern}
           healthConditions={cur.health_conditions}
           massageBodyPart={cur.massage_body_part}
+          massage_pressure={cur.massage_pressure}
           specialConsiderations={cur.special_considerations}
           amount_calculation={cur.provider_amount_calculation}
           _id={cur._id}

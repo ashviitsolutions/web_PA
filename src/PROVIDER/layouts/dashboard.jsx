@@ -127,6 +127,7 @@ const Dashboard = () => {
                       add_ons={cur.add_ons}
                       add_ons_details={cur.add_ons_details}
                       massage_for={cur.massage_for}
+                      massage_pressure={cur.massage_pressure}
                       // amount_calculation={cur.amount_calculation}
                       amount_calculation={cur.provider_amount_calculation}
 

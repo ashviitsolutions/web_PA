@@ -24,7 +24,7 @@ function CustomModal({
   location,
   amount_calculation,
   time,
-  providerId,
+  massage_pressure,
   add_ons_details,
   bookingId,
   event,
@@ -156,23 +156,86 @@ function CustomModal({
           <div className="title detailTitle">
             <FontAwesomeIcon icon={faInfoCircle} /> Health/Massage Info
           </div>
-          <div className="container row detailInfo">
-            <div className="col-md-6 title">
-              Area of Concern:
-            </div>
-            <div className="col-md-6">{areasOfConcern ? areasOfConcern.join(', ') : ""}</div>
-            <div className="col-md-6 title">
-              Health Issues:
-            </div>
-            <div className="col-md-6">{healthConditions ? healthConditions.join(', ') : ""}</div>
-            <div className="col-md-6 title">
-              Special Consideration:
-            </div>
-            <div className="col-md-6">{specialConsiderations ? specialConsiderations.join(', ') : ""}</div>
-            <div className="col-md-6 title">
-              Massage Body Part:
-            </div>
-            <div className="col-md-6">{massageBodyPart ? massageBodyPart.join(', ') : ""}</div>
+            <div className="container row detailInfo">
+            {
+              areasOfConcern && areasOfConcern.length > 0 && (
+                <>
+                  <div className="col-md-6 title">
+                    Area of Concern:
+                  </div>
+                  <div className="col-md-6">{areasOfConcern ? areasOfConcern.join(', ') : ""}</div>
+                </>
+
+              )
+            }
+
+
+            {
+              areasOfConcern && areasOfConcern.length > 0 && (
+                <>
+                  <div className="col-md-6 title">
+                    Area of Concern:
+                  </div>
+                  <div className="col-md-6">{areasOfConcern ? areasOfConcern.join(', ') : ""}</div>
+                </>
+
+              )
+            }
+
+
+            {
+              healthConditions && healthConditions.length > 0 && (
+                <>
+                  <div className="col-md-6 title">
+                    Health Issues:
+                  </div>
+                  <div className="col-md-6">{healthConditions ? healthConditions.join(', ') : ""}</div>
+                </>
+
+              )
+            }
+
+
+            {
+              specialConsiderations && specialConsiderations.length > 0 && (
+                <>
+                  <div className="col-md-6 title">
+                    Special Consideration:
+                  </div>
+                  <div className="col-md-6">{specialConsiderations ? specialConsiderations.join(', ') : ""}</div>
+
+                </>
+
+              )
+            }
+
+
+            {
+              massageBodyPart && massageBodyPart.length > 0 && (
+                <>
+                  <div className="col-md-6 title">
+                    Massage Body Part:
+                  </div>
+                  <div className="col-md-6">{massageBodyPart ? massageBodyPart.join(', ') : ""}</div>
+
+                </>
+
+              )
+            }
+
+            {
+              massage_pressure && massage_pressure.length > 0 && (
+                <>
+                  <div className="col-md-6 title">
+                    Massage Pressure:
+                  </div>
+                  <div className="col-md-6">{massage_pressure}</div>
+                </>
+
+              )
+            }
+
+
           </div>
 
 
