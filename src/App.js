@@ -141,6 +141,7 @@ import Review from './Admins/Admin/Alldata/Review';
 import Statemement from './Admins/Admin/Alldata/Statemement';
 import Providerservices from './Admins/Admin/CONTRACTORS/Providerservices';
 import DetailService from './Admins/Admin/CONTRACTORS/DetailService';
+import ReviewPage from './Components/Pages/Profile/userProfile/Review';
 function App() {
   const nav = useNavigate()
   useEffect(() => {
@@ -158,7 +159,7 @@ function App() {
     const timeDifference = currentTime - parseInt(storedTime);
     const hoursDifference = timeDifference / (1000 * 60 * 60);
 
-    if (hoursDifference >= 20) {
+    if (hoursDifference >= 12) {
       // If 20 hours have passed, clear localStorage and set a new time stamp
       localStorage.clear();
       localStorage.setItem('storedTime', currentTime.toString());
@@ -454,7 +455,16 @@ function App() {
           />
 
 
-
+          <Route
+            path="/userProfile/review"
+            element={
+              <>
+              
+                <ReviewPage />
+             
+              </>
+            }
+          />
 
 
 
