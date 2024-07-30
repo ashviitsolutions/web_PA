@@ -161,7 +161,7 @@ function App() {
 
     if (hoursDifference >= 12) {
       // If 20 hours have passed, clear localStorage and set a new time stamp
-      localStorage.clear();
+      // localStorage.clear();
       localStorage.setItem('storedTime', currentTime.toString());
     }
   } else {

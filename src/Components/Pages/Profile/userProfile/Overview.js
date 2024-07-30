@@ -169,11 +169,9 @@ function Overview() {
 																			</div>
 																			<div className="text">
 																				<h3>Add-ons:</h3>
-																				<div>
 																					{post.add_ons_details.map((addon, index) => (
 																						<p key={index} style={{ margin: '4px 0' }}>{addon.title}</p>
 																					))}
-																				</div>
 																			</div>
 																		</div>
 
@@ -261,11 +259,9 @@ function Overview() {
 																		</div>
 																		<div className="text">
 																			<h3>Add-ons:</h3>
-																			<div>
 																				{post.add_ons_details.map((addon, index) => (
 																					<p key={index} style={{ margin: '4px 0' }}>{addon.title}</p>
 																				))}
-																			</div>
 																		</div>
 																	</div>
 
