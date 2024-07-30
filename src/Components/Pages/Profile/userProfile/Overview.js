@@ -11,6 +11,7 @@ import axios from "axios";
 import { IP } from "../../../../Constant";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import moment from "moment";
 
 function Overview() {
 	const nav = useNavigate()
@@ -146,7 +147,8 @@ function Overview() {
 																	</h3>
 																	<h4 className="pull-right">
 
-																		{post.scheduled_date}
+																		
+																		{moment(post.scheduled_date).format("Do MMMM YYYY")}
 
 
 																	</h4>
@@ -240,7 +242,7 @@ function Overview() {
 																	<h3 className="pull-left">
 																		{post.scheduled_timing}
 																	</h3>
-																	<h4 className="pull-right">{post.scheduled_date}</h4>
+																	<h4 className="pull-right">{moment(post.scheduled_date).format("Do MMMM YYYY")}</h4>
 																</div>
 															
 																<div className="profile">
