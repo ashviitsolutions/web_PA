@@ -81,8 +81,8 @@ const Notifications = () => {
                   {n.bookedDate && n.bookedTime && (
                     <>
                       <div className="d-flex smallDetail" style={{ justifyContent: "space-between" }}>
-                        <p>Booked Date: {moment(n.bookedDate).format("MMMM Do YYYY")}</p>
-                        <p>Booked Time: {moment(n.bookedTime, "HH:mm:ss").format("LT")}</p>
+                        <p>appointment date: {moment(n.bookedDate).format("MMMM Do YYYY")}</p>
+                        <p>appointment time: {moment(n.bookedTime, "HH:mm:ss").format("LT")}</p>
 
                       </div>
 
