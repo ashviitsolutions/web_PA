@@ -1,5 +1,23 @@
 /*extra small*/
 @media (max-width:992px) {
+    .modal-wrapper-review {
+        width: 100% !important;
+        margin: auto;
+        /* background-image: url("../img/productive_image123.jpg"); */
+
+    }
+
+    .modal-content-review-user {
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        width: 100% !important;
+        max-width: 90% !important;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        position: relative;
+    }
+
     .notificationdestop {
         display: none;
     }
@@ -467,6 +485,7 @@
         -webkit-backdrop-filter: blur(0px) !important;
         backdrop-filter: blur(0px) !important;
     }
+
     #small_banner .head h1 {
         padding-top: 50px;
     }
@@ -668,18 +687,22 @@
         margin-left: -2rem;
 
     }
+
     .textmonian {
         width: 100% !important;
         margin: auto;
     }
+
     #talent .wrapper .item {
         top: 0 !important;
     }
+
     #talent .buttons_pane {
         text-align: center;
         margin: 0;
         margin-left: 0 !important;
     }
+
     #talent .wrapper .item::before,
     #talent .wrapper .item .tri {
         display: none;
@@ -746,7 +769,7 @@
         width: 44%;
         margin-right: 2%;
     }
-    
+
 
     #navigation .nav_bar .app_buttons a img {
         width: 40%;
@@ -803,7 +826,8 @@
         left: -39.6% !important;
         margin-top: -50px;
     }
-    .sign_up{
+
+    .sign_up {
         margin-top: -20px !important;
     }
 
@@ -853,24 +877,29 @@
     #video_section {
         margin-left: 0px;
     }
+
     .blogPage {
         padding: 50px 0px;
     }
-    #detailimage{
+
+    #detailimage {
         background-repeat: no-repeat;
         background-size: cover;
     }
+
     .centerFlex {
         margin-top: -75px;
     }
-    #employees{
+
+    #employees {
         padding-top: 0 !important;
         margin-top: -40px;
     }
-    .whoIs
-    {
+
+    .whoIs {
         margin-top: 100px;
     }
+
     .booking_tabs ul {
         display: flex;
         width: 100%;
@@ -879,24 +908,27 @@
         box-sizing: border-box;
         /* padding: 0 10px !important; */
     }
-    
+
     .booking_tabs ul li {
         margin: 0 !important;
         padding: 3px !important;
         font-size: 11px;
     }
-    .selectable{
+
+    .selectable {
         font-size: 10px;
     }
+
     .checkkout {
         z-index: 0 !important;
         display: block !important;
         margin-top: 20px !important;
     }
-    html{
+
+    html {
         height: -webkit-fill-available;
     }
-    
+
 
 }
 
@@ -977,15 +1009,16 @@
         text-align: center;
 
     }
+
     .sign_in_forms {
         margin-top: 0;
     }
-    
+
     .sign_in_forms .sign_in_icon {
         height: 150px;
     }
-    
-    
+
+
 }
 
 /*small end*/
