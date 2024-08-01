@@ -3,8 +3,9 @@ import { useLocation } from "react-router-dom";
 import Rating from "react-rating-stars-component";
 import { IP } from "../../../../Constant";
 import axios from "../../../../axios";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from 'react-router-dom';
+import "react-toastify/dist/ReactToastify.css"; // Ensure this is imported
 import "./Profile.css";
 
 function Review() {
@@ -27,7 +28,7 @@ function Review() {
         setBookingId(bookingId);
         setUserId(userId);
         setUsername(username);
-        setService(servicename)
+        setService(servicename);
     }, [location.search]);
 
     const handleSubmitRating = () => {
@@ -43,7 +44,7 @@ function Review() {
             .then((res) => {
                 if (res.status === 200) {
                     setLoading(false);
-                    toast.success("Your Review Successfully", {
+                    toast.success("Your Review was submitted successfully", {
                         position: "top-right",
                         autoClose: 2000,
                         hideProgressBar: false,
@@ -61,7 +62,7 @@ function Review() {
             .catch((err) => {
                 setLoading(false);
                 console.log(err);
-                toast.error(err.response.data.message, {
+                toast.error(err.response?.data?.message || "An error occurred", {
                     position: "top-right",
                     autoClose: 3000,
                     hideProgressBar: false,
@@ -83,30 +84,33 @@ function Review() {
     };
 
     return (
-        <div className="modal-wrapper-review">
-            <div className="modal-content-review-user">
-                <span className="close">
-                    &times;
-                </span>
-                <h3>Rate your experience</h3>
-                <p>{servicename}</p>
-                <Rating
-                    value={userRating}
-                    count={5}
-                    onChange={handleRatingChange}
-                    size={24}
-                    activeColor="#007bff"
-                />
-                <textarea
-                    placeholder="Share your feedback"
-                    value={userFeedback}
-                    onChange={handleFeedbackChange}
-                />
-                <button type="submit" onClick={handleSubmitRating}>
-                    {loading ? "Loading..." : "Submit"}
-                </button>
+        <>
+            <div className="modal-wrapper-review profileSpace">
+                <div className="modal-content-review-user">
+                    <span className="close">
+                        &times;
+                    </span>
+                    <h3>Rate your experience</h3>
+                    <p>{servicename}</p>
+                    <Rating
+                        value={userRating}
+                        count={5}
+                        onChange={handleRatingChange}
+                        size={24}
+                        activeColor="#007bff"
+                    />
+                    <textarea
+                        placeholder="Share your feedback"
+                        value={userFeedback}
+                        onChange={handleFeedbackChange}
+                    />
+                    <button type="submit" onClick={handleSubmitRating}>
+                        {loading ? "Loading..." : "Submit"}
+                    </button>
+                </div>
             </div>
-        </div>
+            <ToastContainer />
+        </>
     );
 }
 
