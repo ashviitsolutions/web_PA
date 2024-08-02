@@ -34,7 +34,7 @@ function Review() {
     const handleSubmitRating = () => {
         setLoading(true);
         axios
-            .post(`${IP}/user/addReviewToStore`, {
+            .post(`${IP}/user/addReview`, {
                 reviewerName: username,
                 rating: userRating,
                 comments: userFeedback,
