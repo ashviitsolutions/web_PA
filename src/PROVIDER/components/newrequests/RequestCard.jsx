@@ -11,7 +11,7 @@ import CustomModal from "../../Modal";
 
 const RequestCard = (props) => {
   const token = localStorage.getItem("providertoken");
-  const { total, serviceTime, gendercheck, add_ons, amount_calculation, add_ons_details, event, location } = props;
+  const { total, onHide, gendercheck, add_ons, amount_calculation, add_ons_details, event, location } = props;
   const { _id } = props;
   var tip = props.tip ? props.tip : 0;
   var instructions = props.instructions ? props.instructions : '';
@@ -42,20 +42,17 @@ const RequestCard = (props) => {
   };
 
   useEffect(() => {
-    const removedCardId = localStorage.getItem('removedCard');
-    if (removedCardId) {
-      if (removedCardId === _id) {
-        setDisplay(false);
-      } else {
-        setDisplay(true);
-      }
+    const removedCardString = localStorage.getItem('removedCard');
+    const removedCardIds = removedCardString ? JSON.parse(removedCardString) : [];
+    if (removedCardIds.includes(_id)) {
+      setDisplay(false);
     }
   }, [_id]);
+  
 
   if (!display) {
     return null;
   }
-
 
 
 

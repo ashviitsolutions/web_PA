@@ -83,10 +83,16 @@ function CustomModal(
 
 
   const removeItem = () => {
-    localStorage.setItem('removedCard', _id); // set new _id
+    const removedCardString = localStorage.getItem('removedCard');
+    const existingIds = removedCardString ? JSON.parse(removedCardString) : [];
+    if (!existingIds.includes(_id)) {
+      existingIds.push(_id);
+      localStorage.setItem('removedCard', JSON.stringify(existingIds));
+    }
     onHide();
+    nav("/providers/events")
   };
-
+  
 
   const handleCheckInClick = () => {
     setCheckInShow(true);
