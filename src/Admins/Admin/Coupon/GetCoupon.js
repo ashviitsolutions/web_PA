@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { FallingLines } from "react-loader-spinner";
 import { IP } from '../../../Constant';
 import { useNavigate } from 'react-router-dom';
+import Header from '../Common/Header/Header';
 
 const PreviewImage = ({ attachments }) => {
     const [imageObjectURL, setImageObjectURL] = useState(null);
@@ -82,41 +83,18 @@ function GetCoupon() {
         <>
             <div id="content">
                 <div className="container-fluid">
-                    <div className="row">
-                        <div className="">
-                            <div className="headings float_wrapper">
-                                <div className="gutter pull-left">
-                                <h3><span className='cursor title backarrow' onClick={() => nav(-1)}>&larr;</span>All Coupon Cards</h3>
-                                   
-                                    <p>List of all add posts</p>
-                                </div>
-                                <div className="gutter pull-left">
-                                    <Link to="/admin/coupon/addcoupon">
-                                        <button className="button small primary" type="button">
-                                            Add New
-                                        </button>
-                                    </Link>
-                                </div>
-                                <span className="toggle_sidebar"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="gutter">
-                            <div className="card layer1 filters">
-                                <div className="input_group pull-right">
-                                    <input
-                                        type="text"
-                                        className="input"
-                                        placeholder="Search here.."
-                                        value={search}
-                                        onChange={(e) => setSearch(e.target.value)}
-                                    />
-                                    <span className="highlight"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <Header
+               
+                searchText={search}
+                setSearchText={setSearch}
+                searchField={true}
+                nav="/admin/coupon/addcoupon"
+                btn_name="Add New"
+                title="All Coupon Cards"
+                sub_title="List of all add posts"
+               
+            />
+                    
                     <div className="row">
                         <div className="gutter">
                             <table className="table-responsive ultra_responsive">

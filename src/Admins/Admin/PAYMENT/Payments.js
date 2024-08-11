@@ -8,6 +8,7 @@ import { FallingLines } from 'react-loader-spinner';
 import "./Payment.css"
 import { useNavigate } from 'react-router-dom';
 import moment from "moment";
+import Header from '../Common/Header/Header';
 
 
 
@@ -175,42 +176,20 @@ function Payments() {
     <>
       <div id="content">
         <div class="container-fluid">
-          <div class="row">
-            <div class="">
-              <div class="headings">
-                <h3><span className='link title backarrow' onClick={() => navigate(-1)}>&larr;</span> Provider's Commision</h3>
-                <div className="gutter pull-right">
-                  <small className='sub'>
-                    <p>* Click on provider name to release payment</p>
-                  </small>
-                </div>
-                <span class="toggle_sidebar" ></span>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="gutter">
-              <div class="card layer1 filters">
-                <span class="highlight"> from </span>
-                <div class="input_group">
-                  <input type="date" class="input" placeholder="Start Date" onChange={e => setStartDate(e.target.value)} value={startDate} />
-                  <span class="highlight"></span>
-                </div>
-                <span class="highlight"> to </span>
-                <div class="input_group">
-                  <input type="date" class="input" placeholder="End Date" onChange={e => setEndDate(e.target.value)} value={endDate} />
-                  <span class="highlight"></span>
-                </div>
-
-
-                <div class="input_group pull-right" style={{ maxWidth: "20%" }}>
-                  <input type="text" class="input" placeholder="search here.." onChange={e => setSearchText(e.target.value)} value={searchText} />
-                  <span class="highlight"></span>
-                </div>
-              </div>
-            </div>
-          </div>
-
+          <Header
+            startDate={startDate}
+            endDate={endDate}
+            setStartDate={setStartDate}
+            setEndDate={setEndDate}
+            searchText={searchText}
+            setSearchText={setSearchText}
+            searchField={true}
+            title="Provider's Commision"
+            infor={{
+              para1: "* Click on provider name to release payment"
+            }}
+          />
+          
 
 
           <table className="payments-table">

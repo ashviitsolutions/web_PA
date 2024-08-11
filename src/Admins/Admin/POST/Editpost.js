@@ -4,8 +4,7 @@ import * as Yup from "yup";
 import axios from 'axios';
 import JoditEditor from 'jodit-react';
 import "./style.css"
-import { useNavigate } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { IP } from '../../../Constant';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -20,6 +19,11 @@ const PreviewImage = ({ imagePreviewUrl }) => {
 function Editpost() {
     let params = useParams();
     let { id } = params;
+    const location = useLocation();
+    const cur = location.state?.cur;
+    const [initialImage, setInitialImage] = useState(null);
+
+    console.log("location data", cur)
     const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
     const [user, setUser] = useState([])
     const [formValue, setFormValue] = useState(null)
@@ -102,33 +106,29 @@ function Editpost() {
     }
 
     useEffect(() => {
-        fetch(`${IP}/post/fetch/${id}`).then((res) => {
-            return res.json();
-        }).then((data) => {
-            setUser(data)
-            setImages(data.attachments)
-            const updatedSavedValues = {
-                title: data.title,
-                excerpt: data.excerpt,
-                type: data.type._id,
-                image: data.image,
-                description: data.description,
-            };
-            setFormValue(updatedSavedValues);
-        })
-    }, [id , nav])
-
-
+        if (cur) {
+            setFormValue({
+                title: cur?.title,
+                excerpt: cur?.excerpt,
+                type: cur?.type,
+                image: cur?.attachments,
+                description: cur?.description,
+            });
+            setInitialImage(cur.attachments);
+        }
+    }, [cur]);
 
     useEffect(() => {
         const fetchImage = async () => {
-            const res = await fetch(`${IP}/file/${images}`);
-            const imageBlob = await res.blob();
-            const imageObjectURL = URL.createObjectURL(imageBlob);
-            setImg(imageObjectURL);
+            if (initialImage) {
+                const res = await fetch(`${IP}/file/${initialImage}`);
+                const imageBlob = await res.blob();
+                const imageObjectURL = URL.createObjectURL(imageBlob);
+                setImagePreviewUrl(imageObjectURL);
+            }
         };
         fetchImage();
-    }, [images]);
+    }, [initialImage]);
 
 
     useEffect(() => {
@@ -162,7 +162,7 @@ function Editpost() {
                                     <div className="">
                                         <div className="headings float_wrapper">
                                             <div className="gutter pull-left" >
-                                            <h3><span className='cursor title backarrow' onClick={() => nav(-1)}>&larr;</span>Edit post</h3>
+                                                <h3><span className='cursor title backarrow' onClick={() => nav(-1)}>&larr;</span>Edit post</h3>
                                             </div>
                                             <span className="toggle_sidebar" ></span>
                                         </div>
@@ -211,7 +211,7 @@ function Editpost() {
                                                                     <JoditEditor
                                                                         name="description"
                                                                         ref={editor}
-                                                                        value={user.description}
+                                                                        value={cur.description}
                                                                         config={config}
                                                                         onBlur={(newContent) => {
                                                                             setFieldValue('description', newContent);
@@ -258,36 +258,36 @@ function Editpost() {
                                                     </div>
                                                 </div>
                                                 <div className="card layer1">
-                                                    <div className="inner">
-                                                        <label htmlFor="" className="card_label">Attachments</label>
-                                                        <input
-                                                            name='image'
-                                                            type="file"
-                                                            placeholder="Excerpt"
-                                                            onChange={(e) => {
-                                                                let reader = new FileReader();
-                                                                let file = e.target.files[0];
+                                                <div className="inner">
+                                                    <label htmlFor="" className="card_label">Attachments</label>
+                                                    <input
+                                                        name='image'
+                                                        type="file"
+                                                        placeholder="Excerpt"
+                                                        onChange={(e) => {
+                                                            let reader = new FileReader();
+                                                            let file = e.target.files[0];
 
-                                                                reader.onloadend = () => {
-                                                                    setImagePreviewUrl(reader.result);
-                                                                };
+                                                            reader.onloadend = () => {
+                                                                setImagePreviewUrl(reader.result);
+                                                            };
 
-                                                                reader.readAsDataURL(file);
-                                                                setFieldValue('image', file)
-                                                            }
-                                                            }
-                                                        />
-                                                        {errors.image && touched.image ? (
-                                                            <div>{errors.image}</div>
-                                                        ) : null}
-
-                                                    </div>
-                                                    <div className='preview' style={{ width: "100%" }}>
-                                                        <PreviewImage imagePreviewUrl={imagePreviewUrl || img} />
-
-                                                    </div>
+                                                            reader.readAsDataURL(file);
+                                                            setFieldValue('image', file)
+                                                        }
+                                                        }
+                                                    />
+                                                    {errors.image && touched.image ? (
+                                                        <div>{errors.image}</div>
+                                                    ) : null}
 
                                                 </div>
+                                                <div className='preview' style={{ width: "100%" }}>
+                                                    <PreviewImage imagePreviewUrl={imagePreviewUrl || img} />
+
+                                                </div>
+
+                                            </div>
 
                                             </div>
                                         </div>

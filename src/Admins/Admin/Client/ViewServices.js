@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import Header from '../Common/Header/Header';
 import moment from 'moment';
 import { IP } from '../../../Constant';
 
@@ -141,73 +142,23 @@ function ViewServices() {
     return (
         <div id="content">
             <div className="container-fluid">
-                <div className="row">
-                    <div className="headings float_wrapper">
-                        <div className="gutter pull-left" style={{ paddingLeft: '0' }}>
-                            <h3>
-                                <span
-                                    className="cursor title backarrow"
-                                    onClick={() => navigate(-1)}
-                                >
-                                    &larr;
-                                </span>{' '}
-                                Client Services Details
-                            </h3>
-                        </div>
-                        <div className="gutter pull-right">
-                            <small className="sub">
-                                <p>* Search client and click on client name to view purchase history</p>
-                                <p>* Click on Edit link after the client name to edit client details</p>
-                                <p>* Click on provider name to view provider service history</p>
-                            </small>
-                        </div>
-                        <span className="toggle_sidebar"></span>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="gutter">
-                        <div className="card layer1 filters">
-                            <div className="input_group">
-                                <input
-                                    type="date"
-                                    className="input"
-                                    placeholder="Start Date"
-                                    onChange={(e) => {
-                                        setStartDate(e.target.value);
-                                        localStorage.setItem('startDate', e.target.value);
-                                    }}
-                                    value={startDate}
-                                />
-                                <span className="highlight"></span>
-                            </div>
-                            <span className="highlight"> From </span>
-                            <div className="input_group">
-                                <input
-                                    type="date"
-                                    className="input"
-                                    placeholder="End Date"
-                                    onChange={(e) => {
-                                        setEndDate(e.target.value);
-                                        localStorage.setItem('endDate', e.target.value);
-                                    }}
-                                    value={endDate}
-                                />
-                                <span className="highlight"></span>
-                            </div>
 
-                            <div className="input_group pull-right" style={{ maxWidth: '20%' }}>
-                                <input
-                                    type="text"
-                                    className="input"
-                                    placeholder="Search by name or mobile.."
-                                    onChange={(e) => setSearchText(e.target.value)}
-                                    value={searchText}
-                                />
-                                <span className="highlight"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <Header
+                    startDate={startDate}
+                    endDate={endDate}
+                    setStartDate={setStartDate}
+                    setEndDate={setEndDate}
+                    searchText={searchText}
+                    setSearchText={setSearchText}
+                    searchField={true}
+                    title=" Client Services Details"
+                    infor={{
+                        para1: "* Search client and click on client name to view purchase history",
+                        para2: "* Click on Edit link after the client name to edit client details",
+                        para3: "* Click on provider name to view provider service history",
+                    }}
+                />
+
 
                 {searchText && (
                     <div className="col-sm-4 pull-right searchResult" id="">

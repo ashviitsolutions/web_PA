@@ -4,8 +4,7 @@ import * as Yup from "yup";
 import axios from 'axios';
 import JoditEditor from 'jodit-react';
 // import "./style.css"
-import { useNavigate } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { IP } from '../../../Constant';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -20,7 +19,11 @@ const PreviewImage = ({ imagePreviewUrl }) => {
 function Editpost() {
     let params = useParams();
     let { id } = params;
+    const location = useLocation();
+    const cur = location.state?.cur;
     const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
+    const [initialImage, setInitialImage] = useState(null);
+
     const [user, setUser] = useState([])
     const [formValue, setFormValue] = useState(null)
     const [type, setType] = useState([])
@@ -125,16 +128,32 @@ function Editpost() {
     }, [id])
 
 
+    useEffect(() => {
+        if (cur) {
+            setFormValue({
+                title: cur?.title,
+                excerpt: cur?.excerpt,
+                category: cur?.category,
+                image: cur?.image,
+                description: cur?.description,
+                price: cur?.price
+            });
+            setInitialImage(cur?.attachments);
+        }
+    }, [cur]);
 
     useEffect(() => {
         const fetchImage = async () => {
-            const res = await fetch(`${IP}/file/${images}`);
-            const imageBlob = await res.blob();
-            const imageObjectURL = URL.createObjectURL(imageBlob);
-            setImg(imageObjectURL);
+            if (initialImage) {
+                const res = await fetch(`${IP}/file/${initialImage}`);
+                const imageBlob = await res.blob();
+                const imageObjectURL = URL.createObjectURL(imageBlob);
+                setImagePreviewUrl(imageObjectURL);
+            }
         };
         fetchImage();
-    }, [images]);
+    }, [initialImage]);
+
 
 
 
@@ -171,7 +190,7 @@ function Editpost() {
                                     <div className="">
                                         <div className="headings float_wrapper">
                                             <div className="gutter pull-left" >
-                                                <h3>Edit post</h3>
+                                                <h3><span className='cursor title backarrow' onClick={() => nav(-1)}>&larr;</span>Edit Service</h3>
                                             </div>
                                             <span className="toggle_sidebar" ></span>
                                         </div>

@@ -4,9 +4,9 @@ import "./style.css"
 import { IP } from '../../../Constant';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import avtar from "../../img/avtar.jpg"
-import ReactPaginate from 'react-paginate';
 import { FallingLines } from 'react-loader-spinner';
 import { useLocation, useNavigate } from 'react-router-dom';
+import Header from "../Common/Header/Header"
 import moment from 'moment';
 
 const PreviewImage = ({ attachments }) => {
@@ -156,54 +156,20 @@ function Contractors() {
 
             <div id="content">
                 <div className="container-fluid">
-                    <div className="row">
-                        <div className="">
-                            <div className="headings float_wrapper" id='clientget'>
-                                <div className="gutter pull-left" >
-                                    <h3><span className='cursor title backarrow' onClick={() => navigate(-1)}>&larr;</span>All Contractors</h3>
 
-                                    <p>List of all add contractors</p>
-                                </div>
-                                <div className="gutter pull-left">
-                                    <Link to="/admin/contractors/add_contractor">
-                                        <button className="button small primary" type="button" >Add Contractor</button>
-                                    </Link>
-                                </div>
-                                <span className="toggle_sidebar" ></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="gutter">
-                            <div class="card layer1 filters">
-                                <span class="highlight"> from </span>
-                                <div class="input_group">
-                                    <input type="date" class="input" placeholder="Start Date" onChange={e => setStartDate(e.target.value)} value={startDate} />
-                                    <span class="highlight"></span>
-                                </div>
-                                <span class="highlight"> to </span>
-                                <div class="input_group">
-                                    <input type="date" class="input" placeholder="End Date" onChange={e => setEndDate(e.target.value)} value={endDate} />
-                                    <span class="highlight"></span>
-                                </div>
-                                <div class="input_group">
-                                    <select name="" id="" class="input" onChange={e => setStatus(e.target.value)} value={status}>
-                                        <option value="">status</option>
-                                        <option value="Newly registered">Newly registered</option>
-                                        <option value="call interview done, verification pending">call interview done, verification pending</option>
-                                        <option value="Application form submitted,call interview pending">Application form submitted,call interview pending</option>
-                                        <option value="Congratulations! your process has been completed">Congratulations! your process has been completed</option>
-                                    </select>
-                                    <span class="highlight"></span>
-                                </div>
-
-                                <div class="input_group pull-right" style={{ maxWidth: "20%" }}>
-                                    <input type="text" class="input" placeholder="search here.." onChange={e => setSearchText(e.target.value)} value={searchText} />
-                                    <span class="highlight"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <Header
+                        startDate={startDate}
+                        endDate={endDate}
+                        setStartDate={setStartDate}
+                        setEndDate={setEndDate}
+                        searchText={searchText}
+                        setSearchText={setSearchText}
+                        searchField={true}
+                        nav="/admin/contractors/add_contractor"
+                        btn_name="Add Contractor"
+                        title="All Contractors"
+                        sub_title="List of all add contractors"
+                    />
 
                     <div className="row">
                         <div className="gutter">

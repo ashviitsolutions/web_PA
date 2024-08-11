@@ -6,6 +6,8 @@ import { FallingLines } from "react-loader-spinner";
 import moment from "moment";
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import Header from '../Common/Header/Header';
+
 
 function Clients() {
     const location = useLocation();
@@ -27,7 +29,7 @@ function Clients() {
         const nextDay = new Date(endDate);
         nextDay.setDate(nextDay.getDate() + 1);
         setLoading(true);
-       
+
         fetch(`${IP}/admin/all-users?page=${pageNumber}&limit=10&startDate=${startDate}&endDate=${nextDay.toISOString().split('T')[0]}`, {
             headers: {
                 'Authorization': token
@@ -47,7 +49,7 @@ function Clients() {
             }).finally(() => {
                 setLoading(false);
             });
-    }, [startDate ,endDate]);
+    }, [startDate, endDate]);
 
 
 
@@ -99,8 +101,8 @@ function Clients() {
 
         // Filter data based on selected dates, status, and search text
         const filteredData = user.filter(contractor => {
-           
-           
+
+
             const isSearched = !searchText || (contractor.first_name.toLowerCase().includes(searchText.toLowerCase()) || contractor.last_name.toLowerCase().includes(searchText.toLowerCase()) || contractor.email.toLowerCase().includes(searchText.toLowerCase()));
             return isSearched;
         });
@@ -132,45 +134,23 @@ function Clients() {
         <>
             <div id="content">
                 <div className="container-fluid">
-                    <div className="row">
-                        <div className="">
-                            <div className="headings float_wrapper" id="clientget">
-                                <div className="gutter pull-left">
-                                    <h3><span className='cursor title backarrow' onClick={() => navigate(-1)}>&larr;</span> All Clients</h3>
-                                    <p>list of all Clients</p>
-                                </div>
-                                <div className="gutter pull-left">
-                                    <Link to="/admin/clients/add_client">
-                                        <button className="button small primary" type="button">
-                                            Add Client
-                                        </button>
-                                    </Link>
-                                </div>
-                                <div className="gutter pull-right"><small className='sub'>* Click on client to view details</small></div>
-                                <span className="toggle_sidebar"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="gutter">
-                            <div class="card layer1 filters">
-                                <div class="input_group">
-                                    <input type="date" class="input" placeholder="Start Date" onChange={e => setStartDate(e.target.value)} value={startDate} />
-                                    <span class="highlight"></span>
-                                </div>
-                                <span class="highlight"> From </span>
-                                <div class="input_group">
-                                    <input type="date" class="input" placeholder="End Date" onChange={e => setEndDate(e.target.value)} value={endDate} />
-                                    <span class="highlight"></span>
-                                </div>
 
-                                <div class="input_group pull-right" style={{ maxWidth: "20%" }}>
-                                    <input type="text" class="input" placeholder="search here.." onChange={e => setSearchText(e.target.value)} value={searchText} />
-                                    <span class="highlight"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <Header
+                        startDate={startDate}
+                        endDate={endDate}
+                        setStartDate={setStartDate}
+                        setEndDate={setEndDate}
+                        searchText={searchText}
+                        setSearchText={setSearchText}
+                        searchField={true}
+                        nav="/admin/clients/add_client"
+                        btn_name="Add Client"
+                        title="All Clients"
+                        sub_title="list of all Clients"
+                        info={{
+                            para1: "* Click on client to view details"
+                        }}
+                    />
 
                     <div className="row">
                         <div className="gutter">

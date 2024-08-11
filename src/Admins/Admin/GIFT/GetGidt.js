@@ -4,6 +4,7 @@ import ReactPaginate from 'react-paginate';
 import { IP } from '../../../Constant';
 import { FallingLines } from "react-loader-spinner";
 import { useNavigate } from 'react-router-dom';
+import Header from '../Common/Header/Header';
 const PreviewImage = ({ attachments }) => {
     const [imageObjectURL, setImageObjectURL] = useState(null);
 
@@ -26,7 +27,7 @@ const PreviewImage = ({ attachments }) => {
 };
 
 function GetGift() {
-    const nav=useNavigate()
+    const nav = useNavigate()
     const [search, setSearch] = useState("");
     const [type, setType] = useState([]);
     const [selectedType, setSelectedType] = useState("");
@@ -113,42 +114,18 @@ function GetGift() {
         <>
             <div id="content">
                 <div className="container-fluid">
-                    <div className="row">
-                        <div className="">
-                            <div className="headings float_wrapper">
-                                <div className="gutter pull-left">
-                                <h3><span className='cursor title backarrow' onClick={() => nav(-1)}>&larr;</span>All Gift Card</h3>
-                                   
-                                    <p>list of all gift card</p>
-                                </div>
-                                <div className="gutter pull-left">
-                                    <Link to="/admin/gift/addgift">
-                                        <button className="button small primary" type="button" name="button">
-                                            Add New
-                                        </button>
-                                    </Link>
-                                </div>
-                                <span className="toggle_sidebar"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="gutter">
-                            <div className="card layer1 filters">
+                    <Header
+                        searchText={search}
+                        setSearchText={setSearch}
+                        nav="/admin/gift/addgift"
+                        btn_name={"Add New"}
+                        searchField={true}
+                        title="All Gift Card"
+                        sub_title="list of all gift card"
 
-                                <div className="input_group pull-right">
-                                    <input
-                                        type="text"
-                                        className="input"
-                                        placeholder="search here.."
-                                        value={search}
-                                        onChange={(e) => setSearch(e.target.value)}
-                                    />
-                                    <span className="highlight"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    />
+
+
                     <div className="row">
                         <div className="gutter">
                             <table className="table-responsive ultra_responsive">
@@ -213,7 +190,7 @@ function GetGift() {
                                     );
                                 })}
                             </table>
-                           
+
                         </div>
                         {loading && (
                             <div style={{ textAlign: "center" }}>

@@ -4,29 +4,11 @@ import { Link } from 'react-router-dom'
 import ReactPaginate from 'react-paginate';
 import { IP } from '../../../Constant';
 import "./style.css";
+import PreviewImage from '../Common/PreviewImage';
 import { FallingLines } from 'react-loader-spinner';
 import { useNavigate } from 'react-router-dom';
 
-const PreviewImage = ({ attachments }) => {
-    const [imageObjectURL, setImageObjectURL] = useState(null);
 
-    useEffect(() => {
-        const fetchImage = async () => {
-            const res = await fetch(`${IP}/file/${attachments}`);
-            const imageBlob = await res.blob();
-            const objectURL = URL.createObjectURL(imageBlob);
-            setImageObjectURL(objectURL);
-        };
-
-        fetchImage();
-    }, [attachments]);
-
-    return (
-        <div  >
-            {imageObjectURL && <img src={imageObjectURL} alt="Preview" className="previewimage" />}
-        </div>
-    );
-};
 
 
 
@@ -114,27 +96,14 @@ function Getpost() {
             });
     }, []);
 
-    //   const handleDelete = (id) => {
-    //     let token = localStorage.getItem("tokenadmin");
-    //     fetch(`http://45.13.132.197:4000/api/service/delete/${id}`, {
-    //       method: "DELETE",
-    //       headers: {
-    //         Authorization: token,
-    //         'Content-Type': 'multipart/form-data'
-    //       }
-    //     })
-    // <button onClick={(id)=>handleDelete(cur._id)}>Delete</button>
 
-    //       .then((res) => res.json())
-    //       .then((data) => {
-    //         setDelete(data);
-    //         console.log(data);
+    const handleService = (cur) => {
 
-    //       })
-    //       .catch((error) => {
-    //         console.log(error);
-    //       });
-    //   };
+        // nav(`/admin/${event_status},{ state: {startDate, endDate } }`);
+        navigate(`/admin/services/edit_post/${cur._id}`, { state: { cur } });
+    
+      };
+   
 
     return (
         <>
@@ -233,9 +202,10 @@ function Getpost() {
                                                         <span className="title " id='headingtitle'><span id='pricevalue'>Price: </span>{cur.price}<span id='pricevalue'> USD</span></span>
 
                                                     </div>
-                                                    <Link to={`/admin/services/edit_post/${cur._id}`} >
-                                                        <span className="Edit mt-3">Edit Page</span>
-                                                    </Link>
+                                                    
+                                                   
+                                                        <span className="Edit mt-3" onClick={() => handleService(cur)}>Edit Page</span>
+                                                  
                                                 </div>
                                             </td>
 

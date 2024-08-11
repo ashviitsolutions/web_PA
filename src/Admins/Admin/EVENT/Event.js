@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import CustomModal from "./Model";
 import { IP } from "../../../Constant";
 import { useDispatch, useSelector } from 'react-redux';
+import Header from "../Common/Header/Header"
 import { updateInputData } from "../../../Components/Pages/Redux/counterSlice";
 
 function Event() {
@@ -53,7 +54,7 @@ function Event() {
 
     useEffect(() => {
         fetchData();
-    }, [status,event_status, startDate, endDate, token]);
+    }, [status, event_status, startDate, endDate, token]);
 
     useEffect(() => {
         localStorage.setItem("startDate", startDate);
@@ -97,51 +98,24 @@ function Event() {
         <>
             <div id="content">
                 <div className="container-fluid">
-                    <div className="row">
-                        <div className="">
-                            <div className="headings">
-                                <h3><span className='cursor title backarrow' onClick={() => nav(-1)}>&larr;</span> Events</h3>
-                                <div className="gutter pull-right">
-                                    <small className='sub'>
-                                        <p>* Click on client name to view/edit client details</p>
-                                        <p>* Click on service name to view details</p>
-                                        <p>* Click on provider name to view/edit provider details</p>
-                                    </small>
-                                </div>
-                                <span className="toggle_sidebar"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="gutter">
-                            <div className="card layer1 filters">
-                                <span className="highlight"> from </span>
-                                <div className="input_group">
-                                    <input type="date" className="input" placeholder="Start Date" onChange={e => setStartDate(e.target.value)} value={startDate} />
-                                    <span className="highlight"></span>
-                                </div>
-                                <span className="highlight"> to </span>
-                                <div className="input_group">
-                                    <input type="date" className="input" placeholder="End Date" onChange={e => setEndDate(e.target.value)} value={endDate} />
-                                    <span className="highlight"></span>
-                                </div>
-                                <div className="input_group">
-                                    <select className="input" onChange={e => setStatus(e.target.value)} value={status}>
-                                        <option value="">All Booking</option>
-                                        <option value="pending">pending</option>
-                                        <option value="completed">completed</option>
-                                        <option value="scheduled">scheduled</option>
-                                        <option value="incompleted">Incompleted</option>
-                                    </select>
-                                    <span className="highlight"></span>
-                                </div>
-                                <div className="input_group pull-right" style={{ maxWidth: "20%" }}>
-                                    <input type="text" className="input" placeholder="search here.." onChange={e => setSearchText(e.target.value)} value={searchText} />
-                                    <span className="highlight"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
+                    <Header
+                        startDate={startDate}
+                        endDate={endDate}
+                        setStartDate={setStartDate}
+                        setEndDate={setEndDate}
+                        searchText={searchText}
+                        setSearchText={setSearchText}
+                        searchField={true}
+                        title="Events"
+                        sub_title="List of all bookings"
+                        infor={{
+                            para1: "*Click on client name to view/edit client details",
+                            para2: "* Click on service name to view details",
+                            para3: "* Click on provider name to view/edit provider details",
+                        }}
+                    />
+
                     <div className="row">
                         <div className="gutter">
                             <div className="bookings">

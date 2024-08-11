@@ -5,34 +5,17 @@ import ReactPaginate from 'react-paginate';
 import "./style.css"
 import { FallingLines } from 'react-loader-spinner';
 import { useNavigate } from 'react-router-dom';
+import Header from "../Common/Header/Header";
+import PreviewImage from "../Common/PreviewImage"
 import { IP } from '../../../Constant';
 
-const PreviewImage = ({ attachments }) => {
-  const [imageObjectURL, setImageObjectURL] = useState(null);
 
-  useEffect(() => {
-    const fetchImage = async () => {
-      const res = await fetch(`${IP}/file/${attachments}`);
-      const imageBlob = await res.blob();
-      const objectURL = URL.createObjectURL(imageBlob);
-      setImageObjectURL(objectURL);
-    };
-
-    fetchImage();
-  }, [attachments]);
-
-  return (
-    <div  >
-      {imageObjectURL && <img src={imageObjectURL} alt="Preview" className="previewimage" />}
-    </div>
-  );
-};
 
 
 
 
 function Getpost() {
-  const navigate=useNavigate()
+  const navigate = useNavigate()
   const [search, setSearch] = useState("")
   // const [Delete, setDelete] = useState([])
   const [pageNumber, setPageNumber] = useState(1);
@@ -115,85 +98,35 @@ function Getpost() {
       });
   }, []);
 
-  // const handleDelete = (id) => {
-  //   let token = localStorage.getItem("tokenadmin");
-  //   fetch(`http://45.13.132.197:4000/api/post/${id}/remove_post`, {
-  //     method: "DELETE",
-  //     headers: {
-  //       Authorization: token,
-  //       'Content-Type': 'multipart/form-data'
-  //     }
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {                    
-  //       setDelete(data);
-  //       if (data.status === 200) {
+  const handlePost = (cur) => {
 
-  //         nav("/admin/post");
-  //       }
+    // nav(`/admin/${event_status},{ state: {startDate, endDate } }`);
+    navigate(`/admin/post/editpage/${cur._id}`, { state: { cur } });
 
-  //     })
+  };
 
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-
-  // };
 
   return (
     <>
 
       <div id="content">
         <div className="container-fluid">
-          <div className="row">
-            <div className="">
-              <div className="headings float_wrapper">
-                <div className="gutter pull-left" >
-                <h3><span className='cursor title backarrow' onClick={() => navigate(-1)}>&larr;</span>All posts</h3>
-                 
-                  <p>list of all add posts</p>
-                </div>
-                <div className="gutter pull-left">
-                  <Link to="/admin/post/addpost">
-                    <button className="button small primary"
-                      type="button" name="button">Add New</button>
-                  </Link>
-                </div>
-                <span className="toggle_sidebar" ></span>
-              </div>
-            </div>
-          </div>
-          <div className="row">
-            <div className="gutter">
-              <div className="card layer1 filters">
 
-                <div className="input_group">
-                  <select
-                    id="select-type"
-                    value={selectedType}
-                    onChange={(e) => setSelectedType(e.target.value)}
-                    className="input"
-                  >
+          <Header
 
-                    <option value="">select type</option>
-                    {type.map((cur) => (
-                      <option key={cur._id} value={cur._id}>
-                        {cur.name}
-                      </option>
-                    ))}
-                  </select>
-                  <span className="highlight"></span>
-                </div>
+            searchText={search}
+            setSearchText={setSearch}
+            searchField={true}
+            type={type}
+            selectedType={selectedType}
+            setSelectedType={setSelectedType}
+            nav="/admin/post/addpost"
+            btn_name="Add New"
+            title="All posts"
+            sub_title="list of all added posts"
+          />
 
-                <div className="input_group pull-right" >
-                  <input type="text" className="input" placeholder="search here.."
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)} />
-                  <span className="highlight"></span>
-                </div>
-              </div>
-            </div>
-          </div>
+
           <div className="row">
             <div className="gutter">
               <table className="table-responsive ultra_responsive">
@@ -233,9 +166,8 @@ function Getpost() {
                       <td>
                         <div className='typefield' >
                           <span style={{ display: "block" }}> {cur.type.name}</span>
-                          <Link to={`/admin/post/editpage/${cur._id}`} >
-                            <span className="Edit mt-3">Edit Page</span>
-                          </Link>
+                          <span className="Edit mt-3" onClick={() => handlePost(cur)}>Edit Page</span>
+
                         </div>
 
 

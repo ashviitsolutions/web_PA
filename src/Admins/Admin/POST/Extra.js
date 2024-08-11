@@ -1,271 +1,317 @@
-
-import React, { useEffect, useState, useMemo } from 'react'
-import { Link } from 'react-router-dom'
-import ReactPaginate from 'react-paginate';
+import React, { useEffect, useRef, useState } from 'react'
+import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
+import axios from 'axios';
+import JoditEditor from 'jodit-react';
 import "./style.css"
-import { FallingLines } from 'react-loader-spinner';
 import { useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { IP } from '../../../Constant';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const PreviewImage = ({ attachments }) => {
-  const [imageObjectURL, setImageObjectURL] = useState(null);
-
-  useEffect(() => {
-    const fetchImage = async () => {
-      const res = await fetch(`${IP}/file/${attachments}`);
-      const imageBlob = await res.blob();
-      const objectURL = URL.createObjectURL(imageBlob);
-      setImageObjectURL(objectURL);
-    };
-
-    fetchImage();
-  }, [attachments]);
-
-  return (
-    <div  >
-      {imageObjectURL && <img src={imageObjectURL} alt="Preview" className="previewimage" />}
-    </div>
-  );
+const PreviewImage = ({ imagePreviewUrl }) => {
+    return (
+        <div style={{ width: "100%", heigh: "10vh", backgroundSize: "cover" }} className="previwimage">
+            {imagePreviewUrl && <img src={imagePreviewUrl} alt="Preview" style={{ height: '29vh' }} />}
+        </div>
+    );
 };
+function Editpost() {
+    let params = useParams();
+    let { id } = params;
+    const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
+    const [user, setUser] = useState([])
+    const [formValue, setFormValue] = useState(null)
+    const [type, setType] = useState([])
+
+    const [images, setImages] = useState([])
+    const nav = useNavigate()
+    const editor = useRef(null);
+    const [img, setImg] = useState();
 
 
-
-
-function Getpost() {
-  const navigate=useNavigate()
-  const [search, setSearch] = useState("")
-  // const [Delete, setDelete] = useState([])
-  const [pageNumber, setPageNumber] = useState(1);
-  const [loading, setLoading] = useState(null);
-
-
-
-  const [type, setType] = useState([]);
-  const [selectedType, setSelectedType] = useState("");
-
-  const [user, setUser] = useState([]);
-  const [data, setData] = useState(1);
-  const [count, setCount] = useState(0);
-
-  // alert(selectedType)
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true); // Set loading to true before fetching data
-        const res = await fetch(`${IP}/post/fetch?page=${pageNumber}&limit=10`);
-        const data = await res.json();
-        setUser(prevData => [...prevData, ...data]);
-        // setUser(data);
-        console.log("get post data", data)
-        setCount(data.length);
-      } catch (error) {
-        console.error('Error fetching posts:', error);
-      } finally {
-        setLoading(false); // Set loading to false after fetching data
-      }
+    const initialValues = {
+        title: "",
+        excerpt: "",
+        type: "",
+        image: "",
+        description: "",
     };
 
-    fetchData();
-  }, [pageNumber]);
+    const SignupSchema = Yup.object().shape({
+        // title: Yup.string().required("Required"),
+        // excerpt: Yup.string().required("Required"),
+        // type: Yup.string().required("Required"),
 
 
-  // useEffect(() => {
-  //   setLoading(false);
-  //   setPageNumber(1); 
-  // }, [selectedType]);
+    });
+    const onSubmit = async (values, { setValues, resetForm }) => {
+        try {
+            const bodyFormData = new FormData();
+            bodyFormData.append("title", values.title);
+            bodyFormData.append("excerpt", values.excerpt);
+            bodyFormData.append("type", values.type);
+            bodyFormData.append("postImages", values.image);
+            bodyFormData.append("description", values.description);
+            let token = localStorage.getItem("tokenadmin");
+            if (!token) {
+                throw new Error("Token not found in local storage");
+            }
+            console.log(token);
+            let res = await axios.put(`${IP}/post/update-post/${id}`, bodyFormData, {
+                headers: {
+                    Authorization: token,
+                    // 'Content-Type': 'application/json',
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            console.log(res);
+            if (res.status === 200) {
+                setValues({});
+                resetForm();
 
+                // Show success notification and navigate to '/admin/Gift'
+                toast.success("Your Post Updated successfully!", {
+                    position: "top-right",
+                    autoClose: 3000,
+                    onClose: () => {
+                        nav("/admin/post");
+                    },
+                });
+            } else {
+                // Show error notification if the API response is not successful
+                toast.error("An error occurred. Please try again.", {
+                    position: "top-right",
+                    autoClose: 3000,
+                });
+            }
+        } catch (error) {
+            console.error(error);
+            toast.error("An error occurred. Please try again.", {
+                position: "top-right",
+                autoClose: 3000,
+            });
+        }
+    };
 
-  const handleInfiniteScroll = async () => {
-    try {
-
-      if (
-        window.innerHeight + document.documentElement.scrollTop + 1 >= document.documentElement.scrollHeight
-      ) {
-        setPageNumber((prev) => prev + 1);
-        setLoading(true)
-      }
-
-    } catch (error) {
+    const config = {
+        readonly: false,
+        height: 400,
 
     }
-  }
+
+    useEffect(() => {
+        fetch(`${IP}/post/fetch/${id}`).then((res) => {
+            return res.json();
+        }).then((data) => {
+            setUser(data)
+            setImages(data.attachments)
+            const updatedSavedValues = {
+                title: data.title,
+                excerpt: data.excerpt,
+                type: data.type._id,
+                image: data.image,
+                description: data.description,
+            };
+            setFormValue(updatedSavedValues);
+        })
+    }, [id , nav])
 
 
-  useEffect(() => {
-    window.addEventListener("scroll", handleInfiniteScroll);
-    return () => window.removeEventListener("scroll", handleInfiniteScroll)
-  }, [])
 
-  const filteredUser = user.filter(post => {
-    const isTypeMatched = !selectedType || post.type._id === selectedType;
-    const isSearched = !search || post.title.toLowerCase().includes(search.toLowerCase());
-    return isTypeMatched && isSearched;
-  });
+    useEffect(() => {
+        const fetchImage = async () => {
+            const res = await fetch(`${IP}/file/${images}`);
+            const imageBlob = await res.blob();
+            const imageObjectURL = URL.createObjectURL(imageBlob);
+            setImg(imageObjectURL);
+        };
+        fetchImage();
+    }, [images]);
+
+
+    useEffect(() => {
+        fetch(`${IP}/terms/fetch`).then((res) => {
+            return res.json();
+        }).then((data) => {
+            setType(data)
+
+        })
+    }, [])
 
 
 
-  useEffect(() => {
-    fetch(`${IP}/terms/fetch`)
-      .then((res) => res.json())
-      .then((data) => {
-        setType(data);
-      })
-      .catch((error) => {
-      });
-  }, []);
 
-  // const handleDelete = (id) => {
-  //   let token = localStorage.getItem("tokenadmin");
-  //   fetch(`http://45.13.132.197:4000/api/post/${id}/remove_post`, {
-  //     method: "DELETE",
-  //     headers: {
-  //       Authorization: token,
-  //       'Content-Type': 'multipart/form-data'
-  //     }
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {                    
-  //       setDelete(data);
-  //       if (data.status === 200) {
+    return (
+        <>
+            <div id="content">
+                <div className="container-fluid">
+                    <div className="row">
+                        <Formik
+                            initialValues={formValue || initialValues}
+                            validationSchema={SignupSchema}
+                            onSubmit={onSubmit}
+                            enableReinitialize
 
-  //         nav("/admin/post");
-  //       }
+                        >
 
-  //     })
+                            {({ errors, touched, setFieldValue }) => (
 
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
+                                <Form>
+                                    <div className="">
+                                        <div className="headings float_wrapper">
+                                            <div className="gutter pull-left" >
+                                            <h3><span className='cursor title backarrow' onClick={() => nav(-1)}>&larr;</span>Edit post</h3>
+                                            </div>
+                                            <span className="toggle_sidebar" ></span>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-sm-8">
+                                            <div className="gutter">
+                                                <div className="card layer1">
+                                                    <div className="inner">
+                                                        <label className="card_label" htmlFor="">General InhtmlFormation</label>
+                                                        <div className="input_group">
+                                                            <Field
 
-  // };
+                                                                className="input"
+                                                                name="title"
+                                                                type="text"
+                                                                placeholder=" New Update Title"
 
-  return (
-    <>
+                                                            />
 
-      <div id="content">
-        <div className="container-fluid">
-          <div className="row">
-            <div className="">
-              <div className="headings float_wrapper">
-                <div className="gutter pull-left" >
-                <h3><span className='cursor title backarrow' onClick={() => navigate(-1)}>&larr;</span>All posts</h3>
-                 
-                  <p>list of all add posts</p>
+                                                            {errors.title && touched.title ? (
+                                                                <div>{errors.title}</div>
+                                                            ) : null}
+                                                            <span className="highlight"></span>
+                                                        </div>
+                                                        <div className="input_group">
+                                                            <div className="input_group">
+                                                                <Field
+
+                                                                    className="input"
+                                                                    name="excerpt"
+                                                                    type="text"
+                                                                    placeholder=" New Update  Excerpt"
+                                                                />
+
+                                                                {errors.excerpt && touched.excerpt ? (
+                                                                    <div>{errors.excerpt}</div>
+                                                                ) : null}
+                                                                <span className="highlight"></span>
+                                                            </div>
+                                                        </div>
+                                                        <div className="input_group">
+                                                            <label htmlFor="" className="static">Description</label>
+                                                            <div className='editor' style={{ marginTop: "4vh", height: "40vh" }}>
+                                                                <Field name="description" as="texarea">
+                                                                    <JoditEditor
+                                                                        name="description"
+                                                                        ref={editor}
+                                                                        value={user.description}
+                                                                        config={config}
+                                                                        onBlur={(newContent) => {
+                                                                            setFieldValue('description', newContent);
+                                                                        }}
+                                                                        onChange={(newContent) => {
+                                                                            setFieldValue('description', newContent);
+                                                                        }}
+                                                                    />
+                                                                </Field>
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="col-sm-4">
+                                            <div className="gutter">
+                                                <div className="card layer1">
+                                                    <div className="inner">
+                                                        <label className="card_label" htmlFor="">Post Actions</label>
+                                                        <div className="input_group">
+                                                            <button id="publish_btn"
+                                                                className="primary square button" type="submit"
+                                                                name="button">publish</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="card layer1">
+                                                    <div className="inner">
+                                                        <label className="card_label" htmlFor="">Select Type</label>
+                                                        <div className="input_group">
+                                                            <Field name="type" as="select" className="input" >
+                                                                <option value="" >Select Type</option>
+                                                                {type.map((cur) => (
+                                                                    <option key={cur._id} value={cur._id} >
+                                                                        {cur.name}
+                                                                    </option>
+                                                                ))}
+
+                                                            </Field>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="card layer1">
+                                                    <div className="inner">
+                                                        <label htmlFor="" className="card_label">Attachments</label>
+                                                        <input
+                                                            name='image'
+                                                            type="file"
+                                                            placeholder="Excerpt"
+                                                            onChange={(e) => {
+                                                                let reader = new FileReader();
+                                                                let file = e.target.files[0];
+
+                                                                reader.onloadend = () => {
+                                                                    setImagePreviewUrl(reader.result);
+                                                                };
+
+                                                                reader.readAsDataURL(file);
+                                                                setFieldValue('image', file)
+                                                            }
+                                                            }
+                                                        />
+                                                        {errors.image && touched.image ? (
+                                                            <div>{errors.image}</div>
+                                                        ) : null}
+
+                                                    </div>
+                                                    <div className='preview' style={{ width: "100%" }}>
+                                                        <PreviewImage imagePreviewUrl={imagePreviewUrl || img} />
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                </Form>
+                            )}
+
+                        </Formik>
+
+
+
+
+
+
+
+                    </div>
                 </div>
-                <div className="gutter pull-left">
-                  <Link to="/admin/post/addpost">
-                    <button className="button small primary"
-                      type="button" name="button">Add New</button>
-                  </Link>
-                </div>
-                <span className="toggle_sidebar" ></span>
-              </div>
             </div>
-          </div>
-          <div className="row">
-            <div className="gutter">
-              <div className="card layer1 filters">
-
-                <div className="input_group">
-                  <select
-                    id="select-type"
-                    value={selectedType}
-                    onChange={(e) => setSelectedType(e.target.value)}
-                    className="input"
-                  >
-
-                    <option value="">select type</option>
-                    {type.map((cur) => (
-                      <option key={cur._id} value={cur._id}>
-                        {cur.name}
-                      </option>
-                    ))}
-                  </select>
-                  <span className="highlight"></span>
-                </div>
-
-                <div className="input_group pull-right" >
-                  <input type="text" className="input" placeholder="search here.."
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)} />
-                  <span className="highlight"></span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="row">
-            <div className="gutter">
-              <table className="table-responsive ultra_responsive">
-                <thead>
-                  <tr>
-                    <th>Image</th>
-                    <th>Title/Description</th>
-                    <th>Type</th>
-                  </tr>
-                </thead>
-
-
-
-
-
-
-                {filteredUser?.map((cur, index) => {
-                  return (
-                    <tr key={index}>
-                      <td>
-                        <div className="card layer1">
-                          <div className="inner">
-                            <label htmlFor="" className="card_label"></label>
-                            <div className='preview' style={{ width: "100%", height: "20vh", backgroundSize: "cover" }}>
-                              <PreviewImage className="PreviewImage" attachments={cur.attachments} />
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <div className="content">
-                          <span className="title " id='headingtitle'>{cur.title}</span>
-                          <small> <p className="description" dangerouslySetInnerHTML={{ __html: cur.description.slice(0, 260) }} /></small>
-                        </div>
-                      </td>
-
-                      <td>
-                        <div className='typefield' >
-                          <span style={{ display: "block" }}> {cur.type.name}</span>
-                          <Link to={`/admin/post/editpage/${cur._id}`} >
-                            <span className="Edit mt-3">Edit Page</span>
-                          </Link>
-                        </div>
-
-
-                      </td>
-                    </tr>
-                  )
-                })}
-
-              </table>
-              {loading && (
-                <div style={{ textAlign: "center" }}>
-                  <FallingLines
-                    color="#03a9f4"
-                    width="150"
-                    visible={true}
-                    ariaLabel="falling-circles-loading"
-                  />
-                </div>
-              )}
-
-            </div>
-          </div>
-        </div>
-
-      </div>
-
-
-
-    </>
-  )
+            <ToastContainer />
+        </>
+    )
 }
 
-export default Getpost
+export default Editpost
