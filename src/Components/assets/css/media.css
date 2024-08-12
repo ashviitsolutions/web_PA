@@ -16,6 +16,7 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         text-align: center;
         position: relative;
+        margin-top: 150px;
     }
 
     .notificationdestop {
