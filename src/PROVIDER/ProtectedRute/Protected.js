@@ -41,12 +41,12 @@ function Protected(props) {
       }
     }
 
-    const timeout = setTimeout(() => {
-      localStorage.clear()
-      nav("/providers/login");
-    }, 20 * 60 * 60 * 1000);
+    // const timeout = setTimeout(() => {
+    //   localStorage.clear()
+    //   nav("/providers/login");
+    // }, 20 * 60 * 60 * 1000);
 
-    return () => clearTimeout(timeout);
+    // return () => clearTimeout(timeout);
   }, [user]);
 
   return (

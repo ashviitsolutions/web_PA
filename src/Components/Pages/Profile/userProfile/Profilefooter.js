@@ -35,10 +35,6 @@ const Profilefooter = () => {
 
     const nav = useNavigate();
 
-    const handleLogout = () => {
-        localStorage.clear();
-        nav("/");
-    };
 
 
 

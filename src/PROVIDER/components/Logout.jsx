@@ -7,7 +7,7 @@ const Logout = () => {
 
     useEffect(()=>{
         if(localStorage.getItem("providertoken")){
-            localStorage.clear()
+            // localStorage.clear()
             nav('/providers/login')
 
         }else{

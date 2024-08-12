@@ -9,12 +9,12 @@ function Protect(props) {
         if(!login){
             nav('/admin/login')
         }
-        const timeout = setTimeout(() => {
-          localStorage.clear()
-          nav("/admin/login");
-        }, 20 * 60 * 60 * 1000);
+        // const timeout = setTimeout(() => {
+        //   localStorage.clear()
+        //   nav("/admin/login");
+        // }, 20 * 60 * 60 * 1000);
     
-        return () => clearTimeout(timeout);
+        // return () => clearTimeout(timeout);
     },[nav])
 
 
