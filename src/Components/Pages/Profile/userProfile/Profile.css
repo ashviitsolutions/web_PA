@@ -1293,6 +1293,9 @@ textarea {
 	.favorite__item{
 		width: 100%  !important;
 	}
+	#my_appointments .card{
+		zoom: .5;
+	}
 }
 
 @media (max-width: 768px) {
