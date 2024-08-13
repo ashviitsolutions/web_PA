@@ -36,7 +36,8 @@ const Sidebar = () => {
     const nav = useNavigate();
 
     const handleLogout = () => {
-        localStorage.clear();
+        localStorage.removeItem("token");
+        // localStorage.clear();
         nav("/");
     };
 

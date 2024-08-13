@@ -27,7 +27,8 @@ function Sidebar() {
 
 
   const logout = () => {
-    localStorage.clear()
+    localStorage.removeItem("tokenadmin");
+    // localStorage.clear()
   }
   return (
     <>
