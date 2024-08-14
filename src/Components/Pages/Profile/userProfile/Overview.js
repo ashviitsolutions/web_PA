@@ -165,11 +165,11 @@ function Overview() {
 																			/>
 																		</span>
 																		<div style={{ display: "flex", justifyContent: "space-between" }}>
-																			<div className="text">
+																			<div className="text" id="service_name_text">
 																				<h3>{post?.service_name}</h3>
 																				<p>{post.service_time}</p>
 																			</div>
-																			<div className="text">
+																			<div className="" id="addons_text">
 																				<h3>Add-ons:</h3>
 																					{post.add_ons_details.map((addon, index) => (
 																						<p key={index} style={{ margin: '4px 0' }}>{addon.title}</p>
