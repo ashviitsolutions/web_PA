@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect } from "react";
 import "./style.css";
 import { useDispatch, useSelector } from 'react-redux';
 import { updateInputData } from '../../Redux/counterSlice';
@@ -31,7 +31,12 @@ const ThirdForm = ({ nextStep }) => {
     const [massagePressure, setMassagePressure] = useState("");
 
     const dispatch = useDispatch();
-
+    useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        });
+    }, []);
     // Handle form submission
     const handleSubmit = () => {
         // Create an object to hold the form data
