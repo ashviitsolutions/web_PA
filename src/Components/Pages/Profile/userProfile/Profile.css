@@ -1086,15 +1086,21 @@ textarea {
 
 
 #addons_text {
-    padding: 10px; /* Optional: Adds some padding around the content */
-    max-width: 100%; /* Ensures the content does not exceed the width of its container */
-    box-sizing: border-box; /* Ensures padding is included in the width calculation */
-	word-wrap: break-word; /* Breaks long words to prevent overflow */
-    word-break: break-word; /* Ensures words break if necessary */
-    overflow-wrap: break-word; 
+	padding: 10px;
+	/* Optional: Adds some padding around the content */
+	max-width: 100%;
+	/* Ensures the content does not exceed the width of its container */
+	box-sizing: border-box;
+	/* Ensures padding is included in the width calculation */
+	word-wrap: break-word;
+	/* Breaks long words to prevent overflow */
+	word-break: break-word;
+	/* Ensures words break if necessary */
+	overflow-wrap: break-word;
 	font-size: 10px;
 }
-#addons_text h3{
+
+#addons_text h3 {
 	font-size: 14px;
 }
 
@@ -1225,7 +1231,7 @@ textarea {
 		margin: auto;
 		justify-content: center;
 		margin-top: 20px;
-	
+
 	}
 
 	.overview .overview_input .image_text img {
@@ -1299,7 +1305,8 @@ textarea {
 	.favorite__item {
 		width: 100% !important;
 	}
-	#my_appointments  {
+
+	#my_appointments {
 		width: 100% !important;
 	}
 
@@ -1322,8 +1329,10 @@ textarea {
 		width: 100%;
 		/* Set width to 100% for 1 card in a row on mobile */
 	}
+
 	#my_appointments .card {
-		flex-basis: calc(100% - 20px) !important; /* Two cards per row with padding */
+		flex-basis: calc(100% - 20px) !important;
+		/* Two cards per row with padding */
 	}
 
 	.membership_buttons button {
