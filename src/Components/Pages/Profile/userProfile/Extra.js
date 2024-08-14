@@ -15,11 +15,11 @@ function Booking() {
     const nav = useNavigate();
     const dispatch = useDispatch();
     const selector = useSelector((state) => state.counter.formData);
-    const posts = Array.isArray(selector?.filteredPosts) && selector.filteredPosts.length > 0 ? selector.filteredPosts[0] : [];
+    const posts = Array.isArray(selector?.bookinghistory) && selector.bookinghistory.length > 0 ? selector.bookinghistory[0] : [];
     const token = localStorage.getItem("token");
     const user_id = localStorage.getItem("userid");
     const [data, setData] = useState(1);
-    const [count, setCount] = useState(0);
+    const [loadingprofile, setLoadingprofile] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [userRating, setUserRating] = useState(0);
     const [userFeedback, setUserFeedback] = useState("");
@@ -28,18 +28,27 @@ function Booking() {
     const [isModalOpen, setModalOpen] = useState(false);
     const [profile, setProfile] = useState([]);
     const [providerId, setProviderId] = useState();
+    const [service_id, setServiceId] = useState();
     const [booking_id, setBookingData] = useState(null);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const response = await Hook.getPost();
-                const filteredPosts = response.data.filter(booking => booking.service_status === "completed");
-                dispatch(updateInputData({ formName: 'filteredPosts', inputData: filteredPosts }));
-                setCount(filteredPosts.length);
+                const config = {
+                    headers: {
+                        Authorization: token,
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                    },
+                };
+
+                const response = await axios.get(`${IP}/user/my-bookings?service_status=completed&page=1&limit=50`, config);
+
+                console.log("Response:", response.data);
+
+                dispatch(updateInputData({ formName: 'bookinghistory', inputData: response.data }));
                 setIsLoading(false);
-                setToggleStates(new Array(filteredPosts.length).fill(false));
             } catch (error) {
                 console.error("Error fetching data:", error);
                 setIsLoading(false);
@@ -47,25 +56,33 @@ function Booking() {
         };
 
         fetchPosts();
-    }, [data]);
+    }, [IP, dispatch]);
+
+
+
+console.log("booking data",posts)
+
+
+
 
     useEffect(() => {
+        setLoadingprofile(true);
         const fetchProfile = async () => {
             try {
                 const response = await Hook.getProfile();
                 setProfile(response.data.favorites);
             } catch (error) {
                 console.error("Error fetching data:", error);
-                setIsLoading(false);
+                setLoadingprofile(false);
             }
         };
 
         fetchProfile();
     }, []);
 
-    const handlePageClick = (data) => {
-        setData(data.selected + 1);
-    };
+
+    console.log("profileprofileprofile", profile)
+
 
     const handleRatingChange = (newRating) => {
         setUserRating(newRating);
@@ -77,17 +94,19 @@ function Booking() {
 
     const handleToggle = (booking) => {
         setModalOpen(true);
-        setProviderId(booking.provider);
+        setProviderId(booking.provider); // Ensure booking.provider has the correct value
+        setServiceId(booking.service_id);
         setBookingData(booking._id);
         const newToggleStates = [...toggleStates];
         newToggleStates[booking.provider] = !newToggleStates[booking.provider];
         setToggleStates(newToggleStates);
     };
 
+
     const handleSubmitRating = () => {
         setLoading(true);
         axios
-            .post(`${IP}/user/addReviewToStore/${providerId}/${user_id}`, {
+            .post(`${IP}/user/addReviewToStore`, {
                 reviewerName: username,
                 rating: userRating,
                 comments: userFeedback,
@@ -113,6 +132,7 @@ function Booking() {
                 }
             })
             .catch((err) => {
+                setLoading(false);
                 console.log(err);
                 toast.error(err.response.data.message, {
                     position: "top-right",
@@ -127,7 +147,10 @@ function Booking() {
             });
     };
 
-    const addToFavorite = (id) => {
+
+    const addToFavorite = (booking) => {
+
+        console.log("provide data", booking)
         const config = {
             headers: {
                 "Content-Type": "application/json",
@@ -136,7 +159,7 @@ function Booking() {
         };
 
         axios
-            .post(`${IP}/user/addTofavorites/${id}/${user_id}`, {}, config)
+            .post(`${IP}/user/addTofavorites/${booking?.providerInfo[0]?.provider_id}/${user_id}/${booking?._id}`, {}, config)
             .then((res) => {
                 toast.success(res.data.message, {
                     position: "top-right",
@@ -183,42 +206,75 @@ function Booking() {
                                     visible={true}
                                     ariaLabel="falling-circles-loading"
                                 />
-                            ) : posts.length > 0 ? (
-                                posts.map((booking, index) => (
-                                    <div className="overview_card" key={index}>
-                                        <div className="overview_input">
-                                            <div className="image_text">
-                                                <img src={image1} width={150} height={130} alt="..." />
-                                                <div className="text-item">
-                                                    <h3>Appointment With {username}</h3>
-                                                    <p>{booking.service_status}</p>
-                                                    <p>{booking.address}</p>
+                            ) : (
+                                Array.isArray(posts) && posts.length > 0 ? (
+                                    posts.map((booking, index) => (
+                                        <div className="overview_card" key={index}>
+                                            <div className="overview_input">
+                                                <div className="image_text">
+                                                    <span className="avatar">
+                                                        <img
+                                                            src={`${IP}/file/${booking?.attachments}`}
+                                                            width={60}
+                                                            height={60}
+                                                            alt="Avatar"
+                                                        />
+                                                        <div className="time_date sub">
+                                                            {loadingprofile && (
+                                                                <>
+                                                                    {profile?.map(providerid => providerid === booking.provider) ? (
+                                                                        <div style={{ cursor: "pointer", fontSize: "30px" }}>❤️‍</div>
+                                                                    ) : (
+                                                                        <button onClick={() => addToFavorite(booking)} style={{ cursor: "pointer" }}>Add to Favorites</button>
+                                                                    )}
+                                                                </>
+                                                            )}
+                                                        </div>
+                                                    </span>
+                                                    <div className="text-item">
+
+                                                        <h3>Appointment With {username}</h3>
+                                                        <p>{booking.service_name}</p>
+                                                        <p>{booking.service_status}</p>
+                                                        <p>{booking.address}</p>
+                                                    </div>
+                                                </div>
+                                                <div className="time_date sub">
+                                                    <p>{booking.scheduled_date}</p>
+                                                    <p>{booking.scheduled_timing}</p>
+
+
+                                                    <div className="time_date sub">
+                                                        <p className="sub">{booking.scheduled_date}</p>
+                                                        <p className="sub">{booking.scheduled_timing}</p>
+
+                                                        {
+                                                            !booking?.ratings?.length > 0 ? (
+                                                                <button onClick={() => handleToggle(booking)}>Feedback</button>
+
+                                                            ) : (
+                                                                <Rating
+                                                                    value={booking?.ratings && booking.ratings.length > 0 ? booking.ratings[0] : 0}
+                                                                    count={5}
+                                                                    size={24}
+                                                                    activeColor="#007bff"
+                                                                />
+                                                            )
+                                                        }
+
+
+
+
+
+
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div className="time_date">
-                                                <p>{booking.scheduled_date}</p>
-                                                <h3>{booking.scheduled_timing}</h3>
-                                                {
-                                                    profile.some((providerid) => providerid === booking.provider) ? (
-                                                        <div style={{ cursor: "pointer", fontSize: "30px" }}>❤️‍</div>
-                                                    ) : (
-                                                        <button onClick={() => addToFavorite(booking.provider)} style={{ cursor: "pointer" }}>Add to Favorites</button>
-                                                    )
-                                                }
-                                                {
-                                                    !booking.ratings[0] ? <button onClick={() => handleToggle(booking)}>Feedback</button> : <Rating
-                                                        value={booking.ratings[0]}
-                                                        count={5}
-                                                        size={24}
-                                                        activeColor="#007bff"
-                                                    />
-                                                }
-                                            </div>
                                         </div>
-                                    </div>
-                                ))
-                            ) : (
-                                <h3 style={{ color: "#162b3c" }}>No bookings yet.</h3>
+                                    ))
+                                ) : (
+                                    <h3 style={{ color: "#162b3c", textAlign: "center" }}>No bookings yet.</h3>
+                                )
                             )}
                         </div>
                         {isModalOpen && (

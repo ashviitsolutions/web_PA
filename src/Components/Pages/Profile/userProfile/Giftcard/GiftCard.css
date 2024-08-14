@@ -106,5 +106,6 @@
 @media screen and (max-width: 768px) {
 	.Gift_card_container_buy {
 		flex-basis: calc(100% - 20px); /* One card per row with padding */
+		
 	}
 }
