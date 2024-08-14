@@ -175,4 +175,16 @@
 	.modal-content-review-user {
 		width: 90%;
 	}
+	.notification__item{
+		zoom: 0.7;
+	}
+	.supportSection {
+		text-align: center;
+		font-size: 12px;
+	}
+	.supportSection h3 {
+		text-align: center;
+		font-size: 16px;
+	}
+	
 }

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './App.css';
 import { Route, Routes } from "react-router-dom";
 import Navbar from './Components/Header/Navbar';
@@ -142,11 +142,24 @@ import Statemement from './Admins/Admin/Alldata/Statemement';
 import Providerservices from './Admins/Admin/CONTRACTORS/Providerservices';
 import DetailService from './Admins/Admin/CONTRACTORS/DetailService';
 import ReviewPage from './Components/Pages/Profile/userProfile/Review';
-function App() {
-  const nav = useNavigate()
+
+
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [nav]);
+  }, [pathname]);
+
+  return null;
+};
+
+
+function App() {
+  // const nav = useNavigate()
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  // }, [nav]);
 
   // // Get the current time in milliseconds
   // const currentTime = new Date().getTime();
@@ -175,8 +188,9 @@ function App() {
     <>
 
       <Provider store={store}>
-
+        <ScrollToTop />
         <Routes>
+
           <Route path="/" element={<>
             <Chatbot />
             <Navbar />
@@ -461,7 +475,7 @@ function App() {
               <>
                 <Navbar />
                 <ReviewPage />
-          
+
 
               </>
             }

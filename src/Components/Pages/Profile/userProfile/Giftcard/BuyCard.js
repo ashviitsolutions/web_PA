@@ -148,9 +148,9 @@ function BuyCard() {
 	return (
 		<>
 			<div id="gift_card_container_main">
-				{Array.isArray(user) && user.length > 0 && user.map((card, index) => {
-					const IDOfferId = ID.map(item => item.offerId._id);
-					const shouldRenderCard = !IDOfferId.includes(card._id);
+				{Array?.isArray(user) && user?.length > 0 && user?.map((card, index) => {
+					const IDOfferId = ID?.map(item => item?.offerId?._id);
+					const shouldRenderCard = !IDOfferId?.includes(card._id);
 					if (shouldRenderCard) {
 						return (
 							<div className="Gift_card_container_buy" key={index}>
