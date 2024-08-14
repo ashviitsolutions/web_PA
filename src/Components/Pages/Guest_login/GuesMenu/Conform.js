@@ -264,7 +264,7 @@ const Conform = () => {
                             <label style={{ textAlign: 'center', fontSize: '18px' }} className="as_title" htmlFor="">
                                 Review
                             </label>
-                            {loader ? ": calculating your data please wait..." : null}
+                            {loader ? "..." : null}
                             <ul className="review d-block">
                                 <div>
                                     <li>

@@ -194,7 +194,7 @@ function Overview() {
 																			<div className="avatar"></div>
 																			{post.service_status === "pending" ? (
 																				<p>
-																					Your request is being reviewed by our service providers, once accepted we will notify you.!
+																					Your request is being reviewed by our service providers, once accepted we will notify you!
 																				</p>
 																			) : (
 																				<p>

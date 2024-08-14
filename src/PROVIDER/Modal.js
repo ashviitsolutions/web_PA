@@ -168,22 +168,21 @@ function CustomModal(
             <FontAwesomeIcon icon={faInfoCircle} /> Booking Info
           </div>
           <div className="container row detailInfo">
-            <div div className="col-md-6 title">
+            <div div className="col-md-6 col-sm-6 title">
               Booking Type
             </div>
-            <div div className="col-md-6">
+            <div div className="col-md-6 col-sm-6">
               On Demand - {locationType}
             </div>
-            <div className="col-md-6 title">Duration and Earning</div>
-            <div className="col-md-3">{serviceTime}</div>
-            <div className="col-md-3 title">{amount_calculation?.totalAmount?.toFixed(2)}$</div>
-            <div div className="col-md-6 title">
+            <div className="col-md-6 col-sm-6 title">Duration and Earning</div>
+            <div className="col-md-6 col-sm-6">{serviceTime} <span className="title"> {amount_calculation?.totalAmount?.toFixed(2)}$</span></div>
+            <div div className="col-md-6 col-sm-6 title">
               Location:
             </div>
-            <div className="col-md-6">{location}</div>
-            <div className="col-md-6 title"> Direction </div>
+            <div className="col-md-6 col-sm-6">{location}</div>
+            <div className="col-md-6 col-sm-6 title"> Direction </div>
 
-            <div className="col-md-6">
+            <div className="col-md-6 col-sm-6">
               <a href={`https://maps.google.com/maps?q=${lat},${lon}&z=${zoom}`}
                 rel="noopener noreferrer"
                 target="_blank"
@@ -192,15 +191,15 @@ function CustomModal(
             </div>
 
 
-            <div div className="col-md-3 title">
+            <div div className="col-md-3 col-sm-6 title">
               Date:
             </div>
-            <div className="col-md-3">{formattedScheduledDate}</div>
+            <div className="col-md-3 col-sm-6">{formattedScheduledDate}</div>
 
-            <div div className="col-md-3 title">
+            <div div className="col-md-3 col-sm-6 title">
               Time:
             </div>
-            <div className="col-md-3">{time}</div>
+            <div className="col-md-3 col-sm-6">{time}</div>
           </div>
 
           {/* Customer details */}
@@ -208,10 +207,10 @@ function CustomModal(
             <FontAwesomeIcon icon={faInfoCircle} /> Customer Info
           </div>
           <div className="container row detailInfo">
-            <div div className="col-md-6 title">
+            <div div className="col-md-6 col-sm-6 title">
               Gender:
             </div>
-            <div className="col-md-6">
+            <div className="col-md-6 col-sm-6">
               {gender ? (
                 gender.map((g, index) => (
                   <div key={index}>{g}</div>
@@ -236,10 +235,12 @@ function CustomModal(
             {
               areasOfConcern && areasOfConcern.length > 0 && (
                 <>
-                  <div className="col-md-6 title">
-                    Area of Concern:
+                <div className="row">
+                    <div className="col-md-6 col-sm-6 title">
+                      Area of Concern:
+                    </div>
+                    <div className="col-md-6 col-sm-6">{areasOfConcern ? areasOfConcern.join(', ') : ""}</div>
                   </div>
-                  <div className="col-md-6">{areasOfConcern ? areasOfConcern.join(', ') : ""}</div>
                 </>
 
               )
@@ -249,10 +250,10 @@ function CustomModal(
             {
               areasOfConcern && areasOfConcern.length > 0 && (
                 <>
-                  <div className="col-md-6 title">
+                  <div className="col-md-6 col-sm-6 title">
                     Area of Concern:
                   </div>
-                  <div className="col-md-6">{areasOfConcern ? areasOfConcern.join(', ') : ""}</div>
+                  <div className="col-md-6 col-sm-6 col-sm-6">{areasOfConcern ? areasOfConcern.join(', ') : ""}</div>
                 </>
 
               )
@@ -262,10 +263,10 @@ function CustomModal(
             {
               healthConditions && healthConditions.length > 0 && (
                 <>
-                  <div className="col-md-6 title">
+                  <div className="col-md-6 col-sm-6 title">
                     Health Issues:
                   </div>
-                  <div className="col-md-6">{healthConditions ? healthConditions.join(', ') : ""}</div>
+                  <div className="col-md-6 col-sm-6">{healthConditions ? healthConditions.join(', ') : ""}</div>
                 </>
 
               )
@@ -275,10 +276,10 @@ function CustomModal(
             {
               specialConsiderations && specialConsiderations.length > 0 && (
                 <>
-                  <div className="col-md-6 title">
+                  <div className="col-md-6 col-sm-6 title">
                     Special Consideration:
                   </div>
-                  <div className="col-md-6">{specialConsiderations ? specialConsiderations.join(', ') : ""}</div>
+                  <div className="col-md-6 col-sm-6">{specialConsiderations ? specialConsiderations.join(', ') : ""}</div>
 
                 </>
 
@@ -289,10 +290,10 @@ function CustomModal(
             {
               massageBodyPart && massageBodyPart.length > 0 && (
                 <>
-                  <div className="col-md-6 title">
+                  <div className="col-md-6 col-sm-6 title">
                     Massage Body Part:
                   </div>
-                  <div className="col-md-6">{massageBodyPart ? massageBodyPart.join(', ') : ""}</div>
+                  <div className="col-md-6 col-sm-6">{massageBodyPart ? massageBodyPart.join(', ') : ""}</div>
 
                 </>
 
@@ -302,10 +303,10 @@ function CustomModal(
             {
               massage_pressure && massage_pressure.length > 0 && (
                 <>
-                  <div className="col-md-6 title">
+                  <div className="col-md-6 col-sm-6 title">
                     Massage Pressure:
                   </div>
-                  <div className="col-md-6">{massage_pressure}</div>
+                  <div className="col-md-6 col-sm-6">{massage_pressure}</div>
                 </>
 
               )
