@@ -887,14 +887,14 @@ textarea {
 .model_card_gift_container {
 	position: fixed;
 	top: 50%;
-	left: 50%;
+	left: 60%;
 	transform: translate(-50%, -50%);
 	background-color: #fff;
 	padding: 20px;
 	border-radius: 8px;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 	z-index: 1000;
-	width: 35%;
+	width: 40%;
 	height: auto;
 	margin: auto;
 }
@@ -1132,7 +1132,7 @@ textarea {
 	.model_card_gift_container {
 		width: 100%;
 		position: fixed;
-		top: 60%;
+		top: 55%;
 		left: 50%;
 		transform: translate(-50%, -50%);
 		background-color: #fff;
@@ -1325,5 +1325,12 @@ textarea {
 
 	.overview_card {
 		width: 100%;
+	}
+}
+
+
+@media (max-width: 375px) {
+	.membership_buttons button{
+		font-size: 9px !important;
 	}
 }
