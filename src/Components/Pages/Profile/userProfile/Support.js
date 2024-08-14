@@ -57,34 +57,34 @@ const Support = () => {
 
 	return (
 		<div className="progressbar_userpannel profileSpace">
-		<div className="container__view" style={{ marginTop: 30 }}>
-			<div className="row supportSection">
-				<div className="col-md-4">
-					<img src={support} className="careImg" alt="Support" />
-				</div>
-				<div className="col-md-8">
-					<h3>Please describe your concern to us below</h3>
-					<p>We will get back to you within 24 hours</p>
-					<p>
-						<textarea
-							name=""
-							id=""
-							className="support__input col-md-12"
-							rows={9}
-							onChange={(e) => setText(e.target.value)}
-						></textarea>
-					</p>
-					<p>
-						<button className="support__button" disabled={!text || loading} onClick={onSubmit}>
-							{loading ? "Sending..." : "Submit"} {/* Show loading text when loading is true */}
-						</button>
-					</p>
-					<ToastContainer closeOnClick newestOnTop autoClose={true} />
+			<div className="container__view" style={{ marginTop: "30px" }}>
+				<div className="row supportSection">
+					<div className="col-md-4">
+						<img src={support} className="careImg" alt="Support" />
+					</div>
+					<div className="col-md-8">
+						<h3>Please describe your concern to us below</h3>
+						<p>We will get back to you within 24 hours</p>
+						<p>
+							<textarea
+								name=""
+								id=""
+								className="support__input col-md-12"
+								rows={9}
+								onChange={(e) => setText(e.target.value)}
+							></textarea>
+						</p>
+						<p>
+							<button className="support__button" disabled={!text || loading} onClick={onSubmit}>
+								{loading ? "Sending..." : "Submit"} {/* Show loading text when loading is true */}
+							</button>
+						</p>
+						<ToastContainer closeOnClick newestOnTop autoClose={true} />
+					</div>
 				</div>
 			</div>
 		</div>
-		</div>
-		
+
 	);
 };
 

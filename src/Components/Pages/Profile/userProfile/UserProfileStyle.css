@@ -7,9 +7,11 @@
 	flex-direction: column;
 	height: 100%;
 	align-items: center;
+	justify-content: center;
 	margin-bottom: 5%;
 	width: 100%;
 }
+
 
 .notification__view {
 	margin: 20px;
@@ -171,7 +173,7 @@
 	}
 }
 
-@media (max-width: 600px) {
+@media (max-width: 982px) {
 	.modal-content-review-user {
 		width: 90%;
 	}
@@ -185,6 +187,25 @@
 	.supportSection h3 {
 		text-align: center;
 		font-size: 16px;
+	}
+	.container__view h4{
+		text-align: center;
+		font-size: 12px;
+		padding: 5px;
+	}
+	
+	.support__button {
+		position: relative;
+        top: -38px;
+		padding: 10px 50px;
+		margin-bottom: 40px;
+		border: 0;
+		outline: 0;
+		border-radius: 10px;
+		cursor: pointer;
+		background: var(--theme);
+		color: #fff;
+		text-transform: uppercase;
 	}
 	
 }
