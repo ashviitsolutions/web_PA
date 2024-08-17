@@ -33,8 +33,7 @@ function Review() {
 
     const handleSubmitRating = () => {
         setLoading(true);
-        axios
-            .post(`${IP}/user/addReview`, {
+        axios.post(`${IP}/user/addReview`, {
                 reviewerName: username,
                 rating: userRating,
                 comments: userFeedback,
@@ -54,7 +53,7 @@ function Review() {
                         progress: undefined,
                         theme: "light",
                         onClose: () => {
-                            nav("/userProfile");
+                            // nav("/userProfile");
                         },
                     });
                 }
@@ -87,9 +86,7 @@ function Review() {
         <>
             <div className="modal-wrapper-review profileSpace">
                 <div className="modal-content-review-user">
-                    <span className="close">
-                        &times;
-                    </span>
+                   
                     <h3>Rate your experience</h3>
                     <p>{servicename}</p>
                     <Rating
