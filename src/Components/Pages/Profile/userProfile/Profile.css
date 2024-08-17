@@ -1308,10 +1308,11 @@ textarea {
 
 	#my_appointments {
 		width: 100% !important;
+		zoom: 0.8 !important;
 	}
 
 	#my_appointments .card {
-		zoom: 0.8;
+		zoom: 0.8 !important;
 	}
 }
 
@@ -1370,6 +1371,6 @@ textarea {
 	}
 
 	#my_appointments .card {
-		zoom: 0.6;
+		zoom: 0.6 !important;
 	}
 }
