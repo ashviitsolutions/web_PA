@@ -14,17 +14,19 @@ const MyVerticallyCenteredModal = (props) => {
   const token = localStorage.getItem("providertoken");
   const [loading, setLoading] = useState(false);
 
-  // Function to get current time in 12-hour format
   // Function to get current time in 12-hour format along with AM/PM
   const getCurrentTime = () => {
     const now = new Date();
     let hours = now.getHours();
     let minutes = now.getMinutes();
-    const isAM = hours < 12;
-    if (!isAM) {
-      hours -= 12;
+    const isAM = hours < 12 || hours === 0;
+
+    if (hours === 0) {
+      hours = 12; // Convert midnight (0:00) to 12:00 AM
+    } else if (hours > 12) {
+      hours -= 12; // Convert 24-hour time to 12-hour time
     }
-    hours = hours === 0 ? 12 : hours;
+
     return { hours: String(hours).padStart(2, '0'), minutes: String(minutes).padStart(2, '0'), isAM };
   };
 
@@ -33,11 +35,8 @@ const MyVerticallyCenteredModal = (props) => {
     setHour(currentTime.hours);
     setMinute(currentTime.minutes);
     setAm(currentTime.isAM);
-    setPm(!currentTime.isAM); // Set PM to the opposite of AM
+    setPm(!currentTime.isAM);
   }, []);
-
-
-  console.log("booking serviceid", service_id)
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -46,13 +45,11 @@ const MyVerticallyCenteredModal = (props) => {
     try {
       const timeValue = `${hour}:${minute} ${am ? 'AM' : 'PM'}`;
       const formData = {
-        service_id: service_id, // Include service_id here
+        service_id: service_id,
         id: _id,
         date: date,
         checkin: timeValue,
       };
-
-      console.log("formData data value", formData);
 
       const res = await axios.put(`${IP}/provider/update/checkin`, formData, {
         headers: {
@@ -76,28 +73,61 @@ const MyVerticallyCenteredModal = (props) => {
     }
   };
 
-
   return (
-    <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+    <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered id="timer_selected">
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">Enter Time  {am}</Modal.Title>
+        <Modal.Title id="contained-modal-title-vcenter">Enter Time</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Row>
           <div className="col-4" style={{ alignSelf: 'center' }}>
-            <input type="text" className="form-control" placeholder="Hour" value={hour} />
+            <input 
+              type="text" 
+              className="form-control" 
+              placeholder="Hour" 
+              value={hour} 
+              onChange={(e) => setHour(e.target.value)} 
+            />
           </div>
           <div className="col-4" style={{ alignSelf: 'center' }}>
-            <input type="text" className="form-control" placeholder="Minutes" value={minute} />
+            <input 
+              type="text" 
+              className="form-control" 
+              placeholder="Minutes" 
+              value={minute} 
+              onChange={(e) => setMinute(e.target.value)} 
+            />
           </div>
           <div className="col-4">
-            <Button className={`form-control btn-sm mb-1 ${am ? 'active' : ''}`} onClick={() => { setAm(true); setPm(false); }}>A.M.</Button>
-            <Button className={`form-control btn-sm ${pm ? 'active' : ''}`} onClick={() => { setAm(false); setPm(true); }}>P.M.</Button>
+            <Button
+              className="form-control btn-sm mb-1"
+              onClick={() => { setAm(true); setPm(false); }}
+              style={{
+                backgroundColor: !am ? '#007bff' : '#6c757d',
+                color: 'white',
+                borderColor: !am ? '#007bff' : '#6c757d'
+              }}
+            >
+              A.M.
+            </Button>
+            <Button
+              className="form-control btn-sm"
+              onClick={() => { setAm(false); setPm(true); }}
+              style={{
+                backgroundColor: !pm ? '#007bff' : '#6c757d',
+                color: 'white',
+                borderColor: !pm ? '#007bff' : '#6c757d'
+              }}
+            >
+              P.M.
+            </Button>
           </div>
         </Row>
       </Modal.Body>
       <Modal.Footer style={{ justifyContent: "center" }}>
-        <Button onClick={onSubmit} disabled={loading}>{loading ? "Loading..." : "Done"}</Button>
+        <Button onClick={onSubmit} disabled={loading}>
+          {loading ? "Loading..." : "Done"}
+        </Button>
       </Modal.Footer>
     </Modal>
   );
