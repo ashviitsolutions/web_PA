@@ -18,7 +18,7 @@ import Avatar from "./Avatar";
 function Membership() {
 	const username = localStorage.getItem("user_name");
 
-	const [status, setStatus] = useState()
+	const [status, setStatus] = useState();
 	const [loading, setLoading] = useState(null);
 
 	const membershipOptions = [
@@ -28,16 +28,15 @@ function Membership() {
 			price: 29,
 			savings: "5% saving off regular rate",
 			commitment: "3 months commitment",
+			link: "http://productivealliance.com/silvermembership",
 			GOLD: silver,
 			active: Activesilver,
 			title1: "Membership Flexibility",
 			para1: "5% discount on every service. Quaterly Subscription.",
 			title2: "One 60-minute massage each month.",
-			para2:
-				"You are billed for one massage a month at the member rate, no initiation fee. Credits roll over and never expire.",
-			title3: "Preffered rate on all bookings",
-			para3:
-				"Book as many appointments as you like at the membership rate. Get a massage anywhere Productive Alliance is available.",
+			para2: "You are billed for one massage a month at the member rate, no initiation fee. Credits roll over and never expire.",
+			title3: "Preferred rate on all bookings",
+			para3: "Book as many appointments as you like at the membership rate. Get a massage anywhere Productive Alliance is available.",
 		},
 		{
 			id: "price_1OMYiBLnVrUYOeK2LPEbMEvW",
@@ -45,16 +44,15 @@ function Membership() {
 			price: 119,
 			savings: "10% saving off regular rate",
 			commitment: "12 months commitment",
+			link: "http://productivealliance.com/goldmembership",
 			GOLD: gold,
 			active: Activegold,
 			title1: "Membership Flexibility",
 			para1: "Annual Membership. 10% discount on all member services. Prioritize and select your favorite therapist.",
 			title2: "One 60-minute massage each month.",
-			para2:
-				"You are billed for one massage a month at the member rate, no initiation fee. Credits roll over and never expire.",
-			title3: "Preffered rate on all bookings",
-			para3:
-				"Book as many appointments as you like at the membership rate. Get a massage anywhere Productive Alliance is available.",
+			para2: "You are billed for one massage a month at the member rate, no initiation fee. Credits roll over and never expire.",
+			title3: "Preferred rate on all bookings",
+			para3: "Book as many appointments as you like at the membership rate. Get a massage anywhere Productive Alliance is available.",
 		},
 		// Add more membership options as needed
 	];
@@ -66,15 +64,16 @@ function Membership() {
 	const [selectedMembership, setSelectedMembership] = useState(null);
 	const [membershipLevel, setMembershipLevel] = useState();
 	const [membershipEndDate, setMembershipEndDate] = useState();
+	const [termsAccepted, setTermsAccepted] = useState(false);
 
 	const handleToggleModal = (index) => {
-
 		setShowModal((prevShowModal) => {
 			const newShowModal = [...prevShowModal];
 			newShowModal[index] = !newShowModal[index];
 			return newShowModal;
 		});
 		setSelectedMembership(membershipOptions[index]);
+		setTermsAccepted(false); // Reset the checkbox state
 	};
 
 	const closeModal = () => {
@@ -82,6 +81,9 @@ function Membership() {
 		setSelectedMembership(null);
 	};
 
+	const handleAccept = () => {
+		setTermsAccepted(!termsAccepted);
+	};
 
 	const handleSubmit = async (membership_id, index) => {
 		setLoading(index);
@@ -108,14 +110,12 @@ function Membership() {
 			}
 		} catch (error) {
 			console.error("API Error:", error);
-		}
-		finally {
+		} finally {
 			if (loading === index) {
 				setLoading(null); // Reset loading state only if it matches the index
 			}
 		}
 	};
-
 
 	useEffect(() => {
 		const getUserMembership = async () => {
@@ -123,10 +123,10 @@ function Membership() {
 
 			try {
 				const response = await fetch(`${IP}/user/membership-details`, {
-					method: 'GET',
+					method: "GET",
 					headers: {
-						'Content-Type': 'application/json',
-						'Authorization': token,
+						"Content-Type": "application/json",
+						Authorization: token,
 					},
 				});
 
@@ -138,12 +138,8 @@ function Membership() {
 
 				console.log("membership", data);
 				setMembershipLevel(data.membershipType);
-				localStorage.setItem("membership", data.membershipType)
-				setStatus(data.status)
-
-				// const daysToAdd = data.renewalDays;
-				// const result = new Date(data.lastRenewalPaymentDate);
-				// result.setDate(result.getDate() + daysToAdd);
+				localStorage.setItem("membership", data.membershipType);
+				setStatus(data.status);
 				setMembershipEndDate(data.lastRenewalPaymentDate);
 			} catch (error) {
 				console.error("Error:", error);
@@ -153,25 +149,16 @@ function Membership() {
 		getUserMembership();
 	}, [membershipLevel]);
 
-
-
-
-	// console.log(lastRenewalPaymentDate);
-
-
-
-
 	return (
 		<div className="progressbar_userpannel profileSpace">
 			<div className="overview" id="invoices">
 				<div className="overview_container">
-
 					{/* <Avatar name={username} /> */}
 					<div className="title">
 						<h3>Membership Level</h3>
 						<h3
 							style={{ fontSize: 30 }}
-							className={`${membershipLevel == "gold" ? "gold__text" : "silver__text"
+							className={`${membershipLevel === "gold" ? "gold__text" : "silver__text"
 								}`}
 						>
 							{membershipLevel}
@@ -181,25 +168,21 @@ function Membership() {
 					<div className="memberships">
 						{membershipOptions.map((option, index) => (
 							<div className="membership_containers" key={index}>
-
 								<div className="image_membership">
 									<img src={option.GOLD} alt="..." />
 
-									{index == 1 && membershipLevel == "Gold" && (
+									{index === 1 && membershipLevel === "Gold" && (
 										<div className="active_membership_icons">
 											<img src={option.active} alt="..." />
 										</div>
 									)}
 
-									{index == 0 && membershipLevel == "Silver" && (
+									{index === 0 && membershipLevel === "Silver" && (
 										<div className="active_membership_icons">
 											<img src={option.active} alt="..." />
 										</div>
 									)}
 								</div>
-
-
-
 
 								<div className="membership_buttons">
 									{membershipLevel === "Gold" && index === 1 ? (
@@ -259,15 +242,32 @@ function Membership() {
 													<p>{option.para3}</p>
 												</div>
 											</div>
-										</div>
-										<div className="membership_update_button">
-											<button
-												className="button"
-												onClick={() => handleSubmit(selectedMembership.id, index)}
-											>
-												{loading === index ? "Loading..." : "Join now"}
-											</button>
-
+											<div>
+												<label>
+													<input
+														type="checkbox"
+														checked={termsAccepted}
+														onChange={handleAccept}
+													/>{" "}
+													I agree to the{" "}
+													<a
+														href={option.link}
+														target="_blank"
+														rel="noopener noreferrer"
+													>
+													terms and conditions of the membership contract!
+													</a>
+												</label>
+											</div>
+											<div className="membership_model_button">
+												<button
+													onClick={() => handleSubmit(option.id, index)}
+													disabled={!termsAccepted}
+													className={`${termsAccepted ? "button" : ""}`}
+												>
+													{loading === index ? "Processing..." : "Join now"}
+												</button>
+											</div>
 										</div>
 									</div>
 								)}
@@ -277,7 +277,6 @@ function Membership() {
 				</div>
 			</div>
 		</div>
-
 	);
 }
 
