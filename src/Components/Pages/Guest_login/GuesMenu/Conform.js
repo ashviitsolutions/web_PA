@@ -13,7 +13,7 @@ import Post from '../../Profile/Hook/Hook';
 import Loader from '../../Loader';
 
 const Conform = () => {
-
+    const [termsAccepted, setTermsAccepted] = useState(false);
     const dispatch = useDispatch();
     const selector = useSelector((state) => state.counter.formData);
     const calculatedData = Array.isArray(selector?.calculatedData) && selector.calculatedData.length > 0 ? selector.calculatedData[0] : [];
@@ -56,6 +56,9 @@ const Conform = () => {
 
     const gendercheck = location?.firstForm || "";
 
+    const handleAccept = () => {
+        setTermsAccepted(!termsAccepted);
+    };
 
 
     const [selectedGiftCards, setSelectedGiftCards] = useState([]);
@@ -505,7 +508,7 @@ const Conform = () => {
                                                 {giftCardAmount ? (
                                                     <p className="prices" style={{ fontSize: '17px' }}>
                                                         <span className='value'>
-                                                            Gift Card Discount: ${calculatedData?.giftcardDiscountAmount.toFixed(2)}
+                                                        Gift Card Applied: ${calculatedData?.giftcardDiscountAmount.toFixed(2)}
                                                         </span>
                                                     </p>
                                                 ) : null}
@@ -540,9 +543,26 @@ const Conform = () => {
 
                             {!loader && (
                                 <div>
+                                    <div>
+                                        <label>
+                                            <input
+                                                type="checkbox"
+                                                checked={termsAccepted}
+                                                onChange={handleAccept}
+                                            />{"  "}
+                                              I agree to the{" "}
+                                            <a
+                                                href='http://productivealliance.com/agreemnet'
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                terms and conditions of the agreemnet!
+                                            </a>
+                                        </label>
+                                    </div>
 
                                     <div style={{ textAlign: 'center' }}>
-                                        <button className="button" onClick={handleCheckout}>{loading ? "Loading..." : `Proceed to Pay ${calculatedData?.totalAmountWithTax?.toFixed(2)}`}</button>
+                                        <button className={`${termsAccepted ? "button" : "disabled-button"}`} disabled={!termsAccepted} onClick={handleCheckout}>{loading ? "Loading..." : `Proceed to Pay ${calculatedData?.totalAmountWithTax?.toFixed(2)}`}</button>
                                     </div>
                                 </div>
                             )}

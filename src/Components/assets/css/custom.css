@@ -4860,6 +4860,21 @@ body {
   border-radius: 3px;
   padding-top: 65%;
 }
+.disabled-button {
+  background-color: #d3d3d3; /* Gray background */
+  color: #ffff; /* Light gray text */
+  border: 1px solid #aaaa; /* Light gray border */
+  cursor: not-allowed; /* Change cursor to indicate button is disabled */
+  opacity: 0.9; /* Slightly faded effect */
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.disabled-button:hover {
+  background-color: #d3d3d3; /* Ensure background color remains the same */
+  color: #a9a9a9; /* Ensure text color remains the same */
+  border: 1px solid #a9a9a9; /* Ensure border color remains the same */
+}
 
 #types .item_wrapper .content {
   position: relative;

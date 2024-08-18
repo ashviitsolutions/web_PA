@@ -263,7 +263,7 @@ function Membership() {
 												<button
 													onClick={() => handleSubmit(option.id, index)}
 													disabled={!termsAccepted}
-													className={`${termsAccepted ? "button" : ""}`}
+													className={`${termsAccepted ? "button" : "disabled-button"}`}
 												>
 													{loading === index ? "Processing..." : "Join now"}
 												</button>
