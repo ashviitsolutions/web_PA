@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import image1 from "../../assets/img/social_icons/facebook.png";
 import image2 from "../../assets/img/social_icons/twitter.png";
@@ -13,8 +13,50 @@ import tiktok from "../../assets/img/icons8-tiktok-188.png";
 import image7 from "../../assets/img/mail.png";
 import image8 from "../../assets/img/download-google-play.png";
 import image9 from "../../assets/img/download-app-store.png";
+import { toast } from 'react-toastify';
+import axios from "axios";
+import { IP } from "../../../Constant";
 
 function Footer() {
+	const [loading, setLoading] = useState(false);
+	const [mobile, setMobile] = useState("");
+
+	const onSubmit = async (e) => {
+		e.preventDefault(); // Prevent default form submission
+		setLoading(true); // Set loading to true when form is submitted
+
+		if (!mobile) { // Correctly check if mobile is empty
+			alert("Please Enter Your Contact Number");
+			setLoading(false); // Stop loading if mobile is empty
+			return;
+		}
+
+		try {
+			const response = await axios.post(`${IP}/user/sendSupportEmail`, {
+				mobile: mobile,
+			});
+			console.log(response.data);
+			toast.success(`Request submitted. We will contact you shortly!`, {
+				position: "top-right",
+				autoClose: 1000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				theme: "light",
+			});
+		} catch (err) {
+			console.error('Error submitting form:', err);
+			toast.error("An error occurred. Please try again.", {
+				position: "top-right",
+				autoClose: 3000,
+			});
+		} finally {
+			setLoading(false); // Set loading to false after form submission completes
+		}
+	};
+
 	return (
 		<>
 			<div id="footer">
@@ -139,13 +181,21 @@ function Footer() {
 								</h3>
 							</div>
 							<div className="form">
-								<form style={{ position: "relative" }}>
+								<form style={{ position: "relative" }} onSubmit={onSubmit}>
 									<input
 										className="input"
 										type="text"
-										placeholder="contact number..."
+										placeholder="Contact number..."
+										value={mobile}
+										onChange={(e) => setMobile(e.target.value)}
+										disabled={loading} // Disable input while loading
 									/>
-									<input className="button" type="submit" />
+									<input
+										className="button"
+										type="submit"
+										value={loading ? 'Submitting...' : 'Submit'} // Show loading text
+										disabled={loading} // Disable button while loading
+									/>
 								</form>
 								<div className="intro">
 									<p>

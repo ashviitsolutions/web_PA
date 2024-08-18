@@ -84,7 +84,7 @@ function Contact() {
                 }
             );
             console.log(response.data);
-            toast.success(`${response.data.message}`, {
+            toast.success(`Request submitted. We will contact you shortly!`, {
                 position: "top-right",
                 autoClose: 1000,
                 hideProgressBar: false,

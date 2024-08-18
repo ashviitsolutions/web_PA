@@ -10,6 +10,7 @@ function Corporatebooking() {
     const { service_id } = useParams();
     const useremail = localStorage.getItem("user_email");
     const username = localStorage.getItem("user_name");
+    const [ loading , setLoading]=useState(false)
     const nav = useNavigate();
 
     const [name, setName] = useState(username);
@@ -35,6 +36,7 @@ function Corporatebooking() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true)
 
         try {
             const response = await fetch(`${IP}/user/sendbookingemail`, {
@@ -58,7 +60,8 @@ function Corporatebooking() {
             if (response.ok) {
                 const result = await response.json();
                 console.log(result);
-                toast.success("Enquiry submitted successfully", {
+                setLoading(false)
+                toast.success("Booking successful. A confirmation SMS will be sent shortly!", {
                     position: "top-right",
                     autoClose: 2000,
                     onClose: () => {
@@ -67,6 +70,7 @@ function Corporatebooking() {
                 });
 
             } else {
+                setLoading(false)
                 const errorResult = await response.json();
                 console.error(errorResult);
                 toast.error("An error occurred. Please try again.", {
@@ -76,6 +80,7 @@ function Corporatebooking() {
                 // Handle error response here
             }
         } catch (error) {
+            setLoading(false)
             console.error("Error sending booking email:", error);
             toast.error("An error occurred. Please try again.", {
                 position: "top-right",
@@ -225,7 +230,8 @@ function Corporatebooking() {
                         </div>
                         <p style={{ textAlign: "center" }}>
                             <button type="submit" className="button">
-                                Submit Inquiry
+                            {!loading ? "Submit Inquiry":"Loading"}
+                                
                             </button>
                         </p>
                     </form>
