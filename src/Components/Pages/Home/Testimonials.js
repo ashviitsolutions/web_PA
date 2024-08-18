@@ -47,7 +47,7 @@ function Testimonials() {
 				<div className="container">
 					<div className="row">
 						<div className="heading" style={{ textAlign: "center" }}>
-							<h3>testimonials</h3>
+							<h3>Testimonials</h3>
 							{/* <p>people who changed their lives</p> */}
 							<p>Your feedback means the world to us</p>
 						</div>

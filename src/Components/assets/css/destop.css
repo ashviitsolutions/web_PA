@@ -1,0 +1,224 @@
+/* //HOme page banner css */
+
+#banner_page {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 600px;
+    overflow: hidden;
+    background-position: center;
+    background-repeat: no-repeat;
+    /* background-image: url('../img/masseur-doing-massage-backbone-man-body-spa-salon-beauty-treatment-concept.jpg'); */
+    background-size: cover;
+}
+
+#banner_page::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(0deg, black -13%, #00000033);
+}
+
+
+#banner_page .head {
+    position: absolute;
+    display: block;
+    width: 50%;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    text-align: left;
+}
+
+#banner_page .head h1 {
+    position: relative;
+    display: block;
+    width: 100%;
+    font-size: 32px;
+    color: #fff;
+    font-weight: 600;
+}
+
+#banner_page .head h1 span {
+    display: block;
+    color: #2196f3;
+}
+
+#banner_page .head h3 {
+    position: relative;
+    display: block;
+    width: 100%;
+    font-size: 13px;
+    color: #fff;
+    font-weight: 400;
+    line-height: 1.4em;
+    letter-spacing: 0.3px;
+    word-spacing: 1px;
+}
+
+#banner_page .head .button {
+    margin-top: 35px;
+    padding-bottom: 12px;
+    padding-top: 13px;
+    text-transform: uppercase;
+    font-weight: 300;
+    color: #fff;
+    margin-left: 5px;
+}
+
+.button.hollow {
+    background: none;
+    border: 2px solid #fff;
+}
+
+#banner_page .button.primary {
+    background: #2196f3;
+    border: 2px solid #00e2ff;
+}
+
+#banner_page .arrow_down {
+    position: absolute;
+    bottom: 32px;
+    left: calc(50% - 16px);
+    width: 32px;
+    height: 32px;
+    display: block;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    background: url('../img/arrow_down.svg');
+    background-position: 7.5px 9px;
+    background-repeat: no-repeat;
+    background-size: 45%;
+    cursor: pointer;
+    z-index: 2;
+}
+
+#banner_page .arrow_down::after {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: calc(50% - 1px);
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(45deg, white, transparent);
+}
+
+
+/* // card css */
+
+/* Default Card Styles */
+#types_card .item {
+    background: #fff;
+    border: 1px solid #add8e6;
+    box-shadow: 2px 2px 2px #add8e6;
+    padding: 10px;
+}
+
+#types_card .item_wrapper {
+    padding: 10px;
+    /* padding-bottom: 8px; */
+  }
+  
+  #types_card .item_wrapper .bg {
+    position: relative;
+    display: block;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 3px;
+    padding-top: 65%;
+  }
+  
+  #types_card .item_wrapper .content {
+    position: relative;
+    display: block;
+    width: 100%;
+    min-height: 23px;
+    margin: 10px;
+  }
+  
+  #types_card .item_wrapper.first .bg {
+    min-height: 350px;
+    margin-top: -80px;
+  }
+  
+  #types_card .item_wrapper.second .bg {
+    min-height: 250px;
+  }
+  
+  #types_card .item_wrapper.third .bg {
+    min-height: 350px;
+    margin-top: 0px;
+  }
+  
+  #types_card .button {
+    position: relative;
+    float: right;
+    margin-right: 20px;
+    text-transform: uppercase;
+    padding-top: 11px;
+    padding-bottom: 8px;
+    padding-left: 35px;
+    padding-right: 35px;
+    font-size: 9px;
+    color: #000;
+    background: #fff;
+    border: 1px dashed #afafaf;
+    box-shadow: none;
+    /* position: absolute; */
+    bottom: 0;
+    /* left: 0; */
+  }
+  
+  #types_card .button:hover {
+    background: #2196f3;
+    color: #fff;
+    border-color: #2196f3;
+    box-shadow: 0px 8px 10px -3px rgb(0 0 0 / 0.2);
+  }
+  
+  #types_card .content h3 {
+    font-size: 18px;
+    font-weight: 800;
+  }
+  
+  #types_card .content p {
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    font-weight: 400;
+    word-spacing: 3px;
+    color: #616161;
+    margin-bottom: 20px;
+  }
+
+  
+#types_card .item {
+    background: #fff;
+    border: 1px solid #add8e6;
+    box-shadow: 2px 2px 2px #add8e6;
+    padding: 10px;
+  }
+  
+  #types_card .item:hover {
+        box-shadow: 2px 12px 2px #add8e6;
+    transition: .1s ease-in;
+    translate: 0 -10px;
+  }
+.card-slider {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+
+}
+
+.item_wrapper {
+    flex: 1;
+    min-width: calc(33.333% - 15px);
+    box-sizing: border-box;
+}

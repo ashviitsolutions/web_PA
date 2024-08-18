@@ -37,7 +37,7 @@ const Sidebar = () => {
 
     const handleLogout = () => {
         localStorage.removeItem("token");
-        // localStorage.clear();
+
         nav("/");
     };
 
@@ -46,9 +46,7 @@ const Sidebar = () => {
     const handleSidebarToggle = () => {
         setIsSidebarOpen((prevState) => !prevState);
     };
-    // const toggleLinks = () => {
-    //   setIsActive((prevState) => !prevState);
-    // };
+
     const handleBook = () => {
         nav("/select_location");
     };

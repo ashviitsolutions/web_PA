@@ -14,10 +14,6 @@ function UserRoutes(props) {
 
         if (!token) {
             nav("/login");
-        } else {
-
-            nav("/userProfile");
-
         }
 
     }, []);

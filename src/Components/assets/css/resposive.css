@@ -1,0 +1,196 @@
+/* Responsive styles for tablets and mobile devices */
+@media (max-width: 1024px) {
+    #banner_page {
+        height: 500px;
+        width: 100% !important;
+        /* Adjust height for tablets */
+    }
+
+    #banner_page .head {
+        width: 90%;
+        /* Increase width on smaller screens */
+    }
+
+    #banner_page .head h1 {
+        font-size: 1.75rem;
+        /* Smaller font size */
+    }
+
+    #banner_page .head h3 {
+        font-size: 0.75rem;
+        /* Smaller font size */
+    }
+
+    #banner_page .head .button {
+        margin-top: 1.5rem;
+        /* Adjust margin */
+        padding: 0.5rem 0.75rem;
+        /* Adjust padding */
+    }
+
+    #banner_page .arrow_down {
+        width: 24px;
+        /* Smaller arrow */
+        height: 24px;
+        /* Smaller arrow */
+        bottom: 1.5rem;
+        /* Adjust bottom position */
+    }
+
+    /* // card design */
+    .item_wrapper {
+        min-width: calc(50% - 15px);
+        /* 2 cards per row */
+    }
+
+    .button.small {
+        font-size: 10px !important;
+        padding: 1em 2em !important;
+        font-size: 7px !important;
+    }
+
+    #types_card .content p {
+        font-size: 11px !important;
+    }
+
+    #types_card .item_wrapper {
+        padding: 2px;
+        padding-bottom: 8px;
+    }
+}
+
+@media (max-width: 768px) {
+    #banner_page {
+        height: 400px;
+        /* Adjust height for mobile devices */
+    }
+
+    #banner_page .head {
+        width: 95%;
+        /* Full width with small margin */
+    }
+
+    #banner_page .head h1 {
+        font-size: 1.5rem;
+        /* Smaller font size */
+    }
+
+    #banner_page .head h3 {
+        font-size: 0.625rem;
+        /* Smaller font size */
+    }
+
+    #banner_page .head .button {
+        margin-top: 1rem;
+        /* Adjust margin */
+        padding: 0.5rem 0.75rem;
+        /* Adjust padding */
+    }
+
+    #banner_page .arrow_down {
+        width: 20px;
+        /* Smaller arrow */
+        height: 20px;
+        /* Smaller arrow */
+        bottom: 1rem;
+        /* Adjust bottom position */
+    }
+
+    /* // card resposve */
+    .item_wrapper {
+        min-width: calc(100% - 15px);
+        /* 1 card per row */
+    }
+
+    .button.small {
+        font-size: 10px !important;
+        padding: 1em 2em !important;
+        font-size: 7px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    #banner_page {
+        height: 350px;
+        /* Further adjust height for very small screens */
+    }
+
+    #banner_page .head {
+        width: 100%;
+        /* Full width */
+    }
+
+    #banner_page .head h1 {
+        font-size: 1.25rem;
+        /* Smaller font size */
+    }
+
+    #banner_page .head h3 {
+        font-size: 0.5rem;
+        /* Smaller font size */
+    }
+
+    #banner_page .head p {
+        font-size: 12px;
+        /* Smaller font size */
+        opacity: 0.8;
+    }
+
+
+    #banner_page .head .button {
+        margin-top: 0.1rem;
+        /* Adjust margin */
+        padding: 0.4rem;
+        /* Adjust padding */
+        font-size: 8px;
+    }
+
+    #banner_page .arrow_down {
+        width: 16px;
+        /* Smaller arrow */
+        height: 16px;
+        /* Smaller arrow */
+        bottom: 0.5rem;
+        /* Adjust bottom position */
+        display: none;
+    }
+
+    /* //card design */
+    .item_wrapper {
+        min-width: calc(100% - 10px);
+        /* 1 card per row with reduced spacing */
+    }
+
+    .item {
+        padding: 10px;
+        /* Adjust padding inside card */
+    }
+
+    .bg {
+        height: 150px;
+        /* Adjust height for very small screens */
+    }
+
+    .content {
+        padding: 5px;
+        /* Adjust padding for very small screens */
+    }
+
+    .content h3 {
+        font-size: 1rem;
+        /* Smaller font size */
+    }
+
+    .content p {
+        font-size: 0.875rem;
+        /* Smaller font size */
+    }
+
+    .button.small {
+        font-size: 10px !important;
+        padding: 1em 2em !important;
+        font-size: 7px !important;
+    }
+
+
+}

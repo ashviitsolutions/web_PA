@@ -34,7 +34,7 @@ function Brief() {
                                     <li>Monthly 60-minute massage commitment at members rate</li>
                                     <li>Unlimited massages on all services at members rates.</li>
                                 </ul>
-                                <Link to="/login">
+                                <Link to="/userProfile/membership">
                                     <button className="button primary" type="button">Join Now</button>
                                 </Link>
 
