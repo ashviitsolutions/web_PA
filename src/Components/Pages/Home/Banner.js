@@ -55,7 +55,7 @@ function Banner() {
 
 	// Render the component JSX
 	return (
-		<div id="banner" style={{ backgroundImage: `url(${img})` }}>
+		<div id="banner_page" style={{ backgroundImage: `url(${img})` }}>
 			<div className="container">
 				<div className="row">
 					<div className="head">

@@ -59,13 +59,16 @@ function Banner() {
 	return (
 		<>
 			<div
-				id="small_banner"
+				id="banner_page"
 				style={{ backgroundImage: `url(${img})` }}
+				className="banner_sub_container"
+
 			>
 				<div className="container">
 					<div className="row">
-						<div className="col-sm-6">
-							<div className="head">
+
+						<div className="head" id="bannerservices">
+							<div className="banner_sub_section">
 								{users && users.map((user, index) => (
 									<div key={index}>
 										<h1>{user.title} <span>{user.excerpt}</span></h1>
@@ -78,12 +81,15 @@ function Banner() {
 									</button>
 								</Link>
 								<Link target="_blank" to="/providers/login">
-									<button className="button negative">login</button>
+									<button className="button negative" style={{ background: "#000" }}>login</button>
 								</Link>
 							</div>
+
 						</div>
+
 					</div>
 				</div>
+				<div className="arrow_down"></div>
 			</div>
 			<Benifit />
 			<Form servicesTabsRef={servicesTabsRef} />

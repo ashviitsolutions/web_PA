@@ -1,7 +1,7 @@
 /* Responsive styles for tablets and mobile devices */
 @media (max-width: 1024px) {
     #banner_page {
-        height: 500px;
+        height: 600px;
         width: 100% !important;
         /* Adjust height for tablets */
     }
@@ -37,6 +37,24 @@
         /* Adjust bottom position */
     }
 
+    /* // service page banner */
+    #banner_page #bannerservices {
+        margin: auto;
+
+        backdrop-filter: blur(0) !important;
+        background: #ffffffa3 !important;
+    }
+
+    #banner_page #bannerservices h1 {
+        font-size: 20px;
+        /* Smaller font size */
+    }
+
+    #banner_page #bannerservices h3 {
+        font-size: 15px;
+        /* Smaller font size */
+    }
+
     /* // card design */
     .item_wrapper {
         min-width: calc(50% - 15px);
@@ -61,7 +79,7 @@
 
 @media (max-width: 768px) {
     #banner_page {
-        height: 400px;
+        height: 600px;
         /* Adjust height for mobile devices */
     }
 
@@ -96,6 +114,24 @@
         /* Adjust bottom position */
     }
 
+
+    /* // service page banner */
+    #banner_page #bannerservices {
+        margin: auto;
+
+
+    }
+
+    #banner_page #bannerservices h1 {
+        font-size: 18px;
+        /* Smaller font size */
+    }
+
+    #banner_page #bannerservices h3 {
+        font-size: 14px;
+        /* Smaller font size */
+    }
+
     /* // card resposve */
     .item_wrapper {
         min-width: calc(100% - 15px);
@@ -122,26 +158,25 @@
 
     #banner_page .head h1 {
         font-size: 1.25rem;
-        /* Smaller font size */
+
     }
 
     #banner_page .head h3 {
         font-size: 0.5rem;
-        /* Smaller font size */
+
     }
 
     #banner_page .head p {
         font-size: 12px;
-        /* Smaller font size */
-        opacity: 0.8;
+
     }
 
 
     #banner_page .head .button {
         margin-top: 0.1rem;
-        /* Adjust margin */
+
         padding: 0.4rem;
-        /* Adjust padding */
+
         font-size: 8px;
     }
 
@@ -153,6 +188,30 @@
         bottom: 0.5rem;
         /* Adjust bottom position */
         display: none;
+    }
+
+    .banner_sub_section {
+        margin-bottom: 100px;
+    }
+
+    #banner_page #bannerservices {
+        margin: auto;
+        padding: 20px 15px;
+        /* height: 100%; */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        /* Center content vertically */
+    }
+
+    #banner_page #bannerservices h1 {
+        font-size: 16px;
+        /* Smaller font size */
+    }
+
+    #banner_page #bannerservices h3 {
+        font-size: 12px;
+        /* Smaller font size */
     }
 
     /* //card design */

@@ -52,31 +52,35 @@ function Banner() {
 
 	return (
 		<>
-			<div
-				id="small_banner"
-				style={{ backgroundImage: `url(${img})` }}
-			>
-				<div className="container-fluid">
+			<div id="banner_page" style={{ backgroundImage: `url(${img})` }} className="banner_sub_container">
+				<div className="container">
 					<div className="row">
-						<div className="col-sm-6 col-sm-offset-6">
-							<div className="head" id="bannerservices">
-								{users && users.map((user, index) => (
-									<div key={index}>
-										<h1>{user.title} <span>{user.excerpt}</span></h1>
-										<h3 dangerouslySetInnerHTML={{ __html: user.description }} style={{ fontWeight: "500", fontSize: "15px" }} />
+						<div className="head" id="bannerservices">
+							{users && users.map((user, index) => (
+								<>
+									<div className="banner_sub_section">
+										<div key={index}>
+											<h1>{user.title} <span>{user.excerpt}</span></h1>
+											<h3 dangerouslySetInnerHTML={{ __html: user.description }} style={{ fontWeight: "500", fontSize: "15px" }} />
+										</div>
+										<Link to="/guest_login">
+											<button className="button" type="button">
+												book now
+											</button>
+										</Link>
 									</div>
-								))}
 
-								<Link to="/guest_login">
-									<button className="button" type="button">
-										book now
-									</button>
-								</Link>
-							</div>
+								</>
+
+							))}
+
 						</div>
+
 					</div>
 				</div>
+				<div className="arrow_down"></div>
 			</div>
+
 		</>
 	);
 }

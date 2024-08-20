@@ -6,9 +6,9 @@ import { updateInputData } from "../../../Redux/counterSlice";
 import { fetchPostData } from '../../../../Hooks/Hooks';
 
 function Banner() {
-    const postIds = ["640ab873ad080eddce52185e"];
-    const users = useSelector((state) => state?.counter?.formData?.service_on_demand_banner);
-    const img = useSelector((state) => state?.counter?.formData?.service_on_demand_banner_image);
+    const postIds = ["640abb35ad080eddce521a04"];
+    const users = useSelector((state) => state?.counter?.formData?.service_private_banner);
+    const img = useSelector((state) => state?.counter?.formData?.service_private_banner_image);
     const dispatch = useDispatch();
 
 
@@ -25,14 +25,14 @@ function Banner() {
                     })
                 );
                 const fetchedUser = responses[0];
-                dispatch(updateInputData({ formName: 'service_on_demand_banner', inputData: fetchedUser }));
+                dispatch(updateInputData({ formName: 'service_private_banner', inputData: fetchedUser }));
 
                 // If fetched user has attachments, fetch and update image URL
                 if (fetchedUser && fetchedUser.attachments) {
                     const imageResponse = await fetch(`${IP}/file/${fetchedUser.attachments}`);
                     const imageBlob = await imageResponse.blob();
                     const imageURL = URL.createObjectURL(imageBlob);
-                    dispatch(updateInputData({ formName: 'service_on_demand_banner_image', inputData: imageURL }));
+                    dispatch(updateInputData({ formName: 'service_private_banner_image', inputData: imageURL }));
                 }
             } catch (error) {
                 // Handle errors by logging them to the console
@@ -62,7 +62,7 @@ function Banner() {
                                             <h1>{user.title} <span>{user.excerpt}</span></h1>
                                             <h3 dangerouslySetInnerHTML={{ __html: user.description }} style={{ fontWeight: "500", fontSize: "15px" }} />
                                         </div>
-                                        <Link to="/guest_login"><button className="button" >get started</button></Link>
+                                       
                                     </div>
 
                                 </>

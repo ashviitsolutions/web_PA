@@ -7,6 +7,7 @@ import Worklist from '../Coroporate/Worklist'
 import { IP } from '../../../../../Constant'
 import { useDispatch, useSelector } from 'react-redux';
 import { updateInputData } from '../../../Redux/counterSlice';
+import Banner from './Banner'
 
 function Private_Events() {
   const postIds = ['640abb35ad080eddce521a04', '640abc38ad080eddce521ad7'];
@@ -62,22 +63,7 @@ function Private_Events() {
 
   return (
     <>
-      <div id="small_banner" style={{
-        backgroundImage: `url(${imgs[0]})`,
-        borderRadius: '7px',
-      }}>
-        <div className="container">
-          <div className="row">
-            <div className="col-sm-6">
-              <div className="head">
-
-                <h1>{users1.title}</h1>
-                <h3 dangerouslySetInnerHTML={{ __html: users1.description }} />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Banner />
 
       <div id="alternate_post">
         <div className="container">

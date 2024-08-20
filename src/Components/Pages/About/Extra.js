@@ -1,14 +1,12 @@
-// Import necessary dependencies
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 import { IP } from '../../../Constant';
-import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateInputData } from '../Redux/counterSlice';
 import { fetchPostData } from '../../Hooks/Hooks';
 import Loader from '../Loader';
-
-// Define the Banner component
 function Banner() {
+
+
   const postIds = ['63fa025b06e32e1493232788'];
   const users = useSelector((state) => state?.counter?.formData?.about_banner);
   const img = useSelector((state) => state?.counter?.formData?.about_banner_image);
@@ -45,33 +43,35 @@ function Banner() {
     getDataAndNavigate();
   }, [dispatch]); // Dependencies array to ensure useEffect runs only once
 
+
   // if (!users) {
-  // 	return <Loader />
+  //   return <Loader />
   // }
 
-  // Render the component JSX
   return (
-    <div id="banner_page" style={{ backgroundImage: `url(${img})` }} className='banner_sub_container'>
-      <div className="container">
-        <div className="row">
-          <div className="head" id="bannerservices">
-            <div className='banner_sub_section'>
-              {users && users.map((user, index) => (
-                <div key={index}>
-                  <h1>{user.title} <span>{user.excerpt}</span></h1>
-                  <h3 dangerouslySetInnerHTML={{ __html: user.description }} style={{ fontWeight: "500", fontSize: "15px" }} />
-                </div>
-              ))}
+    <>
+      <div id="small_banner" style={{ backgroundImage: `url(${img})`, borderRadius: "7px" }} >
+        <div className="container">
+          <div className="row">
+            <div className="col-sm-6">
+              <div className="head" id="bannerservices">
+
+                {users && users.map((user, index) => (
+                  <div key={index}>
+                    <h1>{user.title} <span>{user.excerpt}</span></h1>
+                    <h3 dangerouslySetInnerHTML={{ __html: user.description }} style={{ fontWeight: "500", fontSize: "15px" }} />
+                  </div>
+                ))}
+
+              </div>
             </div>
-
-
           </div>
         </div>
       </div>
-      <div className="arrow_down"></div>
-    </div>
-  );
+
+
+    </>
+  )
 }
 
-// Export the Banner component as default
-export default Banner;
+export default Banner
