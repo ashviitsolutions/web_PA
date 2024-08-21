@@ -303,6 +303,16 @@
         z-index: 1;
         margin: auto;
     }
+
+    .provider_background {
+   
+        background: #d6edff;
+        /* display: flex; */
+        padding: 10px !important;
+    
+    }
+
+   
 }
 
 @media (max-width: 480px) {
@@ -313,7 +323,11 @@
         margin: 10px !important;
 
     }
-
+    .service-image-card{
+        width: 95% !important;
+        margin: 10px !important;
+        height: 250px !important;
+    }
     .content-right li {
         width: 100% !important;
         margin: auto !important;

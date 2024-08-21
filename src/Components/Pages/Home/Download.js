@@ -16,7 +16,7 @@ function Download() {
                 dowonload1={Image1}
                 dowonload2={Image2}
                 srcImage={Image3}
-                classImage="service-image-card"
+                classImage="image-card"
                 redirect1="https://play.google.com/store/apps"
                 redirect2="https://play.google.com/store/apps"
                 // id="donwload_page_container"
