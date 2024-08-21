@@ -1,24 +1,35 @@
-import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { IP } from '../../../../../Constant';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateInputData } from '../../../Redux/counterSlice';
+import Loader from '../../../Loader';
+import Card from '../../../Modal/Card';
+import Header from '../../../Modal/Header';
 
+function Event_services() {
 
-
-function PrivateEvents() {
+  const navigate = useNavigate()
   const dispatch = useDispatch();
   const formData = useSelector((state) => state?.counter?.formData);
-  const users = formData.private_services && formData.private_services[0] ? formData.private_services[0] : "";
-  const imgs = formData.private_services_image && formData.private_services_image[0] ? formData.private_services_image[0] : "";
+  const users = formData?.private_services && formData.private_services[0] ? formData.private_services[0] : "";
+  const imgs = formData?.private_services_image && formData.private_services_image[0] ? formData.private_services_image[0] : "";
   const [activeCardIndex, setActiveCardIndex] = useState(null);
 
+
   const handleReadMoreClick = (index) => {
-    setActiveCardIndex(index);
+    setActiveCardIndex((prevIndex) => (prevIndex === index ? null : index));
   };
 
+  const handleViewMoreClick = (navigateTo) => {
+    navigate(navigateTo);
+  };
+
+
   // const [users, setUsers] = useState([]);
-  const [img, setImg] = useState('');
+  const [img, setImg] = useState(imgs);
+
+  console.log(" image vaklue ", img);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,81 +55,51 @@ function PrivateEvents() {
   }, []);
 
 
+
+  const handleSubmit = async (service_id) => {
+    dispatch(updateInputData({ formName: 'service_id', inputData: service_id }));
+
+
+  };
+
+
   useEffect(() => {
     if (img.length > 0) {
       dispatch(updateInputData({ formName: 'private_services_image', inputData: img }));
     }
   }, [img, dispatch]);
 
+
+  if (!users) {
+    return <Loader />;
+  }
+
   return (
-    <>
-      <div id="types" >
-        <div className="container" >
-          <div className="row">
-            <div className="gutter">
-              <div className="heading mt-5">
-                <h3 >Private Wellness Services</h3>
-                <p>Select your desired wellness service</p>
-              </div>
-            </div>
-          </div>
+    <div id="types_card" className='marketplace'>
+      <div className="container">
+        <Header
+          heading_Text="Private Wellness Services"
+          sub_Text="Select your desired wellness service"
+        />
+        <div className="row">
+          {Array.isArray(users) && users.length > 0 && users.map((user, index) => (
+            <Card
+              key={user._id}
+              user={user}
+              image={img[index] || ''}
+              index={index}
+              isActive={index === activeCardIndex}
+              onReadMoreClick={() => handleReadMoreClick(index)}
+              onViewMoreClick={() => handleViewMoreClick(`/services/corporate_events/booking/${user.title}`)}
+              btnlabel="Get Started"
 
-          <div className="row">
-            <div className="col-sm-12 col-sm-offset-1">
-              <div className="container-fluid">
-                <div className="row">
-                  {Array.isArray(users) && users.length > 0 && users.map((user, index) => (
-                    <div className="col-sm-4 col-xs-12" key={user._id}>
-                      <div className="item_wrapper">
-                        <div className="item">
-                          <div
-                            className="bg"
-                            style={{
-                              backgroundImage: `url(${imgs[index]})`,
-                              borderRadius: '7px',
-                            }}
-                          ></div>
-                          <div className="text content">
-                            <h3>{user.title}</h3>
-                            <p dangerouslySetInnerHTML={{
-                              __html: index === activeCardIndex
-                                ? user.description
-                                : user.description.slice(0, 138) + (user.description.length > 138 ? "...." : "")
-                            }} />
-
-
-                            <div className="text">
-                              {index === activeCardIndex ? (
-                                <button onClick={() => handleReadMoreClick(null)} className="Read_More">
-                                  Show less
-                                </button>
-                              ) : (
-                                <button onClick={() => handleReadMoreClick(index)} className="Read_More">
-                                  Read more
-                                </button>
-                              )}
-                              <Link to={`/services/corporate_events/booking/${user.title}`} className="anchor nomp" id="anchors">
-                                <button className='button small cta'>Get Started</button>
-                              </Link>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-
-                </div>
-              </div>
-            </div>
-          </div>
+            />
+          ))}
         </div>
+
       </div>
-
-
-
-
-    </>
-  )
+    </div>
+  );
 }
 
-export default PrivateEvents
+export default Event_services;

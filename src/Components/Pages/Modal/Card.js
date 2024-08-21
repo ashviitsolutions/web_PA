@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Card = ({ user, image, index, isActive, onReadMoreClick, onViewMoreClick }) => {
+const Card = ({ user, image, index, isActive, onReadMoreClick, onViewMoreClick, btnlabel }) => {
   return (
-    <div className="item_wrapper">
-      <div className="item">
+    <div className="card_item_wrapper">
+      <div className="card_item">
         <div
           className="bg"
           style={{
@@ -27,7 +27,7 @@ const Card = ({ user, image, index, isActive, onReadMoreClick, onViewMoreClick }
             {isActive ? 'Show less' : 'Read more'}
           </button>
           <button className="button small" onClick={onViewMoreClick}>
-            View More
+            {btnlabel}
           </button>
         </div>
       </div>

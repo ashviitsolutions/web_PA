@@ -82,6 +82,7 @@ function Yoga() {
               isActive={index === activeCardIndex}
               onReadMoreClick={() => handleReadMoreClick(index)}
               onViewMoreClick={() => handleViewMoreClick(url[index].navigate)}
+              btnlabel="View More"
             />
           ))}
         </div>

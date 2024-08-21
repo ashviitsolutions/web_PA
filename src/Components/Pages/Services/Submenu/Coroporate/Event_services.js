@@ -1,39 +1,40 @@
-import React, { useEffect, useState, useRef } from 'react'
-import "../../../Home/Home.css"
-import { Link } from 'react-router-dom';
-
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { IP } from '../../../../../Constant';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { updateInputData } from '../../../Redux/counterSlice';
-
-
+import Loader from '../../../Loader';
+import Card from '../../../Modal/Card';
+import Header from '../../../Modal/Header';
 
 function Event_services() {
 
+  const navigate = useNavigate()
+
   const dispatch = useDispatch();
   const formData = useSelector((state) => state?.counter?.formData);
-  const users = formData.massag_private_service && formData.massag_private_service[0] ? formData.massag_private_service[0] : "";
-  const imgs = formData.service_private_image && formData.service_private_image[0] ? formData.service_private_image[0] : "";
+  const users = formData?.corporate_events__service && formData.corporate_events__service[0] ? formData.corporate_events__service[0] : "";
+  const imgs = formData?.corporate_events__service_image && formData.corporate_events__service_image[0] ? formData.corporate_events__service_image[0] : "";
 
-
-
+  console.log("selector", users)
 
   const [activeCardIndex, setActiveCardIndex] = useState(null);
 
+
+
   const handleReadMoreClick = (index) => {
-    setActiveCardIndex(index);
+    setActiveCardIndex((prevIndex) => (prevIndex === index ? null : index));
+  };
+
+  const handleViewMoreClick = (navigateTo) => {
+    navigate(navigateTo);
   };
 
 
-
-
-
   // const [users, setUsers] = useState([]);
-  const [img, setImg] = useState('');
+  const [img, setImg] = useState(imgs);
 
-
-  console.log(" users all value ", users)
+  console.log(" image vaklue ", img);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,7 +42,7 @@ function Event_services() {
         const res = await fetch(`${IP}/service/category?type=corporate events`);
         const data = await res.json();
         // setUsers(data);
-        dispatch(updateInputData({ formName: 'massag_private_service', inputData: data }));
+        dispatch(updateInputData({ formName: 'corporate_events__service', inputData: data }));
         const imageUrls = data.map(async (item) => {
           const res = await fetch(`${IP}/file/${item.attachments}`);
           const imageBlob = await res.blob();
@@ -58,110 +59,52 @@ function Event_services() {
     fetchData();
   }, []);
 
-  console.log(" image all value ", img)
 
 
+  const handleSubmit = async (service_id) => {
+    dispatch(updateInputData({ formName: 'service_id', inputData: service_id }));
+
+
+  };
 
 
   useEffect(() => {
     if (img.length > 0) {
-      dispatch(updateInputData({ formName: 'service_private_image', inputData: img }));
+      dispatch(updateInputData({ formName: 'corporate_events__service_image', inputData: img }));
     }
   }, [img, dispatch]);
 
 
-
-
-
-
+  if (!users) {
+    return <Loader />;
+  }
 
   return (
-    <>
+    <div id="types_card" className='marketplace'>
+      <div className="container">
 
-      <div id="types" >
-
-        <div className="container" >
-          <div className="row">
-            <div className="gutter">
-              <div className="heading mt-5">
-                <h3 >Corporate Wellness Services</h3>
-                <p>Select your desired wellness service</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="row">
-
-
-
-
-            <div className="col-sm-12 col-sm-offset-1">
-              <div className="container-fluid" id='showcard'>
-                <div className="row">
-                  {Array.isArray(users) && users.length > 0 && users.map((user, index) => (
-                    <div className="col-sm-4 col-xs-12" key={user._id}>
-                      <div className="item_wrapper">
-                        <div className="item">
-
-                          <div
-                            className="bg"
-                            style={{
-                              backgroundImage: `url(${imgs[index]})`,
-                              borderRadius: '7px',
-                            }}
-                          ></div>
-                          <div className="text content">
-                            <h3>{user.title}</h3>
-                            <p dangerouslySetInnerHTML={{
-                              __html: index === activeCardIndex
-                                ? user.description
-                                : user.description.slice(0, 138) + (user.description.length > 138 ? "...." : "")
-                            }} />
-
-
-                            <div className="text">
-                              {index === activeCardIndex ? (
-                                <button onClick={() => handleReadMoreClick(null)} className="Read_More">
-                                  Show less
-                                </button>
-                              ) : (
-                                <button onClick={() => handleReadMoreClick(index)} className="Read_More">
-                                  Read more
-                                </button>
-                              )}
-                              <Link to={`/services/corporate_events/booking/${user.title}`} className="anchor nomp" id="anchors">
-                                <button className='button small cta'>Get Started</button>
-                              </Link>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-
-
-
-
-
-
-
-
-
-
-
-          </div>
+        <Header
+          heading_Text="Corporate Wellness Services"
+          sub_Text="Select your desired wellness service"
+        />
+        <div className="row">
+          {Array.isArray(users) && users.length > 0 && users.map((user, index) => (
+            <Card
+              key={user._id}
+              user={user}
+              image={img[index] || ''}
+              index={index}
+              isActive={index === activeCardIndex}
+              onReadMoreClick={() => handleReadMoreClick(index)}
+              onViewMoreClick={() => handleViewMoreClick(`/services/corporate_events/booking/${user.title}`)}
+              btnlabel="Get Started"
+            />
+          ))}
         </div>
+
       </div>
-
-
-
-
-    </>
-  )
+    </div>
+  );
 }
 
-export default Event_services
+export default Event_services;
