@@ -8,6 +8,7 @@ const ModalCard = ({
     title,
     description,
     h2,
+    h4,
     p,
     classImage,
     className,
@@ -59,6 +60,14 @@ const ModalCard = ({
                                     <p className="description-card">{h2}</p>
                                 )
                             }
+
+                            {
+                                h4 && (
+                                    <h4>{h4}</h4>
+                                )
+                            }
+
+                          
 
                             {
                                 p && (
