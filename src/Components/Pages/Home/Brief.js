@@ -14,33 +14,39 @@ function Brief() {
         <>
             <div id="brief">
                 <div className="container">
-                    <div className="Home_page_memberhsip_container memberhsip_section">
-                        <div className="Home_page_memberhsip">
-                            <div className="content">
-                                <img src={memberhsip} alt="" width={450} height={300} />
+                    <div className='row'>
+                        <div className="col-md-6">
+                            <div className="Home_page_memberhsip">
+                                <div className="content">
+                                    <img src={memberhsip} alt="" className='memberhsip-image-card' />
+                                </div>
                             </div>
+
                         </div>
+                        <div className="col-md-6">
+                            <div className="content-right" >
+                                <div className="content heading" >
+                                    <h3>Become <span>a member</span>.</h3>
+                                    <h5 >Come along for the ride and join our members club</h5>
+                                </div>
+                                <div className="content">
+                                    <p id=''>Join Productive Alliance membership today and get exclusive perks, discounts and benefits
+                                    </p>
+                                    <ul>
+                                        <li>Get up to 14% off on all available services</li>
+                                        <li>Monthly 60-minute massage commitment at members rate</li>
+                                        <li>Unlimited massages on all services at members rates.</li>
+                                    </ul>
+                                    <Link to="/userProfile/membership">
+                                        <button className="button primary" type="button">Join Now</button>
+                                    </Link>
 
-                        <div className="Home_page_memberhsip" >
-                            <div className="content heading" >
-                                <h3>Become <span>a member</span>.</h3>
-                                <h5 >Come along for the ride and join our members club</h5>
+                                </div>
                             </div>
-                            <div className="content">
-                                <p id=''>Join Productive Alliance membership today and get exclusive perks, discounts and benefits
-                                </p>
-                                <ul>
-                                    <li>Get up to 14% off on all available services</li>
-                                    <li>Monthly 60-minute massage commitment at members rate</li>
-                                    <li>Unlimited massages on all services at members rates.</li>
-                                </ul>
-                                <Link to="/userProfile/membership">
-                                    <button className="button primary" type="button">Join Now</button>
-                                </Link>
 
-                            </div>
                         </div>
                     </div>
+
 
 
 

@@ -1,77 +1,99 @@
-import React, { useState, useEffect } from 'react'
-import { IP } from '../../../Constant';
+import React, { useState, useEffect } from "react";
+// import Image1 from "../../assets/img/pexels-cottonbro-3997983.jpg"
+import { IP } from "../../../Constant";
 import { useDispatch, useSelector } from 'react-redux';
-import { updateInputData } from '../Redux/counterSlice';
-import { fetchPostData } from '../../Hooks/Hooks';
-import Loader from '../Loader';
-function Banner() {
+import { updateInputData } from "../Redux/counterSlice";
+
+function Ourpage() {
+	const postIds = ["63fa02a506e32e14932327bb", "63fa02df06e32e14932327d1"];
+	const dispatch = useDispatch();
+	const [img, setImg] = useState("");
+
+	const formData = useSelector((state) => state?.counter?.formData);
+	const users1 = formData.about_service1 && formData.about_service1[0] ? formData.about_service1[0] : "";
+	const users2 = formData.about_service2 && formData.about_service2[0] ? formData.about_service2[0] : "";
+	// const imgs1 = formData.service_private_image && formData.service_private_image[0] ? formData.service_private_image[0] : "";
+	const imgs = formData.about_service_image && formData.about_service_image[0] ? formData.about_service_image[0] : "";
+	useEffect(() => {
+		async function fetchData() {
+			const responses = await Promise.all(
+				postIds.map(async (id) => {
+					const res = await fetch(`${IP}/post/fetch/${id}`);
+					return res.json();
+				})
+			);
+			console.log(responses);
+			// setUsers1(responses[0]);
+			// setUsers2(responses[1]);
+			dispatch(updateInputData({ formName: 'about_service1', inputData: responses[0] }));
+			dispatch(updateInputData({ formName: 'about_service2', inputData: responses[1] }));
+			setImg(
+				await Promise.all(
+					responses
+						.flatMap((response) => response.attachments)
+						.map(async (image) => {
+							const res = await fetch(`${IP}/file/${image}`);
+							const imageBlob = await res.blob();
+							return URL.createObjectURL(imageBlob);
+						})
+				)
+			);
+		}
+		fetchData();
+	}, []);
 
 
-  const postIds = ['63fa025b06e32e1493232788'];
-  const users = useSelector((state) => state?.counter?.formData?.about_banner);
-  const img = useSelector((state) => state?.counter?.formData?.about_banner_image);
-  const dispatch = useDispatch();
-
-  // useEffect hook to fetch data and navigate
-  useEffect(() => {
-    const getDataAndNavigate = async () => {
-      try {
-        // Fetch data for all specified IDs
-        const responses = await Promise.all(
-          postIds.map(async (id) => {
-            const data = await fetchPostData(id);
-            return data;
-          })
-        );
-        const fetchedUser = responses[0];
-        dispatch(updateInputData({ formName: 'about_banner', inputData: fetchedUser }));
-
-        // If fetched user has attachments, fetch and update image URL
-        if (fetchedUser && fetchedUser.attachments) {
-          const imageResponse = await fetch(`${IP}/file/${fetchedUser.attachments}`);
-          const imageBlob = await imageResponse.blob();
-          const imageURL = URL.createObjectURL(imageBlob);
-          dispatch(updateInputData({ formName: 'about_banner_image', inputData: imageURL }));
-        }
-      } catch (error) {
-        // Handle errors by logging them to the console
-        console.error('Error fetching data and navigating:', error);
-      }
-    };
-
-    // Call the asynchronous function to fetch data and navigate
-    getDataAndNavigate();
-  }, [dispatch]); // Dependencies array to ensure useEffect runs only once
+	useEffect(() => {
+		if (img.length > 0) {
+			dispatch(updateInputData({ formName: 'about_service_image', inputData: img }));
+		}
+	}, [img, dispatch]);
 
 
-  // if (!users) {
-  //   return <Loader />
-  // }
+	return (
+		<>
+			<div id="alternate_post">
+				<div className="container">
+					<div className="row">
+						<div className="col-sm-6">
+							<div
+								className="bg"
+								style={{
+									backgroundImage: `url(${imgs[0]})`,
+									borderRadius: "7px",
+								}}
+							></div>
+						</div>
+						<div className="col-sm-6">
+							<div className="heading">
+								<h3>{users1.title}</h3>
+								<p dangerouslySetInnerHTML={{ __html: users1.description }} />
+							</div>
+						</div>
+					</div>
 
-  return (
-    <>
-      <div id="small_banner" style={{ backgroundImage: `url(${img})`, borderRadius: "7px" }} >
-        <div className="container">
-          <div className="row">
-            <div className="col-sm-6">
-              <div className="head" id="bannerservices">
-
-                {users && users.map((user, index) => (
-                  <div key={index}>
-                    <h1>{user.title} <span>{user.excerpt}</span></h1>
-                    <h3 dangerouslySetInnerHTML={{ __html: user.description }} style={{ fontWeight: "500", fontSize: "15px" }} />
-                  </div>
-                ))}
-
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-    </>
-  )
+					<div className="row">
+						<div className="col-sm-6">
+							<div className="heading">
+								<h3>{users2.title}</h3>
+								<p dangerouslySetInnerHTML={{ __html: users2.description }} />
+								
+							</div>
+						</div>
+						<div className="col-sm-6">
+							<div
+								className="bg"
+								style={{
+									backgroundImage: `url(${imgs[1]})`,
+									borderRadius: "7px",
+								}}
+							></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</>
+	);
 }
 
-export default Banner
+export default Ourpage;

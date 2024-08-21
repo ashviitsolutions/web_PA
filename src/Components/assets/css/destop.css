@@ -135,21 +135,17 @@
 
 /* Default Card Styles */
 
-
+/* Base Styles */
 #types_card .marketplace {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 20px;
-  /* Adds space between the cards */
+  gap: 20px; /* Adds space between the cards */
 }
 
 #types_card .card_item_wrapper {
-  flex: 1 1 calc(33.333% - 20px) !important;
-  /* Allows 3 cards per row, adjusting for the gap */
+  flex: 1 1 calc(33.333% - 20px); /* Allows 3 cards per row, adjusting for the gap */
   box-sizing: border-box;
-  /* max-width: calc(33.333% - 20px); */
-  /* Ensures cards don't stretch beyond their intended width */
 }
 
 #types_card .card_item {
@@ -158,7 +154,7 @@
   box-shadow: 2px 2px 2px #add8e6;
   border-radius: 7px;
   padding: 10px;
-  margin: 10px 0
+  margin: 10px 0;
 }
 
 #types_card .card_item_wrapper .bg {
@@ -208,9 +204,7 @@
   background: #fff;
   border: 1px dashed #afafaf;
   box-shadow: none;
-
   bottom: 0;
-
 }
 
 #types_card .button:hover {
@@ -234,9 +228,6 @@
   margin-bottom: 20px;
 }
 
-
-
-
 #types_card .card_item:hover {
   box-shadow: 2px 12px 2px #add8e6;
   transition: .1s ease-in;
@@ -247,8 +238,11 @@
   display: flex;
   flex-wrap: wrap;
   gap: 15px;
-
 }
+
+/* Media Queries for Responsiveness */
+
+
 
 
 
@@ -305,7 +299,7 @@
 /* //faq_image */
 /* faq css */
 .FAQ_container {
-	display: flex !important;
+	display: flex ;
 	flex-direction: row;
 	flex-wrap: wrap;
 	justify-content: space-between !important;
@@ -340,3 +334,8 @@
 	/* height: 60%; */
 	border-radius:50%;
 }
+
+
+
+
+/* // about section or two content section */

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { IP } from '../../../Constant';
 import { Link } from 'react-router-dom';
+import ModalCard from '../Modal/ModalCard';
 
 // import Image1 from "../../assets/img/pexels-ivan-samkov-5659057.jpg"
 function Provider() {
@@ -43,28 +44,21 @@ function Provider() {
 
     return (
         <>
-            <div id="provider">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-sm-6">
-                            <div className="heading " id='headingprovider'>
-                                <h3>{users.title}</h3>
-                                <h5>{users.excerpt}</h5>
-                                <p dangerouslySetInnerHTML={{ __html: users.description }} />
-                                <Link to="/become_provider">
-                                    <button className="button" type="button">become provider</button>
+            <ModalCard
+                title={users.title}
+                h2={users.excerpt}
+                p="Book your desired on demand service using our app in less than 5 minutes . Your provider can be at your door as quick as within an hour!"
+                description={users.description}
+                btn_name1='become provider'
 
-                                </Link>
-                            </div>
-                        </div>
-                        <div className="col-sm-6">
-                            <div className="right_half">
-                                <img src={img} alt="..." style={{ borderRadius: "7px" }} width={600} id="right_half_image" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                srcImage={img}
+                btnClass1='button'
+                // className="headinghome"
+                redirect1="become_provider"
+                className="provider_background"
+
+            />
+         
 
         </>
     )

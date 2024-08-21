@@ -34,7 +34,7 @@ function Home() {
                 <Download />
             </div>
 
-            <div className=''>
+            <div className='mt-5'>
                 <Provider />
             </div>
 

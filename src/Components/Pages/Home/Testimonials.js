@@ -43,7 +43,7 @@ function Testimonials() {
 	console.log(users1, users2);
 	return (
 		<>
-			<div id="testimonials">
+			<div id="">
 				<div className="container">
 					<div className="row">
 						<div className="heading" style={{ textAlign: "center" }}>

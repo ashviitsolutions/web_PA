@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { IP } from '../../../../../Constant';
+import ModalCard from '../../../Modal/ModalCard';
 
 function Employee() {
 
@@ -32,24 +33,15 @@ function Employee() {
 
     return (
         <>
-            <div id="alternate_post">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-sm-6">
-                            <div className="bg" style={{ backgroundImage: `url(${img})` }}>
-                            </div>
-                        </div>
-                        <div className="col-sm-6">
-                            <div className="heading">
-                                <h3>{users.title}</h3>
-                                <p dangerouslySetInnerHTML={{ __html: users.description }} />
+            <ModalCard
+                title={users.title}
+                description={users.description}
+                image={img}
+                classImage="service-image-card"
+                // id="alternate_post"
 
-                                {/* <button className="button" type="button" name="button">book now</button> */}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            />
+          
         </>
     )
 }

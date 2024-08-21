@@ -8,6 +8,7 @@ import { IP } from '../../../../../Constant'
 import { useDispatch, useSelector } from 'react-redux';
 import { updateInputData } from '../../../Redux/counterSlice';
 import Banner from './Banner'
+import ModalCard from '../../../Modal/ModalCard'
 
 function Private_Events() {
   const postIds = ['640abb35ad080eddce521a04', '640abc38ad080eddce521ad7'];
@@ -64,29 +65,14 @@ function Private_Events() {
   return (
     <>
       <Banner />
+      <ModalCard
+        title={users2.title}
+        description={users2.description}
+        image={imgs[1]}
+        classImage="service-image-card"
+      // id="alternate_post"
 
-      <div id="alternate_post">
-        <div className="container">
-          <div className="row">
-            <div className="col-sm-6">
-              <div className="bg" style={{
-                backgroundImage: `url(${imgs[1]})`,
-                borderRadius: '7px',
-              }}>
-              </div>
-            </div>
-            <div className="col-sm-6">
-              <div className="heading">
-                <h3>{users2.title}</h3>
-                <p dangerouslySetInnerHTML={{ __html: users2.description }} />
-
-
-                {/* <button className="button" type="button" name="button">book now</button> */}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      />
 
       <PrivateEvents />
       <Worklist />

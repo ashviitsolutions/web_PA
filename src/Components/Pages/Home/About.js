@@ -4,8 +4,8 @@ import { IP } from "../../../Constant";
 import { useDispatch, useSelector } from 'react-redux';
 import { updateInputData } from '../Redux/counterSlice';
 import { fetchPostData } from '../../Hooks/Hooks';
+import ModalCard from "../Modal/ModalCard"
 import Loader from '../Loader';
-
 // import Image1 from "../../assets/img/treatment-finger-keep-hand-161477.jpeg"
 import Image2 from "../../assets/img/meditate.svg";
 import Image3 from "../../assets/img/meditation.svg";
@@ -61,36 +61,22 @@ function About() {
 
   return (
     <>
+      <ModalCard
+        title={users.title}
+        description={users.description}
+        image={img}
+        classImage="about-image-card"
+        redirect2='services'
+        redirect1="guest_login"
+        btn_name1="get started"
+        btn_name2="see services"
+        btnClass1="button primary"
+        btnClass2="button ghost"
+      />
 
+      
       <div id="about">
         <div className="container">
-          <div className="row">
-            <div className="col-sm-6">
-              <div className="left_half">
-                <img className="img-responsive" src={img} alt="..." />
-              </div>
-            </div>
-            <div className="col-sm-6">
-              <div className="about_content">
-                {/* <span>Lorem ipsum dolor...</span> 8*/}
-                <h3>{users.title}</h3>
-                <p dangerouslySetInnerHTML={{ __html: users.description }} style={{ fontWeight: "500", fontSize: "15px" }} />
-
-
-                <Link to="/guest_login">
-                  <button className="button primary" type="button">get started</button>
-                </Link>
-
-                <Link to="/services">
-                  <button className="button ghost" type="button">see services</button>
-                </Link>
-
-
-
-              </div>
-            </div>
-          </div>
-
           <div className="row mt-5">
             <div className="col-sm-4">
               <div className="item">

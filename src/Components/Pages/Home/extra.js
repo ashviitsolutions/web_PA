@@ -1,131 +1,134 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { IP } from '../../../Constant';
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { IP } from "../../../Constant";
 import { useDispatch, useSelector } from 'react-redux';
 import { updateInputData } from '../Redux/counterSlice';
 import { fetchPostData } from '../../Hooks/Hooks';
 import Loader from '../Loader';
 
-function Yoga() {
-  const [img, setImg] = useState('');
+// import Image1 from "../../assets/img/treatment-finger-keep-hand-161477.jpeg"
+import Image2 from "../../assets/img/meditate.svg";
+import Image3 from "../../assets/img/meditation.svg";
+import Image4 from "../../assets/img/sahasrara.svg";
 
-  const users = useSelector((state) => state?.counter?.formData?.home_service);
+function About() {
+  const postIds = ["63fa025b06e32e1493232788"];
+
+  // const users = useSelector((state) => state?.counter?.formData?.home_about);
+  const img = useSelector((state) => state?.counter?.formData?.home_about_image);
   const formData = useSelector((state) => state?.counter?.formData);
-  const image = formData.home_service_image && formData.home_service_image[0] ? formData.home_service_image[0] : "";
+  const users = formData.home_about && formData.home_about[0] ? formData.home_about[0] : "";
   const dispatch = useDispatch();
 
+  console.log("user about data", users)
 
-  const [activeCardIndex, setActiveCardIndex] = useState(null);
-  const postIds = ['63f898655a71849662bd1755', '63f89bb15a71849662bd1a8b', '63f89c1e5a71849662bd1ac2'];
-  const url = [
-    {
-      id: 1,
-      navigate: "/services/massage_on_demand"
-    },
-    {
-      id: 2,
-      navigate: "/services/corporate_events"
-    },
-    {
-      id: 3,
-      navigate: "/services/private_events"
-    }
-  ];
-
-
+  // useEffect hook to fetch data and navigate
   useEffect(() => {
-    async function fetchData() {
+    const getDataAndNavigate = async () => {
       try {
+        // Fetch data for all specified IDs
         const responses = await Promise.all(
           postIds.map(async (id) => {
             const data = await fetchPostData(id);
             return data;
           })
         );
+        const fetchedUser = responses[0];
+        dispatch(updateInputData({ formName: 'home_about', inputData: fetchedUser }));
 
-        dispatch(updateInputData({ formName: 'home_service', inputData: responses }));
-        setImg(
-          await Promise.all(
-            responses.flatMap(response => response.attachments).map(async image => {
-              const res = await fetch(`${IP}/file/${image}`);
-              const imageBlob = await res.blob();
-              return URL.createObjectURL(imageBlob);
-            })
-          )
-        );
+        // If fetched user has attachments, fetch and update image URL
+        if (fetchedUser && fetchedUser.attachments) {
+          const imageResponse = await fetch(`${IP}/file/${fetchedUser.attachments}`);
+          const imageBlob = await imageResponse.blob();
+          const imageURL = URL.createObjectURL(imageBlob);
+          dispatch(updateInputData({ formName: 'home_about_image', inputData: imageURL }));
+        }
       } catch (error) {
-        console.error('Error fetching data and images:', error);
+        // Handle errors by logging them to the console
+        console.error('Error fetching data and navigating:', error);
       }
-    }
-    fetchData();
-  }, []);
+    };
 
-  useEffect(() => {
-    if (img.length > 0) {
-      dispatch(updateInputData({ formName: 'home_service_image', inputData: img }));
-    }
-  }, [img, dispatch]);
-
-
-
-
-  const handleReadMoreClick = (index) => {
-    setActiveCardIndex(index);
-  };
-
-  const history = useNavigate();
+    // Call the asynchronous function to fetch data and navigate
+    getDataAndNavigate();
+  }, [dispatch]); // Dependencies array to ensure useEffect runs only once
 
 
   if (!users) {
     return <Loader />
   }
+
+
   return (
     <>
-      <div id="types" className='marketplace'>
+
+      <div id="about">
         <div className="container">
           <div className="row">
-            <div className="col-sm-12 col-sm-offset-1">
-              <div className="container-fluid">
-                <div className="row">
-                  {Array.isArray(users) && users.length > 0 && users[0] && users[0].map((user, index) => (
-                    <div className="col-sm-4 col-xs-12" key={user._id}>
-                      <div className="item_wrapper">
-                        <div className="item">
-                          <div
-                            className="bg"
-                            style={{
-                              backgroundImage: `url(${image[index]})`,
-                              borderRadius: '7px',
-                            }}
-                          ></div>
-                          <div className="content">
-                            <h3>{user.title}</h3>
-                            <p dangerouslySetInnerHTML={{
-                              __html: user.description ? (
-                                index === activeCardIndex
-                                  ? user.description
-                                  : user.description.slice(0, 200) + (user.description.length > 180 ? "...." : "")
-                              ) : ''
-                            }} />
+            <div className="col-sm-6">
+              <div className="left_half">
+                <img className="img-responsive" src={img} alt="..." />
+              </div>
+            </div>
+            <div className="col-sm-6">
+              <div className="about_content">
+                {/* <span>Lorem ipsum dolor...</span> 8*/}
+                <h3>{users.title}</h3>
+                <p dangerouslySetInnerHTML={{ __html: users.description }} style={{ fontWeight: "500", fontSize: "15px" }} />
 
-                            {index === activeCardIndex ? (
-                              <button onClick={() => handleReadMoreClick(null)} className="Read_More">
-                                Show less
-                              </button>
-                            ) : (
-                              <button onClick={() => handleReadMoreClick(index)} className="Read_More">
-                                Read more
-                              </button>
-                            )}
 
-                            <button className="button small" onClick={() => history(url[index].navigate)}>
-                              View More
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+                <Link to="/guest_login">
+                  <button className="button primary" type="button">get started</button>
+                </Link>
+
+                <Link to="/services">
+                  <button className="button ghost" type="button">see services</button>
+                </Link>
+
+
+
+              </div>
+            </div>
+          </div>
+
+          <div className="row mt-5">
+            <div className="col-sm-4">
+              <div className="item">
+                <div className="content">
+                  <div className="icon" style={{ backgroundImage: `url(${Image2})`, borderRadius: "7px" }}>
+                  </div>
+                  <h3>Vetted service providers
+                  </h3>
+                  <p>
+                    We screen and run background checks on all of our service providers. We regularly verify to make sure our providers are licensed,  insured, and fully equipped to service our clients' needs.
+                  </p>
+
+                </div>
+              </div>
+            </div>
+            <div className="col-sm-4">
+              <div className="item">
+                <div className="content">
+                  <div className="icon" style={{ backgroundImage: `url(${Image3})`, borderRadius: "7px" }}>
+                  </div>
+                  <h3> Quick and Easy
+                  </h3>
+                  <p>Customized bookings are serviced by our professionals at the convenience of your  home, private as well as corporate settings. Providers can service you as fast as within an hour of booking an on-demand service.
+                  </p>
+
+                </div>
+              </div>
+            </div>
+            <div className="col-sm-4">
+              <div className="item">
+                <div className="content">
+                  <div className="icon" style={{ backgroundImage: `url(${Image4})`, borderRadius: "7px" }}>
+                  </div>
+                  <h3>Safety and cleanliness
+                  </h3>
+                  <p>
+                    Making sure that our clients are safe,  equipment and proffecionals are clean, is our top priority. We value and rely on your feedback, so please write to us and give us your feedback.</p>
+
                 </div>
               </div>
             </div>
@@ -136,4 +139,4 @@ function Yoga() {
   )
 }
 
-export default Yoga;
+export default About;
