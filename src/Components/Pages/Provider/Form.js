@@ -273,7 +273,8 @@ function FormPage(props) {
                                                     </div>
                                                 </div>
                                             </div>
-
+                                            <label htmlFor="">Please upload your image to create profile</label>
+                                            
                                             <div className="input_group">
                                                 <input
                                                     name="profile_pic"

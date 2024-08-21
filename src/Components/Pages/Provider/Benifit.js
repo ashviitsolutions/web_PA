@@ -26,7 +26,7 @@ function Benifit() {
                 <div className="container">
                     <div className="row">
                         <div className="heading content">
-                            <h3 className="dancing">provider benifits</h3>
+                            <h3 className="dancing">Provider Benifits</h3>
                         </div>
                         <div className="content infobox">
                             <div className="container-fluid">
@@ -114,7 +114,7 @@ function Benifit() {
             <div className='container-fluid provider-process'>
                 <div className='container process'>
                     <div className='row'>
-                    <div className='col-sm-3 processImg'>
+                        <div className='col-sm-3 processImg'>
                             <img src={Process1} />
                         </div>
                         <div className='col-sm-3 processImg'>

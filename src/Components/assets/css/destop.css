@@ -50,11 +50,15 @@
   font-size: 32px;
   color: #fff;
   font-weight: 600;
+  white-space: nowrap;
+
 }
 
 #banner_page .head h1 span {
   display: block;
   color: #2196f3;
+  /* display: inline-block; */
+
 }
 
 #banner_page .head h3 {
@@ -64,10 +68,14 @@
   font-size: 13px;
   color: #fff;
   font-weight: 400;
-  line-height: 1.4em;
+  /* line-height: 1.4em; */
   letter-spacing: 0.3px;
   word-spacing: 1px;
+  line-height: 1.5em;
 }
+
+
+
 
 #banner_page .head .button {
   margin-top: 35px;
@@ -120,16 +128,33 @@
 /* // card css */
 
 /* Default Card Styles */
+
+
+#types_card .marketplace {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  /* Adds space between the cards */
+}
+
+#types_card .item_wrapper {
+  flex: 1 1 calc(33.333% - 20px);
+  /* Allows 3 cards per row, adjusting for the gap */
+  box-sizing: border-box;
+  max-width: calc(33.333% - 20px);
+  /* Ensures cards don't stretch beyond their intended width */
+}
+
 #types_card .item {
   background: #fff;
   border: 1px solid #add8e6;
   box-shadow: 2px 2px 2px #add8e6;
   padding: 10px;
-}
-
-#types_card .item_wrapper {
-  padding: 10px;
-  /* padding-bottom: 8px; */
+  border-radius: 7px;
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* justify-content: space-between; */
 }
 
 #types_card .item_wrapper .bg {
@@ -179,9 +204,9 @@
   background: #fff;
   border: 1px dashed #afafaf;
   box-shadow: none;
-  /* position: absolute; */
+
   bottom: 0;
-  /* left: 0; */
+
 }
 
 #types_card .button:hover {
@@ -226,11 +251,6 @@
 
 }
 
-.item_wrapper {
-  flex: 1;
-  min-width: calc(33.333% - 15px);
-  box-sizing: border-box;
-}
 
 
 
@@ -254,6 +274,7 @@
   position: relative;
   top: 230px;
 
+
 }
 
 
@@ -263,6 +284,7 @@
   font-weight: 800;
   padding-top: 15px;
   color: var(--bs-body-color);
+  white-space: wrap;
   /* color: #000000; */
 
 

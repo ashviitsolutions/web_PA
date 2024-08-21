@@ -27,7 +27,7 @@ const Card = ({ user, image, index, isActive, onReadMoreClick, onViewMoreClick }
             {isActive ? 'Show less' : 'Read more'}
           </button>
           <button className="button small" onClick={onViewMoreClick}>
-            View More
+                      View More
           </button>
         </div>
       </div>

@@ -59,7 +59,7 @@ function Banner() {
                                 <>
                                     <div className="banner_sub_section">
                                         <div key={index}>
-                                            <h1>{user.title} <span>{user.excerpt}</span></h1>
+                                            <h1>{user.title}</h1>
                                             <h3 dangerouslySetInnerHTML={{ __html: user.description }} style={{ fontWeight: "500", fontSize: "15px" }} />
                                         </div>
                                         <Link to="/guest_login"><button className="button" >get started</button></Link>

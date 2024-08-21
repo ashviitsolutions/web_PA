@@ -6,11 +6,12 @@ import { updateInputData } from '../Redux/counterSlice';
 import { fetchPostData } from '../../Hooks/Hooks';
 import Loader from '../Loader';
 import Card from '../Modal/Card';
+import Slider from "react-slick"; // Import Slider component
 
 function Yoga() {
   const navigate = useNavigate();
   const [images, setImages] = useState([]);
-  const [activeCardIndex, setActiveCardIndex] = useState(null);
+  const [activeCardIndex, setActiveCardIndex] = useState(null); // Ensure this is defined
 
   const users = useSelector((state) => state?.counter?.formData?.home_service);
   const dispatch = useDispatch();
@@ -57,9 +58,9 @@ function Yoga() {
     }
   }, [images, dispatch]);
 
-  const handleReadMoreClick = (index) => {
-    setActiveCardIndex((prevIndex) => (prevIndex === index ? null : index));
-  };
+  // const handleReadMoreClick = (index) => {
+  //   setActiveCardIndex(index);
+  // };
 
   const handleViewMoreClick = (navigateTo) => {
     navigate(navigateTo);
@@ -68,22 +69,53 @@ function Yoga() {
   if (!users) {
     return <Loader />;
   }
+  const handleReadMoreClick = (index) => {
+    setActiveCardIndex((prevIndex) => (prevIndex === index ? null : index));
+  };
+
+  // Slider settings
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        }
+      }
+    ]
+  };
 
   return (
     <div id="types_card" className='marketplace'>
       <div className="container">
         <div className="row">
-          {Array.isArray(users) && users.length > 0 && users[0] && users[0].map((user, index) => (
-            <Card
-              key={user._id}
-              user={user}
-              image={images[index] || ''}
-              index={index}
-              isActive={index === activeCardIndex}
-              onReadMoreClick={() => handleReadMoreClick(index)}
-              onViewMoreClick={() => handleViewMoreClick(url[index].navigate)}
-            />
-          ))}
+          {/* Card Slider */}
+          <Slider {...sliderSettings}>
+            {Array.isArray(users) && users.length > 0 && users[0] && users[0].map((user, index) => (
+              <Card
+                key={user._id}
+                user={user}
+                image={images[index] || ''}
+                index={index}
+                isActive={index === activeCardIndex}
+                onReadMoreClick={() => handleReadMoreClick(index)}
+                onViewMoreClick={() => handleViewMoreClick(url[index].navigate)}
+              />
+            ))}
+          </Slider>
         </div>
       </div>
     </div>
