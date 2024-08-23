@@ -80,13 +80,13 @@ const Notifications = () => {
                 <Link to={n.link}>
                   <div className="notification__titleView">
                     <h3>{n.title}</h3>
-                    <h4 className="">Date: {moment(n.createdAt).format("Do MMMM YYYY")}, Time: {moment(n.createdAt).format("LT")}</h4>
+                    <h4 className="">Date: {moment(n.createdAt).format("MMMM Do YYYY")}, Time: {moment(n.createdAt).format("LT")}</h4>
                   </div>
                   <p>{n.content}</p>
                   {n.bookedDate && n.bookedTime && (
                     <>
                       <div className="d-flex smallDetail" style={{ justifyContent: "space-between" }}>
-                        <p>appointment date: {moment(n.bookedDate).format("Do MMMM YYYY")}</p>
+                        <p>appointment date: {moment(n.bookedDate).format("MMMM Do YYYY")}</p>
                         <p>appointment time: {moment(n.bookedTime, "HH:mm:ss").format("LT")}</p>
 
                       </div>

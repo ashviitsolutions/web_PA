@@ -49,7 +49,7 @@ function Booking() {
 
     return (
         <>
-            <BookingModal bookings={completedPosts} title="History Bookings" favrate={true} rating={true} />
+            <BookingModal bookings={completedPosts}  favrate={true} rating={true} />
         </>
     );
 }

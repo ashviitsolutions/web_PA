@@ -45,9 +45,9 @@ function BookingCard({ post, toggleEvent, isOpen, rating, favrate }) {
             <div className="booking-card-content" onClick={() => showDetails && toggleEvent(post.id)}>
                 <span className="booking-card-ripple"></span>
                 <div className="booking-card-time">
-                    <h3 className="booking-card-time-scheduled">{post.scheduled_timing}</h3>
+                    <h3 className="booking-card-time-scheduled">Apt Time: {post.scheduled_timing}</h3>
                     <h4 className="booking-card-time-date">
-                        {moment(post.scheduled_date).format("Do MMMM YYYY")}
+                        {moment(post.scheduled_date).format("MMMM Do YYYY")}
                     </h4>
                 </div>
                 <div className="booking-card-profile">
@@ -97,7 +97,7 @@ function BookingCard({ post, toggleEvent, isOpen, rating, favrate }) {
                                     {!post?.ratings?.length > 0 ? (
                                         <div style={{ cursor: "pointer", fontSize: "30px" }}>❤️‍</div>
                                     ) : (
-                                        <button className="btn btn-primary sub" id="review-rating-button" onClick={() => addToFavorite(post)}>Favorites</button>
+                                        <button className="btn btn-primary sub" id="review-rating-button" onClick={() => addToFavorite(post)}>Add to Favorites</button>
                                     )}
                                 </div>
                             )

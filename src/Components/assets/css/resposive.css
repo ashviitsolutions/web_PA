@@ -119,6 +119,18 @@
         margin-bottom: 10px;
         font-size: 12px;
     }
+    #profile_page .settings_form {
+        display: block;
+        /* max-width: 500px; */
+        width: 100%;
+        margin: auto;
+        /* text-align: left; */
+        /* border-radius: 10px; */
+        /* margin-top: 10px !important; */
+        margin-bottom: 80px !important;
+        /* box-shadow: 0px 8px 18px -6px rgb(0 0 0 / 30%); */
+        /* padding: 20px; */
+    }
 }
 
 @media (max-width: 768px) {
