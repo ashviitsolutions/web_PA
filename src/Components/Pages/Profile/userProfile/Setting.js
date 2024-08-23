@@ -88,7 +88,7 @@ function Setting() {
 
     return (
         <>
-            <div className="progressbar_userpannel profileSpace">
+            <div className="booking-modal-container">
                 <div id="profile_page">
                     <div className="profile__avatar">
                         <p className="profile__avatarInitial">{username.slice(0, 1).toUpperCase()}</p>

@@ -20,10 +20,10 @@ const Notifications = () => {
   const [loading, setLoading] = useState(false);
   // const [notifications, setNotifications] = useState([]);
   const [pageNumber, setPageNumber] = useState(0);
-  const notificationsPerPage = 5; // Number of notifications to show per page
+  const notificationsPerPage = 3; // Number of notifications to show per page
 
   useEffect(() => {
-    // setLoading(true);
+    setLoading(true);
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -66,12 +66,14 @@ const Notifications = () => {
         <div className="booking-modal-inner">
 
           {loading ? (
-            <FallingLines
-              color="#03a9f4"
-              width="150"
-              visible={true}
-              ariaLabel="falling-circles-loading"
-            />
+            <div style={{ textAlign: "center" }}>
+              <FallingLines
+                color="#03a9f4"
+                width="150"
+                visible={true}
+                ariaLabel="falling-circles-loading"
+              />
+            </div>
           ) : displayedNotifications.length > 0 ? (
             displayedNotifications.map((n) => (
               <div className="notification__item" key={n._id}>
@@ -96,7 +98,12 @@ const Notifications = () => {
 
             ))
           ) : (
-            <h2>No New Notifications</h2>
+            <>
+              <div id="booking-card-content">
+                <h3>No New Notifications</h3>
+              </div>
+            </>
+
           )}
         </div>
         <div className="pagination">

@@ -667,7 +667,8 @@
     }
 
     #profile_page {
-        margin-top: 62px;
+        /* margin-top: 62px; */
+        margin-bottom: 50px !important;
     }
 
     #brief .video_wrapper {

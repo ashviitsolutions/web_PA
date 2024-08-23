@@ -59,7 +59,7 @@ const Favorites = () => {
 
 
   return (
-    <div className="progressbar_userpannel profileSpace">
+    <div className="booking-modal-container">
       <div className="container__view">
         {/* <Avatar name={username} /> */}
         <h3>Favorites</h3>
