@@ -57,11 +57,14 @@ const Notifications = () => {
   };
 
   return (
-    <div className="progressbar_userpannel profileSpace">
-      <div className="container__view">
+    <div className="booking-modal-container">
+      <div id="booking-card-content">
+        <h1>Notifications</h1>
 
-        <h3>Notifications</h3>
-        <div className="notification__view">
+
+
+        <div className="booking-modal-inner">
+
           {loading ? (
             <FallingLines
               color="#03a9f4"
@@ -75,7 +78,7 @@ const Notifications = () => {
                 <Link to={n.link}>
                   <div className="notification__titleView">
                     <h3>{n.title}</h3>
-                    <h4 className="smallDetail">Date: {moment(n.createdAt).format("Do MMMM YYYY")}, Time: {moment(n.createdAt).format("LT")}</h4>
+                    <h4 className="">Date: {moment(n.createdAt).format("Do MMMM YYYY")}, Time: {moment(n.createdAt).format("LT")}</h4>
                   </div>
                   <p>{n.content}</p>
                   {n.bookedDate && n.bookedTime && (

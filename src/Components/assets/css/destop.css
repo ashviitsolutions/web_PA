@@ -239,7 +239,11 @@
   flex-wrap: wrap;
   gap: 15px;
 }
-
+.Read_More{
+  cursor: pointer;
+  font-size: 14px;
+  opacity: 0.7;
+}
 /* Media Queries for Responsiveness */
 
 

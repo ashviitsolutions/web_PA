@@ -56,9 +56,10 @@ const Support = () => {
 	};
 
 	return (
-		<div className="progressbar_userpannel profileSpace">
-			<div className="container__view" style={{ marginTop: "30px" }}>
-				<div className="row supportSection">
+		<div className="booking-modal-container">
+			<div id="booking-card-content">
+
+				<div className="row">
 					<div className="col-md-4">
 						<img src={support} className="careImg" alt="Support" />
 					</div>
@@ -72,6 +73,7 @@ const Support = () => {
 								className="support__input col-md-12"
 								rows={9}
 								onChange={(e) => setText(e.target.value)}
+								placeholder="Write here"
 							></textarea>
 						</p>
 						<p>
