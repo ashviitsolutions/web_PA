@@ -49,7 +49,7 @@ const SeconForm = ({ step, nextStep }) => {
     const [errorMessage, setErrorMessage] = useState("");
     const [servicename, setServicename] = useState()
     const [showInfo, setShowInfo] = useState({});
-    const [loading ,setLoading]=useState(false)
+    const [loading, setLoading] = useState(false)
 
 
 
@@ -179,11 +179,11 @@ const SeconForm = ({ step, nextStep }) => {
                 const res = await fetch(`${IP}/service/view-services?page=1&limit=50`);
                 const data = await res.json();
                 setUser(data);
-                if(data.status===200){
+                if (data.status === 200) {
                     setLoading(false)
 
                 }
-                console.log("view service",data)
+                console.log("view service", data)
                 // dispatch(updateInputData({ formName: 'booking_service', inputData: data }));
             } catch (error) {
                 setLoading(false)
@@ -410,7 +410,7 @@ const SeconForm = ({ step, nextStep }) => {
                                                     <FontAwesomeIcon icon={faInfo} />
                                                 </div>
                                                 {/* <p className="book-description" dangerouslySetInnerHTML={{ __html: cur.description.slice(0, 50) }} /> */}
-                                                <p className="book-price">Price: ${cur.price}</p>
+                                                <span className="book-title">Price: ${cur.price}</span>
                                                 {showInfo[cur._id] && (
                                                     <div className="info_box" dangerouslySetInnerHTML={{ __html: cur.description }}></div>
                                                 )}
@@ -448,7 +448,7 @@ const SeconForm = ({ step, nextStep }) => {
                                         <div className="book-details">
                                             <h2 className="book-title">{cur.title}</h2>
                                             {/* <p className="book-description" dangerouslySetInnerHTML={{ __html: cur.description.slice(0, 50) }} /> */}
-                                            <p className="book-price">Price: ${cur.price}</p>
+                                            <span className="book-title">Price: ${cur.price}</span>
                                             {/*  <div className="info_icon"><FontAwesomeIcon icon={faInfo}></FontAwesomeIcon></div>
                             <div className="info_box" dangerouslySetInnerHTML={{ __html: cur.description }}></div> */}
 
@@ -479,9 +479,9 @@ const SeconForm = ({ step, nextStep }) => {
                 </div>
                 {
                     gendercheck === "guest" ? (
-                        <p>Total Price(2 x {priceadon + priceservice}): ${totalPrice}</p>
+                        <p className="mt-2">Total Price(2 x {priceadon + priceservice}): ${totalPrice}</p>
                     ) : (
-                        <p>Total Price: ${totalPrice}</p>
+                        <p className="mt-2">Total Price: ${totalPrice}</p>
                     )
                 }
                 <div className="error-message">{errorMessage}</div>

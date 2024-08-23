@@ -59,7 +59,7 @@ const Support = () => {
 		<div className="booking-modal-container">
 			<div id="booking-card-content">
 
-				<div className="row">
+				<div className="row mb-5">
 					<div className="col-md-4">
 						<img src={support} className="careImg" alt="Support" />
 					</div>

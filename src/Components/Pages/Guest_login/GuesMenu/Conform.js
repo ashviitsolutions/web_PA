@@ -12,7 +12,11 @@ import { useUserRegistration } from '../../../../Helpers/Hooks/Hooks';
 import Post from '../../Profile/Hook/Hook';
 import Loader from '../../Loader';
 
+
 const Conform = () => {
+    const { totalPrice } = useParams();
+
+    console.log("numbernumber",totalPrice)
     const [termsAccepted, setTermsAccepted] = useState(false);
     const dispatch = useDispatch();
     const selector = useSelector((state) => state.counter.formData);
@@ -477,60 +481,61 @@ const Conform = () => {
                                         <>
 
 
-
+                                
 
                                             <div className="price" style={{ display: 'block', lineHeight: '10px' }}>
                                                 <p className="prices" style={{ fontSize: '17px' }}>
                                                     <span className='value'>
-                                                        Amount: ${calculatedData?.amountWithoutTax?.toFixed(2)}
+                                                        Total Service:  ${totalPrice}
                                                     </span></p>
+                                               
+                                            <p className="prices" style={{ fontSize: '17px' }}>
+                                                <span className='value'>
+                                                    Gratuity: ${calculatedData?.tipAmount?.toFixed(2)}
+                                                </span></p>
+                                            <p className="prices" style={{ fontSize: '17px' }}>
+                                                <span className='value'>
+                                                Sales Tax(6.625%): ${calculatedData?.taxAmount?.toFixed(2)}
+                                                </span></p>
+
+                                            {
+
+                                            }
+
+                                            {amount_off || percent_off ? (
                                                 <p className="prices" style={{ fontSize: '17px' }}>
                                                     <span className='value'>
-                                                        18% Tip: ${calculatedData?.tipAmount?.toFixed(2)}
-                                                    </span></p>
+                                                        Coupon Discount: -${calculatedData?.couponDiscountAmount.toFixed(2)}
+                                                    </span>
+                                                </p>
+                                            ) : null}
+
+                                            {giftCardAmount ? (
                                                 <p className="prices" style={{ fontSize: '17px' }}>
                                                     <span className='value'>
-                                                        6.625% Taxes: ${calculatedData?.taxAmount?.toFixed(2)}
-                                                    </span></p>
+                                                        Gift Card Applied: -${calculatedData?.giftcardDiscountAmount.toFixed(2)}
+                                                    </span>
+                                                </p>
+                                            ) : null}
 
-                                                {
-
-                                                }
-
-                                                {amount_off || percent_off ? (
+                                            {
+                                                calculatedData?.membershipDiscountAmount > 0 && (
                                                     <p className="prices" style={{ fontSize: '17px' }}>
                                                         <span className='value'>
-                                                            Coupon Discount: ${calculatedData?.couponDiscountAmount.toFixed(2)}
-                                                        </span>
-                                                    </p>
-                                                ) : null}
+                                                            Membership Discount: ${calculatedData?.membershipDiscountAmount}
 
-                                                {giftCardAmount ? (
-                                                    <p className="prices" style={{ fontSize: '17px' }}>
-                                                        <span className='value'>
-                                                        Gift Card Applied: ${calculatedData?.giftcardDiscountAmount.toFixed(2)}
-                                                        </span>
-                                                    </p>
-                                                ) : null}
-
-                                                {
-                                                    calculatedData?.membershipDiscountAmount > 0 && (
-                                                        <p className="prices" style={{ fontSize: '17px' }}>
-                                                            <span className='value'>
-                                                                Membership Discount: ${calculatedData?.membershipDiscountAmount}
-
-                                                            </span></p>
-                                                    )
-                                                }
+                                                        </span></p>
+                                                )
+                                            }
 
 
-                                                <p className="prices" style={{ fontSize: '17px' }} >
-                                                    <span className='value'>Total amount: ${calculatedData?.totalAmountWithTax?.toFixed(2)}
-                                                    </span></p>
+                                            <p className="prices" style={{ fontSize: '17px' }} >
+                                                <span className='value'>Total Balance: ${calculatedData?.totalAmountWithTax?.toFixed(2)}
+                                                </span></p>
 
-                                            </div>
-                                        </>
-                                    )
+                                        </div>
+                                </>
+                                )
 
                                     }
 
@@ -538,41 +543,41 @@ const Conform = () => {
 
 
 
-                                </li>
-                            </ul>
+                            </li>
+                        </ul>
 
-                            {!loader && (
+                        {!loader && (
+                            <div>
                                 <div>
-                                    <div>
-                                        <label>
-                                            <input
-                                                type="checkbox"
-                                                checked={termsAccepted}
-                                                onChange={handleAccept}
-                                            />{"  "}
-                                              I agree to the{" "}
-                                            <a
-                                                href='http://productivealliance.com/agreemnet'
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                            >
-                                                terms and conditions of the agreemnet!
-                                            </a>
-                                        </label>
-                                    </div>
-
-                                    <div style={{ textAlign: 'center' }}>
-                                        <button className={`${termsAccepted ? "button" : "disabled-button"}`} disabled={!termsAccepted} onClick={handleCheckout}>{loading ? "Loading..." : `Proceed to Pay ${calculatedData?.totalAmountWithTax?.toFixed(2)}`}</button>
-                                    </div>
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            checked={termsAccepted}
+                                            onChange={handleAccept}
+                                        />{"  "}
+                                        I agree to the{" "}
+                                        <a
+                                            href='http://productivealliance.com/agreemnet'
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            terms and conditions of the agreemnet!
+                                        </a>
+                                    </label>
                                 </div>
-                            )}
 
-                        </div>
+                                <div style={{ textAlign: 'center' }}>
+                                    <button className={`${termsAccepted ? "button" : "disabled-button"}`} disabled={!termsAccepted} onClick={handleCheckout}>{loading ? "Loading..." : `Proceed to Pay ${calculatedData?.totalAmountWithTax?.toFixed(2)}`}</button>
+                                </div>
+                            </div>
+                        )}
+
                     </div>
                 </div>
-            </div >
-            {error && <p style={{ color: 'red', textAlign: 'center', marginTop: '10px' }}>{error}</p>
-            }
+            </div>
+        </div >
+            { error && <p style={{ color: 'red', textAlign: 'center', marginTop: '10px' }}>{error}</p>
+}
         </>
 
 

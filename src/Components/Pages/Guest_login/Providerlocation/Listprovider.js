@@ -98,13 +98,15 @@ function Listprovider() {
                                     <img src={`http://45.13.132.197:5000/api/file/${cur.images}`} alt='' />
                                 </div>
                                 <div className='content'>
-                                    <h3>{cur.first_name} {cur.last_name}</h3>
+                                    <p>Provider Name: {cur.first_name} {cur.last_name.charAt(0)}.</p>
                                     <p><strong>{cur.averageRating}★</strong></p>
                                 </div>
+
                                 <div className='decription'>
-                                    <p>Available Service: {cur?.areas_of_expertise?.on_demand?.join(', ')}</p>
-                                    <p>Address: {cur?.mailing_address?.address} {cur?.mailing_address?.country} {cur?.mailing_address?.postal_code}</p>
-                                    <p>Distance from you: {cur?.dist?.calculatedInKilometers}</p>
+                                    {/*<p>Available Service: {cur?.areas_of_expertise?.on_demand?.join(', ')}</p> */}
+                                    <p>Service Location:  {cur?.mailing_address?.city}, {cur?.mailing_address?.state} {cur?.mailing_address?.postal_code}</p>
+                                    {/* <p>Address: {cur?.mailing_address?.address} {cur?.mailing_address?.country} {cur?.mailing_address?.postal_code}</p> */}
+                                    {/*<p>Distance from you: {cur?.dist?.calculatedInKilometers}</p> */}
                                 </div>
                                 <div className='Listprovider_button'>
                                     <button className='button' onClick={() => handleSelect(cur._id)}>Select</button>

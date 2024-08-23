@@ -63,7 +63,7 @@ function Banner() {
 						{users && users.map((user, index) => (
 							<div key={index}>
 								<h1>{user.title} <span>{user.excerpt}</span></h1>
-								<h3 dangerouslySetInnerHTML={{ __html: user.description }} style={{ fontWeight: "500", fontSize: "15px" }} />
+								<h3 dangerouslySetInnerHTML={{ __html: user.description }} />
 							</div>
 						))}
 						<Link to="/guest_login">
