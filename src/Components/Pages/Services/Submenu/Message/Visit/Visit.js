@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { IP } from '../../../../../../Constant';
 import { Link } from 'react-router-dom';
-import ModalCard from '../../../../Modal/ModalCard';
 
 function Visit() {
     const postIds = ['640ab8f5ad080eddce5218a6', '640ab999ad080eddce5218e0'];
@@ -41,26 +40,54 @@ function Visit() {
     return (
         <>
 
-            <ModalCard
-                title={users1.title}
-                description={users1.description}
-                image={img[0]}
-                h4={users1.excerpt}
-                classImage="service-image-card"
-            // id="alternate_post"
+            <div id="alternate_post">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-sm-6">
+                            <div className="bg" style={{
+                                backgroundImage: `url(${img[0]})`,
+                                borderRadius: '7px',
+                            }}>
+                            </div>
+                        </div>
+                        <div className="col-sm-6">
+                            <div className="heading">
+                                <h3>{users1.title}</h3>
+                                <h4 >{users1.excerpt}</h4>
+                                <p dangerouslySetInnerHTML={{ __html: users1.description }} />
+                                <Link to="/guest_login">
+                                    <button className="button" type="button" name="button">book now</button>
 
-            />
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
 
-            <ModalCard
-                title={users2.title}
-                description={users2.description}
-                image={img[1]}
-                h4={users2.excerpt}
-                classImage="service-image-card"
-            // id="alternate_post"
 
-            />
-          
+                    <div className="row">
+                        <div className="col-sm-6">
+                            <div className="heading">
+                                <h3>{users2.title}</h3>
+                                <h4 >{users2.excerpt}</h4>
+
+                                <p dangerouslySetInnerHTML={{ __html: users2.description }} />
+
+                                <Link to="/listofprovider">
+                                    <button className="button" type="button" name="button">book now</button>
+
+                                </Link>
+                            </div>
+                        </div>
+                        <div className="col-sm-6">
+                            <div className="bg" style={{
+                                backgroundImage: `url(${img[1]})`,
+                                borderRadius: '7px',
+                            }}>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
 
