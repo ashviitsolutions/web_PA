@@ -107,10 +107,10 @@ const Favorites = () => {
                   </span>
                 </div>
                 <p style={{ opacity: 0.7 }}>
-                  Provider name - {cur.first_name} {cur.last_name}
+                  <p>Provider Name: {cur.first_name} {cur.last_name.charAt(0)}.</p>
                 </p>
                 <p>
-                  {cur.mailing_address.address}, {cur.mailing_address.postal_code}
+                  <p>Service Location:  {cur?.mailing_address?.city}, {cur?.mailing_address?.state} {cur?.mailing_address?.postal_code}</p>
                 </p>
               </div>
             </div>

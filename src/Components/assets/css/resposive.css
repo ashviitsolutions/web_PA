@@ -8,7 +8,7 @@
     }
 
     #banner_page .head {
-        width: 90%;
+        width: 80%;
 
 
     }
@@ -136,18 +136,20 @@
 @media (max-width: 768px) {
 
     #banner_page .head {
-        width: 95%;
+        width: 90%;
+        margin-top: 100px;
+        padding-top: 100px;
 
         /* Full width with small margin */
     }
 
     #banner_page .head h1 {
-        font-size: 24px;
+        font-size: 28px;
         /* Smaller font size */
     }
 
     #banner_page .head h3 {
-        font-size: 12px;
+        font-size: 14px;
         font-weight: 300 !important;
         /* Smaller font size */
     }
@@ -219,11 +221,7 @@
 @media (max-width: 580px) {
 
 
-    #banner_page .head {
-        width: 100%;
-        /* Full width */
-    }
-
+ 
     #banner_page .head h1 {
         /* font-size: 1.25rem; */
         font-size: 18px;
@@ -232,9 +230,9 @@
     }
 
     #banner_page .head h3 {
-        font-size: 12px;
-        font-weight: 300;
-        line-height: 1.5em;
+        font-size: 18px;
+        /* font-weight: 300; */
+        line-height: 1.25em;
 
     }
 
@@ -393,27 +391,30 @@
         margin: auto !important;
     }
 
-    #banner_page .head {
-        width: 100%;
-        /* Full width */
-    }
+ 
 
     .about-image-card {
         width: 95% !important;
         margin: auto !important;
     }
-
+    #banner_page .head{
+        width: 100%;
+        margin-top: 100px;
+        padding-top: 100px;
+        justify-content: center !important;
+        text-align: center !important;
+    }
     #banner_page .head h1 {
         /* font-size: 1.25rem; */
-        font-size: 15px;
-        font-weight: 700;
+        font-size: 20px;
+        /* font-weight: 700; */
 
     }
 
     #banner_page .head h3 {
-        font-size: 12px;
-        font-weight: 300;
-        line-height: 1.5em;
+        font-size: 16px;
+        /* font-weight: 300; */
+        line-height: 1.25em;
 
     }
 
@@ -511,19 +512,8 @@
 
 
 @media (max-width: 375px) {
-    #banner_page .head h1 {
-        font-size: 13px;
-        font-weight: 700;
+ 
 
-    }
-
-    #banner_page .head h3 {
-        /* text-align: center; */
-        font-size: 12px;
-        font-weight: 300;
-        line-height: 1.5em;
-
-    }
 
     #banner_page .head p {
         font-size: 12px;

@@ -50,12 +50,12 @@
   font-size: 32px;
   color: #fff;
   font-weight: 600;
-  white-space: nowrap;
+  /* white-space: nowrap; */
 
 }
 
 #banner_page .head h1 span {
-  display: block;
+  /* display: block; */
   color: #2196f3;
   /* display: inline-block; */
 
