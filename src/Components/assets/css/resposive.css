@@ -401,8 +401,8 @@
         width: 100%;
         margin-top: 100px;
         padding-top: 100px;
-        justify-content: center !important;
-        text-align: center !important;
+        /* justify-content: center !important; */
+        /* text-align: center !important; */
     }
     #banner_page .head h1 {
         /* font-size: 1.25rem; */
