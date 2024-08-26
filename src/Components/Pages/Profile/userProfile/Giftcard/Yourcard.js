@@ -165,7 +165,7 @@ function Yourcard() {
                                             <div className="content_container_gift_card_para">
                                                 <div className="d-block">
                                                     {/* <p>Price: ${cur?.offerId?.price}</p> */}
-                                                    <p>Card Value: ${cur?.offerId?.offerValue}</p>
+                                                    <p>Card Value: ${cur?.amount}</p>
                                                 </div>
                                             </div>
                                         </div>

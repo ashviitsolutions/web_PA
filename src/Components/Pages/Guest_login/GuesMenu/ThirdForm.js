@@ -137,6 +137,7 @@ const ThirdForm = ({ nextStep }) => {
                     <li key={option}>
                         <label>
                             <input
+                            className="m-1"
                                 type="checkbox"
                                 value={option}
                                 checked={areasOfConcern.includes(option)}

@@ -16,7 +16,7 @@ import Loader from '../../Loader';
 const Conform = () => {
     const { totalPrice } = useParams();
 
-    console.log("numbernumber",totalPrice)
+    console.log("numbernumber", totalPrice)
     const [termsAccepted, setTermsAccepted] = useState(false);
     const dispatch = useDispatch();
     const selector = useSelector((state) => state.counter.formData);
@@ -78,6 +78,7 @@ const Conform = () => {
 
     const [coupon, setCoupon] = useState("")
     const [coupon_amount, setCouponAmount] = useState(0)
+    const [giftcardValuedataId, setGiftcardvaluedataid] = useState("")
 
     const [pay, setPay] = useState(false);
 
@@ -155,23 +156,25 @@ const Conform = () => {
 
 
 
-    const handleGiftCardChange = (amount) => {
+    const handleGiftCardChange = (giftdata) => {
+        let amount = giftdata?.amount;
+        const giftcardValueId = giftdata?.offerId?._id;
+
+        console.log("amountamountamountamount", amount)
+
+        // If the amount is greater than the total price, reduce it to match the total price
+        if (amount > totalPrice) {
+            amount = totalPrice;
+        }
+
+        console.log("amountiftCardAmountgiftCardAmountgiftCardAmount", amount)
+
         // Calculate the total gift card amount including the new amount
         const updatedSelectedGiftCards = [...selectedGiftCards];
         const index = updatedSelectedGiftCards.indexOf(amount);
 
         if (index === -1) {
             // If the amount is not already selected, add it to the list
-
-            if (amount > calculatedData?.totalAmountWithTax) {
-                // Notify the user that selecting this gift card would exceed the total amount
-                toast.error("Selecting this gift card would exceed the total amount.", {
-                    position: "top-right",
-                    autoClose: 2000,
-                });
-                return; // Exit the function, preventing further execution
-            }
-
             updatedSelectedGiftCards.push(amount);
         } else {
             // If the amount is already selected, remove it from the list
@@ -180,17 +183,25 @@ const Conform = () => {
 
         // Calculate the total gift card amount based on selected gift cards
         const updatedGiftCardAmount = updatedSelectedGiftCards.reduce((acc, curr) => acc + curr, 0);
+        // Ensure giftcardDiscountAmount is a number
+        const giftcardDiscountAmount = Number(updatedGiftCardAmount) || 0;
+        // Now safely apply toFixed
+        const formattedDiscountAmount = giftcardDiscountAmount.toFixed(2);
 
+        // Use the formattedDiscountAmount in your logic
+        // console.log(formattedDiscountAmount);
         // Update the state with new selected gift cards and adjusted service price
         setSelectedGiftCards(updatedSelectedGiftCards);
-        setGiftCardAmount(updatedGiftCardAmount);
+        setGiftCardAmount(formattedDiscountAmount);
+        setGiftcardvaluedataid(giftcardValueId);
     };
 
 
+    // console.log("amountamountamountamountamountamountamountamountamountamountamount", giftcardValuedataId)
 
 
     const onCoupon = async () => {
-        console.log("coupon amount charge", coupon);
+
 
         try {
             const res = await axios.post(`${IP}/coupon/check_coupon`, { code: coupon });
@@ -230,12 +241,19 @@ const Conform = () => {
         const calculateBooking = async () => {
             setLoder(true)
             try {
+                // console.log("giftCardAmountgiftCardAmountgiftCardAmountgiftCardAmount", giftCardAmount)
+                // Ensure giftcardDiscountAmount is a number
+                const giftcardDiscountAmount = Number(giftCardAmount) || 0;
+                // Now safely apply toFixed
+                // const formattedDiscountAmount = giftcardDiscountAmount.toFixed(2);
+
                 // setLoading(true);
                 const response = await Post.createCalculation({
                     service_id: location.state?.secondform?.service_ids,
                     massage_for: massage_for,
                     service_time: location.state?.secondform?.service_time,
-                    giftCardAmount: giftCardAmount,
+                    giftCardAmount: giftcardDiscountAmount,
+                    giftcardId: giftcardValuedataId,
                     add_ons_details: location.state?.add_ons_details,
                     coupon_amount: amount_off,
                     coupon_percentage: percent_off
@@ -255,6 +273,9 @@ const Conform = () => {
 
         calculateBooking();
     }, [giftCardAmount, coupon_amount, percent_off, location.state?.secondform?.service_ids, location.state?.secondform?.service_time, location.state?.add_ons_details, dispatch]);
+
+
+
 
 
 
@@ -451,8 +472,8 @@ const Conform = () => {
                                                         <label htmlFor={`use-gift-card-${index}`} className="ml-2"></label>
                                                         <div className="form-group row justify-content-center mb-0">
                                                             <div className="col-md-12 px-3 mt-2">
-                                                                <input type="checkbox" id={`use-gift-card-${index}`} onChange={() => handleGiftCardChange(cur?.offerId?.offerValue)} />
-                                                                <label htmlFor={`use-gift-card-${index}`} className="ml-2"> <span className='title'> Use your ${cur?.offerId?.offerValue} gift card</span></label>
+                                                                <input type="checkbox" id={`use-gift-card-${index}`} onChange={() => handleGiftCardChange(cur)} />
+                                                                <label htmlFor={`use-gift-card-${index}`} className="ml-2"> <span className='title'> Use your ${cur?.amount} gift card</span></label>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -481,61 +502,61 @@ const Conform = () => {
                                         <>
 
 
-                                
+
 
                                             <div className="price" style={{ display: 'block', lineHeight: '10px' }}>
                                                 <p className="prices" style={{ fontSize: '17px' }}>
                                                     <span className='value'>
                                                         Total Service:  ${totalPrice}
                                                     </span></p>
-                                               
-                                            <p className="prices" style={{ fontSize: '17px' }}>
-                                                <span className='value'>
-                                                    Gratuity: ${calculatedData?.tipAmount?.toFixed(2)}
-                                                </span></p>
-                                            <p className="prices" style={{ fontSize: '17px' }}>
-                                                <span className='value'>
-                                                Sales Tax(6.625%): ${calculatedData?.taxAmount?.toFixed(2)}
-                                                </span></p>
 
-                                            {
-
-                                            }
-
-                                            {amount_off || percent_off ? (
                                                 <p className="prices" style={{ fontSize: '17px' }}>
                                                     <span className='value'>
-                                                        Coupon Discount: -${calculatedData?.couponDiscountAmount.toFixed(2)}
-                                                    </span>
-                                                </p>
-                                            ) : null}
-
-                                            {giftCardAmount ? (
+                                                        Gratuity: ${calculatedData?.tipAmount?.toFixed(2)}
+                                                    </span></p>
                                                 <p className="prices" style={{ fontSize: '17px' }}>
                                                     <span className='value'>
-                                                        Gift Card Applied: -${calculatedData?.giftcardDiscountAmount.toFixed(2)}
-                                                    </span>
-                                                </p>
-                                            ) : null}
+                                                        Sales Tax(6.625%): ${calculatedData?.taxAmount?.toFixed(2)}
+                                                    </span></p>
 
-                                            {
-                                                calculatedData?.membershipDiscountAmount > 0 && (
+                                                {
+
+                                                }
+
+                                                {amount_off || percent_off ? (
                                                     <p className="prices" style={{ fontSize: '17px' }}>
                                                         <span className='value'>
-                                                            Membership Discount: ${calculatedData?.membershipDiscountAmount}
+                                                            Coupon Discount: -${calculatedData?.couponDiscountAmount.toFixed(2)}
+                                                        </span>
+                                                    </p>
+                                                ) : null}
 
-                                                        </span></p>
-                                                )
-                                            }
+                                                {giftCardAmount ? (
+                                                    <p className="prices" style={{ fontSize: '17px' }}>
+                                                        <span className='value'>
+                                                            Gift Card Applied: -${giftCardAmount}
+                                                        </span>
+                                                    </p>
+                                                ) : null}
+
+                                                {
+                                                    calculatedData?.membershipDiscountAmount > 0 && (
+                                                        <p className="prices" style={{ fontSize: '17px' }}>
+                                                            <span className='value'>
+                                                                Membership Discount: ${calculatedData?.membershipDiscountAmount}
+
+                                                            </span></p>
+                                                    )
+                                                }
 
 
-                                            <p className="prices" style={{ fontSize: '17px' }} >
-                                                <span className='value'>Total Balance: ${calculatedData?.totalAmountWithTax?.toFixed(2)}
-                                                </span></p>
+                                                <p className="prices" style={{ fontSize: '17px' }} >
+                                                    <span className='value'>Total Balance: ${calculatedData?.totalAmountWithTax?.toFixed(2)}
+                                                    </span></p>
 
-                                        </div>
-                                </>
-                                )
+                                            </div>
+                                        </>
+                                    )
 
                                     }
 
@@ -543,41 +564,41 @@ const Conform = () => {
 
 
 
-                            </li>
-                        </ul>
+                                </li>
+                            </ul>
 
-                        {!loader && (
-                            <div>
+                            {!loader && (
                                 <div>
-                                    <label>
-                                        <input
-                                            type="checkbox"
-                                            checked={termsAccepted}
-                                            onChange={handleAccept}
-                                        />{"  "}
-                                        I agree to the{" "}
-                                        <a
-                                            href='http://productivealliance.com/agreemnet'
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                        >
-                                            terms and conditions of the agreemnet!
-                                        </a>
-                                    </label>
-                                </div>
+                                    <div>
+                                        <label>
+                                            <input
+                                                type="checkbox"
+                                                checked={termsAccepted}
+                                                onChange={handleAccept}
+                                            />{"  "}
+                                            I agree to the{" "}
+                                            <a
+                                                href='http://productivealliance.com/agreemnet'
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                terms and conditions of the agreemnet!
+                                            </a>
+                                        </label>
+                                    </div>
 
-                                <div style={{ textAlign: 'center' }}>
-                                    <button className={`${termsAccepted ? "button" : "disabled-button"}`} disabled={!termsAccepted} onClick={handleCheckout}>{loading ? "Loading..." : `Proceed to Pay ${calculatedData?.totalAmountWithTax?.toFixed(2)}`}</button>
+                                    <div style={{ textAlign: 'center' }}>
+                                        <button className={`${termsAccepted ? "button" : "disabled-button"}`} disabled={!termsAccepted} onClick={handleCheckout}>{loading ? "Loading..." : `Proceed to Pay ${calculatedData?.totalAmountWithTax?.toFixed(2)}`}</button>
+                                    </div>
                                 </div>
-                            </div>
-                        )}
+                            )}
 
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div >
-            { error && <p style={{ color: 'red', textAlign: 'center', marginTop: '10px' }}>{error}</p>
-}
+            </div >
+            {error && <p style={{ color: 'red', textAlign: 'center', marginTop: '10px' }}>{error}</p>
+            }
         </>
 
 
