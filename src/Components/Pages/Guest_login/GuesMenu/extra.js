@@ -3,18 +3,28 @@ import axios from 'axios';
 import { IP } from '../../../../Constant';
 import './style.css';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import StripeCheckout from 'react-stripe-checkout';
+import { updateInputData } from '../../Redux/counterSlice';
+import { useDispatch, useSelector } from 'react-redux';
 import vectorImg from "../../../assets/img/6212029.jpg";
-import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useUserRegistration } from '../../../../Helpers/Hooks/Hooks';
+import Post from '../../Profile/Hook/Hook';
+import Loader from '../../Loader';
+
 
 const Conform = () => {
+    const { totalPrice } = useParams();
+
+    // console.log("numbernumber", totalPrice)
+    const [termsAccepted, setTermsAccepted] = useState(false);
+    const dispatch = useDispatch();
+    const selector = useSelector((state) => state.counter.formData);
+    const calculatedData = Array.isArray(selector?.calculatedData) && selector.calculatedData.length > 0 ? selector.calculatedData[0] : [];
+
     const membershipLevel = localStorage.getItem("membership")
-    // const { getUserMembership, membershipLevels } = useUserRegistration();
     const { getUserGiftCards, user } = useUserRegistration();
-    const [memberhsipDiscount, setMembershipDiscountRate] = useState("")
+
     const nav = useNavigate()
     const location = useLocation();
 
@@ -24,22 +34,13 @@ const Conform = () => {
     const service_name = location.state?.servicename || "";
 
     const locationName = location.state?.locationForm?.location || "";
-    const formData = useSelector((state) => state.counter.formData);
-    const { totalPrice } = useParams();
+
     const { provider_id } = useParams();
 
-    const booking_id = localStorage.getItem("booking_id");
-    const username = localStorage.getItem("user_name");
     const userid = localStorage.getItem("userid");
-    const token = localStorage.getItem("token");
 
-
-
-
-
-    const customerdetails = location?.state?.fifthform || "";
     const { address, first_name, last_name, arrivalInstructions, mobile, confirmpassword, password, email } = location?.state?.fifthform || "";
-    // const addressUser = location.locationForm?.address || "";
+
     const location_type = location.state?.location_type || "";
 
 
@@ -59,176 +60,37 @@ const Conform = () => {
 
     const gendercheck = location?.firstForm || "";
 
-
-
-
-    console.log("areas_of_concernareas_of_concernareas_of_concern", areas_of_concern)
-
-
-
+    const handleAccept = () => {
+        setTermsAccepted(!termsAccepted);
+    };
 
 
     const [selectedGiftCards, setSelectedGiftCards] = useState([]);
-    const [paymentIntentId, setPaymentIntentId] = useState('');
-    const [client_secret, setClientSecret] = useState();
-    const [loading, setLoading] = useState(false);
 
-    const [tax, setTax] = useState(0);
-    const [tip, setTip] = useState(0);
+
+    const [loading, setLoading] = useState(false);
+    const [loader, setLoder] = useState(false)
+
+
     const [error, setError] = useState(false);
     const [giftCardAmount, setGiftCardAmount] = useState(0);
-    // const [user, setUser] = useState(userGiftCards);
-    const [membership, setMembershipLevel] = useState(membershipLevel);
-    const [originalprice, setOriginalprice] = useState()
-    const [bookingid, setBookingId] = useState(null)
 
-    const [amountAddon, setAmountAddon] = useState(0);
+
     const [coupon, setCoupon] = useState("")
     const [coupon_amount, setCouponAmount] = useState(0)
+    const [giftcardValuedataId, setGiftcardvaluedataid] = useState([])
 
-    const [amount_addon, setAddsAmount] = useState(0)
+    const [pay, setPay] = useState(false);
 
-    const [price_provider, setTotalPrice] = useState()
-    const [provider_addon, setProvuideraddon] = useState()
-    const [serviceprice, setProvider_service] = useState()
-    const [meberhsip_provider_price, setMembership] = useState()
+    const amount_off = coupon_amount?.amount_off;
+    const percent_off = coupon_amount?.percent_off;
 
 
-    const [totalAmount, setTotalAmount] = useState(0);
-    const [serviceDetails, setServiceDetails] = useState({
-        price: 0,
-        service_name: ""
-    });
-
-    const amount_off = coupon_amount.amount_off
-    const percent_off = coupon_amount.percent_off
-
-    console.log("coupon amount originalpriceoriginalpriceoriginalpriceoriginalprice", originalprice)
-    console.log("percent_off amount charge", percent_off)
+    console.log("coupon_amount ,selectedGiftCards", selectedGiftCards)
 
 
 
-    useEffect(() => {
-        // Calculate total price for addons
-        if (Array.isArray(add_ons_details)) {
-            const totalAddonPrice = add_ons_details.reduce((total, addon) => total + addon.price, 0);
-            setAmountAddon(totalAddonPrice);
-        } else {
-            // If add_ons_details is not an array, set the total addon price to 0
-            setAmountAddon(0);
-        }
-    }, [add_ons_details]);
-
-
-
-
-
-    useEffect(() => {
-        // getUserMembership();
-        getUserGiftCards();
-    }, []);
-    console.log("userGiftCards userGiftCards", user)
-
-
-
-
-
-    useEffect(() => {
-        // Define default values for tip and tax rate
-        // const tip = 31.5;
-        const taxRate = 0.06625;
-        const percent_offRate = 0.06625;
-
-
-        // Initialize membership discount rate
-        let membershipDiscountRate = 0;
-        let couponDiscountRate = 0;
-
-        // Check if membership is Silver or Gold
-        if (membershipLevel === "Silver") {
-            // If Silver membership is selected, apply a 5% discount
-            membershipDiscountRate = 0.05;
-        } else if (membershipLevel === "Gold") {
-            // If Gold membership is selected, apply a 10% discount
-            membershipDiscountRate = 0.10;
-        }
-
-        if (amount_off) {
-            couponDiscountRate = amount_off;
-        }
-
-        const servicePricewithmemberhsip = 135 * (1 - membershipDiscountRate);
-        const membershipDiscountprice = 135 - servicePricewithmemberhsip;
-        const adds_onprice = (totalPrice - 135);
-        const tip = (servicePricewithmemberhsip + adds_onprice) * 0.18;
-        const Tax = (servicePricewithmemberhsip + adds_onprice) * taxRate;
-        const percent_ofDis = (servicePricewithmemberhsip * percent_offRate) / 100;
-        const totalAmounts = servicePricewithmemberhsip + adds_onprice + tip + Tax - couponDiscountRate - percent_ofDis;
-
-        // Update state variables
-        setServiceDetails({
-            price: totalAmounts,
-            service_name: servicename
-        });
-        setTax(Tax);
-        setTip(tip);
-        setTotalAmount(totalAmounts);
-        setAddsAmount(adds_onprice);
-        setOriginalprice(servicePricewithmemberhsip)
-        setMembershipDiscountRate(membershipDiscountprice)
-    }, [totalPrice, membershipLevel, formData.fifthform, amount_off, percent_off]);
-
-
-
-
-
-
-
-    useEffect(() => {
-        let tax = tip;
-        let addonsprice = amount_addon;
-        const time_status = service_time;
-        const memberhsip = memberhsipDiscount;
-        let basePrice = 70; // Initial base price
-
-        // console.log("amount_addon amount_addonamount_addon", amount_addon)
-
-        // Adjust base price based on service time
-        if (time_status === "90 minutes") {
-            basePrice += 35;
-        } else if (time_status === "120 minutes") {
-            basePrice += 70;
-        }
-
-        // Double the base price if gender is 'partner'
-        if (massage_for === "partner") {
-            basePrice *= 2;
-        }
-
-
-        // Add 14% of total add-ons price to totalPrice
-        let totalPriceAddons = addonsprice;
-
-        const calculateaadon = totalPriceAddons * 0.14;
-
-        //total value after adding adsonprice
-        let totalPriceWithAddons = basePrice + calculateaadon;
-
-
-
-        // Add tax amount to totalPrice
-        totalPriceWithAddons += tax;
-        setProvuideraddon(calculateaadon)
-        setMembership(memberhsip)
-        setProvider_service(basePrice)
-        setTotalPrice(totalPriceWithAddons);
-    }, [service_time, massage_for, amount_addon]);
-
-
-
-
-
-    var bookingData = {
+    var serviceDetails = {
         ...(userid ? {
             user: userid,
             customer_email: email,
@@ -239,36 +101,8 @@ const Conform = () => {
         }),
         location: locationName,
 
-        amount_calculation: {
-            amount_widthout_tax: totalAmount,
-            amount_service: 135,
-            amount_addon: amountAddon,
-            amount_tip: tip,
-            amount_tax: tax,
-            amount_membership_discount: memberhsipDiscount,
-            total_amount: totalPrice,
-        },
-
-
-        provider_amount_calculation: {
-            service_price: serviceprice,
-
-            amount_addon: provider_addon,
-            gift_cart_amount: giftCardAmount,
-
-            amount_tip: tip,
-            amount_membership_discount: memberhsipDiscount,
-            total_amount: price_provider,
-        },
-
-
-
-
-        // amount_service:amount_service,
-
-
-
-        paymentIntentId: paymentIntentId,
+        user_amount_calculation: calculatedData?.user_amount_calculation,
+        provider_amount_calculation: calculatedData?.provider_amount_calculation,
         location_type: location_type,
         massage_for: massage_for,
         service_id: service_id,
@@ -290,24 +124,26 @@ const Conform = () => {
         service_name: service_name
     };
 
-    console.log("provider_addonprovider_addonprovider_addonprovider_addonprovider_addon", bookingData)
+
 
 
     const handleCheckout = async () => {
         setLoading(true);
+        // setPay(true)
 
-        if (!booking_id && !bookingid && !provider_addon) {
+        if (!calculatedData.totalAmountWithTax) {
             setLoading(false);
             return false;
         }
 
-        const bookingId = bookingid || booking_id;
-
         try {
+
             const response = await axios.post(`${IP}/createCheckoutSession`, {
                 service_details: serviceDetails,
-                booking_id: bookingId
+                price: calculatedData?.totalAmountWithTax,
+                userId: userid
             });
+
             window.location.href = response.data.url;
         } catch (error) {
             console.error('Error creating checkout session:', error);
@@ -318,100 +154,130 @@ const Conform = () => {
 
 
 
-    useEffect(() => {
-        const sendBookingData = async () => {
-            try {
-
-                const response = await fetch(`${IP}/user/pendingbooking`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        Authorization: token,
-                    },
-                    body: JSON.stringify(bookingData)
-                });
-
-                if (!response.ok) {
-                    throw new Error('Failed to send booking data');
-                }
-
-                const responseData = await response.json();
-
-                if (!responseData || !responseData._id) {
-                    throw new Error('Invalid response from the server.');
-                }
-
-                // Set the booking ID in state and local storage
-                setBookingId(responseData._id);
-                localStorage.setItem("booking_id", responseData._id);
-                console.log('Booking data sent successfully:', responseData);
-            } catch (error) {
-                console.error('Error sending booking data:', error.message);
-                // Handle error here (e.g., show a notification to the user)
-            }
-        };
-
-        // Call the function to send booking data
-        sendBookingData();
-    }, [bookingData?.amount_calculation?.amount_tip, provider_addon, giftCardAmount, loading]); // Trigger when bookingData changes
 
 
+    const handleGiftCardChange = (giftdata) => {
+        let amount = giftdata?.amount;
+        const giftcardValueId = giftdata?.offerId?._id;
 
-
-    const handleGiftCardChange = (amount) => {
-        if (amount > totalAmount) {
-            // Notify the user that deselecting this gift card would exceed the total amount
-            toast.error("Deselecting this gift card would exceed the total amount.", {
-                position: "top-right",
-                autoClose: 2000,
-            });
-            return; // Exit the function, preventing further execution
+        // If the amount is greater than the total price, reduce it to match the total price
+        if (amount > totalPrice) {
+            amount = totalPrice;
         }
 
-        // Calculate the total gift card amount including the new amount
+        // Manage selected gift card amounts
         const updatedSelectedGiftCards = [...selectedGiftCards];
-        const index = updatedSelectedGiftCards.indexOf(amount);
-        if (index === -1) {
+        const amountIndex = updatedSelectedGiftCards.indexOf(amount);
+
+        if (amountIndex === -1) {
             // If the amount is not already selected, add it to the list
             updatedSelectedGiftCards.push(amount);
         } else {
             // If the amount is already selected, remove it from the list
-            updatedSelectedGiftCards.splice(index, 1);
+            updatedSelectedGiftCards.splice(amountIndex, 1);
         }
 
-        // Calculate the total gift card amount based on selected gift cards
+        // Calculate the total gift card amount
         const updatedGiftCardAmount = updatedSelectedGiftCards.reduce((acc, curr) => acc + curr, 0);
+        const formattedDiscountAmount = Number(updatedGiftCardAmount).toFixed(2);
 
-        // Calculate the adjusted service price after deducting the gift card amount
-        const adjustedServicePrice = totalAmount - updatedGiftCardAmount;
+        // Manage selected gift card IDs
+        const updatedGiftcardValuedataId = [...giftcardValuedataId];
+        const idIndex = updatedGiftcardValuedataId.indexOf(giftcardValueId);
 
-        // Update the state with new selected gift cards and adjusted service price
+        if (idIndex === -1) {
+            // If the ID is not already selected, add it to the list
+            updatedGiftcardValuedataId.push(giftcardValueId);
+        } else {
+            // If the ID is already selected, remove it from the list
+            updatedGiftcardValuedataId.splice(idIndex, 1);
+        }
+
+        // Update the state with new selected gift cards and IDs
         setSelectedGiftCards(updatedSelectedGiftCards);
-        setGiftCardAmount(updatedGiftCardAmount);
-        setServiceDetails({
-            ...serviceDetails,
-            price: adjustedServicePrice,
-        });
+        setGiftCardAmount(formattedDiscountAmount);
+        setGiftcardvaluedataid(updatedGiftcardValuedataId);
     };
 
 
 
+    // console.log("amountamountamountamountamountamountamountamountamountamountamount", giftcardValuedataId)
+
+
     const onCoupon = async () => {
-        console.log("coupon amount charge", coupon)
+
 
         try {
             const res = await axios.post(`${IP}/coupon/check_coupon`, { code: coupon });
             console.log(res);
 
             if (res.status === 200) {
+                const { amount_off, percent_off } = res.data;
+
+                if ((amount_off && amount_off > calculatedData?.totalAmountWithTax) || (percent_off && percent_off > calculatedData?.totalAmountWithTax)) {
+                    // Notify the user that applying this coupon would exceed the total amount
+                    toast.error("Applying this coupon would exceed the total amount.", {
+                        position: "top-right",
+                        autoClose: 2000,
+                    });
+                    return; // Exit the function, preventing further execution
+                }
                 setCouponAmount(res.data); // Assuming the coupon amount is returned in the response data
             }
         } catch (error) {
-            console.error(error);
+            console.error('Error checking coupon:', error);
+            toast.error("Error applying coupon. Please try again later.", {
+                position: "top-right",
+                autoClose: 2000,
+            });
         }
     };
 
 
+
+    useEffect(() => {
+
+        getUserGiftCards();
+    }, []);
+
+
+    useEffect(() => {
+        const calculateBooking = async () => {
+            setLoder(true)
+            try {
+                // console.log("mera name giftcard id hai", giftcardValuedataId)
+                // Ensure giftcardDiscountAmount is a number
+                const giftcardDiscountAmount = Number(giftCardAmount) || 0;
+                // Now safely apply toFixed
+                // const formattedDiscountAmount = giftcardDiscountAmount.toFixed(2);
+
+                // setLoading(true);
+                const response = await Post.createCalculation({
+                    service_id: location.state?.secondform?.service_ids,
+                    massage_for: massage_for,
+                    service_time: location.state?.secondform?.service_time,
+                    giftCardAmount: giftcardDiscountAmount,
+                    giftcardId: giftcardValuedataId,
+                    add_ons_details: location.state?.add_ons_details,
+                    coupon_amount: amount_off,
+                    coupon_percentage: percent_off,
+                    selectedGiftId: giftcardValuedataId
+                });
+
+                // console.log("response calculation data", response)
+                dispatch(updateInputData({ formName: 'calculatedData', inputData: response?.data?.calculatedata }));
+                setLoder(false)
+
+            } catch (error) {
+                console.error('Error calculating booking:', error);
+                setError('Error calculating booking. Please try again later.');
+            } finally {
+                // setLoading(false);
+            }
+        };
+
+        calculateBooking();
+    }, [giftCardAmount, giftcardValuedataId, coupon_amount, percent_off, location.state?.secondform?.service_ids, location.state?.secondform?.service_time, location.state?.add_ons_details, dispatch]);
 
 
 
@@ -422,6 +288,7 @@ const Conform = () => {
 
         <>
 
+
             <div className='container checkoutPage'>
                 <div className='row'>
                     <div className='col-md-4 centerFlex circle'><img src={vectorImg} alt='' className='col-md-12' /></div>
@@ -430,6 +297,7 @@ const Conform = () => {
                             <label style={{ textAlign: 'center', fontSize: '18px' }} className="as_title" htmlFor="">
                                 Review
                             </label>
+                            {loader ? "..." : null}
                             <ul className="review d-block">
                                 <div>
                                     <li>
@@ -600,93 +468,132 @@ const Conform = () => {
                                         </div>
                                     </div>
 
-
                                     <div>
                                         {user?.length > 0 ? (
                                             <>
                                                 <span className="title">Choose Gift Card:</span>
-                                                {user.map((cur, index) => (
+                                                {user.filter(cur => cur.amount > 0).map((cur, index) => (
                                                     <div className="gift-card-section" key={index}>
                                                         <label htmlFor={`use-gift-card-${index}`} className="ml-2"></label>
                                                         <div className="form-group row justify-content-center mb-0">
                                                             <div className="col-md-12 px-3 mt-2">
-                                                                <input type="checkbox" id={`use-gift-card-${index}`} onChange={() => handleGiftCardChange(cur?.offerId?.offerValue)} />
-                                                                <label htmlFor={`use-gift-card-${index}`} className="ml-2"> <span className='title'> Use your ${cur?.offerId?.offerValue} gift card</span></label>
+                                                                <input type="checkbox" id={`use-gift-card-${index}`} onChange={() => handleGiftCardChange(cur)} />
+                                                                <label htmlFor={`use-gift-card-${index}`} className="ml-2"> <span className='title'> Use your ${cur?.amount} gift card</span></label>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 ))}
                                             </>
                                         ) : (
-                                            <span className="title">Gift Card not purchased</span>
+                                            <>
+                                                {
+                                                    user?.length == 0 ? (
+                                                        <span className="title">Gift Card not purchased</span>
+                                                    ) : (
+                                                        < span className="title">Gift Card loading...</span>
+                                                    )
+
+                                                }
+
+                                            </>
+
                                         )}
                                     </div>
 
+                                    {loader ? (
+                                        <Loader
 
-
-                                    <div className="price" style={{ display: 'block', lineHeight: '10px' }}>
-                                        <p className="prices" style={{ fontSize: '17px' }}>
-                                            <span className='value'>
-                                                Amount: ${totalPrice}
-                                            </span></p>
-                                        <p className="prices" style={{ fontSize: '17px' }}>
-                                            <span className='value'>
-                                                18% Tip: ${tip.toFixed(2)}
-                                            </span></p>
-                                        <p className="prices" style={{ fontSize: '17px' }}>
-                                            <span className='value'>
-                                                6.625% Taxes: ${tax.toFixed(2)}
-                                            </span></p>
-
-
-
-                                        {amount_off && (
-                                            <p className="prices" style={{ fontSize: '17px' }}>
-                                                <span className='value'>
-                                                    Coupon Discount:${amount_off.toFixed(2)}
-
-                                                </span></p>
-                                        )}
-                                        {percent_off && (
-                                            <p className="prices" style={{ fontSize: '17px' }}>
-                                                <span className='value'>
-                                                    %Coupon Discount: ${percent_off / 100}%
-                                                </span></p>
-                                        )}
+                                        />) : (
+                                        <>
 
 
 
 
+                                            <div className="price" style={{ display: 'block', lineHeight: '10px' }}>
+                                                <p className="prices" style={{ fontSize: '17px' }}>
+                                                    <span className='value'>
+                                                        Total Service:  ${totalPrice}
+                                                    </span></p>
+
+                                                <p className="prices" style={{ fontSize: '17px' }}>
+                                                    <span className='value'>
+                                                        Gratuity: ${calculatedData?.tipAmount?.toFixed(2)}
+                                                    </span></p>
+                                                <p className="prices" style={{ fontSize: '17px' }}>
+                                                    <span className='value'>
+                                                        Sales Tax(6.625%): ${calculatedData?.taxAmount?.toFixed(2)}
+                                                    </span></p>
+
+                                                {
+
+                                                }
+
+                                                {amount_off || percent_off ? (
+                                                    <p className="prices" style={{ fontSize: '17px' }}>
+                                                        <span className='value'>
+                                                            Coupon Discount: -${calculatedData?.couponDiscountAmount.toFixed(2)}
+                                                        </span>
+                                                    </p>
+                                                ) : null}
+
+                                                {giftCardAmount ? (
+                                                    <p className="prices" style={{ fontSize: '17px' }}>
+                                                        <span className='value'>
+                                                            Gift Card Applied: -${giftCardAmount}
+                                                        </span>
+                                                    </p>
+                                                ) : null}
+
+                                                {
+                                                    calculatedData?.membershipDiscountAmount > 0 && (
+                                                        <p className="prices" style={{ fontSize: '17px' }}>
+                                                            <span className='value'>
+                                                                Membership Discount: ${calculatedData?.membershipDiscountAmount}
+
+                                                            </span></p>
+                                                    )
+                                                }
+
+
+                                                <p className="prices" style={{ fontSize: '17px' }} >
+                                                    <span className='value'>Total Balance: ${calculatedData?.totalAmountWithTax?.toFixed(2)}
+                                                    </span></p>
+
+                                            </div>
+                                        </>
+                                    )
+
+                                    }
 
 
 
-                                        {membershipLevel === "Silver" && (
-                                            <p className="prices" style={{ fontSize: '17px' }}>
-                                                <span className='value'>
-                                                    5% Silver Membership Discount: ${memberhsipDiscount}
 
-                                                </span></p>
-                                        )}
-                                        {membershipLevel === "Gold" && (
-                                            <p className="prices" style={{ fontSize: '17px' }}>
-                                                <span className='value'>
-                                                    10% Gold Membership Discount: ${memberhsipDiscount}
-                                                </span></p>
-                                        )}
-                                        <p className="prices" style={{ fontSize: '17px' }} >
-                                            <span className='value'>Total: ${totalAmount.toFixed(2)}
-                                            </span></p>
-
-                                    </div>
 
                                 </li>
                             </ul>
 
-                            {serviceDetails && (
+                            {!loader && (
                                 <div>
+                                    <div>
+                                        <label>
+                                            <input
+                                                type="checkbox"
+                                                checked={termsAccepted}
+                                                onChange={handleAccept}
+                                            />{"  "}
+                                            I agree to the{" "}
+                                            <a
+                                                href='http://productivealliance.com/agreemnet'
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                terms and conditions of the agreemnet!
+                                            </a>
+                                        </label>
+                                    </div>
 
                                     <div style={{ textAlign: 'center' }}>
-                                        <button className="button" onClick={handleCheckout}>{loading ? "Loading..." : `Proceed to Pay ${(totalAmount - giftCardAmount).toFixed(2)}`}</button>
+                                        <button className={`${termsAccepted ? "button" : "disabled-button"}`} disabled={!termsAccepted} onClick={handleCheckout}>{loading ? "Loading..." : `Proceed to Pay ${calculatedData?.totalAmountWithTax?.toFixed(2)}`}</button>
                                     </div>
                                 </div>
                             )}
@@ -694,8 +601,9 @@ const Conform = () => {
                         </div>
                     </div>
                 </div>
-            </div>
-            {error && <p style={{ color: 'red', textAlign: 'center', marginTop: '10px' }}>{error}</p>}
+            </div >
+            {error && <p style={{ color: 'red', textAlign: 'center', marginTop: '10px' }}>{error}</p>
+            }
         </>
 
 

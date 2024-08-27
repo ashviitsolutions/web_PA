@@ -145,7 +145,7 @@ function Yourcard() {
                         {user.length === 0 ? (
                             <p>No gift cards available</p>
                         ) : (
-                            user.map((cur, index) => (
+                            user.filter(cur => cur.amount > 0).map((cur, index) => (
                                 <div className='gift_input col-md-4' key={index}>
                                     <div className='gift_image'>
                                         <img src={images[index]} alt='...' />
@@ -164,7 +164,7 @@ function Yourcard() {
                                             </div>
                                             <div className="content_container_gift_card_para">
                                                 <div className="d-block">
-                                                    {/* <p>Price: ${cur?.offerId?.price}</p> */}
+                                                   
                                                     <p>Card Value: ${cur?.amount}</p>
                                                 </div>
                                             </div>

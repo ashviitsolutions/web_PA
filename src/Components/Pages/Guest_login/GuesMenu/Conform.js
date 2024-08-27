@@ -16,7 +16,7 @@ import Loader from '../../Loader';
 const Conform = () => {
     const { totalPrice } = useParams();
 
-    console.log("numbernumber", totalPrice)
+    // console.log("numbernumber", totalPrice)
     const [termsAccepted, setTermsAccepted] = useState(false);
     const dispatch = useDispatch();
     const selector = useSelector((state) => state.counter.formData);
@@ -78,7 +78,7 @@ const Conform = () => {
 
     const [coupon, setCoupon] = useState("")
     const [coupon_amount, setCouponAmount] = useState(0)
-    const [giftcardValuedataId, setGiftcardvaluedataid] = useState("")
+    const [giftcardValuedataId, setGiftcardvaluedataid] = useState([])
 
     const [pay, setPay] = useState(false);
 
@@ -86,9 +86,14 @@ const Conform = () => {
     const percent_off = coupon_amount?.percent_off;
 
 
-    console.log("coupon_amount ,percent_off", coupon_amount, percent_off)
-    console.log("calculatedData?.provider_amount_calculation", calculatedData)
 
+    // Calculate the total gift card amount
+    const updatedGiftCardAmount = selectedGiftCards.reduce((acc, curr) => acc + curr, 0);
+    const summationGiftcardAmount = Number(updatedGiftCardAmount).toFixed(2);
+
+    console.log("formattedDiscountAmountformattedDiscountAmount", giftcardValuedataId)
+
+    console.log("coupon_amount ,selectedGiftCards", selectedGiftCards)
 
     var serviceDetails = {
         ...(userid ? {
@@ -155,45 +160,47 @@ const Conform = () => {
 
 
 
-
     const handleGiftCardChange = (giftdata) => {
         let amount = giftdata?.amount;
         const giftcardValueId = giftdata?.offerId?._id;
 
-        console.log("amountamountamountamount", amount)
-
         // If the amount is greater than the total price, reduce it to match the total price
-        if (amount > totalPrice) {
-            amount = totalPrice;
-        }
+        // if (summationGiftcardAmount > totalPrice) {
+        //     summationGiftcardAmount = totalPrice; // Reduce amount to match the total price
+        // }
 
-        console.log("amountiftCardAmountgiftCardAmountgiftCardAmount", amount)
-
-        // Calculate the total gift card amount including the new amount
+        // Manage selected gift card amounts
         const updatedSelectedGiftCards = [...selectedGiftCards];
-        const index = updatedSelectedGiftCards.indexOf(amount);
+        const amountIndex = updatedSelectedGiftCards.indexOf(amount);
 
-        if (index === -1) {
+        if (amountIndex === -1) {
             // If the amount is not already selected, add it to the list
             updatedSelectedGiftCards.push(amount);
         } else {
             // If the amount is already selected, remove it from the list
-            updatedSelectedGiftCards.splice(index, 1);
+            updatedSelectedGiftCards.splice(amountIndex, 1);
         }
 
-        // Calculate the total gift card amount based on selected gift cards
+        // Calculate the total gift card amount
         const updatedGiftCardAmount = updatedSelectedGiftCards.reduce((acc, curr) => acc + curr, 0);
-        // Ensure giftcardDiscountAmount is a number
-        const giftcardDiscountAmount = Number(updatedGiftCardAmount) || 0;
-        // Now safely apply toFixed
-        const formattedDiscountAmount = giftcardDiscountAmount.toFixed(2);
+        const formattedDiscountAmount = Number(updatedGiftCardAmount).toFixed(2);
 
-        // Use the formattedDiscountAmount in your logic
-        // console.log(formattedDiscountAmount);
-        // Update the state with new selected gift cards and adjusted service price
+        // Manage selected gift card IDs
+        const updatedGiftcardValuedataId = [...giftcardValuedataId];
+        const idIndex = updatedGiftcardValuedataId.indexOf(giftcardValueId);
+
+        if (idIndex === -1) {
+            // If the ID is not already selected, add it to the list
+            updatedGiftcardValuedataId.push(giftcardValueId);
+        } else {
+            // If the ID is already selected, remove it from the list
+            updatedGiftcardValuedataId.splice(idIndex, 1);
+        }
+        // 
+        // Update the state with new selected gift cards and IDs
         setSelectedGiftCards(updatedSelectedGiftCards);
         setGiftCardAmount(formattedDiscountAmount);
-        setGiftcardvaluedataid(giftcardValueId);
+        setGiftcardvaluedataid(updatedGiftcardValuedataId);
     };
 
 
@@ -241,7 +248,7 @@ const Conform = () => {
         const calculateBooking = async () => {
             setLoder(true)
             try {
-                // console.log("giftCardAmountgiftCardAmountgiftCardAmountgiftCardAmount", giftCardAmount)
+                // console.log("mera name giftcard id hai", giftcardValuedataId)
                 // Ensure giftcardDiscountAmount is a number
                 const giftcardDiscountAmount = Number(giftCardAmount) || 0;
                 // Now safely apply toFixed
@@ -256,10 +263,12 @@ const Conform = () => {
                     giftcardId: giftcardValuedataId,
                     add_ons_details: location.state?.add_ons_details,
                     coupon_amount: amount_off,
-                    coupon_percentage: percent_off
+                    coupon_percentage: percent_off,
+                    selectedGiftCards: selectedGiftCards,
+                    selectedGiftId: giftcardValuedataId
                 });
 
-                console.log("response calculation data", response)
+                // console.log("response calculation data", response)
                 dispatch(updateInputData({ formName: 'calculatedData', inputData: response?.data?.calculatedata }));
                 setLoder(false)
 
@@ -272,10 +281,10 @@ const Conform = () => {
         };
 
         calculateBooking();
-    }, [giftCardAmount, coupon_amount, percent_off, location.state?.secondform?.service_ids, location.state?.secondform?.service_time, location.state?.add_ons_details, dispatch]);
+    }, [giftCardAmount, giftcardValuedataId, selectedGiftCards, coupon_amount, percent_off, location.state?.secondform?.service_ids, location.state?.secondform?.service_time, location.state?.add_ons_details, dispatch]);
 
 
-
+    console.log("calculartion data", calculatedData)
 
 
 
@@ -467,7 +476,7 @@ const Conform = () => {
                                         {user?.length > 0 ? (
                                             <>
                                                 <span className="title">Choose Gift Card:</span>
-                                                {user.map((cur, index) => (
+                                                {user.filter(cur => cur.amount > 0).map((cur, index) => (
                                                     <div className="gift-card-section" key={index}>
                                                         <label htmlFor={`use-gift-card-${index}`} className="ml-2"></label>
                                                         <div className="form-group row justify-content-center mb-0">
