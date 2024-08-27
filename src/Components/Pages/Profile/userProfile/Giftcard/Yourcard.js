@@ -164,7 +164,7 @@ function Yourcard() {
                                             </div>
                                             <div className="content_container_gift_card_para">
                                                 <div className="d-block">
-                                                   
+
                                                     <p>Card Value: ${cur?.amount}</p>
                                                 </div>
                                             </div>

@@ -135,12 +135,12 @@ function BuyCard() {
 			};
 			const response = await axios.post(`${IP}/payment/add-giftcard-payment`, paymentData, config);
 			if (response.status === 200) {
-				nav(`/userProfile`);
+				nav(`/userProfile/usergift`);
 			}
 			console.log("Payment successful:", response.data);
 		} catch (error) {
 			console.error("Error processing payment:", error);
-			nav(`/userProfile`);
+			nav(`/userProfile/usergift`);
 		}
 	};
 

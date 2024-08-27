@@ -53,7 +53,7 @@ function Review() {
                         progress: undefined,
                         theme: "light",
                         onClose: () => {
-                            nav("/userProfile");
+                            nav("/userProfile/bookinghistory");
                         },
                     });
                 }

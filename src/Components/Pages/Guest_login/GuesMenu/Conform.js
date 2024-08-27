@@ -66,7 +66,7 @@ const Conform = () => {
 
 
     const [selectedGiftCards, setSelectedGiftCards] = useState([]);
-
+    const [senedGiftCardAmount, setSenedGiftCardAmount] = useState([]);
 
     const [loading, setLoading] = useState(false);
     const [loader, setLoder] = useState(false)
@@ -87,13 +87,16 @@ const Conform = () => {
 
 
 
-    // Calculate the total gift card amount
-    const updatedGiftCardAmount = selectedGiftCards.reduce((acc, curr) => acc + curr, 0);
-    const summationGiftcardAmount = Number(updatedGiftCardAmount).toFixed(2);
+    // const updatedGiftCardAmount = selectedGiftCards.reduce((acc, curr) => acc + curr, 0);
+    // const summationGiftcardAmount = Number(updatedGiftCardAmount).toFixed(2);
+
+
 
     console.log("formattedDiscountAmountformattedDiscountAmount", giftcardValuedataId)
 
-    console.log("coupon_amount ,selectedGiftCards", selectedGiftCards)
+    console.log("coupon_amount ,selectedGiftCards", senedGiftCardAmount)
+    // Calculate the total gift card amount
+
 
     var serviceDetails = {
         ...(userid ? {
@@ -160,18 +163,13 @@ const Conform = () => {
 
 
 
-    const handleGiftCardChange = (giftdata) => {
-        let amount = giftdata?.amount;
+    const handleGiftCardChangesssss = (giftdata) => {
+        const amount = giftdata?.amount;
         const giftcardValueId = giftdata?.offerId?._id;
-
-        // If the amount is greater than the total price, reduce it to match the total price
-        // if (summationGiftcardAmount > totalPrice) {
-        //     summationGiftcardAmount = totalPrice; // Reduce amount to match the total price
-        // }
 
         // Manage selected gift card amounts
         const updatedSelectedGiftCards = [...selectedGiftCards];
-        const amountIndex = updatedSelectedGiftCards.indexOf(amount);
+        const amountIndex = updatedSelectedGiftCards.indexOf(amount); // Use amount to check for presence
 
         if (amountIndex === -1) {
             // If the amount is not already selected, add it to the list
@@ -182,7 +180,7 @@ const Conform = () => {
         }
 
         // Calculate the total gift card amount
-        const updatedGiftCardAmount = updatedSelectedGiftCards.reduce((acc, curr) => acc + curr, 0);
+        const updatedGiftCardAmount = updatedSelectedGiftCards.reduce((acc, curr) => acc + Number(curr), 0); // Ensure conversion to number
         const formattedDiscountAmount = Number(updatedGiftCardAmount).toFixed(2);
 
         // Manage selected gift card IDs
@@ -196,15 +194,42 @@ const Conform = () => {
             // If the ID is already selected, remove it from the list
             updatedGiftcardValuedataId.splice(idIndex, 1);
         }
-        // 
+
+        // Update the gift card amount based on the total price
+        const newGiftCardAmount = formattedDiscountAmount >= totalPrice ? totalPrice : formattedDiscountAmount;
+        setGiftCardAmount(Number(newGiftCardAmount)); // Ensure it's a number
+
         // Update the state with new selected gift cards and IDs
         setSelectedGiftCards(updatedSelectedGiftCards);
-        setGiftCardAmount(formattedDiscountAmount);
         setGiftcardvaluedataid(updatedGiftcardValuedataId);
+        setSenedGiftCardAmount(Number(newGiftCardAmount))
     };
 
 
-    // console.log("amountamountamountamountamountamountamountamountamountamountamount", giftcardValuedataId)
+    const handleGiftCardChange = (giftdata) => {
+        const amount = giftdata?.amount;
+        const giftcardValueId = giftdata?.offerId?._id;
+    
+        // Clear previous selections
+        const updatedSelectedGiftCards = [amount];
+        const updatedGiftcardValuedataId = [giftcardValueId];
+    
+        // Calculate the total gift card amount
+        const updatedGiftCardAmount = updatedSelectedGiftCards.reduce((acc, curr) => acc + Number(curr), 0); // Ensure conversion to number
+        const formattedDiscountAmount = Number(updatedGiftCardAmount).toFixed(2);
+    
+        // Update the gift card amount based on the total price
+        const newGiftCardAmount = formattedDiscountAmount >= totalPrice ? totalPrice : formattedDiscountAmount;
+        setGiftCardAmount(Number(newGiftCardAmount)); // Ensure it's a number
+    
+        // Update the state with new selected gift cards and IDs
+        setSelectedGiftCards(updatedSelectedGiftCards);
+        setGiftcardvaluedataid(updatedGiftcardValuedataId);
+        setSenedGiftCardAmount(Number(newGiftCardAmount));
+    };
+    
+
+
 
 
     const onCoupon = async () => {
@@ -264,7 +289,8 @@ const Conform = () => {
                     add_ons_details: location.state?.add_ons_details,
                     coupon_amount: amount_off,
                     coupon_percentage: percent_off,
-                    selectedGiftCards: selectedGiftCards,
+                    // selectedGiftCards: selectedGiftCards,
+                    selectedGiftCards: senedGiftCardAmount,
                     selectedGiftId: giftcardValuedataId
                 });
 
@@ -285,6 +311,8 @@ const Conform = () => {
 
 
     console.log("calculartion data", calculatedData)
+
+    // calculation of data
 
 
 
@@ -473,36 +501,41 @@ const Conform = () => {
                                     </div>
 
                                     <div>
-                                        {user?.length > 0 ? (
-                                            <>
-                                                <span className="title">Choose Gift Card:</span>
-                                                {user.filter(cur => cur.amount > 0).map((cur, index) => (
-                                                    <div className="gift-card-section" key={index}>
-                                                        <label htmlFor={`use-gift-card-${index}`} className="ml-2"></label>
-                                                        <div className="form-group row justify-content-center mb-0">
-                                                            <div className="col-md-12 px-3 mt-2">
-                                                                <input type="checkbox" id={`use-gift-card-${index}`} onChange={() => handleGiftCardChange(cur)} />
-                                                                <label htmlFor={`use-gift-card-${index}`} className="ml-2"> <span className='title'> Use your ${cur?.amount} gift card</span></label>
-                                                            </div>
+                                    {user?.length > 0 ? (
+                                        <>
+                                            <span className="title">Choose Gift Card:</span>
+                                            {user.filter(cur => cur.amount > 0).map((cur, index) => (
+                                                <div className="gift-card-section" key={index}>
+                                                    <label htmlFor={`use-gift-card-${index}`} className="ml-2"></label>
+                                                    <div className="form-group row justify-content-center mb-0">
+                                                        <div className="col-md-12 px-3 mt-2">
+                                                            <input
+                                                                type="checkbox"
+                                                                id={`use-gift-card-${index}`}
+                                                                checked={selectedGiftCards.includes(cur?.amount)} // Check if the current card is selected
+                                                                onChange={() => handleGiftCardChange(cur)}
+                                                            />
+                                                            <label htmlFor={`use-gift-card-${index}`} className="ml-2">
+                                                                <span className='title'> Use your ${cur?.amount} gift card</span>
+                                                            </label>
                                                         </div>
                                                     </div>
-                                                ))}
-                                            </>
-                                        ) : (
-                                            <>
-                                                {
-                                                    user?.length == 0 ? (
-                                                        <span className="title">Gift Card not purchased</span>
-                                                    ) : (
-                                                        < span className="title">Gift Card loading...</span>
-                                                    )
-
-                                                }
-
-                                            </>
-
-                                        )}
-                                    </div>
+                                                </div>
+                                            ))}
+                                        </>
+                                    ) : (
+                                        <>
+                                            {
+                                                user?.length === 0 ? (
+                                                    <span className="title">Gift Card not purchased</span>
+                                                ) : (
+                                                    <span className="title">Gift Card loading...</span>
+                                                )
+                                            }
+                                        </>
+                                    )}
+                                </div>
+                                
 
                                     {loader ? (
                                         <Loader
@@ -543,7 +576,7 @@ const Conform = () => {
                                                 {giftCardAmount ? (
                                                     <p className="prices" style={{ fontSize: '17px' }}>
                                                         <span className='value'>
-                                                            Gift Card Applied: -${giftCardAmount}
+                                                            Gift Card Applied: -${calculatedData?.giftcardDiscountAmount}
                                                         </span>
                                                     </p>
                                                 ) : null}
