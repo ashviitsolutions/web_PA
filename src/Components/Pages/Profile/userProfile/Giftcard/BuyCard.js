@@ -135,7 +135,7 @@ function BuyCard() {
 			};
 			const response = await axios.post(`${IP}/payment/add-giftcard-payment`, paymentData, config);
 			if (response.status === 200) {
-				nav(`/userProfile/usergift`);
+				nav(`/userProfile`);
 			}
 			console.log("Payment successful:", response.data);
 		} catch (error) {
