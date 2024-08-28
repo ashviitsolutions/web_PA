@@ -555,7 +555,7 @@ const Conform = () => {
                                                 {giftCardAmount ? (
                                                     <p className="prices" style={{ fontSize: '17px' }}>
                                                         <span className='value'>
-                                                            Gift Card Applied: -${calculatedData?.giftcardDiscountAmount}
+                                                            Gift Card Applied: -${calculatedData?.giftcardDiscountAmount.toFixed(2)}
                                                         </span>
                                                     </p>
                                                 ) : null}
