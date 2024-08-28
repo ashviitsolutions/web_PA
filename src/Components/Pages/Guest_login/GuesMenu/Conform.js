@@ -495,7 +495,7 @@ const Conform = () => {
                                                                     onChange={() => handleGiftCardChange(cur)}
                                                                 />
                                                                 <label htmlFor={`use-gift-card-${index}`} className="ml-2">
-                                                                    <span className='title'> Use your ${cur?.amount} gift card</span>
+                                                                    <span className='title'> Use your ${cur?.amount?.toFixed(2)} gift card</span>
                                                                 </label>
                                                             </div>
                                                         </div>
@@ -547,15 +547,26 @@ const Conform = () => {
                                                 {amount_off || percent_off ? (
                                                     <p className="prices" style={{ fontSize: '17px' }}>
                                                         <span className='value'>
-                                                            Coupon Discount: -${calculatedData?.couponDiscountAmount.toFixed(2)}
+                                                            Coupon Discount: -${calculatedData?.couponDiscountAmount?.toFixed(2)}
                                                         </span>
                                                     </p>
                                                 ) : null}
 
-                                                {giftCardAmount ? (
+
+                                                {calculatedData?.totalAmountWithTax?.toFixed(2) === '0.99' ? (
                                                     <p className="prices" style={{ fontSize: '17px' }}>
                                                         <span className='value'>
-                                                            Gift Card Applied: -${calculatedData?.giftcardDiscountAmount.toFixed(2)}
+                                                            Gift Processing Fee: $0.99
+                                                        </span>
+                                                    </p>
+                                                ) : null}
+                                                
+
+                                                {giftCardAmount ? (
+                                                    <p className="prices" style={{ fontSize: '17px' }}>
+
+                                                        <span className='value'>
+                                                            Gift Card Applied: -${calculatedData?.giftcardDiscountAmount?.toFixed(2)}
                                                         </span>
                                                     </p>
                                                 ) : null}
