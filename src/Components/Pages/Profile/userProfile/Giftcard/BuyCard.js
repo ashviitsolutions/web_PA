@@ -171,7 +171,7 @@ function BuyCard() {
 										<div className="content_container_gift_card_para">
 											<div className="d-block">
 												{/* <p>Price: ${card.price}</p> */}
-												<p>Card Value: ${card.offerValue}</p>
+												<p>Card Value: ${card.price}</p>
 											</div>
 											<StripeCheckout
 												amount={card.price * 100}
