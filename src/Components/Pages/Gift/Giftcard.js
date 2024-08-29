@@ -1,188 +1,131 @@
-import React, { useState } from 'react';
-import { ProgressBar } from "react-bootstrap";
-import Image7 from "../../assets/img/gift.png"
-import Image8 from "../../assets/img/gift (2).png"
-import Image9 from "../../assets/img/gift (1).png"
-import Image4 from "../../assets/img/gift-card.png"
-import Image5 from "../../assets/img/present.png"
-import Image6 from "../../assets/img/gift-card.png"
-import Slider from './Slider'
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
+import React, { useState, useEffect } from "react";
+import { IP } from "../../../Constant";
+import axios from "axios";
+import { useParams, useNavigate } from "react-router-dom";
+import StripeCheckout from "react-stripe-checkout";
+import { useDispatch, useSelector } from 'react-redux';
+import { updateInputData } from "../Redux/counterSlice";
 
 function Giftcard() {
-  const [value, onChange] = useState(new Date());
-  const [now, setNow] = useState(25);
+  const user_id = localStorage.getItem("userid");
+  const nav = useNavigate();
+  // const [user, setUser] = useState([]);
+  const [clientSecret, setClientSecret] = useState(null);
+  const [offerId, setOfferId] = useState(null);
+  const [prices, setPrices] = useState(null);
+  const [ID, setID] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  const formData = useSelector((state) => state?.counter?.formData);
+  const user = formData.list_giftcard && formData.list_giftcard[0] ? formData.list_giftcard[0] : "";
+  const mygifcart = formData.my_giftcard && formData.my_giftcard[0] ? formData.my_giftcard[0] : "";
+  const imgs = formData.about_team_image && formData.about_team_image[0] ? formData.about_team_image[0] : "";
 
-  const nextStep = () => {
-    if (now === 25) {
-      setNow(50);
-    } else if (now === 50) {
-      setNow(75);
-    } else if (now === 75) {
-      setNow(100);
-    }
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch(`${IP}/coupon/fetch`);
+        const data = await res.json();
+        console.log("giftcard filter data", data)
+        const filteredGiftCards = data?.coupons?.filter((d) => d.type === "gift_card");
+        // setUser(filteredGiftCards);
+        dispatch(updateInputData({ formName: 'list_giftcard', inputData: filteredGiftCards }));
+      } catch (error) {
+        console.error("Error fetching gift cards:", error);
+      }
+    };
+    fetchData();
+  }, []);
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const config = {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        };
+        const res = await fetch(`${IP}/user/giftCards-data`, config);
+        const data = await res.json();
+        setID(data?.data);
+        dispatch(updateInputData({ formName: 'my_giftcard', inputData: data?.data }));
+      } catch (error) {
+        console.error("Error fetching user gift cards:", error);
+      }
+    };
+    fetchData();
+  }, [user]);
+
+
+
+  console.log("user gioftc card", user)
+
+
+
+
+
+
+
+
+
+ 
+
+  const onSubmit = () => {
+    nav(`/userProfile/usergift`);
   };
 
-  const previousStep = () => {
-    setNow(now > 26 ? now - 25 : now);
-  };
 
   return (
-    <div id="gift_card">
-      <div className="container">
-        <div className="row">
-          <div className="col-sm-4">
-            <Slider />
-          </div>
-          <div className="col-sm-8">
-            <ProgressBar className="mt-4" now={now} label={`${now}%`} onClick={previousStep} />
-            {now === 25 && (
-              <div id="section_group" className="section_group">
-                <div id="sec_wiz_1" className="section" active="">
-
-                  <ul id="" className="gender_holder float_wrapper" >
-                    <li className="item" onClick={nextStep}>
-                      <span className="icon" style={{ backgroundImage: `url(${Image4})` }}></span>
-                      <span className="text">digital gift card</span>
-                    </li>
-                    <li className="item" onClick={nextStep}>
-                      <span className="icon" style={{ backgroundImage: `url(${Image5})` }}></span>
-                      <span className="text">buy in bulk</span>
-                    </li>
-                  </ul>
-                </div>
-
-
-              </div>
-            )}
-            {now >= 50 && now < 75 && (
-              <div id="sec_wiz_2 mt-2" className="section">
-                <div className="heading">
-                  <h3>Recipient Location</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                </div>
-
-                <div className="input_group search">
-                  <input className="input" type="text" name="" value="" required />
-                  <label htmlFor="">search location</label>
-                </div>
-
-                <button className="lazy button" type="button" onClick={nextStep}>next</button>
-              </div>
-
-            )}
-
-
-            {now >= 75 && now < 100 && (
-              <div id="sec_wiz_3" className="section">
-                <ul id="gender_holder" className="gender_holder float_wrapper" style={{ marginTop: "20px", marginBottom: "20px" }}>
-                  <li style={{ width: "calc(25% - 10px)", marginTop: "5px" }} className="item" onClick={nextStep} >
-                    <span className="icon" style={{ backgroundImage: `url(${Image6})` }}></span>
-                    <span className="text big">$100</span>
-                    <p>Lorem ipsum dolor sit</p>
-                  </li>
-                  <li style={{ width: "calc(25% - 10px)" }} className="item" onClick={nextStep}>
-                    <span className="icon" style={{ backgroundImage: `url(${Image7})` }} ></span>
-                    <span className="text big">$200</span>
-                    <p>Lorem ipsum dolor sit</p>
-                  </li>
-                  <li style={{ width: "calc(25% - 10px)" }} className="item" onClick={nextStep}>
-                    <span className="icon" style={{ backgroundImage: `url(${Image8})` }}></span>
-                    <span className="text big">$500</span>
-                    <p>Lorem ipsum dolor sit</p>
-                  </li>
-                  <li style={{ width: "calc(25% - 10px)" }} className="item" onClick={nextStep}>
-                    <span className="icon" style={{ backgroundImage: `url(${Image9})` }}></span>
-                    <span className="text big">$1000</span>
-                    <p>Lorem ipsum dolor sit</p>
-                  </li>
-                </ul>
-
-                <button className="lazy button" type="button" onClick={nextStep}>next</button>
-              </div>
-            )}
-
-
-
-
-            {now === 100 && (
-              <div id="sec_wiz_4" className="section">
-                <htmlForm className="" action="index.html">
-                  <div className="container-fluid">
-                    <div className="row">
-                      <div className="col-sm-12">
-                        <div className="input_group" style={{ textAlign: 'center' }}>
-                          <label htmlFor="" className="static">date of delivery</label>
-
-                          <div style={{ display: "inline-block", marginTop: "1rem" }} id="datepicker" ></div>
-                          <Calendar onChange={onChange} value={value} />
-                        </div>
-                      </div>
+    <>
+      <div className='mb-5'></div>
+      <div id="gift_card_container_main" className="container">
+        {Array?.isArray(user) && user?.length > 0 && user?.map((card, index) => {
+          const IDOfferId = ID?.map(item => item?.offerId?._id);
+          const shouldRenderCard = !IDOfferId?.includes(card._id);
+          if (shouldRenderCard) {
+            return (
+              <div className="Gift_card_container_buy" key={index}>
+                <div className="gift_card_buy_item">
+                  <div className="image_container_gift_card">
+                    <img
+                      src={`${IP}/file/${card.attachments}`}
+                      alt="..."
+                      width={100}
+                      height={150}
+                    />
+                  </div>
+                  <div className="content_container_gift_card">
+                    <h3>{card.title}</h3>
+                    <div className="content_container_gift_card_dis">
+                      <p className="description">{card.description}</p>
                     </div>
-                    <div className="row">
-                      <div className="col-sm-6">
-                        <div className="input_group">
-                          <input className="input" type="text" name="" value="" required />
-                          <label htmlFor="">Recipient name</label>
-                        </div>
+                    <div className="content_container_gift_card_para">
+                      <div className="d-block">
+                        {/* <p>Price: ${card.price}</p> */}
+                        <p>Card Value: ${card.price}</p>
                       </div>
-                      <div className="col-sm-6">
-                        <div className="input_group">
-                          <input className="input" type="text" name="" value="" required />
-                          <label htmlFor="">your name</label>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <div className="col-sm-6">
-                        <div className="input_group">
-                          <input className="input" type="text" name="" value="" required />
-                          <label htmlFor="">Recipient email</label>
-                        </div>
-                      </div>
-                      <div className="col-sm-6">
-                        <div className="input_group">
-                          <input className="input" type="text" name="" value="" required />
-                          <label htmlFor="">Recipient phone</label>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="row">
-                      <div className="col-sm-12">
-                        <div className="input_group">
-                          <textarea className="input" name="name" rows="5" cols="80"></textarea>
-                          <label htmlFor="">your message</label>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="row">
-                      <button className="lazy button" type="button" name="button">add to cart </button>
+                      <button
+                        id="Buy_gift_card"
+                        className=""
+                        onClick={onSubmit}
+                      >
+                        Buy Now
+                      </button>
                     </div>
                   </div>
-                </htmlForm>
+                </div>
               </div>
-
-
-            )}
-
-
-            {now > 25 && (
-              <p className="backbutton" onClick={previousStep}> 
-              &laquo; Back
-            </p>
-            
-            )}
-
-
-
-
-
-          </div>
-        </div>
+            );
+          } else {
+            return null;
+          }
+        })}
       </div>
-    </div>
+
+    </>
   );
 }
 

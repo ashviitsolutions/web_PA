@@ -1,3 +1,5 @@
+
+
 /*extra small*/
 @media (max-width:992px) {
     .modal-wrapper-review {
@@ -197,8 +199,9 @@
         word-spacing: 3px;
         background: linear-gradient(45deg, #2196f3, #00bcd4);
         border: none;
-      
+
     }
+
     #types {
         position: relative;
         padding: 12px;
@@ -1045,3 +1048,24 @@
 @media (min-width:1200px) {}
 
 /*large end*/
+
+@media  (max-width: 1200px) {
+
+    #navigation .logo img {
+        width: 172px !important;
+        margin-top: -5px;
+    }
+
+    #navigation .nav_bar li a {
+        position: relative;
+        display: block;
+        font-size: 13px;
+        font-weight: 300;
+        text-transform: capitalize;
+        padding: 11px 0px;
+        color: #ffffff;
+        text-decoration: none;
+        transition: all 0.2s ease-in-out;
+    }
+
+}

@@ -125,6 +125,9 @@ function Navbar() {
                             <li>
                                 <Link to="/become_provider" onClick={toggleLinks}>become provider</Link>
                             </li>
+                            <li>
+                                <Link to="/giftcard" onClick={toggleLinks}> Gift Card</Link>
+                            </li>
                             <li className="withicon">
                                 <span className="icon" ></span>
                                 <Link to="/guest_login" onClick={toggleLinks}>Book now</Link>
