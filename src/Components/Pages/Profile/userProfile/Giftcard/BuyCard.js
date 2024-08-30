@@ -6,6 +6,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import StripeCheckout from "react-stripe-checkout";
 import { useDispatch, useSelector } from 'react-redux';
 import { updateInputData } from "../../../Redux/counterSlice";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 function BuyCard() {
 	const user_id = localStorage.getItem("userid");
@@ -135,12 +137,34 @@ function BuyCard() {
 			};
 			const response = await axios.post(`${IP}/payment/add-giftcard-payment`, paymentData, config);
 			if (response.status === 200) {
-				nav(`/userProfile`);
+				toast.success("Your gift card purchase was successful", {
+					position: "top-right",
+					autoClose: 2000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: "light",
+					onClose: () => {
+						nav("/userProfile");
+					},
+				});
+
 			}
 			console.log("Payment successful:", response.data);
 		} catch (error) {
-			console.error("Error processing payment:", error);
-			nav(`/userProfile/usergift`);
+			toast.error(error.response?.data?.message || "An error occurred", {
+				position: "top-right",
+				autoClose: 3000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				theme: "light",
+			});
+			// nav(`/userProfile/usergift`);
 		}
 	};
 
@@ -200,6 +224,8 @@ function BuyCard() {
 					}
 				})}
 			</div>
+
+			 <ToastContainer />
 
 		</>
 	);

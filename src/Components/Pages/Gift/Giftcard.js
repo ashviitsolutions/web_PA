@@ -71,7 +71,7 @@ function Giftcard() {
 
 
 
- 
+
 
   const onSubmit = () => {
     nav(`/userProfile/usergift`);
