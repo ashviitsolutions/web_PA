@@ -216,6 +216,12 @@
         flex: 1 1 100% !important;
 
     }
+    .gift-card-banner-add {
+        position: absolute;
+        top: 50px;
+        left: 14px;
+        width: 95%;
+    }
 }
 
 @media (max-width: 580px) {

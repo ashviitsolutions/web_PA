@@ -58,7 +58,7 @@ function Banner() {
             <div className="head" id="bannerservices">
               <div className='banner_sub_section'>
                 {users && users.map((user, index) => (
-                  <div key={index}>
+                  <div key={index} className='gift-card-banner-add'>
                     <h1>{user.title}</h1>
                     <h3 dangerouslySetInnerHTML={{ __html: user.description }} style={{ fontWeight: "500", fontSize: "15px" }} />
                   </div>

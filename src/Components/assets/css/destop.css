@@ -340,6 +340,9 @@
 }
 
 
-
+.gift-card-banner-add{
+  position: absolute;
+  top: 50px;
+}
 
 /* // about section or two content section */
