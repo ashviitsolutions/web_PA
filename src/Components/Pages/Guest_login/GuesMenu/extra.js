@@ -1,624 +1,283 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { IP } from '../../../../Constant';
-import './style.css';
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
-import { updateInputData } from '../../Redux/counterSlice';
+import React, { useState, useEffect } from "react";
+import "./style.css";
 import { useDispatch, useSelector } from 'react-redux';
-import vectorImg from "../../../assets/img/6212029.jpg";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { useUserRegistration } from '../../../../Helpers/Hooks/Hooks';
-import Post from '../../Profile/Hook/Hook';
-import Loader from '../../Loader';
+import { updateInputData } from '../../Redux/counterSlice';
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
+import { useLocation, useNavigate } from "react-router-dom";
+
+const FourForm = ({ nextStep }) => {
+  const nav = useNavigate()
+  const location = useLocation();
+  const locationType = location.state?.location_type || "";
+  const locationForm = location.state?.locationForm || "";
+  const firstForm = location.state?.firstForm || "";
+  const addon_id = location.state?.addon_id || "";
+  const add_ons_details = location.state?.add_ons_details || "";
+  const servicename = location.state?.servicename || "";
+  const thirdform = location.state?.thirdform || "";
+  const secondform = location.state?.secondform || "";
+
+  // console.log("locationForm thirdform form ", locationForm);
+  // console.log("locationType thirdform form", locationType);
+  // console.log("firstForm thirdform form data", firstForm)
+
+  // console.log("locationForm thirdform addon_id ", addon_id);
+  // console.log("locationType thirdform add_ons_details", add_ons_details);
+  // console.log("firstForm  thirdform servicename", servicename)
+  console.log("thirdform thirdform servicename", thirdform)
+  // console.log("secondform secondform", secondform)
 
 
-const Conform = () => {
-    const { totalPrice } = useParams();
-
-    // console.log("numbernumber", totalPrice)
-    const [termsAccepted, setTermsAccepted] = useState(false);
-    const dispatch = useDispatch();
-    const selector = useSelector((state) => state.counter.formData);
-    const calculatedData = Array.isArray(selector?.calculatedData) && selector.calculatedData.length > 0 ? selector.calculatedData[0] : [];
-
-    const membershipLevel = localStorage.getItem("membership")
-    const { getUserGiftCards, user } = useUserRegistration();
-
-    const nav = useNavigate()
-    const location = useLocation();
-
-    const addon_id = location.state?.addon_id || "";
-    const add_ons_details = location.state?.add_ons_details || "";
-    const servicename = location.state?.servicename || "";
-    const service_name = location.state?.servicename || "";
-
-    const locationName = location.state?.locationForm?.location || "";
-
-    const { provider_id } = useParams();
-
-    const userid = localStorage.getItem("userid");
-
-    const { address, first_name, last_name, arrivalInstructions, mobile, confirmpassword, password, email } = location?.state?.fifthform || "";
-
-    const location_type = location.state?.location_type || "";
 
 
-    const gender = location?.state?.secondform?.gender || "";
-    const gender1 = location?.state?.secondform?.gender[0] || "";
-    const gender2 = location?.state?.secondform?.gender[1] || "";
-    const service_id = location?.state?.secondform?.service_ids || "";
-    const service_time = location?.state?.secondform?.service_time || "";
-    const areas_of_concern = location?.state?.thirdform?.areas_of_concern || "";
-    const health_conditions = location?.state?.thirdform?.health_conditions || "";
-    const massage_body_part = location?.state?.thirdform?.massage_body_part || "";
-    const massage_pressure = location?.state?.thirdform?.massage_pressure || "";
-    const special_considerations = location?.state?.thirdform?.special_considerations || "";
-    const scheduled_date = location?.state?.fourthform?.date || "";
-    const scheduled_timing = location?.state?.fourthform?.time || "";
-    const massage_for = location?.state?.firstForm || "";
 
-    const gendercheck = location?.firstForm || "";
 
-    const handleAccept = () => {
-        setTermsAccepted(!termsAccepted);
+  const selector = useSelector((state) => state.counter.formData);
+
+  const [selectedTime, setSelectedTime] = useState(""); // State to store selected time
+  const [selectedDate, setSelectedDate] = useState(new Date()); // State to store selected date
+  const [errorMessage, setErrorMessage] = useState("");
+  const currentTime = new Date();
+  const dispatch = useDispatch();
+
+  console.log("selectedDate currect", currentTime)
+
+  useEffect(() => {
+    const currentTime = new Date();
+    const currentHour = currentTime.getHours();
+    const currentMinute = currentTime.getMinutes();
+    let roundedHour = currentHour;
+    let roundedMinute = currentMinute >= 30 ? 30 : 0;
+
+    // Round the time to the nearest 30-minute interval
+    if (roundedMinute === 30) {
+      roundedHour++;
+      roundedMinute = 0;
+    }
+
+    // Convert the rounded time to 12-hour format
+    const period = roundedHour >= 12 ? 'PM' : 'AM';
+    const formattedHour = roundedHour % 12 === 0 ? 12 : roundedHour % 12;
+    const formattedMinute = roundedMinute.toString().padStart(2, '0');
+
+    // Format the rounded time
+    const formattedCurrentTime = `${formattedHour}:${formattedMinute} ${period}`;
+    console.log("formattedCurrentTime", formattedCurrentTime);
+
+    setSelectedTime(formattedCurrentTime);
+  }, []);
+
+
+
+
+
+  const handleSubmit = () => {
+    // If selectedTime is not set, set an error message and do not proceed
+    if (selectedTime==="") {
+      setErrorMessage("Please select appointment time to continue");
+      return;
+    }
+
+    // Clear any previous error message
+    setErrorMessage("");
+
+    // Format the date as a string in "YYYY-MM-DD" format
+    const formattedDate = selectedDate.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    });
+
+    // You can use formattedDate and selectedTime in your submission
+    const formData = {
+      date: formattedDate,
+      time: selectedTime,
     };
 
-
-    const [selectedGiftCards, setSelectedGiftCards] = useState([]);
-
-
-    const [loading, setLoading] = useState(false);
-    const [loader, setLoder] = useState(false)
-
-
-    const [error, setError] = useState(false);
-    const [giftCardAmount, setGiftCardAmount] = useState(0);
-
-
-    const [coupon, setCoupon] = useState("")
-    const [coupon_amount, setCouponAmount] = useState(0)
-    const [giftcardValuedataId, setGiftcardvaluedataid] = useState([])
-
-    const [pay, setPay] = useState(false);
-
-    const amount_off = coupon_amount?.amount_off;
-    const percent_off = coupon_amount?.percent_off;
-
-
-    console.log("coupon_amount ,selectedGiftCards", selectedGiftCards)
-
-
-
-    var serviceDetails = {
-        ...(userid ? {
-            user: userid,
-            customer_email: email,
-        } : {
-            email: email,
-            password: password,
-            confirm_password: confirmpassword
-        }),
-        location: locationName,
-
-        user_amount_calculation: calculatedData?.user_amount_calculation,
-        provider_amount_calculation: calculatedData?.provider_amount_calculation,
-        location_type: location_type,
-        massage_for: massage_for,
-        service_id: service_id,
-        gender: gender,
-        provider_id: provider_id,
-        service_time: service_time,
-        health_conditions: health_conditions,
-        areas_of_concern: areas_of_concern,
-        special_considerations: special_considerations,
-        massage_body_part: massage_body_part,
-        massage_pressure: massage_pressure,
-        scheduled_date: scheduled_date,
-        scheduled_timing: scheduled_timing,
-        address: address,
-        mobile: mobile,
-        instructions: arrivalInstructions,
-        add_ons: addon_id,
+    nav(`/book`, {
+      state: {
+        firstForm: firstForm,
+        thirdform: thirdform,
+        location_type: locationType,
+        locationForm: locationForm,
+        secondform: secondform,
+        addon_id: addon_id,
         add_ons_details: add_ons_details,
-        service_name: service_name
-    };
+        servicename: servicename,
+        fourthform: formData
+
+
+      }
+    });
+    nextStep();
+
+    // // Dispatch the form data to Redux
+    // dispatch(updateInputData({ formName: 'fourthform', inputData: formData }));
+
+    // setTimeout(() => {
+    //   nextStep();
+    // }, 2000);
+  };
+
+
+
+  // const generateTimeOptions = () => {
+  //   const times = [];
+  //   const currentTime = new Date();
+  //   const currentHour = currentTime.getHours();
+  //   const currentMinute = currentTime.getMinutes();
+  //   let startHour = 8; // Start from 8 AM
+  //   let startMinute = 0; // Start from 0 minute
+
+  //   // If the current time is after 8 AM, set the start time accordingly
+  //   if (currentHour > 8 || (currentHour === 8 && currentMinute >= 0)) {
+  //     startHour = currentHour;
+  //     startMinute = currentMinute >= 30 ? 30 : 0;
+  //   }
+
+  //   // Loop from the start time until 9:30 PM
+  //   for (let hour = startHour; hour <= 21; hour++) { // Loop until 9 PM (21)
+  //     const maxMinute = hour === 21 ? 30 : 60; // Stop at 9:30 PM, for 10:00 PM, add explicitly outside the loop
+  //     for (let minute = startMinute; minute < maxMinute; minute += 30) {
+  //       const formattedHour = hour % 12 === 0 ? 12 : hour % 12;
+  //       const formattedMinute = minute.toString().padStart(2, '0');
+  //       const timePeriod = hour >= 12 ? 'PM' : 'AM';
+  //       times.push(`${formattedHour}:${formattedMinute} ${timePeriod}`);
+  //     }
+  //     startMinute = 0; // Reset startMinute after first hour
+  //   }
+
+  //   // Add 10:00 PM explicitly
+  //   times.push("10:00 PM");
+
+  //   return times;
+  // };
+
+
+  const generateTimeOptions = (selectedDate) => {
+    const times = [];
+    const currentTime = new Date();
+    const currentHour = currentTime.getHours();
+    const currentMinute = currentTime.getMinutes();
+    let startHour = 8; // Start from 8 AM
+    let startMinute = 0; // Start from 0 minute
+
+    // If the current time is after 8 AM, set the start time accordingly
+    if (currentHour > 8 || (currentHour === 8 && currentMinute >= 0)) {
+      startHour = currentHour;
+      startMinute = currentMinute >= 30 ? 30 : 0;
+    }
+
+    // Loop from the start time until 9:30 PM
+    for (let hour = startHour; hour <= 21; hour++) { // Loop until 9 PM (21)
+      const maxMinute = hour === 21 ? 30 : 60; // Stop at 9:30 PM, for 10:00 PM, add explicitly outside the loop
+      for (let minute = startMinute; minute < maxMinute; minute += 30) {
+        const formattedHour = hour % 12 === 0 ? 12 : hour % 12;
+        const formattedMinute = minute.toString().padStart(2, '0');
+        const timePeriod = hour >= 12 ? 'PM' : 'AM';
+        times.push(`${formattedHour}:${formattedMinute} ${timePeriod}`);
+      }
+      startMinute = 0; // Reset startMinute after first hour
+    }
+
+    // Add 10:00 PM explicitly only if the selected date is not today
+    if (
+      selectedDate.getFullYear() !== currentTime.getFullYear() ||
+      selectedDate.getMonth() !== currentTime.getMonth() ||
+      selectedDate.getDate() !== currentTime.getDate()
+    ) {
+      times.push("10:00 PM");
+    }
+
+    return times;
+  };
 
 
 
 
-    const handleCheckout = async () => {
-        setLoading(true);
-        // setPay(true)
+  const timeOptions = generateTimeOptions(selectedDate);
+  console.log("timeOptions", timeOptions)
 
-        if (!calculatedData.totalAmountWithTax) {
-            setLoading(false);
-            return false;
+
+  const times = [
+    "8:00 AM", "8:30 AM", "9:00 AM", "9:30 AM", "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM",
+    "12:00 PM", "12:30 PM", "1:00 PM", "1:30 PM", "2:00 PM", "2:30 PM", "3:00 PM", "3:30 PM",
+    "4:00 PM", "4:30 PM", "5:00 PM", "5:30 PM", "6:00 PM", "6:30 PM", "7:00 PM", "7:30 PM",
+    "8:00 PM", "8:30 PM", "9:00 PM", "9:30 PM", "10:00 PM"
+  ];
+  return (
+    <div id="sec_wiz_4" className="section">
+      <div className="input_group" style={{ textAlign: "center" }}>
+        <label className="static" style={{ fontSize: "17px" }} htmlFor="">
+          <b>WHEN WOULD YOU LIKE IT?</b>
+        </label>
+
+        {/* Date picker */}
+        <div style={{ display: "inline-block" }} id="datepicker">
+          <Calendar
+            onChange={(date) => setSelectedDate(date)}
+            value={selectedDate}
+            minDate={new Date()}
+          />
+        </div>
+
+
+
+
+
+
+
+        {
+          selectedDate.getFullYear() === currentTime.getFullYear() &&
+            selectedDate.getMonth() === currentTime.getMonth() &&
+            selectedDate.getDate() === currentTime.getDate() ? (
+            <select
+              style={{ width: "auto", display: "inline-block", padding: "0px 15px" }}
+              className="input"
+              value={selectedTime}
+              onChange={(e) => setSelectedTime(e.target.value)}
+            >
+              <option value="">Select Time</option>
+              {timeOptions.map((time) => (
+                <option key={time} value={time}>
+                  {time}
+                </option>
+              ))}
+            </select>
+          ) : (
+            <select
+              style={{ width: "auto", display: "inline-block", padding: "0px 15px" }}
+              className="input"
+              value={selectedTime}
+              onChange={(e) => setSelectedTime(e.target.value)}
+            >
+              <option value="">Select Time</option>
+              {times.map((time) => (
+                <option key={time} value={time}>
+                  {time}
+                </option>
+              ))}
+            </select>
+          )
         }
 
-        try {
 
-            const response = await axios.post(`${IP}/createCheckoutSession`, {
-                service_details: serviceDetails,
-                price: calculatedData?.totalAmountWithTax,
-                userId: userid
-            });
 
-            window.location.href = response.data.url;
-        } catch (error) {
-            console.error('Error creating checkout session:', error);
-            setLoading(false);
-        }
-    };
 
+        <div className="error-message">{errorMessage}</div>
 
+        {/* Button to submit */}
+        <button className="button" type="button" onClick={handleSubmit}>
+          Next
+        </button>
+      </div>
 
-
-
-
-    const handleGiftCardChange = (giftdata) => {
-        let amount = giftdata?.amount;
-        const giftcardValueId = giftdata?.offerId?._id;
-
-        // If the amount is greater than the total price, reduce it to match the total price
-        if (amount > totalPrice) {
-            amount = totalPrice;
-        }
-
-        // Manage selected gift card amounts
-        const updatedSelectedGiftCards = [...selectedGiftCards];
-        const amountIndex = updatedSelectedGiftCards.indexOf(amount);
-
-        if (amountIndex === -1) {
-            // If the amount is not already selected, add it to the list
-            updatedSelectedGiftCards.push(amount);
-        } else {
-            // If the amount is already selected, remove it from the list
-            updatedSelectedGiftCards.splice(amountIndex, 1);
-        }
-
-        // Calculate the total gift card amount
-        const updatedGiftCardAmount = updatedSelectedGiftCards.reduce((acc, curr) => acc + curr, 0);
-        const formattedDiscountAmount = Number(updatedGiftCardAmount).toFixed(2);
-
-        // Manage selected gift card IDs
-        const updatedGiftcardValuedataId = [...giftcardValuedataId];
-        const idIndex = updatedGiftcardValuedataId.indexOf(giftcardValueId);
-
-        if (idIndex === -1) {
-            // If the ID is not already selected, add it to the list
-            updatedGiftcardValuedataId.push(giftcardValueId);
-        } else {
-            // If the ID is already selected, remove it from the list
-            updatedGiftcardValuedataId.splice(idIndex, 1);
-        }
-
-        // Update the state with new selected gift cards and IDs
-        setSelectedGiftCards(updatedSelectedGiftCards);
-        setGiftCardAmount(formattedDiscountAmount);
-        setGiftcardvaluedataid(updatedGiftcardValuedataId);
-    };
-
-
-
-    // console.log("amountamountamountamountamountamountamountamountamountamountamount", giftcardValuedataId)
-
-
-    const onCoupon = async () => {
-
-
-        try {
-            const res = await axios.post(`${IP}/coupon/check_coupon`, { code: coupon });
-            console.log(res);
-
-            if (res.status === 200) {
-                const { amount_off, percent_off } = res.data;
-
-                if ((amount_off && amount_off > calculatedData?.totalAmountWithTax) || (percent_off && percent_off > calculatedData?.totalAmountWithTax)) {
-                    // Notify the user that applying this coupon would exceed the total amount
-                    toast.error("Applying this coupon would exceed the total amount.", {
-                        position: "top-right",
-                        autoClose: 2000,
-                    });
-                    return; // Exit the function, preventing further execution
-                }
-                setCouponAmount(res.data); // Assuming the coupon amount is returned in the response data
-            }
-        } catch (error) {
-            console.error('Error checking coupon:', error);
-            toast.error("Error applying coupon. Please try again later.", {
-                position: "top-right",
-                autoClose: 2000,
-            });
-        }
-    };
-
-
-
-    useEffect(() => {
-
-        getUserGiftCards();
-    }, []);
-
-
-    useEffect(() => {
-        const calculateBooking = async () => {
-            setLoder(true)
-            try {
-                // console.log("mera name giftcard id hai", giftcardValuedataId)
-                // Ensure giftcardDiscountAmount is a number
-                const giftcardDiscountAmount = Number(giftCardAmount) || 0;
-                // Now safely apply toFixed
-                // const formattedDiscountAmount = giftcardDiscountAmount.toFixed(2);
-
-                // setLoading(true);
-                const response = await Post.createCalculation({
-                    service_id: location.state?.secondform?.service_ids,
-                    massage_for: massage_for,
-                    service_time: location.state?.secondform?.service_time,
-                    giftCardAmount: giftcardDiscountAmount,
-                    giftcardId: giftcardValuedataId,
-                    add_ons_details: location.state?.add_ons_details,
-                    coupon_amount: amount_off,
-                    coupon_percentage: percent_off,
-                    selectedGiftId: giftcardValuedataId
-                });
-
-                // console.log("response calculation data", response)
-                dispatch(updateInputData({ formName: 'calculatedData', inputData: response?.data?.calculatedata }));
-                setLoder(false)
-
-            } catch (error) {
-                console.error('Error calculating booking:', error);
-                setError('Error calculating booking. Please try again later.');
-            } finally {
-                // setLoading(false);
-            }
-        };
-
-        calculateBooking();
-    }, [giftCardAmount, giftcardValuedataId, coupon_amount, percent_off, location.state?.secondform?.service_ids, location.state?.secondform?.service_time, location.state?.add_ons_details, dispatch]);
-
-
-
-
-
-
-    return (
-
-        <>
-
-
-            <div className='container checkoutPage'>
-                <div className='row'>
-                    <div className='col-md-4 centerFlex circle'><img src={vectorImg} alt='' className='col-md-12' /></div>
-                    <div id="" className="col-md-8 padding20">
-                        <div id="employees">
-                            <label style={{ textAlign: 'center', fontSize: '18px' }} className="as_title" htmlFor="">
-                                Review
-                            </label>
-                            {loader ? "..." : null}
-                            <ul className="review d-block">
-                                <div>
-                                    <li>
-                                        <span className="title">Date of service:</span>
-                                        <span className="value">{scheduled_date}</span>
-                                    </li>
-                                    <li>
-                                        <span className="title">Time of service:</span>
-                                        <span className="value">{scheduled_timing}</span>
-                                    </li>
-                                    <li>
-                                        <span className="title">Duration of service:</span>
-                                        <span className="value">{service_time}</span>
-                                    </li>
-                                    <li>
-                                        <span className="title">Name of service:</span>
-                                        <span className="value">{servicename} ({massage_for}) </span>
-                                    </li>
-                                    <li>
-                                        <span className="title">Addons:</span>
-                                        {add_ons_details.length > 0 ? (
-                                            <span className="value">
-                                                {add_ons_details.map((addon, index) => (
-                                                    <span key={index}>
-                                                        {addon.title}
-                                                        {index !== add_ons_details.length - 1 ? ', ' : ''}
-                                                    </span>
-                                                ))}
-                                            </span>
-                                        ) : (
-                                            <span className="value">No add-ons selected</span>
-                                        )}
-                                    </li>
-                                    <li>
-                                        <span className="title">Booking type:</span>
-                                        <span className="value">Massage on demand</span>
-                                    </li>
-
-                                    <li>
-                                        <span className="title">Areas of concern:</span>
-                                        {areas_of_concern.length > 0 ? (
-                                            <span className="value">
-                                                {areas_of_concern.map((addon, index) => (
-                                                    <span key={index}>
-                                                        {addon}
-                                                        {index !== areas_of_concern.length - 1 ? ', ' : ''}
-                                                    </span>
-                                                ))}
-                                            </span>
-                                        ) : (
-                                            <span className="value">No Areas of concern selected</span>
-                                        )}
-                                    </li>
-
-                                    <li>
-                                        <span className="title">Health conditions:</span>
-                                        {health_conditions.length > 0 ? (
-                                            <span className="value">
-                                                {health_conditions.map((addon, index) => (
-                                                    <span key={index}>
-                                                        {addon}
-                                                        {index !== health_conditions.length - 1 ? ', ' : ''}
-                                                    </span>
-                                                ))}
-                                            </span>
-                                        ) : (
-                                            <span className="value">No health conditions selected</span>
-                                        )}
-                                    </li>
-
-
-
-                                    <li>
-                                        <span className="title">Special considerations:</span>
-                                        {special_considerations.length > 0 ? (
-                                            <span className="value">
-                                                {special_considerations.map((addon, index) => (
-                                                    <span key={index}>
-                                                        {addon}
-                                                        {index !== special_considerations.length - 1 ? ', ' : ''}
-                                                    </span>
-                                                ))}
-                                            </span>
-                                        ) : (
-                                            <span className="value">No special considerations selected</span>
-                                        )}
-                                    </li>
-                                    <li>
-                                        <span className="title">Massage body part:</span>
-                                        {massage_body_part.length > 0 ? (
-                                            <span className="value">
-                                                {massage_body_part.map((addon, index) => (
-                                                    <span key={index}>
-                                                        {addon}
-                                                        {index !== massage_body_part.length - 1 ? ', ' : ''}
-                                                    </span>
-                                                ))}
-                                            </span>
-                                        ) : (
-                                            <span className="value">No massage body part selected</span>
-                                        )}
-                                    </li>
-                                    <li>
-                                        <span className="title">Massage pressure:</span>
-                                        {massage_pressure.length > 0 ? (
-                                            <span className="value">
-                                                {massage_pressure}
-                                            </span>
-                                        ) : (
-                                            <span className="value">No massage pressure selected</span>
-                                        )}
-                                    </li>
-                                </div>
-
-                                <li>
-                                    <span className="title">Personal Details</span>
-                                    <spam className="value">Full Name : {first_name} {last_name}</spam>
-                                    <span className="value">Address : {address}</span>
-
-                                    {
-                                        gendercheck === "partner" ? (
-                                            <>
-                                                <span className="value">Gender Preference : Partner 1 : {gender1} Partner 2 : {gender2} </span>
-
-                                            </>
-                                        ) : <span className="value">Gender Preference : {gender}</span>
-                                    }
-
-                                </li>
-                                {/* <li>
-
-                                    <span className="title">Booking Details</span>
-                                    <span className="value">{servicename} {service_time} - {massage_for}
-                                    </span>
-                                    <li>
-                                        <span className="title">Add-ons</span>
-                                        {add_ons_details ? (
-                                            <span className="value">
-                                                {add_ons_details.map((addon, index) => (
-                                                    <span key={index}>
-                                                        {addon.title}
-                                                        {index !== add_ons_details.length - 1 ? ', ' : ''}
-                                                    </span>
-                                                ))}
-                                            </span>
-                                        ) : (
-                                            <span className="value">No add-ons selected</span>
-                                        )}
-                                    </li>
-                                    <span className="title">Arrival Instructions : </span><span className='value'>{arrivalInstructions}</span>
-
-                                    <span className="value">Booking Type: {location_type}</span>
-                                </li> */}
-                                <li>
-                                    <div className="form-group row mb-3">
-                                        <div className="col-7 mb-0 px-0 pr-2">
-                                            <input id="e-mail" type="text"
-                                                onChange={(e) => setCoupon(e.target.value)}
-                                                value={coupon}
-
-                                                placeholder="Have a coupon code ?"
-                                                className="form-control input-box rm-border text-left"
-                                            />
-                                        </div>
-                                        <div className='col-1 px-0'>{" "}</div>
-                                        <div className="col-2 px-0">
-                                            <button type="submit" className="button" onClick={onCoupon} >Apply!</button>
-                                        </div>
-                                    </div>
-
-                                    <div>
-                                        {user?.length > 0 ? (
-                                            <>
-                                                <span className="title">Choose Gift Card:</span>
-                                                {user.filter(cur => cur.amount > 0).map((cur, index) => (
-                                                    <div className="gift-card-section" key={index}>
-                                                        <label htmlFor={`use-gift-card-${index}`} className="ml-2"></label>
-                                                        <div className="form-group row justify-content-center mb-0">
-                                                            <div className="col-md-12 px-3 mt-2">
-                                                                <input type="checkbox" id={`use-gift-card-${index}`} onChange={() => handleGiftCardChange(cur)} />
-                                                                <label htmlFor={`use-gift-card-${index}`} className="ml-2"> <span className='title'> Use your ${cur?.amount} gift card</span></label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                ))}
-                                            </>
-                                        ) : (
-                                            <>
-                                                {
-                                                    user?.length == 0 ? (
-                                                        <span className="title">Gift Card not purchased</span>
-                                                    ) : (
-                                                        < span className="title">Gift Card loading...</span>
-                                                    )
-
-                                                }
-
-                                            </>
-
-                                        )}
-                                    </div>
-
-                                    {loader ? (
-                                        <Loader
-
-                                        />) : (
-                                        <>
-
-
-
-
-                                            <div className="price" style={{ display: 'block', lineHeight: '10px' }}>
-                                                <p className="prices" style={{ fontSize: '17px' }}>
-                                                    <span className='value'>
-                                                        Total Service:  ${totalPrice}
-                                                    </span></p>
-
-                                                <p className="prices" style={{ fontSize: '17px' }}>
-                                                    <span className='value'>
-                                                        Gratuity: ${calculatedData?.tipAmount?.toFixed(2)}
-                                                    </span></p>
-                                                <p className="prices" style={{ fontSize: '17px' }}>
-                                                    <span className='value'>
-                                                        Sales Tax(6.625%): ${calculatedData?.taxAmount?.toFixed(2)}
-                                                    </span></p>
-
-                                                {
-
-                                                }
-
-                                                {amount_off || percent_off ? (
-                                                    <p className="prices" style={{ fontSize: '17px' }}>
-                                                        <span className='value'>
-                                                            Coupon Discount: -${calculatedData?.couponDiscountAmount.toFixed(2)}
-                                                        </span>
-                                                    </p>
-                                                ) : null}
-
-                                                {giftCardAmount ? (
-                                                    <p className="prices" style={{ fontSize: '17px' }}>
-                                                        <span className='value'>
-                                                            Gift Card Applied: -${giftCardAmount}
-                                                        </span>
-                                                    </p>
-                                                ) : null}
-
-                                                {
-                                                    calculatedData?.membershipDiscountAmount > 0 && (
-                                                        <p className="prices" style={{ fontSize: '17px' }}>
-                                                            <span className='value'>
-                                                                Membership Discount: ${calculatedData?.membershipDiscountAmount}
-
-                                                            </span></p>
-                                                    )
-                                                }
-
-
-                                                <p className="prices" style={{ fontSize: '17px' }} >
-                                                    <span className='value'>Total Balance: ${calculatedData?.totalAmountWithTax?.toFixed(2)}
-                                                    </span></p>
-
-                                            </div>
-                                        </>
-                                    )
-
-                                    }
-
-
-
-
-
-                                </li>
-                            </ul>
-
-                            {!loader && (
-                                <div>
-                                    <div>
-                                        <label>
-                                            <input
-                                                type="checkbox"
-                                                checked={termsAccepted}
-                                                onChange={handleAccept}
-                                            />{"  "}
-                                            I agree to the{" "}
-                                            <a
-                                                href='http://productivealliance.com/agreemnet'
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                            >
-                                                terms and conditions of the agreemnet!
-                                            </a>
-                                        </label>
-                                    </div>
-
-                                    <div style={{ textAlign: 'center' }}>
-                                        <button className={`${termsAccepted ? "button" : "disabled-button"}`} disabled={!termsAccepted} onClick={handleCheckout}>{loading ? "Loading..." : `Proceed to Pay ${calculatedData?.totalAmountWithTax?.toFixed(2)}`}</button>
-                                    </div>
-                                </div>
-                            )}
-
-                        </div>
-                    </div>
-                </div>
-            </div >
-            {error && <p style={{ color: 'red', textAlign: 'center', marginTop: '10px' }}>{error}</p>
-            }
-        </>
-
-
-
-
-
-
-
-
-
-
-
-
-
-    );
+      <center>
+        <a className='small' href='/'>&larr; Back to Home</a>
+      </center>
+    </div>
+  );
 };
 
-export default Conform;
+export default FourForm;
