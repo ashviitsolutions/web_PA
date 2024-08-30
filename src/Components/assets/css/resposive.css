@@ -119,6 +119,7 @@
         margin-bottom: 10px;
         font-size: 12px;
     }
+
     #profile_page .settings_form {
         display: block;
         /* max-width: 500px; */
@@ -216,6 +217,7 @@
         flex: 1 1 100% !important;
 
     }
+
     .gift-card-banner-add {
         position: absolute;
         top: 50px;
@@ -227,7 +229,7 @@
 @media (max-width: 580px) {
 
 
- 
+
     #banner_page .head h1 {
         /* font-size: 1.25rem; */
         font-size: 18px;
@@ -397,19 +399,21 @@
         margin: auto !important;
     }
 
- 
+
 
     .about-image-card {
         width: 95% !important;
         margin: auto !important;
     }
-    #banner_page .head{
+
+    #banner_page .head {
         width: 100%;
         margin-top: 100px;
         padding-top: 100px;
         /* justify-content: center !important; */
         /* text-align: center !important; */
     }
+
     #banner_page .head h1 {
         /* font-size: 1.25rem; */
         font-size: 20px;
@@ -518,7 +522,7 @@
 
 
 @media (max-width: 375px) {
- 
+
 
 
     #banner_page .head p {
@@ -548,7 +552,16 @@
         margin: 0 10px;
 
     }
+
     .time_options li {
         font-size: 10px !important;
+    }
+}
+
+
+@media (max-width: 325px) {
+
+    .time_options li {
+        font-size: 9px !important;
     }
 }
