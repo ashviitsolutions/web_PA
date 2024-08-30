@@ -74,7 +74,7 @@ const FourForm = ({ nextStep }) => {
 
   const handleSubmit = () => {
     // If selectedTime is not set, set an error message and do not proceed
-    if (!selectedTime) {
+    if (selectedTime==="") {
       setErrorMessage("Please select a time before proceeding.");
       return;
     }
