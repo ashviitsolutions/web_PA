@@ -99,9 +99,9 @@ const SeconForm = ({ step, nextStep }) => {
         const time_status = selectedServiceTime;
 
         if (time_status === "90 minutes") {
-            total += 35;
+            total += 45;
         } else if (time_status === "120 minutes") {
-            total += 70;
+            total += 80;
         }
 
         // Halve the priceservice if gendercheck is "partner"
