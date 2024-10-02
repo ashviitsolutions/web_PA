@@ -39,6 +39,12 @@ const ThirdForm = ({ nextStep }) => {
     }, []);
     // Handle form submission
     const handleSubmit = () => {
+
+         // Check if massage pressure is selected
+    if (!massagePressure) {
+        alert("Please select a massage pressure option before continuing.");
+        return; // Exit the function if not selected
+    }
         // Create an object to hold the form data
         const formData = {
             areas_of_concern: areasOfConcern,

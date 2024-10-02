@@ -614,7 +614,7 @@ const Conform = () => {
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                             >
-                                                terms and conditions of the agreemnet!
+                                            <span style={{color:"blue" , fontWeight:"bold"}}>terms</span> and conditions of the agreemnet!
                                             </a>
                                         </label>
                                     </div>

@@ -80,7 +80,7 @@ function Giftcard() {
 
   return (
     <>
-      <div className='mb-5'></div>
+      
       <div id="gift_card_container_main" className="container">
         {Array?.isArray(user) && user?.length > 0 && user?.map((card, index) => {
           const IDOfferId = ID?.map(item => item?.offerId?._id);

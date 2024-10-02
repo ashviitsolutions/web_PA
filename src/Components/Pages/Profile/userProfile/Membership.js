@@ -255,7 +255,7 @@ function Membership() {
 														target="_blank"
 														rel="noopener noreferrer"
 													>
-													terms and conditions of the membership contract!
+													<span style={{color:"blue" , fontWeight:"bold"}}>terms</span> and conditions of the membership contract!
 													</a>
 												</label>
 											</div>

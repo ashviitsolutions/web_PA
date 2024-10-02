@@ -182,7 +182,29 @@ function App() {
   //   localStorage.setItem('storedTime', currentTime.toString());
   // }
 
-
+  let inactivityTime = 0; // Inactivity time in seconds
+  const inactivityLimit = 1800; // 5 minutes (300 seconds)
+  
+  function resetTimer() {
+      inactivityTime = 0; // Reset the timer
+  }
+  
+  function checkInactivity() {
+      inactivityTime++;
+      if (inactivityTime >= inactivityLimit) {
+          localStorage.clear(); // Clear localStorage if inactive for too long
+          alert("You have been inactive for 30 minutes. You have been logged out. Please log in again.");
+      }
+  }
+  
+  // Event listeners for user activity
+  document.addEventListener('mousemove', resetTimer);
+  document.addEventListener('keypress', resetTimer);
+  document.addEventListener('click', resetTimer);
+  
+  // Start the inactivity check
+  setInterval(checkInactivity, 1000); // Check every second
+  
 
   return (
     <>

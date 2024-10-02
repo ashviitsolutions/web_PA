@@ -67,7 +67,7 @@ function EditGift() {
             bodyFormData.append("offerValue", values.offerValue);
             bodyFormData.append("price", values.price);
             bodyFormData.append("expired_by", selectedDate);
-            bodyFormData.append("attachments", values.attachments);
+            bodyFormData.append("couponImages", values.attachments);
             bodyFormData.append("description", values.description);
             let token = localStorage.getItem("tokenadmin");
             if (!token) {
