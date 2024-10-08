@@ -128,7 +128,7 @@ import Listprovider from './Components/Pages/Guest_login/Providerlocation/Listpr
 import Protected from './PROVIDER/ProtectedRute/Protected';
 import Logout from './PROVIDER/components/Logout';
 import Notification from './PROVIDER/layouts/Notification';
-
+import { useNavigate } from 'react-router-dom';
 // BlogDetals 
 import Blogpage from './Components/Pages/Blog/Blogpage';
 import Detailblog from './Components/Pages/Blog/Detailblog';
@@ -156,7 +156,8 @@ const ScrollToTop = () => {
 
 
 function App() {
-  // const nav = useNavigate()
+  const nav = useNavigate()
+  const token = localStorage.getItem("token")
   // useEffect(() => {
   //   window.scrollTo(0, 0);
   // }, [nav]);
@@ -182,29 +183,47 @@ function App() {
   //   localStorage.setItem('storedTime', currentTime.toString());
   // }
 
-  let inactivityTime = 0; // Inactivity time in seconds
-  const inactivityLimit = 1800; // 5 minutes (300 seconds)
-  
-  function resetTimer() {
-      inactivityTime = 0; // Reset the timer
+  if (!token) {
+    nav("/")
   }
-  
-  function checkInactivity() {
-      inactivityTime++;
-      if (inactivityTime >= inactivityLimit) {
-          localStorage.clear(); // Clear localStorage if inactive for too long
-          alert("You have been inactive for 30 minutes. You have been logged out. Please log in again.");
-      }
-  }
-  
-  // Event listeners for user activity
-  document.addEventListener('mousemove', resetTimer);
-  document.addEventListener('keypress', resetTimer);
-  document.addEventListener('click', resetTimer);
-  
-  // Start the inactivity check
-  setInterval(checkInactivity, 1000); // Check every second
-  
+
+  useEffect(() => {
+    // Function to log out the user
+    const logOutUser = () => {
+      localStorage.clear(); // Clear local storage
+      nav("/")
+      alert("User logged out due to inactivity")
+      console.log("User logged out due to inactivity");
+      // Optionally, redirect the user to the login page or perform any additional logout logic
+      // window.location.href = '/login'; // Uncomment if you want to redirect
+    };
+
+    // Set the timeout for 30 minutes (30 * 60 * 1000 milliseconds)
+    let timeoutId = setTimeout(logOutUser, 30 * 60 * 1000);
+
+    // Function to reset the timeout
+    const resetTimeout = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(logOutUser, 30 * 60 * 1000); // Reset the timeout to 30 minutes
+    };
+
+    // Add event listeners to reset timeout on user activity
+    window.addEventListener('mousemove', resetTimeout);
+    window.addEventListener('keypress', resetTimeout);
+    window.addEventListener('click', resetTimeout); // Reset on click as well
+    window.addEventListener('scroll', resetTimeout); // Reset on scroll
+
+    // Cleanup function
+    return () => {
+      clearTimeout(timeoutId); // Clear the timeout on component unmount
+      window.removeEventListener('mousemove', resetTimeout); // Remove the event listener
+      window.removeEventListener('keypress', resetTimeout); // Remove the keypress event listener
+      window.removeEventListener('click', resetTimeout); // Remove click event listener
+      window.removeEventListener('scroll', resetTimeout); // Remove scroll event listener
+    };
+  }, []); // Empty dependency array to run only once on mount
+
+
 
   return (
     <>
