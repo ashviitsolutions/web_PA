@@ -87,7 +87,7 @@ const Sidebar = () => {
                                         icon={faCalendarDays}
                                         style={{ marginRight: 10 }}
                                     />
-                                    Reservations
+                                    Prior Bookings
                                 </div>
                             </li>
                         </Link>
