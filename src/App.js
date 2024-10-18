@@ -128,7 +128,6 @@ import Listprovider from './Components/Pages/Guest_login/Providerlocation/Listpr
 import Protected from './PROVIDER/ProtectedRute/Protected';
 import Logout from './PROVIDER/components/Logout';
 import Notification from './PROVIDER/layouts/Notification';
-import { useNavigate } from 'react-router-dom';
 // BlogDetals 
 import Blogpage from './Components/Pages/Blog/Blogpage';
 import Detailblog from './Components/Pages/Blog/Detailblog';
