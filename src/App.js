@@ -182,47 +182,45 @@ function App() {
   //   localStorage.setItem('storedTime', currentTime.toString());
   // }
 
-  if (!token) {
-    nav("/")
-  }
+  // Redirect if no token
+  useEffect(() => {
+    if (!token) {
+      nav("/");  // Redirect to login/homepage
+    }
+  }, [token]); // Run only when token or nav changes
 
   useEffect(() => {
-    // Function to log out the user
     const logOutUser = () => {
       localStorage.clear(); // Clear local storage
-      nav("/")
-      alert("User logged out due to inactivity")
+      nav("/"); // Redirect to login/homepage
+      alert("User logged out due to inactivity");
       console.log("User logged out due to inactivity");
-      // Optionally, redirect the user to the login page or perform any additional logout logic
-      // window.location.href = '/login'; // Uncomment if you want to redirect
     };
 
-    // Set the timeout for 30 minutes (30 * 60 * 1000 milliseconds)
+    // Set timeout for 30 minutes
     let timeoutId = setTimeout(logOutUser, 30 * 60 * 1000);
 
-    // Function to reset the timeout
+    // Reset the timeout on user activity
     const resetTimeout = () => {
       clearTimeout(timeoutId);
       timeoutId = setTimeout(logOutUser, 30 * 60 * 1000); // Reset the timeout to 30 minutes
     };
 
-    // Add event listeners to reset timeout on user activity
-    window.addEventListener('mousemove', resetTimeout);
-    window.addEventListener('keypress', resetTimeout);
-    window.addEventListener('click', resetTimeout); // Reset on click as well
-    window.addEventListener('scroll', resetTimeout); // Reset on scroll
+    // Add event listeners to track user activity
+    window.addEventListener("mousemove", resetTimeout);
+    window.addEventListener("keypress", resetTimeout);
+    window.addEventListener("click", resetTimeout);
+    window.addEventListener("scroll", resetTimeout);
 
-    // Cleanup function
+    // Cleanup function to remove the timeout and event listeners
     return () => {
       clearTimeout(timeoutId); // Clear the timeout on component unmount
-      window.removeEventListener('mousemove', resetTimeout); // Remove the event listener
-      window.removeEventListener('keypress', resetTimeout); // Remove the keypress event listener
-      window.removeEventListener('click', resetTimeout); // Remove click event listener
-      window.removeEventListener('scroll', resetTimeout); // Remove scroll event listener
+      window.removeEventListener("mousemove", resetTimeout);
+      window.removeEventListener("keypress", resetTimeout);
+      window.removeEventListener("click", resetTimeout);
+      window.removeEventListener("scroll", resetTimeout);
     };
-  }, []); // Empty dependency array to run only once on mount
-
-
+  }, [nav]); // Dependency on nav ensures it updates correctly if navigation changes
 
   return (
     <>
